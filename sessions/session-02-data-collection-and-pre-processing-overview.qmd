@@ -1,0 +1,224 @@
+---
+title: "Session 2 — Data Collection and Pre-Processing Overview"
+subtitle: "Collection Strategies · Pre-Processing · Pandas DataFrames"
+---
+
+{{< include ../includes/_setup.qmd >}}
+
+::: {.callout-note}
+**This chapter introduces how we gather raw data and prepare it for analysis using Python.**
+
+**Assumed knowledge:** Concepts from Session 1 (Roles and Definitions).
+:::
+
+## 🎯 Learning outcomes {#sec-s02-outcomes}
+
+By the end of this chapter you can:
+
+1. Identify three common strategies for collecting raw data.
+2. Explain why data pre-processing is mandatory before any analysis can begin.
+3. Load a dataset into a Pandas DataFrame and inspect its structure.
+
+## How this chapter is organised {#sec-s02-organisation}
+
+| Part | Question it answers | Source |
+|---|---|---|
+| [A — Collection and Pre-Processing](#sec-s02-a) | *Where does data come from, and why is it always messy?* | `concepts` |
+| [B — Working with Pandas](#sec-s02-b) | *How do we actually look at this data in Python?* | `pandas_basics.ipynb` |
+| [Demo — Inspecting Messy Data](#sec-s02-demo) | *What does a real-world messy dataset look like when loaded?* | `pandas_demo.py` |
+
+# Part A — Collection and Pre-Processing {#sec-s02-a}
+
+**Before we can analyze data, we have to find it and clean it up.**
+
+## 1. Data Collection Strategies {#sec-s02-topic-1}
+
+**Data collection is the process of gathering raw information from various sources to answer a specific business question.**
+
+It exists because algorithms cannot learn from nothing. You must feed them historical examples (data) so they can find patterns. 
+
+::: {.callout-tip title="🧠 Analogy — Mining for Gold"}
+**The everyday thing:** A gold mining operation.
+
+**The mapping:** 
+- The **mountain** is the internet or your company's user base.
+- The **excavator** is your data collection strategy (APIs, web scraping).
+- The **chunks of raw rock** you pull out are the raw data.
+
+**Where it breaks down:** Mining removes gold from the mountain permanently, but collecting data from a website doesn't delete the data from the website.
+:::
+
+### How it works
+
+There are three primary ways modern teams collect data:
+1. **Internal Databases:** Pulling data your company already owns (e.g., customer purchase history from a SQL database).
+2. **APIs (Application Programming Interfaces):** Requesting data programmatically from third-party services (e.g., getting live weather data from the OpenWeather API).
+3. **Web Scraping:** Writing scripts to automatically read and extract information from public websites when an API is not available.
+
+### ❓ MCQs
+
+**Q1.** If you need to gather public pricing information from a competitor's website that does not offer an API, which strategy must you use?
+
+- (a) Querying your internal SQL database.
+- (b) **Web Scraping.**
+- (c) Guessing the prices based on market trends.
+- (d) Waiting for the competitor to email you their data.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** Web scraping allows you to programmatically extract information directly from the HTML of a webpage when no official API is provided.
+:::
+
+**Once you collect the data, you will immediately notice a problem: it is never ready to use.**
+
+## 2. Data Pre-Processing Overview {#sec-s02-topic-2}
+
+**Data pre-processing is the act of cleaning and formatting raw data into a pristine table that a machine learning algorithm can understand.**
+
+It exists because raw data is incredibly messy. Users make typos, sensors fail and record blank values, and different systems use different formats (e.g., `10/05/2024` vs `2024-10-05`). If you feed messy data into a model, the model will produce garbage predictions.
+
+::: {.callout-warning title="⚠️ The trap of skipping the cleaning phase"}
+*"I just want to get to the fun machine learning part!"*
+
+**Garbage in, garbage out.** If you don't pre-process your data, your highly advanced neural network will confidently give you the wrong answer because it learned from typos and missing values. Data Scientists spend 80% of their time pre-processing.
+:::
+
+### How it works
+
+Pre-processing generally involves:
+- **Handling Missing Values:** What do we do if a user didn't enter their age? (Delete the row, or guess the average?)
+- **Formatting:** Ensuring all text is lowercase, or all dates follow the same format.
+- **Removing Duplicates:** Ensuring a user who clicked "Submit" twice isn't counted as two separate purchases.
+
+### ❓ MCQs
+
+**Q2.** Why do Data Scientists spend so much time pre-processing data?
+
+- (a) Because Python is very slow at reading files.
+- (b) **Because raw data contains errors, missing values, and inconsistencies that ruin analysis.**
+- (c) Because pre-processing is the only way to generate charts.
+- (d) Because it is required by international privacy laws.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A2 — (b).** Real-world data is generated by humans and imperfect systems, leading to errors that must be fixed before an algorithm can find accurate patterns.
+:::
+
+**We know we need to collect and clean data, but what tool do we use to actually do this in Python?**
+
+# Part B — Working with Pandas {#sec-s02-b}
+
+**Pandas is the industry-standard tool for looking at and manipulating tabular data in Python.**
+
+## 3. Working with Pandas data frames {#sec-s02-topic-3}
+
+**A Pandas DataFrame is essentially a programmatic Excel spreadsheet inside Python.**
+
+It exists because standard Python lists and dictionaries are too slow and cumbersome for doing math on millions of rows of tabular data. Pandas gives us a fast, intuitive way to filter, group, and calculate statistics on large datasets.
+
+### How it works
+
+You import the library (`import pandas as pd`), load a file (like a CSV) into a DataFrame object, and then use built-in methods to inspect it. 
+
+### 📘 Examples
+
+**Example 1 — Creating a simple DataFrame from scratch**
+
+```{python}
+import pandas as pd
+
+# Creating data manually using a dictionary
+data = {
+    "Name": ["Alice", "Bob", "Charlie"],
+    "Age": [25, 30, 35],
+    "City": ["New York", "London", "Paris"]
+}
+
+# Converting it into a Pandas DataFrame
+df = pd.DataFrame(data)
+
+# Displaying the DataFrame
+df
+```
+
+**Example 2 — Inspecting the data**
+
+```{python}
+#| label: tbl-s02-example
+#| tbl-cap: "Using .head() to look at just the top rows of a large dataset."
+
+# .head(2) shows only the first 2 rows. Useful when you have millions of rows!
+df.head(2)
+```
+
+### 🌍 Scenarios
+
+**Scenario 1 — You have a massive file with 500,000 rows.**
+You cannot print it to the screen. You must use `df.head()` to just peek at the first 5 rows to understand what the columns are.
+
+::: {.callout-note title="✏️ Tasks"}
+1. Create a dictionary with columns `Product`, `Price`, and `Stock`.
+2. Convert it to a Pandas DataFrame.
+3. Print just the first row using `.head(1)`.
+:::
+
+::: {.callout-note collapse="true" title="Solutions"}
+```{python}
+import pandas as pd
+
+inventory = {
+    "Product": ["Laptop", "Mouse", "Keyboard"],
+    "Price": [999.99, 25.50, 45.00],
+    "Stock": [50, 200, 150]
+}
+df_inventory = pd.DataFrame(inventory)
+df_inventory.head(1)
+```
+:::
+
+# Part Demo — Inspecting Messy Data {#sec-s02-demo}
+
+**Loading a raw, messy dataset to inspect its structure using Pandas.**
+
+Let's simulate loading a messy CSV file that a Data Engineer just handed to us. We will use three critical Pandas commands to figure out what is wrong with it:
+- `.head()` to look at the raw rows.
+- `.info()` to see data types and count missing values.
+- `.describe()` to see mathematical summaries.
+
+```{python}
+#| label: fig-pandas-demo
+import pandas as pd
+import numpy as np
+
+# Simulating a messy dataset being loaded from a CSV
+messy_data = {
+    "CustomerID": [101, 102, 103, 104, 105],
+    "Age": [25, np.nan, 22, 150, 30], # Note the missing value (NaN) and the impossible age (150)
+    "Income": [50000, 60000, np.nan, 120000, 45000],
+    "Subscribed": ["Yes", "Y", "No", "N", "Yes"] # Inconsistent formatting
+}
+
+df_messy = pd.DataFrame(messy_data)
+
+print("--- USING .head() ---")
+# See the inconsistencies visually
+display(df_messy.head())
+
+print("\n--- USING .info() ---")
+# See that Age and Income are missing some non-null values
+df_messy.info()
+
+print("\n--- USING .describe() ---")
+# Notice that the max Age is 150! A clear error we need to fix later.
+display(df_messy.describe())
+```
+
+# 🎯 Session 2 — Tasks {#sec-s02-tasks}
+
+**Complete these tasks in order to solidify your understanding.**
+
+**Task 1 — The Data Detective.** 
+Look closely at the output of `.describe()` in the demo above. Write down the `mean` (average) income of the customers. **Report what happens to the mean if we were to incorrectly type a customer's income as $1,000,000 instead of $100,000.** (Hint: Averages are highly sensitive to extreme outliers).
+
+::: {.callout-tip title="✅ Before you move on"}
+- [ ] Ensure you understand the difference between `.head()` (looking at rows) and `.info()` (looking at column data types).
+- [ ] **The one thing from this chapter that is easiest to forget:** The `np.nan` stands for "Not a Number" and is how Pandas represents missing or blank data.
+:::

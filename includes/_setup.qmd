@@ -1,0 +1,5 @@
+<!-- Setup code for the book -->
+```{{python}}
+#| echo: false
+import sys
+```

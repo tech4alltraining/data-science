@@ -1,0 +1,134 @@
+---
+title: "Session 8 — Exploratory Data Analytics (EDA) and Visualization"
+subtitle: "Matplotlib · Seaborn · Correlation · Scatter Plots"
+---
+
+{{< include ../includes/_setup.qmd >}}
+
+::: {.callout-note}
+**This chapter focuses on visually exploring datasets to find hidden relationships before building predictive models.**
+
+**Assumed knowledge:** Descriptive Statistics (Session 7).
+:::
+
+## 🎯 Learning outcomes {#sec-s08-outcomes}
+
+By the end of this chapter you can:
+
+1. Generate basic plots (scatter, line, bar) using Matplotlib.
+2. Summarize multidimensional data using Pivot Tables.
+3. Calculate and visualize the mathematical Correlation between variables using Seaborn.
+
+## How this chapter is organised {#sec-s08-organisation}
+
+| Part | Question it answers | Source |
+|---|---|---|
+| [A — Visual Exploration](#sec-s08-a) | *Why do we need to draw pictures of data?* | `concepts` |
+| [B — Correlation](#sec-s08-b) | *How do we prove two things move together?* | `concepts` |
+| [Demo — The EDA Dashboard](#sec-s08-demo) | *How do we build a correlation heatmap?* | `eda_demo.py` |
+
+# Part A — Visual Exploration {#sec-s08-a}
+
+**Data tables are meant for computers. Charts are meant for humans.**
+
+## 1. Basic plots and Pivot Tables {#sec-s08-topic-1}
+
+**Exploratory Data Analysis (EDA) is the phase where you play detective, graphing columns against each other to see if any obvious patterns exist.**
+
+It exists because humans are exceptional at spotting visual patterns but terrible at reading matrices of numbers. Anscombe's Quartet famously proved that four datasets can have the exact same Mean, Variance, and Correlation, but look completely different when graphed (e.g., one is a straight line, one is a parabolic curve).
+
+### How it works
+
+We use Python libraries like **Matplotlib** (the foundational plotting tool) and **Seaborn** (a beautiful wrapper over Matplotlib) to draw:
+- **Scatter Plots:** Good for seeing the relationship between two continuous numbers (e.g., Age vs Income).
+- **Box Plots:** Good for finding outliers (as seen in Session 3).
+- **Pivot Tables:** Similar to Excel, used to group categorical data (e.g., Average Income grouped by City and Education Level).
+
+### ❓ MCQs
+
+**Q1.** Why is visual EDA considered a mandatory step before training a machine learning model?
+
+- (a) Because models require charts as input data.
+- (b) **Because statistical summaries (like Mean and Variance) can hide extreme non-linear patterns that are instantly obvious on a scatter plot.**
+- (c) It is not mandatory, it is just for aesthetic presentations.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** A parabolic curve and a random cloud of points can share the same basic statistical averages. If you don't plot it, you won't know the true shape of your data.
+:::
+
+# Part B — Correlation {#sec-s08-b}
+
+**Noticing a pattern visually is good. Proving it mathematically is better.**
+
+## 2. Correlation Statistics {#sec-s08-topic-2}
+
+**Correlation is a metric from -1.0 to +1.0 that measures how strongly two variables move together.**
+
+It exists so we can quantify relationships. If a variable is highly correlated with your target (e.g., "Hours Studied" is highly correlated with "Test Score"), you know that feature will be incredibly useful for your predictive model later.
+
+::: {.callout-tip title="🧠 Analogy — The Dancers"}
+**The everyday thing:** Two dancers on a stage.
+
+**The mapping:** 
+- **Positive Correlation (+1.0):** They hold hands and step forward at the exact same time. (As X goes up, Y goes up).
+- **Negative Correlation (-1.0):** They face each other. When dancer A steps forward, dancer B steps backward. (As X goes up, Y goes down).
+- **Zero Correlation (0.0):** They are wearing blindfolds and moving randomly. Knowing where dancer A is tells you nothing about where dancer B is.
+:::
+
+::: {.callout-warning title="⚠️ The trap of Correlation vs Causation"}
+Just because two things are highly correlated does not mean one causes the other. Ice cream sales and shark attacks are highly positively correlated. Why? Because they both happen in the summer. Summer is the unseen "confounding variable."
+:::
+
+# Part Demo — The EDA Dashboard {#sec-s08-demo}
+
+**Generating a visual report with a Seaborn correlation heatmap.**
+
+A heatmap is the fastest way to look at the correlation of every single column in a dataset simultaneously.
+
+```{python}
+#| label: fig-eda-demo
+#| fig-cap: "A scatter plot and correlation heatmap."
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# 1. Generate some mock housing data
+np.random.seed(42)
+sq_ft = np.random.normal(1500, 500, 200)
+# Price is positively correlated with Sq_Ft
+price = (sq_ft * 150) + np.random.normal(0, 50000, 200) 
+# Age is negatively correlated with Price
+age = np.random.normal(30, 10, 200)
+price = price - (age * 1000)
+
+df = pd.DataFrame({"Square_Feet": sq_ft, "House_Age": age, "Price": price})
+
+# 2. Set up the plotting area (1 row, 2 columns)
+fig, ax = plt.subplots(1, 2, figsize=(14, 5))
+
+# 3. Scatter Plot (Relationship between SqFt and Price)
+sns.scatterplot(x="Square_Feet", y="Price", data=df, ax=ax[0], alpha=0.7)
+ax[0].set_title("Scatter Plot: Sq_Ft vs Price")
+
+# 4. Correlation Heatmap
+# Calculate the mathematical correlation matrix
+corr_matrix = df.corr()
+
+# Plot the heatmap
+sns.heatmap(corr_matrix, annot=True, cmap="coolwarm", fmt=".2f", ax=ax[1], vmin=-1, vmax=1)
+ax[1].set_title("Correlation Heatmap")
+
+plt.tight_layout()
+plt.show()
+```
+
+# 🎯 Session 8 — Tasks {#sec-s08-tasks}
+
+**Task 1 — Read the Heatmap.** 
+Look at the heatmap generated in the demo. What is the mathematical correlation score between `House_Age` and `Price`? Is it a positive or negative relationship? **Report the number and what it implies in the real world.**
+
+::: {.callout-tip title="✅ Before you move on"}
+- [ ] Ensure you can interpret the colors on a correlation heatmap. (Usually deep red = strong positive, deep blue = strong negative).
+- [ ] **The one thing from this chapter that is easiest to forget:** Correlation only measures *linear* relationships. A perfect U-shaped curve might have a correlation of exactly 0.0, even though a clear pattern exists!
+:::

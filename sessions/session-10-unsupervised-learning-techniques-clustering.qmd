@@ -1,0 +1,132 @@
+---
+title: "Session 10 — Unsupervised Learning Techniques & Clustering"
+subtitle: "Finding hidden patterns without labels"
+---
+
+{{< include ../includes/_setup.qmd >}}
+
+::: {.callout-note}
+**This chapter covers what to do when you have raw data, but no answer key.**
+
+**Assumed knowledge:** Supervised Learning concepts (Session 9).
+:::
+
+## 🎯 Learning outcomes {#sec-s10-outcomes}
+
+By the end of this chapter you can:
+
+1. Explain the fundamental difference between Supervised and Unsupervised Learning.
+2. Describe how clustering groups similar data points together.
+3. Apply the K-Means clustering algorithm to segment a dataset.
+
+## How this chapter is organised {#sec-s10-organisation}
+
+| Part | Question it answers | Source |
+|---|---|---|
+| [A — Unsupervised Learning](#sec-s10-a) | *How do machines learn without answers?* | `concepts` |
+| [Demo — K-Means Clustering](#sec-s10-demo) | *How do we group customers into segments?* | `kmeans_demo.py` |
+
+# Part A — Unsupervised Learning {#sec-s10-a}
+
+**Finding structure in the unknown.**
+
+## 1. Unsupervised learning and clustering {#sec-s10-topic-1}
+
+**Unsupervised Learning is the process of feeding an algorithm raw, unlabeled data and asking it to find hidden patterns on its own.**
+
+It exists because labeled data is incredibly expensive. Paying humans to manually tag 50,000 images as "Cat" or "Dog" takes weeks. Unsupervised algorithms don't need tags. They just look at the pixels and group similar images together. 
+
+::: {.callout-tip title="🧠 Analogy — Sorting the Laundry"}
+**The everyday thing:** Doing laundry with no instructions.
+
+**The mapping:** 
+- In **Supervised Learning**, someone hands you a shirt and says "This is a dark." You learn what a dark is.
+- In **Unsupervised Learning (Clustering)**, you are thrown into a room with a massive pile of mixed clothes and no instructions.
+- You intuitively group them by similarity: you make a pile of whites, a pile of darks, and a pile of delicates. No one told you the labels, you just found the natural clusters.
+:::
+
+### How it works
+
+The most common unsupervised technique is **Clustering**.
+Clustering measures the mathematical distance between data points. Points that are close together are grouped into a "Cluster."
+
+This is heavily used in **Customer Segmentation**. A marketing team doesn't know *what* groups exist in their user base. They feed age, income, and spending habits into a clustering algorithm, and the algorithm reveals that there are 3 distinct groups (e.g., "Bargain Hunters", "Luxury Buyers", "Window Shoppers").
+
+### ❓ MCQs
+
+**Q1.** Which of the following is a classic Unsupervised Learning task?
+
+- (a) Predicting the price of a house based on historical sales.
+- (b) **Grouping customers into 5 segments based on their purchasing habits.**
+- (c) Training a spam filter with 10,000 labeled emails.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** Grouping (clustering) without predefined categories is unsupervised. Predicting a price or filtering labeled spam is supervised.
+:::
+
+# Part Demo — K-Means Clustering {#sec-s10-demo}
+
+**Executing K-Means on a mall customer dataset to group shoppers into distinct segments.**
+
+K-Means is the most famous clustering algorithm. The "K" stands for the number of clusters you want it to find.
+
+```{python}
+#| label: fig-kmeans-demo
+#| fig-cap: "Grouping customers into 3 distinct clusters using K-Means."
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+
+# 1. Generate Mock Customer Data (Income vs Spending Score)
+np.random.seed(42)
+# Cluster 1: Low income, low spending
+c1 = np.random.normal(loc=[20, 20], scale=5, size=(50, 2))
+# Cluster 2: High income, high spending
+c2 = np.random.normal(loc=[80, 80], scale=8, size=(50, 2))
+# Cluster 3: High income, low spending
+c3 = np.random.normal(loc=[80, 20], scale=5, size=(50, 2))
+
+X = np.vstack((c1, c2, c3))
+df = pd.DataFrame(X, columns=["Income", "Spending_Score"])
+
+# 2. Initialize K-Means (We tell it to look for 3 groups)
+# Notice we only pass X. There is no 'y' (labels) in unsupervised learning!
+kmeans = KMeans(n_clusters=3, random_state=42, n_init=10)
+
+# 3. Fit the model and get the cluster assignments
+df["Cluster"] = kmeans.fit_predict(df)
+
+# 4. Get the center points of each cluster
+centroids = kmeans.cluster_centers_
+
+# 5. Visualize the result
+plt.figure(figsize=(8, 5))
+
+# Plot the points, colored by the cluster the AI assigned them to
+plt.scatter(df["Income"], df["Spending_Score"], c=df["Cluster"], cmap='viridis', alpha=0.6)
+
+# Plot the red 'X' centroids
+plt.scatter(centroids[:, 0], centroids[:, 1], c='red', marker='x', s=200, linewidth=3, label="Cluster Center")
+
+plt.title("K-Means Customer Segmentation")
+plt.xlabel("Annual Income ($k)")
+plt.ylabel("Spending Score (1-100)")
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()
+```
+
+::: {.callout-warning title="⚠️ The trap of choosing K"}
+The K-Means algorithm will blindly divide your data into whatever `K` you choose. If you tell it to find 100 clusters, it will aggressively chop up your data into 100 tiny pieces, even if only 3 natural groups exist. You must use tools (like the Elbow Method) to find the optimal K.
+:::
+
+# 🎯 Session 10 — Tasks {#sec-s10-tasks}
+
+**Task 1 — Break the Clusters.** 
+In the code above, change `KMeans(n_clusters=3)` to `KMeans(n_clusters=6)`. Run the code. **Report what happens to the visual groups.** (You should notice the AI starts cutting the natural groups in half).
+
+::: {.callout-tip title="✅ Before you move on"}
+- [ ] Ensure you understand why there is no `y` (label) passed to the `.fit()` function in unsupervised learning.
+- [ ] **The one thing from this chapter that is easiest to forget:** Unsupervised learning doesn't give you the *meaning* of the cluster. The AI groups them together, but a human Data Analyst must look at Cluster 2 and label it "Luxury Buyers."
+:::

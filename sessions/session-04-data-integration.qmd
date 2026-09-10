@@ -1,0 +1,116 @@
+---
+title: "Session 4 — Data Integration"
+subtitle: "Virtual vs Physical · Merging Dataframes"
+---
+
+{{< include ../includes/_setup.qmd >}}
+
+::: {.callout-note}
+**This chapter focuses on combining disparate datasets into a single, unified view.**
+
+**Assumed knowledge:** Pandas DataFrames and Data Cleaning (Session 3).
+:::
+
+## 🎯 Learning outcomes {#sec-s04-outcomes}
+
+By the end of this chapter you can:
+
+1. Differentiate between physical and virtual data integration.
+2. Combine multiple Pandas DataFrames using `.merge()` and `.join()`.
+
+## How this chapter is organised {#sec-s04-organisation}
+
+| Part | Question it answers | Source |
+|---|---|---|
+| [A — Integration Concepts](#sec-s04-a) | *Why doesn't all data live in one place?* | `concepts` |
+| [Demo — Merging Data](#sec-s04-demo) | *How do we link tables in Python?* | `pandas_merge.py` |
+
+# Part A — Integration Concepts {#sec-s04-a}
+
+**Data is rarely stored in a single massive table. It is split across different systems for efficiency.**
+
+## 1. Types of Data Integration {#sec-s04-topic-1}
+
+**Data Integration is the process of bringing together data from different sources to provide a unified view.**
+
+It exists because a company's marketing data lives in Facebook Ads, their sales data lives in Salesforce, and their website data lives in Google Analytics. To calculate "marketing return on investment," you must integrate all three.
+
+::: {.callout-tip title="🧠 Analogy — The Wedding Guest List"}
+**The everyday thing:** Organizing a wedding.
+
+**The mapping:** 
+- Partner A has their family list in a notebook. Partner B has their friends list in an Excel file.
+- **Integration** is the painful process of combining these two completely different formats into a single master guest list so you can send out the invitations.
+:::
+
+### How it works
+
+There are several ways to tackle this:
+- **Physical Integration (Data Warehousing):** You literally copy all the data from Salesforce, Facebook, and Google, and paste it into a massive centralized database (a Data Warehouse). 
+- **Virtual Integration:** You don't move the data. Instead, you create a software layer that queries Salesforce and Google on-the-fly only when a user asks a question.
+- **Manual Integration:** A human exports CSVs from different systems and manually pastes them together in Excel (highly prone to error).
+
+### ❓ MCQs
+
+**Q1.** What is the main advantage of Physical Data Integration (a Data Warehouse) over Virtual Integration?
+
+- (a) It requires less hard drive space.
+- (b) **Because the data is copied to one location, analytical queries run much faster than fetching data over the network on-the-fly.**
+- (c) It prevents the original data from being deleted.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** Virtual integration is slow because it has to wait for external systems to respond. Physical integration puts all the data right next to the analytical engine.
+:::
+
+# Part Demo — Merging Data {#sec-s04-demo}
+
+**Using Pandas `.merge()` to combine tables based on a common key.**
+
+In the real world, you might have a "Users" table and a "Purchases" table. You link them together using a common identifier, like `User_ID`.
+
+### 📘 Examples
+
+**Example 1 — The Pandas Merge**
+
+```{python}
+import pandas as pd
+
+# Table 1: Customer Information
+customers = pd.DataFrame({
+    "User_ID": [1, 2, 3],
+    "Name": ["Alice", "Bob", "Charlie"],
+    "City": ["New York", "London", "Paris"]
+})
+
+# Table 2: Purchase History
+purchases = pd.DataFrame({
+    "Purchase_ID": [101, 102, 103],
+    "User_ID": [1, 1, 3], # Notice Alice bought two things, Bob bought nothing.
+    "Amount": [50.00, 120.00, 75.50]
+})
+
+print("--- Customers Table ---")
+display(customers)
+
+print("\n--- Purchases Table ---")
+display(purchases)
+
+print("\n--- INTEGRATED DATA (Inner Merge) ---")
+# Merge them! We tell pandas to link them where User_ID matches.
+integrated_data = pd.merge(customers, purchases, on="User_ID", how="inner")
+display(integrated_data)
+```
+
+::: {.callout-warning title="⚠️ The trap of the missing key"}
+Notice that **Bob disappeared** from the integrated data! Because we used an `inner` merge, Pandas only keeps users who exist in *both* tables. Since Bob had no purchases, he was deleted. If you wanted to keep Bob, you would use `how="left"`.
+:::
+
+# 🎯 Session 4 — Tasks {#sec-s04-tasks}
+
+**Task 1 — The Left Merge.** 
+Copy the code block above. Change `how="inner"` to `how="left"`. Run the code again. **Report what happens to Bob's row and what his "Amount" value becomes.**
+
+::: {.callout-tip title="✅ Before you move on"}
+- [ ] Understand the concept of a "Primary Key" or "Common ID" used to link datasets.
+- [ ] **The one thing from this chapter that is easiest to forget:** Merging data often results in rows multiplying (if one user has many purchases) or disappearing (if using an inner join). Always check your row counts before and after a merge!
+:::

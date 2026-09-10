@@ -1,0 +1,120 @@
+---
+title: "Session 13 — Big Data Analytics Fundamentals"
+subtitle: "Big Data Working · Types · Hadoop · Technologies"
+---
+
+{{< include ../includes/_setup.qmd >}}
+
+::: {.callout-note}
+**This chapter introduces what happens when your data is simply too large to fit on a single computer.**
+
+**Assumed knowledge:** Data Processing concepts (Session 2 & 3).
+:::
+
+## 🎯 Learning outcomes {#sec-s13-outcomes}
+
+By the end of this chapter you can:
+
+1. Define the 3 V's of Big Data (Volume, Velocity, Variety).
+2. Differentiate between Descriptive, Predictive, and Prescriptive analytics.
+3. Understand how the Hadoop Distributed File System (HDFS) stores massive files.
+
+## How this chapter is organised {#sec-s13-organisation}
+
+| Part | Question it answers | Source |
+|---|---|---|
+| [A — The Big Data Problem](#sec-s13-a) | *Why can't I just use Pandas?* | `concepts` |
+| [B — Types of Analytics](#sec-s13-b) | *What do we do with all this data?* | `concepts` |
+| [Demo — Distributed Storage](#sec-s13-demo) | *How are large files stored?* | `hdfs_demo.sh` |
+
+# Part A — The Big Data Problem {#sec-s13-a}
+
+**Pandas is fast, but it requires all data to fit into the RAM of a single computer.**
+
+## 1. Working of Big Data Analytics {#sec-s13-topic-1}
+
+**Big Data refers to datasets that are so massive, so fast-moving, or so unstructured that traditional single-computer databases simply crash when trying to read them.**
+
+It exists because of the modern internet. Every click on Amazon, every swipe on Tinder, and every frame of a YouTube video is logged. A single day of global Twitter data cannot fit on the most expensive MacBook Pro in the world. 
+
+::: {.callout-tip title="🧠 Analogy — The Library Book"}
+**The everyday thing:** Reading a 10,000-page book.
+
+**The mapping:** 
+- **Traditional Data (Pandas):** You (one computer) sit down and read the book cover to cover. It takes you a month, but you can do it.
+- **Big Data:** The book is now 10 million pages long. You will die before finishing it.
+- **The Big Data Solution:** You tear the book into 10,000 pieces and hand them to 10,000 friends. You all read your piece at the exact same time, and shout your summaries back to the leader in 5 minutes. This is Distributed Computing.
+:::
+
+### How it works
+
+The core concept is **Scale-Out vs Scale-Up**:
+- **Scale-Up (Vertical):** Buying a single, massively expensive supercomputer with 2 Terabytes of RAM. (There is a physical limit to how big one computer can get).
+- **Scale-Out (Horizontal):** Buying 1,000 cheap, standard Dell laptops and connecting them together to act as one giant brain. (Infinite limit).
+
+### ❓ MCQs
+
+**Q1.** What is the defining physical limitation that forces a company to switch from standard Pandas to Big Data technologies?
+
+- (a) Pandas cannot do mathematics.
+- (b) **The dataset is larger than the total Random Access Memory (RAM) of a single server.**
+- (c) Big Data technologies look better on a resume.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** Pandas loads the entire dataset into memory. If your dataset is 50GB and you only have 16GB of RAM, the program will crash instantly with an "Out of Memory" error.
+:::
+
+# Part B — Types of Analytics {#sec-s13-b}
+
+**Data maturity happens in stages.**
+
+## 2. Types of Big Data Analytics {#sec-s13-topic-2}
+
+**Data Analytics is categorized into four escalating stages of business value and technical complexity.**
+
+1. **Descriptive Analytics:** What happened? *(e.g., Sales dropped by 10% last month).*
+2. **Diagnostic Analytics:** Why did it happen? *(e.g., Sales dropped because our website crashed in Europe).*
+3. **Predictive Analytics:** What will happen? *(e.g., Based on current traffic, sales will drop by 5% next month).*
+4. **Prescriptive Analytics:** What should we do about it? *(e.g., Automatically order 500 more servers in Europe to prevent the crash).*
+
+# Part Demo — Distributed Storage {#sec-s13-demo}
+
+**Exploring the Hadoop Distributed File System (HDFS).**
+
+HDFS is the foundational technology of Big Data. It takes a massive 1 Terabyte CSV file, cuts it into 128 Megabyte "blocks," and scatters those blocks across 100 different computers.
+
+If you were sitting at a terminal connected to a Hadoop cluster, the commands look remarkably like standard Linux commands, but they execute across the entire cluster.
+
+```{bash}
+#| eval: false
+# 1. List the files in the distributed cluster
+hdfs dfs -ls /user/data/logs/
+
+# Output:
+# Found 1 items
+# -rw-r--r--   3 hadoop supergroup 1099511627776 2024-01-01 12:00 /user/data/logs/global_clicks.csv
+
+# Notice the '3' in the output above! 
+# That means every block of this file is replicated 3 times across different servers.
+# If one server catches on fire, the data is not lost!
+
+# 2. Upload a local file into the massive cluster
+hdfs dfs -put local_small_file.csv /user/data/
+
+# 3. Read the first few lines of a 1 Terabyte file instantly
+hdfs dfs -cat /user/data/logs/global_clicks.csv | head -n 5
+```
+
+::: {.callout-warning title="⚠️ The trap of small files"}
+HDFS is designed to hold massive files (Gigabytes or Terabytes). If you try to store 10 million tiny 1-kilobyte text files in HDFS, the central "NameNode" that tracks where everything lives will run out of memory and the entire cluster will crash. Big Data tools are terrible at Small Data tasks.
+:::
+
+# 🎯 Session 13 — Tasks {#sec-s13-tasks}
+
+**Task 1 — Define the Analytics.** 
+Your GPS maps app routing you around a traffic jam is an example of which of the 4 types of analytics? **Report the type and why.**
+
+::: {.callout-tip title="✅ Before you move on"}
+- [ ] Understand why "Scaling Out" (many cheap computers) won the Big Data war against "Scaling Up" (one giant supercomputer).
+- [ ] **The one thing from this chapter that is easiest to forget:** Big data infrastructure is highly expensive and complex to maintain. If your data fits in Pandas (under ~10GB), do not use Hadoop. Keep it simple.
+:::

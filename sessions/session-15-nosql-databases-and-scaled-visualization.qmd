@@ -1,0 +1,130 @@
+---
+title: "Session 15 — NoSQL Databases and Scaled Visualization"
+subtitle: "MongoDB · Cassandra · Aggregate Queries"
+---
+
+{{< include ../includes/_setup.qmd >}}
+
+::: {.callout-note}
+**This chapter breaks away from traditional SQL tables and explores databases designed for immense scale and flexibility.**
+
+**Assumed knowledge:** Distributed processing (Session 14).
+:::
+
+## 🎯 Learning outcomes {#sec-s15-outcomes}
+
+By the end of this chapter you can:
+
+1. Explain the structural difference between a relational SQL database and a NoSQL document database.
+2. Identify when to use MongoDB vs Apache Cassandra.
+3. Query a MongoDB database using Python (`pymongo`) for downstream visualization.
+
+## How this chapter is organised {#sec-s15-organisation}
+
+| Part | Question it answers | Source |
+|---|---|---|
+| [A — NoSQL Databases](#sec-s15-a) | *Why break the rules of SQL?* | `concepts` |
+| [Demo — PyMongo Queries](#sec-s15-demo) | *How do we query JSON data?* | `mongo_demo.py` |
+
+# Part A — NoSQL Databases {#sec-s15-a}
+
+**Sometimes, enforcing a strict schema does more harm than good.**
+
+## 1. Apache Cassandra and MongoDB {#sec-s15-topic-1}
+
+**NoSQL databases store data in flexible formats like JSON documents, Key-Value pairs, or Wide Columns, abandoning the strict rows-and-columns of traditional SQL.**
+
+They exist to handle high velocity (thousands of writes per second) and high variety (data shapes that change constantly). In a traditional SQL database, if you want to add a "Middle Name" column to a 10-billion-row user table, the database locks up for hours altering the table structure. In a NoSQL Document database, you just start writing the middle name to new documents. The database doesn't care.
+
+::: {.callout-tip title="🧠 Analogy — The Filing Cabinet vs The Shoebox"}
+**The everyday thing:** Storing receipts.
+
+**The mapping:** 
+- **SQL (The Filing Cabinet):** Every receipt must be perfectly formatted, flattened, and placed in exactly the right alphabetical folder. It's perfectly organized, but takes forever to file a new receipt.
+- **NoSQL (The Shoebox):** You just throw the receipt in the box as fast as possible. It can be crumpled, a different size, or have notes scribbled on it. You can store things instantly, but finding things later requires a bit more searching effort.
+:::
+
+### How it works
+
+- **MongoDB (Document Store):** Stores data as JSON-like documents. Perfect for changing web data, user profiles, and catalogs.
+- **Apache Cassandra (Wide Column):** Designed by Facebook to handle absolutely massive amounts of data distributed across multiple data centers with zero downtime. Used by Netflix and Apple. Extremely fast at writing data.
+
+### ❓ MCQs
+
+**Q1.** You are building an internet-of-things (IoT) network where 10,000 temperature sensors blast readings to your server every second. Which database architecture is best suited for this extreme write-velocity?
+
+- (a) A highly structured SQL Server.
+- (b) **A NoSQL database like Cassandra.**
+- (c) An Excel Spreadsheet.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** NoSQL architectures are explicitly designed to handle horizontal scale and extreme write-speeds without locking the database.
+:::
+
+# Part Demo — PyMongo Queries {#sec-s15-demo}
+
+**Connecting Python to MongoDB to extract JSON data for visualization.**
+
+In Python, the `pymongo` library allows us to connect to a Mongo database, run an aggregation pipeline, and pull the results straight into a Pandas DataFrame.
+
+```{python}
+#| eval: false
+import pandas as pd
+import matplotlib.pyplot as plt
+from pymongo import MongoClient
+
+# 1. Connect to the local MongoDB instance
+# (Assuming MongoDB is running on the default localhost port)
+client = MongoClient("mongodb://localhost:27017/")
+
+# Access the 'store_db' database and the 'sales' collection
+db = client["store_db"]
+collection = db["sales"]
+
+# 2. Insert some flexible JSON documents
+# Notice that user 2 has a 'loyalty_points' field, but user 1 doesn't! 
+# NoSQL handles this perfectly.
+mock_data = [
+    {"user": "Alice", "item": "Laptop", "price": 1000},
+    {"user": "Bob", "item": "Mouse", "price": 25, "loyalty_points": 50},
+    {"user": "Charlie", "item": "Laptop", "price": 1000}
+]
+collection.insert_many(mock_data)
+
+# 3. Run an Aggregate Query
+# "Find the total revenue grouped by item"
+pipeline = [
+    {"$group": {"_id": "$item", "total_revenue": {"$sum": "$price"}}}
+]
+results = list(collection.aggregate(pipeline))
+
+# 4. Pull into Pandas for Visualization
+df = pd.DataFrame(results)
+# Rename the MongoDB '_id' field to 'Item'
+df.rename(columns={"_id": "Item"}, inplace=True)
+
+display(df)
+
+# 5. Visualize!
+plt.bar(df["Item"], df["total_revenue"], color=['blue', 'green'])
+plt.title("Revenue by Product (MongoDB Source)")
+plt.ylabel("Total Revenue ($)")
+plt.show()
+
+# Cleanup
+collection.drop()
+```
+
+::: {.callout-warning title="⚠️ The trap of eventual consistency"}
+Because NoSQL databases like Cassandra are distributed across many servers, they often use "Eventual Consistency". If you update a user's password on Server A, and immediately query Server B, Server B might still give you the old password for a few milliseconds until the servers sync up. 
+:::
+
+# 🎯 Session 15 — Tasks {#sec-s15-tasks}
+
+**Task 1 — JSON Structures.** 
+Look at the `mock_data` list in the code above. Write the Python dictionary for a fourth user, "Diana", who bought a "Keyboard" for 50 dollars, and include an entirely new field called `discount_code` with the value `"WELCOME20"`.
+
+::: {.callout-tip title="✅ Before you move on"}
+- [ ] Understand why dropping the strict schema of SQL allows for faster data ingestion.
+- [ ] **The one thing from this chapter that is easiest to forget:** NoSQL is not inherently "better" than SQL. If your data is highly structured, relational (like accounting/banking), and rarely changes shape, traditional SQL is vastly superior.
+:::

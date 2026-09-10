@@ -1,0 +1,133 @@
+---
+title: "Session 6 — Data Reduction and Discretization"
+subtitle: "Dimensionality Reduction · PCA · Discretization"
+---
+
+{{< include ../includes/_setup.qmd >}}
+
+::: {.callout-note}
+**This chapter teaches how to shrink massive datasets without losing the critical information hidden within them.**
+
+**Assumed knowledge:** Data Transformation (Session 5).
+:::
+
+## 🎯 Learning outcomes {#sec-s06-outcomes}
+
+By the end of this chapter you can:
+
+1. Explain the "Curse of Dimensionality" and why too much data can be harmful.
+2. Reduce a dataset's complexity using Principal Component Analysis (PCA).
+3. Convert continuous numerical data into categorized bins using discretization.
+
+## How this chapter is organised {#sec-s06-organisation}
+
+| Part | Question it answers | Source |
+|---|---|---|
+| [A — Data Reduction](#sec-s06-a) | *How do we shrink a dataset?* | `concepts` |
+| [B — Discretization](#sec-s06-b) | *How do we group continuous numbers?* | `concepts` |
+| [Demo — PCA and Cut](#sec-s06-demo) | *What does this look like in Python?* | `reduction_demo.py` |
+
+# Part A — Data Reduction {#sec-s06-a}
+
+**Having more data is usually good, but having too many columns (features) can paralyze a machine learning model.**
+
+## 1. Dimensionality and Numerosity Reduction {#sec-s06-topic-1}
+
+**Dimensionality reduction is the process of reducing the number of columns in a dataset. Numerosity reduction is reducing the number of rows.**
+
+It exists to solve the **Curse of Dimensionality**. If you are trying to predict the price of a car, using 5 columns (mileage, age, brand, engine size, condition) is great. Using 5,000 columns (including the exact hex code of the paint, the thread count of the seats, the brand of the radio dial) will confuse the model. It will desperately try to find patterns in the noise.
+
+::: {.callout-tip title="🧠 Analogy — The Shadow"}
+**The everyday thing:** Looking at a 3D object's shadow.
+
+**The mapping:** 
+- A dataset with 3 columns is a **3D object**.
+- **PCA (Dimensionality Reduction)** shines a light on that object to cast a **2D shadow**. 
+- You lose one dimension of detail (depth), but you still retain the overall shape of the object, and a 2D shadow is much easier to draw (process).
+:::
+
+### How it works
+
+- **Principal Component Analysis (PCA):** A mathematical technique that compresses multiple correlated columns into a smaller set of "Principal Components" that capture the majority of the original variance.
+- **Data Cube Aggregation:** Grouping row data (e.g., combining daily sales into monthly sales to reduce the row count).
+
+### ❓ MCQs
+
+**Q1.** What is the primary goal of Dimensionality Reduction (like PCA)?
+
+- (a) To delete all the outliers in a dataset.
+- (b) **To reduce the number of columns while retaining as much of the original information as possible.**
+- (c) To reduce the number of rows by taking a random sample.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** PCA mathematically compresses columns. Reducing rows is numerosity reduction (sampling or aggregation).
+:::
+
+# Part B — Discretization {#sec-s06-b}
+
+**Sometimes specific numbers don't matter as much as the category they fall into.**
+
+## 2. Top-down and Bottom-up Discretization {#sec-s06-topic-2}
+
+**Discretization (Binning) is the process of converting continuous numbers into discrete categories.**
+
+It exists because human behavior often reacts to thresholds, not continuous scales. A marketing algorithm doesn't need to know the difference between a 21-year-old and a 22-year-old. It needs to know if they are a "Young Adult" or a "Senior." 
+
+### How it works
+
+- **Top-Down (Splitting):** You look at the whole dataset (Ages 0 to 100) and decide to split it into equal chunks: [0-33], [34-66], [67-100].
+- **Bottom-Up (Merging):** You start with exact numbers (Ages 21, 22, 23) and merge them based on similarity until distinct groups form.
+
+# Part Demo — PCA and Cut {#sec-s06-demo}
+
+**Using PCA to compress a dataset, and Pandas `.cut()` to discretize age.**
+
+```{python}
+#| label: fig-reduction-demo
+#| fig-cap: "Using PCA to compress data, and pd.cut for binning."
+import pandas as pd
+import numpy as np
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+
+# --- 1. DISCRETIZATION (pd.cut) ---
+ages = pd.DataFrame({"Age": [15, 22, 34, 45, 65, 80, 12, 29]})
+# Convert continuous ages into buckets!
+ages["Age_Group"] = pd.cut(ages["Age"], bins=[0, 18, 35, 60, 100], labels=["Child", "Young Adult", "Adult", "Senior"])
+
+print("--- Discretized Ages ---")
+display(ages.head())
+
+# --- 2. PCA (Dimensionality Reduction) ---
+# Imagine a dataset with 3 correlated columns: Height, Arm Span, Leg Length
+np.random.seed(42)
+height = np.random.normal(170, 10, 100)
+arm_span = height * 1.02 + np.random.normal(0, 2, 100)
+leg_length = height * 0.45 + np.random.normal(0, 1, 100)
+
+df_3d = pd.DataFrame({"Height": height, "Arm_Span": arm_span, "Leg_Length": leg_length})
+
+# Compress these 3 columns into just 1 Principal Component
+pca = PCA(n_components=1)
+compressed_1d = pca.fit_transform(df_3d)
+
+print(f"\n--- PCA Compression ---")
+print(f"Original shape: {df_3d.shape} (3 columns)")
+print(f"Compressed shape: {compressed_1d.shape} (1 column)")
+print(f"Variance explained by 1 component: {pca.explained_variance_ratio_[0]*100:.2f}%")
+# We shrunk the data by 66%, but kept 99% of the information!
+```
+
+::: {.callout-warning title="⚠️ The trap of PCA interpretability"}
+While PCA is amazing for compression, it destroys human interpretability. After running PCA, you no longer have a "Height" column. You have a "Principal Component 1" column, which is a mathematically blended smoothie of Height, Arm Span, and Leg Length. 
+:::
+
+# 🎯 Session 6 — Tasks {#sec-s06-tasks}
+
+**Task 1 — Custom Bins.** 
+Using the `ages` DataFrame above, write the Pandas code using `pd.cut()` to create a binary column: Ages 0-49 are "Young", Ages 50-100 are "Old".
+
+::: {.callout-tip title="✅ Before you move on"}
+- [ ] Ensure you understand the trade-off between dimensionality reduction and interpretability.
+- [ ] **The one thing from this chapter that is easiest to forget:** PCA only works well if the columns you are compressing are highly correlated (like Height and Arm Span). If the columns are completely unrelated, PCA will fail to compress them effectively.
+:::

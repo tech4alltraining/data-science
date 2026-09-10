@@ -1,0 +1,127 @@
+---
+title: "Session 5 — Data Transformation"
+subtitle: "Rescaling · Normalizing · Standardizing"
+---
+
+{{< include ../includes/_setup.qmd >}}
+
+::: {.callout-note}
+**This chapter covers how to change the mathematical scale of our data without losing the underlying patterns.**
+
+**Assumed knowledge:** Data Cleaning (Session 3).
+:::
+
+## 🎯 Learning outcomes {#sec-s05-outcomes}
+
+By the end of this chapter you can:
+
+1. Explain why mathematical algorithms struggle when features are on different scales.
+2. Apply `MinMaxScaler` and `StandardScaler` to real datasets using Scikit-Learn.
+3. Understand when to Binarize data.
+
+## How this chapter is organised {#sec-s05-organisation}
+
+| Part | Question it answers | Source |
+|---|---|---|
+| [A — The Scale Problem](#sec-s05-a) | *Why do we need to transform numbers?* | `concepts` |
+| [Demo — Scikit-Learn Scalers](#sec-s05-demo) | *How do we scale data in Python?* | `scaler_demo.py` |
+
+# Part A — The Scale Problem {#sec-s05-a}
+
+**Machine learning algorithms are easily confused by large numbers.**
+
+## 1. Rescaling and Standardizing data {#sec-s05-topic-1}
+
+**Transformation is the process of squashing all numbers into a tiny, uniform range (usually 0 to 1, or -3 to +3) while keeping their proportional relationships intact.**
+
+It exists because algorithms calculate distance. If you are predicting house prices based on **Number of Bedrooms** (range: 1 to 5) and **Square Footage** (range: 500 to 5000), the algorithm will look at "5000" and think Square Footage is 1,000 times more important than the Number of Bedrooms, simply because the number is physically larger. Transformation levels the playing field.
+
+::: {.callout-tip title="🧠 Analogy — The Weightlifting Competition"}
+**The everyday thing:** Comparing the strength of an ant and an elephant.
+
+**The mapping:** 
+- The elephant lifts 300 kg. The ant lifts 0.5 grams. In raw numbers, the elephant is infinitely stronger.
+- **Transformation (Scaling)** changes the metric from "total weight lifted" to "weight lifted as a percentage of body weight." 
+- Suddenly, the ant (lifting 50x its body weight) is revealed to be the true champion. The scale was normalized.
+:::
+
+### How it works
+
+- **Normalization (MinMax Scaling):** Squashes all data to be exactly between 0 and 1. The smallest number becomes 0, the largest becomes 1.
+- **Standardization (Z-score):** Shifts the data so the average (mean) is 0, and the standard deviation is 1. Better for data with extreme outliers.
+- **Binarization:** Converts continuous numbers into simple 1s and 0s. (e.g., Any temperature above 0 becomes 1 for "Hot", anything below becomes 0 for "Cold").
+
+### ❓ MCQs
+
+**Q1.** Why is scaling crucial before training a machine learning model?
+
+- (a) It makes the data take up less space on the hard drive.
+- (b) **It prevents features with naturally large numbers from overpowering features with naturally small numbers.**
+- (c) It automatically deletes outliers.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** Scaling ensures that the algorithm treats all columns fairly, regardless of their original unit of measurement (e.g., miles vs millimeters).
+:::
+
+# Part Demo — Scikit-Learn Scalers {#sec-s05-demo}
+
+**Applying Scikit-Learn's `MinMaxScaler` and `StandardScaler` to a dataset.**
+
+Scikit-Learn (`sklearn`) is the premier machine learning library in Python. It provides built-in tools for data transformation.
+
+```{python}
+#| label: fig-scaling-demo
+#| fig-cap: "Visualizing data before and after scaling."
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
+
+# 1. Create a dataset with vastly different scales
+df = pd.DataFrame({
+    "Bedrooms": [1, 2, 3, 4, 5],
+    "SquareFeet": [500, 1000, 1500, 2000, 5000] # Notice 5000 is much larger
+})
+
+# 2. Apply MinMaxScaler (Squashes to 0 - 1)
+min_max_scaler = MinMaxScaler()
+df["MinMax_SqFt"] = min_max_scaler.fit_transform(df[["SquareFeet"]])
+
+# 3. Apply StandardScaler (Mean=0, Variance=1)
+std_scaler = StandardScaler()
+df["Standard_SqFt"] = std_scaler.fit_transform(df[["SquareFeet"]])
+
+print("--- TRANSFORMED DATA ---")
+display(df)
+
+# Visualize the shape! The shape remains identical, only the Y-axis changes.
+plt.figure(figsize=(12, 4))
+
+plt.subplot(1, 3, 1)
+plt.plot(df["Bedrooms"], df["SquareFeet"], marker='o')
+plt.title("Original Scale (0 to 5000)")
+
+plt.subplot(1, 3, 2)
+plt.plot(df["Bedrooms"], df["MinMax_SqFt"], marker='o', color='green')
+plt.title("MinMax Scaled (0 to 1)")
+
+plt.subplot(1, 3, 3)
+plt.plot(df["Bedrooms"], df["Standard_SqFt"], marker='o', color='red')
+plt.title("Standard Scaled (Centered at 0)")
+
+plt.tight_layout()
+plt.show()
+```
+
+::: {.callout-warning title="⚠️ The trap of shape distortion"}
+Look closely at the three charts above. The physical shape of the line **did not change**. If your scaling technique changes the shape of the data distribution, you have corrupted the data. Scaling only changes the axis labels, never the underlying relationship.
+:::
+
+# 🎯 Session 5 — Tasks {#sec-s05-tasks}
+
+**Task 1 — Binarization.** 
+Use the Pandas `.apply()` function or a simple list comprehension to create a new column in the DataFrame above called `Is_Large_Home`. Make the value `1` if the SquareFeet is strictly greater than 1500, and `0` otherwise. **Report your code.**
+
+::: {.callout-tip title="✅ Before you move on"}
+- [ ] Verify you have `scikit-learn` installed in your environment.
+- [ ] **The one thing from this chapter that is easiest to forget:** You must fit your scaler ONLY on your training data, not your testing data. (We will cover this deeply in the supervised learning sessions).
+:::

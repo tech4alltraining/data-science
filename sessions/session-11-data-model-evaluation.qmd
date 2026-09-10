@@ -1,0 +1,119 @@
+---
+title: "Session 11 — Data Model Evaluation"
+subtitle: "Metrics · Residual Plots · Visual Verification"
+---
+
+{{< include ../includes/_setup.qmd >}}
+
+::: {.callout-note}
+**This chapter answers the most terrifying question in Data Science: "Is my model actually any good?"**
+
+**Assumed knowledge:** Supervised Learning (Session 9).
+:::
+
+## 🎯 Learning outcomes {#sec-s11-outcomes}
+
+By the end of this chapter you can:
+
+1. Explain why evaluating a model on the data it was trained on is cheating.
+2. Evaluate a regression model using visualization techniques like Residual Plots.
+
+## How this chapter is organised {#sec-s11-organisation}
+
+| Part | Question it answers | Source |
+|---|---|---|
+| [A — Evaluation Techniques](#sec-s11-a) | *How do we score a model?* | `concepts` |
+| [Demo — Plotting Residuals](#sec-s11-demo) | *What does a healthy model look like?* | `eval_demo.py` |
+
+# Part A — Evaluation Techniques {#sec-s11-a}
+
+**A model that predicts 100% perfectly is almost certainly broken.**
+
+## 1. Train/Test Splits and Metrics {#sec-s11-topic-1}
+
+**Evaluation is the process of testing an algorithm on completely new data that it has never seen before.**
+
+It exists to prevent **Overfitting**. If you train a model on historical housing prices, and then ask it to predict *those exact same houses*, it might score perfectly because it simply memorized the answers. 
+
+::: {.callout-tip title="🧠 Analogy — The Math Exam"}
+**The everyday thing:** A teacher giving a final exam.
+
+**The mapping:** 
+- Giving the model the same data for training and testing is like a teacher giving students the exact exam questions as homework the night before. 
+- A student getting 100% doesn't mean they are good at math; it just means they memorized the worksheet.
+- **Evaluation splits** hold back 20% of the data (the unseen final exam) to test true generalization.
+:::
+
+### How it works
+
+- **Classification Metrics:** Accuracy (What % did we get right?), Precision, Recall.
+- **Regression Metrics:** Mean Absolute Error (MAE - on average, how many dollars off was our prediction?).
+
+### ❓ MCQs
+
+**Q1.** Why do we split our dataset into a "Training set" and a "Testing set"?
+
+- (a) To make the code run faster.
+- (b) **To ensure we test the model on data it has never seen, proving it can generalize rather than just memorize.**
+- (c) Because Scikit-Learn will crash if we use the whole dataset.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** Generalization is the entire point of machine learning. If it can't predict new data, it is useless.
+:::
+
+# Part Demo — Plotting Residuals {#sec-s11-demo}
+
+**Visualizing errors is much more powerful than just looking at a single score.**
+
+A **Residual** is simply the difference between the truth and the prediction. (e.g., If the house costs $200k, and the model predicts $180k, the residual is -$20k).
+
+If your model is good, the residuals should be completely random. It should over-predict and under-predict evenly. If there is a pattern in the residuals, your model missed a pattern in the data!
+
+```{python}
+#| label: fig-residual-demo
+#| fig-cap: "A healthy residual plot showing random, evenly distributed errors."
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 1. Mock Evaluation Data
+np.random.seed(42)
+# True house prices
+y_true = np.random.uniform(100000, 500000, 100)
+# Model predictions (True price + some random error)
+error = np.random.normal(0, 25000, 100) 
+y_pred = y_true + error
+
+# 2. Calculate Residuals
+residuals = y_true - y_pred
+
+# 3. Visualize!
+plt.figure(figsize=(10, 5))
+
+# Scatter the predicted prices against the errors
+plt.scatter(y_pred, residuals, alpha=0.6, color='purple')
+
+# Draw a line at ZERO error
+plt.axhline(0, color='red', linestyle='dashed', linewidth=2)
+
+plt.title("Residual Plot (Errors)")
+plt.xlabel("Predicted Price ($)")
+plt.ylabel("Residual Error ($)")
+plt.grid(True, alpha=0.3)
+plt.show()
+```
+
+::: {.callout-warning title="⚠️ The trap of the curved residual"}
+Look at the plot above. The purple dots are scattered randomly above and below the red line. This is a **Good** model. 
+
+If those dots formed a "U" shape (a smile), it would mean your model is consistently guessing too low in the middle, and too high on the edges. That pattern means linear regression was the wrong algorithm for this dataset!
+:::
+
+# 🎯 Session 11 — Tasks {#sec-s11-tasks}
+
+**Task 1 — Mean Absolute Error.** 
+Look at the Y-axis of the residual plot. The errors range roughly from +$50,000 to -$50,000. This is the absolute error for individual houses. The Mean Absolute Error (MAE) would be the average of all these distances from zero.
+
+::: {.callout-tip title="✅ Before you move on"}
+- [ ] Verify you understand that a Residual is just `Truth - Prediction`.
+- [ ] **The one thing from this chapter that is easiest to forget:** Never, ever, evaluate your model on the same data you used to train it.
+:::

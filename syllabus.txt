@@ -1,0 +1,157 @@
+### Session 1: Introduction to Data Science
+
+* **Contents:**
+* Introduction to Data Science - Definition
+* Evolution of Data Science
+* Data Science Roles
+* Application of data sciences
+
+
+* **Demo:** Showcase an interactive, real-world Data Science dashboard (e.g., a live weather or stock market predictor) to demonstrate what the students will eventually build.
+
+### Session 2: Data Collection and Pre-Processing Overview
+
+* **Contents:**
+* Data Collection Strategies
+* Data Pre-Processing Overview
+* Working with Pandas data frames
+
+
+* **Demo:** Loading a raw, messy CSV file into a Pandas DataFrame and executing basic commands (`.head()`, `.info()`, `.describe()`) to inspect the raw data structure.
+
+### Session 3: Data Cleaning
+
+* **Contents:**
+* Filling missing values
+* Smoothing noisy data
+* Detecting and removing outliers
+
+
+* **Demo:** Programmatically replacing `NaN` (missing) values with column means, and using Pandas to plot a boxplot before and after filtering out extreme outlier values.
+
+### Session 4: Data Integration
+
+* **Contents:**
+* Virtual integration, Physical data integration, Application based integration, Manual Integration, and Middleware data integration.
+
+
+* **Demo:** Using Pandas `.merge()` and `.join()` to combine two disparate datasets (e.g., merging a "Customer Info" table with a "Purchase History" table using a common ID).
+
+### Session 5: Data Transformation
+
+* **Contents:**
+* Rescaling data
+* Normalizing data
+* Binarizing data
+* Standardizing data
+
+
+* **Demo:** Applying Scikit-Learn's `MinMaxScaler` and `StandardScaler` to a dataset and visualizing how the data distribution shape shifts after transformation.
+
+### Session 6: Data Reduction and Discretization
+
+* **Contents:**
+* Dimensionality reduction, Data cube aggregation, Numerosity reduction.
+* Top-down discretization, Bottom-up discretization.
+
+
+* **Demo:** Using Principal Component Analysis (PCA) to compress a dataset from 10 features down to 2, and utilizing Pandas `.cut()` to discretize continuous age data into categorical age buckets (e.g., "Teen", "Adult", "Senior").
+
+### Session 7: Descriptive Statistics
+
+* **Contents:**
+* Measures of Central Tendencies and Dispersion
+* Mean, Standard Deviation, and Averages
+* Skewness and Kurtosis
+* Frequency distributions
+
+
+* **Demo:** Calculating summary statistics on a real dataset and plotting a histogram with an overlaid bell curve to visually demonstrate skewness and kurtosis.
+
+### Session 8: Exploratory Data Analytics (EDA) and Visualization
+
+* **Contents:**
+* Basic plots using Matplotlib
+* Box Plots, Pivot Table
+* Correlation Statistics, Correlation coefficient
+* Correlation and scatter plots
+
+
+* **Demo:** Generating a dynamic visual report that includes a seaborn correlation heatmap and scatter plots to instantly identify which variables are most heavily correlated.
+
+### Session 9: Supervised Learning Techniques
+
+* **Contents:**
+* Supervised learning techniques
+* Prediction and Decision Making
+* Simple and Multiple Regression
+
+
+* **Demo:** Training a Multiple Linear Regression model using Scikit-Learn to predict real estate prices based on inputs like square footage and the number of bedrooms.
+
+### Session 10: Unsupervised Learning Techniques & Clustering
+
+* **Contents:**
+* Unsupervised learning techniques
+* Introduction to clustering
+* K-Means Clustering
+
+
+* **Demo:** **K-Means Demo:** Executing K-Means on a mall customer dataset to group shoppers into distinct segments based on spending score and income, visualized using a color-coded 2D scatter plot with marked cluster centroids.
+
+### Session 11: Data Model Evaluation
+
+* **Contents:**
+* Model Evaluation techniques
+* Model Evaluation using Visualization
+* Residual plot and distributional plot
+
+
+* **Demo:** Plotting the residuals of the regression model from Session 9 to visually check for random distribution (homoscedasticity) and plotting predicted versus actual values.
+
+### Session 12: Model Saving and Deployment
+
+* **Contents:**
+* Saving trained models
+* Deployment of Models using Streamlit
+* Offline deployment
+* Online deployment
+
+
+* **Demo:** Saving the trained regression model using `joblib`, writing a quick Streamlit script to create a user interface with sliders for inputs, and running the web app locally before demonstrating a push to Streamlit Community Cloud.
+
+### Session 13: Big Data Analytics Fundamentals
+
+* **Contents:**
+* Working of Big Data Analytics
+* Types of Big Data Analytics
+* Big Data Analytics Technologies and Tools
+
+
+* **Demo:** Exploring the Hadoop Distributed File System (HDFS) via terminal commands, demonstrating how to `put`, `get`, and list massive files across a distributed architecture.
+
+### Session 14: Distributed Data Processing
+
+* **Contents:**
+* Big Data Analytics using Map Reduce and Apache Hadoop
+* Implement big data analytics using Hadoop and Apache Spark
+
+
+* **Demo:** Running a PySpark DataFrame script to perform parallel filtering, grouping, and counting on a large mock log file to show the speed difference compared to standard Pandas.
+
+### Session 15: NoSQL Databases and Scaled Visualization
+
+* **Contents:**
+* Introduction to Big Data Analytics using Apache Cassandra, Mongo DB
+* Statistical Method for Visualization
+
+
+* **Demo:** Connecting a Python script to a local MongoDB instance using `pymongo` to insert JSON document data, run an aggregate query, and pull the results back into Python for visualization.
+
+### Session 16: Open Ended Module (Implementation and Capstone)
+
+* **Contents:**
+* Apply the entire data analytics process to a real-world dataset.
+* Perform clustering and association rule mining on a market basket dataset.
+* Create insightful visualizations and perform statistical analysis using advanced tools.
+* Develop and implement advanced machine learning models on a complex dataset.

@@ -1,0 +1,136 @@
+---
+title: "Session 9 — Supervised Learning Techniques"
+subtitle: "Prediction · Decision Making · Linear Regression"
+---
+
+{{< include ../includes/_setup.qmd >}}
+
+::: {.callout-note}
+**This chapter transitions from analyzing the past to predicting the future.**
+
+**Assumed knowledge:** Exploratory Data Analysis (Session 8).
+:::
+
+## 🎯 Learning outcomes {#sec-s09-outcomes}
+
+By the end of this chapter you can:
+
+1. Define Supervised Learning and explain the requirement for labeled data.
+2. Differentiate between Simple and Multiple Linear Regression.
+3. Train a predictive regression model using Scikit-Learn.
+
+## How this chapter is organised {#sec-s09-organisation}
+
+| Part | Question it answers | Source |
+|---|---|---|
+| [A — Supervised Learning](#sec-s09-a) | *How do machines learn from examples?* | `concepts` |
+| [B — Linear Regression](#sec-s09-b) | *How do we predict a continuous number?* | `concepts` |
+| [Demo — Predicting Real Estate](#sec-s09-demo) | *What does a trained model look like?* | `regression_demo.py` |
+
+# Part A — Supervised Learning {#sec-s09-a}
+
+**To teach an algorithm, you must provide the answer key.**
+
+## 1. Supervised Learning Techniques {#sec-s09-topic-1}
+
+**Supervised Learning is the process of training an algorithm using historical data where the final outcome (the "label") is already known.**
+
+It exists to automate prediction. If you want a computer to predict if an email is spam, you cannot just feed it random text. You must feed it 10,000 emails explicitly labeled as "Spam" and 10,000 emails labeled as "Not Spam." The algorithm mathematically figures out the difference.
+
+::: {.callout-tip title="🧠 Analogy — The Flashcards"}
+**The everyday thing:** A student studying for an exam with flashcards.
+
+**The mapping:** 
+- The **front of the card** (e.g., a math equation) is your input data (the features).
+- The **back of the card** (the answer) is your Label.
+- **Supervised Learning** is the process of looking at the front, guessing the answer, flipping the card over to check, and adjusting your understanding until you get it right every time.
+:::
+
+### How it works
+
+Every supervised learning task falls into one of two categories:
+1. **Regression:** Predicting a continuous number (e.g., What will the temperature be tomorrow? 72.4 degrees).
+2. **Classification:** Predicting a category (e.g., Is this tumor Malignant or Benign?).
+
+### ❓ MCQs
+
+**Q1.** You are hired by a bank to build an AI that looks at a customer's credit history and predicts whether they will default on a loan (Yes or No). What kind of task is this?
+
+- (a) **Supervised Classification.**
+- (b) Supervised Regression.
+- (c) Unsupervised Learning.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (a).** It is Supervised because the bank has historical labeled data (past customers who defaulted), and it is Classification because the answer is a category (Yes/No), not a continuous number.
+:::
+
+# Part B — Linear Regression {#sec-s09-b}
+
+**The workhorse of the predictive world.**
+
+## 2. Simple and Multiple Regression {#sec-s09-topic-2}
+
+**Linear Regression draws the "line of best fit" through a scatter plot of data to predict future values.**
+
+It exists because many real-world relationships are roughly linear (e.g., as square footage goes up, house price goes up). 
+
+### How it works
+
+- **Simple Linear Regression:** Uses exactly ONE input feature to predict the target. (e.g., Predicting house price based ONLY on Square Footage).
+- **Multiple Linear Regression:** Uses TWO OR MORE input features to predict the target. (e.g., Predicting house price based on Square Footage, Number of Bedrooms, and Age of the house).
+
+::: {.callout-warning title="⚠️ The trap of Linear assumptions"}
+Linear regression assumes the data forms a straight line. If you try to use linear regression to predict something parabolic (like human running speed across a lifespan, which peaks in the 20s and drops later), the straight line will fail catastrophically.
+:::
+
+# Part Demo — Predicting Real Estate {#sec-s09-demo}
+
+**Training a Multiple Linear Regression model using Scikit-Learn.**
+
+```{python}
+#| label: fig-regression-demo
+#| fig-cap: "Training a model and making predictions."
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+
+# 1. Mock Data: Predicting House Price based on SqFt and Bedrooms
+data = {
+    "SquareFeet": [1200, 1500, 2000, 2500, 3000, 800, 1800],
+    "Bedrooms":   [2,    3,    3,    4,    4,    1,    3],
+    "Price":      [150k, 200k, 250k, 300k, 350k, 100k, 220k] # Made up prices
+}
+# Convert 'k' to actual numbers
+data["Price"] = [150000, 200000, 250000, 300000, 350000, 100000, 220000]
+
+df = pd.DataFrame(data)
+
+# 2. Separate Features (X) and Target Label (y)
+X = df[["SquareFeet", "Bedrooms"]] # The inputs
+y = df["Price"]                    # The answer key
+
+# 3. Initialize the Algorithm
+model = LinearRegression()
+
+# 4. TRAIN THE MODEL (The "Learning" phase)
+model.fit(X, y)
+
+print("--- MODEL TRAINING COMPLETE ---")
+print(f"Algorithm learned the baseline price is: ${model.intercept_:,.2f}")
+
+# 5. Make a prediction for a BRAND NEW house that the model has never seen
+new_house = pd.DataFrame({"SquareFeet": [2200], "Bedrooms": [3]})
+predicted_price = model.predict(new_house)[0]
+
+print(f"\nPredicted price for a 2200 sqft, 3 bed house: ${predicted_price:,.2f}")
+```
+
+# 🎯 Session 9 — Tasks {#sec-s09-tasks}
+
+**Task 1 — Be the AI.** 
+In the code block above, change the `new_house` parameters to a massive mansion (e.g., 10,000 Square Feet, 10 Bedrooms). Run the cell. **Report the predicted price.**
+
+::: {.callout-tip title="✅ Before you move on"}
+- [ ] Understand the difference between the Features (X) and the Target (y).
+- [ ] **The one thing from this chapter that is easiest to forget:** The `.fit(X, y)` function is where the actual "machine learning" happens. Everything before that is just data prep.
+:::

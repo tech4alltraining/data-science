@@ -1,0 +1,1306 @@
+---
+title: "Data Science"
+subtitle: "Course syllabus · 16 sessions · from raw data to a deployed model at scale"
+date: last-modified
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-title: "On this page"
+    number-sections: false
+    anchor-sections: true
+    theme: cosmo
+    css: styles.css
+---
+
+::: {.callout-note}
+**This syllabus is the contract between the course and the student.** It lists every
+topic, the order it is taught in, the dataset it is taught on, and what the student
+can do afterwards.
+
+**It is a reorganisation of the 16-session draft, not a replacement.** Every topic in
+the draft survives; the sequence, the grouping and the depth have changed.
+[Appendix B](#sec-coverage) maps every draft bullet to its new home, and
+[Appendix A](#sec-review) explains each change. Topics marked ➕ are additions.
+:::
+
+## What changed, in one screen {#sec-changes}
+
+| # | Change | Why |
+|---|---|---|
+| 1 | **Statistics and EDA moved before cleaning** (draft S7–S8 → new S4–S5) | You cannot call a value an outlier before you know the distribution. The draft removed outliers in S3 and taught the IQR in S7. |
+| 2 | **The train–test split moved before scaling** (new S7) | The draft scaled data in S5 and first split it in S9. Every student who followed that order leaked test data into training. |
+| 3 | **A Python and NumPy session added** (new S2) | The draft opened Pandas in S2 with no Python and no NumPy behind it. |
+| 4 | **A classification session added** (new S10) | The draft taught regression only, then asked for "advanced machine learning models" in the capstone. |
+| 5 | **Model evaluation moved ahead of clustering** (draft S11 → new S11) | Cross-validation and over/underfitting are the vocabulary the clustering session needs to justify a choice of *k*. |
+| 6 | **Association rule mining taught, not just assigned** (new S12) | The draft required it in the capstone and never covered it. |
+| 7 | **Data integration merged into the Pandas session** (draft S4 → new S3) | A five-item taxonomy plus one `.merge()` demo is not a session; joining data is what Pandas is for. |
+| 8 | **The three big-data sessions became two, plus a runnable path** (draft S13–S15 → new S14–S15) | Hadoop and MapReduce belong together; HDFS-on-a-laptop needs an execution plan, which the draft did not give. |
+
+Session count is unchanged at 16.
+
+## Course description {#sec-description}
+
+Data science turns recorded facts into decisions. This course walks that path once,
+end to end, and then walks it again at a scale where the data no longer fits in
+memory.
+
+The student starts with a raw, dirty CSV and finishes with a model that other people
+can use through a web page, plus the judgement to say when its answer should not be
+trusted. Along the way they learn the statistics that make a chart honest, the
+preprocessing order that keeps a result real, and the distributed tools that apply
+when a single machine is not enough.
+
+**The course is practical.** Every session has a live demo and a hands-on lab, and
+every technique is taught on a named dataset that actually contains the problem the
+technique solves.
+
+## Who this course is for {#sec-audience}
+
+Students and early-career professionals who want to work with data as engineers,
+analysts or scientists — including those with no machine learning background.
+
+**Assumed:** comfort with a computer, school-level algebra, willingness to read an
+error message.
+
+**Not assumed:** Python, statistics, machine learning, or any prior tooling. Session 2
+starts from variables.
+
+::: {.callout-tip title="➕ Pre-work for students who have never written code"}
+Three self-paced notebooks, to be finished before Session 2. They start at
+`print()`:
+
+- [Python foundations A](https://github.com/tech4alltraining/aiml/blob/main/mlai-genai-internship/student/notebooks/00a_python_foundations.ipynb) — printing, variables, types, operators, strings
+- [Python foundations B](https://github.com/tech4alltraining/aiml/blob/main/mlai-genai-internship/student/notebooks/00b_python_foundations_2.ipynb) — collections, conditions, loops, functions
+- [Python scenarios](https://github.com/tech4alltraining/aiml/blob/main/mlai-genai-internship/student/notebooks/00c_python_scenarios.ipynb) — ten real problems; **Scenario 10 cleans a messy dataset by hand**, which is exactly what Sessions 6–7 then do with Pandas
+
+Students who have done Scenario 10 understand *why* the preprocessing steps exist.
+Students who have not copy six lines and learn nothing.
+:::
+
+## Course learning outcomes {#sec-outcomes}
+
+By the end of the course a student can:
+
+1. **Frame** a business question as a data science problem with a measurable target.
+2. **Acquire and integrate** data from files, databases, APIs and the web into one
+   analysable table.
+3. **Describe** a dataset numerically — centre, spread, shape — and say what the
+   numbers rule out.
+4. **Explore** a dataset visually and defend which chart answers which question.
+5. **Clean and prepare** data in an order that does not leak information from the test
+   set into the model.
+6. **Build, compare and tune** regression, classification and clustering models with
+   scikit-learn.
+7. **Evaluate** a model honestly — the right metric, cross-validated, with residual
+   and error analysis.
+8. **Deploy** a trained model as a Streamlit application that another person can use.
+9. **Process** data too large for one machine with Hadoop, MapReduce and Spark, and
+   store it in a NoSQL database.
+10. **Deliver** an end-to-end project with reproducible code, honest reporting of what
+    did not work, and a stated view on bias and privacy.
+
+## How the course is organised {#sec-organisation}
+
+Five parts. They are an argument, not a list: **you cannot prepare data you have not
+described; you cannot model data you have not prepared; you cannot deploy a model you
+have not evaluated; and none of it changes when the data gets large — only the
+machinery does.**
+
+| Part | Sessions | Question it answers | Shape |
+|---|---|---|---|
+| [**A — Foundations**](#sec-part-a) | 1–3 | *What is this field, and how do I touch data at all?* | Concept drill |
+| [**B — Understanding the data**](#sec-part-b) | 4–5 | *What is actually in this file?* | Concept drill |
+| [**C — Preparing the data**](#sec-part-c) | 6–8 | *How do I make it fit to model without cheating?* | Applied walkthrough |
+| [**D — Modelling and evaluation**](#sec-part-d) | 9–12 | *What can be learned from it, and is the answer real?* | Applied walkthrough |
+| [**E — Delivery and scale**](#sec-part-e) | 13–16 | *How do others use it, and what if it does not fit in memory?* | Applied walkthrough |
+
+## Session map {#sec-map}
+
+| # | Session | Part | Leaves the student able to |
+|---|---|---|---|
+| 1 | [Introduction to Data Science and the Analytics Lifecycle](#sec-s01) | A | Name the seven lifecycle stages and place a role at each |
+| 2 | [➕ Python and NumPy Essentials](#sec-s02) | A | Write a function and compute with arrays |
+| 3 | [Data Collection, Integration and Pandas](#sec-s03) | A | Load from four sources and join them into one table |
+| 4 | [Descriptive Statistics](#sec-s04) | B | Report centre, spread and shape, and read a p-value |
+| 5 | [Exploratory Data Analysis and Visualization](#sec-s05) | B | Choose the chart that answers the question |
+| 6 | [Data Cleaning](#sec-s06) | C | Run the nine-step sequence and report what it found |
+| 7 | [Data Transformation, Encoding and the Split](#sec-s07) | C | Split first, then scale — and explain why |
+| 8 | [Data Reduction, Discretization and Feature Engineering](#sec-s08) | C | Cut 30 columns to 6 without cutting the signal |
+| 9 | [Supervised Learning I — Regression](#sec-s09) | D | Fit and interpret a multiple regression |
+| 10 | [➕ Supervised Learning II — Classification](#sec-s10) | D | Read a confusion matrix and pick the right metric |
+| 11 | [Model Evaluation, Validation and Tuning](#sec-s11) | D | Cross-validate, diagnose and tune a model |
+| 12 | [Unsupervised Learning — Clustering and Association Rules](#sec-s12) | D | Choose *k* and defend it; mine a basket for rules |
+| 13 | [Model Saving and Deployment with Streamlit](#sec-s13) | E | Ship a working prediction web app |
+| 14 | [Big Data Analytics and Distributed Processing](#sec-s14) | E | Run a Spark job over data too big for Pandas |
+| 15 | [NoSQL Data Stores and Visual Analytics at Scale](#sec-s15) | E | Query MongoDB and plot ten million rows honestly |
+| 16 | [Capstone — The End-to-End Project](#sec-s16) | E | Deliver and defend a complete project |
+
+::: {.callout-note title="How to read a session entry"}
+**Topics** are what is taught. A ➕ marks a topic added to the draft.
+**Demo** is trainer-led and watched. **Lab** is student-led and graded on completion.
+**Dataset** names the file the session runs on — chosen because it *contains* the
+problem being taught. **By the end** is the checkable contract for that session.
+:::
+
+# Part A — Foundations {#sec-part-a}
+
+*Three sessions to answer one question: what is this field, and what do I type to
+touch a dataset at all?*
+
+### Session 1 — Introduction to Data Science and the Analytics Lifecycle {#sec-s01}
+
+*Sets the map the other fifteen sessions are drawn on.*
+
+**Topics**
+
+- Introduction to Data Science — definition, and what separates it from reporting
+- Evolution of Data Science — statistics → business intelligence → big data → machine
+  learning → generative AI
+- Data Science roles — data analyst, data engineer, data scientist, ML engineer,
+  BI developer; who owns which lifecycle stage
+- Applications of data science across sectors — healthcare, finance, retail,
+  logistics, agriculture, public services
+- ➕ Data Science vs Statistics vs Machine Learning vs AI vs Generative AI — the
+  nested picture, and the honest boundaries between them
+- ➕ Types of data: **structured** (tables, CSV, SQL), **semi-structured** (JSON, XML,
+  logs), **unstructured** (text, image, audio, video) — with what each costs to work
+  with
+- ➕ The data science lifecycle: problem definition → data collection → cleaning and
+  preprocessing → exploration → feature engineering → modelling → evaluation →
+  deployment → monitoring
+- ➕ The toolchain: Python, Jupyter, Google Colab, conda, Git, and where each fits
+- ➕ Where the data comes from: open dataset repositories (Kaggle, UCI, data.gov,
+  Hugging Face Datasets) and how to read a dataset licence
+- ➕ Responsible data science, previewed: consent, bias, privacy, reproducibility —
+  returned to in [Session 16](#sec-s16)
+
+**Demo** — An interactive, real-world data science dashboard (a live weather or stock
+predictor), traced backwards through the lifecycle: *this chart came from this model,
+which came from this table, which came from these three sources.*
+
+**Lab** — ➕ Environment check. Every student installs the `ds` environment, runs
+`check_setup.py`, opens Colab, and prints the version of every library the course
+uses. A student who cannot do this today cannot do Session 2.
+
+**Dataset** — None. Concepts only.
+
+**By the end** — The student can name the seven lifecycle stages in order, place each
+job role against the stages it owns, and classify a given data source as structured,
+semi-structured or unstructured.
+
+### Session 2 — ➕ Python and NumPy Essentials for Data Science {#sec-s02}
+
+*Added session. The draft opened Pandas in Session 2 with nothing underneath it.*
+
+**Topics**
+
+- ➕ Python refresher: variables, data types, operators, conditional statements,
+  loops, functions
+- ➕ Collections: list, tuple, dictionary, set — and which one a data problem wants
+- ➕ Strings and formatting; reading and writing files
+- ➕ Classes and objects, briefly — enough to read `model.fit()` and know what `model`
+  is
+- ➕ Why libraries exist: the cost of a Python loop over a million numbers
+- ➕ NumPy: creating arrays, array indexing, array slicing, data types, copy vs view,
+  array shape, reshape, iterating
+- ➕ Vectorised arithmetic and broadcasting
+- ➕ Aggregations and axis-wise statistics; boolean masking and `where`
+- ➕ Random numbers and **seeding** — every result in this course is reproducible
+
+**Demo** — The same calculation twice: a Python `for` loop over one million values,
+then one NumPy expression. Time both. The number on screen is the argument for the
+rest of the course.
+
+**Lab** — ➕ The marks calculator: load exam scores into an array, compute per-student
+and per-subject means, flag every score below one standard deviation from the mean
+using a boolean mask, without writing a loop.
+
+**Dataset** — Generated arrays, seeded.
+
+::: {.callout-warning title="⚠️ Copy versus view"}
+`b = a[2:5]` does not copy — writing to `b` changes `a`. This is the single most
+common source of "my data changed and I did not change it" in the whole course, and
+it is taught here so it never has to be debugged later.
+:::
+
+**By the end** — The student can write a function, index and reshape an array, and
+replace a loop with a vectorised expression.
+
+### Session 3 — Data Collection, Integration and Pandas Fundamentals {#sec-s03}
+
+*Merges draft Session 2 and draft Session 4. Getting data in, and putting it
+together, are one job.*
+
+**Topics**
+
+*Collecting*
+
+- Data collection strategies — primary vs secondary, surveys, sensors and IoT,
+  transactional systems, public datasets, web scraping, third-party APIs
+- ➕ Sampling: random, stratified, systematic, convenience — and the bias each one
+  introduces
+- ➕ Legal and ethical collection: robots.txt, terms of service, personal data
+- Data pre-processing overview — the roadmap of Part C, shown once here so the
+  student knows what is coming and why
+
+*Handling with Pandas*
+
+- Working with Pandas DataFrames — Series vs DataFrame, index, dtypes
+- ➕ Reading from four sources: `read_csv`, `read_excel`, `read_json`, `read_sql`, and
+  a REST API response
+- ➕ Inspecting: `.head()`, `.info()`, `.describe()`, `.shape`, `.dtypes`,
+  `.value_counts()`
+- ➕ Selecting and filtering: `[]`, `.loc`, `.iloc`, boolean masks
+- ➕ Reshaping and summarising: `groupby`, `agg`, `sort_values`, `apply`, `pivot`
+- ➕ Writing results back out: `to_csv`, `to_excel`
+
+*Integrating*
+
+- Data integration approaches — **virtual integration** (query many sources as one,
+  nothing is copied), **physical data integration** (copy everything into a
+  warehouse), **application-based integration** (each application does its own
+  translating), **manual integration** (a human copies and pastes), **middleware
+  data integration** (a layer in between does the translating)
+- ➕ Which approach a given situation calls for, as a comparison table: freshness,
+  cost, failure mode
+- ➕ Combining tables in Pandas: `concat`, `merge`, `join`
+- ➕ Join types — inner, left, right, outer — and the row count that proves which one
+  happened
+- ➕ Integration problems the taxonomy hides: schema conflicts, duplicate entities
+  under different spellings, unit mismatches, redundant columns
+
+**Demo** — Loading a raw, messy CSV into a Pandas DataFrame and running `.head()`,
+`.info()` and `.describe()` to inspect the raw structure. Then `.merge()` and
+`.join()` to combine a *Customer Info* table with a *Purchase History* table on a
+common ID — and, deliberately, the same merge done wrong, so the class watches the
+row count explode from 500 to 4,300.
+
+**Lab** — Load three files (CSV, Excel, JSON), reconcile their differing column names
+and ID formats, join them into one table, and report the row count after each step.
+
+**Dataset** — [`prepreprocessing/pre_data.csv`](https://github.com/tech4alltraining/aiml/blob/main/datasets/prepreprocessing/pre_data.csv)
+(12 rows, small enough to check by eye) and
+[`regression/cardekho_dataset.csv`](https://github.com/tech4alltraining/aiml/blob/main/datasets/regression/cardekho_dataset.csv)
+(real, and messy). Customer/purchase tables are generated by a committed, seeded
+script, `datasets/make_customers.py`.
+
+::: {.callout-warning title="⚠️ Check the row count after every join"}
+A merge that silently multiplies rows is the most expensive undetected error in this
+course: everything downstream still runs, the model trains, the accuracy looks fine,
+and the result is meaningless. **Print `len(df)` before and after. Every time.**
+:::
+
+**By the end** — The student can load data from four source types, join tables with
+the correct join type, and detect a bad join from the row count alone.
+
+# Part B — Understanding the data {#sec-part-b}
+
+*Two sessions, moved ahead of cleaning. Nothing in Part C can be decided without
+them: an outlier is only extreme relative to a distribution you have already
+measured.*
+
+### Session 4 — Descriptive Statistics for Data Science {#sec-s04}
+
+*Was draft Session 7. Moved forward by three sessions.*
+
+**Topics**
+
+- Measures of central tendency and dispersion — the two questions every column
+  answers first
+- Mean, median, mode; standard deviation, variance, range — and **which average to
+  report when the data is skewed**
+- ➕ Percentiles, quartiles, the interquartile range and the five-number summary —
+  the machinery [Session 6](#sec-s06) uses to detect outliers
+- ➕ Z-scores and standardised comparison across different units
+- Skewness and kurtosis — what a shape number means before you have seen the picture
+- Frequency distributions, histograms and bin width; the effect of choosing bins
+  badly
+- ➕ Probability distributions in brief: uniform, normal, binomial, Poisson — and how
+  to tell whether your column is plausibly normal
+- ➕ Populations, samples, sampling error and the standard error of the mean
+- ➕ Inferential essentials: confidence intervals, the null hypothesis, the p-value,
+  the *t*-test, the chi-square test of independence, one-way ANOVA
+- ➕ What a p-value does **not** mean, stated explicitly
+
+**Demo** — Summary statistics on a real dataset, then a histogram with a normal curve
+overlaid, so skewness and kurtosis stop being numbers and become a shape. Then the
+same column's mean and median side by side, with the gap between them explained.
+
+**Lab** — Profile every numeric column of the car dataset: report centre, spread and
+shape for each, then answer one question with a *t*-test — *do diesel and petrol cars
+differ in selling price, or is the gap sampling noise?*
+
+**Dataset** — [`regression/cardekho_dataset.csv`](https://github.com/tech4alltraining/aiml/blob/main/datasets/regression/cardekho_dataset.csv)
+(strongly skewed prices — the mean and median disagree, which is the point) and
+[`classification/heart_failure_raw.csv`](https://github.com/tech4alltraining/aiml/blob/main/datasets/classification/heart_failure_raw.csv).
+
+::: {.callout-tip title="🧠 Analogy — centre and spread"}
+Reporting the mean without the standard deviation is like describing a journey by its
+average speed and nothing else. *Average 60 km/h* is true of a steady cruise and of an
+hour of stop-start traffic. **The spread is the part that tells you what the trip was
+actually like.**
+:::
+
+**By the end** — The student can report centre, spread and shape for any column,
+choose mean or median with a stated reason, and interpret a p-value correctly in one
+sentence.
+
+### Session 5 — Exploratory Data Analysis and Visualization {#sec-s05}
+
+*Was draft Session 8. Also absorbs "statistical methods for visualization" from draft
+Session 15, which belongs with the charts, not with the databases.*
+
+**Topics**
+
+- Basic plots using Matplotlib — figure and axes, line, bar, histogram, scatter,
+  labels, titles, saving
+- ➕ Seaborn for statistical graphics — `countplot`, `histplot`, `boxplot`,
+  `violinplot`, `pairplot`, `heatmap`
+- Box plots — the five-number summary drawn, and the whisker rule that defines an
+  outlier
+- Pivot tables — cross-tabulating two categoricals against a numeric summary
+- Correlation statistics and the correlation coefficient — Pearson, and ➕ Spearman
+  for ranks
+- Correlation and scatter plots — reading strength, direction and non-linearity off a
+  picture
+- ➕ The EDA framework: univariate → bivariate → multivariate, and the five questions
+  to ask of any new dataset
+- ➕ Statistical methods for visualization: distribution plots, density estimates,
+  error bars and confidence bands, aggregation before plotting — the honest way to
+  draw a summary
+- ➕ Visualising missingness: a null-matrix heatmap that shows whether gaps are random
+  or structured
+- ➕ Choosing the chart: a chart-chooser table mapping *question type* → *chart*
+- ➕ Correlation is not causation; confounders; Simpson's paradox with a worked
+  two-group example
+
+**Demo** — A dynamic visual report: a Seaborn correlation heatmap plus a scatter
+matrix, used to identify which variables are most heavily correlated — followed by
+the trap, where the strongest correlation in the matrix turns out to be two columns
+measuring the same thing in different units.
+
+**Lab** — ➕ *Data detective*, in pairs. Each pair gets a dataset and thirty minutes to
+answer five questions with five charts, then presents the one chart that surprised
+them.
+
+**Dataset** — [`regression/cardekho_dataset.csv`](https://github.com/tech4alltraining/aiml/blob/main/datasets/regression/cardekho_dataset.csv)
+and [`loan_data_10k.csv`](https://github.com/tech4alltraining/aiml/blob/main/datasets/loan_data_10k.csv).
+
+::: {.callout-warning title="⚠️ A chart is a question, not decoration"}
+Every chart in this course must be introduced by the question it answers. A chart with
+no question attached is where fabricated conclusions come from — the eye finds a
+pattern in anything.
+:::
+
+**By the end** — The student can pick the chart that answers a stated question, read a
+correlation heatmap, and give one concrete example where a strong correlation is not
+a cause.
+
+# Part C — Preparing the data {#sec-part-c}
+
+*Three sessions taught in a fixed order. The order is the lesson: run these steps in a
+different sequence and you will get a number that looks fine and is wrong.*
+
+::: {.callout-important title="🔓 The preprocessing sequence — used in every session from here on"}
+```text
+1 LOAD → 2 EXPLORE → 3 DUPLICATES → 4 IMPOSSIBLE VALUES → 5 MISSING VALUES
+→ 6 OUTLIERS → 7 ENCODING → 8 TRAIN–TEST SPLIT → 9 SCALING
+```
+
+Two of these positions are not negotiable:
+
+- **Impossible values before missing values.** An age of 160 is an error, not an
+  extreme. Turn it into `NaN` first and let imputation deal with it; do it the other
+  way round and the error is imputed *into* your data.
+- **Scaling after the split, fitted on train only.** The same holds for imputation,
+  encoding, feature selection and PCA. Anything that learns from the data goes inside
+  a `Pipeline`.
+:::
+
+### Session 6 — Data Cleaning {#sec-s06}
+
+*Was draft Session 3. Moved after statistics and EDA, because steps 3–6 of the
+sequence above all need numbers the student now has.*
+
+**Topics**
+
+- ➕ Duplicates: exact and near-duplicate rows, `duplicated()`, `drop_duplicates()`,
+  and choosing which copy to keep
+- ➕ Impossible values: negative ages, future dates, zero-valued blood pressure —
+  finding them with domain rules, converting them to `NaN`
+- Filling missing values — mean, median and mode imputation; forward and backward
+  fill; ➕ group-wise imputation; ➕ KNN imputation; ➕ when to drop instead of fill
+- ➕ Types of missingness (MCAR, MAR, MNAR) and why an imputed column needs a
+  `was_missing` flag
+- Smoothing noisy data — ➕ binning (equal-width and equal-frequency means),
+  regression smoothing, rolling averages, and clustering-based smoothing
+- Detecting and removing outliers — the IQR rule, the z-score rule, ➕ visual
+  detection by box plot and scatter
+- ➕ Handling, not just removing: capping and winsorising, transforming, or keeping
+  the outlier because it is the signal
+- ➕ Structural cleaning: wrong data types, inconsistent date formats, stray
+  whitespace, mixed category spellings
+- ➕ Reporting: what the cleaning pass found, as a table, in the notebook
+
+**Demo** — Programmatically replacing `NaN` values with column means, and plotting a
+box plot before and after filtering extreme outliers. Then the counter-demo: the same
+filter applied to fraud data, which deletes every fraud case in the file.
+
+**Lab** — Run the full nine-step sequence on the heart-failure dataset and produce a
+one-page cleaning report: rows in, duplicates removed, impossible values found,
+values imputed and by what rule, outliers found and what was done with them, rows out.
+
+**Dataset** — [`prepreprocessing/pre_data.csv`](https://github.com/tech4alltraining/aiml/blob/main/datasets/prepreprocessing/pre_data.csv)
+first, cleaned **by hand** on paper — twelve rows, every problem visible — then
+[`classification/heart_failure_raw.csv`](https://github.com/tech4alltraining/aiml/blob/main/datasets/classification/heart_failure_raw.csv)
+in code.
+
+::: {.callout-warning title="⚠️ An outlier is not automatically an error"}
+In a fraud dataset the outliers *are* the fraud. In a sensor dataset they are usually
+a fault. **The dataset does not tell you which; the domain does.** Never delete a row
+on a rule alone — look at it first.
+:::
+
+**By the end** — The student can execute the nine-step sequence in order, justify each
+imputation choice, and give one case where removing outliers destroys the analysis.
+
+### Session 7 — Data Transformation, Encoding and the Train–Test Split {#sec-s07}
+
+*Was draft Session 5. Extended with encoding and the split, because scaling without
+them was the draft's most serious ordering fault.*
+
+**Topics**
+
+- Rescaling data — `MinMaxScaler` to a fixed range
+- Standardizing data — `StandardScaler` to mean 0, standard deviation 1
+- Normalizing data — `Normalizer` on rows to unit norm, and why this is a different
+  operation from the other two despite the name
+- Binarizing data — `Binarizer` and thresholding a continuous column
+- ➕ `RobustScaler`, for data that still contains outliers you chose to keep
+- ➕ Which scaler which algorithm needs: distance-based and gradient-based models care;
+  tree-based models do not
+- ➕ Non-linear transforms: log, square-root, Box-Cox and Yeo-Johnson for skewed
+  columns
+- ➕ Encoding categorical data: `LabelEncoder` for the target, one-hot / dummy
+  variables for nominal features, ordinal encoding for ordered categories
+- ➕ The dummy variable trap, and high-cardinality columns that one-hot encoding
+  cannot handle
+- ➕ **The train–test split**: `train_test_split`, `test_size`, `random_state`,
+  `stratify` — with the course-wide naming convention `X_train, X_test, y_train,
+  y_test`
+- ➕ **Data leakage** — the single most common serious mistake in student projects —
+  and the three forms it takes: scaling before splitting, imputing before splitting,
+  and features that encode the answer
+- ➕ `Pipeline` and `ColumnTransformer`: making the correct order structural instead
+  of remembered
+
+**Demo** — `MinMaxScaler` and `StandardScaler` applied to a dataset, with the
+distribution plotted before and after so the class sees the shape hold and the axis
+move. Then the leakage demo: the same model scored twice, once scaled before the
+split and once after, with both numbers on screen and the gap named.
+
+**Lab** — Take the cleaned dataset from Session 6 and build one `Pipeline` that
+imputes, encodes and scales, fitted on the training split only. Prove it is correct by
+showing the test set was never touched during `fit`.
+
+**Dataset** — [`loan_data_10k.csv`](https://github.com/tech4alltraining/aiml/blob/main/datasets/loan_data_10k.csv)
+— mixed numeric and categorical, columns on very different scales, an imbalanced
+target that makes `stratify` matter.
+
+::: {.callout-tip title="🧠 Analogy — studying with the answer key"}
+Fitting a scaler on all the data before splitting is revising for an exam using the
+marked answer paper. You will score brilliantly in practice and badly on the day.
+**The test set must be data the pipeline has never seen — not even its mean.**
+:::
+
+**By the end** — The student can split before transforming, choose a scaler with a
+stated reason, encode both nominal and ordinal categoricals, and name three ways
+leakage gets in.
+
+### Session 8 — Data Reduction, Discretization and Feature Engineering {#sec-s08}
+
+*Was draft Session 6. Placed after transformation because PCA needs standardised
+inputs, which the draft had not yet introduced when it taught PCA.*
+
+**Topics**
+
+*Reduction*
+
+- Dimensionality reduction — why 200 columns is often worse than 20; the curse of
+  dimensionality
+- ➕ Feature selection before projection: **filter** methods (variance threshold,
+  correlation, chi-square, mutual information), **wrapper** methods (recursive feature
+  elimination), **embedded** methods (Lasso, tree feature importance)
+- ➕ Projection methods: **PCA**, and briefly **LDA** and **t-SNE** — what each is for
+  and why t-SNE is for looking, not for modelling
+- ➕ Explained variance ratio and the scree plot — choosing how many components to
+  keep
+- ➕ The cost of PCA: components are combinations, so interpretability is gone
+- Data cube aggregation — rolling detail up along dimensions (day → month → year);
+  the OLAP idea, and its Pandas equivalent in `groupby` and `pivot_table`
+- Numerosity reduction — replacing the data with something smaller: ➕ parametric
+  (a fitted model or regression stands in for the rows) and non-parametric
+  (sampling, histograms, clustering)
+
+*Discretization*
+
+- Top-down discretization (splitting) — start with the whole range and cut it:
+  equal-width binning, entropy-based splits
+- Bottom-up discretization (merging) — start with every distinct value and merge
+  neighbours: chi-merge
+- ➕ `pd.cut` for equal-width and `pd.qcut` for equal-frequency bins; choosing cut
+  points from domain knowledge rather than from convenience
+- ➕ What binning costs: information thrown away in exchange for robustness and
+  readability
+
+*Feature engineering*
+
+- ➕ Creating features: ratios, differences, date parts (year, month, weekday, age),
+  text length, interaction terms, domain-specific ratios
+- ➕ Feature engineering worked on two real datasets — used-car and heart-failure
+- ➕ Data augmentation: what it is, when it is used, and the tabular, image and text
+  techniques — including which augmentations are legitimate and which change the label
+
+**Demo** — PCA compressing a dataset from 10 features to 2, with the explained
+variance printed so the compression has a cost attached; and `pd.cut` discretizing
+continuous age into "Teen", "Adult", "Senior".
+
+**Lab** — Reduce a 30-column dataset to 6 columns three ways — filter selection,
+embedded selection, PCA — and compare the model score for each against the full set.
+
+**Dataset** — [`classification/diabetes_prediction_dataset.csv`](https://github.com/tech4alltraining/aiml/blob/main/datasets/classification/diabetes_prediction_dataset.csv)
+and [`classification/adult.csv`](https://github.com/tech4alltraining/aiml/blob/main/datasets/classification/adult.csv)
+(high-cardinality categoricals, dates, mixed types).
+
+::: {.callout-warning title="⚠️ Measure the reduction, do not assume it"}
+Engineered features and dimensionality reduction do not reliably improve a model. On
+real course data, hand-built features have moved linear R² by **+0.0001** and made a
+random forest **worse**. Report the number you actually get, including when it
+contradicts the lesson.
+:::
+
+**By the end** — The student can select features three different ways, choose the
+number of PCA components from a scree plot, and state what binning cost them.
+
+# Part D — Modelling and evaluation {#sec-part-d}
+
+*Four sessions. Regression and classification give the student two model families;
+evaluation then decides whether either of them is real; clustering closes the part by
+applying the same discipline where there is no answer key at all.*
+
+### Session 9 — Supervised Learning I: Regression {#sec-s09}
+
+*Was draft Session 9, unchanged in position, extended with the metrics it needs.*
+
+**Topics**
+
+- Supervised learning techniques — the labelled-data idea; regression vs
+  classification as *number* vs *category*
+- Prediction and decision making — the gap between a predicted value and an action
+  taken because of it
+- Simple linear regression — one feature, the line of best fit, slope and intercept
+  read as sentences
+- Multiple regression — several features, and what a coefficient means when the other
+  columns are held constant
+- ➕ The scikit-learn API in four calls: `fit`, `predict`, `score`, `transform` — the
+  shape of every model in the rest of the course
+- ➕ Regression metrics: MAE, MSE, RMSE, R², adjusted R² — which one to report and to
+  whom
+- ➕ Assumptions of linear regression: linearity, independence, homoscedasticity,
+  normal residuals, no severe multicollinearity (VIF)
+- ➕ Polynomial regression, and the point where flexibility becomes overfitting
+- ➕ Regularization in brief: Ridge and Lasso, and what the penalty buys
+
+**Demo** — Training a multiple linear regression with scikit-learn to predict real
+estate prices from inputs such as floor area and number of bedrooms, then reading the
+coefficients out loud as sentences: *"each extra bedroom is worth ₹X, holding area
+constant"* — including the coefficient whose sign is the wrong way round, and why.
+
+**Lab** — Predict used-car selling price. Start with one feature, add features one at
+a time, and record R² and RMSE at every step in a table. Stop when adding a feature
+stops helping, and say why it stopped.
+
+**Dataset** — [`regression/salary_data.csv`](https://github.com/tech4alltraining/aiml/blob/main/datasets/regression/salary_data.csv)
+(one feature, one line — the smallest honest example), then
+[`regression/cardekho_dataset.csv`](https://github.com/tech4alltraining/aiml/blob/main/datasets/regression/cardekho_dataset.csv).
+The demo uses the California housing dataset that ships with scikit-learn, so it needs
+no download.
+
+**By the end** — The student can fit and interpret a multiple regression, report the
+right error metric for an audience, and check two regression assumptions.
+
+### Session 10 — ➕ Supervised Learning II: Classification {#sec-s10}
+
+*Added session. The draft never taught classification, then required "advanced machine
+learning models" in the capstone.*
+
+**Topics**
+
+- ➕ The classification problem: binary, multiclass, multilabel
+- ➕ Logistic regression — the linear model bent into a probability; the decision
+  threshold as a separate, tunable choice
+- ➕ k-Nearest Neighbours — the algorithm that does no training, and why it needs
+  scaled features
+- ➕ Decision trees — splits, impurity, depth, and why a tree is readable
+- ➕ Random forests — many trees, voting, and feature importance
+- ➕ Naive Bayes and Support Vector Machines, briefly, with the situation each suits
+- ➕ The confusion matrix — true and false positives and negatives, drawn once and
+  used everywhere
+- ➕ Accuracy, precision, recall, F1, specificity — and the cost of the mistake that
+  decides which one matters
+- ➕ ROC curves, AUC, and the precision–recall curve for imbalanced data
+- ➕ Class imbalance: `stratify`, class weights, resampling, SMOTE
+- ➕ Predicting probabilities rather than labels, and choosing the threshold from the
+  business cost
+
+**Demo** — Logistic regression and a random forest on the loan dataset, side by side.
+Then the useless 99% model: a classifier that predicts "no default" for everyone,
+scores 99% accuracy, and catches zero defaulters. The confusion matrix is the only
+thing on screen that shows it.
+
+**Lab** — Build a loan-approval classifier. Report the confusion matrix, choose
+between precision and recall with a written justification about what a wrong decision
+costs the bank and the applicant, then move the threshold to match that choice.
+
+**Dataset** — [`loan_data_10k.csv`](https://github.com/tech4alltraining/aiml/blob/main/datasets/loan_data_10k.csv)
+(imbalanced, so accuracy is visibly the wrong metric) and
+[`classification/iris.csv`](https://github.com/tech4alltraining/aiml/blob/main/datasets/classification/iris.csv)
+for the multiclass case.
+
+::: {.callout-warning title="⚠️ Accuracy is the default metric and it is usually the wrong one"}
+On data where 99 of 100 rows share a label, a model that has learned nothing scores
+99%. **Report the confusion matrix before you report accuracy, every time.**
+:::
+
+**By the end** — The student can train four classifiers, read a confusion matrix, and
+choose a metric from the cost of the error rather than from habit.
+
+### Session 11 — Model Evaluation, Validation and Tuning {#sec-s11}
+
+*Was draft Session 11. Moved ahead of clustering, because the next session's choice of
+*k* has to be defended, and this is where the vocabulary for defending a choice is
+taught.*
+
+**Topics**
+
+- Model evaluation techniques — ➕ holdout validation, k-fold cross-validation,
+  stratified k-fold, leave-one-out, bootstrapping; the trade-off between them
+- ➕ Overfitting and underfitting — bias and variance, seen as two failure pictures
+  rather than two definitions
+- ➕ Learning curves and validation curves — telling "needs more data" apart from
+  "needs a different model"
+- Model evaluation using visualization — ➕ predicted-vs-actual plots, error
+  distributions, confusion-matrix heatmaps, ROC overlays for competing models
+- Residual plots and distributional plots — checking residuals are random,
+  homoscedastic and roughly normal, and reading the three failure shapes
+- ➕ Hyperparameter tuning: `GridSearchCV`, `RandomizedSearchCV`, and Bayesian
+  optimization in concept
+- ➕ Nested cross-validation, and why tuning on the test set silently invalidates the
+  score
+- ➕ Baselines: `DummyRegressor` and `DummyClassifier`. **A model that cannot beat the
+  baseline has not worked, whatever its R².**
+- ➕ Error analysis: looking at the rows the model got wrong, not just the score
+- ➕ Data leakage, revisited — the leaked column that makes a bad model look excellent
+
+**Demo** — Plotting the residuals of the Session 9 regression to check visually for
+random distribution and homoscedasticity, plus predicted versus actual. Then the same
+model cross-validated five ways, with five different scores printed — so "the
+accuracy" stops being a single number.
+
+**Lab** — Take one model from Session 9 and one from Session 10. Cross-validate both,
+tune both with a grid search, plot the learning curve for each, and write three
+sentences on what the curve says to do next.
+
+**Dataset** — The models and splits from Sessions 9 and 10, reused deliberately.
+
+::: {.callout-warning title="⚠️ One split is one opinion"}
+Change `random_state` and the score changes. If a decision between two models depends
+on a difference smaller than the spread across folds, **the decision has not been
+made** — it has been guessed.
+:::
+
+**By the end** — The student can cross-validate a model, read a learning curve,
+tune hyperparameters without touching the test set, and beat a stated baseline.
+
+### Session 12 — Unsupervised Learning: Clustering and Association Rules {#sec-s12}
+
+*Was draft Session 10, extended with the association rule mining the draft required in
+the capstone but never taught.*
+
+**Topics**
+
+*Clustering*
+
+- Unsupervised learning techniques — learning structure with no labels; clustering,
+  dimensionality reduction and association rules as its three families
+- Introduction to clustering — what a cluster is, and the fact that there is no
+  correct answer to check against
+- K-Means clustering — centroids, assignment and update steps, convergence,
+  `random_state` and `n_init`
+- ➕ Choosing *k*: the elbow method on inertia, and the silhouette score — with the
+  case where the two disagree
+- ➕ **Scale before you cluster.** K-Means measures distance, so an unscaled income
+  column decides every cluster on its own
+- ➕ Hierarchical clustering — agglomerative linkage and reading a dendrogram
+- ➕ DBSCAN — density-based clusters of arbitrary shape, and explicit noise points
+- ➕ Cluster profiling: describing each segment in business language, which is the
+  actual deliverable
+
+*Association rule mining*
+
+- ➕ Market basket analysis — transactions, itemsets, and the question *"what is
+  bought together?"*
+- ➕ Support, confidence and lift, computed by hand on a ten-transaction table before
+  any library is imported
+- ➕ The Apriori algorithm and the downward-closure property; FP-Growth in brief
+- ➕ `mlxtend` for `apriori` and `association_rules`
+- ➕ Reading a rule critically: high confidence with a lift of 1.0 means the rule
+  discovered nothing
+
+**Demo** — K-Means on a mall customer dataset, grouping shoppers by income and
+spending score, shown as a colour-coded 2D scatter with the centroids marked. Then the
+same run without scaling, so the class sees the clusters change completely.
+
+**Lab** — Segment the mall customers, choose *k* with both an elbow plot and a
+silhouette curve, and write a one-paragraph description of each segment a marketing
+team could act on. Then mine a grocery basket file for rules with lift above 1.2 and
+say which one is actually useful.
+
+**Dataset** — [`clustering/Mall_Customers.csv`](https://github.com/tech4alltraining/aiml/blob/main/datasets/clustering/Mall_Customers.csv);
+basket transactions generated by a committed, seeded script, `datasets/make_baskets.py`,
+which plants three known rules so the student can check the algorithm found them.
+
+::: {.callout-warning title="⚠️ Clustering always returns clusters"}
+Ask K-Means for four groups in pure random noise and it will give you four groups,
+each with a centroid and a colour. **The silhouette score is the check** — and on real
+course data it has preferred the wrong clustering, so it is a check, not a verdict.
+:::
+
+**By the end** — The student can scale, cluster, choose *k* with two methods, describe
+each cluster in business terms, and compute support, confidence and lift by hand.
+
+# Part E — Delivery and scale {#sec-part-e}
+
+*Four sessions. A model nobody can use has not been delivered, and a method that only
+works on data that fits in memory has not scaled. This part fixes both, then the
+capstone puts the whole course into one project.*
+
+### Session 13 — Model Saving and Deployment with Streamlit {#sec-s13}
+
+*Was draft Session 12, unchanged in position.*
+
+**Topics**
+
+- Saving trained models — `joblib` and `pickle`, ➕ what is actually inside the file,
+  and why the **whole pipeline** must be saved rather than the estimator alone
+- ➕ Loading and inference: a single `predict_one()` function that takes raw user input
+  and returns a prediction, used identically by the notebook and the app
+- ➕ Model versioning and the version trap: a model saved under scikit-learn 1.3 and
+  loaded under 1.5 may not behave the same. Pin versions in `requirements.txt`
+- Deployment of models using Streamlit — ➕ the anatomy of a Streamlit app: widgets in,
+  prediction out, `st.cache_resource` so the model loads once
+- Offline deployment — batch scoring, scheduled jobs, running locally or on-premise;
+  when a CSV of predictions is the right product
+- Online deployment — a live app or an API answering one request at a time; ➕ latency,
+  concurrency and cost
+- ➕ Publishing to Streamlit Community Cloud: repository layout, `requirements.txt`,
+  secrets that must not be committed
+- ➕ REST APIs as the alternative, with FastAPI in concept — when a UI is the wrong
+  interface
+- ➕ After deployment: input validation, logging predictions, and **model drift** — the
+  world changing under a model that has not
+- ➕ Adding a generative-AI layer: an LLM turning the model's numeric output into a
+  plain-language explanation for the end user, and the honesty constraint that the
+  explanation must not overstate the model
+
+**Demo** — Saving the trained regression model with `joblib`, writing a short Streamlit
+script with sliders for the inputs, running it locally, and pushing it to Streamlit
+Community Cloud. Then the failure demo: the app deployed without its scaler,
+predicting confidently and wrongly.
+
+**Lab** — Deploy the Session 10 loan classifier as a Streamlit app that takes applicant
+details, returns an approval probability, and shows the two factors that pushed the
+decision most. Publish it and share the link.
+
+**Dataset** — The pipeline saved in Session 10.
+
+::: {.callout-warning title="⚠️ Save the pipeline, not the model"}
+A model saved without its scaler and encoder will accept raw input and return a
+confident, meaningless number. Nothing raises an error. **`joblib.dump(pipeline, ...)`
+— never `joblib.dump(model, ...)`.**
+:::
+
+**By the end** — The student can save a full pipeline, build a Streamlit interface for
+it, publish it publicly, and name two things that can break it after launch.
+
+### Session 14 — Big Data Analytics: Fundamentals and Distributed Processing {#sec-s14}
+
+*Merges draft Sessions 13 and 14. The fundamentals and the tools that implement them
+were separated in the draft with no gain.*
+
+**Topics**
+
+*Fundamentals*
+
+- Working of big data analytics — ➕ the five Vs (volume, velocity, variety, veracity,
+  value), and **the honest threshold: the point where one machine stops being enough**
+- Types of big data analytics — descriptive, diagnostic, predictive and prescriptive,
+  with an example of each
+- ➕ Batch versus stream processing, and the architectures that combine them
+- Big data analytics technologies and tools — the ecosystem map: HDFS, YARN, Hive,
+  HBase, Kafka, Spark, and where each one sits
+- ➕ When **not** to use big data tools: a Spark job on 50,000 rows is slower than
+  Pandas, and this is measured in the lab
+
+*Distributed storage and processing*
+
+- Apache Hadoop and HDFS — blocks, replication, NameNode and DataNodes, write-once
+  semantics
+- Big data analytics using MapReduce — map, shuffle, sort, reduce; ➕ word count
+  traced by hand on three sentences before any code is run
+- ➕ Why MapReduce was replaced: every stage writes to disk
+- Implementing big data analytics using Apache Spark — ➕ RDDs and DataFrames, lazy
+  evaluation, transformations versus actions, the DAG, in-memory caching
+- ➕ Spark SQL and the DataFrame API, which is deliberately close to Pandas
+- ➕ PySpark MLlib in brief: the same fit/predict shape, distributed
+
+**Demo** — Exploring HDFS from the terminal with `hdfs dfs -put`, `-get` and `-ls`,
+showing how a file is split and replicated across a distributed architecture. Then a
+PySpark job performing parallel filtering, grouping and counting over a large mock log
+file, timed against the same operation in Pandas.
+
+::: {.callout-important title="🔓 How to run this session on a laptop"}
+The draft's HDFS demo assumes a cluster. Three supported paths, in order of
+preference:
+
+1. **Docker** — a single-node Hadoop image, so `hdfs dfs` commands are real
+2. **PySpark in local mode** — `pip install pyspark`, needs only Java 17; sufficient
+   for everything except the HDFS commands themselves
+3. **A hosted sandbox or Databricks Community Edition** — no local install
+
+Every code cell in this session runs on path 2. Path 1 is required only for the HDFS
+command demo.
+:::
+
+**Lab** — Run the same aggregation three times over the mock log file — Pandas, PySpark
+local, PySpark with more partitions — and record the wall-clock time for each at 10⁴,
+10⁶ and 10⁷ rows. Plot the three curves and identify the crossover point.
+
+**Dataset** — A synthetic web-server log generated by a committed, seeded script,
+`datasets/make_logs.py`, at three sizes so the crossover is visible.
+
+::: {.callout-warning title="⚠️ Distributed is not automatically faster"}
+Below the crossover, Spark loses to Pandas — the cluster overhead exceeds the work.
+Students are expected to find that crossover themselves and quote it, rather than
+assert that Spark is fast.
+:::
+
+**By the end** — The student can explain HDFS replication, trace a MapReduce word
+count by hand, write a PySpark aggregation, and state the row count at which Spark
+started to win on their own machine.
+
+### Session 15 — NoSQL Data Stores and Visual Analytics at Scale {#sec-s15}
+
+*Was draft Session 15. "Statistical methods for visualization" is now taught in
+[Session 5](#sec-s05) and applied here at scale.*
+
+**Topics**
+
+*NoSQL*
+
+- ➕ Why NoSQL exists: what a relational schema costs when the data is semi-structured
+  and the volume is large
+- ➕ The four families — document, column-family, key-value, graph — with one use case
+  each
+- ➕ The CAP theorem in plain language, and eventual consistency as a business decision
+  rather than a technical one
+- Big data analytics using **MongoDB** — documents and collections, CRUD, indexes, and
+  the aggregation pipeline (`$match`, `$group`, `$sort`, `$project`)
+- ➕ `pymongo`, and moving results from an aggregation into a Pandas DataFrame
+- Big data analytics using **Apache Cassandra** — the wide-column model, partition and
+  clustering keys, CQL, and **query-first schema design**, which is the opposite of
+  relational normalisation
+- ➕ Choosing between them: a comparison table over consistency, write throughput,
+  query flexibility and operational cost
+
+*Visualization at scale*
+
+- Statistical methods for visualization, applied to volume — ➕ why a scatter plot of
+  ten million points is a solid rectangle
+- ➕ Aggregate before you plot: server-side aggregation in the database, then plot the
+  summary
+- ➕ Sampling for visualization, and the confidence interval that must accompany a
+  sampled chart
+- ➕ Binning and density: 2-D histograms, hexbin, and datashader-style rasterisation
+- ➕ Building a dashboard on aggregated data rather than raw rows
+
+**Demo** — Connecting a Python script to a local MongoDB instance with `pymongo`,
+inserting JSON document data, running an aggregate query, and pulling the results back
+into Python for visualization. Then the scale demo: the same chart drawn from ten
+million raw points and from a database-side aggregation, side by side.
+
+**Lab** — Load the Session 14 log file into MongoDB, write an aggregation pipeline that
+answers three questions about traffic by hour and status code, and build a small
+dashboard on the aggregated output. Then model the same data for Cassandra and explain
+what changes.
+
+**Dataset** — The log file from Session 14, plus
+[`loan_data_10k.csv`](https://github.com/tech4alltraining/aiml/blob/main/datasets/loan_data_10k.csv)
+as documents. **Environment:** MongoDB Community locally, or MongoDB Atlas free tier;
+Cassandra via Docker or as a modelling exercise on paper if Docker is unavailable.
+
+**By the end** — The student can write a MongoDB aggregation pipeline, design a
+Cassandra table from a query, and produce an honest chart from ten million rows.
+
+### Session 16 — Capstone: The End-to-End Data Science Project {#sec-s16}
+
+*Was draft Session 16, the open-ended module. Now a specified project with a
+timetable, deliverables and a marking scheme.*
+
+**Topics and requirements**
+
+- Apply the entire data analytics process to a real-world dataset — collection,
+  integration, cleaning, transformation, reduction, EDA, modelling, evaluation,
+  deployment
+- Perform clustering and association rule mining on a market basket dataset —
+  segmenting customers, then explaining each segment with the rules that characterise
+  it
+- Create insightful visualizations and perform statistical analysis using advanced
+  tools — every claim in the report supported by a chart **and** a statistical test
+- Develop and implement advanced machine learning models on a complex dataset —
+  ensembles, tuned, compared against a stated baseline
+- ➕ Project framing: writing a problem statement with a measurable success criterion
+  agreed before any modelling starts
+- ➕ Reproducibility: seeded, version-pinned, and runnable from a clean clone by
+  someone else
+- ➕ Responsible data science: the bias audit, the privacy review, the statement of who
+  could be harmed by a wrong prediction and how
+- ➕ Communicating results: the eight-minute presentation, and reporting what did not
+  work
+
+::: {.callout-note title="➕ Deliverables"}
+| # | Deliverable | Due |
+|---|---|---|
+| 1 | Problem statement, dataset chosen, success criterion | after Session 5 |
+| 2 | EDA report and cleaning log | after Session 8 |
+| 3 | Baseline model and evaluation, cross-validated | after Session 11 |
+| 4 | Tuned model, deployed app, public link | after Session 13 |
+| 5 | Repository, written report, presentation | Session 16 |
+
+The repository must run from a clean clone: `requirements.txt`, a seeded pipeline, and
+a README that names the dataset, its licence and its date of retrieval.
+:::
+
+**Dataset** — Student's choice from the
+[course catalog](https://github.com/tech4alltraining/aiml/tree/main/datasets) or an
+approved external source, subject to one rule: **it must contain the problem the
+project claims to solve.** A clean dataset cannot demonstrate a cleaning pipeline, and
+a balanced one cannot demonstrate why accuracy is the wrong metric.
+
+::: {.callout-tip title="✅ A capstone that passes"}
+- Runs from a clean clone, first try
+- States a success criterion that was fixed before the modelling started
+- Beats a named baseline, with the baseline's score printed
+- Reports at least one thing that was tried and did not work
+- Has a deployed link that a stranger can open
+- Says who the model could harm and what was done about it
+:::
+
+**By the end** — The student can deliver and defend a complete data science project.
+
+# Course conventions {#sec-conventions}
+
+*These hold in every session. Breaking one in a single session makes every other
+session look wrong.*
+
+| Convention | The course does this | Not this |
+|---|---|---|
+| Environment | one conda environment, **`ds`**, in every session | a per-session environment |
+| Split naming | `X_train, X_test, y_train, y_test` | `xtr`, `train_x`, `X1` |
+| Categorical encoding | `LabelEncoder` for the target, one-hot for nominal features, printing `le.classes_` | mixing `get_dummies`, `.map({...})` and encoders session by session |
+| Preprocessing order | the nine steps of [Part C](#sec-part-c), taught once and referenced afterwards | a different order each session |
+| Reproducibility | `random_state` set explicitly, everywhere | unseeded results that change between runs |
+| Dataset paths | one `dataset_url`, or one path relative to the project root | a base constant plus a fragment |
+| Claims | measured and printed by the code that makes them | asserted in prose |
+
+::: {.callout-important title="🔓 Measure, do not assert"}
+Before a session states that a technique helps, the technique is run and the number is
+printed. Results from earlier runs of this material that contradicted the textbook
+version of the lesson, and were kept:
+
+- Hand-engineered features moved linear R² by **+0.0001** and made the random forest
+  **worse**
+- The silhouette score **preferred the wrong clustering**
+- The "underfitting" decision tree had the **best** test accuracy — because it split on
+  a leaked column
+
+**An honest negative result teaches more than a tidy positive one**, because it is what
+the student will meet in their own project.
+:::
+
+## Tools and environment {#sec-environment}
+
+| Layer | What | Sessions |
+|---|---|---|
+| Language | Python 3.11 | all |
+| Environment | conda environment named `ds`; Google Colab as the no-install fallback | all |
+| Core | NumPy, Pandas | 2 onwards |
+| Charts | Matplotlib, Seaborn | 5 onwards |
+| Statistics | SciPy, statsmodels | 4, 9, 11 |
+| Modelling | scikit-learn | 7 onwards |
+| Rules | mlxtend | 12 |
+| Deployment | Streamlit, joblib | 13 |
+| Distributed | PySpark (local mode), Java 17; Hadoop via Docker | 14 |
+| Stores | MongoDB Community or Atlas free tier, `pymongo`; Cassandra via Docker | 15 |
+| Version control | Git and GitHub | 13, 16 |
+
+```bash
+conda create -n ds python=3.11 -y && conda activate ds && pip install -r requirements.txt
+```
+
+Every import used anywhere in the course belongs in `requirements.txt`, with versions
+pinned — a model saved under one version of scikit-learn and loaded under another is a
+[Session 13](#sec-s13) failure mode.
+
+## Datasets {#sec-datasets}
+
+Datasets are reused across sessions on purpose: data the student already knows costs
+no explanation, and a course that keeps returning to the same file becomes cumulative.
+Every dataset below is chosen because it *contains* the problem its session teaches.
+
+| Dataset | Contains | Sessions |
+|---|---|---|
+| `prepreprocessing/pre_data.csv` | 12 rows with every cleaning problem, checkable by eye | 3, 6 |
+| `regression/cardekho_dataset.csv` | skewed prices, mixed types, real mess | 3, 4, 5, 9 |
+| `regression/salary_data.csv` | one feature, one line | 9 |
+| `classification/heart_failure_raw.csv` | missing values, impossible values, outliers | 4, 6, 8 |
+| `loan_data_10k.csv` | imbalanced binary target, mixed scales | 5, 7, 10, 11, 13, 15 |
+| `classification/diabetes_prediction_dataset.csv` | many columns, worth reducing | 8 |
+| `classification/adult.csv` | high-cardinality categoricals | 8 |
+| `classification/iris.csv` | clean multiclass | 10 |
+| `clustering/Mall_Customers.csv` | visible cluster structure, unequal scales | 12 |
+| `datasets/make_baskets.py` ➕ | transactions with three planted rules | 12 |
+| `datasets/make_logs.py` ➕ | 10⁴ / 10⁶ / 10⁷ rows, same schema | 14, 15 |
+| `datasets/make_customers.py` ➕ | two tables that join badly on purpose | 3 |
+
+Files without a generator script come from the
+[course dataset catalog](https://github.com/tech4alltraining/aiml/tree/main/datasets).
+Generated files ship with their seeded script committed next to them, so the
+transformation is part of the teaching rather than a hidden step.
+
+## Assessment {#sec-assessment}
+
+➕ Added — the draft did not specify assessment. Weights are a starting point for the
+institution to adapt.
+
+| Component | Weight | What is marked |
+|---|---|---|
+| Session labs (16) | 30% | completed, runs, conclusion stated |
+| Assignment 1 — data preparation (after Session 8) | 15% | the cleaning log and the leakage check |
+| Assignment 2 — modelling and evaluation (after Session 11) | 15% | metric choice justified; baseline beaten |
+| Capstone project | 30% | the five deliverables in [Session 16](#sec-s16) |
+| Presentation and viva | 10% | can defend a choice under questioning |
+
+**One rule across all components:** a result that is reported must be reproducible from
+the submitted code. A number in a report that the code does not produce is marked as
+absent.
+
+# Appendix A — Review of the draft syllabus {#sec-review}
+
+*What the analysis found, and what was done about it. Structural faults first.*
+
+### A.1 Ordering faults — a result that runs and is wrong
+
+**Cleaning before statistics.** The draft detected and removed outliers in Session 3
+and taught the interquartile range and standard deviation in Session 7. A student
+following the draft removes outliers with a rule they meet four sessions later.
+*Fixed:* statistics and EDA are now Sessions 4–5, cleaning is Session 6.
+
+**Scaling before splitting.** The draft applied `MinMaxScaler` and `StandardScaler` in
+Session 5 and first mentioned a train–test split in Session 9. Scaling on the full
+dataset leaks test-set information into training — the most common serious error in
+student projects, and the draft taught it as the default. *Fixed:* the split is taught
+in Session 7, immediately before scaling, with leakage as a named topic and `Pipeline`
+as the structural remedy.
+
+**PCA before standardisation and before variance.** Session 6 ran PCA; standardisation
+was in Session 5 but never connected to it, and variance and correlation were in
+Sessions 7–8, after. *Fixed:* reduction is now Session 8, after both.
+
+**Evaluation after everything it should have informed.** Session 11 taught evaluation
+after regression (9) and clustering (10), so both were taught with no vocabulary for
+judging them. *Fixed:* metrics are taught inline with each model family, and Session 11
+— validation strategy, cross-validation, tuning, diagnostics — sits between supervised
+learning and clustering.
+
+### A.2 Missing prerequisites
+
+**No Python, no NumPy.** Session 2 opened with Pandas DataFrames. *Fixed:* Session 2 is
+now Python and NumPy, with three self-paced pre-work notebooks for students starting
+from zero.
+
+**No encoding, no split, no leakage.** No session converted categorical text to
+numbers, yet Session 9 trained a regression on real data. *Fixed:* all three are
+Session 7.
+
+### A.3 Promised but never taught
+
+| Promised in | Never taught in the draft | Now taught in |
+|---|---|---|
+| Session 16 — "advanced machine learning models" | classification of any kind | [Session 10](#sec-s10) |
+| Session 16 — "association rule mining" | support, confidence, lift, Apriori | [Session 12](#sec-s12) |
+| Session 16 — "statistical analysis using advanced tools" | any inferential statistics | [Session 4](#sec-s04) |
+| Session 8 demo — "a seaborn correlation heatmap" | Seaborn | [Session 5](#sec-s05) |
+| Session 11 — "model evaluation techniques" | cross-validation, over/underfitting | [Session 11](#sec-s11) |
+
+### A.4 Sessions that were the wrong size
+
+**Session 4, Data Integration**, was a five-item taxonomy plus one `.merge()` demo, and
+the demo did not illustrate the taxonomy. *Fixed:* merged into Session 3, where the
+taxonomy is taught as concepts and the joining is taught as the Pandas skill it is.
+
+**Session 5, Data Transformation**, listed rescaling, normalizing, binarizing and
+standardizing — three of which are the same family, and one of which (`Normalizer`)
+operates on rows rather than columns, a distinction the draft's phrasing hides. *Fixed:*
+the distinction is now an explicit topic, and the session was given the encoding and
+splitting content it needed to be a full session.
+
+**Session 9** carried all of supervised learning, including "prediction and decision
+making", but demonstrated regression only. *Fixed:* split into Sessions 9 and 10.
+
+### A.5 Terms used without definition
+
+"Data cube aggregation", "numerosity reduction", "top-down discretization" and
+"bottom-up discretization" are data-warehousing terms that appear in the draft with no
+plain-language definition. They are retained — they are legitimate syllabus content —
+and each now has a one-line definition and a Pandas equivalent in
+[Session 8](#sec-s08), so the student meets the idea and the tool together.
+
+### A.6 Demos that could not be run
+
+The Session 13 demo explored HDFS through terminal commands, which needs a Hadoop
+cluster. The draft gave no execution path. *Fixed:* [Session 14](#sec-s14) names three
+supported paths, and every code cell in the session runs on the laptop-only path.
+
+### A.7 What was deliberately kept
+
+- **The 16-session structure**, on the assumption that it is fixed by the schedule
+- **Every topic**, including the data-warehousing taxonomy in Session 6 of the draft
+  and the five integration approaches in Session 4
+- **Every demo**, several extended with a counter-demo showing the same technique
+  failing
+- **The big-data block**, which several data science syllabi drop; it is consolidated,
+  not reduced
+
+# Appendix B — Coverage map {#sec-coverage}
+
+*Every line of the draft, and where it now lives. Nothing was removed.*
+
+| Draft | Draft content | Now in |
+|---|---|---|
+| S1 | Introduction to Data Science — definition | [S1](#sec-s01) |
+| S1 | Evolution of Data Science | [S1](#sec-s01) |
+| S1 | Data Science roles | [S1](#sec-s01) |
+| S1 | Application of data sciences | [S1](#sec-s01) |
+| S1 | *Demo:* interactive real-world dashboard | [S1](#sec-s01) demo |
+| S2 | Data collection strategies | [S3](#sec-s03) |
+| S2 | Data pre-processing overview | [S3](#sec-s03), as the roadmap for [Part C](#sec-part-c) |
+| S2 | Working with Pandas data frames | [S3](#sec-s03) |
+| S2 | *Demo:* messy CSV, `.head()` `.info()` `.describe()` | [S3](#sec-s03) demo |
+| S3 | Filling missing values | [S6](#sec-s06) |
+| S3 | Smoothing noisy data | [S6](#sec-s06) |
+| S3 | Detecting and removing outliers | [S6](#sec-s06) |
+| S3 | *Demo:* `NaN` → mean, box plot before and after | [S6](#sec-s06) demo |
+| S4 | Virtual integration | [S3](#sec-s03) |
+| S4 | Physical data integration | [S3](#sec-s03) |
+| S4 | Application-based integration | [S3](#sec-s03) |
+| S4 | Manual integration | [S3](#sec-s03) |
+| S4 | Middleware data integration | [S3](#sec-s03) |
+| S4 | *Demo:* `.merge()` and `.join()` on customer and purchase tables | [S3](#sec-s03) demo |
+| S5 | Rescaling data | [S7](#sec-s07) |
+| S5 | Normalizing data | [S7](#sec-s07) |
+| S5 | Binarizing data | [S7](#sec-s07) |
+| S5 | Standardizing data | [S7](#sec-s07) |
+| S5 | *Demo:* `MinMaxScaler`, `StandardScaler`, distribution shift | [S7](#sec-s07) demo |
+| S6 | Dimensionality reduction | [S8](#sec-s08) |
+| S6 | Data cube aggregation | [S8](#sec-s08) |
+| S6 | Numerosity reduction | [S8](#sec-s08) |
+| S6 | Top-down discretization | [S8](#sec-s08) |
+| S6 | Bottom-up discretization | [S8](#sec-s08) |
+| S6 | *Demo:* PCA 10 → 2, `pd.cut` age buckets | [S8](#sec-s08) demo |
+| S7 | Measures of central tendency and dispersion | [S4](#sec-s04) |
+| S7 | Mean, standard deviation, averages | [S4](#sec-s04) |
+| S7 | Skewness and kurtosis | [S4](#sec-s04) |
+| S7 | Frequency distributions | [S4](#sec-s04) |
+| S7 | *Demo:* summary statistics, histogram with bell curve | [S4](#sec-s04) demo |
+| S8 | Basic plots using Matplotlib | [S5](#sec-s05) |
+| S8 | Box plots, pivot table | [S5](#sec-s05) |
+| S8 | Correlation statistics, correlation coefficient | [S5](#sec-s05) |
+| S8 | Correlation and scatter plots | [S5](#sec-s05) |
+| S8 | *Demo:* Seaborn heatmap and scatter plots | [S5](#sec-s05) demo |
+| S9 | Supervised learning techniques | [S9](#sec-s09), families split across [S9](#sec-s09) and [S10](#sec-s10) |
+| S9 | Prediction and decision making | [S9](#sec-s09), decision cost extended in [S10](#sec-s10) |
+| S9 | Simple and multiple regression | [S9](#sec-s09) |
+| S9 | *Demo:* multiple linear regression on real estate | [S9](#sec-s09) demo |
+| S10 | Unsupervised learning techniques | [S12](#sec-s12) |
+| S10 | Introduction to clustering | [S12](#sec-s12) |
+| S10 | K-Means clustering | [S12](#sec-s12) |
+| S10 | *Demo:* K-Means on mall customers with centroids | [S12](#sec-s12) demo |
+| S11 | Model evaluation techniques | [S11](#sec-s11) |
+| S11 | Model evaluation using visualization | [S11](#sec-s11) |
+| S11 | Residual plot and distributional plot | [S11](#sec-s11) |
+| S11 | *Demo:* residuals, homoscedasticity, predicted vs actual | [S11](#sec-s11) demo |
+| S12 | Saving trained models | [S13](#sec-s13) |
+| S12 | Deployment of models using Streamlit | [S13](#sec-s13) |
+| S12 | Offline deployment | [S13](#sec-s13) |
+| S12 | Online deployment | [S13](#sec-s13) |
+| S12 | *Demo:* `joblib`, Streamlit sliders, Community Cloud | [S13](#sec-s13) demo |
+| S13 | Working of big data analytics | [S14](#sec-s14) |
+| S13 | Types of big data analytics | [S14](#sec-s14) |
+| S13 | Big data analytics technologies and tools | [S14](#sec-s14) |
+| S13 | *Demo:* HDFS `put`, `get`, `ls` | [S14](#sec-s14) demo, with three execution paths |
+| S14 | Big data analytics using MapReduce and Apache Hadoop | [S14](#sec-s14) |
+| S14 | Big data analytics using Hadoop and Apache Spark | [S14](#sec-s14) |
+| S14 | *Demo:* PySpark vs Pandas on a large log file | [S14](#sec-s14) demo and lab |
+| S15 | Big data analytics using Apache Cassandra, MongoDB | [S15](#sec-s15) |
+| S15 | Statistical method for visualization | taught in [S5](#sec-s05), applied at scale in [S15](#sec-s15) |
+| S15 | *Demo:* `pymongo` insert, aggregate, visualize | [S15](#sec-s15) demo |
+| S16 | Apply the entire data analytics process | [S16](#sec-s16) |
+| S16 | Clustering and association rule mining on market basket | taught in [S12](#sec-s12), applied in [S16](#sec-s16) |
+| S16 | Insightful visualizations and statistical analysis | taught in [S4](#sec-s04)–[S5](#sec-s05), applied in [S16](#sec-s16) |
+| S16 | Advanced machine learning models on a complex dataset | taught in [S9](#sec-s09)–[S11](#sec-s11), applied in [S16](#sec-s16) |
+
+# Appendix C — Source material {#sec-sources}
+
+Content marked ➕ in Sessions 1–2, 5, 7–13 and 16 is aligned with the
+[ML/AI and GenAI internship programme](https://github.com/tech4alltraining/aiml/tree/main/mlai-genai-internship),
+so that a student moving between the two courses meets the same conventions, the same
+datasets and the same analogies.
+
+| Source | Used for |
+|---|---|
+| [Student sessions](https://github.com/tech4alltraining/aiml/tree/main/mlai-genai-internship/student/sessions) | topic depth and sequencing for Sessions 2, 5, 7–13 |
+| [Notebooks](https://github.com/tech4alltraining/aiml/tree/main/mlai-genai-internship/student/notebooks) | the Python pre-work, and lab starting points |
+| [Trainer curriculum](https://github.com/tech4alltraining/aiml/blob/main/mlai-genai-internship/trainer/curriculum.md) | the reference-link set in this appendix |
+| [Session plan](https://github.com/tech4alltraining/aiml/blob/main/mlai-genai-internship/trainer/session-plan.md) | the activity structure adapted for the labs |
+| [Dataset catalog](https://github.com/tech4alltraining/aiml/tree/main/datasets) | every dataset in [§ Datasets](#sec-datasets) |
+| [Setup guide](https://github.com/tech4alltraining/aiml/blob/main/mlai-genai-internship/student/setup-guide.md) | the Session 1 environment lab, adapted to the `ds` environment |
+| [Exercises and assignments](https://github.com/tech4alltraining/aiml/blob/main/mlai-genai-internship/student/exercises-assignments.md) | the assignment structure in [§ Assessment](#sec-assessment) |
+
+**Further reading, per topic** — machine learning lifecycle, preprocessing, regression
+and its metrics, classification and its metrics, clustering and neural networks: the
+curated link list in the
+[trainer curriculum](https://github.com/tech4alltraining/aiml/blob/main/mlai-genai-internship/trainer/curriculum.md#references--video-tutorials).
+
+::: {.callout-tip title="✅ Before this syllabus goes to students"}
+- [ ] Confirm the 16-session structure matches the institutional schedule
+- [ ] Confirm the assessment weights in [§ Assessment](#sec-assessment) against
+      institutional policy
+- [ ] Decide the Session 14 execution path — Docker, PySpark local, or hosted sandbox —
+      and the Session 15 MongoDB path, before the term starts
+- [ ] Write the three generator scripts: `make_baskets.py`, `make_logs.py`,
+      `make_customers.py`, each seeded and committed
+- [ ] Pin every version in `requirements.txt` and build the `ds` environment once, end
+      to end
+:::

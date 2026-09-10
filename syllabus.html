@@ -1,0 +1,2311 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-09-08">
+
+<title>Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="syllabus_files/libs/clipboard/clipboard.min.js"></script>
+<script src="syllabus_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="syllabus_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="syllabus_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="syllabus_files/libs/quarto-html/popper.min.js"></script>
+<script src="syllabus_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="syllabus_files/libs/quarto-html/anchor.min.js"></script>
+<link href="syllabus_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="syllabus_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="syllabus_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="syllabus_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="syllabus_files/libs/bootstrap/bootstrap-a74871fe4945b66d259aafc266475145.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sec-changes" id="toc-sec-changes" class="nav-link active" data-scroll-target="#sec-changes">What changed, in one screen</a></li>
+  <li><a href="#sec-description" id="toc-sec-description" class="nav-link" data-scroll-target="#sec-description">Course description</a></li>
+  <li><a href="#sec-audience" id="toc-sec-audience" class="nav-link" data-scroll-target="#sec-audience">Who this course is for</a></li>
+  <li><a href="#sec-outcomes" id="toc-sec-outcomes" class="nav-link" data-scroll-target="#sec-outcomes">Course learning outcomes</a></li>
+  <li><a href="#sec-organisation" id="toc-sec-organisation" class="nav-link" data-scroll-target="#sec-organisation">How the course is organised</a></li>
+  <li><a href="#sec-map" id="toc-sec-map" class="nav-link" data-scroll-target="#sec-map">Session map</a></li>
+  <li><a href="#sec-part-a" id="toc-sec-part-a" class="nav-link" data-scroll-target="#sec-part-a">Part A — Foundations</a>
+  <ul class="collapse">
+  <li><a href="#sec-s01" id="toc-sec-s01" class="nav-link" data-scroll-target="#sec-s01">Session 1 — Introduction to Data Science and the Analytics Lifecycle</a></li>
+  <li><a href="#sec-s02" id="toc-sec-s02" class="nav-link" data-scroll-target="#sec-s02">Session 2 — ➕ Python and NumPy Essentials for Data Science</a></li>
+  <li><a href="#sec-s03" id="toc-sec-s03" class="nav-link" data-scroll-target="#sec-s03">Session 3 — Data Collection, Integration and Pandas Fundamentals</a></li>
+  </ul></li>
+  <li><a href="#sec-part-b" id="toc-sec-part-b" class="nav-link" data-scroll-target="#sec-part-b">Part B — Understanding the data</a>
+  <ul class="collapse">
+  <li><a href="#sec-s04" id="toc-sec-s04" class="nav-link" data-scroll-target="#sec-s04">Session 4 — Descriptive Statistics for Data Science</a></li>
+  <li><a href="#sec-s05" id="toc-sec-s05" class="nav-link" data-scroll-target="#sec-s05">Session 5 — Exploratory Data Analysis and Visualization</a></li>
+  </ul></li>
+  <li><a href="#sec-part-c" id="toc-sec-part-c" class="nav-link" data-scroll-target="#sec-part-c">Part C — Preparing the data</a>
+  <ul class="collapse">
+  <li><a href="#sec-s06" id="toc-sec-s06" class="nav-link" data-scroll-target="#sec-s06">Session 6 — Data Cleaning</a></li>
+  <li><a href="#sec-s07" id="toc-sec-s07" class="nav-link" data-scroll-target="#sec-s07">Session 7 — Data Transformation, Encoding and the Train–Test Split</a></li>
+  <li><a href="#sec-s08" id="toc-sec-s08" class="nav-link" data-scroll-target="#sec-s08">Session 8 — Data Reduction, Discretization and Feature Engineering</a></li>
+  </ul></li>
+  <li><a href="#sec-part-d" id="toc-sec-part-d" class="nav-link" data-scroll-target="#sec-part-d">Part D — Modelling and evaluation</a>
+  <ul class="collapse">
+  <li><a href="#sec-s09" id="toc-sec-s09" class="nav-link" data-scroll-target="#sec-s09">Session 9 — Supervised Learning I: Regression</a></li>
+  <li><a href="#sec-s10" id="toc-sec-s10" class="nav-link" data-scroll-target="#sec-s10">Session 10 — ➕ Supervised Learning II: Classification</a></li>
+  <li><a href="#sec-s11" id="toc-sec-s11" class="nav-link" data-scroll-target="#sec-s11">Session 11 — Model Evaluation, Validation and Tuning</a></li>
+  <li><a href="#sec-s12" id="toc-sec-s12" class="nav-link" data-scroll-target="#sec-s12">Session 12 — Unsupervised Learning: Clustering and Association Rules</a></li>
+  </ul></li>
+  <li><a href="#sec-part-e" id="toc-sec-part-e" class="nav-link" data-scroll-target="#sec-part-e">Part E — Delivery and scale</a>
+  <ul class="collapse">
+  <li><a href="#sec-s13" id="toc-sec-s13" class="nav-link" data-scroll-target="#sec-s13">Session 13 — Model Saving and Deployment with Streamlit</a></li>
+  <li><a href="#sec-s14" id="toc-sec-s14" class="nav-link" data-scroll-target="#sec-s14">Session 14 — Big Data Analytics: Fundamentals and Distributed Processing</a></li>
+  <li><a href="#sec-s15" id="toc-sec-s15" class="nav-link" data-scroll-target="#sec-s15">Session 15 — NoSQL Data Stores and Visual Analytics at Scale</a></li>
+  <li><a href="#sec-s16" id="toc-sec-s16" class="nav-link" data-scroll-target="#sec-s16">Session 16 — Capstone: The End-to-End Data Science Project</a></li>
+  </ul></li>
+  <li><a href="#sec-conventions" id="toc-sec-conventions" class="nav-link" data-scroll-target="#sec-conventions">Course conventions</a>
+  <ul class="collapse">
+  <li><a href="#sec-environment" id="toc-sec-environment" class="nav-link" data-scroll-target="#sec-environment">Tools and environment</a></li>
+  <li><a href="#sec-datasets" id="toc-sec-datasets" class="nav-link" data-scroll-target="#sec-datasets">Datasets</a></li>
+  <li><a href="#sec-assessment" id="toc-sec-assessment" class="nav-link" data-scroll-target="#sec-assessment">Assessment</a></li>
+  </ul></li>
+  <li><a href="#sec-review" id="toc-sec-review" class="nav-link" data-scroll-target="#sec-review">Appendix A — Review of the draft syllabus</a>
+  <ul class="collapse">
+  <li><a href="#a.1-ordering-faults-a-result-that-runs-and-is-wrong" id="toc-a.1-ordering-faults-a-result-that-runs-and-is-wrong" class="nav-link" data-scroll-target="#a.1-ordering-faults-a-result-that-runs-and-is-wrong">A.1 Ordering faults — a result that runs and is wrong</a></li>
+  <li><a href="#a.2-missing-prerequisites" id="toc-a.2-missing-prerequisites" class="nav-link" data-scroll-target="#a.2-missing-prerequisites">A.2 Missing prerequisites</a></li>
+  <li><a href="#a.3-promised-but-never-taught" id="toc-a.3-promised-but-never-taught" class="nav-link" data-scroll-target="#a.3-promised-but-never-taught">A.3 Promised but never taught</a></li>
+  <li><a href="#a.4-sessions-that-were-the-wrong-size" id="toc-a.4-sessions-that-were-the-wrong-size" class="nav-link" data-scroll-target="#a.4-sessions-that-were-the-wrong-size">A.4 Sessions that were the wrong size</a></li>
+  <li><a href="#a.5-terms-used-without-definition" id="toc-a.5-terms-used-without-definition" class="nav-link" data-scroll-target="#a.5-terms-used-without-definition">A.5 Terms used without definition</a></li>
+  <li><a href="#a.6-demos-that-could-not-be-run" id="toc-a.6-demos-that-could-not-be-run" class="nav-link" data-scroll-target="#a.6-demos-that-could-not-be-run">A.6 Demos that could not be run</a></li>
+  <li><a href="#a.7-what-was-deliberately-kept" id="toc-a.7-what-was-deliberately-kept" class="nav-link" data-scroll-target="#a.7-what-was-deliberately-kept">A.7 What was deliberately kept</a></li>
+  </ul></li>
+  <li><a href="#sec-coverage" id="toc-sec-coverage" class="nav-link" data-scroll-target="#sec-coverage">Appendix B — Coverage map</a></li>
+  <li><a href="#sec-sources" id="toc-sec-sources" class="nav-link" data-scroll-target="#sec-sources">Appendix C — Source material</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Data Science</h1>
+<p class="subtitle lead">Course syllabus · 16 sessions · from raw data to a deployed model at scale</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 8, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>This syllabus is the contract between the course and the student.</strong> It lists every topic, the order it is taught in, the dataset it is taught on, and what the student can do afterwards.</p>
+<p><strong>It is a reorganisation of the 16-session draft, not a replacement.</strong> Every topic in the draft survives; the sequence, the grouping and the depth have changed. <a href="#sec-coverage">Appendix B</a> maps every draft bullet to its new home, and <a href="#sec-review">Appendix A</a> explains each change. Topics marked ➕ are additions.</p>
+</div>
+</div>
+<section id="sec-changes" class="level2">
+<h2 class="anchored" data-anchor-id="sec-changes">What changed, in one screen</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Change</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>Statistics and EDA moved before cleaning</strong> (draft S7–S8 → new S4–S5)</td>
+<td>You cannot call a value an outlier before you know the distribution. The draft removed outliers in S3 and taught the IQR in S7.</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><strong>The train–test split moved before scaling</strong> (new S7)</td>
+<td>The draft scaled data in S5 and first split it in S9. Every student who followed that order leaked test data into training.</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong>A Python and NumPy session added</strong> (new S2)</td>
+<td>The draft opened Pandas in S2 with no Python and no NumPy behind it.</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><strong>A classification session added</strong> (new S10)</td>
+<td>The draft taught regression only, then asked for “advanced machine learning models” in the capstone.</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>Model evaluation moved ahead of clustering</strong> (draft S11 → new S11)</td>
+<td>Cross-validation and over/underfitting are the vocabulary the clustering session needs to justify a choice of <em>k</em>.</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><strong>Association rule mining taught, not just assigned</strong> (new S12)</td>
+<td>The draft required it in the capstone and never covered it.</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td><strong>Data integration merged into the Pandas session</strong> (draft S4 → new S3)</td>
+<td>A five-item taxonomy plus one <code>.merge()</code> demo is not a session; joining data is what Pandas is for.</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td><strong>The three big-data sessions became two, plus a runnable path</strong> (draft S13–S15 → new S14–S15)</td>
+<td>Hadoop and MapReduce belong together; HDFS-on-a-laptop needs an execution plan, which the draft did not give.</td>
+</tr>
+</tbody>
+</table>
+<p>Session count is unchanged at 16.</p>
+</section>
+<section id="sec-description" class="level2">
+<h2 class="anchored" data-anchor-id="sec-description">Course description</h2>
+<p>Data science turns recorded facts into decisions. This course walks that path once, end to end, and then walks it again at a scale where the data no longer fits in memory.</p>
+<p>The student starts with a raw, dirty CSV and finishes with a model that other people can use through a web page, plus the judgement to say when its answer should not be trusted. Along the way they learn the statistics that make a chart honest, the preprocessing order that keeps a result real, and the distributed tools that apply when a single machine is not enough.</p>
+<p><strong>The course is practical.</strong> Every session has a live demo and a hands-on lab, and every technique is taught on a named dataset that actually contains the problem the technique solves.</p>
+</section>
+<section id="sec-audience" class="level2">
+<h2 class="anchored" data-anchor-id="sec-audience">Who this course is for</h2>
+<p>Students and early-career professionals who want to work with data as engineers, analysts or scientists — including those with no machine learning background.</p>
+<p><strong>Assumed:</strong> comfort with a computer, school-level algebra, willingness to read an error message.</p>
+<p><strong>Not assumed:</strong> Python, statistics, machine learning, or any prior tooling. Session 2 starts from variables.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="➕ Pre-work for students who have never written code">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>➕ Pre-work for students who have never written code
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Three self-paced notebooks, to be finished before Session 2. They start at <code>print()</code>:</p>
+<ul>
+<li><a href="https://github.com/tech4alltraining/aiml/blob/main/mlai-genai-internship/student/notebooks/00a_python_foundations.ipynb">Python foundations A</a> — printing, variables, types, operators, strings</li>
+<li><a href="https://github.com/tech4alltraining/aiml/blob/main/mlai-genai-internship/student/notebooks/00b_python_foundations_2.ipynb">Python foundations B</a> — collections, conditions, loops, functions</li>
+<li><a href="https://github.com/tech4alltraining/aiml/blob/main/mlai-genai-internship/student/notebooks/00c_python_scenarios.ipynb">Python scenarios</a> — ten real problems; <strong>Scenario 10 cleans a messy dataset by hand</strong>, which is exactly what Sessions 6–7 then do with Pandas</li>
+</ul>
+<p>Students who have done Scenario 10 understand <em>why</em> the preprocessing steps exist. Students who have not copy six lines and learn nothing.</p>
+</div>
+</div>
+</section>
+<section id="sec-outcomes" class="level2">
+<h2 class="anchored" data-anchor-id="sec-outcomes">Course learning outcomes</h2>
+<p>By the end of the course a student can:</p>
+<ol type="1">
+<li><strong>Frame</strong> a business question as a data science problem with a measurable target.</li>
+<li><strong>Acquire and integrate</strong> data from files, databases, APIs and the web into one analysable table.</li>
+<li><strong>Describe</strong> a dataset numerically — centre, spread, shape — and say what the numbers rule out.</li>
+<li><strong>Explore</strong> a dataset visually and defend which chart answers which question.</li>
+<li><strong>Clean and prepare</strong> data in an order that does not leak information from the test set into the model.</li>
+<li><strong>Build, compare and tune</strong> regression, classification and clustering models with scikit-learn.</li>
+<li><strong>Evaluate</strong> a model honestly — the right metric, cross-validated, with residual and error analysis.</li>
+<li><strong>Deploy</strong> a trained model as a Streamlit application that another person can use.</li>
+<li><strong>Process</strong> data too large for one machine with Hadoop, MapReduce and Spark, and store it in a NoSQL database.</li>
+<li><strong>Deliver</strong> an end-to-end project with reproducible code, honest reporting of what did not work, and a stated view on bias and privacy.</li>
+</ol>
+</section>
+<section id="sec-organisation" class="level2">
+<h2 class="anchored" data-anchor-id="sec-organisation">How the course is organised</h2>
+<p>Five parts. They are an argument, not a list: <strong>you cannot prepare data you have not described; you cannot model data you have not prepared; you cannot deploy a model you have not evaluated; and none of it changes when the data gets large — only the machinery does.</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Part</th>
+<th>Sessions</th>
+<th>Question it answers</th>
+<th>Shape</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#sec-part-a"><strong>A — Foundations</strong></a></td>
+<td>1–3</td>
+<td><em>What is this field, and how do I touch data at all?</em></td>
+<td>Concept drill</td>
+</tr>
+<tr class="even">
+<td><a href="#sec-part-b"><strong>B — Understanding the data</strong></a></td>
+<td>4–5</td>
+<td><em>What is actually in this file?</em></td>
+<td>Concept drill</td>
+</tr>
+<tr class="odd">
+<td><a href="#sec-part-c"><strong>C — Preparing the data</strong></a></td>
+<td>6–8</td>
+<td><em>How do I make it fit to model without cheating?</em></td>
+<td>Applied walkthrough</td>
+</tr>
+<tr class="even">
+<td><a href="#sec-part-d"><strong>D — Modelling and evaluation</strong></a></td>
+<td>9–12</td>
+<td><em>What can be learned from it, and is the answer real?</em></td>
+<td>Applied walkthrough</td>
+</tr>
+<tr class="odd">
+<td><a href="#sec-part-e"><strong>E — Delivery and scale</strong></a></td>
+<td>13–16</td>
+<td><em>How do others use it, and what if it does not fit in memory?</em></td>
+<td>Applied walkthrough</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sec-map" class="level2">
+<h2 class="anchored" data-anchor-id="sec-map">Session map</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Session</th>
+<th>Part</th>
+<th>Leaves the student able to</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><a href="#sec-s01">Introduction to Data Science and the Analytics Lifecycle</a></td>
+<td>A</td>
+<td>Name the seven lifecycle stages and place a role at each</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><a href="#sec-s02">➕ Python and NumPy Essentials</a></td>
+<td>A</td>
+<td>Write a function and compute with arrays</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><a href="#sec-s03">Data Collection, Integration and Pandas</a></td>
+<td>A</td>
+<td>Load from four sources and join them into one table</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><a href="#sec-s04">Descriptive Statistics</a></td>
+<td>B</td>
+<td>Report centre, spread and shape, and read a p-value</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><a href="#sec-s05">Exploratory Data Analysis and Visualization</a></td>
+<td>B</td>
+<td>Choose the chart that answers the question</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><a href="#sec-s06">Data Cleaning</a></td>
+<td>C</td>
+<td>Run the nine-step sequence and report what it found</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td><a href="#sec-s07">Data Transformation, Encoding and the Split</a></td>
+<td>C</td>
+<td>Split first, then scale — and explain why</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td><a href="#sec-s08">Data Reduction, Discretization and Feature Engineering</a></td>
+<td>C</td>
+<td>Cut 30 columns to 6 without cutting the signal</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td><a href="#sec-s09">Supervised Learning I — Regression</a></td>
+<td>D</td>
+<td>Fit and interpret a multiple regression</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td><a href="#sec-s10">➕ Supervised Learning II — Classification</a></td>
+<td>D</td>
+<td>Read a confusion matrix and pick the right metric</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td><a href="#sec-s11">Model Evaluation, Validation and Tuning</a></td>
+<td>D</td>
+<td>Cross-validate, diagnose and tune a model</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td><a href="#sec-s12">Unsupervised Learning — Clustering and Association Rules</a></td>
+<td>D</td>
+<td>Choose <em>k</em> and defend it; mine a basket for rules</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td><a href="#sec-s13">Model Saving and Deployment with Streamlit</a></td>
+<td>E</td>
+<td>Ship a working prediction web app</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td><a href="#sec-s14">Big Data Analytics and Distributed Processing</a></td>
+<td>E</td>
+<td>Run a Spark job over data too big for Pandas</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td><a href="#sec-s15">NoSQL Data Stores and Visual Analytics at Scale</a></td>
+<td>E</td>
+<td>Query MongoDB and plot ten million rows honestly</td>
+</tr>
+<tr class="even">
+<td>16</td>
+<td><a href="#sec-s16">Capstone — The End-to-End Project</a></td>
+<td>E</td>
+<td>Deliver and defend a complete project</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled" title="How to read a session entry">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>How to read a session entry
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Topics</strong> are what is taught. A ➕ marks a topic added to the draft. <strong>Demo</strong> is trainer-led and watched. <strong>Lab</strong> is student-led and graded on completion. <strong>Dataset</strong> names the file the session runs on — chosen because it <em>contains</em> the problem being taught. <strong>By the end</strong> is the checkable contract for that session.</p>
+</div>
+</div>
+</section>
+<section id="sec-part-a" class="level1">
+<h1>Part A — Foundations</h1>
+<p><em>Three sessions to answer one question: what is this field, and what do I type to touch a dataset at all?</em></p>
+<section id="sec-s01" class="level3">
+<h3 class="anchored" data-anchor-id="sec-s01">Session 1 — Introduction to Data Science and the Analytics Lifecycle</h3>
+<p><em>Sets the map the other fifteen sessions are drawn on.</em></p>
+<p><strong>Topics</strong></p>
+<ul>
+<li>Introduction to Data Science — definition, and what separates it from reporting</li>
+<li>Evolution of Data Science — statistics → business intelligence → big data → machine learning → generative AI</li>
+<li>Data Science roles — data analyst, data engineer, data scientist, ML engineer, BI developer; who owns which lifecycle stage</li>
+<li>Applications of data science across sectors — healthcare, finance, retail, logistics, agriculture, public services</li>
+<li>➕ Data Science vs Statistics vs Machine Learning vs AI vs Generative AI — the nested picture, and the honest boundaries between them</li>
+<li>➕ Types of data: <strong>structured</strong> (tables, CSV, SQL), <strong>semi-structured</strong> (JSON, XML, logs), <strong>unstructured</strong> (text, image, audio, video) — with what each costs to work with</li>
+<li>➕ The data science lifecycle: problem definition → data collection → cleaning and preprocessing → exploration → feature engineering → modelling → evaluation → deployment → monitoring</li>
+<li>➕ The toolchain: Python, Jupyter, Google Colab, conda, Git, and where each fits</li>
+<li>➕ Where the data comes from: open dataset repositories (Kaggle, UCI, data.gov, Hugging Face Datasets) and how to read a dataset licence</li>
+<li>➕ Responsible data science, previewed: consent, bias, privacy, reproducibility — returned to in <a href="#sec-s16">Session 16</a></li>
+</ul>
+<p><strong>Demo</strong> — An interactive, real-world data science dashboard (a live weather or stock predictor), traced backwards through the lifecycle: <em>this chart came from this model, which came from this table, which came from these three sources.</em></p>
+<p><strong>Lab</strong> — ➕ Environment check. Every student installs the <code>ds</code> environment, runs <code>check_setup.py</code>, opens Colab, and prints the version of every library the course uses. A student who cannot do this today cannot do Session 2.</p>
+<p><strong>Dataset</strong> — None. Concepts only.</p>
+<p><strong>By the end</strong> — The student can name the seven lifecycle stages in order, place each job role against the stages it owns, and classify a given data source as structured, semi-structured or unstructured.</p>
+</section>
+<section id="sec-s02" class="level3">
+<h3 class="anchored" data-anchor-id="sec-s02">Session 2 — ➕ Python and NumPy Essentials for Data Science</h3>
+<p><em>Added session. The draft opened Pandas in Session 2 with nothing underneath it.</em></p>
+<p><strong>Topics</strong></p>
+<ul>
+<li>➕ Python refresher: variables, data types, operators, conditional statements, loops, functions</li>
+<li>➕ Collections: list, tuple, dictionary, set — and which one a data problem wants</li>
+<li>➕ Strings and formatting; reading and writing files</li>
+<li>➕ Classes and objects, briefly — enough to read <code>model.fit()</code> and know what <code>model</code> is</li>
+<li>➕ Why libraries exist: the cost of a Python loop over a million numbers</li>
+<li>➕ NumPy: creating arrays, array indexing, array slicing, data types, copy vs view, array shape, reshape, iterating</li>
+<li>➕ Vectorised arithmetic and broadcasting</li>
+<li>➕ Aggregations and axis-wise statistics; boolean masking and <code>where</code></li>
+<li>➕ Random numbers and <strong>seeding</strong> — every result in this course is reproducible</li>
+</ul>
+<p><strong>Demo</strong> — The same calculation twice: a Python <code>for</code> loop over one million values, then one NumPy expression. Time both. The number on screen is the argument for the rest of the course.</p>
+<p><strong>Lab</strong> — ➕ The marks calculator: load exam scores into an array, compute per-student and per-subject means, flag every score below one standard deviation from the mean using a boolean mask, without writing a loop.</p>
+<p><strong>Dataset</strong> — Generated arrays, seeded.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Copy versus view">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Copy versus view
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>b = a[2:5]</code> does not copy — writing to <code>b</code> changes <code>a</code>. This is the single most common source of “my data changed and I did not change it” in the whole course, and it is taught here so it never has to be debugged later.</p>
+</div>
+</div>
+<p><strong>By the end</strong> — The student can write a function, index and reshape an array, and replace a loop with a vectorised expression.</p>
+</section>
+<section id="sec-s03" class="level3">
+<h3 class="anchored" data-anchor-id="sec-s03">Session 3 — Data Collection, Integration and Pandas Fundamentals</h3>
+<p><em>Merges draft Session 2 and draft Session 4. Getting data in, and putting it together, are one job.</em></p>
+<p><strong>Topics</strong></p>
+<p><em>Collecting</em></p>
+<ul>
+<li>Data collection strategies — primary vs secondary, surveys, sensors and IoT, transactional systems, public datasets, web scraping, third-party APIs</li>
+<li>➕ Sampling: random, stratified, systematic, convenience — and the bias each one introduces</li>
+<li>➕ Legal and ethical collection: robots.txt, terms of service, personal data</li>
+<li>Data pre-processing overview — the roadmap of Part C, shown once here so the student knows what is coming and why</li>
+</ul>
+<p><em>Handling with Pandas</em></p>
+<ul>
+<li>Working with Pandas DataFrames — Series vs DataFrame, index, dtypes</li>
+<li>➕ Reading from four sources: <code>read_csv</code>, <code>read_excel</code>, <code>read_json</code>, <code>read_sql</code>, and a REST API response</li>
+<li>➕ Inspecting: <code>.head()</code>, <code>.info()</code>, <code>.describe()</code>, <code>.shape</code>, <code>.dtypes</code>, <code>.value_counts()</code></li>
+<li>➕ Selecting and filtering: <code>[]</code>, <code>.loc</code>, <code>.iloc</code>, boolean masks</li>
+<li>➕ Reshaping and summarising: <code>groupby</code>, <code>agg</code>, <code>sort_values</code>, <code>apply</code>, <code>pivot</code></li>
+<li>➕ Writing results back out: <code>to_csv</code>, <code>to_excel</code></li>
+</ul>
+<p><em>Integrating</em></p>
+<ul>
+<li>Data integration approaches — <strong>virtual integration</strong> (query many sources as one, nothing is copied), <strong>physical data integration</strong> (copy everything into a warehouse), <strong>application-based integration</strong> (each application does its own translating), <strong>manual integration</strong> (a human copies and pastes), <strong>middleware data integration</strong> (a layer in between does the translating)</li>
+<li>➕ Which approach a given situation calls for, as a comparison table: freshness, cost, failure mode</li>
+<li>➕ Combining tables in Pandas: <code>concat</code>, <code>merge</code>, <code>join</code></li>
+<li>➕ Join types — inner, left, right, outer — and the row count that proves which one happened</li>
+<li>➕ Integration problems the taxonomy hides: schema conflicts, duplicate entities under different spellings, unit mismatches, redundant columns</li>
+</ul>
+<p><strong>Demo</strong> — Loading a raw, messy CSV into a Pandas DataFrame and running <code>.head()</code>, <code>.info()</code> and <code>.describe()</code> to inspect the raw structure. Then <code>.merge()</code> and <code>.join()</code> to combine a <em>Customer Info</em> table with a <em>Purchase History</em> table on a common ID — and, deliberately, the same merge done wrong, so the class watches the row count explode from 500 to 4,300.</p>
+<p><strong>Lab</strong> — Load three files (CSV, Excel, JSON), reconcile their differing column names and ID formats, join them into one table, and report the row count after each step.</p>
+<p><strong>Dataset</strong> — <a href="https://github.com/tech4alltraining/aiml/blob/main/datasets/prepreprocessing/pre_data.csv"><code>prepreprocessing/pre_data.csv</code></a> (12 rows, small enough to check by eye) and <a href="https://github.com/tech4alltraining/aiml/blob/main/datasets/regression/cardekho_dataset.csv"><code>regression/cardekho_dataset.csv</code></a> (real, and messy). Customer/purchase tables are generated by a committed, seeded script, <code>datasets/make_customers.py</code>.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Check the row count after every join">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Check the row count after every join
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A merge that silently multiplies rows is the most expensive undetected error in this course: everything downstream still runs, the model trains, the accuracy looks fine, and the result is meaningless. <strong>Print <code>len(df)</code> before and after. Every time.</strong></p>
+</div>
+</div>
+<p><strong>By the end</strong> — The student can load data from four source types, join tables with the correct join type, and detect a bad join from the row count alone.</p>
+</section>
+</section>
+<section id="sec-part-b" class="level1">
+<h1>Part B — Understanding the data</h1>
+<p><em>Two sessions, moved ahead of cleaning. Nothing in Part C can be decided without them: an outlier is only extreme relative to a distribution you have already measured.</em></p>
+<section id="sec-s04" class="level3">
+<h3 class="anchored" data-anchor-id="sec-s04">Session 4 — Descriptive Statistics for Data Science</h3>
+<p><em>Was draft Session 7. Moved forward by three sessions.</em></p>
+<p><strong>Topics</strong></p>
+<ul>
+<li>Measures of central tendency and dispersion — the two questions every column answers first</li>
+<li>Mean, median, mode; standard deviation, variance, range — and <strong>which average to report when the data is skewed</strong></li>
+<li>➕ Percentiles, quartiles, the interquartile range and the five-number summary — the machinery <a href="#sec-s06">Session 6</a> uses to detect outliers</li>
+<li>➕ Z-scores and standardised comparison across different units</li>
+<li>Skewness and kurtosis — what a shape number means before you have seen the picture</li>
+<li>Frequency distributions, histograms and bin width; the effect of choosing bins badly</li>
+<li>➕ Probability distributions in brief: uniform, normal, binomial, Poisson — and how to tell whether your column is plausibly normal</li>
+<li>➕ Populations, samples, sampling error and the standard error of the mean</li>
+<li>➕ Inferential essentials: confidence intervals, the null hypothesis, the p-value, the <em>t</em>-test, the chi-square test of independence, one-way ANOVA</li>
+<li>➕ What a p-value does <strong>not</strong> mean, stated explicitly</li>
+</ul>
+<p><strong>Demo</strong> — Summary statistics on a real dataset, then a histogram with a normal curve overlaid, so skewness and kurtosis stop being numbers and become a shape. Then the same column’s mean and median side by side, with the gap between them explained.</p>
+<p><strong>Lab</strong> — Profile every numeric column of the car dataset: report centre, spread and shape for each, then answer one question with a <em>t</em>-test — <em>do diesel and petrol cars differ in selling price, or is the gap sampling noise?</em></p>
+<p><strong>Dataset</strong> — <a href="https://github.com/tech4alltraining/aiml/blob/main/datasets/regression/cardekho_dataset.csv"><code>regression/cardekho_dataset.csv</code></a> (strongly skewed prices — the mean and median disagree, which is the point) and <a href="https://github.com/tech4alltraining/aiml/blob/main/datasets/classification/heart_failure_raw.csv"><code>classification/heart_failure_raw.csv</code></a>.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — centre and spread">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>🧠 Analogy — centre and spread
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Reporting the mean without the standard deviation is like describing a journey by its average speed and nothing else. <em>Average 60 km/h</em> is true of a steady cruise and of an hour of stop-start traffic. <strong>The spread is the part that tells you what the trip was actually like.</strong></p>
+</div>
+</div>
+<p><strong>By the end</strong> — The student can report centre, spread and shape for any column, choose mean or median with a stated reason, and interpret a p-value correctly in one sentence.</p>
+</section>
+<section id="sec-s05" class="level3">
+<h3 class="anchored" data-anchor-id="sec-s05">Session 5 — Exploratory Data Analysis and Visualization</h3>
+<p><em>Was draft Session 8. Also absorbs “statistical methods for visualization” from draft Session 15, which belongs with the charts, not with the databases.</em></p>
+<p><strong>Topics</strong></p>
+<ul>
+<li>Basic plots using Matplotlib — figure and axes, line, bar, histogram, scatter, labels, titles, saving</li>
+<li>➕ Seaborn for statistical graphics — <code>countplot</code>, <code>histplot</code>, <code>boxplot</code>, <code>violinplot</code>, <code>pairplot</code>, <code>heatmap</code></li>
+<li>Box plots — the five-number summary drawn, and the whisker rule that defines an outlier</li>
+<li>Pivot tables — cross-tabulating two categoricals against a numeric summary</li>
+<li>Correlation statistics and the correlation coefficient — Pearson, and ➕ Spearman for ranks</li>
+<li>Correlation and scatter plots — reading strength, direction and non-linearity off a picture</li>
+<li>➕ The EDA framework: univariate → bivariate → multivariate, and the five questions to ask of any new dataset</li>
+<li>➕ Statistical methods for visualization: distribution plots, density estimates, error bars and confidence bands, aggregation before plotting — the honest way to draw a summary</li>
+<li>➕ Visualising missingness: a null-matrix heatmap that shows whether gaps are random or structured</li>
+<li>➕ Choosing the chart: a chart-chooser table mapping <em>question type</em> → <em>chart</em></li>
+<li>➕ Correlation is not causation; confounders; Simpson’s paradox with a worked two-group example</li>
+</ul>
+<p><strong>Demo</strong> — A dynamic visual report: a Seaborn correlation heatmap plus a scatter matrix, used to identify which variables are most heavily correlated — followed by the trap, where the strongest correlation in the matrix turns out to be two columns measuring the same thing in different units.</p>
+<p><strong>Lab</strong> — ➕ <em>Data detective</em>, in pairs. Each pair gets a dataset and thirty minutes to answer five questions with five charts, then presents the one chart that surprised them.</p>
+<p><strong>Dataset</strong> — <a href="https://github.com/tech4alltraining/aiml/blob/main/datasets/regression/cardekho_dataset.csv"><code>regression/cardekho_dataset.csv</code></a> and <a href="https://github.com/tech4alltraining/aiml/blob/main/datasets/loan_data_10k.csv"><code>loan_data_10k.csv</code></a>.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ A chart is a question, not decoration">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ A chart is a question, not decoration
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Every chart in this course must be introduced by the question it answers. A chart with no question attached is where fabricated conclusions come from — the eye finds a pattern in anything.</p>
+</div>
+</div>
+<p><strong>By the end</strong> — The student can pick the chart that answers a stated question, read a correlation heatmap, and give one concrete example where a strong correlation is not a cause.</p>
+</section>
+</section>
+<section id="sec-part-c" class="level1">
+<h1>Part C — Preparing the data</h1>
+<p><em>Three sessions taught in a fixed order. The order is the lesson: run these steps in a different sequence and you will get a number that looks fine and is wrong.</em></p>
+<div class="callout callout-style-default callout-important callout-titled" title="🔓 The preprocessing sequence — used in every session from here on">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>🔓 The preprocessing sequence — used in every session from here on
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre class="text"><code>1 LOAD → 2 EXPLORE → 3 DUPLICATES → 4 IMPOSSIBLE VALUES → 5 MISSING VALUES
+→ 6 OUTLIERS → 7 ENCODING → 8 TRAIN–TEST SPLIT → 9 SCALING</code></pre>
+<p>Two of these positions are not negotiable:</p>
+<ul>
+<li><strong>Impossible values before missing values.</strong> An age of 160 is an error, not an extreme. Turn it into <code>NaN</code> first and let imputation deal with it; do it the other way round and the error is imputed <em>into</em> your data.</li>
+<li><strong>Scaling after the split, fitted on train only.</strong> The same holds for imputation, encoding, feature selection and PCA. Anything that learns from the data goes inside a <code>Pipeline</code>.</li>
+</ul>
+</div>
+</div>
+<section id="sec-s06" class="level3">
+<h3 class="anchored" data-anchor-id="sec-s06">Session 6 — Data Cleaning</h3>
+<p><em>Was draft Session 3. Moved after statistics and EDA, because steps 3–6 of the sequence above all need numbers the student now has.</em></p>
+<p><strong>Topics</strong></p>
+<ul>
+<li>➕ Duplicates: exact and near-duplicate rows, <code>duplicated()</code>, <code>drop_duplicates()</code>, and choosing which copy to keep</li>
+<li>➕ Impossible values: negative ages, future dates, zero-valued blood pressure — finding them with domain rules, converting them to <code>NaN</code></li>
+<li>Filling missing values — mean, median and mode imputation; forward and backward fill; ➕ group-wise imputation; ➕ KNN imputation; ➕ when to drop instead of fill</li>
+<li>➕ Types of missingness (MCAR, MAR, MNAR) and why an imputed column needs a <code>was_missing</code> flag</li>
+<li>Smoothing noisy data — ➕ binning (equal-width and equal-frequency means), regression smoothing, rolling averages, and clustering-based smoothing</li>
+<li>Detecting and removing outliers — the IQR rule, the z-score rule, ➕ visual detection by box plot and scatter</li>
+<li>➕ Handling, not just removing: capping and winsorising, transforming, or keeping the outlier because it is the signal</li>
+<li>➕ Structural cleaning: wrong data types, inconsistent date formats, stray whitespace, mixed category spellings</li>
+<li>➕ Reporting: what the cleaning pass found, as a table, in the notebook</li>
+</ul>
+<p><strong>Demo</strong> — Programmatically replacing <code>NaN</code> values with column means, and plotting a box plot before and after filtering extreme outliers. Then the counter-demo: the same filter applied to fraud data, which deletes every fraud case in the file.</p>
+<p><strong>Lab</strong> — Run the full nine-step sequence on the heart-failure dataset and produce a one-page cleaning report: rows in, duplicates removed, impossible values found, values imputed and by what rule, outliers found and what was done with them, rows out.</p>
+<p><strong>Dataset</strong> — <a href="https://github.com/tech4alltraining/aiml/blob/main/datasets/prepreprocessing/pre_data.csv"><code>prepreprocessing/pre_data.csv</code></a> first, cleaned <strong>by hand</strong> on paper — twelve rows, every problem visible — then <a href="https://github.com/tech4alltraining/aiml/blob/main/datasets/classification/heart_failure_raw.csv"><code>classification/heart_failure_raw.csv</code></a> in code.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ An outlier is not automatically an error">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ An outlier is not automatically an error
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In a fraud dataset the outliers <em>are</em> the fraud. In a sensor dataset they are usually a fault. <strong>The dataset does not tell you which; the domain does.</strong> Never delete a row on a rule alone — look at it first.</p>
+</div>
+</div>
+<p><strong>By the end</strong> — The student can execute the nine-step sequence in order, justify each imputation choice, and give one case where removing outliers destroys the analysis.</p>
+</section>
+<section id="sec-s07" class="level3">
+<h3 class="anchored" data-anchor-id="sec-s07">Session 7 — Data Transformation, Encoding and the Train–Test Split</h3>
+<p><em>Was draft Session 5. Extended with encoding and the split, because scaling without them was the draft’s most serious ordering fault.</em></p>
+<p><strong>Topics</strong></p>
+<ul>
+<li>Rescaling data — <code>MinMaxScaler</code> to a fixed range</li>
+<li>Standardizing data — <code>StandardScaler</code> to mean 0, standard deviation 1</li>
+<li>Normalizing data — <code>Normalizer</code> on rows to unit norm, and why this is a different operation from the other two despite the name</li>
+<li>Binarizing data — <code>Binarizer</code> and thresholding a continuous column</li>
+<li>➕ <code>RobustScaler</code>, for data that still contains outliers you chose to keep</li>
+<li>➕ Which scaler which algorithm needs: distance-based and gradient-based models care; tree-based models do not</li>
+<li>➕ Non-linear transforms: log, square-root, Box-Cox and Yeo-Johnson for skewed columns</li>
+<li>➕ Encoding categorical data: <code>LabelEncoder</code> for the target, one-hot / dummy variables for nominal features, ordinal encoding for ordered categories</li>
+<li>➕ The dummy variable trap, and high-cardinality columns that one-hot encoding cannot handle</li>
+<li>➕ <strong>The train–test split</strong>: <code>train_test_split</code>, <code>test_size</code>, <code>random_state</code>, <code>stratify</code> — with the course-wide naming convention <code>X_train, X_test, y_train,   y_test</code></li>
+<li>➕ <strong>Data leakage</strong> — the single most common serious mistake in student projects — and the three forms it takes: scaling before splitting, imputing before splitting, and features that encode the answer</li>
+<li>➕ <code>Pipeline</code> and <code>ColumnTransformer</code>: making the correct order structural instead of remembered</li>
+</ul>
+<p><strong>Demo</strong> — <code>MinMaxScaler</code> and <code>StandardScaler</code> applied to a dataset, with the distribution plotted before and after so the class sees the shape hold and the axis move. Then the leakage demo: the same model scored twice, once scaled before the split and once after, with both numbers on screen and the gap named.</p>
+<p><strong>Lab</strong> — Take the cleaned dataset from Session 6 and build one <code>Pipeline</code> that imputes, encodes and scales, fitted on the training split only. Prove it is correct by showing the test set was never touched during <code>fit</code>.</p>
+<p><strong>Dataset</strong> — <a href="https://github.com/tech4alltraining/aiml/blob/main/datasets/loan_data_10k.csv"><code>loan_data_10k.csv</code></a> — mixed numeric and categorical, columns on very different scales, an imbalanced target that makes <code>stratify</code> matter.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — studying with the answer key">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>🧠 Analogy — studying with the answer key
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Fitting a scaler on all the data before splitting is revising for an exam using the marked answer paper. You will score brilliantly in practice and badly on the day. <strong>The test set must be data the pipeline has never seen — not even its mean.</strong></p>
+</div>
+</div>
+<p><strong>By the end</strong> — The student can split before transforming, choose a scaler with a stated reason, encode both nominal and ordinal categoricals, and name three ways leakage gets in.</p>
+</section>
+<section id="sec-s08" class="level3">
+<h3 class="anchored" data-anchor-id="sec-s08">Session 8 — Data Reduction, Discretization and Feature Engineering</h3>
+<p><em>Was draft Session 6. Placed after transformation because PCA needs standardised inputs, which the draft had not yet introduced when it taught PCA.</em></p>
+<p><strong>Topics</strong></p>
+<p><em>Reduction</em></p>
+<ul>
+<li>Dimensionality reduction — why 200 columns is often worse than 20; the curse of dimensionality</li>
+<li>➕ Feature selection before projection: <strong>filter</strong> methods (variance threshold, correlation, chi-square, mutual information), <strong>wrapper</strong> methods (recursive feature elimination), <strong>embedded</strong> methods (Lasso, tree feature importance)</li>
+<li>➕ Projection methods: <strong>PCA</strong>, and briefly <strong>LDA</strong> and <strong>t-SNE</strong> — what each is for and why t-SNE is for looking, not for modelling</li>
+<li>➕ Explained variance ratio and the scree plot — choosing how many components to keep</li>
+<li>➕ The cost of PCA: components are combinations, so interpretability is gone</li>
+<li>Data cube aggregation — rolling detail up along dimensions (day → month → year); the OLAP idea, and its Pandas equivalent in <code>groupby</code> and <code>pivot_table</code></li>
+<li>Numerosity reduction — replacing the data with something smaller: ➕ parametric (a fitted model or regression stands in for the rows) and non-parametric (sampling, histograms, clustering)</li>
+</ul>
+<p><em>Discretization</em></p>
+<ul>
+<li>Top-down discretization (splitting) — start with the whole range and cut it: equal-width binning, entropy-based splits</li>
+<li>Bottom-up discretization (merging) — start with every distinct value and merge neighbours: chi-merge</li>
+<li>➕ <code>pd.cut</code> for equal-width and <code>pd.qcut</code> for equal-frequency bins; choosing cut points from domain knowledge rather than from convenience</li>
+<li>➕ What binning costs: information thrown away in exchange for robustness and readability</li>
+</ul>
+<p><em>Feature engineering</em></p>
+<ul>
+<li>➕ Creating features: ratios, differences, date parts (year, month, weekday, age), text length, interaction terms, domain-specific ratios</li>
+<li>➕ Feature engineering worked on two real datasets — used-car and heart-failure</li>
+<li>➕ Data augmentation: what it is, when it is used, and the tabular, image and text techniques — including which augmentations are legitimate and which change the label</li>
+</ul>
+<p><strong>Demo</strong> — PCA compressing a dataset from 10 features to 2, with the explained variance printed so the compression has a cost attached; and <code>pd.cut</code> discretizing continuous age into “Teen”, “Adult”, “Senior”.</p>
+<p><strong>Lab</strong> — Reduce a 30-column dataset to 6 columns three ways — filter selection, embedded selection, PCA — and compare the model score for each against the full set.</p>
+<p><strong>Dataset</strong> — <a href="https://github.com/tech4alltraining/aiml/blob/main/datasets/classification/diabetes_prediction_dataset.csv"><code>classification/diabetes_prediction_dataset.csv</code></a> and <a href="https://github.com/tech4alltraining/aiml/blob/main/datasets/classification/adult.csv"><code>classification/adult.csv</code></a> (high-cardinality categoricals, dates, mixed types).</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Measure the reduction, do not assume it">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Measure the reduction, do not assume it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Engineered features and dimensionality reduction do not reliably improve a model. On real course data, hand-built features have moved linear R² by <strong>+0.0001</strong> and made a random forest <strong>worse</strong>. Report the number you actually get, including when it contradicts the lesson.</p>
+</div>
+</div>
+<p><strong>By the end</strong> — The student can select features three different ways, choose the number of PCA components from a scree plot, and state what binning cost them.</p>
+</section>
+</section>
+<section id="sec-part-d" class="level1">
+<h1>Part D — Modelling and evaluation</h1>
+<p><em>Four sessions. Regression and classification give the student two model families; evaluation then decides whether either of them is real; clustering closes the part by applying the same discipline where there is no answer key at all.</em></p>
+<section id="sec-s09" class="level3">
+<h3 class="anchored" data-anchor-id="sec-s09">Session 9 — Supervised Learning I: Regression</h3>
+<p><em>Was draft Session 9, unchanged in position, extended with the metrics it needs.</em></p>
+<p><strong>Topics</strong></p>
+<ul>
+<li>Supervised learning techniques — the labelled-data idea; regression vs classification as <em>number</em> vs <em>category</em></li>
+<li>Prediction and decision making — the gap between a predicted value and an action taken because of it</li>
+<li>Simple linear regression — one feature, the line of best fit, slope and intercept read as sentences</li>
+<li>Multiple regression — several features, and what a coefficient means when the other columns are held constant</li>
+<li>➕ The scikit-learn API in four calls: <code>fit</code>, <code>predict</code>, <code>score</code>, <code>transform</code> — the shape of every model in the rest of the course</li>
+<li>➕ Regression metrics: MAE, MSE, RMSE, R², adjusted R² — which one to report and to whom</li>
+<li>➕ Assumptions of linear regression: linearity, independence, homoscedasticity, normal residuals, no severe multicollinearity (VIF)</li>
+<li>➕ Polynomial regression, and the point where flexibility becomes overfitting</li>
+<li>➕ Regularization in brief: Ridge and Lasso, and what the penalty buys</li>
+</ul>
+<p><strong>Demo</strong> — Training a multiple linear regression with scikit-learn to predict real estate prices from inputs such as floor area and number of bedrooms, then reading the coefficients out loud as sentences: <em>“each extra bedroom is worth ₹X, holding area constant”</em> — including the coefficient whose sign is the wrong way round, and why.</p>
+<p><strong>Lab</strong> — Predict used-car selling price. Start with one feature, add features one at a time, and record R² and RMSE at every step in a table. Stop when adding a feature stops helping, and say why it stopped.</p>
+<p><strong>Dataset</strong> — <a href="https://github.com/tech4alltraining/aiml/blob/main/datasets/regression/salary_data.csv"><code>regression/salary_data.csv</code></a> (one feature, one line — the smallest honest example), then <a href="https://github.com/tech4alltraining/aiml/blob/main/datasets/regression/cardekho_dataset.csv"><code>regression/cardekho_dataset.csv</code></a>. The demo uses the California housing dataset that ships with scikit-learn, so it needs no download.</p>
+<p><strong>By the end</strong> — The student can fit and interpret a multiple regression, report the right error metric for an audience, and check two regression assumptions.</p>
+</section>
+<section id="sec-s10" class="level3">
+<h3 class="anchored" data-anchor-id="sec-s10">Session 10 — ➕ Supervised Learning II: Classification</h3>
+<p><em>Added session. The draft never taught classification, then required “advanced machine learning models” in the capstone.</em></p>
+<p><strong>Topics</strong></p>
+<ul>
+<li>➕ The classification problem: binary, multiclass, multilabel</li>
+<li>➕ Logistic regression — the linear model bent into a probability; the decision threshold as a separate, tunable choice</li>
+<li>➕ k-Nearest Neighbours — the algorithm that does no training, and why it needs scaled features</li>
+<li>➕ Decision trees — splits, impurity, depth, and why a tree is readable</li>
+<li>➕ Random forests — many trees, voting, and feature importance</li>
+<li>➕ Naive Bayes and Support Vector Machines, briefly, with the situation each suits</li>
+<li>➕ The confusion matrix — true and false positives and negatives, drawn once and used everywhere</li>
+<li>➕ Accuracy, precision, recall, F1, specificity — and the cost of the mistake that decides which one matters</li>
+<li>➕ ROC curves, AUC, and the precision–recall curve for imbalanced data</li>
+<li>➕ Class imbalance: <code>stratify</code>, class weights, resampling, SMOTE</li>
+<li>➕ Predicting probabilities rather than labels, and choosing the threshold from the business cost</li>
+</ul>
+<p><strong>Demo</strong> — Logistic regression and a random forest on the loan dataset, side by side. Then the useless 99% model: a classifier that predicts “no default” for everyone, scores 99% accuracy, and catches zero defaulters. The confusion matrix is the only thing on screen that shows it.</p>
+<p><strong>Lab</strong> — Build a loan-approval classifier. Report the confusion matrix, choose between precision and recall with a written justification about what a wrong decision costs the bank and the applicant, then move the threshold to match that choice.</p>
+<p><strong>Dataset</strong> — <a href="https://github.com/tech4alltraining/aiml/blob/main/datasets/loan_data_10k.csv"><code>loan_data_10k.csv</code></a> (imbalanced, so accuracy is visibly the wrong metric) and <a href="https://github.com/tech4alltraining/aiml/blob/main/datasets/classification/iris.csv"><code>classification/iris.csv</code></a> for the multiclass case.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Accuracy is the default metric and it is usually the wrong one">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Accuracy is the default metric and it is usually the wrong one
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>On data where 99 of 100 rows share a label, a model that has learned nothing scores 99%. <strong>Report the confusion matrix before you report accuracy, every time.</strong></p>
+</div>
+</div>
+<p><strong>By the end</strong> — The student can train four classifiers, read a confusion matrix, and choose a metric from the cost of the error rather than from habit.</p>
+</section>
+<section id="sec-s11" class="level3">
+<h3 class="anchored" data-anchor-id="sec-s11">Session 11 — Model Evaluation, Validation and Tuning</h3>
+<p><em>Was draft Session 11. Moved ahead of clustering, because the next session’s choice of </em>k* has to be defended, and this is where the vocabulary for defending a choice is taught.*</p>
+<p><strong>Topics</strong></p>
+<ul>
+<li>Model evaluation techniques — ➕ holdout validation, k-fold cross-validation, stratified k-fold, leave-one-out, bootstrapping; the trade-off between them</li>
+<li>➕ Overfitting and underfitting — bias and variance, seen as two failure pictures rather than two definitions</li>
+<li>➕ Learning curves and validation curves — telling “needs more data” apart from “needs a different model”</li>
+<li>Model evaluation using visualization — ➕ predicted-vs-actual plots, error distributions, confusion-matrix heatmaps, ROC overlays for competing models</li>
+<li>Residual plots and distributional plots — checking residuals are random, homoscedastic and roughly normal, and reading the three failure shapes</li>
+<li>➕ Hyperparameter tuning: <code>GridSearchCV</code>, <code>RandomizedSearchCV</code>, and Bayesian optimization in concept</li>
+<li>➕ Nested cross-validation, and why tuning on the test set silently invalidates the score</li>
+<li>➕ Baselines: <code>DummyRegressor</code> and <code>DummyClassifier</code>. <strong>A model that cannot beat the baseline has not worked, whatever its R².</strong></li>
+<li>➕ Error analysis: looking at the rows the model got wrong, not just the score</li>
+<li>➕ Data leakage, revisited — the leaked column that makes a bad model look excellent</li>
+</ul>
+<p><strong>Demo</strong> — Plotting the residuals of the Session 9 regression to check visually for random distribution and homoscedasticity, plus predicted versus actual. Then the same model cross-validated five ways, with five different scores printed — so “the accuracy” stops being a single number.</p>
+<p><strong>Lab</strong> — Take one model from Session 9 and one from Session 10. Cross-validate both, tune both with a grid search, plot the learning curve for each, and write three sentences on what the curve says to do next.</p>
+<p><strong>Dataset</strong> — The models and splits from Sessions 9 and 10, reused deliberately.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ One split is one opinion">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ One split is one opinion
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Change <code>random_state</code> and the score changes. If a decision between two models depends on a difference smaller than the spread across folds, <strong>the decision has not been made</strong> — it has been guessed.</p>
+</div>
+</div>
+<p><strong>By the end</strong> — The student can cross-validate a model, read a learning curve, tune hyperparameters without touching the test set, and beat a stated baseline.</p>
+</section>
+<section id="sec-s12" class="level3">
+<h3 class="anchored" data-anchor-id="sec-s12">Session 12 — Unsupervised Learning: Clustering and Association Rules</h3>
+<p><em>Was draft Session 10, extended with the association rule mining the draft required in the capstone but never taught.</em></p>
+<p><strong>Topics</strong></p>
+<p><em>Clustering</em></p>
+<ul>
+<li>Unsupervised learning techniques — learning structure with no labels; clustering, dimensionality reduction and association rules as its three families</li>
+<li>Introduction to clustering — what a cluster is, and the fact that there is no correct answer to check against</li>
+<li>K-Means clustering — centroids, assignment and update steps, convergence, <code>random_state</code> and <code>n_init</code></li>
+<li>➕ Choosing <em>k</em>: the elbow method on inertia, and the silhouette score — with the case where the two disagree</li>
+<li>➕ <strong>Scale before you cluster.</strong> K-Means measures distance, so an unscaled income column decides every cluster on its own</li>
+<li>➕ Hierarchical clustering — agglomerative linkage and reading a dendrogram</li>
+<li>➕ DBSCAN — density-based clusters of arbitrary shape, and explicit noise points</li>
+<li>➕ Cluster profiling: describing each segment in business language, which is the actual deliverable</li>
+</ul>
+<p><em>Association rule mining</em></p>
+<ul>
+<li>➕ Market basket analysis — transactions, itemsets, and the question <em>“what is bought together?”</em></li>
+<li>➕ Support, confidence and lift, computed by hand on a ten-transaction table before any library is imported</li>
+<li>➕ The Apriori algorithm and the downward-closure property; FP-Growth in brief</li>
+<li>➕ <code>mlxtend</code> for <code>apriori</code> and <code>association_rules</code></li>
+<li>➕ Reading a rule critically: high confidence with a lift of 1.0 means the rule discovered nothing</li>
+</ul>
+<p><strong>Demo</strong> — K-Means on a mall customer dataset, grouping shoppers by income and spending score, shown as a colour-coded 2D scatter with the centroids marked. Then the same run without scaling, so the class sees the clusters change completely.</p>
+<p><strong>Lab</strong> — Segment the mall customers, choose <em>k</em> with both an elbow plot and a silhouette curve, and write a one-paragraph description of each segment a marketing team could act on. Then mine a grocery basket file for rules with lift above 1.2 and say which one is actually useful.</p>
+<p><strong>Dataset</strong> — <a href="https://github.com/tech4alltraining/aiml/blob/main/datasets/clustering/Mall_Customers.csv"><code>clustering/Mall_Customers.csv</code></a>; basket transactions generated by a committed, seeded script, <code>datasets/make_baskets.py</code>, which plants three known rules so the student can check the algorithm found them.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Clustering always returns clusters">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Clustering always returns clusters
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ask K-Means for four groups in pure random noise and it will give you four groups, each with a centroid and a colour. <strong>The silhouette score is the check</strong> — and on real course data it has preferred the wrong clustering, so it is a check, not a verdict.</p>
+</div>
+</div>
+<p><strong>By the end</strong> — The student can scale, cluster, choose <em>k</em> with two methods, describe each cluster in business terms, and compute support, confidence and lift by hand.</p>
+</section>
+</section>
+<section id="sec-part-e" class="level1">
+<h1>Part E — Delivery and scale</h1>
+<p><em>Four sessions. A model nobody can use has not been delivered, and a method that only works on data that fits in memory has not scaled. This part fixes both, then the capstone puts the whole course into one project.</em></p>
+<section id="sec-s13" class="level3">
+<h3 class="anchored" data-anchor-id="sec-s13">Session 13 — Model Saving and Deployment with Streamlit</h3>
+<p><em>Was draft Session 12, unchanged in position.</em></p>
+<p><strong>Topics</strong></p>
+<ul>
+<li>Saving trained models — <code>joblib</code> and <code>pickle</code>, ➕ what is actually inside the file, and why the <strong>whole pipeline</strong> must be saved rather than the estimator alone</li>
+<li>➕ Loading and inference: a single <code>predict_one()</code> function that takes raw user input and returns a prediction, used identically by the notebook and the app</li>
+<li>➕ Model versioning and the version trap: a model saved under scikit-learn 1.3 and loaded under 1.5 may not behave the same. Pin versions in <code>requirements.txt</code></li>
+<li>Deployment of models using Streamlit — ➕ the anatomy of a Streamlit app: widgets in, prediction out, <code>st.cache_resource</code> so the model loads once</li>
+<li>Offline deployment — batch scoring, scheduled jobs, running locally or on-premise; when a CSV of predictions is the right product</li>
+<li>Online deployment — a live app or an API answering one request at a time; ➕ latency, concurrency and cost</li>
+<li>➕ Publishing to Streamlit Community Cloud: repository layout, <code>requirements.txt</code>, secrets that must not be committed</li>
+<li>➕ REST APIs as the alternative, with FastAPI in concept — when a UI is the wrong interface</li>
+<li>➕ After deployment: input validation, logging predictions, and <strong>model drift</strong> — the world changing under a model that has not</li>
+<li>➕ Adding a generative-AI layer: an LLM turning the model’s numeric output into a plain-language explanation for the end user, and the honesty constraint that the explanation must not overstate the model</li>
+</ul>
+<p><strong>Demo</strong> — Saving the trained regression model with <code>joblib</code>, writing a short Streamlit script with sliders for the inputs, running it locally, and pushing it to Streamlit Community Cloud. Then the failure demo: the app deployed without its scaler, predicting confidently and wrongly.</p>
+<p><strong>Lab</strong> — Deploy the Session 10 loan classifier as a Streamlit app that takes applicant details, returns an approval probability, and shows the two factors that pushed the decision most. Publish it and share the link.</p>
+<p><strong>Dataset</strong> — The pipeline saved in Session 10.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Save the pipeline, not the model">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Save the pipeline, not the model
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A model saved without its scaler and encoder will accept raw input and return a confident, meaningless number. Nothing raises an error. <strong><code>joblib.dump(pipeline, ...)</code> — never <code>joblib.dump(model, ...)</code>.</strong></p>
+</div>
+</div>
+<p><strong>By the end</strong> — The student can save a full pipeline, build a Streamlit interface for it, publish it publicly, and name two things that can break it after launch.</p>
+</section>
+<section id="sec-s14" class="level3">
+<h3 class="anchored" data-anchor-id="sec-s14">Session 14 — Big Data Analytics: Fundamentals and Distributed Processing</h3>
+<p><em>Merges draft Sessions 13 and 14. The fundamentals and the tools that implement them were separated in the draft with no gain.</em></p>
+<p><strong>Topics</strong></p>
+<p><em>Fundamentals</em></p>
+<ul>
+<li>Working of big data analytics — ➕ the five Vs (volume, velocity, variety, veracity, value), and <strong>the honest threshold: the point where one machine stops being enough</strong></li>
+<li>Types of big data analytics — descriptive, diagnostic, predictive and prescriptive, with an example of each</li>
+<li>➕ Batch versus stream processing, and the architectures that combine them</li>
+<li>Big data analytics technologies and tools — the ecosystem map: HDFS, YARN, Hive, HBase, Kafka, Spark, and where each one sits</li>
+<li>➕ When <strong>not</strong> to use big data tools: a Spark job on 50,000 rows is slower than Pandas, and this is measured in the lab</li>
+</ul>
+<p><em>Distributed storage and processing</em></p>
+<ul>
+<li>Apache Hadoop and HDFS — blocks, replication, NameNode and DataNodes, write-once semantics</li>
+<li>Big data analytics using MapReduce — map, shuffle, sort, reduce; ➕ word count traced by hand on three sentences before any code is run</li>
+<li>➕ Why MapReduce was replaced: every stage writes to disk</li>
+<li>Implementing big data analytics using Apache Spark — ➕ RDDs and DataFrames, lazy evaluation, transformations versus actions, the DAG, in-memory caching</li>
+<li>➕ Spark SQL and the DataFrame API, which is deliberately close to Pandas</li>
+<li>➕ PySpark MLlib in brief: the same fit/predict shape, distributed</li>
+</ul>
+<p><strong>Demo</strong> — Exploring HDFS from the terminal with <code>hdfs dfs -put</code>, <code>-get</code> and <code>-ls</code>, showing how a file is split and replicated across a distributed architecture. Then a PySpark job performing parallel filtering, grouping and counting over a large mock log file, timed against the same operation in Pandas.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="🔓 How to run this session on a laptop">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>🔓 How to run this session on a laptop
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The draft’s HDFS demo assumes a cluster. Three supported paths, in order of preference:</p>
+<ol type="1">
+<li><strong>Docker</strong> — a single-node Hadoop image, so <code>hdfs dfs</code> commands are real</li>
+<li><strong>PySpark in local mode</strong> — <code>pip install pyspark</code>, needs only Java 17; sufficient for everything except the HDFS commands themselves</li>
+<li><strong>A hosted sandbox or Databricks Community Edition</strong> — no local install</li>
+</ol>
+<p>Every code cell in this session runs on path 2. Path 1 is required only for the HDFS command demo.</p>
+</div>
+</div>
+<p><strong>Lab</strong> — Run the same aggregation three times over the mock log file — Pandas, PySpark local, PySpark with more partitions — and record the wall-clock time for each at 10⁴, 10⁶ and 10⁷ rows. Plot the three curves and identify the crossover point.</p>
+<p><strong>Dataset</strong> — A synthetic web-server log generated by a committed, seeded script, <code>datasets/make_logs.py</code>, at three sizes so the crossover is visible.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Distributed is not automatically faster">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Distributed is not automatically faster
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Below the crossover, Spark loses to Pandas — the cluster overhead exceeds the work. Students are expected to find that crossover themselves and quote it, rather than assert that Spark is fast.</p>
+</div>
+</div>
+<p><strong>By the end</strong> — The student can explain HDFS replication, trace a MapReduce word count by hand, write a PySpark aggregation, and state the row count at which Spark started to win on their own machine.</p>
+</section>
+<section id="sec-s15" class="level3">
+<h3 class="anchored" data-anchor-id="sec-s15">Session 15 — NoSQL Data Stores and Visual Analytics at Scale</h3>
+<p><em>Was draft Session 15. “Statistical methods for visualization” is now taught in <a href="#sec-s05">Session 5</a> and applied here at scale.</em></p>
+<p><strong>Topics</strong></p>
+<p><em>NoSQL</em></p>
+<ul>
+<li>➕ Why NoSQL exists: what a relational schema costs when the data is semi-structured and the volume is large</li>
+<li>➕ The four families — document, column-family, key-value, graph — with one use case each</li>
+<li>➕ The CAP theorem in plain language, and eventual consistency as a business decision rather than a technical one</li>
+<li>Big data analytics using <strong>MongoDB</strong> — documents and collections, CRUD, indexes, and the aggregation pipeline (<code>$match</code>, <code>$group</code>, <code>$sort</code>, <code>$project</code>)</li>
+<li>➕ <code>pymongo</code>, and moving results from an aggregation into a Pandas DataFrame</li>
+<li>Big data analytics using <strong>Apache Cassandra</strong> — the wide-column model, partition and clustering keys, CQL, and <strong>query-first schema design</strong>, which is the opposite of relational normalisation</li>
+<li>➕ Choosing between them: a comparison table over consistency, write throughput, query flexibility and operational cost</li>
+</ul>
+<p><em>Visualization at scale</em></p>
+<ul>
+<li>Statistical methods for visualization, applied to volume — ➕ why a scatter plot of ten million points is a solid rectangle</li>
+<li>➕ Aggregate before you plot: server-side aggregation in the database, then plot the summary</li>
+<li>➕ Sampling for visualization, and the confidence interval that must accompany a sampled chart</li>
+<li>➕ Binning and density: 2-D histograms, hexbin, and datashader-style rasterisation</li>
+<li>➕ Building a dashboard on aggregated data rather than raw rows</li>
+</ul>
+<p><strong>Demo</strong> — Connecting a Python script to a local MongoDB instance with <code>pymongo</code>, inserting JSON document data, running an aggregate query, and pulling the results back into Python for visualization. Then the scale demo: the same chart drawn from ten million raw points and from a database-side aggregation, side by side.</p>
+<p><strong>Lab</strong> — Load the Session 14 log file into MongoDB, write an aggregation pipeline that answers three questions about traffic by hour and status code, and build a small dashboard on the aggregated output. Then model the same data for Cassandra and explain what changes.</p>
+<p><strong>Dataset</strong> — The log file from Session 14, plus <a href="https://github.com/tech4alltraining/aiml/blob/main/datasets/loan_data_10k.csv"><code>loan_data_10k.csv</code></a> as documents. <strong>Environment:</strong> MongoDB Community locally, or MongoDB Atlas free tier; Cassandra via Docker or as a modelling exercise on paper if Docker is unavailable.</p>
+<p><strong>By the end</strong> — The student can write a MongoDB aggregation pipeline, design a Cassandra table from a query, and produce an honest chart from ten million rows.</p>
+</section>
+<section id="sec-s16" class="level3">
+<h3 class="anchored" data-anchor-id="sec-s16">Session 16 — Capstone: The End-to-End Data Science Project</h3>
+<p><em>Was draft Session 16, the open-ended module. Now a specified project with a timetable, deliverables and a marking scheme.</em></p>
+<p><strong>Topics and requirements</strong></p>
+<ul>
+<li>Apply the entire data analytics process to a real-world dataset — collection, integration, cleaning, transformation, reduction, EDA, modelling, evaluation, deployment</li>
+<li>Perform clustering and association rule mining on a market basket dataset — segmenting customers, then explaining each segment with the rules that characterise it</li>
+<li>Create insightful visualizations and perform statistical analysis using advanced tools — every claim in the report supported by a chart <strong>and</strong> a statistical test</li>
+<li>Develop and implement advanced machine learning models on a complex dataset — ensembles, tuned, compared against a stated baseline</li>
+<li>➕ Project framing: writing a problem statement with a measurable success criterion agreed before any modelling starts</li>
+<li>➕ Reproducibility: seeded, version-pinned, and runnable from a clean clone by someone else</li>
+<li>➕ Responsible data science: the bias audit, the privacy review, the statement of who could be harmed by a wrong prediction and how</li>
+<li>➕ Communicating results: the eight-minute presentation, and reporting what did not work</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" title="➕ Deliverables">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>➕ Deliverables
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Deliverable</th>
+<th>Due</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Problem statement, dataset chosen, success criterion</td>
+<td>after Session 5</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>EDA report and cleaning log</td>
+<td>after Session 8</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Baseline model and evaluation, cross-validated</td>
+<td>after Session 11</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Tuned model, deployed app, public link</td>
+<td>after Session 13</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Repository, written report, presentation</td>
+<td>Session 16</td>
+</tr>
+</tbody>
+</table>
+<p>The repository must run from a clean clone: <code>requirements.txt</code>, a seeded pipeline, and a README that names the dataset, its licence and its date of retrieval.</p>
+</div>
+</div>
+<p><strong>Dataset</strong> — Student’s choice from the <a href="https://github.com/tech4alltraining/aiml/tree/main/datasets">course catalog</a> or an approved external source, subject to one rule: <strong>it must contain the problem the project claims to solve.</strong> A clean dataset cannot demonstrate a cleaning pipeline, and a balanced one cannot demonstrate why accuracy is the wrong metric.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="✅ A capstone that passes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>✅ A capstone that passes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Runs from a clean clone, first try</li>
+<li>States a success criterion that was fixed before the modelling started</li>
+<li>Beats a named baseline, with the baseline’s score printed</li>
+<li>Reports at least one thing that was tried and did not work</li>
+<li>Has a deployed link that a stranger can open</li>
+<li>Says who the model could harm and what was done about it</li>
+</ul>
+</div>
+</div>
+<p><strong>By the end</strong> — The student can deliver and defend a complete data science project.</p>
+</section>
+</section>
+<section id="sec-conventions" class="level1">
+<h1>Course conventions</h1>
+<p><em>These hold in every session. Breaking one in a single session makes every other session look wrong.</em></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Convention</th>
+<th>The course does this</th>
+<th>Not this</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Environment</td>
+<td>one conda environment, <strong><code>ds</code></strong>, in every session</td>
+<td>a per-session environment</td>
+</tr>
+<tr class="even">
+<td>Split naming</td>
+<td><code>X_train, X_test, y_train, y_test</code></td>
+<td><code>xtr</code>, <code>train_x</code>, <code>X1</code></td>
+</tr>
+<tr class="odd">
+<td>Categorical encoding</td>
+<td><code>LabelEncoder</code> for the target, one-hot for nominal features, printing <code>le.classes_</code></td>
+<td>mixing <code>get_dummies</code>, <code>.map({...})</code> and encoders session by session</td>
+</tr>
+<tr class="even">
+<td>Preprocessing order</td>
+<td>the nine steps of <a href="#sec-part-c">Part C</a>, taught once and referenced afterwards</td>
+<td>a different order each session</td>
+</tr>
+<tr class="odd">
+<td>Reproducibility</td>
+<td><code>random_state</code> set explicitly, everywhere</td>
+<td>unseeded results that change between runs</td>
+</tr>
+<tr class="even">
+<td>Dataset paths</td>
+<td>one <code>dataset_url</code>, or one path relative to the project root</td>
+<td>a base constant plus a fragment</td>
+</tr>
+<tr class="odd">
+<td>Claims</td>
+<td>measured and printed by the code that makes them</td>
+<td>asserted in prose</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled" title="🔓 Measure, do not assert">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>🔓 Measure, do not assert
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Before a session states that a technique helps, the technique is run and the number is printed. Results from earlier runs of this material that contradicted the textbook version of the lesson, and were kept:</p>
+<ul>
+<li>Hand-engineered features moved linear R² by <strong>+0.0001</strong> and made the random forest <strong>worse</strong></li>
+<li>The silhouette score <strong>preferred the wrong clustering</strong></li>
+<li>The “underfitting” decision tree had the <strong>best</strong> test accuracy — because it split on a leaked column</li>
+</ul>
+<p><strong>An honest negative result teaches more than a tidy positive one</strong>, because it is what the student will meet in their own project.</p>
+</div>
+</div>
+<section id="sec-environment" class="level2">
+<h2 class="anchored" data-anchor-id="sec-environment">Tools and environment</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Layer</th>
+<th>What</th>
+<th>Sessions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Language</td>
+<td>Python 3.11</td>
+<td>all</td>
+</tr>
+<tr class="even">
+<td>Environment</td>
+<td>conda environment named <code>ds</code>; Google Colab as the no-install fallback</td>
+<td>all</td>
+</tr>
+<tr class="odd">
+<td>Core</td>
+<td>NumPy, Pandas</td>
+<td>2 onwards</td>
+</tr>
+<tr class="even">
+<td>Charts</td>
+<td>Matplotlib, Seaborn</td>
+<td>5 onwards</td>
+</tr>
+<tr class="odd">
+<td>Statistics</td>
+<td>SciPy, statsmodels</td>
+<td>4, 9, 11</td>
+</tr>
+<tr class="even">
+<td>Modelling</td>
+<td>scikit-learn</td>
+<td>7 onwards</td>
+</tr>
+<tr class="odd">
+<td>Rules</td>
+<td>mlxtend</td>
+<td>12</td>
+</tr>
+<tr class="even">
+<td>Deployment</td>
+<td>Streamlit, joblib</td>
+<td>13</td>
+</tr>
+<tr class="odd">
+<td>Distributed</td>
+<td>PySpark (local mode), Java 17; Hadoop via Docker</td>
+<td>14</td>
+</tr>
+<tr class="even">
+<td>Stores</td>
+<td>MongoDB Community or Atlas free tier, <code>pymongo</code>; Cassandra via Docker</td>
+<td>15</td>
+</tr>
+<tr class="odd">
+<td>Version control</td>
+<td>Git and GitHub</td>
+<td>13, 16</td>
+</tr>
+</tbody>
+</table>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> ds python=3.11 <span class="at">-y</span> <span class="kw">&amp;&amp;</span> <span class="ex">conda</span> activate ds <span class="kw">&amp;&amp;</span> <span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Every import used anywhere in the course belongs in <code>requirements.txt</code>, with versions pinned — a model saved under one version of scikit-learn and loaded under another is a <a href="#sec-s13">Session 13</a> failure mode.</p>
+</section>
+<section id="sec-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="sec-datasets">Datasets</h2>
+<p>Datasets are reused across sessions on purpose: data the student already knows costs no explanation, and a course that keeps returning to the same file becomes cumulative. Every dataset below is chosen because it <em>contains</em> the problem its session teaches.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Dataset</th>
+<th>Contains</th>
+<th>Sessions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>prepreprocessing/pre_data.csv</code></td>
+<td>12 rows with every cleaning problem, checkable by eye</td>
+<td>3, 6</td>
+</tr>
+<tr class="even">
+<td><code>regression/cardekho_dataset.csv</code></td>
+<td>skewed prices, mixed types, real mess</td>
+<td>3, 4, 5, 9</td>
+</tr>
+<tr class="odd">
+<td><code>regression/salary_data.csv</code></td>
+<td>one feature, one line</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td><code>classification/heart_failure_raw.csv</code></td>
+<td>missing values, impossible values, outliers</td>
+<td>4, 6, 8</td>
+</tr>
+<tr class="odd">
+<td><code>loan_data_10k.csv</code></td>
+<td>imbalanced binary target, mixed scales</td>
+<td>5, 7, 10, 11, 13, 15</td>
+</tr>
+<tr class="even">
+<td><code>classification/diabetes_prediction_dataset.csv</code></td>
+<td>many columns, worth reducing</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td><code>classification/adult.csv</code></td>
+<td>high-cardinality categoricals</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td><code>classification/iris.csv</code></td>
+<td>clean multiclass</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td><code>clustering/Mall_Customers.csv</code></td>
+<td>visible cluster structure, unequal scales</td>
+<td>12</td>
+</tr>
+<tr class="even">
+<td><code>datasets/make_baskets.py</code> ➕</td>
+<td>transactions with three planted rules</td>
+<td>12</td>
+</tr>
+<tr class="odd">
+<td><code>datasets/make_logs.py</code> ➕</td>
+<td>10⁴ / 10⁶ / 10⁷ rows, same schema</td>
+<td>14, 15</td>
+</tr>
+<tr class="even">
+<td><code>datasets/make_customers.py</code> ➕</td>
+<td>two tables that join badly on purpose</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>Files without a generator script come from the <a href="https://github.com/tech4alltraining/aiml/tree/main/datasets">course dataset catalog</a>. Generated files ship with their seeded script committed next to them, so the transformation is part of the teaching rather than a hidden step.</p>
+</section>
+<section id="sec-assessment" class="level2">
+<h2 class="anchored" data-anchor-id="sec-assessment">Assessment</h2>
+<p>➕ Added — the draft did not specify assessment. Weights are a starting point for the institution to adapt.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>Weight</th>
+<th>What is marked</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Session labs (16)</td>
+<td>30%</td>
+<td>completed, runs, conclusion stated</td>
+</tr>
+<tr class="even">
+<td>Assignment 1 — data preparation (after Session 8)</td>
+<td>15%</td>
+<td>the cleaning log and the leakage check</td>
+</tr>
+<tr class="odd">
+<td>Assignment 2 — modelling and evaluation (after Session 11)</td>
+<td>15%</td>
+<td>metric choice justified; baseline beaten</td>
+</tr>
+<tr class="even">
+<td>Capstone project</td>
+<td>30%</td>
+<td>the five deliverables in <a href="#sec-s16">Session 16</a></td>
+</tr>
+<tr class="odd">
+<td>Presentation and viva</td>
+<td>10%</td>
+<td>can defend a choice under questioning</td>
+</tr>
+</tbody>
+</table>
+<p><strong>One rule across all components:</strong> a result that is reported must be reproducible from the submitted code. A number in a report that the code does not produce is marked as absent.</p>
+</section>
+</section>
+<section id="sec-review" class="level1">
+<h1>Appendix A — Review of the draft syllabus</h1>
+<p><em>What the analysis found, and what was done about it. Structural faults first.</em></p>
+<section id="a.1-ordering-faults-a-result-that-runs-and-is-wrong" class="level3">
+<h3 class="anchored" data-anchor-id="a.1-ordering-faults-a-result-that-runs-and-is-wrong">A.1 Ordering faults — a result that runs and is wrong</h3>
+<p><strong>Cleaning before statistics.</strong> The draft detected and removed outliers in Session 3 and taught the interquartile range and standard deviation in Session 7. A student following the draft removes outliers with a rule they meet four sessions later. <em>Fixed:</em> statistics and EDA are now Sessions 4–5, cleaning is Session 6.</p>
+<p><strong>Scaling before splitting.</strong> The draft applied <code>MinMaxScaler</code> and <code>StandardScaler</code> in Session 5 and first mentioned a train–test split in Session 9. Scaling on the full dataset leaks test-set information into training — the most common serious error in student projects, and the draft taught it as the default. <em>Fixed:</em> the split is taught in Session 7, immediately before scaling, with leakage as a named topic and <code>Pipeline</code> as the structural remedy.</p>
+<p><strong>PCA before standardisation and before variance.</strong> Session 6 ran PCA; standardisation was in Session 5 but never connected to it, and variance and correlation were in Sessions 7–8, after. <em>Fixed:</em> reduction is now Session 8, after both.</p>
+<p><strong>Evaluation after everything it should have informed.</strong> Session 11 taught evaluation after regression (9) and clustering (10), so both were taught with no vocabulary for judging them. <em>Fixed:</em> metrics are taught inline with each model family, and Session 11 — validation strategy, cross-validation, tuning, diagnostics — sits between supervised learning and clustering.</p>
+</section>
+<section id="a.2-missing-prerequisites" class="level3">
+<h3 class="anchored" data-anchor-id="a.2-missing-prerequisites">A.2 Missing prerequisites</h3>
+<p><strong>No Python, no NumPy.</strong> Session 2 opened with Pandas DataFrames. <em>Fixed:</em> Session 2 is now Python and NumPy, with three self-paced pre-work notebooks for students starting from zero.</p>
+<p><strong>No encoding, no split, no leakage.</strong> No session converted categorical text to numbers, yet Session 9 trained a regression on real data. <em>Fixed:</em> all three are Session 7.</p>
+</section>
+<section id="a.3-promised-but-never-taught" class="level3">
+<h3 class="anchored" data-anchor-id="a.3-promised-but-never-taught">A.3 Promised but never taught</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Promised in</th>
+<th>Never taught in the draft</th>
+<th>Now taught in</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Session 16 — “advanced machine learning models”</td>
+<td>classification of any kind</td>
+<td><a href="#sec-s10">Session 10</a></td>
+</tr>
+<tr class="even">
+<td>Session 16 — “association rule mining”</td>
+<td>support, confidence, lift, Apriori</td>
+<td><a href="#sec-s12">Session 12</a></td>
+</tr>
+<tr class="odd">
+<td>Session 16 — “statistical analysis using advanced tools”</td>
+<td>any inferential statistics</td>
+<td><a href="#sec-s04">Session 4</a></td>
+</tr>
+<tr class="even">
+<td>Session 8 demo — “a seaborn correlation heatmap”</td>
+<td>Seaborn</td>
+<td><a href="#sec-s05">Session 5</a></td>
+</tr>
+<tr class="odd">
+<td>Session 11 — “model evaluation techniques”</td>
+<td>cross-validation, over/underfitting</td>
+<td><a href="#sec-s11">Session 11</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="a.4-sessions-that-were-the-wrong-size" class="level3">
+<h3 class="anchored" data-anchor-id="a.4-sessions-that-were-the-wrong-size">A.4 Sessions that were the wrong size</h3>
+<p><strong>Session 4, Data Integration</strong>, was a five-item taxonomy plus one <code>.merge()</code> demo, and the demo did not illustrate the taxonomy. <em>Fixed:</em> merged into Session 3, where the taxonomy is taught as concepts and the joining is taught as the Pandas skill it is.</p>
+<p><strong>Session 5, Data Transformation</strong>, listed rescaling, normalizing, binarizing and standardizing — three of which are the same family, and one of which (<code>Normalizer</code>) operates on rows rather than columns, a distinction the draft’s phrasing hides. <em>Fixed:</em> the distinction is now an explicit topic, and the session was given the encoding and splitting content it needed to be a full session.</p>
+<p><strong>Session 9</strong> carried all of supervised learning, including “prediction and decision making”, but demonstrated regression only. <em>Fixed:</em> split into Sessions 9 and 10.</p>
+</section>
+<section id="a.5-terms-used-without-definition" class="level3">
+<h3 class="anchored" data-anchor-id="a.5-terms-used-without-definition">A.5 Terms used without definition</h3>
+<p>“Data cube aggregation”, “numerosity reduction”, “top-down discretization” and “bottom-up discretization” are data-warehousing terms that appear in the draft with no plain-language definition. They are retained — they are legitimate syllabus content — and each now has a one-line definition and a Pandas equivalent in <a href="#sec-s08">Session 8</a>, so the student meets the idea and the tool together.</p>
+</section>
+<section id="a.6-demos-that-could-not-be-run" class="level3">
+<h3 class="anchored" data-anchor-id="a.6-demos-that-could-not-be-run">A.6 Demos that could not be run</h3>
+<p>The Session 13 demo explored HDFS through terminal commands, which needs a Hadoop cluster. The draft gave no execution path. <em>Fixed:</em> <a href="#sec-s14">Session 14</a> names three supported paths, and every code cell in the session runs on the laptop-only path.</p>
+</section>
+<section id="a.7-what-was-deliberately-kept" class="level3">
+<h3 class="anchored" data-anchor-id="a.7-what-was-deliberately-kept">A.7 What was deliberately kept</h3>
+<ul>
+<li><strong>The 16-session structure</strong>, on the assumption that it is fixed by the schedule</li>
+<li><strong>Every topic</strong>, including the data-warehousing taxonomy in Session 6 of the draft and the five integration approaches in Session 4</li>
+<li><strong>Every demo</strong>, several extended with a counter-demo showing the same technique failing</li>
+<li><strong>The big-data block</strong>, which several data science syllabi drop; it is consolidated, not reduced</li>
+</ul>
+</section>
+</section>
+<section id="sec-coverage" class="level1">
+<h1>Appendix B — Coverage map</h1>
+<p><em>Every line of the draft, and where it now lives. Nothing was removed.</em></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Draft</th>
+<th>Draft content</th>
+<th>Now in</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>S1</td>
+<td>Introduction to Data Science — definition</td>
+<td><a href="#sec-s01">S1</a></td>
+</tr>
+<tr class="even">
+<td>S1</td>
+<td>Evolution of Data Science</td>
+<td><a href="#sec-s01">S1</a></td>
+</tr>
+<tr class="odd">
+<td>S1</td>
+<td>Data Science roles</td>
+<td><a href="#sec-s01">S1</a></td>
+</tr>
+<tr class="even">
+<td>S1</td>
+<td>Application of data sciences</td>
+<td><a href="#sec-s01">S1</a></td>
+</tr>
+<tr class="odd">
+<td>S1</td>
+<td><em>Demo:</em> interactive real-world dashboard</td>
+<td><a href="#sec-s01">S1</a> demo</td>
+</tr>
+<tr class="even">
+<td>S2</td>
+<td>Data collection strategies</td>
+<td><a href="#sec-s03">S3</a></td>
+</tr>
+<tr class="odd">
+<td>S2</td>
+<td>Data pre-processing overview</td>
+<td><a href="#sec-s03">S3</a>, as the roadmap for <a href="#sec-part-c">Part C</a></td>
+</tr>
+<tr class="even">
+<td>S2</td>
+<td>Working with Pandas data frames</td>
+<td><a href="#sec-s03">S3</a></td>
+</tr>
+<tr class="odd">
+<td>S2</td>
+<td><em>Demo:</em> messy CSV, <code>.head()</code> <code>.info()</code> <code>.describe()</code></td>
+<td><a href="#sec-s03">S3</a> demo</td>
+</tr>
+<tr class="even">
+<td>S3</td>
+<td>Filling missing values</td>
+<td><a href="#sec-s06">S6</a></td>
+</tr>
+<tr class="odd">
+<td>S3</td>
+<td>Smoothing noisy data</td>
+<td><a href="#sec-s06">S6</a></td>
+</tr>
+<tr class="even">
+<td>S3</td>
+<td>Detecting and removing outliers</td>
+<td><a href="#sec-s06">S6</a></td>
+</tr>
+<tr class="odd">
+<td>S3</td>
+<td><em>Demo:</em> <code>NaN</code> → mean, box plot before and after</td>
+<td><a href="#sec-s06">S6</a> demo</td>
+</tr>
+<tr class="even">
+<td>S4</td>
+<td>Virtual integration</td>
+<td><a href="#sec-s03">S3</a></td>
+</tr>
+<tr class="odd">
+<td>S4</td>
+<td>Physical data integration</td>
+<td><a href="#sec-s03">S3</a></td>
+</tr>
+<tr class="even">
+<td>S4</td>
+<td>Application-based integration</td>
+<td><a href="#sec-s03">S3</a></td>
+</tr>
+<tr class="odd">
+<td>S4</td>
+<td>Manual integration</td>
+<td><a href="#sec-s03">S3</a></td>
+</tr>
+<tr class="even">
+<td>S4</td>
+<td>Middleware data integration</td>
+<td><a href="#sec-s03">S3</a></td>
+</tr>
+<tr class="odd">
+<td>S4</td>
+<td><em>Demo:</em> <code>.merge()</code> and <code>.join()</code> on customer and purchase tables</td>
+<td><a href="#sec-s03">S3</a> demo</td>
+</tr>
+<tr class="even">
+<td>S5</td>
+<td>Rescaling data</td>
+<td><a href="#sec-s07">S7</a></td>
+</tr>
+<tr class="odd">
+<td>S5</td>
+<td>Normalizing data</td>
+<td><a href="#sec-s07">S7</a></td>
+</tr>
+<tr class="even">
+<td>S5</td>
+<td>Binarizing data</td>
+<td><a href="#sec-s07">S7</a></td>
+</tr>
+<tr class="odd">
+<td>S5</td>
+<td>Standardizing data</td>
+<td><a href="#sec-s07">S7</a></td>
+</tr>
+<tr class="even">
+<td>S5</td>
+<td><em>Demo:</em> <code>MinMaxScaler</code>, <code>StandardScaler</code>, distribution shift</td>
+<td><a href="#sec-s07">S7</a> demo</td>
+</tr>
+<tr class="odd">
+<td>S6</td>
+<td>Dimensionality reduction</td>
+<td><a href="#sec-s08">S8</a></td>
+</tr>
+<tr class="even">
+<td>S6</td>
+<td>Data cube aggregation</td>
+<td><a href="#sec-s08">S8</a></td>
+</tr>
+<tr class="odd">
+<td>S6</td>
+<td>Numerosity reduction</td>
+<td><a href="#sec-s08">S8</a></td>
+</tr>
+<tr class="even">
+<td>S6</td>
+<td>Top-down discretization</td>
+<td><a href="#sec-s08">S8</a></td>
+</tr>
+<tr class="odd">
+<td>S6</td>
+<td>Bottom-up discretization</td>
+<td><a href="#sec-s08">S8</a></td>
+</tr>
+<tr class="even">
+<td>S6</td>
+<td><em>Demo:</em> PCA 10 → 2, <code>pd.cut</code> age buckets</td>
+<td><a href="#sec-s08">S8</a> demo</td>
+</tr>
+<tr class="odd">
+<td>S7</td>
+<td>Measures of central tendency and dispersion</td>
+<td><a href="#sec-s04">S4</a></td>
+</tr>
+<tr class="even">
+<td>S7</td>
+<td>Mean, standard deviation, averages</td>
+<td><a href="#sec-s04">S4</a></td>
+</tr>
+<tr class="odd">
+<td>S7</td>
+<td>Skewness and kurtosis</td>
+<td><a href="#sec-s04">S4</a></td>
+</tr>
+<tr class="even">
+<td>S7</td>
+<td>Frequency distributions</td>
+<td><a href="#sec-s04">S4</a></td>
+</tr>
+<tr class="odd">
+<td>S7</td>
+<td><em>Demo:</em> summary statistics, histogram with bell curve</td>
+<td><a href="#sec-s04">S4</a> demo</td>
+</tr>
+<tr class="even">
+<td>S8</td>
+<td>Basic plots using Matplotlib</td>
+<td><a href="#sec-s05">S5</a></td>
+</tr>
+<tr class="odd">
+<td>S8</td>
+<td>Box plots, pivot table</td>
+<td><a href="#sec-s05">S5</a></td>
+</tr>
+<tr class="even">
+<td>S8</td>
+<td>Correlation statistics, correlation coefficient</td>
+<td><a href="#sec-s05">S5</a></td>
+</tr>
+<tr class="odd">
+<td>S8</td>
+<td>Correlation and scatter plots</td>
+<td><a href="#sec-s05">S5</a></td>
+</tr>
+<tr class="even">
+<td>S8</td>
+<td><em>Demo:</em> Seaborn heatmap and scatter plots</td>
+<td><a href="#sec-s05">S5</a> demo</td>
+</tr>
+<tr class="odd">
+<td>S9</td>
+<td>Supervised learning techniques</td>
+<td><a href="#sec-s09">S9</a>, families split across <a href="#sec-s09">S9</a> and <a href="#sec-s10">S10</a></td>
+</tr>
+<tr class="even">
+<td>S9</td>
+<td>Prediction and decision making</td>
+<td><a href="#sec-s09">S9</a>, decision cost extended in <a href="#sec-s10">S10</a></td>
+</tr>
+<tr class="odd">
+<td>S9</td>
+<td>Simple and multiple regression</td>
+<td><a href="#sec-s09">S9</a></td>
+</tr>
+<tr class="even">
+<td>S9</td>
+<td><em>Demo:</em> multiple linear regression on real estate</td>
+<td><a href="#sec-s09">S9</a> demo</td>
+</tr>
+<tr class="odd">
+<td>S10</td>
+<td>Unsupervised learning techniques</td>
+<td><a href="#sec-s12">S12</a></td>
+</tr>
+<tr class="even">
+<td>S10</td>
+<td>Introduction to clustering</td>
+<td><a href="#sec-s12">S12</a></td>
+</tr>
+<tr class="odd">
+<td>S10</td>
+<td>K-Means clustering</td>
+<td><a href="#sec-s12">S12</a></td>
+</tr>
+<tr class="even">
+<td>S10</td>
+<td><em>Demo:</em> K-Means on mall customers with centroids</td>
+<td><a href="#sec-s12">S12</a> demo</td>
+</tr>
+<tr class="odd">
+<td>S11</td>
+<td>Model evaluation techniques</td>
+<td><a href="#sec-s11">S11</a></td>
+</tr>
+<tr class="even">
+<td>S11</td>
+<td>Model evaluation using visualization</td>
+<td><a href="#sec-s11">S11</a></td>
+</tr>
+<tr class="odd">
+<td>S11</td>
+<td>Residual plot and distributional plot</td>
+<td><a href="#sec-s11">S11</a></td>
+</tr>
+<tr class="even">
+<td>S11</td>
+<td><em>Demo:</em> residuals, homoscedasticity, predicted vs actual</td>
+<td><a href="#sec-s11">S11</a> demo</td>
+</tr>
+<tr class="odd">
+<td>S12</td>
+<td>Saving trained models</td>
+<td><a href="#sec-s13">S13</a></td>
+</tr>
+<tr class="even">
+<td>S12</td>
+<td>Deployment of models using Streamlit</td>
+<td><a href="#sec-s13">S13</a></td>
+</tr>
+<tr class="odd">
+<td>S12</td>
+<td>Offline deployment</td>
+<td><a href="#sec-s13">S13</a></td>
+</tr>
+<tr class="even">
+<td>S12</td>
+<td>Online deployment</td>
+<td><a href="#sec-s13">S13</a></td>
+</tr>
+<tr class="odd">
+<td>S12</td>
+<td><em>Demo:</em> <code>joblib</code>, Streamlit sliders, Community Cloud</td>
+<td><a href="#sec-s13">S13</a> demo</td>
+</tr>
+<tr class="even">
+<td>S13</td>
+<td>Working of big data analytics</td>
+<td><a href="#sec-s14">S14</a></td>
+</tr>
+<tr class="odd">
+<td>S13</td>
+<td>Types of big data analytics</td>
+<td><a href="#sec-s14">S14</a></td>
+</tr>
+<tr class="even">
+<td>S13</td>
+<td>Big data analytics technologies and tools</td>
+<td><a href="#sec-s14">S14</a></td>
+</tr>
+<tr class="odd">
+<td>S13</td>
+<td><em>Demo:</em> HDFS <code>put</code>, <code>get</code>, <code>ls</code></td>
+<td><a href="#sec-s14">S14</a> demo, with three execution paths</td>
+</tr>
+<tr class="even">
+<td>S14</td>
+<td>Big data analytics using MapReduce and Apache Hadoop</td>
+<td><a href="#sec-s14">S14</a></td>
+</tr>
+<tr class="odd">
+<td>S14</td>
+<td>Big data analytics using Hadoop and Apache Spark</td>
+<td><a href="#sec-s14">S14</a></td>
+</tr>
+<tr class="even">
+<td>S14</td>
+<td><em>Demo:</em> PySpark vs Pandas on a large log file</td>
+<td><a href="#sec-s14">S14</a> demo and lab</td>
+</tr>
+<tr class="odd">
+<td>S15</td>
+<td>Big data analytics using Apache Cassandra, MongoDB</td>
+<td><a href="#sec-s15">S15</a></td>
+</tr>
+<tr class="even">
+<td>S15</td>
+<td>Statistical method for visualization</td>
+<td>taught in <a href="#sec-s05">S5</a>, applied at scale in <a href="#sec-s15">S15</a></td>
+</tr>
+<tr class="odd">
+<td>S15</td>
+<td><em>Demo:</em> <code>pymongo</code> insert, aggregate, visualize</td>
+<td><a href="#sec-s15">S15</a> demo</td>
+</tr>
+<tr class="even">
+<td>S16</td>
+<td>Apply the entire data analytics process</td>
+<td><a href="#sec-s16">S16</a></td>
+</tr>
+<tr class="odd">
+<td>S16</td>
+<td>Clustering and association rule mining on market basket</td>
+<td>taught in <a href="#sec-s12">S12</a>, applied in <a href="#sec-s16">S16</a></td>
+</tr>
+<tr class="even">
+<td>S16</td>
+<td>Insightful visualizations and statistical analysis</td>
+<td>taught in <a href="#sec-s04">S4</a>–<a href="#sec-s05">S5</a>, applied in <a href="#sec-s16">S16</a></td>
+</tr>
+<tr class="odd">
+<td>S16</td>
+<td>Advanced machine learning models on a complex dataset</td>
+<td>taught in <a href="#sec-s09">S9</a>–<a href="#sec-s11">S11</a>, applied in <a href="#sec-s16">S16</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sec-sources" class="level1">
+<h1>Appendix C — Source material</h1>
+<p>Content marked ➕ in Sessions 1–2, 5, 7–13 and 16 is aligned with the <a href="https://github.com/tech4alltraining/aiml/tree/main/mlai-genai-internship">ML/AI and GenAI internship programme</a>, so that a student moving between the two courses meets the same conventions, the same datasets and the same analogies.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://github.com/tech4alltraining/aiml/tree/main/mlai-genai-internship/student/sessions">Student sessions</a></td>
+<td>topic depth and sequencing for Sessions 2, 5, 7–13</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/tech4alltraining/aiml/tree/main/mlai-genai-internship/student/notebooks">Notebooks</a></td>
+<td>the Python pre-work, and lab starting points</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/tech4alltraining/aiml/blob/main/mlai-genai-internship/trainer/curriculum.md">Trainer curriculum</a></td>
+<td>the reference-link set in this appendix</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/tech4alltraining/aiml/blob/main/mlai-genai-internship/trainer/session-plan.md">Session plan</a></td>
+<td>the activity structure adapted for the labs</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/tech4alltraining/aiml/tree/main/datasets">Dataset catalog</a></td>
+<td>every dataset in <a href="#sec-datasets">§ Datasets</a></td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/tech4alltraining/aiml/blob/main/mlai-genai-internship/student/setup-guide.md">Setup guide</a></td>
+<td>the Session 1 environment lab, adapted to the <code>ds</code> environment</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/tech4alltraining/aiml/blob/main/mlai-genai-internship/student/exercises-assignments.md">Exercises and assignments</a></td>
+<td>the assignment structure in <a href="#sec-assessment">§ Assessment</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Further reading, per topic</strong> — machine learning lifecycle, preprocessing, regression and its metrics, classification and its metrics, clustering and neural networks: the curated link list in the <a href="https://github.com/tech4alltraining/aiml/blob/main/mlai-genai-internship/trainer/curriculum.md#references--video-tutorials">trainer curriculum</a>.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="✅ Before this syllabus goes to students">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>✅ Before this syllabus goes to students
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul class="task-list">
+<li><label><input type="checkbox">Confirm the 16-session structure matches the institutional schedule</label></li>
+<li><label><input type="checkbox">Confirm the assessment weights in <a href="#sec-assessment">§ Assessment</a> against institutional policy</label></li>
+<li><label><input type="checkbox">Decide the Session 14 execution path — Docker, PySpark local, or hosted sandbox — and the Session 15 MongoDB path, before the term starts</label></li>
+<li><label><input type="checkbox">Write the three generator scripts: <code>make_baskets.py</code>, <code>make_logs.py</code>, <code>make_customers.py</code>, each seeded and committed</label></li>
+<li><label><input type="checkbox">Pin every version in <code>requirements.txt</code> and build the <code>ds</code> environment once, end to end</label></li>
+</ul>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

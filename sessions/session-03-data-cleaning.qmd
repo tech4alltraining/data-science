@@ -1,0 +1,175 @@
+---
+title: "Session 3 — Data Cleaning"
+subtitle: "Missing Values · Noisy Data · Outliers"
+---
+
+{{< include ../includes/_setup.qmd >}}
+
+::: {.callout-note}
+**This chapter covers the technical process of transforming messy raw data into a clean, usable dataset.**
+
+**Assumed knowledge:** Concepts from Session 2 (Pandas basics and Data Collection).
+:::
+
+## 🎯 Learning outcomes {#sec-s03-outcomes}
+
+By the end of this chapter you can:
+
+1. Identify and programmatically fill missing values (`NaN`) in a dataset.
+2. Explain techniques for smoothing noisy, fluctuating data.
+3. Detect and remove extreme mathematical outliers using visualizations.
+
+## How this chapter is organised {#sec-s03-organisation}
+
+| Part | Question it answers | Source |
+|---|---|---|
+| [A — Missing Values and Noise](#sec-s03-a) | *How do we fix blank cells and chaotic fluctuations?* | `concepts` |
+| [B — Detecting Outliers](#sec-s03-b) | *How do we identify data points that lie?* | `concepts` |
+| [Demo — The Cleaning Pipeline](#sec-s03-demo) | *What does this look like in Pandas?* | `cleaning_demo.py` |
+
+# Part A — Missing Values and Noise {#sec-s03-a}
+
+**Data rarely arrives complete and perfect.**
+
+## 1. Filling missing values {#sec-s03-topic-1}
+
+**Filling missing values (imputation) is the process of intelligently replacing blank data points with estimated numbers.**
+
+It exists because most machine learning algorithms will crash immediately if they encounter a missing value (`NaN`). You cannot train a model on "blank".
+
+::: {.callout-tip title="🧠 Analogy — The Missing Puzzle Piece"}
+**The everyday thing:** Doing a jigsaw puzzle with a missing piece.
+
+**The mapping:** 
+- The **puzzle** is your dataset.
+- The **missing piece** is the `NaN` value.
+- **Imputation** is painting a piece of cardboard to match the surrounding colors so the picture looks complete from a distance.
+
+**Where it breaks down:** An imputed value is just a good guess. In data science, guessing wrong can ruin your model's accuracy.
+:::
+
+### How it works
+
+When faced with a missing value, you have three main choices:
+1. **Drop the row:** If only 1% of rows are missing data, just delete them.
+2. **Fill with Mean/Median:** If a user's age is missing, fill it with the average age of all users.
+3. **Forward Fill (Time Series):** If Monday's stock price is missing, just copy Sunday's price.
+
+### 📘 Examples
+
+**Example 1 — Filling NaN with the mean in Pandas**
+
+```{python}
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame({"Age": [25, 30, np.nan, 40, 20]})
+print("Before:\n", df)
+
+# Calculate the mean (average)
+mean_age = df["Age"].mean()
+
+# Fill the NaN with the mean
+df["Age"] = df["Age"].fillna(mean_age)
+print("\nAfter:\n", df)
+```
+
+### ❓ MCQs
+
+**Q1.** Why is deleting rows with missing values not always the best strategy?
+
+- (a) Because it takes too much processing power.
+- (b) **Because if 40% of your data has missing values, deleting those rows destroys almost half of your valuable information.**
+- (c) Because Pandas does not have a function to delete rows.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** Deleting is easy, but it destroys data. Imputation (filling) preserves the row so you can still learn from its other valid columns.
+:::
+
+## 2. Smoothing noisy data {#sec-s03-topic-2}
+
+**Smoothing is the mathematical process of removing random, short-term fluctuations to reveal the true underlying trend.**
+
+It exists because sensors glitch, human input varies, and daily variance can obscure the bigger picture.
+
+### How it works
+The most common technique is the **Moving Average**. Instead of looking at daily sales, you look at the 7-day rolling average. This flattens out the weekend dips and shows if the business is generally growing or shrinking.
+
+::: {.callout-warning title="⚠️ The trap of over-smoothing"}
+If you smooth the data too much (e.g., using a 365-day moving average on stock prices), you erase the very trends you are trying to study. The data becomes a flat line.
+:::
+
+# Part B — Detecting Outliers {#sec-s03-b}
+
+**Outliers are extreme data points that do not follow the pattern of the rest of the data.**
+
+## 3. Detecting and removing outliers {#sec-s03-topic-3}
+
+**Outlier removal is the process of identifying mathematically impossible or highly improbable numbers and deleting them.**
+
+It exists because a single extreme outlier can pull the mathematical average so far in one direction that the model becomes useless. If you put Elon Musk in a room with 99 teachers, the "average" income of that room is suddenly $2 billion. That average does not represent the teachers.
+
+### How it works
+
+We detect outliers visually using a **Boxplot**. A boxplot draws a box around where 50% of your data lives. Anything that falls far outside the "whiskers" of that box is mathematically flagged as an outlier.
+
+### ❓ MCQs
+
+**Q2.** How does an extreme outlier affect a dataset's average (mean)?
+
+- (a) It has no effect.
+- (b) **It skews the average heavily toward the outlier, misrepresenting the majority of the data.**
+- (c) It causes the average to equal zero.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A2 — (b).** This is why the Median is often used instead of the Mean when dealing with income or housing prices, as the Median is resistant to outliers.
+:::
+
+# Part Demo — The Cleaning Pipeline {#sec-s03-demo}
+
+**Let's build a mini-pipeline that replaces missing values and visually removes outliers.**
+
+```{python}
+#| label: fig-cleaning-demo
+#| fig-cap: "Using boxplots to detect and remove outliers."
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 1. Create a messy dataset
+data = {
+    "Customer_Age": [22, 25, 24, np.nan, 23, 26, 22, 29, 150, 24, 25] # Notice NaN and 150
+}
+df = pd.DataFrame(data)
+
+# 2. Fill the missing value (NaN) with the median age
+median_age = df["Customer_Age"].median()
+df["Customer_Age"] = df["Customer_Age"].fillna(median_age)
+
+# 3. Visualize BEFORE removing the outlier
+plt.figure(figsize=(10, 4))
+plt.subplot(1, 2, 1)
+plt.boxplot(df["Customer_Age"])
+plt.title("Before: With Outlier")
+
+# 4. Remove the outlier (Keep only ages under 100)
+df_clean = df[df["Customer_Age"] < 100]
+
+# 5. Visualize AFTER removing the outlier
+plt.subplot(1, 2, 2)
+plt.boxplot(df_clean["Customer_Age"])
+plt.title("After: Outlier Removed")
+
+plt.tight_layout()
+plt.show()
+```
+
+# 🎯 Session 3 — Tasks {#sec-s03-tasks}
+
+**Task 1 — Moving Averages.** 
+Create a Pandas DataFrame with 10 days of random sales data. Look up the Pandas `.rolling()` function and use it to calculate a 3-day moving average. **Report the difference between the raw daily sales and the moving average.**
+
+::: {.callout-tip title="✅ Before you move on"}
+- [ ] Understand the difference between dropping a row and imputing a value.
+- [ ] **The one thing from this chapter that is easiest to forget:** Always visualize your data with a boxplot or histogram before you start modeling. You will almost always find an outlier you didn't expect.
+:::

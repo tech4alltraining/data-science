@@ -1,0 +1,982 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Data Science Course",
+    "section": "",
+    "text": "Welcome to the Data Science Course.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Data Science Course</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-01-introduction-to-data-science.html",
+    "href": "sessions/session-01-introduction-to-data-science.html",
+    "title": "2  Session 1 — Introduction to Data Science",
+    "section": "",
+    "text": "2.1 🎯 Learning outcomes\nBy the end of this chapter you can:",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Session 1 — Introduction to Data Science</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-01-introduction-to-data-science.html#sec-s01-outcomes",
+    "href": "sessions/session-01-introduction-to-data-science.html#sec-s01-outcomes",
+    "title": "2  Session 1 — Introduction to Data Science",
+    "section": "",
+    "text": "Define Data Science in plain English without relying on industry jargon.\nTrace the evolution of Data Science from classical statistics to modern machine learning.\nIdentify the core responsibilities of the three primary Data Science roles.\nList three real-world applications where Data Science directly impacts decision-making.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Session 1 — Introduction to Data Science</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-01-introduction-to-data-science.html#sec-s01-organisation",
+    "href": "sessions/session-01-introduction-to-data-science.html#sec-s01-organisation",
+    "title": "2  Session 1 — Introduction to Data Science",
+    "section": "2.2 How this chapter is organised",
+    "text": "2.2 How this chapter is organised\n\n\n\nPart\nQuestion it answers\nSource\n\n\n\n\nA — Definition and Evolution\nWhat exactly is Data Science, and where did it come from?\nconcepts\n\n\nB — Roles and Applications\nWho does this work, and what problems do they solve?\nconcepts\n\n\nDemo — The End Goal\nWhat does a finished data product look like?\nstock_predictor.py",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Session 1 — Introduction to Data Science</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-01-introduction-to-data-science.html#sec-s01-topic-1",
+    "href": "sessions/session-01-introduction-to-data-science.html#sec-s01-topic-1",
+    "title": "2  Session 1 — Introduction to Data Science",
+    "section": "3.1 1. Introduction to Data Science - Definition",
+    "text": "3.1 1. Introduction to Data Science - Definition\nData Science is the practice of extracting actionable insights from raw information using mathematics, programming, and domain expertise.\nIt exists because human intuition fails when faced with millions of rows of information. Without Data Science, companies guess what their customers want; with it, they know.\n\n\n\n\n\n\nTip🧠 Analogy — The Master Chef\n\n\n\nThe everyday thing: Imagine you are a master chef in a massive kitchen.\nThe mapping: - The raw ingredients arriving at the back door are the raw data. - The kitchen equipment (blenders, ovens) are your programming languages (Python, SQL). - The recipes and culinary techniques are your mathematical algorithms. - The final plated dish is the actionable business insight.\nWhere it breaks down: A chef eventually runs out of physical ingredients, whereas data can be reused and combined infinitely without being consumed.\n\n\n\n3.1.1 How it works\nAt its core, Data Science involves a simple pipeline: 1. Collect: Gather raw numbers, text, or images. 2. Clean: Remove errors, duplicates, and missing values. 3. Analyze: Find patterns and trends. 4. Predict/Model: Use past patterns to guess future outcomes. 5. Report: Present the findings to decision-makers.\n\n\n3.1.2 ❓ MCQs\nQ1. Which of the following is the most accurate definition of Data Science?\n\n\nWriting complex software applications for web browsers.\n\n\nExtracting actionable insights from raw data using math and programming.\n\n\nManually reading through customer emails to find complaints.\n\n\nInstalling computer hardware and maintaining servers.\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). Data Science focuses on finding insights from data. (a) is software engineering, (c) is manual review, and (d) is IT administration.\n\n\n\nThis definition explains what we do, but to understand why, we must look at how the field grew.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Session 1 — Introduction to Data Science</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-01-introduction-to-data-science.html#sec-s01-topic-2",
+    "href": "sessions/session-01-introduction-to-data-science.html#sec-s01-topic-2",
+    "title": "2  Session 1 — Introduction to Data Science",
+    "section": "3.2 2. Evolution of Data Science",
+    "text": "3.2 2. Evolution of Data Science\nData Science evolved from simple pen-and-paper statistics into complex, automated machine learning driven by massive computing power.\nIt exists in its current form because the sheer volume of data generated today (the “Big Data” boom) made classical statistical methods too slow and manual to be useful on their own.\n\n3.2.1 How it works\nThe evolution can be broken down into three eras: 1. The Statistical Era (Pre-2000s): Data was small. Statisticians used formulas and calculators to find averages and probabilities on carefully collected samples. 2. The Big Data Era (2000s-2010s): The internet exploded. Suddenly, companies had terabytes of click data. The challenge was simply storing and querying this massive volume of information. 3. The AI/Machine Learning Era (2010s-Present): Storage became cheap, and computing became incredibly fast. Instead of humans querying data, we now train algorithms to find the patterns for us autonomously.\n\n\n\n\n\n\nWarning⚠️ The trap of chasing the shiny new thing\n\n\n\n“Do not ignore classical statistics just because machine learning is newer.”\nA simple average (from the 1900s) often solves a business problem faster and more reliably than a massive neural network (from 2024). Start simple.\n\n\n\n\n3.2.2 ❓ MCQs\nQ2. What primary factor drove the transition from classical statistics to modern Data Science?\n\n\nThe invention of the Python programming language.\n\n\nThe desire to make mathematics look cooler.\n\n\nThe explosion of internet data and the availability of cheap, fast computing.\n\n\nThe decline in the number of trained statisticians.\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA2 — (c). Massive data volumes required new approaches because manual statistical sampling could no longer keep up with the scale of information.\n\n\n\nUnderstanding the history gives us context, but who actually does the work today?",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Session 1 — Introduction to Data Science</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-01-introduction-to-data-science.html#sec-s01-topic-3",
+    "href": "sessions/session-01-introduction-to-data-science.html#sec-s01-topic-3",
+    "title": "2  Session 1 — Introduction to Data Science",
+    "section": "4.1 3. Data Science Roles",
+    "text": "4.1 3. Data Science Roles\nThe modern data team is divided into three main roles: Data Engineers, Data Analysts, and Data Scientists.\nThis division of labor exists because building a database, interpreting a chart, and training a predictive algorithm require entirely different skill sets. Expecting one person to do all three usually results in mediocre work across the board.\n\n4.1.1 How it works\n\n\n\n\n\n\n\n\n\nRole\nCore Responsibility\nPrimary Tool\nOutput\n\n\n\n\nData Engineer\nMoves and stores data reliably.\nSQL, Python, Cloud\nA clean, fast database.\n\n\nData Analyst\nExplains what happened in the past.\nSQL, Excel, Tableau\nDashboards and reports.\n\n\nData Scientist\nPredicts what will happen in the future.\nPython, Scikit-Learn\nPredictive models.\n\n\n\n\n\n\n\n\n\nTip🧠 Analogy — The Factory\n\n\n\nThe everyday thing: A car manufacturing plant.\nThe mapping: - The Data Engineer builds the assembly line and makes sure the metal and plastic arrive safely. - The Data Analyst inspects the cars coming off the line, counting defects and tracking production speed. - The Data Scientist analyzes the aerodynamics to design next year’s faster, more efficient car model.\n\n\n\n\n4.1.2 🌍 Scenarios\nScenario 1 — A marketing team wants to know why sales dropped last month. They need a Data Analyst to look at historical data and create a chart showing where the drop occurred.\nScenario 2 — A bank wants a system that automatically blocks fraudulent credit card swipes in real-time. They need a Data Scientist to build a predictive model that flags suspicious behavior instantly.\n\n\n4.1.3 ❓ MCQs\nQ3. Your company has terabytes of messy log files scattered across ten different servers. Who should you hire to organize this into a clean, centralized database?\n\n\nData Scientist\n\n\nData Engineer\n\n\nData Analyst\n\n\nSoftware Developer\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA3 — (b). A Data Engineer specializes in the infrastructure, movement, and storage of data. A Data Scientist or Analyst would struggle to do their jobs without the Engineer’s foundational work.\n\n\n\nNow that we know the roles, what exactly are they building?",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Session 1 — Introduction to Data Science</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-01-introduction-to-data-science.html#sec-s01-topic-4",
+    "href": "sessions/session-01-introduction-to-data-science.html#sec-s01-topic-4",
+    "title": "2  Session 1 — Introduction to Data Science",
+    "section": "4.2 4. Application of Data Sciences",
+    "text": "4.2 4. Application of Data Sciences\nData Science is applied to optimize logistics, personalize recommendations, detect fraud, and automate decision-making across every major industry.\nIt is used universally because any process that relies on human guesswork can be made faster and more accurate by finding historical patterns in data.\n\n4.2.1 How it works\nHere are four major applications you interact with daily: - Recommendation Systems (Netflix/Amazon): Analyzes millions of users to predict which movie or product you will like next based on your past behavior. - Dynamic Pricing (Uber/Airlines): Adjusts prices in real-time based on current demand, weather, and historical traffic patterns. - Fraud Detection (Banking): Identifies anomalies—if your card is used in New York at 1:00 PM and in London at 1:05 PM, the system flags it instantly. - Healthcare Diagnostics: Image recognition models scan X-rays for tumors with higher accuracy than human radiologists.\n\n\n4.2.2 ❓ MCQs\nQ4. Which of the following is NOT a typical application of Data Science?\n\n\nPredicting which customers are likely to cancel their subscriptions.\n\n\nManually calling customers to ask for their feedback on a new product.\n\n\nAdjusting the price of a flight based on remaining seats and historical demand.\n\n\nSuggesting the next song you should listen to on Spotify.\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA4 — (b). Manually calling customers is a traditional qualitative research method, not a data science application. Data science relies on analyzing large datasets programmatically.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Session 1 — Introduction to Data Science</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-02-data-collection-and-pre-processing-overview.html",
+    "href": "sessions/session-02-data-collection-and-pre-processing-overview.html",
+    "title": "3  Session 2 — Data Collection and Pre-Processing Overview",
+    "section": "",
+    "text": "3.1 🎯 Learning outcomes\nBy the end of this chapter you can:",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Session 2 — Data Collection and Pre-Processing Overview</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-02-data-collection-and-pre-processing-overview.html#sec-s02-outcomes",
+    "href": "sessions/session-02-data-collection-and-pre-processing-overview.html#sec-s02-outcomes",
+    "title": "3  Session 2 — Data Collection and Pre-Processing Overview",
+    "section": "",
+    "text": "Identify three common strategies for collecting raw data.\nExplain why data pre-processing is mandatory before any analysis can begin.\nLoad a dataset into a Pandas DataFrame and inspect its structure.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Session 2 — Data Collection and Pre-Processing Overview</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-02-data-collection-and-pre-processing-overview.html#sec-s02-organisation",
+    "href": "sessions/session-02-data-collection-and-pre-processing-overview.html#sec-s02-organisation",
+    "title": "3  Session 2 — Data Collection and Pre-Processing Overview",
+    "section": "3.2 How this chapter is organised",
+    "text": "3.2 How this chapter is organised\n\n\n\nPart\nQuestion it answers\nSource\n\n\n\n\nA — Collection and Pre-Processing\nWhere does data come from, and why is it always messy?\nconcepts\n\n\nB — Working with Pandas\nHow do we actually look at this data in Python?\npandas_basics.ipynb\n\n\nDemo — Inspecting Messy Data\nWhat does a real-world messy dataset look like when loaded?\npandas_demo.py",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Session 2 — Data Collection and Pre-Processing Overview</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-02-data-collection-and-pre-processing-overview.html#sec-s02-topic-1",
+    "href": "sessions/session-02-data-collection-and-pre-processing-overview.html#sec-s02-topic-1",
+    "title": "3  Session 2 — Data Collection and Pre-Processing Overview",
+    "section": "4.1 1. Data Collection Strategies",
+    "text": "4.1 1. Data Collection Strategies\nData collection is the process of gathering raw information from various sources to answer a specific business question.\nIt exists because algorithms cannot learn from nothing. You must feed them historical examples (data) so they can find patterns.\n\n\n\n\n\n\nTip🧠 Analogy — Mining for Gold\n\n\n\nThe everyday thing: A gold mining operation.\nThe mapping: - The mountain is the internet or your company’s user base. - The excavator is your data collection strategy (APIs, web scraping). - The chunks of raw rock you pull out are the raw data.\nWhere it breaks down: Mining removes gold from the mountain permanently, but collecting data from a website doesn’t delete the data from the website.\n\n\n\n4.1.1 How it works\nThere are three primary ways modern teams collect data: 1. Internal Databases: Pulling data your company already owns (e.g., customer purchase history from a SQL database). 2. APIs (Application Programming Interfaces): Requesting data programmatically from third-party services (e.g., getting live weather data from the OpenWeather API). 3. Web Scraping: Writing scripts to automatically read and extract information from public websites when an API is not available.\n\n\n4.1.2 ❓ MCQs\nQ1. If you need to gather public pricing information from a competitor’s website that does not offer an API, which strategy must you use?\n\n\nQuerying your internal SQL database.\n\n\nWeb Scraping.\n\n\nGuessing the prices based on market trends.\n\n\nWaiting for the competitor to email you their data.\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). Web scraping allows you to programmatically extract information directly from the HTML of a webpage when no official API is provided.\n\n\n\nOnce you collect the data, you will immediately notice a problem: it is never ready to use.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Session 2 — Data Collection and Pre-Processing Overview</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-02-data-collection-and-pre-processing-overview.html#sec-s02-topic-2",
+    "href": "sessions/session-02-data-collection-and-pre-processing-overview.html#sec-s02-topic-2",
+    "title": "3  Session 2 — Data Collection and Pre-Processing Overview",
+    "section": "4.2 2. Data Pre-Processing Overview",
+    "text": "4.2 2. Data Pre-Processing Overview\nData pre-processing is the act of cleaning and formatting raw data into a pristine table that a machine learning algorithm can understand.\nIt exists because raw data is incredibly messy. Users make typos, sensors fail and record blank values, and different systems use different formats (e.g., 10/05/2024 vs 2024-10-05). If you feed messy data into a model, the model will produce garbage predictions.\n\n\n\n\n\n\nWarning⚠️ The trap of skipping the cleaning phase\n\n\n\n“I just want to get to the fun machine learning part!”\nGarbage in, garbage out. If you don’t pre-process your data, your highly advanced neural network will confidently give you the wrong answer because it learned from typos and missing values. Data Scientists spend 80% of their time pre-processing.\n\n\n\n4.2.1 How it works\nPre-processing generally involves: - Handling Missing Values: What do we do if a user didn’t enter their age? (Delete the row, or guess the average?) - Formatting: Ensuring all text is lowercase, or all dates follow the same format. - Removing Duplicates: Ensuring a user who clicked “Submit” twice isn’t counted as two separate purchases.\n\n\n4.2.2 ❓ MCQs\nQ2. Why do Data Scientists spend so much time pre-processing data?\n\n\nBecause Python is very slow at reading files.\n\n\nBecause raw data contains errors, missing values, and inconsistencies that ruin analysis.\n\n\nBecause pre-processing is the only way to generate charts.\n\n\nBecause it is required by international privacy laws.\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA2 — (b). Real-world data is generated by humans and imperfect systems, leading to errors that must be fixed before an algorithm can find accurate patterns.\n\n\n\nWe know we need to collect and clean data, but what tool do we use to actually do this in Python?",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Session 2 — Data Collection and Pre-Processing Overview</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-02-data-collection-and-pre-processing-overview.html#sec-s02-topic-3",
+    "href": "sessions/session-02-data-collection-and-pre-processing-overview.html#sec-s02-topic-3",
+    "title": "3  Session 2 — Data Collection and Pre-Processing Overview",
+    "section": "5.1 3. Working with Pandas data frames",
+    "text": "5.1 3. Working with Pandas data frames\nA Pandas DataFrame is essentially a programmatic Excel spreadsheet inside Python.\nIt exists because standard Python lists and dictionaries are too slow and cumbersome for doing math on millions of rows of tabular data. Pandas gives us a fast, intuitive way to filter, group, and calculate statistics on large datasets.\n\n5.1.1 How it works\nYou import the library (import pandas as pd), load a file (like a CSV) into a DataFrame object, and then use built-in methods to inspect it.\n\n\n5.1.2 📘 Examples\nExample 1 — Creating a simple DataFrame from scratch\n\nimport pandas as pd\n\n# Creating data manually using a dictionary\ndata = {\n    \"Name\": [\"Alice\", \"Bob\", \"Charlie\"],\n    \"Age\": [25, 30, 35],\n    \"City\": [\"New York\", \"London\", \"Paris\"]\n}\n\n# Converting it into a Pandas DataFrame\ndf = pd.DataFrame(data)\n\n# Displaying the DataFrame\ndf\n\n\n\n\n\n\n\n\nName\nAge\nCity\n\n\n\n\n0\nAlice\n25\nNew York\n\n\n1\nBob\n30\nLondon\n\n\n2\nCharlie\n35\nParis\n\n\n\n\n\n\n\nExample 2 — Inspecting the data\n\n# .head(2) shows only the first 2 rows. Useful when you have millions of rows!\ndf.head(2)\n\n\n\nTable 5.1: Using .head() to look at just the top rows of a large dataset.\n\n\n\n\n\n\n\n\n\n\nName\nAge\nCity\n\n\n\n\n0\nAlice\n25\nNew York\n\n\n1\nBob\n30\nLondon\n\n\n\n\n\n\n\n\n\n\n\n\n5.1.3 🌍 Scenarios\nScenario 1 — You have a massive file with 500,000 rows. You cannot print it to the screen. You must use df.head() to just peek at the first 5 rows to understand what the columns are.\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nCreate a dictionary with columns Product, Price, and Stock.\nConvert it to a Pandas DataFrame.\nPrint just the first row using .head(1).\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\nimport pandas as pd\n\ninventory = {\n    \"Product\": [\"Laptop\", \"Mouse\", \"Keyboard\"],\n    \"Price\": [999.99, 25.50, 45.00],\n    \"Stock\": [50, 200, 150]\n}\ndf_inventory = pd.DataFrame(inventory)\ndf_inventory.head(1)\n\n\n\n\n\n\n\n\nProduct\nPrice\nStock\n\n\n\n\n0\nLaptop\n999.99\n50",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Session 2 — Data Collection and Pre-Processing Overview</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-03-data-cleaning.html",
+    "href": "sessions/session-03-data-cleaning.html",
+    "title": "4  Session 3 — Data Cleaning",
+    "section": "",
+    "text": "4.1 🎯 Learning outcomes\nBy the end of this chapter you can:",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Session 3 — Data Cleaning</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-03-data-cleaning.html#sec-s03-outcomes",
+    "href": "sessions/session-03-data-cleaning.html#sec-s03-outcomes",
+    "title": "4  Session 3 — Data Cleaning",
+    "section": "",
+    "text": "Identify and programmatically fill missing values (NaN) in a dataset.\nExplain techniques for smoothing noisy, fluctuating data.\nDetect and remove extreme mathematical outliers using visualizations.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Session 3 — Data Cleaning</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-03-data-cleaning.html#sec-s03-organisation",
+    "href": "sessions/session-03-data-cleaning.html#sec-s03-organisation",
+    "title": "4  Session 3 — Data Cleaning",
+    "section": "4.2 How this chapter is organised",
+    "text": "4.2 How this chapter is organised\n\n\n\nPart\nQuestion it answers\nSource\n\n\n\n\nA — Missing Values and Noise\nHow do we fix blank cells and chaotic fluctuations?\nconcepts\n\n\nB — Detecting Outliers\nHow do we identify data points that lie?\nconcepts\n\n\nDemo — The Cleaning Pipeline\nWhat does this look like in Pandas?\ncleaning_demo.py",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Session 3 — Data Cleaning</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-03-data-cleaning.html#sec-s03-topic-1",
+    "href": "sessions/session-03-data-cleaning.html#sec-s03-topic-1",
+    "title": "4  Session 3 — Data Cleaning",
+    "section": "5.1 1. Filling missing values",
+    "text": "5.1 1. Filling missing values\nFilling missing values (imputation) is the process of intelligently replacing blank data points with estimated numbers.\nIt exists because most machine learning algorithms will crash immediately if they encounter a missing value (NaN). You cannot train a model on “blank”.\n\n\n\n\n\n\nTip🧠 Analogy — The Missing Puzzle Piece\n\n\n\nThe everyday thing: Doing a jigsaw puzzle with a missing piece.\nThe mapping: - The puzzle is your dataset. - The missing piece is the NaN value. - Imputation is painting a piece of cardboard to match the surrounding colors so the picture looks complete from a distance.\nWhere it breaks down: An imputed value is just a good guess. In data science, guessing wrong can ruin your model’s accuracy.\n\n\n\n5.1.1 How it works\nWhen faced with a missing value, you have three main choices: 1. Drop the row: If only 1% of rows are missing data, just delete them. 2. Fill with Mean/Median: If a user’s age is missing, fill it with the average age of all users. 3. Forward Fill (Time Series): If Monday’s stock price is missing, just copy Sunday’s price.\n\n\n5.1.2 📘 Examples\nExample 1 — Filling NaN with the mean in Pandas\n\nimport pandas as pd\nimport numpy as np\n\ndf = pd.DataFrame({\"Age\": [25, 30, np.nan, 40, 20]})\nprint(\"Before:\\n\", df)\n\n# Calculate the mean (average)\nmean_age = df[\"Age\"].mean()\n\n# Fill the NaN with the mean\ndf[\"Age\"] = df[\"Age\"].fillna(mean_age)\nprint(\"\\nAfter:\\n\", df)\n\nBefore:\n     Age\n0  25.0\n1  30.0\n2   NaN\n3  40.0\n4  20.0\n\nAfter:\n      Age\n0  25.00\n1  30.00\n2  28.75\n3  40.00\n4  20.00\n\n\n\n\n5.1.3 ❓ MCQs\nQ1. Why is deleting rows with missing values not always the best strategy?\n\n\nBecause it takes too much processing power.\n\n\nBecause if 40% of your data has missing values, deleting those rows destroys almost half of your valuable information.\n\n\nBecause Pandas does not have a function to delete rows.\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). Deleting is easy, but it destroys data. Imputation (filling) preserves the row so you can still learn from its other valid columns.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Session 3 — Data Cleaning</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-03-data-cleaning.html#sec-s03-topic-2",
+    "href": "sessions/session-03-data-cleaning.html#sec-s03-topic-2",
+    "title": "4  Session 3 — Data Cleaning",
+    "section": "5.2 2. Smoothing noisy data",
+    "text": "5.2 2. Smoothing noisy data\nSmoothing is the mathematical process of removing random, short-term fluctuations to reveal the true underlying trend.\nIt exists because sensors glitch, human input varies, and daily variance can obscure the bigger picture.\n\n5.2.1 How it works\nThe most common technique is the Moving Average. Instead of looking at daily sales, you look at the 7-day rolling average. This flattens out the weekend dips and shows if the business is generally growing or shrinking.\n\n\n\n\n\n\nWarning⚠️ The trap of over-smoothing\n\n\n\nIf you smooth the data too much (e.g., using a 365-day moving average on stock prices), you erase the very trends you are trying to study. The data becomes a flat line.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Session 3 — Data Cleaning</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-03-data-cleaning.html#sec-s03-topic-3",
+    "href": "sessions/session-03-data-cleaning.html#sec-s03-topic-3",
+    "title": "4  Session 3 — Data Cleaning",
+    "section": "6.1 3. Detecting and removing outliers",
+    "text": "6.1 3. Detecting and removing outliers\nOutlier removal is the process of identifying mathematically impossible or highly improbable numbers and deleting them.\nIt exists because a single extreme outlier can pull the mathematical average so far in one direction that the model becomes useless. If you put Elon Musk in a room with 99 teachers, the “average” income of that room is suddenly $2 billion. That average does not represent the teachers.\n\n6.1.1 How it works\nWe detect outliers visually using a Boxplot. A boxplot draws a box around where 50% of your data lives. Anything that falls far outside the “whiskers” of that box is mathematically flagged as an outlier.\n\n\n6.1.2 ❓ MCQs\nQ2. How does an extreme outlier affect a dataset’s average (mean)?\n\n\nIt has no effect.\n\n\nIt skews the average heavily toward the outlier, misrepresenting the majority of the data.\n\n\nIt causes the average to equal zero.\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA2 — (b). This is why the Median is often used instead of the Mean when dealing with income or housing prices, as the Median is resistant to outliers.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Session 3 — Data Cleaning</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-04-data-integration.html",
+    "href": "sessions/session-04-data-integration.html",
+    "title": "5  Session 4 — Data Integration",
+    "section": "",
+    "text": "5.1 🎯 Learning outcomes\nBy the end of this chapter you can:",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Session 4 — Data Integration</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-04-data-integration.html#sec-s04-outcomes",
+    "href": "sessions/session-04-data-integration.html#sec-s04-outcomes",
+    "title": "5  Session 4 — Data Integration",
+    "section": "",
+    "text": "Understand and implement Virtual integration, Physical data integration, Application based integration, Manual Integration, and Middleware data integration.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Session 4 — Data Integration</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-04-data-integration.html#sec-s04-organisation",
+    "href": "sessions/session-04-data-integration.html#sec-s04-organisation",
+    "title": "5  Session 4 — Data Integration",
+    "section": "5.2 How this chapter is organised",
+    "text": "5.2 How this chapter is organised\n\n\n\nPart\nQuestion it answers\nSource\n\n\n\n\nA — Virtual integration, Physical data integration, Application based integration, Manual Integration, and Middleware data integration.\n…?\ntrainer_notebook.ipynb",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Session 4 — Data Integration</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-04-data-integration.html#sec-s04-topic-1",
+    "href": "sessions/session-04-data-integration.html#sec-s04-topic-1",
+    "title": "5  Session 4 — Data Integration",
+    "section": "6.1 1. Virtual integration, Physical data integration, Application based integration, Manual Integration, and Middleware data integration.",
+    "text": "6.1 1. Virtual integration, Physical data integration, Application based integration, Manual Integration, and Middleware data integration.\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n6.1.1 How it works\nThe mechanism, in plain words first.\n\n\n6.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n6.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n6.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Session 4 — Data Integration</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-05-data-transformation.html",
+    "href": "sessions/session-05-data-transformation.html",
+    "title": "6  Session 5 — Data Transformation",
+    "section": "",
+    "text": "6.1 🎯 Learning outcomes\nBy the end of this chapter you can:",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Session 5 — Data Transformation</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-05-data-transformation.html#sec-s05-outcomes",
+    "href": "sessions/session-05-data-transformation.html#sec-s05-outcomes",
+    "title": "6  Session 5 — Data Transformation",
+    "section": "",
+    "text": "Understand and implement Rescaling data\nUnderstand and implement Normalizing data\nUnderstand and implement Binarizing data\nUnderstand and implement Standardizing data",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Session 5 — Data Transformation</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-05-data-transformation.html#sec-s05-organisation",
+    "href": "sessions/session-05-data-transformation.html#sec-s05-organisation",
+    "title": "6  Session 5 — Data Transformation",
+    "section": "6.2 How this chapter is organised",
+    "text": "6.2 How this chapter is organised\n\n\n\nPart\nQuestion it answers\nSource\n\n\n\n\nA — Rescaling data\n…?\ntrainer_notebook.ipynb\n\n\nB — Normalizing data\n…?\ntrainer_notebook.ipynb\n\n\nC — Binarizing data\n…?\ntrainer_notebook.ipynb\n\n\nD — Standardizing data\n…?\ntrainer_notebook.ipynb",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Session 5 — Data Transformation</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-05-data-transformation.html#sec-s05-topic-1",
+    "href": "sessions/session-05-data-transformation.html#sec-s05-topic-1",
+    "title": "6  Session 5 — Data Transformation",
+    "section": "7.1 1. Rescaling data",
+    "text": "7.1 1. Rescaling data\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n7.1.1 How it works\nThe mechanism, in plain words first.\n\n\n7.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n7.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n7.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Session 5 — Data Transformation</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-05-data-transformation.html#sec-s05-topic-2",
+    "href": "sessions/session-05-data-transformation.html#sec-s05-topic-2",
+    "title": "6  Session 5 — Data Transformation",
+    "section": "8.1 2. Normalizing data",
+    "text": "8.1 2. Normalizing data\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n8.1.1 How it works\nThe mechanism, in plain words first.\n\n\n8.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n8.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n8.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Session 5 — Data Transformation</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-05-data-transformation.html#sec-s05-topic-3",
+    "href": "sessions/session-05-data-transformation.html#sec-s05-topic-3",
+    "title": "6  Session 5 — Data Transformation",
+    "section": "9.1 3. Binarizing data",
+    "text": "9.1 3. Binarizing data\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n9.1.1 How it works\nThe mechanism, in plain words first.\n\n\n9.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n9.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n9.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Session 5 — Data Transformation</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-05-data-transformation.html#sec-s05-topic-4",
+    "href": "sessions/session-05-data-transformation.html#sec-s05-topic-4",
+    "title": "6  Session 5 — Data Transformation",
+    "section": "10.1 4. Standardizing data",
+    "text": "10.1 4. Standardizing data\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n10.1.1 How it works\nThe mechanism, in plain words first.\n\n\n10.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n10.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n10.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Session 5 — Data Transformation</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-06-data-reduction-and-discretization.html",
+    "href": "sessions/session-06-data-reduction-and-discretization.html",
+    "title": "7  Session 6 — Data Reduction and Discretization",
+    "section": "",
+    "text": "7.1 🎯 Learning outcomes\nBy the end of this chapter you can:",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Session 6 — Data Reduction and Discretization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-06-data-reduction-and-discretization.html#sec-s06-outcomes",
+    "href": "sessions/session-06-data-reduction-and-discretization.html#sec-s06-outcomes",
+    "title": "7  Session 6 — Data Reduction and Discretization",
+    "section": "",
+    "text": "Explain the “Curse of Dimensionality” and why too much data can be harmful.\nReduce a dataset’s complexity using Principal Component Analysis (PCA).\nConvert continuous numerical data into categorized bins using discretization.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Session 6 — Data Reduction and Discretization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-06-data-reduction-and-discretization.html#sec-s06-organisation",
+    "href": "sessions/session-06-data-reduction-and-discretization.html#sec-s06-organisation",
+    "title": "7  Session 6 — Data Reduction and Discretization",
+    "section": "7.2 How this chapter is organised",
+    "text": "7.2 How this chapter is organised\n\n\n\nPart\nQuestion it answers\nSource\n\n\n\n\nA — Data Reduction\nHow do we shrink a dataset?\nconcepts\n\n\nB — Discretization\nHow do we group continuous numbers?\nconcepts\n\n\nDemo — PCA and Cut\nWhat does this look like in Python?\nreduction_demo.py",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Session 6 — Data Reduction and Discretization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-06-data-reduction-and-discretization.html#sec-s06-topic-1",
+    "href": "sessions/session-06-data-reduction-and-discretization.html#sec-s06-topic-1",
+    "title": "7  Session 6 — Data Reduction and Discretization",
+    "section": "8.1 1. Dimensionality and Numerosity Reduction",
+    "text": "8.1 1. Dimensionality and Numerosity Reduction\nDimensionality reduction is the process of reducing the number of columns in a dataset. Numerosity reduction is reducing the number of rows.\nIt exists to solve the Curse of Dimensionality. If you are trying to predict the price of a car, using 5 columns (mileage, age, brand, engine size, condition) is great. Using 5,000 columns (including the exact hex code of the paint, the thread count of the seats, the brand of the radio dial) will confuse the model. It will desperately try to find patterns in the noise.\n\n\n\n\n\n\nTip🧠 Analogy — The Shadow\n\n\n\nThe everyday thing: Looking at a 3D object’s shadow.\nThe mapping: - A dataset with 3 columns is a 3D object. - PCA (Dimensionality Reduction) shines a light on that object to cast a 2D shadow. - You lose one dimension of detail (depth), but you still retain the overall shape of the object, and a 2D shadow is much easier to draw (process).\n\n\n\n8.1.1 How it works\n\nPrincipal Component Analysis (PCA): A mathematical technique that compresses multiple correlated columns into a smaller set of “Principal Components” that capture the majority of the original variance.\nData Cube Aggregation: Grouping row data (e.g., combining daily sales into monthly sales to reduce the row count).\n\n\n\n8.1.2 ❓ MCQs\nQ1. What is the primary goal of Dimensionality Reduction (like PCA)?\n\n\nTo delete all the outliers in a dataset.\n\n\nTo reduce the number of columns while retaining as much of the original information as possible.\n\n\nTo reduce the number of rows by taking a random sample.\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). PCA mathematically compresses columns. Reducing rows is numerosity reduction (sampling or aggregation).",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Session 6 — Data Reduction and Discretization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-06-data-reduction-and-discretization.html#sec-s06-topic-2",
+    "href": "sessions/session-06-data-reduction-and-discretization.html#sec-s06-topic-2",
+    "title": "7  Session 6 — Data Reduction and Discretization",
+    "section": "9.1 2. Top-down and Bottom-up Discretization",
+    "text": "9.1 2. Top-down and Bottom-up Discretization\nDiscretization (Binning) is the process of converting continuous numbers into discrete categories.\nIt exists because human behavior often reacts to thresholds, not continuous scales. A marketing algorithm doesn’t need to know the difference between a 21-year-old and a 22-year-old. It needs to know if they are a “Young Adult” or a “Senior.”\n\n9.1.1 How it works\n\nTop-Down (Splitting): You look at the whole dataset (Ages 0 to 100) and decide to split it into equal chunks: [0-33], [34-66], [67-100].\nBottom-Up (Merging): You start with exact numbers (Ages 21, 22, 23) and merge them based on similarity until distinct groups form.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Session 6 — Data Reduction and Discretization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-07-descriptive-statistics.html",
+    "href": "sessions/session-07-descriptive-statistics.html",
+    "title": "8  Session 7 — Descriptive Statistics",
+    "section": "",
+    "text": "8.1 🎯 Learning outcomes\nBy the end of this chapter you can:",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Session 7 — Descriptive Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-07-descriptive-statistics.html#sec-s07-outcomes",
+    "href": "sessions/session-07-descriptive-statistics.html#sec-s07-outcomes",
+    "title": "8  Session 7 — Descriptive Statistics",
+    "section": "",
+    "text": "Understand and implement Measures of Central Tendencies and Dispersion\nUnderstand and implement Mean, Standard Deviation, and Averages\nUnderstand and implement Skewness and Kurtosis\nUnderstand and implement Frequency distributions",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Session 7 — Descriptive Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-07-descriptive-statistics.html#sec-s07-organisation",
+    "href": "sessions/session-07-descriptive-statistics.html#sec-s07-organisation",
+    "title": "8  Session 7 — Descriptive Statistics",
+    "section": "8.2 How this chapter is organised",
+    "text": "8.2 How this chapter is organised\n\n\n\nPart\nQuestion it answers\nSource\n\n\n\n\nA — Measures of Central Tendencies and Dispersion\n…?\ntrainer_notebook.ipynb\n\n\nB — Mean, Standard Deviation, and Averages\n…?\ntrainer_notebook.ipynb\n\n\nC — Skewness and Kurtosis\n…?\ntrainer_notebook.ipynb\n\n\nD — Frequency distributions\n…?\ntrainer_notebook.ipynb",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Session 7 — Descriptive Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-07-descriptive-statistics.html#sec-s07-topic-1",
+    "href": "sessions/session-07-descriptive-statistics.html#sec-s07-topic-1",
+    "title": "8  Session 7 — Descriptive Statistics",
+    "section": "9.1 1. Measures of Central Tendencies and Dispersion",
+    "text": "9.1 1. Measures of Central Tendencies and Dispersion\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n9.1.1 How it works\nThe mechanism, in plain words first.\n\n\n9.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n9.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n9.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Session 7 — Descriptive Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-07-descriptive-statistics.html#sec-s07-topic-2",
+    "href": "sessions/session-07-descriptive-statistics.html#sec-s07-topic-2",
+    "title": "8  Session 7 — Descriptive Statistics",
+    "section": "10.1 2. Mean, Standard Deviation, and Averages",
+    "text": "10.1 2. Mean, Standard Deviation, and Averages\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n10.1.1 How it works\nThe mechanism, in plain words first.\n\n\n10.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n10.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n10.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Session 7 — Descriptive Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-07-descriptive-statistics.html#sec-s07-topic-3",
+    "href": "sessions/session-07-descriptive-statistics.html#sec-s07-topic-3",
+    "title": "8  Session 7 — Descriptive Statistics",
+    "section": "11.1 3. Skewness and Kurtosis",
+    "text": "11.1 3. Skewness and Kurtosis\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n11.1.1 How it works\nThe mechanism, in plain words first.\n\n\n11.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n11.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n11.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Session 7 — Descriptive Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-07-descriptive-statistics.html#sec-s07-topic-4",
+    "href": "sessions/session-07-descriptive-statistics.html#sec-s07-topic-4",
+    "title": "8  Session 7 — Descriptive Statistics",
+    "section": "12.1 4. Frequency distributions",
+    "text": "12.1 4. Frequency distributions\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n12.1.1 How it works\nThe mechanism, in plain words first.\n\n\n12.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n12.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n12.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Session 7 — Descriptive Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-08-exploratory-data-analytics-eda-and-visualization.html",
+    "href": "sessions/session-08-exploratory-data-analytics-eda-and-visualization.html",
+    "title": "9  Session 8 — Exploratory Data Analytics (EDA) and Visualization",
+    "section": "",
+    "text": "9.1 🎯 Learning outcomes\nBy the end of this chapter you can:",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Session 8 — Exploratory Data Analytics (EDA) and Visualization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-08-exploratory-data-analytics-eda-and-visualization.html#sec-s08-outcomes",
+    "href": "sessions/session-08-exploratory-data-analytics-eda-and-visualization.html#sec-s08-outcomes",
+    "title": "9  Session 8 — Exploratory Data Analytics (EDA) and Visualization",
+    "section": "",
+    "text": "Understand and implement Basic plots using Matplotlib\nUnderstand and implement Box Plots, Pivot Table\nUnderstand and implement Correlation Statistics, Correlation coefficient\nUnderstand and implement Correlation and scatter plots",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Session 8 — Exploratory Data Analytics (EDA) and Visualization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-08-exploratory-data-analytics-eda-and-visualization.html#sec-s08-organisation",
+    "href": "sessions/session-08-exploratory-data-analytics-eda-and-visualization.html#sec-s08-organisation",
+    "title": "9  Session 8 — Exploratory Data Analytics (EDA) and Visualization",
+    "section": "9.2 How this chapter is organised",
+    "text": "9.2 How this chapter is organised\n\n\n\nPart\nQuestion it answers\nSource\n\n\n\n\nA — Basic plots using Matplotlib\n…?\ntrainer_notebook.ipynb\n\n\nB — Box Plots, Pivot Table\n…?\ntrainer_notebook.ipynb\n\n\nC — Correlation Statistics, Correlation coefficient\n…?\ntrainer_notebook.ipynb\n\n\nD — Correlation and scatter plots\n…?\ntrainer_notebook.ipynb",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Session 8 — Exploratory Data Analytics (EDA) and Visualization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-08-exploratory-data-analytics-eda-and-visualization.html#sec-s08-topic-1",
+    "href": "sessions/session-08-exploratory-data-analytics-eda-and-visualization.html#sec-s08-topic-1",
+    "title": "9  Session 8 — Exploratory Data Analytics (EDA) and Visualization",
+    "section": "10.1 1. Basic plots using Matplotlib",
+    "text": "10.1 1. Basic plots using Matplotlib\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n10.1.1 How it works\nThe mechanism, in plain words first.\n\n\n10.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n10.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n10.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Session 8 — Exploratory Data Analytics (EDA) and Visualization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-08-exploratory-data-analytics-eda-and-visualization.html#sec-s08-topic-2",
+    "href": "sessions/session-08-exploratory-data-analytics-eda-and-visualization.html#sec-s08-topic-2",
+    "title": "9  Session 8 — Exploratory Data Analytics (EDA) and Visualization",
+    "section": "11.1 2. Box Plots, Pivot Table",
+    "text": "11.1 2. Box Plots, Pivot Table\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n11.1.1 How it works\nThe mechanism, in plain words first.\n\n\n11.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n11.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n11.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Session 8 — Exploratory Data Analytics (EDA) and Visualization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-08-exploratory-data-analytics-eda-and-visualization.html#sec-s08-topic-3",
+    "href": "sessions/session-08-exploratory-data-analytics-eda-and-visualization.html#sec-s08-topic-3",
+    "title": "9  Session 8 — Exploratory Data Analytics (EDA) and Visualization",
+    "section": "12.1 3. Correlation Statistics, Correlation coefficient",
+    "text": "12.1 3. Correlation Statistics, Correlation coefficient\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n12.1.1 How it works\nThe mechanism, in plain words first.\n\n\n12.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n12.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n12.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Session 8 — Exploratory Data Analytics (EDA) and Visualization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-08-exploratory-data-analytics-eda-and-visualization.html#sec-s08-topic-4",
+    "href": "sessions/session-08-exploratory-data-analytics-eda-and-visualization.html#sec-s08-topic-4",
+    "title": "9  Session 8 — Exploratory Data Analytics (EDA) and Visualization",
+    "section": "13.1 4. Correlation and scatter plots",
+    "text": "13.1 4. Correlation and scatter plots\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n13.1.1 How it works\nThe mechanism, in plain words first.\n\n\n13.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n13.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n13.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Session 8 — Exploratory Data Analytics (EDA) and Visualization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-09-supervised-learning-techniques.html",
+    "href": "sessions/session-09-supervised-learning-techniques.html",
+    "title": "10  Session 9 — Supervised Learning Techniques",
+    "section": "",
+    "text": "10.1 🎯 Learning outcomes\nBy the end of this chapter you can:",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Session 9 — Supervised Learning Techniques</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-09-supervised-learning-techniques.html#sec-s09-outcomes",
+    "href": "sessions/session-09-supervised-learning-techniques.html#sec-s09-outcomes",
+    "title": "10  Session 9 — Supervised Learning Techniques",
+    "section": "",
+    "text": "Understand and implement Supervised learning techniques\nUnderstand and implement Prediction and Decision Making\nUnderstand and implement Simple and Multiple Regression",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Session 9 — Supervised Learning Techniques</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-09-supervised-learning-techniques.html#sec-s09-organisation",
+    "href": "sessions/session-09-supervised-learning-techniques.html#sec-s09-organisation",
+    "title": "10  Session 9 — Supervised Learning Techniques",
+    "section": "10.2 How this chapter is organised",
+    "text": "10.2 How this chapter is organised\n\n\n\nPart\nQuestion it answers\nSource\n\n\n\n\nA — Supervised learning techniques\n…?\ntrainer_notebook.ipynb\n\n\nB — Prediction and Decision Making\n…?\ntrainer_notebook.ipynb\n\n\nC — Simple and Multiple Regression\n…?\ntrainer_notebook.ipynb",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Session 9 — Supervised Learning Techniques</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-09-supervised-learning-techniques.html#sec-s09-topic-1",
+    "href": "sessions/session-09-supervised-learning-techniques.html#sec-s09-topic-1",
+    "title": "10  Session 9 — Supervised Learning Techniques",
+    "section": "11.1 1. Supervised learning techniques",
+    "text": "11.1 1. Supervised learning techniques\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n11.1.1 How it works\nThe mechanism, in plain words first.\n\n\n11.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n11.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n11.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Session 9 — Supervised Learning Techniques</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-09-supervised-learning-techniques.html#sec-s09-topic-2",
+    "href": "sessions/session-09-supervised-learning-techniques.html#sec-s09-topic-2",
+    "title": "10  Session 9 — Supervised Learning Techniques",
+    "section": "12.1 2. Prediction and Decision Making",
+    "text": "12.1 2. Prediction and Decision Making\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n12.1.1 How it works\nThe mechanism, in plain words first.\n\n\n12.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n12.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n12.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Session 9 — Supervised Learning Techniques</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-09-supervised-learning-techniques.html#sec-s09-topic-3",
+    "href": "sessions/session-09-supervised-learning-techniques.html#sec-s09-topic-3",
+    "title": "10  Session 9 — Supervised Learning Techniques",
+    "section": "13.1 3. Simple and Multiple Regression",
+    "text": "13.1 3. Simple and Multiple Regression\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n13.1.1 How it works\nThe mechanism, in plain words first.\n\n\n13.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n13.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n13.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Session 9 — Supervised Learning Techniques</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-10-unsupervised-learning-techniques-clustering.html",
+    "href": "sessions/session-10-unsupervised-learning-techniques-clustering.html",
+    "title": "11  Session 10 — Unsupervised Learning Techniques & Clustering",
+    "section": "",
+    "text": "11.1 🎯 Learning outcomes\nBy the end of this chapter you can:",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Session 10 — Unsupervised Learning Techniques & Clustering</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-10-unsupervised-learning-techniques-clustering.html#sec-s10-outcomes",
+    "href": "sessions/session-10-unsupervised-learning-techniques-clustering.html#sec-s10-outcomes",
+    "title": "11  Session 10 — Unsupervised Learning Techniques & Clustering",
+    "section": "",
+    "text": "Explain the fundamental difference between Supervised and Unsupervised Learning.\nDescribe how clustering groups similar data points together.\nApply the K-Means clustering algorithm to segment a dataset.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Session 10 — Unsupervised Learning Techniques & Clustering</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-10-unsupervised-learning-techniques-clustering.html#sec-s10-organisation",
+    "href": "sessions/session-10-unsupervised-learning-techniques-clustering.html#sec-s10-organisation",
+    "title": "11  Session 10 — Unsupervised Learning Techniques & Clustering",
+    "section": "11.2 How this chapter is organised",
+    "text": "11.2 How this chapter is organised\n\n\n\nPart\nQuestion it answers\nSource\n\n\n\n\nA — Unsupervised Learning\nHow do machines learn without answers?\nconcepts\n\n\nDemo — K-Means Clustering\nHow do we group customers into segments?\nkmeans_demo.py",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Session 10 — Unsupervised Learning Techniques & Clustering</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-10-unsupervised-learning-techniques-clustering.html#sec-s10-topic-1",
+    "href": "sessions/session-10-unsupervised-learning-techniques-clustering.html#sec-s10-topic-1",
+    "title": "11  Session 10 — Unsupervised Learning Techniques & Clustering",
+    "section": "12.1 1. Unsupervised learning and clustering",
+    "text": "12.1 1. Unsupervised learning and clustering\nUnsupervised Learning is the process of feeding an algorithm raw, unlabeled data and asking it to find hidden patterns on its own.\nIt exists because labeled data is incredibly expensive. Paying humans to manually tag 50,000 images as “Cat” or “Dog” takes weeks. Unsupervised algorithms don’t need tags. They just look at the pixels and group similar images together.\n\n\n\n\n\n\nTip🧠 Analogy — Sorting the Laundry\n\n\n\nThe everyday thing: Doing laundry with no instructions.\nThe mapping: - In Supervised Learning, someone hands you a shirt and says “This is a dark.” You learn what a dark is. - In Unsupervised Learning (Clustering), you are thrown into a room with a massive pile of mixed clothes and no instructions. - You intuitively group them by similarity: you make a pile of whites, a pile of darks, and a pile of delicates. No one told you the labels, you just found the natural clusters.\n\n\n\n12.1.1 How it works\nThe most common unsupervised technique is Clustering. Clustering measures the mathematical distance between data points. Points that are close together are grouped into a “Cluster.”\nThis is heavily used in Customer Segmentation. A marketing team doesn’t know what groups exist in their user base. They feed age, income, and spending habits into a clustering algorithm, and the algorithm reveals that there are 3 distinct groups (e.g., “Bargain Hunters”, “Luxury Buyers”, “Window Shoppers”).\n\n\n12.1.2 ❓ MCQs\nQ1. Which of the following is a classic Unsupervised Learning task?\n\n\nPredicting the price of a house based on historical sales.\n\n\nGrouping customers into 5 segments based on their purchasing habits.\n\n\nTraining a spam filter with 10,000 labeled emails.\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). Grouping (clustering) without predefined categories is unsupervised. Predicting a price or filtering labeled spam is supervised.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Session 10 — Unsupervised Learning Techniques & Clustering</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-10-unsupervised-learning-techniques-clustering.html#sec-s10-topic-2",
+    "href": "sessions/session-10-unsupervised-learning-techniques-clustering.html#sec-s10-topic-2",
+    "title": "11  Session 10 — Unsupervised Learning Techniques & Clustering",
+    "section": "13.1 2. Introduction to clustering",
+    "text": "13.1 2. Introduction to clustering\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n13.1.1 How it works\nThe mechanism, in plain words first.\n\n\n13.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n13.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n13.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Session 10 — Unsupervised Learning Techniques & Clustering</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-10-unsupervised-learning-techniques-clustering.html#sec-s10-topic-3",
+    "href": "sessions/session-10-unsupervised-learning-techniques-clustering.html#sec-s10-topic-3",
+    "title": "11  Session 10 — Unsupervised Learning Techniques & Clustering",
+    "section": "14.1 3. K-Means Clustering",
+    "text": "14.1 3. K-Means Clustering\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n14.1.1 How it works\nThe mechanism, in plain words first.\n\n\n14.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n14.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n14.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Session 10 — Unsupervised Learning Techniques & Clustering</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-11-data-model-evaluation.html",
+    "href": "sessions/session-11-data-model-evaluation.html",
+    "title": "12  Session 11 — Data Model Evaluation",
+    "section": "",
+    "text": "12.1 🎯 Learning outcomes\nBy the end of this chapter you can:",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Session 11 — Data Model Evaluation</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-11-data-model-evaluation.html#sec-s11-outcomes",
+    "href": "sessions/session-11-data-model-evaluation.html#sec-s11-outcomes",
+    "title": "12  Session 11 — Data Model Evaluation",
+    "section": "",
+    "text": "Understand and implement Model Evaluation techniques\nUnderstand and implement Model Evaluation using Visualization\nUnderstand and implement Residual plot and distributional plot",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Session 11 — Data Model Evaluation</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-11-data-model-evaluation.html#sec-s11-organisation",
+    "href": "sessions/session-11-data-model-evaluation.html#sec-s11-organisation",
+    "title": "12  Session 11 — Data Model Evaluation",
+    "section": "12.2 How this chapter is organised",
+    "text": "12.2 How this chapter is organised\n\n\n\nPart\nQuestion it answers\nSource\n\n\n\n\nA — Model Evaluation techniques\n…?\ntrainer_notebook.ipynb\n\n\nB — Model Evaluation using Visualization\n…?\ntrainer_notebook.ipynb\n\n\nC — Residual plot and distributional plot\n…?\ntrainer_notebook.ipynb",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Session 11 — Data Model Evaluation</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-11-data-model-evaluation.html#sec-s11-topic-1",
+    "href": "sessions/session-11-data-model-evaluation.html#sec-s11-topic-1",
+    "title": "12  Session 11 — Data Model Evaluation",
+    "section": "13.1 1. Model Evaluation techniques",
+    "text": "13.1 1. Model Evaluation techniques\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n13.1.1 How it works\nThe mechanism, in plain words first.\n\n\n13.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n13.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n13.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Session 11 — Data Model Evaluation</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-11-data-model-evaluation.html#sec-s11-topic-2",
+    "href": "sessions/session-11-data-model-evaluation.html#sec-s11-topic-2",
+    "title": "12  Session 11 — Data Model Evaluation",
+    "section": "14.1 2. Model Evaluation using Visualization",
+    "text": "14.1 2. Model Evaluation using Visualization\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n14.1.1 How it works\nThe mechanism, in plain words first.\n\n\n14.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n14.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n14.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Session 11 — Data Model Evaluation</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-11-data-model-evaluation.html#sec-s11-topic-3",
+    "href": "sessions/session-11-data-model-evaluation.html#sec-s11-topic-3",
+    "title": "12  Session 11 — Data Model Evaluation",
+    "section": "15.1 3. Residual plot and distributional plot",
+    "text": "15.1 3. Residual plot and distributional plot\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n15.1.1 How it works\nThe mechanism, in plain words first.\n\n\n15.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n15.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n15.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Session 11 — Data Model Evaluation</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-12-model-saving-and-deployment.html",
+    "href": "sessions/session-12-model-saving-and-deployment.html",
+    "title": "13  Session 12 — Model Saving and Deployment",
+    "section": "",
+    "text": "13.1 🎯 Learning outcomes\nBy the end of this chapter you can:",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Session 12 — Model Saving and Deployment</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-12-model-saving-and-deployment.html#sec-s12-outcomes",
+    "href": "sessions/session-12-model-saving-and-deployment.html#sec-s12-outcomes",
+    "title": "13  Session 12 — Model Saving and Deployment",
+    "section": "",
+    "text": "Understand and implement Saving trained models\nUnderstand and implement Deployment of Models using Streamlit\nUnderstand and implement Offline deployment\nUnderstand and implement Online deployment",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Session 12 — Model Saving and Deployment</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-12-model-saving-and-deployment.html#sec-s12-organisation",
+    "href": "sessions/session-12-model-saving-and-deployment.html#sec-s12-organisation",
+    "title": "13  Session 12 — Model Saving and Deployment",
+    "section": "13.2 How this chapter is organised",
+    "text": "13.2 How this chapter is organised\n\n\n\nPart\nQuestion it answers\nSource\n\n\n\n\nA — Saving trained models\n…?\ntrainer_notebook.ipynb\n\n\nB — Deployment of Models using Streamlit\n…?\ntrainer_notebook.ipynb\n\n\nC — Offline deployment\n…?\ntrainer_notebook.ipynb\n\n\nD — Online deployment\n…?\ntrainer_notebook.ipynb",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Session 12 — Model Saving and Deployment</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-12-model-saving-and-deployment.html#sec-s12-topic-1",
+    "href": "sessions/session-12-model-saving-and-deployment.html#sec-s12-topic-1",
+    "title": "13  Session 12 — Model Saving and Deployment",
+    "section": "14.1 1. Saving trained models",
+    "text": "14.1 1. Saving trained models\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n14.1.1 How it works\nThe mechanism, in plain words first.\n\n\n14.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n14.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n14.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Session 12 — Model Saving and Deployment</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-12-model-saving-and-deployment.html#sec-s12-topic-2",
+    "href": "sessions/session-12-model-saving-and-deployment.html#sec-s12-topic-2",
+    "title": "13  Session 12 — Model Saving and Deployment",
+    "section": "15.1 2. Deployment of Models using Streamlit",
+    "text": "15.1 2. Deployment of Models using Streamlit\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n15.1.1 How it works\nThe mechanism, in plain words first.\n\n\n15.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n15.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n15.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Session 12 — Model Saving and Deployment</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-12-model-saving-and-deployment.html#sec-s12-topic-3",
+    "href": "sessions/session-12-model-saving-and-deployment.html#sec-s12-topic-3",
+    "title": "13  Session 12 — Model Saving and Deployment",
+    "section": "16.1 3. Offline deployment",
+    "text": "16.1 3. Offline deployment\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n16.1.1 How it works\nThe mechanism, in plain words first.\n\n\n16.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n16.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n16.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Session 12 — Model Saving and Deployment</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-12-model-saving-and-deployment.html#sec-s12-topic-4",
+    "href": "sessions/session-12-model-saving-and-deployment.html#sec-s12-topic-4",
+    "title": "13  Session 12 — Model Saving and Deployment",
+    "section": "17.1 4. Online deployment",
+    "text": "17.1 4. Online deployment\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n17.1.1 How it works\nThe mechanism, in plain words first.\n\n\n17.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n17.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n17.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Session 12 — Model Saving and Deployment</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-13-big-data-analytics-fundamentals.html",
+    "href": "sessions/session-13-big-data-analytics-fundamentals.html",
+    "title": "14  Session 13 — Big Data Analytics Fundamentals",
+    "section": "",
+    "text": "14.1 🎯 Learning outcomes\nBy the end of this chapter you can:",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Session 13 — Big Data Analytics Fundamentals</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-13-big-data-analytics-fundamentals.html#sec-s13-outcomes",
+    "href": "sessions/session-13-big-data-analytics-fundamentals.html#sec-s13-outcomes",
+    "title": "14  Session 13 — Big Data Analytics Fundamentals",
+    "section": "",
+    "text": "Define the 3 V’s of Big Data (Volume, Velocity, Variety).\nDifferentiate between Descriptive, Predictive, and Prescriptive analytics.\nUnderstand how the Hadoop Distributed File System (HDFS) stores massive files.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Session 13 — Big Data Analytics Fundamentals</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-13-big-data-analytics-fundamentals.html#sec-s13-organisation",
+    "href": "sessions/session-13-big-data-analytics-fundamentals.html#sec-s13-organisation",
+    "title": "14  Session 13 — Big Data Analytics Fundamentals",
+    "section": "14.2 How this chapter is organised",
+    "text": "14.2 How this chapter is organised\n\n\n\nPart\nQuestion it answers\nSource\n\n\n\n\nA — The Big Data Problem\nWhy can’t I just use Pandas?\nconcepts\n\n\nB — Types of Analytics\nWhat do we do with all this data?\nconcepts\n\n\nDemo — Distributed Storage\nHow are large files stored?\nhdfs_demo.sh",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Session 13 — Big Data Analytics Fundamentals</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-13-big-data-analytics-fundamentals.html#sec-s13-topic-1",
+    "href": "sessions/session-13-big-data-analytics-fundamentals.html#sec-s13-topic-1",
+    "title": "14  Session 13 — Big Data Analytics Fundamentals",
+    "section": "15.1 1. Working of Big Data Analytics",
+    "text": "15.1 1. Working of Big Data Analytics\nBig Data refers to datasets that are so massive, so fast-moving, or so unstructured that traditional single-computer databases simply crash when trying to read them.\nIt exists because of the modern internet. Every click on Amazon, every swipe on Tinder, and every frame of a YouTube video is logged. A single day of global Twitter data cannot fit on the most expensive MacBook Pro in the world.\n\n\n\n\n\n\nTip🧠 Analogy — The Library Book\n\n\n\nThe everyday thing: Reading a 10,000-page book.\nThe mapping: - Traditional Data (Pandas): You (one computer) sit down and read the book cover to cover. It takes you a month, but you can do it. - Big Data: The book is now 10 million pages long. You will die before finishing it. - The Big Data Solution: You tear the book into 10,000 pieces and hand them to 10,000 friends. You all read your piece at the exact same time, and shout your summaries back to the leader in 5 minutes. This is Distributed Computing.\n\n\n\n15.1.1 How it works\nThe core concept is Scale-Out vs Scale-Up: - Scale-Up (Vertical): Buying a single, massively expensive supercomputer with 2 Terabytes of RAM. (There is a physical limit to how big one computer can get). - Scale-Out (Horizontal): Buying 1,000 cheap, standard Dell laptops and connecting them together to act as one giant brain. (Infinite limit).\n\n\n15.1.2 ❓ MCQs\nQ1. What is the defining physical limitation that forces a company to switch from standard Pandas to Big Data technologies?\n\n\nPandas cannot do mathematics.\n\n\nThe dataset is larger than the total Random Access Memory (RAM) of a single server.\n\n\nBig Data technologies look better on a resume.\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). Pandas loads the entire dataset into memory. If your dataset is 50GB and you only have 16GB of RAM, the program will crash instantly with an “Out of Memory” error.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Session 13 — Big Data Analytics Fundamentals</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-13-big-data-analytics-fundamentals.html#sec-s13-topic-2",
+    "href": "sessions/session-13-big-data-analytics-fundamentals.html#sec-s13-topic-2",
+    "title": "14  Session 13 — Big Data Analytics Fundamentals",
+    "section": "16.1 2. Types of Big Data Analytics",
+    "text": "16.1 2. Types of Big Data Analytics\nData Analytics is categorized into four escalating stages of business value and technical complexity.\n\nDescriptive Analytics: What happened? (e.g., Sales dropped by 10% last month).\nDiagnostic Analytics: Why did it happen? (e.g., Sales dropped because our website crashed in Europe).\nPredictive Analytics: What will happen? (e.g., Based on current traffic, sales will drop by 5% next month).\nPrescriptive Analytics: What should we do about it? (e.g., Automatically order 500 more servers in Europe to prevent the crash).",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Session 13 — Big Data Analytics Fundamentals</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-13-big-data-analytics-fundamentals.html#sec-s13-topic-3",
+    "href": "sessions/session-13-big-data-analytics-fundamentals.html#sec-s13-topic-3",
+    "title": "14  Session 13 — Big Data Analytics Fundamentals",
+    "section": "17.1 3. Big Data Analytics Technologies and Tools",
+    "text": "17.1 3. Big Data Analytics Technologies and Tools\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n17.1.1 How it works\nThe mechanism, in plain words first.\n\n\n17.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n17.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n17.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Session 13 — Big Data Analytics Fundamentals</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-14-distributed-data-processing.html",
+    "href": "sessions/session-14-distributed-data-processing.html",
+    "title": "15  Session 14 — Distributed Data Processing",
+    "section": "",
+    "text": "15.1 🎯 Learning outcomes\nBy the end of this chapter you can:",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Session 14 — Distributed Data Processing</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-14-distributed-data-processing.html#sec-s14-outcomes",
+    "href": "sessions/session-14-distributed-data-processing.html#sec-s14-outcomes",
+    "title": "15  Session 14 — Distributed Data Processing",
+    "section": "",
+    "text": "Explain the MapReduce paradigm conceptually.\nDifferentiate between Apache Hadoop and Apache Spark.\nUnderstand PySpark code and how it differs from Pandas.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Session 14 — Distributed Data Processing</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-14-distributed-data-processing.html#sec-s14-organisation",
+    "href": "sessions/session-14-distributed-data-processing.html#sec-s14-organisation",
+    "title": "15  Session 14 — Distributed Data Processing",
+    "section": "15.2 How this chapter is organised",
+    "text": "15.2 How this chapter is organised\n\n\n\nPart\nQuestion it answers\nSource\n\n\n\n\nA — MapReduce and Hadoop\nHow do we process distributed data?\nconcepts\n\n\nB — Apache Spark\nWhy is Spark 100x faster than Hadoop?\nconcepts\n\n\nDemo — PySpark vs Pandas\nWhat does Spark code look like?\nspark_demo.py",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Session 14 — Distributed Data Processing</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-14-distributed-data-processing.html#sec-s14-topic-1",
+    "href": "sessions/session-14-distributed-data-processing.html#sec-s14-topic-1",
+    "title": "15  Session 14 — Distributed Data Processing",
+    "section": "16.1 1. Big Data Analytics using Map Reduce",
+    "text": "16.1 1. Big Data Analytics using Map Reduce\nMapReduce is a programming paradigm that splits a massive calculation into two distinct phases: Map (filtering/sorting across many machines) and Reduce (aggregating the final results).\nIt exists because traditional databases try to drag all the data into the central processor to sum it up. Over a network, moving 10 Terabytes of data takes hours. MapReduce solves this by sending a tiny 1-kilobyte script to the 100 computers where the data already lives, having them do the math locally, and only sending the tiny final answer back over the network.\n\n\n\n\n\n\nTip🧠 Analogy — The Ballot Counters\n\n\n\nThe everyday thing: Counting 10 million votes in a national election.\nThe mapping: - Traditional: You bring all 10 million paper ballots to one guy in the capital city. He counts them one by one. It takes a year. - Map Phase: Every individual polling station (the distributed computers) counts their own 10,000 ballots locally. - Reduce Phase: Each station phones in their final tally (just two numbers: Candidate A: 6000, Candidate B: 4000) to the capital. The capital just adds those small numbers together. The election is decided in an hour.\n\n\n\n16.1.1 How it works\n\nMap: Extracts the relevant data. (e.g., “Look at this server’s logs, and count every time you see ‘Error 404’”).\nShuffle: Groups similar data together.\nReduce: Sums it all up. (e.g., “Add up all the 404 counts from all 100 servers into one grand total”).\n\n\n\n16.1.2 ❓ MCQs\nQ1. What is the primary bottleneck that MapReduce avoids by processing data locally where it sits on the hard drive?\n\n\nCPU processing speed.\n\n\nNetwork transfer speed (Moving massive data across wires is slow).\n\n\nMonitor refresh rates.\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). It is always faster to send a small Python script to a server than it is to send 500GB of data from that server to your laptop.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Session 14 — Distributed Data Processing</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-14-distributed-data-processing.html#sec-s14-topic-2",
+    "href": "sessions/session-14-distributed-data-processing.html#sec-s14-topic-2",
+    "title": "15  Session 14 — Distributed Data Processing",
+    "section": "17.1 2. Apache Hadoop vs Apache Spark",
+    "text": "17.1 2. Apache Hadoop vs Apache Spark\nApache Spark is the modern, lightning-fast successor to Hadoop’s MapReduce engine.\nIt exists because Hadoop was slow. Between the Map phase and the Reduce phase, Hadoop wrote all intermediate results to physical hard drives to prevent data loss if a server crashed. Reading and writing from physical hard drives is slow. Spark, instead, keeps all intermediate data purely in RAM (memory).\n\n17.1.1 How it works\nSpark operates using RDDs (Resilient Distributed Datasets) or DataFrames. If a server crashes while holding data in RAM, Spark just looks at the history of how that data was made (the “lineage”) and instantly recalculates it on another server.\nBecause RAM is 100x faster than hard drives, Spark runs 100x faster than Hadoop for many machine learning tasks.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Session 14 — Distributed Data Processing</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-15-nosql-databases-and-scaled-visualization.html",
+    "href": "sessions/session-15-nosql-databases-and-scaled-visualization.html",
+    "title": "16  Session 15 — NoSQL Databases and Scaled Visualization",
+    "section": "",
+    "text": "16.1 🎯 Learning outcomes\nBy the end of this chapter you can:",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Session 15 — NoSQL Databases and Scaled Visualization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-15-nosql-databases-and-scaled-visualization.html#sec-s15-outcomes",
+    "href": "sessions/session-15-nosql-databases-and-scaled-visualization.html#sec-s15-outcomes",
+    "title": "16  Session 15 — NoSQL Databases and Scaled Visualization",
+    "section": "",
+    "text": "Understand and implement Introduction to Big Data Analytics using Apache Cassandra, Mongo DB\nUnderstand and implement Statistical Method for Visualization",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Session 15 — NoSQL Databases and Scaled Visualization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-15-nosql-databases-and-scaled-visualization.html#sec-s15-organisation",
+    "href": "sessions/session-15-nosql-databases-and-scaled-visualization.html#sec-s15-organisation",
+    "title": "16  Session 15 — NoSQL Databases and Scaled Visualization",
+    "section": "16.2 How this chapter is organised",
+    "text": "16.2 How this chapter is organised\n\n\n\nPart\nQuestion it answers\nSource\n\n\n\n\nA — Introduction to Big Data Analytics using Apache Cassandra, Mongo DB\n…?\ntrainer_notebook.ipynb\n\n\nB — Statistical Method for Visualization\n…?\ntrainer_notebook.ipynb",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Session 15 — NoSQL Databases and Scaled Visualization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-15-nosql-databases-and-scaled-visualization.html#sec-s15-topic-1",
+    "href": "sessions/session-15-nosql-databases-and-scaled-visualization.html#sec-s15-topic-1",
+    "title": "16  Session 15 — NoSQL Databases and Scaled Visualization",
+    "section": "17.1 1. Introduction to Big Data Analytics using Apache Cassandra, Mongo DB",
+    "text": "17.1 1. Introduction to Big Data Analytics using Apache Cassandra, Mongo DB\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n17.1.1 How it works\nThe mechanism, in plain words first.\n\n\n17.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n17.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n17.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Session 15 — NoSQL Databases and Scaled Visualization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-15-nosql-databases-and-scaled-visualization.html#sec-s15-topic-2",
+    "href": "sessions/session-15-nosql-databases-and-scaled-visualization.html#sec-s15-topic-2",
+    "title": "16  Session 15 — NoSQL Databases and Scaled Visualization",
+    "section": "18.1 2. Statistical Method for Visualization",
+    "text": "18.1 2. Statistical Method for Visualization\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n18.1.1 How it works\nThe mechanism, in plain words first.\n\n\n18.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n18.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n18.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Session 15 — NoSQL Databases and Scaled Visualization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-16-open-ended-module-implementation-and-capstone.html",
+    "href": "sessions/session-16-open-ended-module-implementation-and-capstone.html",
+    "title": "17  Session 16 — Open Ended Module (Implementation and Capstone)",
+    "section": "",
+    "text": "17.1 🎯 Learning outcomes\nBy the end of this chapter you can:",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Session 16 — Open Ended Module (Implementation and Capstone)</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-16-open-ended-module-implementation-and-capstone.html#sec-s16-outcomes",
+    "href": "sessions/session-16-open-ended-module-implementation-and-capstone.html#sec-s16-outcomes",
+    "title": "17  Session 16 — Open Ended Module (Implementation and Capstone)",
+    "section": "",
+    "text": "Understand and implement Apply the entire data analytics process to a real-world dataset.\nUnderstand and implement Perform clustering and association rule mining on a market basket dataset.\nUnderstand and implement Create insightful visualizations and perform statistical analysis using advanced tools.\nUnderstand and implement Develop and implement advanced machine learning models on a complex dataset.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Session 16 — Open Ended Module (Implementation and Capstone)</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-16-open-ended-module-implementation-and-capstone.html#sec-s16-organisation",
+    "href": "sessions/session-16-open-ended-module-implementation-and-capstone.html#sec-s16-organisation",
+    "title": "17  Session 16 — Open Ended Module (Implementation and Capstone)",
+    "section": "17.2 How this chapter is organised",
+    "text": "17.2 How this chapter is organised\n\n\n\nPart\nQuestion it answers\nSource\n\n\n\n\nA — Apply the entire data analytics process to a real-world dataset.\n…?\ntrainer_notebook.ipynb\n\n\nB — Perform clustering and association rule mining on a market basket dataset.\n…?\ntrainer_notebook.ipynb\n\n\nC — Create insightful visualizations and perform statistical analysis using advanced tools.\n…?\ntrainer_notebook.ipynb\n\n\nD — Develop and implement advanced machine learning models on a complex dataset.\n…?\ntrainer_notebook.ipynb",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Session 16 — Open Ended Module (Implementation and Capstone)</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-16-open-ended-module-implementation-and-capstone.html#sec-s16-topic-1",
+    "href": "sessions/session-16-open-ended-module-implementation-and-capstone.html#sec-s16-topic-1",
+    "title": "17  Session 16 — Open Ended Module (Implementation and Capstone)",
+    "section": "18.1 1. Apply the entire data analytics process to a real-world dataset.",
+    "text": "18.1 1. Apply the entire data analytics process to a real-world dataset.\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n18.1.1 How it works\nThe mechanism, in plain words first.\n\n\n18.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n18.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n18.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Session 16 — Open Ended Module (Implementation and Capstone)</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-16-open-ended-module-implementation-and-capstone.html#sec-s16-topic-2",
+    "href": "sessions/session-16-open-ended-module-implementation-and-capstone.html#sec-s16-topic-2",
+    "title": "17  Session 16 — Open Ended Module (Implementation and Capstone)",
+    "section": "19.1 2. Perform clustering and association rule mining on a market basket dataset.",
+    "text": "19.1 2. Perform clustering and association rule mining on a market basket dataset.\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n19.1.1 How it works\nThe mechanism, in plain words first.\n\n\n19.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n19.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n19.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Session 16 — Open Ended Module (Implementation and Capstone)</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-16-open-ended-module-implementation-and-capstone.html#sec-s16-topic-3",
+    "href": "sessions/session-16-open-ended-module-implementation-and-capstone.html#sec-s16-topic-3",
+    "title": "17  Session 16 — Open Ended Module (Implementation and Capstone)",
+    "section": "20.1 3. Create insightful visualizations and perform statistical analysis using advanced tools.",
+    "text": "20.1 3. Create insightful visualizations and perform statistical analysis using advanced tools.\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n20.1.1 How it works\nThe mechanism, in plain words first.\n\n\n20.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n20.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n20.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Session 16 — Open Ended Module (Implementation and Capstone)</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session-16-open-ended-module-implementation-and-capstone.html#sec-s16-topic-4",
+    "href": "sessions/session-16-open-ended-module-implementation-and-capstone.html#sec-s16-topic-4",
+    "title": "17  Session 16 — Open Ended Module (Implementation and Capstone)",
+    "section": "21.1 4. Develop and implement advanced machine learning models on a complex dataset.",
+    "text": "21.1 4. Develop and implement advanced machine learning models on a complex dataset.\nOne plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.\nThen why it exists: what breaks, or what is unbearably tedious, without it.\n\n\n\n\n\n\nTip🧠 Analogy — something the reader already understands\n\n\n\nThe everyday thing.\nThe mapping: this part is the data, this part is the model, this part is the error.\nWhere it breaks down: every analogy is wrong somewhere, and the reader will walk into that place unaided.\n\n\n\n21.1.1 How it works\nThe mechanism, in plain words first.\n\n\n21.1.2 📘 Examples\nExample 1 — the smallest thing that works\n\n# placeholder\n\n\n\n21.1.3 🌍 Scenarios\nScenario 1 — the same idea in a situation the reader recognises\n\n\n\n\n\n\nWarning⚠️ The trap, and its consequence\n\n\n\n“It will not error — it will be quietly wrong.”\n\n\n\n\n\n\n\n\nNote✏️ Tasks\n\n\n\n\nDo exactly what was just shown, on different data.\nBreak it deliberately and report the exact error message.\n\n\n\n\n\n\n\n\n\nNoteSolutions\n\n\n\n\n\n\n# solutions\n\n\n\n\n\n\n21.1.4 ❓ MCQs\nQ1. The question…\n\n\nWrong\n\n\nRight, in bold\n\n\n\n\n\n\n\n\nNoteAnswers\n\n\n\n\n\nA1 — (b). The right answer restated, why the nearest wrong option is wrong.\n\n\n\nA bridge sentence pointing at the question the next topic answers.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Session 16 — Open Ended Module (Implementation and Capstone)</span>"
+    ]
+  }
+]

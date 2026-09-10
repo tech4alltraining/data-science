@@ -1,0 +1,137 @@
+---
+title: "Session 16 — Open Ended Module (Implementation and Capstone)"
+subtitle: "End-to-End Pipeline · Market Basket Analysis · Capstone"
+---
+
+{{< include ../includes/_setup.qmd >}}
+
+::: {.callout-note}
+**This is the final chapter. It is time to put everything you have learned together.**
+
+**Assumed knowledge:** All previous sessions (1-15).
+:::
+
+## 🎯 Learning outcomes {#sec-s16-outcomes}
+
+By the end of this module you will:
+
+1. Execute a complete data analytics pipeline from raw data collection to final visualization.
+2. Understand the mechanism behind Association Rule Mining (Market Basket Analysis).
+3. Architect an end-to-end Capstone project solving a real-world business problem.
+
+## How this chapter is organised {#sec-s16-organisation}
+
+| Part | Question it answers | Source |
+|---|---|---|
+| [A — The Full Pipeline](#sec-s16-a) | *How does it all connect?* | `review` |
+| [B — Market Basket Analysis](#sec-s16-b) | *What items are bought together?* | `concepts` |
+| [Demo — The Capstone Scaffold](#sec-s16-demo) | *How do I start my final project?* | `capstone.ipynb` |
+
+# Part A — The Full Pipeline {#sec-s16-a}
+
+**Data Science is not a single algorithm. It is a chain of events.**
+
+## 1. Apply the entire data analytics process {#sec-s16-topic-1}
+
+We have spent 15 sessions looking at individual pieces of the puzzle. Now, you must combine them. The standard industry pipeline follows the **CRISP-DM** (Cross-Industry Standard Process for Data Mining) methodology:
+
+1. **Business Understanding:** What is the actual problem? (Session 1)
+2. **Data Understanding:** EDA, scatter plots, correlation heatmaps. (Session 8)
+3. **Data Preparation:** Handling NaNs, outliers, standardizing scales, and merging. (Sessions 3, 4, 5)
+4. **Modeling:** Training Linear Regression, K-Means, or other algorithms. (Sessions 9, 10)
+5. **Evaluation:** Checking residual plots and test accuracy. (Session 11)
+6. **Deployment:** Saving to Joblib and deploying to Streamlit. (Session 12)
+
+If any link in this chain breaks, the final product fails. 
+
+::: {.callout-warning title="⚠️ The trap of endless modeling"}
+Junior data scientists often spend 90% of their time tweaking the machine learning algorithm (Step 4) trying to get a 1% boost in accuracy. Usually, going back to Step 3 (Data Preparation) and cleaning the data better yields a 10% boost with zero algorithmic tweaking.
+:::
+
+# Part B — Market Basket Analysis {#sec-s16-b}
+
+**Discovering hidden associations in transaction data.**
+
+## 2. Association Rule Mining {#sec-s16-topic-2}
+
+**Market Basket Analysis (Association Rules) is an unsupervised learning technique that finds items that are frequently bought together.**
+
+It exists because grocers and e-commerce sites want to optimize store layouts and "Frequently Bought Together" recommendation algorithms. The classic (perhaps apocryphal) example is that supermarkets discovered men buying diapers on Friday evenings were also highly likely to buy beer, so they placed the beer next to the diapers.
+
+### How it works
+
+The algorithm (like the Apriori algorithm) calculates three metrics:
+- **Support:** How popular is an item? *(e.g., Bread appears in 40% of all baskets).*
+- **Confidence:** If they buy X, how likely are they to buy Y? *(e.g., If they buy Bread, there is a 60% chance they buy Butter).*
+- **Lift:** Does buying X *increase* the likelihood of buying Y, compared to Y's baseline popularity? *(If Lift > 1, they are strongly connected).*
+
+# Part Demo — The Capstone Scaffold {#sec-s16-demo}
+
+**A blueprint for your final project.**
+
+For your capstone, you will not be given clean data. You must find a raw dataset (from Kaggle, government databases, or an API), clean it, analyze it, and model it.
+
+Here is the structural scaffold you should use in your final Jupyter Notebook:
+
+```{python}
+#| eval: false
+"""
+=============================================================================
+CAPSTONE PROJECT: Predicting Customer Churn
+AUTHOR: [Your Name]
+=============================================================================
+"""
+
+# --- 1. IMPORT LIBRARIES ---
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier # Example advanced model
+from sklearn.metrics import accuracy_score
+
+# --- 2. DATA LOAD & PRE-PROCESSING ---
+print("Loading data...")
+df = pd.read_csv("raw_customer_data.csv")
+
+print("Handling missing values...")
+df['Age'] = df['Age'].fillna(df['Age'].median())
+
+print("Encoding categorical variables (Binarization)...")
+df['Is_Male'] = df['Gender'].apply(lambda x: 1 if x == 'Male' else 0)
+
+# --- 3. EXPLORATORY DATA ANALYSIS (EDA) ---
+print("Generating Correlation Heatmap...")
+sns.heatmap(df.corr(), annot=True)
+plt.title("Feature Correlation")
+plt.show()
+
+# --- 4. MODEL TRAINING ---
+X = df[['Age', 'Is_Male', 'Total_Spend', 'Support_Tickets']]
+y = df['Will_Churn']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+model = RandomForestClassifier()
+model.fit(X_train, y_train)
+
+# --- 5. EVALUATION ---
+predictions = model.predict(X_test)
+accuracy = accuracy_score(y_test, predictions)
+print(f"Model Accuracy on unseen test data: {accuracy * 100:.2f}%")
+
+# --- 6. EXPORT ---
+import joblib
+joblib.dump(model, "final_churn_model.joblib")
+print("Pipeline complete. Model saved for deployment.")
+```
+
+# 🎯 Session 16 — Tasks {#sec-s16-tasks}
+
+**Task 1 — Capstone Proposal.** 
+Write a one-paragraph proposal for your capstone project. You must define the **Business Problem**, the **Data Source** you plan to use, and whether your predictive task is **Supervised (Regression/Classification)** or **Unsupervised (Clustering)**.
+
+::: {.callout-tip title="✅ Before you graduate"}
+- [ ] Ensure you can walk a non-technical person through the CRISP-DM pipeline.
+- [ ] **Congratulations!** You have journeyed from the basics of Pandas all the way through Big Data clusters and Machine Learning deployment. You are now equipped to tackle real-world data science problems.
+:::

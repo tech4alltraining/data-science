@@ -1,0 +1,138 @@
+---
+title: "Session 7 — Descriptive Statistics"
+subtitle: "Central Tendency · Dispersion · Skewness · Kurtosis"
+---
+
+{{< include ../includes/_setup.qmd >}}
+
+::: {.callout-note}
+**This chapter covers the mathematical foundation of summarizing data.**
+
+**Assumed knowledge:** Data Cleaning (Session 3).
+:::
+
+## 🎯 Learning outcomes {#sec-s07-outcomes}
+
+By the end of this chapter you can:
+
+1. Differentiate between mean, median, and mode (Central Tendency).
+2. Measure the spread of data using Standard Deviation and Variance (Dispersion).
+3. Identify asymmetry in a distribution using Skewness and Kurtosis.
+
+## How this chapter is organised {#sec-s07-organisation}
+
+| Part | Question it answers | Source |
+|---|---|---|
+| [A — Central Tendency & Dispersion](#sec-s07-a) | *Where is the middle of the data, and how spread out is it?* | `concepts` |
+| [B — Shape of the Distribution](#sec-s07-b) | *Is the data leaning to one side?* | `concepts` |
+| [Demo — Summary Statistics](#sec-s07-demo) | *How do we calculate and visualize this in Python?* | `stats_demo.py` |
+
+# Part A — Central Tendency & Dispersion {#sec-s07-a}
+
+**You cannot analyze a million rows of data by reading them one by one. You must summarize them into single numbers.**
+
+## 1. Central Tendencies and Dispersion {#sec-s07-topic-1}
+
+**Measures of Central Tendency (Mean, Median, Mode) tell you where the "center" of your data is. Measures of Dispersion (Standard Deviation, Variance) tell you how far the data stretches away from that center.**
+
+It exists because stating the "average salary" is dangerously misleading if you do not also state how spread out the salaries are.
+
+::: {.callout-tip title="🧠 Analogy — The Target Practice"}
+**The everyday thing:** Two archers shooting arrows at a target.
+
+**The mapping:** 
+- Archer A's arrows hit exactly on the bullseye, very tightly clustered. (Mean is bullseye, **Standard Deviation is low**).
+- Archer B shoots wildly. One hits the ceiling, one hits the floor, one hits the left wall, one hits the right. 
+- Mathematically, the *average* location of Archer B's arrows is also exactly in the bullseye! But because the **Standard Deviation is incredibly high**, we know Archer B is a terrible shot.
+:::
+
+### How it works
+
+- **Mean:** The mathematical average. (Sum of all / Count). Highly sensitive to outliers.
+- **Median:** The exact middle number when sorted. Ignores outliers.
+- **Standard Deviation:** On average, how far does each data point deviate from the Mean? A low standard deviation means the data is tightly clustered.
+
+### ❓ MCQs
+
+**Q1.** You are evaluating housing prices in a neighborhood where 99 houses cost $100,000, and 1 mansion costs $50,000,000. Which metric provides the most accurate reflection of a "typical" house price?
+
+- (a) The Mean.
+- (b) **The Median.**
+- (c) The Standard Deviation.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** The Mean would be skewed massively upwards by the $50M mansion. The Median would simply pick the middle value, securely landing on $100,000.
+:::
+
+# Part B — Shape of the Distribution {#sec-s07-b}
+
+**Data is rarely perfectly symmetrical.**
+
+## 2. Skewness and Kurtosis {#sec-s07-topic-2}
+
+**Skewness measures if the data is leaning to the left or right. Kurtosis measures how "fat" the extreme tails are (outlier likelihood).**
+
+### How it works
+
+- **Right Skew (Positive Skew):** The bulk of the data is on the left (low numbers), with a long "tail" stretching to the right (high numbers). *Income data is always right-skewed because there is a hard floor at $0, but no ceiling on billionaires.*
+- **Left Skew (Negative Skew):** The tail stretches to the left. *Exam scores are often left-skewed, as most students pass (high numbers), but a few get very low scores (the tail).*
+- **High Kurtosis:** The data has fat tails, meaning extreme outliers are very common.
+
+# Part Demo — Summary Statistics {#sec-s07-demo}
+
+**Calculating summary stats and plotting a histogram with a normal curve.**
+
+```{python}
+#| label: fig-stats-demo
+#| fig-cap: "A right-skewed distribution of income."
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import norm
+
+# 1. Generate right-skewed data (like Income)
+np.random.seed(42)
+incomes = np.random.exponential(scale=50000, size=1000) 
+df = pd.DataFrame({"Income": incomes})
+
+# 2. Calculate Statistics
+mean = df["Income"].mean()
+median = df["Income"].median()
+std_dev = df["Income"].std()
+skewness = df["Income"].skew()
+
+print(f"Mean:   ${mean:,.2f}")
+print(f"Median: ${median:,.2f}  <-- Notice how much lower the median is!")
+print(f"StdDev: ${std_dev:,.2f}")
+print(f"Skew:   {skewness:.2f} (Positive = Right Skewed)")
+
+# 3. Visualize the Distribution
+plt.figure(figsize=(8, 5))
+
+# Plot the histogram
+plt.hist(df["Income"], bins=50, density=True, alpha=0.6, color='b')
+
+# Plot the Mean and Median lines
+plt.axvline(mean, color='r', linestyle='dashed', linewidth=2, label='Mean')
+plt.axvline(median, color='g', linestyle='dashed', linewidth=2, label='Median')
+
+plt.title("Income Distribution (Right Skewed)")
+plt.xlabel("Income ($)")
+plt.ylabel("Frequency")
+plt.legend()
+plt.show()
+```
+
+::: {.callout-warning title="⚠️ The trap of assuming a Bell Curve"}
+Many classical statistical tests assume your data is perfectly symmetrical (a Normal Distribution / Bell Curve). As seen above, real world data like income is heavily skewed. Running standard linear regression on heavily skewed data will often produce terrible results unless you transform the data first.
+:::
+
+# 🎯 Session 7 — Tasks {#sec-s07-tasks}
+
+**Task 1 — Interpret Skew.** 
+Look at the histogram generated in the demo. If you were a politician, would you quote the Mean or the Median to make the "average citizen" look wealthier? **Report your reasoning.**
+
+::: {.callout-tip title="✅ Before you move on"}
+- [ ] Understand why Median is safer than Mean for skewed data.
+- [ ] **The one thing from this chapter that is easiest to forget:** The "tail" dictates the name of the skew. If the tail points to the right (positive numbers), it is Right Skewed, even though the bulk of the data is on the left!
+:::

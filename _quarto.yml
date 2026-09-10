@@ -1,0 +1,25 @@
+project:
+  type: book
+  output-dir: _site
+
+book:
+  title: "Data Science Course"
+  author: "Author"
+  chapters:
+    - index.qmd
+    - sessions/session-01-introduction-to-data-science.qmd
+    - sessions/session-02-data-collection-and-pre-processing-overview.qmd
+    - sessions/session-03-data-cleaning.qmd
+    - sessions/session-04-data-integration.qmd
+    - sessions/session-05-data-transformation.qmd
+    - sessions/session-06-data-reduction-and-discretization.qmd
+    - sessions/session-07-descriptive-statistics.qmd
+    - sessions/session-08-exploratory-data-analytics-eda-and-visualization.qmd
+    - sessions/session-09-supervised-learning-techniques.qmd
+    - sessions/session-10-unsupervised-learning-techniques-clustering.qmd
+    - sessions/session-11-data-model-evaluation.qmd
+    - sessions/session-12-model-saving-and-deployment.qmd
+    - sessions/session-13-big-data-analytics-fundamentals.qmd
+    - sessions/session-14-distributed-data-processing.qmd
+    - sessions/session-15-nosql-databases-and-scaled-visualization.qmd
+    - sessions/session-16-open-ended-module-implementation-and-capstone.qmd
