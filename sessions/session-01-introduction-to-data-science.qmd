@@ -79,9 +79,13 @@ times and is still there afterwards.
 
 ### Demo 1 — data science in seven lines
 
-Here is the entire field, small enough to fit on a screen. Ten shops, their advertising
-spend, and what they sold. The question: **if I spend ₹45,000 on advertising, what
-should I expect to sell?**
+Here is the entire field, small enough to fit on a screen. A real file of 200 markets,
+each recording what was spent on TV advertising and what was sold. The question:
+**if I spend ₹150,000 on TV advertising, what should I expect to sell?**
+
+Notice the first working line. **The data comes from a file** — `datasets/advertising.csv`
+— not from numbers typed into the program. Every demonstration in this book works that
+way, because that is how every real project works.
 
 ```{python}
 #| label: fig-s01-tiny
@@ -89,21 +93,29 @@ should I expect to sell?**
 import numpy as np
 import matplotlib.pyplot as plt
 
-advertising = np.array([10, 15, 20, 25, 30, 35, 40, 50, 55, 60])   # ₹ thousands
-sales       = np.array([32, 41, 46, 59, 61, 72, 79, 94, 99, 108])  # ₹ thousands
+import pandas as pd
 
-slope, intercept = np.polyfit(advertising, sales, 1)   # find the best straight line
-predicted = slope * 45 + intercept                     # use it to answer the question
+# A real dataset: 200 markets, what was spent on TV advertising, and what sold.
+ads = pd.read_csv("datasets/advertising.csv")
+print(ads.head(3))
+print(f"\n{len(ads)} markets on file\n")
 
-plt.scatter(advertising, sales, label="shops we have data for")
-plt.plot(advertising, slope * advertising + intercept, color="red", label="the pattern")
-plt.scatter([45], [predicted], color="green", s=140, zorder=5, label="our prediction")
-plt.xlabel("Advertising spend (₹ thousands)")
-plt.ylabel("Sales (₹ thousands)")
+spend = ads["TV"].values          # advertising spend, in thousands
+sales = ads["Sales"].values       # units sold, in thousands
+
+slope, intercept = np.polyfit(spend, sales, 1)   # find the best straight line
+predicted = slope * 150 + intercept              # use it to answer the question
+
+plt.scatter(spend, sales, s=12, alpha=.6, label="markets we have data for")
+grid = np.linspace(spend.min(), spend.max(), 100)
+plt.plot(grid, slope * grid + intercept, color="red", label="the pattern")
+plt.scatter([150], [predicted], color="green", s=140, zorder=5, label="our prediction")
+plt.xlabel("TV advertising spend (₹ thousands)")
+plt.ylabel("Sales (thousands of units)")
 plt.legend()
 plt.show()
 
-print(f"Spend ₹45,000 and expect sales of about ₹{predicted*1000:,.0f}")
+print(f"Spend ₹150,000 on TV and expect to sell about {predicted*1000:,.0f} units")
 ```
 
 That is the whole shape of it: **data in, pattern found, question answered.**
@@ -153,41 +165,37 @@ Most of this course works with structured data, because that is where the ideas 
 clearest. The techniques for the other two are the same ideas with more preparation in
 front of them.
 
-### Demo 2 — the same fact in three shapes
+### Demo 2 — the same facts in three files
 
-One customer's order, written three ways.
+The same three orders, stored three different ways: `orders.csv`, `orders.json` and
+`order_notes.txt`. **Three files, three loaders** — and the work rises sharply from the
+first to the last.
 
 ```{python}
 import pandas as pd
 import json
 
-# STRUCTURED — a table. Every row has exactly the same columns.
-structured = pd.DataFrame({
-    "order_id": [1, 2],
-    "customer": ["Alice", "Bob"],
-    "amount":   [250.0, 90.0],
-})
-print("STRUCTURED — always the same columns")
+# STRUCTURED — a .csv file. Every row has exactly the same columns.
+structured = pd.read_csv("datasets/orders.csv")
+print("STRUCTURED  (datasets/orders.csv)")
 print(structured)
 
-# SEMI-STRUCTURED — labelled, but the second record has a field the first does not.
-semi = [
-    {"order_id": 1, "customer": "Alice", "amount": 250.0},
-    {"order_id": 2, "customer": "Bob",   "amount": 90.0, "gift_wrap": True},
-]
-print("\nSEMI-STRUCTURED — labelled, but the shape varies")
-print(json.dumps(semi, indent=2))
+# SEMI-STRUCTURED — a .json file. Labelled, but the records differ.
+semi = json.loads(open("datasets/orders.json").read())
+print("\nSEMI-STRUCTURED  (datasets/orders.json)")
+print(json.dumps(semi, indent=1))
 
-# UNSTRUCTURED — a human sentence. No labels at all.
-unstructured = "Alice ordered two books on Tuesday and paid 250 rupees."
-print("\nUNSTRUCTURED — the same facts, but nothing is labelled")
+# UNSTRUCTURED — a .txt file. Human sentences, nothing labelled.
+unstructured = open("datasets/order_notes.txt").read()
+print("\nUNSTRUCTURED  (datasets/order_notes.txt)")
 print(unstructured)
 ```
 
-Look at what changes. In the table, "what did Alice pay?" is one lookup. In the JSON it
-is still easy, but your code must cope with `gift_wrap` existing on some records and
-not others. In the sentence, the number `250` is just characters — a program has to be
-taught that it is money before it can add it up.
+Look at what changes. In the CSV, "what did Alice pay?" is one lookup. In the JSON it is
+still easy, but your code must cope with `gift_wrap` and `delivery` existing on some
+records and not others — and `delivery` is itself a record inside a record. In the text
+file the number `250` is just characters; a program has to be taught that it is money
+before it can add it up.
 
 ::: {.callout-warning title="⚠️ Semi-structured data breaks code that assumes a fixed shape"}
 Loading the JSON above into a table gives Alice a `gift_wrap` value of `NaN` — "not
@@ -198,6 +206,13 @@ skip records. **Check the shape of every record, not just the first one.**
 ```{python}
 # What happens when you force semi-structured data into a table:
 print(pd.DataFrame(semi))
+```
+
+Blanks where a field was absent, and one column holding a whole nested record.
+`pd.json_normalize` flattens the nesting into columns of its own:
+
+```{python}
+print(pd.json_normalize(semi))
 ```
 
 # Part B — Where it came from {#sec-s01-b}
@@ -232,9 +247,10 @@ on a single day either can win by luck.
 
 ```{python}
 import numpy as np
+import pandas as pd
 
-np.random.seed(0)
-demand = 100 + np.random.normal(0, 12, size=400)   # wobbles randomly around 100
+demand = pd.read_csv("datasets/daily_demand.csv")["units_sold"].values
+print(f"{len(demand)} days of recorded demand, averaging {demand.mean():.1f} units\n")
 
 avg_errors, yest_errors = [], []
 for day in range(60, len(demand)):
@@ -372,13 +388,9 @@ from sklearn.linear_model import LinearRegression
 
 # STAGE 1 — PROBLEM: predict a flat's monthly rent from its size and its age.
 
-# STAGE 2 — COLLECT
-flats = pd.DataFrame({
-    "sqft":     [500, 750, 1000, 1200, 1500, 900, 1100, np.nan, 1300, 600],
-    "age_yrs":  [10,  5,   2,    8,    1,    15,  3,    6,      4,    20],
-    "rent":     [9000, 14000, 20000, 21000, 28000, 15000, 21000, 16000, 25000, 10000],
-})
-print(f"Stage 2 — collected {len(flats)} flats")
+# STAGE 2 — COLLECT: read the file somebody handed us
+flats = pd.read_csv("datasets/flats.csv")
+print(f"Stage 2 — loaded {len(flats)} flats from datasets/flats.csv")
 
 # STAGE 3 — CLEAN: one flat has no recorded size. Fill it with the middle value.
 flats["sqft"] = flats["sqft"].fillna(flats["sqft"].median())
@@ -435,14 +447,7 @@ Recommendation engines sound complicated. The simplest useful one is a single id
 import pandas as pd
 
 # Rows are viewers, columns are films, values are ratings out of 5 (0 = not watched).
-ratings = pd.DataFrame(
-    [[5, 4, 0, 5, 1],
-     [4, 5, 1, 4, 1],
-     [1, 0, 5, 1, 4],
-     [5, 4, 1, 0, 2]],
-    index=["Asha", "Brij", "Chan", "You"],
-    columns=["Action1", "Action2", "Romance1", "Action3", "Romance2"],
-)
+ratings = pd.read_csv("datasets/film_ratings.csv", index_col="viewer")
 print(ratings)
 
 # How similar is each viewer to you? Count agreement across the films you have both seen.
@@ -472,11 +477,11 @@ output that page will show: history, a prediction, and an honest band around it.
 #| label: fig-s01-forecast
 #| fig-cap: "History in blue, prediction in red, uncertainty shaded. The shaded band is the honest part."
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 
-np.random.seed(42)
-days = np.arange(1, 101)
-price = 50 + days * 0.5 + np.random.normal(0, 5, size=100)
+history = pd.read_csv("datasets/daily_price.csv")
+days, price = history["day"].values, history["price"].values
 
 future = np.arange(101, 121)
 slope, intercept = np.polyfit(days, price, 1)

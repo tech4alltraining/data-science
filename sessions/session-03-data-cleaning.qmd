@@ -76,8 +76,8 @@ The dataset cannot tell you which is which. **Only knowledge of the subject can.
 import pandas as pd
 import numpy as np
 
-ages = pd.Series([25, 31, np.nan, 35, 22, 225, 29, 33])
-print("Raw ages:", ages.tolist())
+ages = pd.read_csv("datasets/messy_customers.csv")["age"].head(8)
+print("Raw ages from the file:", ages.tolist())
 
 # --- WRONG ORDER: fill the blanks first, then look for impossible values ---
 wrong = ages.fillna(ages.mean())                 # the mean is already poisoned by 225
@@ -92,27 +92,21 @@ print(f"\nRight order → mean used for filling was {ages.where(ages<=120).mean(
 print("             result:", [round(v,1) for v in right])
 ```
 
-In the wrong order the blank was filled with **50.0**, a value no customer has, because
-the impossible `225` was still inside the average. In the right order it was filled with
-**29.3**. Same data, same functions, different order — and one answer is nonsense.
+In the wrong order the blank was filled using a mean of **56.1**, a value no customer is
+anywhere near, because the impossible `225` was still inside the average. In the right
+order the mean was **28.0**. Same file, same functions, different order — and one answer
+is nonsense.
 
 # Part B — The six cleaning jobs {#sec-s03-b}
 
-Everything below runs on one deliberately awful dataset, so you can see each fix land.
+Everything below runs on one deliberately awful file — `datasets/messy_customers.csv`,
+the same one you inspected in Session 2 — so you can watch each fix land.
 
 ```{python}
 import pandas as pd
 import numpy as np
 
-raw = pd.DataFrame({
-    "customer_id": [1, 2, 3, 4, 5, 6, 7, 8, 3, 9],
-    "name":        ["Asha ", "Brij", "Chan", "Devi", "Esha", "Faiz", "Gita", "Hari", "Chan", "Isha"],
-    "age":         [25, 31, 28, np.nan, 22, 225, 29, 33, 28, -4],
-    "city":        ["Mumbai", "mumbai", "Delhi", "Bombay", "Delhi", "MUM", "delhi", "Pune", "Delhi", "Pune"],
-    "income":      [50000, 62000, np.nan, 58000, 45000, 71000, 900000, 55000, np.nan, 61000],
-    "joined":      ["2024-01-05", "05/02/2024", "2024-03-11", "2024-04-02", "2024-05-19",
-                    "2024-06-30", "2024-07-08", "2024-08-15", "2024-03-11", "2024-09-01"],
-})
+raw = pd.read_csv("datasets/messy_customers.csv")
 print(raw)
 print(f"\nStarting point: {len(raw)} rows, {raw.isna().sum().sum()} blank cells")
 ```
@@ -279,10 +273,10 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-np.random.seed(3)
-hours = np.arange(120)
-truth = 30 + 4 * np.sin(hours / 12)              # the real temperature cycle
-reading = truth + np.random.normal(0, 1.6, 120)  # what the sensor reports
+sensor = pd.read_csv("datasets/sensor_readings.csv")
+hours = sensor["hour"].values
+reading = sensor["sensor_reading"].values
+truth = sensor["true_temperature"].values   # we know this only because we simulated it
 
 s = pd.Series(reading)
 plt.plot(hours, reading, alpha=.35, label="raw sensor reading")
@@ -565,17 +559,16 @@ the largest window is not the best.
 import pandas as pd, numpy as np
 
 # Task 2 — mean vs median for a skewed column
-inc = pd.Series([50000, 62000, np.nan, 58000, 45000, 71000, 900000, 55000, 61000])
+inc = pd.read_csv("datasets/messy_customers.csv")["income"]
 print(f"Task 2 — mean fill  : ₹{inc.mean():,.0f}")
 print(f"Task 2 — median fill: ₹{inc.median():,.0f}")
 print("The median is more honest: only one of the nine people earns anything near")
 print("the mean, so filling with the mean invents a person who does not exist.\n")
 
 # Task 4 — which smoothing window is closest to the truth
-np.random.seed(3)
-hours = np.arange(120)
-truth = 30 + 4*np.sin(hours/12)
-reading = pd.Series(truth + np.random.normal(0, 1.6, 120))
+sensor = pd.read_csv("datasets/sensor_readings.csv")
+truth = sensor["true_temperature"].values
+reading = sensor["sensor_reading"]
 for w in (3, 5, 10, 25, 50):
     print(f"Task 4 — window {w:>2}: average error {(reading.rolling(w).mean()-truth).abs().mean():.2f} °C")
 print("The largest window is worst: it averages over half a cycle, so it flattens")

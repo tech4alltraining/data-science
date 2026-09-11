@@ -505,41 +505,18 @@ Note
 </div>
 <section id="demo-1-the-dataset-and-the-question" class="level3" data-number="18.1.1">
 <h3 data-number="18.1.1" class="anchored" data-anchor-id="demo-1-the-dataset-and-the-question"><span class="header-section-number">18.1.1</span> Demo 1 — the dataset, and the question</h3>
-<div id="379e8d96" class="cell" data-execution_count="2">
+<div id="ff931acb" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">101</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">3_000</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>customers <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"customer_id"</span>:   np.arange(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>),</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"tenure_months"</span>: rng.integers(<span class="dv">1</span>, <span class="dv">72</span>, n),</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"monthly_spend"</span>: rng.gamma(<span class="dv">4</span>, <span class="dv">300</span>, n).<span class="bu">round</span>(<span class="dv">2</span>),</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"support_calls"</span>: rng.poisson(<span class="fl">1.3</span>, n),</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"city"</span>:          rng.choice([<span class="st">"Mumbai"</span>, <span class="st">"Delhi"</span>, <span class="st">"Pune"</span>, <span class="st">"Chennai"</span>], n, p<span class="op">=</span>[<span class="fl">.35</span>, <span class="fl">.3</span>, <span class="fl">.2</span>, <span class="fl">.15</span>]),</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"plan"</span>:          rng.choice([<span class="st">"basic"</span>, <span class="st">"standard"</span>, <span class="st">"premium"</span>], n, p<span class="op">=</span>[<span class="fl">.45</span>, <span class="fl">.35</span>, <span class="fl">.20</span>]),</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># The truth we are asking the model to recover: churn rises with support calls,</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># falls with tenure, and is higher on the basic plan.</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>risk <span class="op">=</span> (<span class="op">-</span><span class="fl">2.4</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> <span class="fl">0.42</span> <span class="op">*</span> customers[<span class="st">"support_calls"</span>]</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span> <span class="fl">0.030</span> <span class="op">*</span> customers[<span class="st">"tenure_months"</span>]</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> <span class="fl">0.9</span> <span class="op">*</span> (customers[<span class="st">"plan"</span>] <span class="op">==</span> <span class="st">"basic"</span>))</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>customers[<span class="st">"churned"</span>] <span class="op">=</span> (rng.random(n) <span class="op">&lt;</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> np.exp(<span class="op">-</span>risk))).astype(<span class="bu">int</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Real data is never clean.</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>customers.loc[rng.choice(n, <span class="dv">120</span>, replace<span class="op">=</span><span class="va">False</span>), <span class="st">"monthly_spend"</span>] <span class="op">=</span> np.nan</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>customers.loc[rng.choice(n, <span class="dv">40</span>, replace<span class="op">=</span><span class="va">False</span>), <span class="st">"tenure_months"</span>] <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>      <span class="co"># impossible</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>customers <span class="op">=</span> pd.concat([customers, customers.sample(<span class="dv">60</span>, random_state<span class="op">=</span><span class="dv">1</span>)])    <span class="co"># duplicates</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"rows: </span><span class="sc">{</span><span class="bu">len</span>(customers)<span class="sc">:,}</span><span class="ss">   churn rate: </span><span class="sc">{</span>customers[<span class="st">'churned'</span>]<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">QUESTION      : which customers will churn in the next quarter?"</span>)</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"DECISION      : who receives a retention offer"</span>)</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"SUCCESS       : catch 60% of churners (recall ≥ 0.60) while contacting"</span>)</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"                fewer than 30% of all customers"</span>)</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"BASELINE      : contacting everyone catches 100% but contacts 100%"</span>)</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>customers.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>customers <span class="op">=</span> pd.read_csv(<span class="st">"datasets/telecom_churn.csv"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"rows: </span><span class="sc">{</span><span class="bu">len</span>(customers)<span class="sc">:,}</span><span class="ss">   churn rate: </span><span class="sc">{</span>customers[<span class="st">'churned'</span>]<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">QUESTION      : which customers will churn in the next quarter?"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"DECISION      : who receives a retention offer"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"SUCCESS       : catch 60% of churners (recall ≥ 0.60) while contacting"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"                fewer than 30% of all customers"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"BASELINE      : contacting everyone catches 100% but contacts 100%"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>customers.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>rows: 3,060   churn rate: 9.8%
 
@@ -629,7 +606,7 @@ BASELINE      : contacting everyone catches 100% but contacts 100%</code></pre>
 <h2 data-number="18.2" class="anchored" data-anchor-id="sec-s16-topic-2"><span class="header-section-number">18.2</span> 2. Steps 1–3: clean, explore, prepare</h2>
 <section id="demo-2-cleaning-with-a-report-session-3" class="level3" data-number="18.2.1">
 <h3 data-number="18.2.1" class="anchored" data-anchor-id="demo-2-cleaning-with-a-report-session-3"><span class="header-section-number">18.2.1</span> Demo 2 — cleaning, with a report (Session 3)</h3>
-<div id="794c9a72" class="cell" data-execution_count="3">
+<div id="534ba3d1" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> clean(df):</span>
@@ -726,7 +703,7 @@ support_calls    0.174</code></pre>
 </section>
 <section id="demo-4-preparing-with-a-pipeline-session-5" class="level3" data-number="18.2.3">
 <h3 data-number="18.2.3" class="anchored" data-anchor-id="demo-4-preparing-with-a-pipeline-session-5"><span class="header-section-number">18.2.3</span> Demo 4 — preparing, with a pipeline (Session 5)</h3>
-<div id="624fb753" class="cell" data-execution_count="5">
+<div id="f2dd3c4a" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
@@ -760,7 +737,7 @@ columns after preparation: 10</code></pre>
 <h2 data-number="18.3" class="anchored" data-anchor-id="sec-s16-topic-3"><span class="header-section-number">18.3</span> 3. Steps 4–5: model and evaluate</h2>
 <section id="demo-5-four-models-against-a-baseline-sessions-911" class="level3" data-number="18.3.1">
 <h3 data-number="18.3.1" class="anchored" data-anchor-id="demo-5-four-models-against-a-baseline-sessions-911"><span class="header-section-number">18.3.1</span> Demo 5 — four models against a baseline (Sessions 9–11)</h3>
-<div id="f5da69a6" class="cell" data-execution_count="6">
+<div id="ff5fd2f3" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyClassifier</span>
@@ -941,44 +918,49 @@ Report this honestly. Either the budget rises or the model improves.</code></pre
 </table>
 <section id="demo-7-by-hand-on-ten-baskets" class="level3" data-number="19.1.1">
 <h3 data-number="19.1.1" class="anchored" data-anchor-id="demo-7-by-hand-on-ten-baskets"><span class="header-section-number">19.1.1</span> Demo 7 — by hand, on ten baskets</h3>
-<div id="24d01a22" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>baskets <span class="op">=</span> [</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"bread"</span>, <span class="st">"butter"</span>, <span class="st">"jam"</span>},</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"bread"</span>, <span class="st">"butter"</span>},</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"bread"</span>, <span class="st">"butter"</span>, <span class="st">"jam"</span>, <span class="st">"milk"</span>},</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"milk"</span>, <span class="st">"eggs"</span>},</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"bread"</span>, <span class="st">"jam"</span>},</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"bread"</span>, <span class="st">"butter"</span>, <span class="st">"milk"</span>},</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"butter"</span>, <span class="st">"jam"</span>},</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"bread"</span>, <span class="st">"butter"</span>, <span class="st">"jam"</span>},</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"milk"</span>, <span class="st">"eggs"</span>, <span class="st">"bread"</span>},</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"bread"</span>, <span class="st">"butter"</span>, <span class="st">"jam"</span>},</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(baskets)</span>
+<div id="c52084a4" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ten baskets, one per line, from a real text file.</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>baskets <span class="op">=</span> [<span class="bu">set</span>(line.split()) <span class="cf">for</span> line <span class="kw">in</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>           <span class="bu">open</span>(<span class="st">"datasets/baskets_small.txt"</span>).read().strip().split(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)]</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(baskets)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, b <span class="kw">in</span> <span class="bu">enumerate</span>(baskets, <span class="dv">1</span>):</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  basket </span><span class="sc">{</span>i<span class="sc">:&gt;2}</span><span class="ss">: </span><span class="sc">{</span><span class="bu">sorted</span>(b)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> support(items):</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    items <span class="op">=</span> <span class="bu">set</span>(items)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">sum</span>(items <span class="op">&lt;=</span> b <span class="cf">for</span> b <span class="kw">in</span> baskets) <span class="op">/</span> n</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>left, right <span class="op">=</span> {<span class="st">"bread"</span>, <span class="st">"butter"</span>}, {<span class="st">"jam"</span>}</span>
 <span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> support(items):</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    items <span class="op">=</span> <span class="bu">set</span>(items)</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">sum</span>(items <span class="op">&lt;=</span> b <span class="cf">for</span> b <span class="kw">in</span> baskets) <span class="op">/</span> n</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>s_left  <span class="op">=</span> support(left)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>s_right <span class="op">=</span> support(right)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>s_both  <span class="op">=</span> support(left <span class="op">|</span> right)</span>
 <span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>left, right <span class="op">=</span> {<span class="st">"bread"</span>, <span class="st">"butter"</span>}, {<span class="st">"jam"</span>}</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>s_left  <span class="op">=</span> support(left)</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>s_right <span class="op">=</span> support(right)</span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>s_both  <span class="op">=</span> support(left <span class="op">|</span> right)</span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>confidence <span class="op">=</span> s_both <span class="op">/</span> s_left</span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>lift       <span class="op">=</span> confidence <span class="op">/</span> s_right</span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Rule: </span><span class="sc">{</span><span class="bu">sorted</span>(left)<span class="sc">}</span><span class="ss"> → </span><span class="sc">{</span><span class="bu">sorted</span>(right)<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  support(bread &amp; butter)       = </span><span class="sc">{</span><span class="bu">sum</span>(left <span class="op">&lt;=</span> b <span class="cf">for</span> b <span class="kw">in</span> baskets)<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>s_left<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  support(jam)                  = </span><span class="sc">{</span><span class="bu">sum</span>(right <span class="op">&lt;=</span> b <span class="cf">for</span> b <span class="kw">in</span> baskets)<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>s_right<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  support(all three together)   = </span><span class="sc">{</span><span class="bu">sum</span>((left<span class="op">|</span>right) <span class="op">&lt;=</span> b <span class="cf">for</span> b <span class="kw">in</span> baskets)<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>s_both<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">  confidence = </span><span class="sc">{</span>s_both<span class="sc">:.2f}</span><span class="ss"> / </span><span class="sc">{</span>s_left<span class="sc">:.2f}</span><span class="ss"> = </span><span class="sc">{</span>confidence<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"     → when someone buys bread and butter, </span><span class="sc">{</span>confidence<span class="sc">:.0%}</span><span class="ss"> of the time they buy jam"</span>)</span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">  lift = </span><span class="sc">{</span>confidence<span class="sc">:.2f}</span><span class="ss"> / </span><span class="sc">{</span>s_right<span class="sc">:.2f}</span><span class="ss"> = </span><span class="sc">{</span>lift<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"     → they are </span><span class="sc">{</span>lift<span class="sc">:.2f}</span><span class="ss">× more likely to buy jam than a random shopper"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>confidence <span class="op">=</span> s_both <span class="op">/</span> s_left</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>lift       <span class="op">=</span> confidence <span class="op">/</span> s_right</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Rule: </span><span class="sc">{</span><span class="bu">sorted</span>(left)<span class="sc">}</span><span class="ss"> → </span><span class="sc">{</span><span class="bu">sorted</span>(right)<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  support(bread &amp; butter)       = </span><span class="sc">{</span><span class="bu">sum</span>(left <span class="op">&lt;=</span> b <span class="cf">for</span> b <span class="kw">in</span> baskets)<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>s_left<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  support(jam)                  = </span><span class="sc">{</span><span class="bu">sum</span>(right <span class="op">&lt;=</span> b <span class="cf">for</span> b <span class="kw">in</span> baskets)<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>s_right<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  support(all three together)   = </span><span class="sc">{</span><span class="bu">sum</span>((left<span class="op">|</span>right) <span class="op">&lt;=</span> b <span class="cf">for</span> b <span class="kw">in</span> baskets)<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>s_both<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">  confidence = </span><span class="sc">{</span>s_both<span class="sc">:.2f}</span><span class="ss"> / </span><span class="sc">{</span>s_left<span class="sc">:.2f}</span><span class="ss"> = </span><span class="sc">{</span>confidence<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"     → when someone buys bread and butter, </span><span class="sc">{</span>confidence<span class="sc">:.0%}</span><span class="ss"> of the time they buy jam"</span>)</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">  lift = </span><span class="sc">{</span>confidence<span class="sc">:.2f}</span><span class="ss"> / </span><span class="sc">{</span>s_right<span class="sc">:.2f}</span><span class="ss"> = </span><span class="sc">{</span>lift<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"     → they are </span><span class="sc">{</span>lift<span class="sc">:.2f}</span><span class="ss">× more likely to buy jam than a random shopper"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rule: ['bread', 'butter'] → ['jam']
+<pre><code>  basket  1: ['bread', 'butter', 'jam']
+  basket  2: ['bread', 'butter']
+  basket  3: ['bread', 'butter', 'jam', 'milk']
+  basket  4: ['eggs', 'milk']
+  basket  5: ['bread', 'jam']
+  basket  6: ['bread', 'butter', 'milk']
+  basket  7: ['butter', 'jam']
+  basket  8: ['bread', 'butter', 'jam']
+  basket  9: ['bread', 'eggs', 'milk']
+  basket 10: ['bread', 'butter', 'jam']
+
+Rule: ['bread', 'butter'] → ['jam']
 
   support(bread &amp; butter)       = 6/10 = 0.60
   support(jam)                  = 6/10 = 0.60
@@ -994,7 +976,7 @@ Report this honestly. Either the budget rises or the model improves.</code></pre
 </section>
 <section id="demo-8-the-trap-high-confidence-no-information" class="level3" data-number="19.1.2">
 <h3 data-number="19.1.2" class="anchored" data-anchor-id="demo-8-the-trap-high-confidence-no-information"><span class="header-section-number">19.1.2</span> Demo 8 — the trap: high confidence, no information</h3>
-<div id="dde1fd8b" class="cell" data-execution_count="9">
+<div id="1fe34316" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A rule about something almost everyone buys.</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>left2, right2 <span class="op">=</span> {<span class="st">"milk"</span>}, {<span class="st">"bread"</span>}</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>c2 <span class="op">=</span> support(left2 <span class="op">|</span> right2) <span class="op">/</span> support(left2)</span>
@@ -1036,46 +1018,43 @@ Report this honestly. Either the budget rises or the model improves.</code></pre
 <p><strong>Checking every possible combination is impossible</strong> — 100 products give more than 10³⁰ possible itemsets. <strong>Apriori</strong> avoids that with one observation: <em>if {bread, butter} is rare, then {bread, butter, jam} must be rarer still</em>, so whole branches can be discarded without checking.</p>
 <section id="demo-9-mining-rules-with-mlxtend" class="level3" data-number="19.2.1">
 <h3 data-number="19.2.1" class="anchored" data-anchor-id="demo-9-mining-rules-with-mlxtend"><span class="header-section-number">19.2.1</span> Demo 9 — mining rules with mlxtend</h3>
-<div id="e71836da" class="cell" data-execution_count="10">
+<div id="b6372049" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mlxtend.frequent_patterns <span class="im">import</span> apriori, association_rules</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">102</span>)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>products <span class="op">=</span> [<span class="st">"bread"</span>, <span class="st">"butter"</span>, <span class="st">"jam"</span>, <span class="st">"milk"</span>, <span class="st">"eggs"</span>, <span class="st">"coffee"</span>, <span class="st">"sugar"</span>, <span class="st">"tea"</span>, <span class="st">"rice"</span>, <span class="st">"oil"</span>]</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Build 4,000 baskets with three deliberately planted rules, so we can check</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># that the algorithm finds what we know is there.</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>transactions <span class="op">=</span> []</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4_000</span>):</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    basket <span class="op">=</span> <span class="bu">set</span>(rng.choice(products, rng.integers(<span class="dv">1</span>, <span class="dv">4</span>), replace<span class="op">=</span><span class="va">False</span>))</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">"bread"</span> <span class="kw">in</span> basket <span class="kw">and</span> rng.random() <span class="op">&lt;</span> <span class="fl">0.80</span>: basket.add(<span class="st">"butter"</span>)     <span class="co"># planted</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">"butter"</span> <span class="kw">in</span> basket <span class="kw">and</span> rng.random() <span class="op">&lt;</span> <span class="fl">0.65</span>: basket.add(<span class="st">"jam"</span>)       <span class="co"># planted</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">"coffee"</span> <span class="kw">in</span> basket <span class="kw">and</span> rng.random() <span class="op">&lt;</span> <span class="fl">0.75</span>: basket.add(<span class="st">"sugar"</span>)     <span class="co"># planted</span></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    transactions.append(basket)</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>onehot <span class="op">=</span> pd.DataFrame([{p: (p <span class="kw">in</span> t) <span class="cf">for</span> p <span class="kw">in</span> products} <span class="cf">for</span> t <span class="kw">in</span> transactions])</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>frequent <span class="op">=</span> apriori(onehot, min_support<span class="op">=</span><span class="fl">0.05</span>, use_colnames<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Deliberately NO lift floor here, so we can see how many worthless rules</span></span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="co"># a permissive search produces.</span></span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>rules <span class="op">=</span> association_rules(frequent, metric<span class="op">=</span><span class="st">"confidence"</span>, min_threshold<span class="op">=</span><span class="fl">0.10</span>)</span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>rules <span class="op">=</span> rules.sort_values(<span class="st">"lift"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(transactions)<span class="sc">:,}</span><span class="ss"> baskets → </span><span class="sc">{</span><span class="bu">len</span>(frequent)<span class="sc">}</span><span class="ss"> frequent itemsets → </span><span class="sc">{</span><span class="bu">len</span>(rules)<span class="sc">}</span><span class="ss"> rules</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> rules[[<span class="st">"antecedents"</span>, <span class="st">"consequents"</span>, <span class="st">"support"</span>, <span class="st">"confidence"</span>, <span class="st">"lift"</span>]].head(<span class="dv">8</span>).copy()</span>
-<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>out[<span class="st">"antecedents"</span>] <span class="op">=</span> out[<span class="st">"antecedents"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> s: <span class="st">", "</span>.join(<span class="bu">sorted</span>(s)))</span>
-<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>out[<span class="st">"consequents"</span>] <span class="op">=</span> out[<span class="st">"consequents"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> s: <span class="st">", "</span>.join(<span class="bu">sorted</span>(s)))</span>
-<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(out.<span class="bu">round</span>(<span class="dv">3</span>).to_string(index<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 4,000 real baskets. Three rules were planted when the file was generated,</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># so we can check the algorithm against a truth we know — see</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># datasets/make_session_16.py.</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>raw <span class="op">=</span> pd.read_csv(<span class="st">"datasets/grocery_baskets.csv"</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>transactions <span class="op">=</span> [<span class="bu">set</span>(items.split(<span class="st">","</span>)) <span class="cf">for</span> items <span class="kw">in</span> raw[<span class="st">"items"</span>]]</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>products <span class="op">=</span> <span class="bu">sorted</span>({p <span class="cf">for</span> t <span class="kw">in</span> transactions <span class="cf">for</span> p <span class="kw">in</span> t})</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(transactions)<span class="sc">:,}</span><span class="ss"> baskets, </span><span class="sc">{</span><span class="bu">len</span>(products)<span class="sc">}</span><span class="ss"> distinct products</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>onehot <span class="op">=</span> pd.DataFrame([{p: (p <span class="kw">in</span> t) <span class="cf">for</span> p <span class="kw">in</span> products} <span class="cf">for</span> t <span class="kw">in</span> transactions])</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>frequent <span class="op">=</span> apriori(onehot, min_support<span class="op">=</span><span class="fl">0.05</span>, use_colnames<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Deliberately NO lift floor here, so we can see how many worthless rules</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co"># a permissive search produces.</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>rules <span class="op">=</span> association_rules(frequent, metric<span class="op">=</span><span class="st">"confidence"</span>, min_threshold<span class="op">=</span><span class="fl">0.10</span>)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>rules <span class="op">=</span> rules.sort_values(<span class="st">"lift"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(transactions)<span class="sc">:,}</span><span class="ss"> baskets → </span><span class="sc">{</span><span class="bu">len</span>(frequent)<span class="sc">}</span><span class="ss"> frequent itemsets → </span><span class="sc">{</span><span class="bu">len</span>(rules)<span class="sc">}</span><span class="ss"> rules</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> rules[[<span class="st">"antecedents"</span>, <span class="st">"consequents"</span>, <span class="st">"support"</span>, <span class="st">"confidence"</span>, <span class="st">"lift"</span>]].head(<span class="dv">8</span>).copy()</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>out[<span class="st">"antecedents"</span>] <span class="op">=</span> out[<span class="st">"antecedents"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> s: <span class="st">", "</span>.join(<span class="bu">sorted</span>(s)))</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>out[<span class="st">"consequents"</span>] <span class="op">=</span> out[<span class="st">"consequents"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> s: <span class="st">", "</span>.join(<span class="bu">sorted</span>(s)))</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(out.<span class="bu">round</span>(<span class="dv">3</span>).to_string(index<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>4,000 baskets → 34 frequent itemsets → 56 rules
+<pre><code>4,000 baskets, 10 distinct products
+
+4,000 baskets → 34 frequent itemsets → 56 rules
 
 antecedents consequents  support  confidence  lift
      butter  bread, jam    0.116       0.346 2.885
  bread, jam      butter    0.116       0.967 2.885
       bread      butter    0.171       0.832 2.483
      butter       bread    0.171       0.510 2.483
-butter, jam       bread    0.116       0.487 2.375
       bread butter, jam    0.116       0.564 2.375
+butter, jam       bread    0.116       0.487 2.375
      coffee       sugar    0.154       0.779 2.366
       sugar      coffee    0.154       0.468 2.366</code></pre>
 </div>
@@ -1083,7 +1062,7 @@ butter, jam       bread    0.116       0.487 2.375
 </section>
 <section id="demo-10-did-it-find-the-rules-we-planted" class="level3" data-number="19.2.2">
 <h3 data-number="19.2.2" class="anchored" data-anchor-id="demo-10-did-it-find-the-rules-we-planted"><span class="header-section-number">19.2.2</span> Demo 10 — did it find the rules we planted?</h3>
-<div id="69ebda18" class="cell" data-execution_count="11">
+<div id="c18faab3" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>planted <span class="op">=</span> [({<span class="st">"bread"</span>}, {<span class="st">"butter"</span>}), ({<span class="st">"butter"</span>}, {<span class="st">"jam"</span>}), ({<span class="st">"coffee"</span>}, {<span class="st">"sugar"</span>})]</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Checking the algorithm against the truth we built in:</span><span class="ch">\n</span><span class="st">"</span>)</span>
@@ -1169,7 +1148,7 @@ Filter on lift FIRST, then read the survivors.</code></pre>
 </div>
 <section id="demo-11-testing-the-three-hypotheses-from-demo-3" class="level3" data-number="20.1.1">
 <h3 data-number="20.1.1" class="anchored" data-anchor-id="demo-11-testing-the-three-hypotheses-from-demo-3"><span class="header-section-number">20.1.1</span> Demo 11 — testing the three hypotheses from Demo 3</h3>
-<div id="37be331f" class="cell" data-execution_count="12">
+<div id="4490f14a" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1213,7 +1192,7 @@ standard  1003   77</code></pre>
 </section>
 <section id="demo-12-what-the-model-learned-checked-against-the-tests" class="level3" data-number="20.1.2">
 <h3 data-number="20.1.2" class="anchored" data-anchor-id="demo-12-what-the-model-learned-checked-against-the-tests"><span class="header-section-number">20.1.2</span> Demo 12 — what the model learned, checked against the tests</h3>
-<div id="1d0a4f5b" class="cell" data-execution_count="13">
+<div id="669e1984" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
@@ -1285,7 +1264,7 @@ something is wrong — usually a leaked column or a proxy for the target.</code>
 </table>
 <section id="demo-13-packaging-the-result-session-12" class="level3" data-number="21.1.1">
 <h3 data-number="21.1.1" class="anchored" data-anchor-id="demo-13-packaging-the-result-session-12"><span class="header-section-number">21.1.1</span> Demo 13 — packaging the result (Session 12)</h3>
-<div id="34ea96a1" class="cell" data-execution_count="14">
+<div id="9a1b8fd1" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> joblib, sklearn, tempfile, os, json</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> date</span>
@@ -1333,7 +1312,7 @@ something is wrong — usually a leaked column or a proxy for the target.</code>
     "plan"
   ],
   "decision_threshold": 0.45,
-  "trained_on": "2026-09-10",
+  "trained_on": "2026-09-11",
   "n_training_rows": 2250,
   "sklearn_version": "1.9.0",
   "test_auc": 0.724,
@@ -1385,7 +1364,7 @@ met the target? False</code></pre>
 </table>
 <section id="demo-14-a-fairness-check" class="level3" data-number="21.2.1">
 <h3 data-number="21.2.1" class="anchored" data-anchor-id="demo-14-a-fairness-check"><span class="header-section-number">21.2.1</span> Demo 14 — a fairness check</h3>
-<div id="564733f7" class="cell" data-execution_count="15">
+<div id="4ceecc40" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> recall_score, precision_score</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>

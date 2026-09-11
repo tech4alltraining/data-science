@@ -586,34 +586,38 @@ Note
 <p><strong>REDUCE</strong> — add up each list: <code>the=3, cat=2, sat=1, ran=2, dog=1</code>.</p>
 <section id="demo-1-the-same-thing-in-plain-python" class="level3" data-number="16.2.1">
 <h3 data-number="16.2.1" class="anchored" data-anchor-id="demo-1-the-same-thing-in-plain-python"><span class="header-section-number">16.2.1</span> Demo 1 — the same thing in plain Python</h3>
-<div id="40227ce8" class="cell" data-execution_count="2">
+<div id="d1da52ae" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>lines <span class="op">=</span> [<span class="st">"the cat sat"</span>, <span class="st">"the cat ran"</span>, <span class="st">"the dog ran"</span>]</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># --- MAP: runs independently on each line. No machine knows about any other. ---</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> map_step(line):</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [(word, <span class="dv">1</span>) <span class="cf">for</span> word <span class="kw">in</span> line.split()]</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>mapped <span class="op">=</span> [map_step(line) <span class="cf">for</span> line <span class="kw">in</span> lines]</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, pairs <span class="kw">in</span> <span class="bu">enumerate</span>(mapped, <span class="dv">1</span>):</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"machine </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss"> emitted: </span><span class="sc">{</span>pairs<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># --- SHUFFLE: gather every value that shares a key ---------------------------</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>shuffled <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> pairs <span class="kw">in</span> mapped:</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> key, value <span class="kw">in</span> pairs:</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        shuffled[key].append(value)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">after shuffle: </span><span class="sc">{</span><span class="bu">dict</span>(shuffled)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># --- REDUCE: one machine per key, combining its list -------------------------</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> reduce_step(key, values):</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> key, <span class="bu">sum</span>(values)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> <span class="bu">dict</span>(reduce_step(k, v) <span class="cf">for</span> k, v <span class="kw">in</span> shuffled.items())</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">final counts: </span><span class="sc">{</span>result<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The input is a real text file — three lines, one per "machine".</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>lines <span class="op">=</span> <span class="bu">open</span>(<span class="st">"datasets/word_count_lines.txt"</span>).read().strip().split(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"input file:"</span>, lines, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># --- MAP: runs independently on each line. No machine knows about any other. ---</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> map_step(line):</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [(word, <span class="dv">1</span>) <span class="cf">for</span> word <span class="kw">in</span> line.split()]</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>mapped <span class="op">=</span> [map_step(line) <span class="cf">for</span> line <span class="kw">in</span> lines]</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, pairs <span class="kw">in</span> <span class="bu">enumerate</span>(mapped, <span class="dv">1</span>):</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"machine </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss"> emitted: </span><span class="sc">{</span>pairs<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># --- SHUFFLE: gather every value that shares a key ---------------------------</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>shuffled <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> pairs <span class="kw">in</span> mapped:</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> key, value <span class="kw">in</span> pairs:</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        shuffled[key].append(value)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">after shuffle: </span><span class="sc">{</span><span class="bu">dict</span>(shuffled)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># --- REDUCE: one machine per key, combining its list -------------------------</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> reduce_step(key, values):</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> key, <span class="bu">sum</span>(values)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> <span class="bu">dict</span>(reduce_step(k, v) <span class="cf">for</span> k, v <span class="kw">in</span> shuffled.items())</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">final counts: </span><span class="sc">{</span>result<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>machine 1 emitted: [('the', 1), ('cat', 1), ('sat', 1)]
+<pre><code>input file: ['the cat sat', 'the cat ran', 'the dog ran'] 
+
+machine 1 emitted: [('the', 1), ('cat', 1), ('sat', 1)]
 machine 2 emitted: [('the', 1), ('cat', 1), ('ran', 1)]
 machine 3 emitted: [('the', 1), ('dog', 1), ('ran', 1)]
 
@@ -633,7 +637,7 @@ final counts: {'the': 3, 'cat': 2, 'sat': 1, 'ran': 2, 'dog': 1}</code></pre>
 <p><strong>The same three steps solve any problem of that shape.</strong> Write the engine once and pass in different map and reduce functions.</p>
 <section id="demo-2-one-engine-three-different-jobs" class="level3" data-number="17.1.1">
 <h3 data-number="17.1.1" class="anchored" data-anchor-id="demo-2-one-engine-three-different-jobs"><span class="header-section-number">17.1.1</span> Demo 2 — one engine, three different jobs</h3>
-<div id="fa9b44d1" class="cell" data-execution_count="3">
+<div id="62b34efd" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mapreduce(chunks, mapper, reducer, verbose<span class="op">=</span><span class="va">False</span>):</span>
@@ -654,22 +658,29 @@ final counts: {'the': 3, 'cat': 2, 'sat': 1, 'ran': 2, 'dog': 1}</code></pre>
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {k: reducer(k, v) <span class="cf">for</span> k, v <span class="kw">in</span> grouped.items()}</span>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>sales_chunks <span class="op">=</span> [</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">"Mumbai"</span>, <span class="dv">250</span>), (<span class="st">"Delhi"</span>, <span class="dv">100</span>), (<span class="st">"Mumbai"</span>, <span class="dv">300</span>)],</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">"Pune"</span>, <span class="dv">80</span>),    (<span class="st">"Delhi"</span>, <span class="dv">150</span>), (<span class="st">"Mumbai"</span>, <span class="dv">120</span>)],</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">"Pune"</span>, <span class="dv">200</span>),   (<span class="st">"Pune"</span>, <span class="dv">60</span>),   (<span class="st">"Delhi"</span>, <span class="dv">90</span>)],</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"JOB 1 — total sales per city"</span>)</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">" "</span>, mapreduce(sales_chunks, <span class="kw">lambda</span> c: c, <span class="kw">lambda</span> k, v: <span class="bu">sum</span>(v), verbose<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, glob</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># One logical table, stored as three files — which is how HDFS holds one dataset.</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>sales_chunks <span class="op">=</span> [<span class="bu">list</span>(pd.read_csv(f).itertuples(index<span class="op">=</span><span class="va">False</span>, name<span class="op">=</span><span class="va">None</span>))</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> f <span class="kw">in</span> <span class="bu">sorted</span>(glob.glob(<span class="st">"datasets/chunks/city_sales_*.csv"</span>))]</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, c <span class="kw">in</span> <span class="bu">enumerate</span>(sales_chunks, <span class="dv">1</span>):</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  file </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>c<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
 <span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">JOB 2 — average sale per city"</span>)</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">" "</span>, mapreduce(sales_chunks, <span class="kw">lambda</span> c: c, <span class="kw">lambda</span> k, v: <span class="bu">round</span>(<span class="bu">sum</span>(v)<span class="op">/</span><span class="bu">len</span>(v), <span class="dv">1</span>)))</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"JOB 1 — total sales per city"</span>)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">" "</span>, mapreduce(sales_chunks, <span class="kw">lambda</span> c: c, <span class="kw">lambda</span> k, v: <span class="bu">sum</span>(v), verbose<span class="op">=</span><span class="va">True</span>))</span>
 <span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">JOB 3 — largest single sale per city"</span>)</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">" "</span>, mapreduce(sales_chunks, <span class="kw">lambda</span> c: c, <span class="kw">lambda</span> k, v: <span class="bu">max</span>(v)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">JOB 2 — average sale per city"</span>)</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">" "</span>, mapreduce(sales_chunks, <span class="kw">lambda</span> c: c, <span class="kw">lambda</span> k, v: <span class="bu">round</span>(<span class="bu">sum</span>(v)<span class="op">/</span><span class="bu">len</span>(v), <span class="dv">1</span>)))</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">JOB 3 — largest single sale per city"</span>)</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">" "</span>, mapreduce(sales_chunks, <span class="kw">lambda</span> c: c, <span class="kw">lambda</span> k, v: <span class="bu">max</span>(v)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>JOB 1 — total sales per city
+<pre><code>  file 1: [('Mumbai', 250), ('Delhi', 100), ('Mumbai', 300)]
+  file 2: [('Pune', 80), ('Delhi', 150), ('Mumbai', 120)]
+  file 3: [('Pune', 200), ('Pune', 60), ('Delhi', 90)]
+
+JOB 1 — total sales per city
   map emitted 9 pairs → shuffled into 3 keys
   {'Mumbai': 670, 'Delhi': 340, 'Pune': 340}
 
@@ -689,40 +700,41 @@ JOB 3 — largest single sale per city
 <p><strong>The fix is the combiner: reduce locally before sending anything.</strong></p>
 <section id="demo-3-a-combiner-and-how-much-traffic-it-saves" class="level3" data-number="17.2.1">
 <h3 data-number="17.2.1" class="anchored" data-anchor-id="demo-3-a-combiner-and-how-much-traffic-it-saves"><span class="header-section-number">17.2.1</span> Demo 3 — a combiner, and how much traffic it saves</h3>
-<div id="d0ecee8c" class="cell" data-execution_count="4">
+<div id="3c5e8bfb" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 3 machines, each holding many rows for the same few cities.</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>chunks <span class="op">=</span> [</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">"Mumbai"</span>, <span class="dv">1</span>)] <span class="op">*</span> <span class="dv">4_000</span> <span class="op">+</span> [(<span class="st">"Delhi"</span>, <span class="dv">1</span>)] <span class="op">*</span> <span class="dv">3_000</span>,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">"Mumbai"</span>, <span class="dv">1</span>)] <span class="op">*</span> <span class="dv">5_000</span> <span class="op">+</span> [(<span class="st">"Pune"</span>, <span class="dv">1</span>)] <span class="op">*</span> <span class="dv">2_000</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">"Delhi"</span>, <span class="dv">1</span>)] <span class="op">*</span> <span class="dv">6_000</span> <span class="op">+</span> [(<span class="st">"Pune"</span>, <span class="dv">1</span>)] <span class="op">*</span> <span class="dv">1_000</span>,</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># WITHOUT a combiner: every single pair crosses the network</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>pairs_sent <span class="op">=</span> <span class="bu">sum</span>(<span class="bu">len</span>(c) <span class="cf">for</span> c <span class="kw">in</span> chunks)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># WITH a combiner: each machine sums its own rows first, then sends the totals</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>combined <span class="op">=</span> []</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> chunks:</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    local <span class="op">=</span> defaultdict(<span class="bu">int</span>)</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k, v <span class="kw">in</span> c:</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        local[k] <span class="op">+=</span> v</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    combined.append(<span class="bu">list</span>(local.items()))</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>combined_sent <span class="op">=</span> <span class="bu">sum</span>(<span class="bu">len</span>(c) <span class="cf">for</span> c <span class="kw">in</span> combined)</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"without a combiner: </span><span class="sc">{</span>pairs_sent<span class="sc">:&gt;7,}</span><span class="ss"> pairs cross the network"</span>)</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"with a combiner   : </span><span class="sc">{</span>combined_sent<span class="sc">:&gt;7,}</span><span class="ss"> pairs cross the network"</span>)</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"reduction         : </span><span class="sc">{</span><span class="dv">1</span> <span class="op">-</span> combined_sent<span class="op">/</span>pairs_sent<span class="sc">:.4%}</span><span class="ss">"</span>)</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Both give the same answer:</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>final <span class="op">=</span> defaultdict(<span class="bu">int</span>)</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> combined:</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k, v <span class="kw">in</span> c:</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>        final[k] <span class="op">+=</span> v</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">same result either way: </span><span class="sc">{</span><span class="bu">dict</span>(final)<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, glob</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Three files, each holding thousands of rows for a few cities.</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>chunks <span class="op">=</span> [<span class="bu">list</span>(pd.read_csv(f).itertuples(index<span class="op">=</span><span class="va">False</span>, name<span class="op">=</span><span class="va">None</span>))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>          <span class="cf">for</span> f <span class="kw">in</span> <span class="bu">sorted</span>(glob.glob(<span class="st">"datasets/chunks/city_counts_*.csv"</span>))]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"three files holding </span><span class="sc">{</span>[<span class="bu">len</span>(c) <span class="cf">for</span> c <span class="kw">in</span> chunks]<span class="sc">}</span><span class="ss"> rows</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># WITHOUT a combiner: every single pair crosses the network</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>pairs_sent <span class="op">=</span> <span class="bu">sum</span>(<span class="bu">len</span>(c) <span class="cf">for</span> c <span class="kw">in</span> chunks)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># WITH a combiner: each machine sums its own rows first, then sends the totals</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>combined <span class="op">=</span> []</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> chunks:</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    local <span class="op">=</span> defaultdict(<span class="bu">int</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k, v <span class="kw">in</span> c:</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        local[k] <span class="op">+=</span> v</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    combined.append(<span class="bu">list</span>(local.items()))</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>combined_sent <span class="op">=</span> <span class="bu">sum</span>(<span class="bu">len</span>(c) <span class="cf">for</span> c <span class="kw">in</span> combined)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"without a combiner: </span><span class="sc">{</span>pairs_sent<span class="sc">:&gt;7,}</span><span class="ss"> pairs cross the network"</span>)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"with a combiner   : </span><span class="sc">{</span>combined_sent<span class="sc">:&gt;7,}</span><span class="ss"> pairs cross the network"</span>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"reduction         : </span><span class="sc">{</span><span class="dv">1</span> <span class="op">-</span> combined_sent<span class="op">/</span>pairs_sent<span class="sc">:.4%}</span><span class="ss">"</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Both give the same answer:</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>final <span class="op">=</span> defaultdict(<span class="bu">int</span>)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> combined:</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k, v <span class="kw">in</span> c:</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>        final[k] <span class="op">+=</span> v</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">same result either way: </span><span class="sc">{</span><span class="bu">dict</span>(final)<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>without a combiner:  21,000 pairs cross the network
+<pre><code>three files holding [7000, 7000, 7000] rows
+
+without a combiner:  21,000 pairs cross the network
 with a combiner   :       6 pairs cross the network
 reduction         : 99.9714%
 
@@ -742,21 +754,26 @@ same result either way: {'Mumbai': 9000, 'Delhi': 9000, 'Pune': 3000}</code></pr
 <div class="callout-body-container callout-body">
 <p>A combiner is only safe when the reduce operation gives the same answer regardless of how you group the work. <code>sum</code>, <code>min</code>, <code>max</code> and <code>count</code> are fine.</p>
 <p><strong><code>average</code> is not.</strong> The average of the averages of unequal groups is not the overall average:</p>
-<div id="123f1c10" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> [[<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">90</span>], [<span class="dv">100</span>]]</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>naive <span class="op">=</span> <span class="bu">sum</span>(<span class="bu">sum</span>(g)<span class="op">/</span><span class="bu">len</span>(g) <span class="cf">for</span> g <span class="kw">in</span> groups) <span class="op">/</span> <span class="bu">len</span>(groups)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>true  <span class="op">=</span> <span class="bu">sum</span>(<span class="bu">sum</span>(g) <span class="cf">for</span> g <span class="kw">in</span> groups) <span class="op">/</span> <span class="bu">sum</span>(<span class="bu">len</span>(g) <span class="cf">for</span> g <span class="kw">in</span> groups)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"average of the averages : </span><span class="sc">{</span>naive<span class="sc">:.2f}</span><span class="ss">   ← wrong"</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"true overall average    : </span><span class="sc">{</span>true<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="1b6ef48a" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>uneven <span class="op">=</span> pd.read_csv(<span class="st">"datasets/uneven_groups.csv"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> [g[<span class="st">"value"</span>].tolist() <span class="cf">for</span> _, g <span class="kw">in</span> uneven.groupby(<span class="st">"group"</span>)]</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"two groups of very unequal size:"</span>, groups)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>naive <span class="op">=</span> <span class="bu">sum</span>(<span class="bu">sum</span>(g)<span class="op">/</span><span class="bu">len</span>(g) <span class="cf">for</span> g <span class="kw">in</span> groups) <span class="op">/</span> <span class="bu">len</span>(groups)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>true  <span class="op">=</span> <span class="bu">sum</span>(<span class="bu">sum</span>(g) <span class="cf">for</span> g <span class="kw">in</span> groups) <span class="op">/</span> <span class="bu">sum</span>(<span class="bu">len</span>(g) <span class="cf">for</span> g <span class="kw">in</span> groups)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"average of the averages : </span><span class="sc">{</span>naive<span class="sc">:.2f}</span><span class="ss">   ← wrong"</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"true overall average    : </span><span class="sc">{</span>true<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>average of the averages : 75.00   ← wrong
+<pre><code>two groups of very unequal size: [[10, 20, 30, 40, 50, 60, 70, 80, 90], [100]]
+average of the averages : 75.00   ← wrong
 true overall average    : 55.00</code></pre>
 </div>
 </div>
 <p><strong>The fix:</strong> have the combiner emit <code>(sum, count)</code> pairs rather than an average, and let the reducer divide at the very end.</p>
 </div>
 </div>
-<div id="ffffc5fb" class="cell" data-execution_count="6">
+<div id="dd1d37e6" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The correct combinable average: carry (sum, count) through the shuffle.</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>partials <span class="op">=</span> [(<span class="bu">sum</span>(g), <span class="bu">len</span>(g)) <span class="cf">for</span> g <span class="kw">in</span> groups]</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>total_sum <span class="op">=</span> <span class="bu">sum</span>(s <span class="cf">for</span> s, _ <span class="kw">in</span> partials)</span>
@@ -773,7 +790,7 @@ true overall average    : 55.00</code></pre>
 <p><strong>You have been writing MapReduce jobs since Session 2.</strong> <code>df.groupby("city")["amount"].sum()</code> is a map (pick out city and amount), a shuffle (gather by city), and a reduce (sum).</p>
 <section id="demo-4-the-same-answer-both-ways" class="level3" data-number="17.3.1">
 <h3 data-number="17.3.1" class="anchored" data-anchor-id="demo-4-the-same-answer-both-ways"><span class="header-section-number">17.3.1</span> Demo 4 — the same answer, both ways</h3>
-<div id="d0fc3ac0" class="cell" data-execution_count="7">
+<div id="9b01b20d" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> [r <span class="cf">for</span> chunk <span class="kw">in</span> sales_chunks <span class="cf">for</span> r <span class="kw">in</span> chunk]</span>
@@ -839,7 +856,7 @@ our MapReduce engine:
 </table>
 <section id="demo-5-the-cost-of-writing-to-disk-between-passes" class="level3" data-number="18.1.1">
 <h3 data-number="18.1.1" class="anchored" data-anchor-id="demo-5-the-cost-of-writing-to-disk-between-passes"><span class="header-section-number">18.1.1</span> Demo 5 — the cost of writing to disk between passes</h3>
-<div id="acaac997" class="cell" data-execution_count="8">
+<div id="e49f8e2e" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>DISK_ROUND_TRIP_S <span class="op">=</span> <span class="dv">12</span>       <span class="co"># writing and re-reading a large intermediate result</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>MEMORY_S <span class="op">=</span> <span class="fl">0.4</span>               <span class="co"># keeping it in memory instead</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>COMPUTE_PER_PASS_S <span class="op">=</span> <span class="dv">5</span></span>
@@ -899,7 +916,7 @@ Thirty passes, which is what training a model looks like: Spark wins outright.</
 <p><strong>Why this is a feature:</strong> with the whole plan in hand before running anything, Spark can rearrange it. If you filter after selecting two columns, it can push the filter earlier and read far less data.</p>
 <section id="demo-6-lazy-evaluation-built-in-plain-python" class="level3" data-number="18.2.1">
 <h3 data-number="18.2.1" class="anchored" data-anchor-id="demo-6-lazy-evaluation-built-in-plain-python"><span class="header-section-number">18.2.1</span> Demo 6 — lazy evaluation, built in plain Python</h3>
-<div id="adff252f" class="cell" data-execution_count="9">
+<div id="0c9f3592" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> LazyFrame:</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""A miniature of Spark's laziness: record operations, run only on an action."""</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1052,44 +1069,39 @@ Nothing has been computed yet. Now we ask for the answer:
 <section id="demo-7-the-same-job-in-the-plain-python-engine" class="level3" data-number="19.1.1">
 <h3 data-number="19.1.1" class="anchored" data-anchor-id="demo-7-the-same-job-in-the-plain-python-engine"><span class="header-section-number">19.1.1</span> Demo 7 — the same job, in the plain-Python engine</h3>
 <p>So you can see the answer this produces, here is the identical calculation with our own MapReduce.</p>
-<div id="5818d11a" class="cell" data-execution_count="10">
+<div id="3ad6c8f2" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">81</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">60_000</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>servers <span class="op">=</span> [<span class="ss">f"10.0.0.</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>)]</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> [<span class="fl">.10</span>, <span class="fl">.10</span>, <span class="fl">.10</span>, <span class="fl">.10</span>, <span class="fl">.10</span>, <span class="fl">.50</span>]        <span class="co"># one server is much busier</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>log <span class="op">=</span> pd.read_csv(<span class="st">"datasets/server_logs.csv"</span>).to_dict(<span class="st">"records"</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(log)</span>
 <span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>log <span class="op">=</span> [{<span class="st">"server"</span>: rng.choice(servers, p<span class="op">=</span>weights),</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"status"</span>: <span class="bu">int</span>(rng.choice([<span class="dv">200</span>, <span class="dv">404</span>, <span class="dv">500</span>, <span class="dv">503</span>], p<span class="op">=</span>[<span class="fl">.90</span>, <span class="fl">.05</span>, <span class="fl">.03</span>, <span class="fl">.02</span>])),</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ms"</span>: <span class="bu">float</span>(rng.gamma(<span class="dv">2</span>, <span class="dv">40</span>))}</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>       <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n)]</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># filter → group → aggregate, exactly as the PySpark plan above</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>errors <span class="op">=</span> [r <span class="cf">for</span> r <span class="kw">in</span> log <span class="cf">if</span> r[<span class="st">"status"</span>] <span class="op">&gt;=</span> <span class="dv">500</span>]</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>grouped <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> errors:</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    grouped[r[<span class="st">"server"</span>]].append(r[<span class="st">"ms"</span>])</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>summary <span class="op">=</span> <span class="bu">sorted</span>(((s, <span class="bu">len</span>(v), <span class="bu">sum</span>(v)<span class="op">/</span><span class="bu">len</span>(v)) <span class="cf">for</span> s, v <span class="kw">in</span> grouped.items()),</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>                 key<span class="op">=</span><span class="kw">lambda</span> t: <span class="op">-</span>t[<span class="dv">1</span>])</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">:,}</span><span class="ss"> log rows → </span><span class="sc">{</span><span class="bu">len</span>(errors)<span class="sc">:,}</span><span class="ss"> errors (</span><span class="sc">{</span><span class="bu">len</span>(errors)<span class="op">/</span>n<span class="sc">:.1%}</span><span class="ss">)</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'server'</span><span class="sc">:&lt;12}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'errors'</span><span class="sc">:&gt;8}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'avg ms'</span><span class="sc">:&gt;9}</span><span class="ss">"</span>)</span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s, c, avg <span class="kw">in</span> summary:</span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>s<span class="sc">:&lt;12}</span><span class="ss"> </span><span class="sc">{</span>c<span class="sc">:&gt;8,}</span><span class="ss"> </span><span class="sc">{</span>avg<span class="sc">:&gt;9.1f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># filter → group → aggregate, exactly as the PySpark plan above</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>errors <span class="op">=</span> [r <span class="cf">for</span> r <span class="kw">in</span> log <span class="cf">if</span> r[<span class="st">"status"</span>] <span class="op">&gt;=</span> <span class="dv">500</span>]</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>grouped <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> errors:</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    grouped[r[<span class="st">"server"</span>]].append(r[<span class="st">"response_ms"</span>])</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>summary <span class="op">=</span> <span class="bu">sorted</span>(((s, <span class="bu">len</span>(v), <span class="bu">sum</span>(v)<span class="op">/</span><span class="bu">len</span>(v)) <span class="cf">for</span> s, v <span class="kw">in</span> grouped.items()),</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>                 key<span class="op">=</span><span class="kw">lambda</span> t: <span class="op">-</span>t[<span class="dv">1</span>])</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">:,}</span><span class="ss"> log rows → </span><span class="sc">{</span><span class="bu">len</span>(errors)<span class="sc">:,}</span><span class="ss"> errors (</span><span class="sc">{</span><span class="bu">len</span>(errors)<span class="op">/</span>n<span class="sc">:.1%}</span><span class="ss">)</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'server'</span><span class="sc">:&lt;12}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'errors'</span><span class="sc">:&gt;8}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'avg ms'</span><span class="sc">:&gt;9}</span><span class="ss">"</span>)</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s, c, avg <span class="kw">in</span> summary:</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>s<span class="sc">:&lt;12}</span><span class="ss"> </span><span class="sc">{</span>c<span class="sc">:&gt;8,}</span><span class="ss"> </span><span class="sc">{</span>avg<span class="sc">:&gt;9.1f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>60,000 log rows → 2,958 errors (4.9%)
+<pre><code>60,000 log rows → 2,960 errors (4.9%)
 
 server         errors    avg ms
-10.0.0.6        1,461      81.2
-10.0.0.5          317      78.5
-10.0.0.4          307      83.0
-10.0.0.3          295      78.8
-10.0.0.1          291      81.3
-10.0.0.2          287      85.3</code></pre>
+10.0.0.6        1,496      80.1
+10.0.0.4          314      80.5
+10.0.0.2          310      81.1
+10.0.0.5          297      78.3
+10.0.0.1          272      83.7
+10.0.0.3          271      83.3</code></pre>
 </div>
 </div>
 </section>
@@ -1098,33 +1110,35 @@ server         errors    avg ms
 <h2 data-number="19.2" class="anchored" data-anchor-id="sec-s14-topic-9"><span class="header-section-number">19.2</span> 9. When not to use Spark</h2>
 <section id="demo-8-the-crossover-modelled" class="level3" data-number="19.2.1">
 <h3 data-number="19.2.1" class="anchored" data-anchor-id="demo-8-the-crossover-modelled"><span class="header-section-number">19.2.1</span> Demo 8 — the crossover, modelled</h3>
-<div id="921b962d" class="cell" data-execution_count="11">
+<div id="9f77f5ae" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd, time</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">82</span>)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>SPARK_STARTUP_S <span class="op">=</span> <span class="fl">6.0</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>SPARK_CORES <span class="op">=</span> <span class="dv">8</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>SHUFFLE_OVERHEAD_S <span class="op">=</span> <span class="fl">0.9</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'rows'</span><span class="sc">:&gt;13}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'pandas'</span><span class="sc">:&gt;11}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Spark (modelled)'</span><span class="sc">:&gt;18}</span><span class="ss">   winner"</span>)</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">58</span>)</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> [<span class="dv">50_000</span>, <span class="dv">500_000</span>, <span class="dv">5_000_000</span>]:</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.DataFrame({<span class="st">"k"</span>: rng.integers(<span class="dv">0</span>, <span class="dv">200</span>, n), <span class="st">"v"</span>: rng.normal(size<span class="op">=</span>n)})</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> time.perf_counter()<span class="op">;</span> df.groupby(<span class="st">"k"</span>)[<span class="st">"v"</span>].agg([<span class="st">"sum"</span>, <span class="st">"mean"</span>])<span class="op">;</span> pandas_s <span class="op">=</span> time.perf_counter() <span class="op">-</span> t</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    spark_s <span class="op">=</span> SPARK_STARTUP_S <span class="op">+</span> SHUFFLE_OVERHEAD_S <span class="op">+</span> pandas_s <span class="op">*</span> <span class="dv">4</span> <span class="op">/</span> SPARK_CORES</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">:&gt;13,}</span><span class="ss"> </span><span class="sc">{</span>pandas_s<span class="op">*</span><span class="dv">1000</span><span class="sc">:&gt;9.1f}</span><span class="ss"> ms </span><span class="sc">{</span>spark_s<span class="sc">:&gt;15.2f}</span><span class="ss"> s   "</span></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"</span><span class="sc">{</span><span class="st">'pandas'</span> <span class="cf">if</span> pandas_s <span class="op">&lt;</span> spark_s <span class="cf">else</span> <span class="st">'Spark'</span><span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>break_even <span class="op">=</span> SPARK_STARTUP_S <span class="op">+</span> SHUFFLE_OVERHEAD_S</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Spark pays about </span><span class="sc">{</span>break_even<span class="sc">:.1f}</span><span class="ss"> s before it does any work at all."</span>)</span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"It only wins once the job would take substantially longer than that in pandas —"</span>)</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"which, on a modern laptop, means tens of gigabytes."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>SPARK_STARTUP_S <span class="op">=</span> <span class="fl">6.0</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>SPARK_CORES <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>SHUFFLE_OVERHEAD_S <span class="op">=</span> <span class="fl">0.9</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> pd.read_csv(<span class="st">"datasets/server_logs.csv"</span>, usecols<span class="op">=</span>[<span class="st">"server"</span>, <span class="st">"response_ms"</span>])</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>big <span class="op">=</span> pd.concat([base] <span class="op">*</span> <span class="dv">90</span>, ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'rows'</span><span class="sc">:&gt;13}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'pandas'</span><span class="sc">:&gt;11}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Spark (modelled)'</span><span class="sc">:&gt;18}</span><span class="ss">   winner"</span>)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">58</span>)</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> [<span class="dv">50_000</span>, <span class="dv">500_000</span>, <span class="dv">5_000_000</span>]:</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> big.iloc[:n]</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> time.perf_counter()<span class="op">;</span> df.groupby(<span class="st">"server"</span>)[<span class="st">"response_ms"</span>].agg([<span class="st">"sum"</span>, <span class="st">"mean"</span>])<span class="op">;</span> pandas_s <span class="op">=</span> time.perf_counter() <span class="op">-</span> t</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    spark_s <span class="op">=</span> SPARK_STARTUP_S <span class="op">+</span> SHUFFLE_OVERHEAD_S <span class="op">+</span> pandas_s <span class="op">*</span> <span class="dv">4</span> <span class="op">/</span> SPARK_CORES</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">:&gt;13,}</span><span class="ss"> </span><span class="sc">{</span>pandas_s<span class="op">*</span><span class="dv">1000</span><span class="sc">:&gt;9.1f}</span><span class="ss"> ms </span><span class="sc">{</span>spark_s<span class="sc">:&gt;15.2f}</span><span class="ss"> s   "</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"</span><span class="sc">{</span><span class="st">'pandas'</span> <span class="cf">if</span> pandas_s <span class="op">&lt;</span> spark_s <span class="cf">else</span> <span class="st">'Spark'</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>break_even <span class="op">=</span> SPARK_STARTUP_S <span class="op">+</span> SHUFFLE_OVERHEAD_S</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Spark pays about </span><span class="sc">{</span>break_even<span class="sc">:.1f}</span><span class="ss"> s before it does any work at all."</span>)</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"It only wins once the job would take substantially longer than that in pandas —"</span>)</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"which, on a modern laptop, means tens of gigabytes."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         rows      pandas   Spark (modelled)   winner
 ----------------------------------------------------------
-       50,000       4.0 ms            6.90 s   pandas
-      500,000       8.5 ms            6.90 s   pandas
-    5,000,000      60.6 ms            6.93 s   pandas
+       50,000       5.6 ms            6.90 s   pandas
+      500,000      32.8 ms            6.92 s   pandas
+    5,000,000     322.2 ms            7.06 s   pandas
 
 Spark pays about 6.9 s before it does any work at all.
 It only wins once the job would take substantially longer than that in pandas —
@@ -1266,7 +1280,7 @@ which, on a modern laptop, means tens of gigabytes.</code></pre>
 </div>
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="cecf2cc1" class="cell" data-execution_count="12">
+<div id="60b2b7cb" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mapreduce(chunks, mapper, reducer):</span>
@@ -1293,10 +1307,10 @@ which, on a modern laptop, means tens of gigabytes.</code></pre>
 <span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  NOT combinable as a count: local counts would double-count a cashier who"</span>)</span>
 <span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  appears on two machines. Combinable if each machine sends the SET of names."</span>)</span>
 <span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 3 — combinable average</span></span>
-<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>sales <span class="op">=</span> [[(<span class="st">"Mumbai"</span>, <span class="dv">250</span>), (<span class="st">"Delhi"</span>, <span class="dv">100</span>)],</span>
-<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>         [(<span class="st">"Mumbai"</span>, <span class="dv">300</span>), (<span class="st">"Pune"</span>, <span class="dv">80</span>)],</span>
-<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>         [(<span class="st">"Mumbai"</span>, <span class="dv">120</span>), (<span class="st">"Delhi"</span>, <span class="dv">150</span>)]]</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 3 — combinable average, read from the three chunk files</span></span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, glob</span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>sales <span class="op">=</span> [<span class="bu">list</span>(pd.read_csv(f).itertuples(index<span class="op">=</span><span class="va">False</span>, name<span class="op">=</span><span class="va">None</span>))</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>         <span class="cf">for</span> f <span class="kw">in</span> <span class="bu">sorted</span>(glob.glob(<span class="st">"datasets/chunks/city_sales_*.csv"</span>))]</span>
 <span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>sums <span class="op">=</span> mapreduce(sales, <span class="kw">lambda</span> c: [(k, (v, <span class="dv">1</span>)) <span class="cf">for</span> k, v <span class="kw">in</span> c],</span>
 <span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>                 <span class="kw">lambda</span> k, pairs: (<span class="bu">sum</span>(s <span class="cf">for</span> s, _ <span class="kw">in</span> pairs), <span class="bu">sum</span>(n <span class="cf">for</span> _, n <span class="kw">in</span> pairs)))</span>
 <span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 3 —"</span>, {k: <span class="bu">round</span>(s<span class="op">/</span>n, <span class="dv">1</span>) <span class="cf">for</span> k, (s, n) <span class="kw">in</span> sums.items()})</span>
@@ -1309,7 +1323,7 @@ Task 2 — {'Mumbai': 2, 'Delhi': 1, 'Pune': 1}
   NOT combinable as a count: local counts would double-count a cashier who
   appears on two machines. Combinable if each machine sends the SET of names.
 
-Task 3 — {'Mumbai': 223.3, 'Delhi': 125.0, 'Pune': 80.0}
+Task 3 — {'Mumbai': 223.3, 'Delhi': 113.3, 'Pune': 113.3}
   Carrying (sum, count) through the shuffle makes the average combinable.</code></pre>
 </div>
 </div>

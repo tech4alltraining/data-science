@@ -550,7 +550,7 @@ Note
 <p><strong>This chapter is regression.</strong> Session 10’s clustering and later work covers the rest.</p>
 <section id="demo-1-telling-them-apart" class="level3" data-number="11.2.1">
 <h3 data-number="11.2.1" class="anchored" data-anchor-id="demo-1-telling-them-apart"><span class="header-section-number">11.2.1</span> Demo 1 — telling them apart</h3>
-<div id="2e20198f" class="cell" data-execution_count="2">
+<div id="6e7252c7" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>problems <span class="op">=</span> [</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Predict a flat's monthly rent"</span>,                 <span class="st">"₹28,400"</span>,        <span class="st">"number"</span>),</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Will this customer cancel their subscription?"</span>, <span class="st">"yes / no"</span>,       <span class="st">"category"</span>),</span>
@@ -624,34 +624,45 @@ What score out of 10 will this film get?         7.3                REGRESSION</
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">31</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>experience <span class="op">=</span> rng.uniform(<span class="dv">0</span>, <span class="dv">15</span>, <span class="dv">40</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>salary <span class="op">=</span> <span class="dv">25_000</span> <span class="op">+</span> experience <span class="op">*</span> <span class="dv">9_000</span> <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">12_000</span>, <span class="dv">40</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> experience.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)          <span class="co"># scikit-learn wants a 2-D table, even for one column</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> salary</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression().fit(X, y)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>line <span class="op">=</span> model.predict(X)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>plt.scatter(experience, salary, s<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"actual people"</span>)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> np.argsort(experience)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>plt.plot(experience[order], line[order], <span class="st">"r-"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"the fitted line"</span>)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> xi, yi, pi <span class="kw">in</span> <span class="bu">zip</span>(experience, salary, line):</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    plt.plot([xi, xi], [yi, pi], color<span class="op">=</span><span class="st">"grey"</span>, lw<span class="op">=</span><span class="fl">.6</span>, alpha<span class="op">=</span><span class="fl">.6</span>)</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Years of experience"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"Salary (₹)"</span>)<span class="op">;</span> plt.legend()</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"intercept = ₹</span><span class="sc">{</span>model<span class="sc">.</span>intercept_<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"slope     = ₹</span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:,.0f}</span><span class="ss"> per year of experience"</span>)</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Read as a sentence:"</span>)</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'  "Someone with no experience earns about ₹</span><span class="sc">{</span>model<span class="sc">.</span>intercept_<span class="sc">:,.0f}</span><span class="ss">.'</span>)</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'   Each additional year is worth about ₹</span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:,.0f}</span><span class="ss">."'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>emp <span class="op">=</span> pd.read_csv(<span class="st">"datasets/experience_salary.csv"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>experience, salary <span class="op">=</span> emp[<span class="st">"experience_years"</span>].values, emp[<span class="st">"salary"</span>].values</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(emp.head(<span class="dv">3</span>), <span class="ss">f"</span><span class="ch">\n\n</span><span class="sc">{</span><span class="bu">len</span>(emp)<span class="sc">}</span><span class="ss"> employees on file</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> experience.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)          <span class="co"># scikit-learn wants a 2-D table, even for one column</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> salary</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression().fit(X, y)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>line <span class="op">=</span> model.predict(X)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>plt.scatter(experience, salary, s<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"actual people"</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> np.argsort(experience)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>plt.plot(experience[order], line[order], <span class="st">"r-"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"the fitted line"</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> xi, yi, pi <span class="kw">in</span> <span class="bu">zip</span>(experience, salary, line):</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    plt.plot([xi, xi], [yi, pi], color<span class="op">=</span><span class="st">"grey"</span>, lw<span class="op">=</span><span class="fl">.6</span>, alpha<span class="op">=</span><span class="fl">.6</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Years of experience"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"Salary (₹)"</span>)<span class="op">;</span> plt.legend()</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"intercept = ₹</span><span class="sc">{</span>model<span class="sc">.</span>intercept_<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"slope     = ₹</span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:,.0f}</span><span class="ss"> per year of experience"</span>)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Read as a sentence:"</span>)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'  "Someone with no experience earns about ₹</span><span class="sc">{</span>model<span class="sc">.</span>intercept_<span class="sc">:,.0f}</span><span class="ss">.'</span>)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'   Each additional year is worth about ₹</span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:,.0f}</span><span class="ss">."'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   experience_years    salary
+0             13.55  121356.0
+1              1.02   31755.0
+2             10.09  123457.0 
+
+40 employees on file
+</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div id="fig-s09-simple" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-s09-simple-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="session-09-supervised-learning-techniques_files/figure-html/fig-s09-simple-output-1.png" width="711" height="408" class="figure-img">
+<img src="session-09-supervised-learning-techniques_files/figure-html/fig-s09-simple-output-2.png" width="711" height="408" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s09-simple-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;12.1: The line of best fit. Grey lines are the residuals — the errors the fit is minimising.
@@ -660,34 +671,34 @@ Figure&nbsp;12.1: The line of best fit. Grey lines are the residuals — the err
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>intercept = ₹18,238
-slope     = ₹9,726 per year of experience
+<pre><code>intercept = ₹18,241
+slope     = ₹9,725 per year of experience
 
 Read as a sentence:
-  "Someone with no experience earns about ₹18,238.
-   Each additional year is worth about ₹9,726."</code></pre>
+  "Someone with no experience earns about ₹18,241.
+   Each additional year is worth about ₹9,725."</code></pre>
 </div>
 </div>
 </section>
 <section id="demo-3-using-it-to-predict" class="level3" data-number="12.1.2">
 <h3 data-number="12.1.2" class="anchored" data-anchor-id="demo-3-using-it-to-predict"><span class="header-section-number">12.1.2</span> Demo 3 — using it to predict</h3>
-<div id="d5b9d2a4" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> years <span class="kw">in</span> [<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">12</span>]:</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> model.predict([[years]])[<span class="dv">0</span>]</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>years<span class="sc">:&gt;2}</span><span class="ss"> years of experience → predicted salary ₹</span><span class="sc">{</span>pred<span class="sc">:&gt;9,.0f}</span><span class="ss">"</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">40 years of experience → ₹</span><span class="sc">{</span>model<span class="sc">.</span>predict([[<span class="dv">40</span>]])[<span class="dv">0</span>]<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  ⚠ nobody in the training data had more than 15 years. This number is a"</span>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"    guess about territory the model has never seen — it is extrapolation."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="0a2d6813" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> years <span class="kw">in</span> [<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">12</span>]:</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> model.predict([[years]])[<span class="dv">0</span>]</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>years<span class="sc">:&gt;2}</span><span class="ss"> years of experience → predicted salary ₹</span><span class="sc">{</span>pred<span class="sc">:&gt;9,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">40 years of experience → ₹</span><span class="sc">{</span>model<span class="sc">.</span>predict([[<span class="dv">40</span>]])[<span class="dv">0</span>]<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  ⚠ nobody in the training data had more than 15 years. This number is a"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"    guess about territory the model has never seen — it is extrapolation."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> 0 years of experience → predicted salary ₹   18,238
- 3 years of experience → predicted salary ₹   47,416
- 7 years of experience → predicted salary ₹   86,319
-12 years of experience → predicted salary ₹  134,948
+<pre><code> 0 years of experience → predicted salary ₹   18,241
+ 3 years of experience → predicted salary ₹   47,417
+ 7 years of experience → predicted salary ₹   86,318
+12 years of experience → predicted salary ₹  134,944
 
-40 years of experience → ₹407,271
+40 years of experience → ₹407,253
   ⚠ nobody in the training data had more than 15 years. This number is a
     guess about territory the model has never seen — it is extrapolation.</code></pre>
 </div>
@@ -731,41 +742,37 @@ Read as a sentence:
 </div>
 <section id="demo-4-a-real-multiple-regression-done-properly" class="level3" data-number="13.1.1">
 <h3 data-number="13.1.1" class="anchored" data-anchor-id="demo-4-a-real-multiple-regression-done-properly"><span class="header-section-number">13.1.1</span> Demo 4 — a real multiple regression, done properly</h3>
-<div id="8f620d36" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error, mean_squared_error, r2_score</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">32</span>)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">400</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> rng.normal(<span class="dv">1_200</span>, <span class="dv">350</span>, n).clip(<span class="dv">400</span>, <span class="dv">2_800</span>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>bedrooms <span class="op">=</span> np.clip((area <span class="op">/</span> <span class="dv">450</span>).<span class="bu">round</span>(), <span class="dv">1</span>, <span class="dv">5</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> rng.integers(<span class="dv">0</span>, <span class="dv">40</span>, n)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># The truth we are asking the model to recover:</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>price <span class="op">=</span> <span class="dv">3_200</span><span class="op">*</span>area <span class="op">+</span> <span class="dv">250_000</span><span class="op">*</span>bedrooms <span class="op">-</span> <span class="dv">45_000</span><span class="op">*</span>age <span class="op">+</span> <span class="dv">400_000</span> <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">250_000</span>, n)</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>homes <span class="op">=</span> pd.DataFrame({<span class="st">"area_sqft"</span>: area.<span class="bu">round</span>(), <span class="st">"bedrooms"</span>: bedrooms.astype(<span class="bu">int</span>),</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"age_years"</span>: age, <span class="st">"price"</span>: price.<span class="bu">round</span>(<span class="op">-</span><span class="dv">3</span>)})</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> homes[[<span class="st">"area_sqft"</span>, <span class="st">"bedrooms"</span>, <span class="st">"age_years"</span>]]</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> homes[<span class="st">"price"</span>]</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression().fit(X_train, y_train)</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"What the model learned:"</span>)</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, coef <span class="kw">in</span> <span class="bu">zip</span>(X.columns, model.coef_):</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>name<span class="sc">:&lt;12}</span><span class="ss"> </span><span class="sc">{</span>coef<span class="sc">:&gt;12,.0f}</span><span class="ss">"</span>)</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span><span class="st">'intercept'</span><span class="sc">:&lt;12}</span><span class="ss"> </span><span class="sc">{</span>model<span class="sc">.</span>intercept_<span class="sc">:&gt;12,.0f}</span><span class="ss">"</span>)</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Read as sentences (each holds the others constant):"</span>)</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  one more square foot  → ₹</span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:&gt;10,.0f}</span><span class="ss">   (same bedrooms, same age)"</span>)</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  one more bedroom      → ₹</span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">1</span>]<span class="sc">:&gt;10,.0f}</span><span class="ss">   (same area, same age)"</span>)</span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  one more year of age  → ₹</span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">2</span>]<span class="sc">:&gt;10,.0f}</span><span class="ss">   (same area, same bedrooms)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="7e1a4382" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error, mean_squared_error, r2_score</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>homes <span class="op">=</span> pd.read_csv(<span class="st">"datasets/house_prices.csv"</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(homes)<span class="sc">}</span><span class="ss"> houses on file: </span><span class="sc">{</span><span class="bu">list</span>(homes.columns)<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># The file was built from a known truth, so we can check what the model recovers:</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   ₹3,200 per square foot · ₹250,000 per bedroom · −₹45,000 per year of age</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> homes[[<span class="st">"area_sqft"</span>, <span class="st">"bedrooms"</span>, <span class="st">"age_years"</span>]]</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> homes[<span class="st">"price"</span>]</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression().fit(X_train, y_train)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"What the model learned:"</span>)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, coef <span class="kw">in</span> <span class="bu">zip</span>(X.columns, model.coef_):</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>name<span class="sc">:&lt;12}</span><span class="ss"> </span><span class="sc">{</span>coef<span class="sc">:&gt;12,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span><span class="st">'intercept'</span><span class="sc">:&lt;12}</span><span class="ss"> </span><span class="sc">{</span>model<span class="sc">.</span>intercept_<span class="sc">:&gt;12,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Read as sentences (each holds the others constant):"</span>)</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  one more square foot  → ₹</span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:&gt;10,.0f}</span><span class="ss">   (same bedrooms, same age)"</span>)</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  one more bedroom      → ₹</span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">1</span>]<span class="sc">:&gt;10,.0f}</span><span class="ss">   (same area, same age)"</span>)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  one more year of age  → ₹</span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">2</span>]<span class="sc">:&gt;10,.0f}</span><span class="ss">   (same area, same bedrooms)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>What the model learned:
+<pre><code>400 houses on file: ['area_sqft', 'bedrooms', 'age_years', 'price']
+
+What the model learned:
   area_sqft           3,051
   bedrooms          291,399
   age_years         -44,476
@@ -780,13 +787,13 @@ Read as sentences (each holds the others constant):
 </section>
 <section id="demo-5-why-holding-constant-changes-the-answer" class="level3" data-number="13.1.2">
 <h3 data-number="13.1.2" class="anchored" data-anchor-id="demo-5-why-holding-constant-changes-the-answer"><span class="header-section-number">13.1.2</span> Demo 5 — why “holding constant” changes the answer</h3>
-<div id="0b1121f5" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>alone <span class="op">=</span> LinearRegression().fit(X_train[[<span class="st">"bedrooms"</span>]], y_train)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"bedrooms ALONE          : ₹</span><span class="sc">{</span>alone<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:&gt;12,.0f}</span><span class="ss"> per bedroom"</span>)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"bedrooms WITH area, age : ₹</span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">1</span>]<span class="sc">:&gt;12,.0f}</span><span class="ss"> per bedroom"</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">correlation between area and bedrooms: </span><span class="sc">{</span>X_train[<span class="st">'area_sqft'</span>]<span class="sc">.</span>corr(X_train[<span class="st">'bedrooms'</span>])<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="51eca742" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>alone <span class="op">=</span> LinearRegression().fit(X_train[[<span class="st">"bedrooms"</span>]], y_train)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"bedrooms ALONE          : ₹</span><span class="sc">{</span>alone<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:&gt;12,.0f}</span><span class="ss"> per bedroom"</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"bedrooms WITH area, age : ₹</span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">1</span>]<span class="sc">:&gt;12,.0f}</span><span class="ss"> per bedroom"</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">correlation between area and bedrooms: </span><span class="sc">{</span>X_train[<span class="st">'area_sqft'</span>]<span class="sc">.</span>corr(X_train[<span class="st">'bedrooms'</span>])<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>bedrooms ALONE          : ₹   1,492,208 per bedroom
 bedrooms WITH area, age : ₹     291,399 per bedroom
@@ -811,21 +818,21 @@ correlation between area and bedrooms: 0.95</code></pre>
 </section>
 <section id="demo-6-adding-features-one-at-a-time" class="level3" data-number="13.1.3">
 <h3 data-number="13.1.3" class="anchored" data-anchor-id="demo-6-adding-features-one-at-a-time"><span class="header-section-number">13.1.3</span> Demo 6 — adding features one at a time</h3>
-<div id="197a39fd" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score, mean_absolute_error</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>sets <span class="op">=</span> [[<span class="st">"area_sqft"</span>],</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"area_sqft"</span>, <span class="st">"bedrooms"</span>],</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"area_sqft"</span>, <span class="st">"bedrooms"</span>, <span class="st">"age_years"</span>]]</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'features'</span><span class="sc">:&lt;40}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'test R²'</span><span class="sc">:&gt;9}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'test MAE'</span><span class="sc">:&gt;14}</span><span class="ss">"</span>)</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">65</span>)</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cols <span class="kw">in</span> sets:</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> LinearRegression().fit(X_train[cols], y_train)</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> m.predict(X_test[cols])</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">', '</span><span class="sc">.</span>join(cols)<span class="sc">:&lt;40}</span><span class="ss"> </span><span class="sc">{</span>r2_score(y_test, pred)<span class="sc">:&gt;9.3f}</span><span class="ss"> </span><span class="sc">{</span>mean_absolute_error(y_test, pred)<span class="sc">:&gt;14,.0f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="ba3a14f6" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score, mean_absolute_error</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>sets <span class="op">=</span> [[<span class="st">"area_sqft"</span>],</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"area_sqft"</span>, <span class="st">"bedrooms"</span>],</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"area_sqft"</span>, <span class="st">"bedrooms"</span>, <span class="st">"age_years"</span>]]</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'features'</span><span class="sc">:&lt;40}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'test R²'</span><span class="sc">:&gt;9}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'test MAE'</span><span class="sc">:&gt;14}</span><span class="ss">"</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">65</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cols <span class="kw">in</span> sets:</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> LinearRegression().fit(X_train[cols], y_train)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> m.predict(X_test[cols])</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">', '</span><span class="sc">.</span>join(cols)<span class="sc">:&lt;40}</span><span class="ss"> </span><span class="sc">{</span>r2_score(y_test, pred)<span class="sc">:&gt;9.3f}</span><span class="ss"> </span><span class="sc">{</span>mean_absolute_error(y_test, pred)<span class="sc">:&gt;14,.0f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>features                                   test R²       test MAE
 -----------------------------------------------------------------
@@ -882,28 +889,30 @@ area_sqft, bedrooms, age_years               0.971        206,858</code></pre>
 </table>
 <section id="demo-7-computed-by-hand-then-by-scikit-learn" class="level3" data-number="14.1.1">
 <h3 data-number="14.1.1" class="anchored" data-anchor-id="demo-7-computed-by-hand-then-by-scikit-learn"><span class="header-section-number">14.1.1</span> Demo 7 — computed by hand, then by scikit-learn</h3>
-<div id="ddf66e2d" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error, mean_squared_error, r2_score</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>actual    <span class="op">=</span> np.array([<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">300</span>, <span class="dv">400</span>, <span class="dv">500</span>])</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>predicted <span class="op">=</span> np.array([<span class="dv">110</span>, <span class="dv">190</span>, <span class="dv">310</span>, <span class="dv">380</span>, <span class="dv">520</span>])</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>errors <span class="op">=</span> predicted <span class="op">-</span> actual</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"actual    : </span><span class="sc">{</span>actual<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"predicted : </span><span class="sc">{</span>predicted<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"errors    : </span><span class="sc">{</span>errors<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">MAE  = average of |errors|      = </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">abs</span>(errors)<span class="sc">.</span>mean()<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"RMSE = √(average of errors²)    = </span><span class="sc">{</span>np<span class="sc">.</span>sqrt((errors<span class="op">**</span><span class="dv">2</span>).mean())<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>ss_res <span class="op">=</span> (errors <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>()</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>ss_tot <span class="op">=</span> ((actual <span class="op">-</span> actual.mean()) <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>()</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"R²   = 1 - </span><span class="sc">{</span>ss_res<span class="sc">}</span><span class="ss"> / </span><span class="sc">{</span>ss_tot<span class="sc">:.0f}</span><span class="ss"> = </span><span class="sc">{</span><span class="dv">1</span> <span class="op">-</span> ss_res<span class="op">/</span>ss_tot<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">scikit-learn agrees: MAE </span><span class="sc">{</span>mean_absolute_error(actual, predicted)<span class="sc">:.2f}</span><span class="ss">, "</span></span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"RMSE </span><span class="sc">{</span>np<span class="sc">.</span>sqrt(mean_squared_error(actual, predicted))<span class="sc">:.2f}</span><span class="ss">, "</span></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"R² </span><span class="sc">{</span>r2_score(actual, predicted)<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="8a3b4af1" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error, mean_squared_error, r2_score</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>preds <span class="op">=</span> pd.read_csv(<span class="st">"datasets/predictions_small.csv"</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>actual, predicted <span class="op">=</span> preds[<span class="st">"actual"</span>].values, preds[<span class="st">"predicted"</span>].values</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>errors <span class="op">=</span> predicted <span class="op">-</span> actual</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"actual    : </span><span class="sc">{</span>actual<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"predicted : </span><span class="sc">{</span>predicted<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"errors    : </span><span class="sc">{</span>errors<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">MAE  = average of |errors|      = </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">abs</span>(errors)<span class="sc">.</span>mean()<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"RMSE = √(average of errors²)    = </span><span class="sc">{</span>np<span class="sc">.</span>sqrt((errors<span class="op">**</span><span class="dv">2</span>).mean())<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>ss_res <span class="op">=</span> (errors <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>()</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>ss_tot <span class="op">=</span> ((actual <span class="op">-</span> actual.mean()) <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>()</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"R²   = 1 - </span><span class="sc">{</span>ss_res<span class="sc">}</span><span class="ss"> / </span><span class="sc">{</span>ss_tot<span class="sc">:.0f}</span><span class="ss"> = </span><span class="sc">{</span><span class="dv">1</span> <span class="op">-</span> ss_res<span class="op">/</span>ss_tot<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">scikit-learn agrees: MAE </span><span class="sc">{</span>mean_absolute_error(actual, predicted)<span class="sc">:.2f}</span><span class="ss">, "</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"RMSE </span><span class="sc">{</span>np<span class="sc">.</span>sqrt(mean_squared_error(actual, predicted))<span class="sc">:.2f}</span><span class="ss">, "</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"R² </span><span class="sc">{</span>r2_score(actual, predicted)<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>actual    : [100, 200, 300, 400, 500]
 predicted : [110, 190, 310, 380, 520]
@@ -919,21 +928,20 @@ scikit-learn agrees: MAE 14.00, RMSE 14.83, R² 0.9890</code></pre>
 </section>
 <section id="demo-8-why-mae-and-rmse-disagree-and-when-it-matters" class="level3" data-number="14.1.2">
 <h3 data-number="14.1.2" class="anchored" data-anchor-id="demo-8-why-mae-and-rmse-disagree-and-when-it-matters"><span class="header-section-number">14.1.2</span> Demo 8 — why MAE and RMSE disagree, and when it matters</h3>
-<div id="7a7b9a9e" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error, mean_squared_error</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>actual <span class="op">=</span> np.full(<span class="dv">100</span>, <span class="fl">500.0</span>)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>spread_out <span class="op">=</span> actual <span class="op">+</span> np.full(<span class="dv">100</span>, <span class="fl">20.0</span>)                  <span class="co"># every prediction off by 20</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>one_disaster <span class="op">=</span> actual.copy() <span class="op">+</span> <span class="fl">0.0</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>one_disaster[<span class="dv">0</span>] <span class="op">+=</span> <span class="dv">2000</span>                                    <span class="co"># 99 perfect, 1 catastrophic</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, pred <span class="kw">in</span> [(<span class="st">"everything off by 20"</span>, spread_out),</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>                   (<span class="st">"99 perfect, 1 wrong by 2000"</span>, one_disaster)]:</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    mae <span class="op">=</span> mean_absolute_error(actual, pred)</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    rmse <span class="op">=</span> np.sqrt(mean_squared_error(actual, pred))</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:&lt;30}</span><span class="ss"> MAE </span><span class="sc">{</span>mae<span class="sc">:7.2f}</span><span class="ss">   RMSE </span><span class="sc">{</span>rmse<span class="sc">:7.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="74b823af" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error, mean_squared_error</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>pat <span class="op">=</span> pd.read_csv(<span class="st">"datasets/two_error_patterns.csv"</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>actual <span class="op">=</span> pat[<span class="st">"actual"</span>].values</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, pred <span class="kw">in</span> [(<span class="st">"everything off by 20"</span>, pat[<span class="st">"model_a_spread_out"</span>].values),</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>                   (<span class="st">"99 perfect, 1 wrong by 2000"</span>, pat[<span class="st">"model_b_one_disaster"</span>].values)]:</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    mae <span class="op">=</span> mean_absolute_error(actual, pred)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    rmse <span class="op">=</span> np.sqrt(mean_squared_error(actual, pred))</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:&lt;30}</span><span class="ss"> MAE </span><span class="sc">{</span>mae<span class="sc">:7.2f}</span><span class="ss">   RMSE </span><span class="sc">{</span>rmse<span class="sc">:7.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>everything off by 20           MAE   20.00   RMSE   20.00
 99 perfect, 1 wrong by 2000    MAE   20.00   RMSE  200.00</code></pre>
@@ -980,21 +988,21 @@ scikit-learn agrees: MAE 14.00, RMSE 14.83, R² 0.9890</code></pre>
 </section>
 <section id="demo-9-always-compare-against-a-baseline" class="level3" data-number="14.1.3">
 <h3 data-number="14.1.3" class="anchored" data-anchor-id="demo-9-always-compare-against-a-baseline"><span class="header-section-number">14.1.3</span> Demo 9 — always compare against a baseline</h3>
-<div id="d8755981" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyRegressor</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error, r2_score</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>baseline <span class="op">=</span> DummyRegressor(strategy<span class="op">=</span><span class="st">"mean"</span>).fit(X_train, y_train)   <span class="co"># always predicts the average</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>real     <span class="op">=</span> LinearRegression().fit(X_train, y_train)</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, m <span class="kw">in</span> [(<span class="st">"Baseline (always the mean)"</span>, baseline), (<span class="st">"Linear regression"</span>, real)]:</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> m.predict(X_test)</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:&lt;28}</span><span class="ss"> MAE ₹</span><span class="sc">{</span>mean_absolute_error(y_test, pred)<span class="sc">:&gt;10,.0f}</span><span class="ss">   R² </span><span class="sc">{</span>r2_score(y_test, pred)<span class="sc">:&gt;7.3f}</span><span class="ss">"</span>)</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>improvement <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> mean_absolute_error(y_test, real.predict(X_test)) <span class="op">/</span> <span class="op">\</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>                  mean_absolute_error(y_test, baseline.predict(X_test))</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">The model reduced the typical error by </span><span class="sc">{</span>improvement<span class="sc">:.0%}</span><span class="ss"> versus guessing the average."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="0460c831" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyRegressor</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error, r2_score</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>baseline <span class="op">=</span> DummyRegressor(strategy<span class="op">=</span><span class="st">"mean"</span>).fit(X_train, y_train)   <span class="co"># always predicts the average</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>real     <span class="op">=</span> LinearRegression().fit(X_train, y_train)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, m <span class="kw">in</span> [(<span class="st">"Baseline (always the mean)"</span>, baseline), (<span class="st">"Linear regression"</span>, real)]:</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> m.predict(X_test)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:&lt;28}</span><span class="ss"> MAE ₹</span><span class="sc">{</span>mean_absolute_error(y_test, pred)<span class="sc">:&gt;10,.0f}</span><span class="ss">   R² </span><span class="sc">{</span>r2_score(y_test, pred)<span class="sc">:&gt;7.3f}</span><span class="ss">"</span>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>improvement <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> mean_absolute_error(y_test, real.predict(X_test)) <span class="op">/</span> <span class="op">\</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>                  mean_absolute_error(y_test, baseline.predict(X_test))</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">The model reduced the typical error by </span><span class="sc">{</span>improvement<span class="sc">:.0%}</span><span class="ss"> versus guessing the average."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Baseline (always the mean)   MAE ₹ 1,222,939   R²  -0.011
 Linear regression            MAE ₹   206,858   R²   0.971
@@ -1060,32 +1068,33 @@ The model reduced the typical error by 83% versus guessing the average.</code></
 <section id="demo-10-the-residual-plot-and-the-two-shapes-that-condemn-a-model" class="level3" data-number="14.2.1">
 <h3 data-number="14.2.1" class="anchored" data-anchor-id="demo-10-the-residual-plot-and-the-two-shapes-that-condemn-a-model"><span class="header-section-number">14.2.1</span> Demo 10 — the residual plot, and the two shapes that condemn a model</h3>
 <div id="cell-fig-s09-residuals" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">33</span>)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> rng.uniform(<span class="dv">1</span>, <span class="dv">20</span>, <span class="dv">250</span>)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>cases <span class="op">=</span> {</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Healthy"</span>:         <span class="dv">3</span><span class="op">*</span>x <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">250</span>),</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Curved pattern"</span>:  <span class="fl">0.35</span><span class="op">*</span>x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">250</span>),</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Fanning out"</span>:     <span class="dv">3</span><span class="op">*</span>x <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">250</span>) <span class="op">*</span> x <span class="op">*</span> <span class="fl">0.4</span>,</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="fl">3.2</span>))</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, (name, yy) <span class="kw">in</span> <span class="bu">zip</span>(axes, cases.items()):</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> LinearRegression().fit(x.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), yy)</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    resid <span class="op">=</span> yy <span class="op">-</span> m.predict(x.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    ax.scatter(m.predict(x.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)), resid, s<span class="op">=</span><span class="dv">10</span>, alpha<span class="op">=</span><span class="fl">.6</span>)</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    ax.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">"red"</span>, lw<span class="op">=</span><span class="fl">1.5</span>)</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    ax.set_title(name, fontsize<span class="op">=</span><span class="dv">10</span>)<span class="op">;</span> ax.set_xlabel(<span class="st">"predicted"</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">"error"</span>)</span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"A residual plot should look like a shapeless cloud centred on zero."</span>)</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  A CURVE  → the true relationship is not a straight line; add a squared term"</span>)</span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"             or use a model that can bend."</span>)</span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  A FAN    → errors grow with the size of the prediction. The model is far less"</span>)</span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"             reliable for large values than the single R² suggests."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>rs <span class="op">=</span> pd.read_csv(<span class="st">"datasets/residual_shapes.csv"</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> rs[<span class="st">"x"</span>].values</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>cases <span class="op">=</span> {</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Healthy"</span>:        rs[<span class="st">"healthy"</span>].values,</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Curved pattern"</span>: rs[<span class="st">"curved"</span>].values,</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Fanning out"</span>:    rs[<span class="st">"fanning_out"</span>].values,</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="fl">3.2</span>))</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, (name, yy) <span class="kw">in</span> <span class="bu">zip</span>(axes, cases.items()):</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> LinearRegression().fit(x.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), yy)</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    resid <span class="op">=</span> yy <span class="op">-</span> m.predict(x.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>    ax.scatter(m.predict(x.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)), resid, s<span class="op">=</span><span class="dv">10</span>, alpha<span class="op">=</span><span class="fl">.6</span>)</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    ax.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">"red"</span>, lw<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    ax.set_title(name, fontsize<span class="op">=</span><span class="dv">10</span>)<span class="op">;</span> ax.set_xlabel(<span class="st">"predicted"</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">"error"</span>)</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"A residual plot should look like a shapeless cloud centred on zero."</span>)</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  A CURVE  → the true relationship is not a straight line; add a squared term"</span>)</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"             or use a model that can bend."</span>)</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  A FAN    → errors grow with the size of the prediction. The model is far less"</span>)</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"             reliable for large values than the single R² suggests."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="fig-s09-residuals" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1110,33 +1119,32 @@ Figure&nbsp;14.1: Left: a healthy residual plot — formless cloud around zero. 
 </section>
 <section id="demo-11-when-the-straight-line-is-the-wrong-shape" class="level3" data-number="14.2.2">
 <h3 data-number="14.2.2" class="anchored" data-anchor-id="demo-11-when-the-straight-line-is-the-wrong-shape"><span class="header-section-number">14.2.2</span> Demo 11 — when the straight line is the wrong shape</h3>
-<div id="1be3e876" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PolynomialFeatures</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">34</span>)</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>speed <span class="op">=</span> rng.uniform(<span class="dv">20</span>, <span class="dv">120</span>, <span class="dv">300</span>)                       <span class="co"># km/h</span></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Fuel efficiency peaks in the middle and falls at both ends — a curve, not a line.</span></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>efficiency <span class="op">=</span> <span class="dv">25</span> <span class="op">-</span> <span class="fl">0.004</span> <span class="op">*</span> (speed <span class="op">-</span> <span class="dv">65</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="fl">0.8</span>, <span class="dv">300</span>)</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>Xs <span class="op">=</span> speed.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>Xtr, Xte, ytr, yte <span class="op">=</span> train_test_split(Xs, efficiency, test_size<span class="op">=</span><span class="fl">.3</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>straight <span class="op">=</span> LinearRegression().fit(Xtr, ytr)</span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>curved   <span class="op">=</span> make_pipeline(PolynomialFeatures(<span class="dv">2</span>), LinearRegression()).fit(Xtr, ytr)</span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"straight line       R² = </span><span class="sc">{</span>r2_score(yte, straight.predict(Xte))<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"curve (degree 2)    R² = </span><span class="sc">{</span>r2_score(yte, curved.predict(Xte))<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">The straight line explains almost nothing, because efficiency rises then falls."</span>)</span>
-<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"`PolynomialFeatures(2)` adds a squared term, and the same LinearRegression"</span>)</span>
-<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"then fits a curve — the model is still 'linear' in its coefficients."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="b6dca800" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PolynomialFeatures</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>fuel <span class="op">=</span> pd.read_csv(<span class="st">"datasets/fuel_efficiency.csv"</span>)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>speed, efficiency <span class="op">=</span> fuel[<span class="st">"speed_kmh"</span>].values, fuel[<span class="st">"efficiency_kmpl"</span>].values</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Efficiency peaks in the middle and falls at both ends — a curve, not a line.</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>Xs <span class="op">=</span> speed.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>Xtr, Xte, ytr, yte <span class="op">=</span> train_test_split(Xs, efficiency, test_size<span class="op">=</span><span class="fl">.3</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>straight <span class="op">=</span> LinearRegression().fit(Xtr, ytr)</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>curved   <span class="op">=</span> make_pipeline(PolynomialFeatures(<span class="dv">2</span>), LinearRegression()).fit(Xtr, ytr)</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"straight line       R² = </span><span class="sc">{</span>r2_score(yte, straight.predict(Xte))<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"curve (degree 2)    R² = </span><span class="sc">{</span>r2_score(yte, curved.predict(Xte))<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">The straight line explains almost nothing, because efficiency rises then falls."</span>)</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"`PolynomialFeatures(2)` adds a squared term, and the same LinearRegression"</span>)</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"then fits a curve — the model is still 'linear' in its coefficients."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>straight line       R² = 0.173
-curve (degree 2)    R² = 0.939
+curve (degree 2)    R² = 0.940
 
 The straight line explains almost nothing, because efficiency rises then falls.
 `PolynomialFeatures(2)` adds a squared term, and the same LinearRegression
@@ -1259,40 +1267,35 @@ then fits a curve — the model is still 'linear' in its coefficients.</code></p
 </div>
 <div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="4f2e4d7b" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 1"</span>)</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  days in hospital        → REGRESSION (a count, a number)"</span>)</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  spam or not             → CLASSIFICATION"</span>)</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  film rating out of 10   → REGRESSION (but see the warning in topic 2)"</span>)</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  which of 4 warehouses   → CLASSIFICATION (4 categories)"</span>)</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — how close did the model get to the truth?</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">32</span>)</span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">400</span></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> rng.normal(<span class="dv">1_200</span>, <span class="dv">350</span>, n).clip(<span class="dv">400</span>, <span class="dv">2_800</span>)</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>bedrooms <span class="op">=</span> np.clip((area<span class="op">/</span><span class="dv">450</span>).<span class="bu">round</span>(), <span class="dv">1</span>, <span class="dv">5</span>)</span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> rng.integers(<span class="dv">0</span>, <span class="dv">40</span>, n)</span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>price <span class="op">=</span> <span class="dv">3_200</span><span class="op">*</span>area <span class="op">+</span> <span class="dv">250_000</span><span class="op">*</span>bedrooms <span class="op">-</span> <span class="dv">45_000</span><span class="op">*</span>age <span class="op">+</span> <span class="dv">400_000</span> <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">250_000</span>, n)</span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> pd.DataFrame({<span class="st">"area_sqft"</span>: area.<span class="bu">round</span>(), <span class="st">"bedrooms"</span>: bedrooms.astype(<span class="bu">int</span>), <span class="st">"age_years"</span>: age})</span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>Xtr, Xte, ytr, yte <span class="op">=</span> train_test_split(X, price, test_size<span class="op">=</span><span class="fl">.2</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> LinearRegression().fit(Xtr, ytr)</span>
-<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 2"</span>)</span>
-<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, truth, got <span class="kw">in</span> <span class="bu">zip</span>(X.columns, [<span class="dv">3_200</span>, <span class="dv">250_000</span>, <span class="op">-</span><span class="dv">45_000</span>], m.coef_):</span>
-<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>name<span class="sc">:&lt;12}</span><span class="ss"> truth </span><span class="sc">{</span>truth<span class="sc">:&gt;10,}</span><span class="ss">   recovered </span><span class="sc">{</span>got<span class="sc">:&gt;12,.0f}</span><span class="ss">"</span>)</span>
-<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  bedrooms is furthest off: it correlates 0.98 with area, so the model cannot"</span>)</span>
-<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  tell which of the two deserves the credit. Predictions are fine; this one"</span>)</span>
-<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  coefficient should not be quoted as a finding."</span>)</span>
-<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Task 3 — a 6,000 sqft, 3-bed, 5-year-old house:"</span>)</span>
-<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  ₹</span><span class="sc">{</span>m<span class="sc">.</span>predict(pd.DataFrame([{<span class="st">'area_sqft'</span>:<span class="dv">6000</span>,<span class="st">'bedrooms'</span>:<span class="dv">3</span>,<span class="st">'age_years'</span>:<span class="dv">5</span>}]))[<span class="dv">0</span>]<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
-<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  The largest house in training was </span><span class="sc">{</span>X[<span class="st">'area_sqft'</span>]<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:,.0f}</span><span class="ss"> sqft. This is"</span>)</span>
-<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  extrapolation — the straight line has been extended into territory where no"</span>)</span>
-<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  evidence exists that the relationship still holds."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="bf2a1955" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 1"</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  days in hospital        → REGRESSION (a count, a number)"</span>)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  spam or not             → CLASSIFICATION"</span>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  film rating out of 10   → REGRESSION (but see the warning in topic 2)"</span>)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  which of 4 warehouses   → CLASSIFICATION (4 categories)"</span>)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — how close did the model get to the truth?</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>homes <span class="op">=</span> pd.read_csv(<span class="st">"datasets/house_prices.csv"</span>)</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> homes[[<span class="st">"area_sqft"</span>, <span class="st">"bedrooms"</span>, <span class="st">"age_years"</span>]]</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>Xtr, Xte, ytr, yte <span class="op">=</span> train_test_split(X, homes[<span class="st">"price"</span>], test_size<span class="op">=</span><span class="fl">.2</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> LinearRegression().fit(Xtr, ytr)</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 2"</span>)</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, truth, got <span class="kw">in</span> <span class="bu">zip</span>(X.columns, [<span class="dv">3_200</span>, <span class="dv">250_000</span>, <span class="op">-</span><span class="dv">45_000</span>], m.coef_):</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>name<span class="sc">:&lt;12}</span><span class="ss"> truth </span><span class="sc">{</span>truth<span class="sc">:&gt;10,}</span><span class="ss">   recovered </span><span class="sc">{</span>got<span class="sc">:&gt;12,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  bedrooms is furthest off: it correlates 0.98 with area, so the model cannot"</span>)</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  tell which of the two deserves the credit. Predictions are fine; this one"</span>)</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  coefficient should not be quoted as a finding."</span>)</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Task 3 — a 6,000 sqft, 3-bed, 5-year-old house:"</span>)</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  ₹</span><span class="sc">{</span>m<span class="sc">.</span>predict(pd.DataFrame([{<span class="st">'area_sqft'</span>:<span class="dv">6000</span>,<span class="st">'bedrooms'</span>:<span class="dv">3</span>,<span class="st">'age_years'</span>:<span class="dv">5</span>}]))[<span class="dv">0</span>]<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  The largest house in training was </span><span class="sc">{</span>X[<span class="st">'area_sqft'</span>]<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:,.0f}</span><span class="ss"> sqft. This is"</span>)</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  extrapolation — the straight line has been extended into territory where no"</span>)</span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  evidence exists that the relationship still holds."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Task 1
   days in hospital        → REGRESSION (a count, a number)
@@ -1301,15 +1304,15 @@ then fits a curve — the model is still 'linear' in its coefficients.</code></p
   which of 4 warehouses   → CLASSIFICATION (4 categories)
 
 Task 2
-  area_sqft    truth      3,200   recovered        3,050
-  bedrooms     truth    250,000   recovered      291,549
-  age_years    truth    -45,000   recovered      -44,479
+  area_sqft    truth      3,200   recovered        3,051
+  bedrooms     truth    250,000   recovered      291,399
+  age_years    truth    -45,000   recovered      -44,476
   bedrooms is furthest off: it correlates 0.98 with area, so the model cannot
   tell which of the two deserves the credit. Predictions are fine; this one
   coefficient should not be quoted as a finding.
 
 Task 3 — a 6,000 sqft, 3-bed, 5-year-old house:
-  ₹19,390,607
+  ₹19,392,555
   The largest house in training was 2,345 sqft. This is
   extrapolation — the straight line has been extended into territory where no
   evidence exists that the relationship still holds.</code></pre>

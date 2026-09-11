@@ -78,10 +78,7 @@ opinion is better, but because their scale is bigger.
 import numpy as np
 import pandas as pd
 
-people = pd.DataFrame({
-    "age":    [25, 55, 26],
-    "income": [50_000, 51_000, 90_000],
-}, index=["A", "B", "C"])
+people = pd.read_csv("datasets/three_people.csv", index_col="person")
 print(people)
 
 def distance(p, q):
@@ -126,11 +123,9 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 
-rng = np.random.default_rng(0)
-n = 400
-X = np.column_stack([rng.normal(40, 12, n),          # age
-                     rng.normal(60_000, 25_000, n)]) # income
-y = (X[:, 1] > 60_000).astype(int)                   # the truth depends on income
+cv = pd.read_csv("datasets/customer_value.csv")
+X = cv[["age", "income"]].values
+y = cv["high_value"].values                          # the truth depends on income only
 
 Xtr, Xte, ytr, yte = train_test_split(X, y, test_size=0.3, random_state=0)
 Xtr_s = StandardScaler().fit(Xtr).transform(Xtr)
@@ -182,10 +177,7 @@ import numpy as np
 from sklearn.preprocessing import (MinMaxScaler, StandardScaler, RobustScaler,
                                    Normalizer, Binarizer)
 
-data = pd.DataFrame({
-    "age":    [25, 32, 47, 51, 62, 29],
-    "income": [30_000, 42_000, 61_000, 58_000, 250_000, 35_000],   # one high earner
-})
+data = pd.read_csv("datasets/six_earners.csv")     # six people, one of them a high earner
 print("ORIGINAL"); print(data)
 
 for name, tool in [("MinMaxScaler  (0 to 1)", MinMaxScaler()),
@@ -217,16 +209,14 @@ import numpy as np
 from sklearn.preprocessing import Normalizer, Binarizer
 
 # Normalizer works ACROSS a row. Here: word counts in two documents.
-docs = np.array([
-    [3, 1, 0],     # a short document
-    [30, 10, 0],   # a long document with the SAME proportions
-])
-print("Raw word counts:"); print(docs)
+wc = pd.read_csv("datasets/word_counts.csv", index_col="document")
+docs = wc.values
+print("Raw word counts (datasets/word_counts.csv):"); print(wc)
 print("\nAfter Normalizer — the two documents are now identical, as they should be:")
 print(Normalizer().fit_transform(docs).round(3))
 
 # Binarizer: above the line or below it.
-scores = np.array([[35], [52], [67], [40], [88]])
+scores = pd.read_csv("datasets/exam_marks.csv")[["mark"]].values
 print("\nExam marks:", scores.ravel().tolist())
 print("Pass (1) or fail (0) at 50:", Binarizer(threshold=50).fit_transform(scores).ravel().tolist())
 ```
@@ -240,8 +230,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 
-np.random.seed(1)
-income = np.random.gamma(2, 20_000, 1_000).reshape(-1, 1)
+income = pd.read_csv("datasets/skewed_incomes.csv")[["income"]].values
 scaled = StandardScaler().fit_transform(income)
 
 fig, ax = plt.subplots(1, 2, figsize=(9, 3.2))
@@ -283,11 +272,7 @@ turns categories into numbers — and the method has to match the kind of catego
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder, OrdinalEncoder
 
-df = pd.DataFrame({
-    "city": ["Mumbai", "Delhi", "Pune", "Mumbai", "Delhi"],
-    "size": ["small", "large", "medium", "medium", "small"],
-    "approved": ["yes", "no", "yes", "yes", "no"],
-})
+df = pd.read_csv("datasets/encoding_example.csv")
 print(df)
 
 # 1. LABEL ENCODING — one number per category. Correct for the TARGET only.
@@ -321,11 +306,10 @@ why a column with 5,000 distinct values needs a different approach entirely.
 import numpy as np, pandas as pd
 from sklearn.linear_model import LinearRegression
 
-rng = np.random.default_rng(5)
-n = 300
-city = rng.choice(["Delhi", "Mumbai", "Pune"], n)
-# The truth: Mumbai is expensive, the other two are similar. No ordering exists.
-rent = np.where(city == "Mumbai", 40_000, 18_000) + rng.normal(0, 2_000, n)
+# The truth in this file: Mumbai is expensive, the other two are similar.
+# There is no ordering among the three cities.
+cr = pd.read_csv("datasets/city_rent.csv")
+city, rent = cr["city"].values, cr["rent"].values
 
 label = pd.Series(city).map({"Delhi": 0, "Mumbai": 1, "Pune": 2}).values.reshape(-1, 1)
 onehot = pd.get_dummies(city).astype(int).values
@@ -366,15 +350,12 @@ practice paper and calling it a qualification.**
 import pandas as pd, numpy as np
 from sklearn.model_selection import train_test_split
 
-rng = np.random.default_rng(1)
-data = pd.DataFrame({
-    "area_sqft": rng.integers(400, 2500, 200),
-    "age_years": rng.integers(0, 30, 200),
-    "approved":  rng.choice([0, 1], 200, p=[0.75, 0.25]),   # only 25% approved
-})
+# A real, imbalanced dataset: loan applications where approval is uncommon.
+data = pd.read_csv("datasets/loan_imbalanced.csv")
+print(f"{len(data):,} applications, {data['loan_status'].mean():.1%} approved\n")
 
-X = data[["area_sqft", "age_years"]]     # the inputs — always called X
-y = data["approved"]                     # the answer  — always called y
+X = data[["person_age", "person_income", "loan_amnt", "credit_score"]]  # inputs — capital X
+y = data["loan_status"]                                                 # answer — lowercase y
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42, stratify=y
@@ -438,10 +419,9 @@ from sklearn.neighbors import KNeighborsRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error
 
-rng = np.random.default_rng(3)
-n = 60
-X = rng.lognormal(3, 1.1, size=(n, 3))
-y = X[:, 0] * 2 + X[:, 1] * 0.5 + rng.normal(0, 1, n)
+small = pd.read_csv("datasets/lognormal_small.csv")   # 60 rows, skewed, so extremes matter
+X = small[["f1", "f2", "f3"]].values
+y = small["target"].values
 
 leaked, honest = [], []
 for seed in range(200):                       # 200 splits, so we compare averages not luck
@@ -477,9 +457,9 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import cross_val_score, StratifiedKFold
 from sklearn.pipeline import Pipeline
 
-rng = np.random.default_rng(0)
-X = rng.normal(size=(60, 2000))       # 2,000 columns of noise
-y = rng.integers(0, 2, size=60)       # coin flips — there is no pattern to find
+noise = pd.read_csv("datasets/pure_noise.csv")   # 200 columns of noise, 60 rows
+X = noise.drop(columns="coin_flip").values
+y = noise["coin_flip"].values                    # coin flips — nothing to find
 
 cv = StratifiedKFold(5, shuffle=True, random_state=0)
 
@@ -532,15 +512,8 @@ from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 
-rng = np.random.default_rng(2)
-n = 400
-df = pd.DataFrame({
-    "income":  rng.normal(60_000, 20_000, n),
-    "age":     rng.integers(21, 65, n),
-    "city":    rng.choice(["Mumbai", "Delhi", "Pune"], n),
-    "approved": rng.choice([0, 1], n, p=[0.6, 0.4]),
-})
-df.loc[rng.choice(n, 30, replace=False), "income"] = np.nan     # some gaps
+df = pd.read_csv("datasets/loan_applicants.csv")   # 400 applicants, 30 with no income recorded
+print(f"{len(df)} applicants, {df['income'].isna().sum()} missing incomes\n")
 
 X = df.drop(columns="approved")
 y = df["approved"]
@@ -638,8 +611,8 @@ print("  pass/fail from a 0-100 mark      → Binarizer(threshold=...)")
 print("  word counts, uneven doc lengths  → Normalizer (works across the row)")
 
 # Task 3 — what stratify was protecting you from
-rng = np.random.default_rng(1)
-y = pd.Series(rng.choice([0, 1], 200, p=[0.75, 0.25]))
+# A small sample makes the problem visible; on 5,000 rows the wobble is tiny.
+y = pd.read_csv("datasets/loan_imbalanced.csv")["loan_status"].sample(200, random_state=0)
 rates = [train_test_split(y, test_size=0.2, random_state=s)[1].mean() for s in range(10)]
 print(f"\nTask 3 — test-set approval rate across 10 splits, no stratify:")
 print(f"  lowest {min(rates):.1%}, highest {max(rates):.1%}, true rate {y.mean():.1%}")

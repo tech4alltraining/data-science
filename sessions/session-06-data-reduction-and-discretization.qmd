@@ -84,16 +84,19 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score
 
-rng = np.random.default_rng(0)
-n = 200
-signal = rng.normal(size=(n, 3))                      # 3 columns that genuinely matter
-y = signal @ [4.0, -2.0, 1.0] + rng.normal(0, 1, n)
+import pandas as pd
+
+data = pd.read_csv("datasets/signal_and_noise.csv")   # 3 real columns, 190 junk ones
+signal = data[[f"real_{i}" for i in (1, 2, 3)]].values
+junk = data[[c for c in data.columns if c.startswith("noise_")]].values
+y = data["target"].values
+print(f"file: {data.shape[0]} rows, {data.shape[1]} columns "
+      f"({signal.shape[1]} real, {junk.shape[1]} noise, 1 target)\n")
 
 print(f"{'useless columns added':>22} | {'test R²':>8}")
 print("-" * 34)
 for n_noise in [0, 5, 20, 100, 190]:
-    noise = rng.normal(size=(n, n_noise))
-    X = np.hstack([signal, noise])
+    X = np.hstack([signal, junk[:, :n_noise]])
     Xtr, Xte, ytr, yte = train_test_split(X, y, test_size=0.3, random_state=1)
     model = LinearRegression().fit(Xtr, ytr)
     print(f"{n_noise:>22} | {r2_score(yte, model.predict(Xte)):>8.3f}")
@@ -132,17 +135,9 @@ from sklearn.feature_selection import SelectKBest, f_regression, RFE
 from sklearn.linear_model import LinearRegression, LassoCV
 from sklearn.ensemble import RandomForestRegressor
 
-rng = np.random.default_rng(1)
-n = 300
-X = pd.DataFrame({
-    "area":      rng.normal(1200, 300, n),
-    "bedrooms":  rng.integers(1, 6, n),
-    "age":       rng.integers(0, 40, n),
-    "noise_1":   rng.normal(size=n),
-    "noise_2":   rng.normal(size=n),
-    "noise_3":   rng.normal(size=n),
-})
-y = 30*X["area"] + 50_000*X["bedrooms"] - 8_000*X["age"] + rng.normal(0, 20_000, n)
+houses = pd.read_csv("datasets/house_features.csv")
+X = houses.drop(columns="price")     # three real drivers and three junk columns
+y = houses["price"]
 
 # FILTER — score each column on its own
 scores = pd.Series(f_regression(X, y)[0], index=X.columns)
@@ -196,14 +191,7 @@ import numpy as np, pandas as pd
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 
-rng = np.random.default_rng(2)
-n = 200
-size = rng.normal(0, 1, n)                       # the hidden fact: overall body size
-body = pd.DataFrame({
-    "height_cm":  170 + size*10 + rng.normal(0, 1.5, n),
-    "arm_span_cm":170 + size*10 + rng.normal(0, 1.5, n),
-    "leg_len_cm":  80 + size*5  + rng.normal(0, 1.0, n),
-})
+body = pd.read_csv("datasets/body_measurements.csv")
 print("These three columns move together:")
 print(body.corr().round(2))
 
@@ -226,11 +214,12 @@ import numpy as np, matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 
-rng = np.random.default_rng(4)
-n = 400
-hidden = rng.normal(size=(n, 4))                       # 4 real underlying factors
-loadings = rng.normal(size=(4, 12))
-X = hidden @ loadings + rng.normal(0, 0.35, size=(n, 12))   # seen as 12 columns
+import pandas as pd
+
+# 12 survey questions. They were generated from 4 underlying attitudes —
+# but all the analyst ever sees is the 12 columns.
+X = pd.read_csv("datasets/survey_responses.csv")
+print(f"{X.shape[0]} respondents answered {X.shape[1]} questions\n")
 
 pca = PCA().fit(StandardScaler().fit_transform(X))
 var = pca.explained_variance_ratio_
@@ -271,12 +260,8 @@ import numpy as np, pandas as pd
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 
-rng = np.random.default_rng(6)
-mixed = pd.DataFrame({
-    "age_years":  rng.normal(40, 12, 300),          # tens
-    "income_rs":  rng.normal(60_000, 20_000, 300),  # tens of thousands
-    "rating":     rng.normal(3.5, 0.8, 300),        # single digits
-})
+# age is in tens, income in tens of thousands, rating in single digits
+mixed = pd.read_csv("datasets/mixed_scales.csv")
 
 unscaled = PCA().fit(mixed)
 scaled   = PCA().fit(StandardScaler().fit_transform(mixed))
@@ -309,11 +294,13 @@ question.** Two approaches:
 ```{python}
 import numpy as np
 
-rng = np.random.default_rng(7)
-full = rng.normal(50_000, 12_000, 1_000_000)          # a million values
+import pandas as pd
+
+full = pd.read_csv("datasets/salaries_large.csv")["salary"].values   # 200,000 salaries
 print(f"Full data      : {full.nbytes/1e6:8.1f} MB, mean {full.mean():,.0f}")
 
-# 1. SAMPLING — keep 1 in 1,000
+# 1. SAMPLING — keep 1 in 200
+rng = np.random.default_rng(7)
 sample = rng.choice(full, 1_000, replace=False)
 print(f"Sample (1,000) : {sample.nbytes/1e6:8.4f} MB, mean {sample.mean():,.0f}")
 
@@ -327,8 +314,8 @@ print(f"Two numbers    : {16/1e6:8.6f} MB, mean {full.mean():,.0f} "
       f"(stored as mean and standard deviation)")
 ```
 
-Four representations of the same million numbers, and all four give essentially the same
-average. The last one is **50,000 times smaller** — but it can only answer questions the
+Four representations of the same 200,000 numbers, and all four give essentially the same
+average. The last one is **thousands of times smaller** — but it can only answer questions the
 normal distribution can answer. Ask it "how many people earn exactly ₹1,00,000?" and it
 will invent a plausible answer rather than report a real one.
 
@@ -346,14 +333,7 @@ reverse.
 ```{python}
 import pandas as pd, numpy as np
 
-rng = np.random.default_rng(8)
-days = pd.date_range("2024-01-01", "2024-06-30", freq="D")
-sales = pd.DataFrame({
-    "date":   np.repeat(days, 3),
-    "shop":   np.tile(["Andheri", "Bandra", "Colaba"], len(days)),
-    "region": np.tile(["West", "West", "South"], len(days)),
-    "amount": rng.integers(5_000, 40_000, len(days) * 3),
-})
+sales = pd.read_csv("datasets/shop_daily_sales.csv", parse_dates=["date"])
 print(f"Finest level: {len(sales):,} rows (day × shop)")
 
 by_month = sales.groupby(sales["date"].dt.to_period("M"))["amount"].sum()
@@ -369,7 +349,7 @@ print(sales.pivot_table(index=sales["date"].dt.to_period("M"),
                         columns="region", values="amount", aggfunc="sum"))
 ```
 
-550 rows became 12. **Every total is still exactly right** — aggregation loses detail,
+546 rows became 6. **Every total is still exactly right** — aggregation loses detail,
 not accuracy.
 
 ::: {.callout-warning title="⚠️ Aggregation can hide a reversal"}
@@ -383,11 +363,7 @@ the whole.**
 
 ```{python}
 # Watch it happen: two shops both decline, yet the total rises.
-detail = pd.DataFrame({
-    "month": ["Jan","Jan","Feb","Feb","Feb"],
-    "shop":  ["A","B","A","B","C"],       # shop C opens in February
-    "sales": [100, 100, 90, 90, 120],
-})
+detail = pd.read_csv("datasets/simpsons_shops.csv")   # shop C opens in February
 print(detail.pivot_table(index="month", columns="shop", values="sales"))
 print("\nTotal per month:")
 print(detail.groupby("month")["sales"].sum())
@@ -422,9 +398,7 @@ Why would you deliberately throw away precision?
 ```{python}
 import pandas as pd, numpy as np
 
-rng = np.random.default_rng(9)
-ages = pd.Series(np.concatenate([rng.integers(18, 35, 70),    # mostly young
-                                 rng.integers(35, 80, 30)]))
+ages = pd.read_csv("datasets/survey_ages.csv")["age"]   # mostly young, a long older tail
 
 # EQUAL WIDTH — cut the range into slices of the same size
 equal_width = pd.cut(ages, bins=4)
@@ -462,11 +436,7 @@ similar.
 import numpy as np, pandas as pd
 
 # Ten age groups and the proportion in each who bought insurance.
-bins = pd.DataFrame({
-    "age_group": [f"{a}-{a+4}" for a in range(20, 70, 5)],
-    "n":         [50, 55, 60, 58, 52, 49, 45, 40, 38, 35],
-    "bought":    [.05, .06, .05, .07, .20, .22, .21, .45, .47, .46],
-})
+bins = pd.read_csv("datasets/insurance_by_age.csv").rename(columns={"bought_rate": "bought"})
 print("Starting bins:"); print(bins.to_string(index=False))
 
 # Merge neighbours whose rates differ by less than 5 percentage points.
@@ -563,14 +533,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score
 
 # Task 2 — all columns vs selected columns vs PCA components
-rng = np.random.default_rng(1)
-n = 300
-X = pd.DataFrame({
-    "area": rng.normal(1200, 300, n), "bedrooms": rng.integers(1, 6, n),
-    "age": rng.integers(0, 40, n),    "noise_1": rng.normal(size=n),
-    "noise_2": rng.normal(size=n),    "noise_3": rng.normal(size=n),
-})
-y = 30*X["area"] + 50_000*X["bedrooms"] - 8_000*X["age"] + rng.normal(0, 20_000, n)
+houses = pd.read_csv("datasets/house_features.csv")
+X = houses.drop(columns="price")
+y = houses["price"]
 
 Xtr, Xte, ytr, yte = train_test_split(X, y, test_size=0.3, random_state=1)
 real = ["area", "bedrooms", "age"]

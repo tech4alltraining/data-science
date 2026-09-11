@@ -56,7 +56,7 @@ There are three, and they answer slightly different questions.
 ```{python}
 import pandas as pd
 
-marks = pd.Series([52, 61, 48, 61, 70, 55, 61, 39])
+marks = pd.read_csv("datasets/class_marks.csv")["mark"]
 values = sorted(marks)
 print("Sorted marks:", values)
 
@@ -92,8 +92,8 @@ anyone asked.
 ```{python}
 import pandas as pd
 
-salaries = pd.Series([28_000, 31_000, 33_000, 35_000, 36_000,
-                      38_000, 40_000, 42_000, 45_000, 950_000])
+salaries = pd.read_csv("datasets/team_salaries.csv")["salary"]
+print(f"Nine ordinary salaries and one founder:\n{salaries.tolist()}\n")
 
 print(f"Mean salary   : ₹{salaries.mean():>10,.0f}")
 print(f"Median salary : ₹{salaries.median():>10,.0f}")
@@ -106,7 +106,7 @@ print("A company could truthfully advertise the mean — and 9 of 10 staff earn 
 ```{python}
 import pandas as pd
 
-base = pd.Series([28_000, 31_000, 33_000, 35_000, 36_000, 38_000, 40_000, 42_000, 45_000])
+base = pd.read_csv("datasets/team_salaries.csv")["salary"].head(9)   # drop the founder
 print(f"{'top earner':>12} | {'mean':>10} | {'median':>8}")
 print("-" * 36)
 for top in [46_000, 100_000, 500_000, 5_000_000]:
@@ -137,8 +137,8 @@ argument for the median, and it is why Session 3 imputes skewed columns with it.
 ```{python}
 import pandas as pd
 
-steady   = pd.Series([48, 49, 50, 50, 51, 52])       # a reliable supplier
-erratic  = pd.Series([10, 25, 50, 55, 85, 75])       # an unreliable one
+deliveries = pd.read_csv("datasets/supplier_deliveries.csv")
+steady, erratic = deliveries["steady"], deliveries["erratic"]
 
 for name, s in [("Steady supplier", steady), ("Erratic supplier", erratic)]:
     print(f"{name:<18} mean {s.mean():.1f}   min {s.min():>3}   max {s.max():>3}")
@@ -171,7 +171,7 @@ is what the maths works with internally.
 ```{python}
 import pandas as pd, numpy as np
 
-s = pd.Series([48, 49, 50, 50, 51, 52])
+s = pd.read_csv("datasets/supplier_deliveries.csv")["steady"]
 mean = s.mean()
 
 steps = pd.DataFrame({"value": s})
@@ -198,8 +198,8 @@ print(f"Sum of raw distances from the mean: {(s - s.mean()).sum():.10f}  ← alw
 ```{python}
 import pandas as pd
 
-clean   = pd.Series([48, 49, 50, 50, 51, 52])
-with_out = pd.concat([clean, pd.Series([300])])
+clean = pd.read_csv("datasets/supplier_deliveries.csv")["steady"]
+with_out = pd.concat([clean, pd.Series([300])], ignore_index=True)
 
 for name, d in [("without outlier", clean), ("with outlier", with_out)]:
     q1, q3 = d.quantile(0.25), d.quantile(0.75)
@@ -232,9 +232,7 @@ box plot draws.
 #| fig-cap: "A box plot is a drawn five-number summary. The box is the middle half; the dots are IQR-rule outliers."
 import pandas as pd, numpy as np, matplotlib.pyplot as plt
 
-rng = np.random.default_rng(11)
-income = pd.Series(np.concatenate([rng.normal(45_000, 9_000, 190),
-                                   rng.normal(280_000, 40_000, 10)]))
+income = pd.read_csv("datasets/incomes_200.csv")["income"]
 
 q1, med, q3 = income.quantile([0.25, 0.5, 0.75])
 print(f"minimum : ₹{income.min():>10,.0f}")
@@ -266,8 +264,8 @@ $$z = \frac{\text{value} - \text{mean}}{\text{standard deviation}}$$
 import pandas as pd
 
 # A student scored 78 in maths and 65 in physics. Which was the better performance?
-maths   = pd.Series([55, 62, 71, 78, 45, 59, 66, 70, 52, 68])
-physics = pd.Series([40, 45, 38, 65, 42, 39, 44, 41, 43, 46])
+subjects = pd.read_csv("datasets/subject_marks.csv")
+maths, physics = subjects["maths"], subjects["physics"]
 
 for subject, marks, mine in [("Maths", maths, 78), ("Physics", physics, 65)]:
     z = (mine - marks.mean()) / marks.std()
@@ -303,11 +301,11 @@ noticeably higher, the data is right-skewed.
 #| fig-cap: "Right-skewed, symmetric and left-skewed. The dashed line is the mean, the solid line the median."
 import numpy as np, pandas as pd, matplotlib.pyplot as plt
 
-rng = np.random.default_rng(12)
+three = pd.read_csv("datasets/three_shapes.csv")
 shapes = {
-    "Right-skewed (income)": rng.gamma(2, 20_000, 3_000),
-    "Symmetric (height)":    rng.normal(165, 8, 3_000),
-    "Left-skewed (easy exam)": 100 - rng.gamma(2, 6, 3_000),
+    "Right-skewed (income)":   three["income_right_skewed"],
+    "Symmetric (height)":      three["height_symmetric"],
+    "Left-skewed (easy exam)": three["easy_exam_left_skewed"],
 }
 
 fig, axes = plt.subplots(1, 3, figsize=(12, 3.2))
@@ -346,10 +344,9 @@ Pandas reports **excess kurtosis**, measured against the normal distribution:
 ```{python}
 import numpy as np, pandas as pd
 
-rng = np.random.default_rng(13)
-normal_returns = rng.normal(0, 1, 20_000)
-heavy_returns  = rng.standard_t(df=3, size=20_000)
-heavy_returns  = heavy_returns / heavy_returns.std()      # force the same spread
+returns = pd.read_csv("datasets/daily_returns.csv")
+normal_returns = returns["normal_tails"]
+heavy_returns = returns["heavy_tails"]     # same spread, much heavier tails
 
 for name, r in [("Normal tails", normal_returns), ("Heavy tails", heavy_returns)]:
     s = pd.Series(r)
@@ -383,8 +380,7 @@ gaps and outliers, in one glance.
 ```{python}
 import pandas as pd, numpy as np
 
-rng = np.random.default_rng(14)
-ages = pd.Series(rng.integers(18, 71, 200))
+ages = pd.read_csv("datasets/respondent_ages.csv")["age"]
 
 bins = range(15, 76, 10)
 table = pd.DataFrame({"count": pd.cut(ages, bins=bins).value_counts().sort_index()})
@@ -403,9 +399,8 @@ The **cumulative** column answers "what share are under 45?" without any further
 #| fig-cap: "The same 2,000 values at four bin widths. Too few bins hides the two groups; too many shows only noise."
 import numpy as np, matplotlib.pyplot as plt
 
-rng = np.random.default_rng(15)
-# Data that is genuinely two groups: a younger cohort and an older one.
-data = np.concatenate([rng.normal(28, 4, 1_000), rng.normal(52, 5, 1_000)])
+# This file is genuinely two groups: a younger cohort and an older one.
+data = pd.read_csv("datasets/two_cohorts.csv")["age"].values
 
 fig, axes = plt.subplots(1, 4, figsize=(13, 2.9))
 for ax, b in zip(axes, [3, 12, 45, 300]):
@@ -447,9 +442,10 @@ def describe_column(s, name="column"):
     print(f"  verdict : leans {lean}; tails are {tails}")
     print(f"            report the {'median' if abs(s.skew()) > 0.5 else 'mean'}\n")
 
-rng = np.random.default_rng(16)
-describe_column(pd.Series(rng.gamma(2, 20_000, 2_000)), "Income")
-describe_column(pd.Series(rng.normal(165, 8, 2_000)), "Height (cm)")
+three = pd.read_csv("datasets/three_shapes.csv")
+describe_column(three["income_right_skewed"], "Income")
+describe_column(three["height_symmetric"], "Height (cm)")
+describe_column(pd.read_csv("datasets/incomes_200.csv")["income"], "Incomes (200 people)")
 ```
 
 ### ❓ Check yourself

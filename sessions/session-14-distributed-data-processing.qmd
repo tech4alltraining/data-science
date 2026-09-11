@@ -112,7 +112,9 @@ the others:
 ```{python}
 from collections import defaultdict
 
-lines = ["the cat sat", "the cat ran", "the dog ran"]
+# The input is a real text file — three lines, one per "machine".
+lines = open("datasets/word_count_lines.txt").read().strip().split("\n")
+print("input file:", lines, "\n")
 
 # --- MAP: runs independently on each line. No machine knows about any other. ---
 def map_step(line):
@@ -170,11 +172,14 @@ def mapreduce(chunks, mapper, reducer, verbose=False):
     return {k: reducer(k, v) for k, v in grouped.items()}
 
 
-sales_chunks = [
-    [("Mumbai", 250), ("Delhi", 100), ("Mumbai", 300)],
-    [("Pune", 80),    ("Delhi", 150), ("Mumbai", 120)],
-    [("Pune", 200),   ("Pune", 60),   ("Delhi", 90)],
-]
+import pandas as pd, glob
+
+# One logical table, stored as three files — which is how HDFS holds one dataset.
+sales_chunks = [list(pd.read_csv(f).itertuples(index=False, name=None))
+                for f in sorted(glob.glob("datasets/chunks/city_sales_*.csv"))]
+for i, c in enumerate(sales_chunks, 1):
+    print(f"  file {i}: {c}")
+print()
 
 print("JOB 1 — total sales per city")
 print(" ", mapreduce(sales_chunks, lambda c: c, lambda k, v: sum(v), verbose=True))
@@ -200,13 +205,12 @@ hundreds of times slower than memory.
 
 ```{python}
 from collections import defaultdict
+import pandas as pd, glob
 
-# 3 machines, each holding many rows for the same few cities.
-chunks = [
-    [("Mumbai", 1)] * 4_000 + [("Delhi", 1)] * 3_000,
-    [("Mumbai", 1)] * 5_000 + [("Pune", 1)] * 2_000,
-    [("Delhi", 1)] * 6_000 + [("Pune", 1)] * 1_000,
-]
+# Three files, each holding thousands of rows for a few cities.
+chunks = [list(pd.read_csv(f).itertuples(index=False, name=None))
+          for f in sorted(glob.glob("datasets/chunks/city_counts_*.csv"))]
+print(f"three files holding {[len(c) for c in chunks]} rows\n")
 
 # WITHOUT a combiner: every single pair crosses the network
 pairs_sent = sum(len(c) for c in chunks)
@@ -244,7 +248,11 @@ you group the work. `sum`, `min`, `max` and `count` are fine.
 average:
 
 ```{python}
-groups = [[10, 20, 30, 40, 50, 60, 70, 80, 90], [100]]
+import pandas as pd
+
+uneven = pd.read_csv("datasets/uneven_groups.csv")
+groups = [g["value"].tolist() for _, g in uneven.groupby("group")]
+print("two groups of very unequal size:", groups)
 naive = sum(sum(g)/len(g) for g in groups) / len(groups)
 true  = sum(sum(g) for g in groups) / sum(len(g) for g in groups)
 print(f"average of the averages : {naive:.2f}   ← wrong")
@@ -448,22 +456,17 @@ MapReduce.
 import numpy as np
 from collections import defaultdict
 
-rng = np.random.default_rng(81)
-n = 60_000
-servers = [f"10.0.0.{i}" for i in range(1, 7)]
-weights = [.10, .10, .10, .10, .10, .50]        # one server is much busier
+import pandas as pd
 
-log = [{"server": rng.choice(servers, p=weights),
-        "status": int(rng.choice([200, 404, 500, 503], p=[.90, .05, .03, .02])),
-        "ms": float(rng.gamma(2, 40))}
-       for _ in range(n)]
+log = pd.read_csv("datasets/server_logs.csv").to_dict("records")
+n = len(log)
 
 # filter → group → aggregate, exactly as the PySpark plan above
 errors = [r for r in log if r["status"] >= 500]
 
 grouped = defaultdict(list)
 for r in errors:
-    grouped[r["server"]].append(r["ms"])
+    grouped[r["server"]].append(r["response_ms"])
 
 summary = sorted(((s, len(v), sum(v)/len(v)) for s, v in grouped.items()),
                  key=lambda t: -t[1])
@@ -481,16 +484,18 @@ for s, c, avg in summary:
 ```{python}
 import numpy as np, pandas as pd, time
 
-rng = np.random.default_rng(82)
 SPARK_STARTUP_S = 6.0
 SPARK_CORES = 8
 SHUFFLE_OVERHEAD_S = 0.9
 
+base = pd.read_csv("datasets/server_logs.csv", usecols=["server", "response_ms"])
+big = pd.concat([base] * 90, ignore_index=True)
+
 print(f"{'rows':>13} {'pandas':>11} {'Spark (modelled)':>18}   winner")
 print("-" * 58)
 for n in [50_000, 500_000, 5_000_000]:
-    df = pd.DataFrame({"k": rng.integers(0, 200, n), "v": rng.normal(size=n)})
-    t = time.perf_counter(); df.groupby("k")["v"].agg(["sum", "mean"]); pandas_s = time.perf_counter() - t
+    df = big.iloc[:n]
+    t = time.perf_counter(); df.groupby("server")["response_ms"].agg(["sum", "mean"]); pandas_s = time.perf_counter() - t
     spark_s = SPARK_STARTUP_S + SHUFFLE_OVERHEAD_S + pandas_s * 4 / SPARK_CORES
     print(f"{n:>13,} {pandas_s*1000:>9.1f} ms {spark_s:>15.2f} s   "
           f"{'pandas' if pandas_s < spark_s else 'Spark'}")
@@ -602,10 +607,10 @@ print("\nTask 2 —", mapreduce(records, lambda c: c, lambda k, v: len(set(v))))
 print("  NOT combinable as a count: local counts would double-count a cashier who")
 print("  appears on two machines. Combinable if each machine sends the SET of names.")
 
-# Task 3 — combinable average
-sales = [[("Mumbai", 250), ("Delhi", 100)],
-         [("Mumbai", 300), ("Pune", 80)],
-         [("Mumbai", 120), ("Delhi", 150)]]
+# Task 3 — combinable average, read from the three chunk files
+import pandas as pd, glob
+sales = [list(pd.read_csv(f).itertuples(index=False, name=None))
+         for f in sorted(glob.glob("datasets/chunks/city_sales_*.csv"))]
 sums = mapreduce(sales, lambda c: [(k, (v, 1)) for k, v in c],
                  lambda k, pairs: (sum(s for s, _ in pairs), sum(n for _, n in pairs)))
 print("\nTask 3 —", {k: round(s/n, 1) for k, (s, n) in sums.items()})

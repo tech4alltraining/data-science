@@ -80,14 +80,15 @@ import numpy as np, pandas as pd, time
 def timed(f):
     t = time.perf_counter(); out = f(); return out, time.perf_counter() - t
 
-rng = np.random.default_rng(71)
+# Read one real file, then time the same operation on growing slices of it.
+base = pd.read_csv("datasets/transactions.csv", usecols=["shop", "amount"])
+big = pd.concat([base] * 20, ignore_index=True)      # 4 million rows from one file
+print(f"source file: {len(base):,} rows; stacked to {len(big):,} for the largest test\n")
+
 print(f"{'rows':>12} {'memory':>12} {'groupby time':>14} {'per M rows':>12}")
 print("-" * 54)
 for n in [10_000, 100_000, 1_000_000, 4_000_000]:
-    df = pd.DataFrame({
-        "shop":   rng.integers(0, 50, n),
-        "amount": rng.normal(500, 120, n),
-    })
+    df = big.iloc[:n]
     mem = df.memory_usage(deep=True).sum() / 1e6
     _, secs = timed(lambda: df.groupby("shop")["amount"].mean())
     print(f"{n:>12,} {mem:>10.1f} MB {secs*1000:>12.1f} ms {secs/(n/1e6)*1000:>10.1f} ms")
@@ -101,14 +102,8 @@ print("It struggles when the data plus its working copies stop fitting in RAM.")
 ```{python}
 import numpy as np, pandas as pd
 
-rng = np.random.default_rng(72)
-n = 200_000
-df = pd.DataFrame({
-    "id":       np.arange(n),
-    "city":     rng.choice(["Mumbai", "Delhi", "Pune", "Chennai"], n),
-    "amount":   rng.normal(500, 120, n),
-    "ts":       pd.date_range("2024-01-01", periods=n, freq="min"),
-})
+df = pd.read_csv("datasets/transactions.csv", parse_dates=["ts"])
+n = len(df)
 
 per_row = df.memory_usage(deep=True).sum() / n
 print(f"this table: {df.memory_usage(deep=True).sum()/1e6:.1f} MB for {n:,} rows "
@@ -129,16 +124,8 @@ machine.**
 ```{python}
 import numpy as np, pandas as pd, tempfile, os
 
-folder = tempfile.mkdtemp()
-path = os.path.join(folder, "transactions.csv")
-
-rng = np.random.default_rng(73)
-n = 300_000
-pd.DataFrame({
-    "shop":   rng.integers(0, 50, n),
-    "city":   rng.choice(["Mumbai", "Delhi", "Pune"], n),
-    "amount": rng.normal(500, 120, n).round(2),
-}).to_csv(path, index=False)
+path = "datasets/transactions.csv"
+n = sum(1 for _ in open(path)) - 1
 print(f"file on disk: {os.path.getsize(path)/1e6:.1f} MB, {n:,} rows\n")
 
 # --- TECHNIQUE 1: chunking. Never hold the whole file at once. -------------
@@ -200,18 +187,7 @@ flowchart LR
 ```{python}
 import numpy as np, pandas as pd
 
-rng = np.random.default_rng(74)
-months = pd.date_range("2024-01-01", periods=12, freq="MS")
-regions = ["North", "South", "West"]
-
-rows = []
-for i, m in enumerate(months):
-    for r in regions:
-        trend = {"North": -900, "South": 400, "West": 500}[r] * i
-        base  = {"North": 50_000, "South": 40_000, "West": 30_000}[r]
-        rows.append({"month": m, "region": r,
-                     "sales": base + trend + rng.normal(0, 800)})
-sales = pd.DataFrame(rows)
+sales = pd.read_csv("datasets/regional_sales.csv", parse_dates=["month"])
 
 # 1. DESCRIPTIVE — what happened?
 by_month = sales.groupby("month")["sales"].sum()
@@ -430,17 +406,19 @@ pandas, not faster.**
 ```{python}
 import numpy as np, pandas as pd, time
 
-rng = np.random.default_rng(76)
 CLUSTER_STARTUP_S = 8.0        # a real Spark session takes seconds to start
 PER_TASK_OVERHEAD = 0.15       # scheduling, serialising, shuffling
+
+base = pd.read_csv("datasets/transactions.csv", usecols=["shop", "amount"])
+big = pd.concat([base] * 25, ignore_index=True)
 
 print(f"{'rows':>12} {'pandas':>10} {'distributed (modelled)':>24}   winner")
 print("-" * 62)
 for n in [10_000, 100_000, 1_000_000, 5_000_000]:
-    df = pd.DataFrame({"k": rng.integers(0, 100, n), "v": rng.normal(size=n)})
+    df = big.iloc[:n]
 
     t = time.perf_counter()
-    df.groupby("k")["v"].mean()
+    df.groupby("shop")["amount"].mean()
     pandas_s = time.perf_counter() - t
 
     # A cluster splits the work but pays startup and coordination costs.

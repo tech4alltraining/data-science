@@ -330,7 +330,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#sec-s10-topic-4" id="toc-sec-s10-topic-4" class="nav-link" data-scroll-target="#sec-s10-topic-4"><span class="header-section-number">13.2</span> 4. Scale first — always</a>
   <ul class="collapse">
-  <li><a href="#demo-3-the-same-customers-clustered-with-and-without-scaling" id="toc-demo-3-the-same-customers-clustered-with-and-without-scaling" class="nav-link" data-scroll-target="#demo-3-the-same-customers-clustered-with-and-without-scaling"><span class="header-section-number">13.2.1</span> Demo 3 — the same customers, clustered with and without scaling</a></li>
+  <li><a href="#demo-3-real-data-where-the-scales-genuinely-differ" id="toc-demo-3-real-data-where-the-scales-genuinely-differ" class="nav-link" data-scroll-target="#demo-3-real-data-where-the-scales-genuinely-differ"><span class="header-section-number">13.2.1</span> Demo 3 — real data where the scales genuinely differ</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#sec-s10-c" id="toc-sec-s10-c" class="nav-link" data-scroll-target="#sec-s10-c"><span class="header-section-number">14</span> Part C — Choosing k</a>
@@ -599,28 +599,27 @@ Note
 <div id="cell-fig-s10-kmeans-steps" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">41</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>points <span class="op">=</span> np.vstack([rng.normal([<span class="dv">2</span>, <span class="dv">2</span>], <span class="fl">.6</span>, (<span class="dv">60</span>, <span class="dv">2</span>)),</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                    rng.normal([<span class="dv">7</span>, <span class="dv">3</span>], <span class="fl">.6</span>, (<span class="dv">60</span>, <span class="dv">2</span>)),</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                    rng.normal([<span class="dv">4</span>, <span class="dv">7</span>], <span class="fl">.6</span>, (<span class="dv">60</span>, <span class="dv">2</span>))])</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>centres <span class="op">=</span> np.array([[<span class="fl">1.</span>, <span class="fl">6.</span>], [<span class="fl">2.</span>, <span class="fl">7.</span>], [<span class="fl">3.</span>, <span class="fl">6.5</span>]])   <span class="co"># deliberately bad starting positions</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">4</span>, figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="fl">3.1</span>))</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> step, ax <span class="kw">in</span> <span class="bu">enumerate</span>(axes):</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    distances <span class="op">=</span> np.linalg.norm(points[:, <span class="va">None</span>] <span class="op">-</span> centres[<span class="va">None</span>], axis<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> distances.argmin(axis<span class="op">=</span><span class="dv">1</span>)                       <span class="co"># step 2: assign</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    ax.scatter(points[:, <span class="dv">0</span>], points[:, <span class="dv">1</span>], c<span class="op">=</span>labels, s<span class="op">=</span><span class="dv">12</span>, cmap<span class="op">=</span><span class="st">"viridis"</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    ax.scatter(centres[:, <span class="dv">0</span>], centres[:, <span class="dv">1</span>], c<span class="op">=</span><span class="st">"red"</span>, marker<span class="op">=</span><span class="st">"X"</span>, s<span class="op">=</span><span class="dv">150</span>, edgecolor<span class="op">=</span><span class="st">"k"</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"iteration </span><span class="sc">{</span>step<span class="sc">}</span><span class="ss">"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)<span class="op">;</span> ax.set_xticks([])<span class="op">;</span> ax.set_yticks([])</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):                                       <span class="co"># step 3: move</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (labels <span class="op">==</span> j).<span class="bu">any</span>():</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>            centres[j] <span class="op">=</span> points[labels <span class="op">==</span> j].mean(axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Started at:"</span>, [[<span class="fl">1.</span>, <span class="fl">6.</span>], [<span class="fl">2.</span>, <span class="fl">7.</span>], [<span class="fl">3.</span>, <span class="fl">6.5</span>]], <span class="st">"— all three bunched in one corner"</span>)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Ended at:  "</span>, centres.<span class="bu">round</span>(<span class="dv">1</span>).tolist())</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The true centres were [2,2], [7,3], [4,7]."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>points <span class="op">=</span> pd.read_csv(<span class="st">"datasets/three_blobs.csv"</span>)[[<span class="st">"x"</span>, <span class="st">"y"</span>]].values</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>centres <span class="op">=</span> np.array([[<span class="fl">1.</span>, <span class="fl">6.</span>], [<span class="fl">2.</span>, <span class="fl">7.</span>], [<span class="fl">3.</span>, <span class="fl">6.5</span>]])   <span class="co"># deliberately bad starting positions</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">4</span>, figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="fl">3.1</span>))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> step, ax <span class="kw">in</span> <span class="bu">enumerate</span>(axes):</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    distances <span class="op">=</span> np.linalg.norm(points[:, <span class="va">None</span>] <span class="op">-</span> centres[<span class="va">None</span>], axis<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> distances.argmin(axis<span class="op">=</span><span class="dv">1</span>)                       <span class="co"># step 2: assign</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    ax.scatter(points[:, <span class="dv">0</span>], points[:, <span class="dv">1</span>], c<span class="op">=</span>labels, s<span class="op">=</span><span class="dv">12</span>, cmap<span class="op">=</span><span class="st">"viridis"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    ax.scatter(centres[:, <span class="dv">0</span>], centres[:, <span class="dv">1</span>], c<span class="op">=</span><span class="st">"red"</span>, marker<span class="op">=</span><span class="st">"X"</span>, s<span class="op">=</span><span class="dv">150</span>, edgecolor<span class="op">=</span><span class="st">"k"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"iteration </span><span class="sc">{</span>step<span class="sc">}</span><span class="ss">"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)<span class="op">;</span> ax.set_xticks([])<span class="op">;</span> ax.set_yticks([])</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):                                       <span class="co"># step 3: move</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (labels <span class="op">==</span> j).<span class="bu">any</span>():</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>            centres[j] <span class="op">=</span> points[labels <span class="op">==</span> j].mean(axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Started at:"</span>, [[<span class="fl">1.</span>, <span class="fl">6.</span>], [<span class="fl">2.</span>, <span class="fl">7.</span>], [<span class="fl">3.</span>, <span class="fl">6.5</span>]], <span class="st">"— all three bunched in one corner"</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Ended at:  "</span>, centres.<span class="bu">round</span>(<span class="dv">1</span>).tolist())</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The true centres were [2,2], [7,3], [4,7]."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="fig-s10-kmeans-steps" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -646,31 +645,39 @@ The true centres were [2,2], [7,3], [4,7].</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd, matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">42</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>customers <span class="op">=</span> pd.DataFrame(np.vstack([</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    rng.normal([<span class="dv">25_000</span>, <span class="dv">20</span>], [<span class="dv">6_000</span>, <span class="dv">8</span>], (<span class="dv">70</span>, <span class="dv">2</span>)),    <span class="co"># modest income, low spending</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    rng.normal([<span class="dv">85_000</span>, <span class="dv">80</span>], [<span class="dv">9_000</span>, <span class="dv">8</span>], (<span class="dv">70</span>, <span class="dv">2</span>)),    <span class="co"># high income, high spending</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    rng.normal([<span class="dv">88_000</span>, <span class="dv">22</span>], [<span class="dv">9_000</span>, <span class="dv">7</span>], (<span class="dv">60</span>, <span class="dv">2</span>)),    <span class="co"># high income, low spending</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>]), columns<span class="op">=</span>[<span class="st">"income"</span>, <span class="st">"spending_score"</span>])</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>km <span class="op">=</span> KMeans(n_clusters<span class="op">=</span><span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>customers[<span class="st">"cluster"</span>] <span class="op">=</span> km.fit_predict(customers[[<span class="st">"income"</span>, <span class="st">"spending_score"</span>]])</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>plt.scatter(customers[<span class="st">"income"</span>], customers[<span class="st">"spending_score"</span>],</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            c<span class="op">=</span>customers[<span class="st">"cluster"</span>], cmap<span class="op">=</span><span class="st">"viridis"</span>, s<span class="op">=</span><span class="dv">18</span>)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>plt.scatter(km.cluster_centers_[:, <span class="dv">0</span>], km.cluster_centers_[:, <span class="dv">1</span>],</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>            c<span class="op">=</span><span class="st">"red"</span>, marker<span class="op">=</span><span class="st">"X"</span>, s<span class="op">=</span><span class="dv">220</span>, edgecolor<span class="op">=</span><span class="st">"k"</span>, label<span class="op">=</span><span class="st">"centres"</span>)</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Income (₹)"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"Spending score"</span>)<span class="op">;</span> plt.legend()</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(customers.groupby(<span class="st">"cluster"</span>).agg(</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    n<span class="op">=</span>(<span class="st">"income"</span>, <span class="st">"size"</span>), avg_income<span class="op">=</span>(<span class="st">"income"</span>, <span class="st">"mean"</span>), avg_spend<span class="op">=</span>(<span class="st">"spending_score"</span>, <span class="st">"mean"</span>)</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>).<span class="bu">round</span>(<span class="dv">0</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># A real dataset: 200 mall customers, their annual income and a spending score</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># the mall assigned them.</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>customers <span class="op">=</span> pd.read_csv(<span class="st">"datasets/Mall_Customers.csv"</span>).rename(columns<span class="op">=</span>{</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Annual Income (k$)"</span>: <span class="st">"income"</span>, <span class="st">"Spending Score (1-100)"</span>: <span class="st">"spending_score"</span>})</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(customers.head(<span class="dv">3</span>), <span class="ss">f"</span><span class="ch">\n\n</span><span class="sc">{</span><span class="bu">len</span>(customers)<span class="sc">}</span><span class="ss"> customers on file</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>km <span class="op">=</span> KMeans(n_clusters<span class="op">=</span><span class="dv">5</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>customers[<span class="st">"cluster"</span>] <span class="op">=</span> km.fit_predict(customers[[<span class="st">"income"</span>, <span class="st">"spending_score"</span>]])</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>plt.scatter(customers[<span class="st">"income"</span>], customers[<span class="st">"spending_score"</span>],</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>            c<span class="op">=</span>customers[<span class="st">"cluster"</span>], cmap<span class="op">=</span><span class="st">"viridis"</span>, s<span class="op">=</span><span class="dv">18</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>plt.scatter(km.cluster_centers_[:, <span class="dv">0</span>], km.cluster_centers_[:, <span class="dv">1</span>],</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>            c<span class="op">=</span><span class="st">"red"</span>, marker<span class="op">=</span><span class="st">"X"</span>, s<span class="op">=</span><span class="dv">220</span>, edgecolor<span class="op">=</span><span class="st">"k"</span>, label<span class="op">=</span><span class="st">"centres"</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Annual income (k$)"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"Spending score"</span>)<span class="op">;</span> plt.legend()</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(customers.groupby(<span class="st">"cluster"</span>).agg(</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    n<span class="op">=</span>(<span class="st">"income"</span>, <span class="st">"size"</span>), avg_income<span class="op">=</span>(<span class="st">"income"</span>, <span class="st">"mean"</span>), avg_spend<span class="op">=</span>(<span class="st">"spending_score"</span>, <span class="st">"mean"</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>).<span class="bu">round</span>(<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   CustomerID  Gender  Age  income  spending_score
+0           1    Male   19      15              39
+1           2    Male   21      15              81
+2           3  Female   20      16               6 
+
+200 customers on file
+</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div id="fig-s10-kmeans-sklearn" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-s10-kmeans-sklearn-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="session-10-unsupervised-learning-techniques-clustering_files/figure-html/fig-s10-kmeans-sklearn-output-1.png" width="681" height="409" class="figure-img">
+<img src="session-10-unsupervised-learning-techniques-clustering_files/figure-html/fig-s10-kmeans-sklearn-output-2.png" width="682" height="408" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s10-kmeans-sklearn-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;13.2: Customer segments by income and spending score, with the centres marked.
@@ -681,9 +688,11 @@ Figure&nbsp;13.2: Customer segments by income and spending score, with the centr
 <div class="cell-output cell-output-stdout">
 <pre><code>          n  avg_income  avg_spend
 cluster                           
-0        72     79750.0       60.0
-1        70     25000.0       19.0
-2        58     95306.0       44.0</code></pre>
+0        81        55.3       49.5
+1        39        86.5       82.1
+2        35        88.2       17.1
+3        23        26.3       20.9
+4        22        25.7       79.4</code></pre>
 </div>
 </div>
 <p>Note <code>n_init=10</code>: K-Means starts from random positions and can settle into a poor arrangement, so it runs ten times from different starts and keeps the best.</p>
@@ -693,53 +702,78 @@ cluster
 <h2 data-number="13.2" class="anchored" data-anchor-id="sec-s10-topic-4"><span class="header-section-number">13.2</span> 4. Scale first — always</h2>
 <p><strong>K-Means measures straight-line distance. An unscaled column with big numbers decides every cluster on its own.</strong></p>
 <p>This is Session 5’s lesson, and clustering is where it does the most damage — because there is no accuracy score to warn you that the answer is wrong.</p>
-<section id="demo-3-the-same-customers-clustered-with-and-without-scaling" class="level3" data-number="13.2.1">
-<h3 data-number="13.2.1" class="anchored" data-anchor-id="demo-3-the-same-customers-clustered-with-and-without-scaling"><span class="header-section-number">13.2.1</span> Demo 3 — the same customers, clustered with and without scaling</h3>
-<div id="cell-fig-s10-scaling" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> customers[[<span class="st">"income"</span>, <span class="st">"spending_score"</span>]]</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>unscaled_labels <span class="op">=</span> KMeans(<span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(X)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>scaled <span class="op">=</span> StandardScaler().fit_transform(X)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>scaled_labels <span class="op">=</span> KMeans(<span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(scaled)</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">3.6</span>))</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].scatter(X[<span class="st">"income"</span>], X[<span class="st">"spending_score"</span>], c<span class="op">=</span>unscaled_labels, cmap<span class="op">=</span><span class="st">"viridis"</span>, s<span class="op">=</span><span class="dv">16</span>)</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_title(<span class="st">"Unscaled — boundaries are vertical"</span>)</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].scatter(X[<span class="st">"income"</span>], X[<span class="st">"spending_score"</span>], c<span class="op">=</span>scaled_labels, cmap<span class="op">=</span><span class="st">"viridis"</span>, s<span class="op">=</span><span class="dv">16</span>)</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"Scaled — the real groups"</span>)</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> ax: a.set_xlabel(<span class="st">"Income (₹)"</span>)<span class="op">;</span> a.set_ylabel(<span class="st">"Spending score"</span>)</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"income        ranges over </span><span class="sc">{</span>X[<span class="st">'income'</span>]<span class="sc">.</span><span class="bu">max</span>()<span class="op">-</span>X[<span class="st">'income'</span>]<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:&gt;9,.0f}</span><span class="ss">"</span>)</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"spending      ranges over </span><span class="sc">{</span>X[<span class="st">'spending_score'</span>]<span class="sc">.</span><span class="bu">max</span>()<span class="op">-</span>X[<span class="st">'spending_score'</span>]<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:&gt;9,.0f}</span><span class="ss">"</span>)</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Unscaled, an income gap of 1,000 outweighs the entire spending scale."</span>)</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The unscaled clusters split people purely by income — the vertical bands."</span>)</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Agreement between the two clusterings: "</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"</span><span class="sc">{</span>(pd.crosstab(unscaled_labels, scaled_labels).<span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>).<span class="bu">sum</span>() <span class="op">/</span> <span class="bu">len</span>(X))<span class="sc">:.0%}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="demo-3-real-data-where-the-scales-genuinely-differ" class="level3" data-number="13.2.1">
+<h3 data-number="13.2.1" class="anchored" data-anchor-id="demo-3-real-data-where-the-scales-genuinely-differ"><span class="header-section-number">13.2.1</span> Demo 3 — real data where the scales genuinely differ</h3>
+<p>The mall file happens to be convenient: income in thousands (range 122) and spending score out of 100 (range 98) are already on comparable scales, so scaling would change almost nothing. <strong>Check before you assume you need it.</strong></p>
+<div id="b70caa1c" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>mall <span class="op">=</span> pd.read_csv(<span class="st">"datasets/Mall_Customers.csv"</span>).rename(columns<span class="op">=</span>{</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Annual Income (k$)"</span>: <span class="st">"income"</span>, <span class="st">"Spending Score (1-100)"</span>: <span class="st">"spending_score"</span>})</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mall file — the two columns are already comparable:"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> [<span class="st">"income"</span>, <span class="st">"spending_score"</span>]:</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>c<span class="sc">:&lt;15}</span><span class="ss"> range </span><span class="sc">{</span>mall[c]<span class="sc">.</span><span class="bu">max</span>() <span class="op">-</span> mall[c]<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:&gt;10,.0f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Mall file — the two columns are already comparable:
+  income          range        122
+  spending_score  range         98</code></pre>
+</div>
+</div>
+<p>Now a real file where they are not. <code>loan_data_10k.csv</code> records <strong>income in rupees</strong> (hundreds of thousands) next to <strong>loan-to-income ratio</strong> (a fraction between 0 and 1).</p>
+<div id="cell-fig-s10-scaling" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>loan <span class="op">=</span> (pd.read_csv(<span class="st">"datasets/loan_data_10k.csv"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>          .dropna(subset<span class="op">=</span>[<span class="st">"person_income"</span>, <span class="st">"loan_percent_income"</span>])</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>          .sample(<span class="dv">2_000</span>, random_state<span class="op">=</span><span class="dv">0</span>))</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> loan[[<span class="st">"person_income"</span>, <span class="st">"loan_percent_income"</span>]]</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Loan file — the two columns are not remotely comparable:"</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> X.columns:</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>c<span class="sc">:&lt;22}</span><span class="ss"> range </span><span class="sc">{</span>X[c]<span class="sc">.</span><span class="bu">max</span>() <span class="op">-</span> X[c]<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:&gt;13,.2f}</span><span class="ss">"</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>unscaled_labels <span class="op">=</span> KMeans(<span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(X)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>scaled_labels <span class="op">=</span> KMeans(<span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(StandardScaler().fit_transform(X))</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">3.6</span>))</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].scatter(X[<span class="st">"person_income"</span>], X[<span class="st">"loan_percent_income"</span>], c<span class="op">=</span>unscaled_labels,</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>              cmap<span class="op">=</span><span class="st">"viridis"</span>, s<span class="op">=</span><span class="dv">6</span>, alpha<span class="op">=</span><span class="fl">.6</span>)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_title(<span class="st">"Unscaled — boundaries are vertical"</span>)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].scatter(X[<span class="st">"person_income"</span>], X[<span class="st">"loan_percent_income"</span>], c<span class="op">=</span>scaled_labels,</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>              cmap<span class="op">=</span><span class="st">"viridis"</span>, s<span class="op">=</span><span class="dv">6</span>, alpha<span class="op">=</span><span class="fl">.6</span>)</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"Scaled — both columns count"</span>)</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> ax:</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    a.set_xlabel(<span class="st">"Income (₹)"</span>)<span class="op">;</span> a.set_ylabel(<span class="st">"Loan as a share of income"</span>)<span class="op">;</span> a.set_xscale(<span class="st">"log"</span>)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>agree <span class="op">=</span> pd.crosstab(unscaled_labels, scaled_labels).<span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>).<span class="bu">sum</span>() <span class="op">/</span> <span class="bu">len</span>(X)</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Unscaled, an income gap of ₹1,000 outweighs the entire 0-to-1 ratio scale."</span>)</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The two clusterings agree on only </span><span class="sc">{</span>agree<span class="sc">:.0%}</span><span class="ss"> of applicants —"</span>)</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="dv">1</span> <span class="op">-</span> agree<span class="sc">:.0%}</span><span class="ss"> land in a completely different group depending on whether you scaled."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Loan file — the two columns are not remotely comparable:
+  person_income          range    832,912.00
+  loan_percent_income    range          0.53</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div id="fig-s10-scaling" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-s10-scaling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="session-10-unsupervised-learning-techniques-clustering_files/figure-html/fig-s10-scaling-output-1.png" width="1199" height="385" class="figure-img">
+<img src="session-10-unsupervised-learning-techniques-clustering_files/figure-html/fig-s10-scaling-output-2.png" width="1198" height="384" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s10-scaling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;13.3: Left: unscaled, so income alone decides. Right: scaled, so both columns count.
+Figure&nbsp;13.3: Left: unscaled, so income alone decides and the boundaries are vertical. Right: scaled, so both columns count.
 </figcaption>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>income        ranges over    97,852
-spending      ranges over        93
-
-Unscaled, an income gap of 1,000 outweighs the entire spending scale.
-The unscaled clusters split people purely by income — the vertical bands.
-
-Agreement between the two clusterings: 77%</code></pre>
+<pre><code>
+Unscaled, an income gap of ₹1,000 outweighs the entire 0-to-1 ratio scale.
+The two clusterings agree on only 57% of applicants —
+43% land in a completely different group depending on whether you scaled.</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Unscaled clustering produces confident nonsense">
@@ -752,7 +786,8 @@ Agreement between the two clusterings: 77%</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>No error is raised. The clusters look tidy, the chart is colourful, and the segments are <strong>wrong</strong> — they encode one column and ignore the rest. <strong>Always put <code>StandardScaler</code> in front of <code>KMeans</code>.</strong></p>
+<p>No error is raised. The clusters look tidy, the chart is colourful, and <strong>43% of applicants are in a different group</strong> purely because of a unit choice.</p>
+<p><strong>Put <code>StandardScaler</code> in front of <code>KMeans</code> unless you have checked that the columns are already comparable</strong> — and check by printing the ranges, as the first cell above does.</p>
 </div>
 </div>
 </section>
@@ -766,26 +801,26 @@ Agreement between the two clusterings: 77%</code></pre>
 <p><strong>The elbow method looks for the point where the improvement stops being worth it.</strong></p>
 <section id="demo-4-the-elbow" class="level3" data-number="14.1.1">
 <h3 data-number="14.1.1" class="anchored" data-anchor-id="demo-4-the-elbow"><span class="header-section-number">14.1.1</span> Demo 4 — the elbow</h3>
-<div id="cell-fig-s10-elbow" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>Xs <span class="op">=</span> StandardScaler().fit_transform(customers[[<span class="st">"income"</span>, <span class="st">"spending_score"</span>]])</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>ks <span class="op">=</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">9</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>inertias <span class="op">=</span> [KMeans(k, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit(Xs).inertia_ <span class="cf">for</span> k <span class="kw">in</span> ks]</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>plt.plot(ks, inertias, <span class="st">"o-"</span>)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="dv">3</span>, color<span class="op">=</span><span class="st">"red"</span>, ls<span class="op">=</span><span class="st">"--"</span>, alpha<span class="op">=</span><span class="fl">.6</span>)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"k (number of clusters)"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"inertia"</span>)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Where does the line stop dropping steeply?"</span>)</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'k'</span><span class="sc">:&gt;3}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'inertia'</span><span class="sc">:&gt;10}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'improvement'</span><span class="sc">:&gt;13}</span><span class="ss">"</span>)</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (k, v) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(ks, inertias)):</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    imp <span class="op">=</span> <span class="st">""</span> <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="ss">f"</span><span class="sc">{</span>(inertias[i<span class="op">-</span><span class="dv">1</span>]<span class="op">-</span>v)<span class="op">/</span>inertias[i<span class="op">-</span><span class="dv">1</span>]<span class="sc">:&gt;12.1%}</span><span class="ss">"</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>k<span class="sc">:&gt;3}</span><span class="ss"> </span><span class="sc">{</span>v<span class="sc">:&gt;10.1f}</span><span class="ss"> </span><span class="sc">{</span>imp<span class="sc">:&gt;13}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-fig-s10-elbow" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>Xs <span class="op">=</span> StandardScaler().fit_transform(customers[[<span class="st">"income"</span>, <span class="st">"spending_score"</span>]])</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>ks <span class="op">=</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">9</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>inertias <span class="op">=</span> [KMeans(k, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit(Xs).inertia_ <span class="cf">for</span> k <span class="kw">in</span> ks]</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>plt.plot(ks, inertias, <span class="st">"o-"</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="dv">5</span>, color<span class="op">=</span><span class="st">"red"</span>, ls<span class="op">=</span><span class="st">"--"</span>, alpha<span class="op">=</span><span class="fl">.6</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"k (number of clusters)"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"inertia"</span>)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Where does the line stop dropping steeply?"</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'k'</span><span class="sc">:&gt;3}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'inertia'</span><span class="sc">:&gt;10}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'improvement'</span><span class="sc">:&gt;13}</span><span class="ss">"</span>)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (k, v) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(ks, inertias)):</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    imp <span class="op">=</span> <span class="st">""</span> <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="ss">f"</span><span class="sc">{</span>(inertias[i<span class="op">-</span><span class="dv">1</span>]<span class="op">-</span>v)<span class="op">/</span>inertias[i<span class="op">-</span><span class="dv">1</span>]<span class="sc">:&gt;12.1%}</span><span class="ss">"</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>k<span class="sc">:&gt;3}</span><span class="ss"> </span><span class="sc">{</span>v<span class="sc">:&gt;10.1f}</span><span class="ss"> </span><span class="sc">{</span>imp<span class="sc">:&gt;13}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="fig-s10-elbow" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -793,7 +828,7 @@ Agreement between the two clusterings: 77%</code></pre>
 <img src="session-10-unsupervised-learning-techniques-clustering_files/figure-html/fig-s10-elbow-output-1.png" width="681" height="431" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s10-elbow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;14.1: Inertia falls with every extra cluster. The bend at k=3 is where extra clusters stop paying.
+Figure&nbsp;14.1: Inertia falls with every extra cluster. The bend at k=5 is where extra clusters stop paying.
 </figcaption>
 </figure>
 </div>
@@ -801,16 +836,16 @@ Figure&nbsp;14.1: Inertia falls with every extra cluster. The bend at k=3 is whe
 <div class="cell-output cell-output-stdout">
 <pre><code>  k    inertia   improvement
   1      400.0              
-  2      154.4         61.4%
-  3       25.8         83.3%
-  4       21.6         16.3%
-  5       18.1         16.3%
-  6       15.6         13.6%
-  7       12.8         18.4%
-  8       10.8         15.0%</code></pre>
+  2      269.3         32.7%
+  3      157.7         41.4%
+  4      108.9         30.9%
+  5       65.6         39.8%
+  6       55.1         15.9%
+  7       44.9         18.5%
+  8       37.1         17.3%</code></pre>
 </div>
 </div>
-<p>Read the improvement column: large gains up to k=3, then much smaller ones. <strong>That is the elbow.</strong></p>
+<p>Read the improvement column: large gains up to k=5, then much smaller ones. <strong>That is the elbow</strong> — and five is the answer this well-known dataset is famous for.</p>
 </section>
 </section>
 <section id="sec-s10-topic-6" class="level2" data-number="14.2">
@@ -845,27 +880,27 @@ Figure&nbsp;14.1: Inertia falls with every extra cluster. The bend at k=3 is whe
 <p>Unlike inertia, it does <strong>not</strong> automatically improve with more clusters, so you can compare values across different <em>k</em> directly.</p>
 <section id="demo-5-silhouette-across-k" class="level3" data-number="14.2.1">
 <h3 data-number="14.2.1" class="anchored" data-anchor-id="demo-5-silhouette-across-k"><span class="header-section-number">14.2.1</span> Demo 5 — silhouette across k</h3>
-<div id="cell-fig-s10-silhouette" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> silhouette_score</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>ks <span class="op">=</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">9</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> [silhouette_score(Xs, KMeans(k, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(Xs)) <span class="cf">for</span> k <span class="kw">in</span> ks]</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">list</span>(ks), scores, <span class="st">"o-"</span>, color<span class="op">=</span><span class="st">"darkgreen"</span>)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>best <span class="op">=</span> <span class="bu">list</span>(ks)[<span class="bu">int</span>(np.argmax(scores))]</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>plt.axvline(best, color<span class="op">=</span><span class="st">"red"</span>, ls<span class="op">=</span><span class="st">"--"</span>, alpha<span class="op">=</span><span class="fl">.6</span>)</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"k"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"silhouette score"</span>)<span class="op">;</span> plt.title(<span class="st">"Higher is better"</span>)</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, s <span class="kw">in</span> <span class="bu">zip</span>(ks, scores):</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"k = </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">: silhouette </span><span class="sc">{</span>s<span class="sc">:.3f}{</span><span class="st">'   ← best'</span> <span class="cf">if</span> k <span class="op">==</span> best <span class="cf">else</span> <span class="st">''</span><span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-fig-s10-silhouette" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> silhouette_score</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>ks <span class="op">=</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">9</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> [silhouette_score(Xs, KMeans(k, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(Xs)) <span class="cf">for</span> k <span class="kw">in</span> ks]</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">list</span>(ks), scores, <span class="st">"o-"</span>, color<span class="op">=</span><span class="st">"darkgreen"</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>best <span class="op">=</span> <span class="bu">list</span>(ks)[<span class="bu">int</span>(np.argmax(scores))]</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>plt.axvline(best, color<span class="op">=</span><span class="st">"red"</span>, ls<span class="op">=</span><span class="st">"--"</span>, alpha<span class="op">=</span><span class="fl">.6</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"k"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"silhouette score"</span>)<span class="op">;</span> plt.title(<span class="st">"Higher is better"</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, s <span class="kw">in</span> <span class="bu">zip</span>(ks, scores):</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"k = </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">: silhouette </span><span class="sc">{</span>s<span class="sc">:.3f}{</span><span class="st">'   ← best'</span> <span class="cf">if</span> k <span class="op">==</span> best <span class="cf">else</span> <span class="st">''</span><span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="fig-s10-silhouette" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-s10-silhouette-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="session-10-unsupervised-learning-techniques-clustering_files/figure-html/fig-s10-silhouette-output-1.png" width="676" height="431" class="figure-img">
+<img src="session-10-unsupervised-learning-techniques-clustering_files/figure-html/fig-s10-silhouette-output-1.png" width="686" height="431" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s10-silhouette-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;14.2: Silhouette by k. Unlike inertia, higher is genuinely better, so the peak is the answer.
@@ -874,38 +909,39 @@ Figure&nbsp;14.2: Silhouette by k. Unlike inertia, higher is genuinely better, s
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>k = 2: silhouette 0.608
-k = 3: silhouette 0.776   ← best
-k = 4: silhouette 0.637
-k = 5: silhouette 0.515
-k = 6: silhouette 0.358
-k = 7: silhouette 0.378
-k = 8: silhouette 0.383</code></pre>
+<pre><code>k = 2: silhouette 0.286
+k = 3: silhouette 0.467
+k = 4: silhouette 0.494
+k = 5: silhouette 0.555   ← best
+k = 6: silhouette 0.538
+k = 7: silhouette 0.526
+k = 8: silhouette 0.457</code></pre>
 </div>
 </div>
 <p>Both methods point at the same answer here. <strong>They do not always.</strong></p>
 </section>
 <section id="demo-6-when-the-silhouette-score-is-wrong" class="level3" data-number="14.2.2">
 <h3 data-number="14.2.2" class="anchored" data-anchor-id="demo-6-when-the-silhouette-score-is-wrong"><span class="header-section-number">14.2.2</span> Demo 6 — when the silhouette score is wrong</h3>
-<div id="21c44b4a" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> silhouette_score</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_moons</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Two interleaved crescents. The true structure is obviously 2 groups.</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>moons, true_labels <span class="op">=</span> make_moons(n_samples<span class="op">=</span><span class="dv">400</span>, noise<span class="op">=</span><span class="fl">0.06</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]:</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> KMeans(k, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(moons)</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"k = </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">: silhouette </span><span class="sc">{</span>silhouette_score(moons, labels)<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>agree <span class="op">=</span> (KMeans(<span class="dv">2</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(moons) <span class="op">==</span> true_labels)</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">At k=2, K-Means agrees with the true crescents for "</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"</span><span class="sc">{</span><span class="bu">max</span>(agree.mean(), <span class="dv">1</span><span class="op">-</span>agree.mean())<span class="sc">:.0%}</span><span class="ss"> of points."</span>)</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The score prefers k=2, and yet K-Means still cuts the crescents in the wrong"</span>)</span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"place — because it can only draw straight boundaries. A good score does not"</span>)</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"mean a good clustering."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="382036d9" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> silhouette_score</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Two interleaved crescents. The true structure is obviously 2 groups.</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>mo <span class="op">=</span> pd.read_csv(<span class="st">"datasets/moons.csv"</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>moons <span class="op">=</span> mo[[<span class="st">"x"</span>, <span class="st">"y"</span>]].values</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>true_labels <span class="op">=</span> mo[<span class="st">"true_group"</span>].values</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]:</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> KMeans(k, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(moons)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"k = </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">: silhouette </span><span class="sc">{</span>silhouette_score(moons, labels)<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>agree <span class="op">=</span> (KMeans(<span class="dv">2</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(moons) <span class="op">==</span> true_labels)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">At k=2, K-Means agrees with the true crescents for "</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"</span><span class="sc">{</span><span class="bu">max</span>(agree.mean(), <span class="dv">1</span><span class="op">-</span>agree.mean())<span class="sc">:.0%}</span><span class="ss"> of points."</span>)</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The score prefers k=2, and yet K-Means still cuts the crescents in the wrong"</span>)</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"place — because it can only draw straight boundaries. A good score does not"</span>)</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"mean a good clustering."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>k = 2: silhouette 0.489
 k = 3: silhouette 0.428
@@ -928,14 +964,14 @@ mean a good clustering.</code></pre>
 </div>
 <div class="callout-body-container callout-body">
 <p>Ask K-Means for four groups in pure random noise and you will get four groups, each with a centre and a colour, and a chart that looks meaningful.</p>
-<div id="2907266e" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> silhouette_score</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>noise <span class="op">=</span> np.random.default_rng(<span class="dv">7</span>).normal(size<span class="op">=</span>(<span class="dv">400</span>, <span class="dv">2</span>))    <span class="co"># no structure whatsoever</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]:</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"k = </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss"> on pure noise: silhouette </span><span class="sc">{</span>silhouette_score(noise, KMeans(k, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(noise))<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="2cd3e29e" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> silhouette_score</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>noise <span class="op">=</span> pd.read_csv(<span class="st">"datasets/random_noise.csv"</span>)[[<span class="st">"x"</span>, <span class="st">"y"</span>]].values   <span class="co"># no structure at all</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]:</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"k = </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss"> on pure noise: silhouette </span><span class="sc">{</span>silhouette_score(noise, KMeans(k, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(noise))<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>k = 2 on pure noise: silhouette 0.314
 k = 3 on pure noise: silhouette 0.326
@@ -952,46 +988,50 @@ k = 4 on pure noise: silhouette 0.321</code></pre>
 <p><strong>A cluster number is not a deliverable.</strong> <code>cluster = 2</code> means nothing to a marketing team. The deliverable is a <strong>description</strong>.</p>
 <section id="demo-7-from-cluster-numbers-to-named-segments" class="level3" data-number="14.3.1">
 <h3 data-number="14.3.1" class="anchored" data-anchor-id="demo-7-from-cluster-numbers-to-named-segments"><span class="header-section-number">14.3.1</span> Demo 7 — from cluster numbers to named segments</h3>
-<div id="45be2b9b" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> customers[[<span class="st">"income"</span>, <span class="st">"spending_score"</span>]]</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>customers[<span class="st">"segment"</span>] <span class="op">=</span> KMeans(<span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    StandardScaler().fit_transform(X))</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>profile <span class="op">=</span> customers.groupby(<span class="st">"segment"</span>).agg(</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    customers<span class="op">=</span>(<span class="st">"income"</span>, <span class="st">"size"</span>),</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    median_income<span class="op">=</span>(<span class="st">"income"</span>, <span class="st">"median"</span>),</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    median_spend<span class="op">=</span>(<span class="st">"spending_score"</span>, <span class="st">"median"</span>),</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>).<span class="bu">round</span>(<span class="dv">0</span>)</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>profile[<span class="st">"share"</span>] <span class="op">=</span> (profile[<span class="st">"customers"</span>] <span class="op">/</span> <span class="bu">len</span>(customers) <span class="op">*</span> <span class="dv">100</span>).<span class="bu">round</span>(<span class="dv">1</span>).astype(<span class="bu">str</span>) <span class="op">+</span> <span class="st">"%"</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(profile)</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Now name them, and say what to do:"</span>)</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>overall_income <span class="op">=</span> customers[<span class="st">"income"</span>].median()</span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>overall_spend <span class="op">=</span> customers[<span class="st">"spending_score"</span>].median()</span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> seg, row <span class="kw">in</span> profile.iterrows():</span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    rich <span class="op">=</span> <span class="st">"high"</span> <span class="cf">if</span> row[<span class="st">"median_income"</span>] <span class="op">&gt;</span> overall_income <span class="cf">else</span> <span class="st">"modest"</span></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    spends <span class="op">=</span> <span class="st">"high"</span> <span class="cf">if</span> row[<span class="st">"median_spend"</span>] <span class="op">&gt;</span> overall_spend <span class="cf">else</span> <span class="st">"low"</span></span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    name <span class="op">=</span> {(<span class="st">"high"</span>,<span class="st">"high"</span>): <span class="st">"Best customers"</span>,</span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"high"</span>,<span class="st">"low"</span>):  <span class="st">"Untapped — money but not spending"</span>,</span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"modest"</span>,<span class="st">"low"</span>): <span class="st">"Budget-conscious"</span>,</span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"modest"</span>,<span class="st">"high"</span>): <span class="st">"Enthusiasts on a budget"</span>}[(rich, spends)]</span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  Segment </span><span class="sc">{</span>seg<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>name<span class="sc">:&lt;34}</span><span class="ss"> (</span><span class="sc">{</span>row[<span class="st">'share'</span>]<span class="sc">}</span><span class="ss"> of customers, "</span></span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"₹</span><span class="sc">{</span>row[<span class="st">'median_income'</span>]<span class="sc">:,.0f}</span><span class="ss"> income)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="5c93d9ee" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> customers[[<span class="st">"income"</span>, <span class="st">"spending_score"</span>]]</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>customers[<span class="st">"segment"</span>] <span class="op">=</span> KMeans(<span class="dv">5</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    StandardScaler().fit_transform(X))</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>profile <span class="op">=</span> customers.groupby(<span class="st">"segment"</span>).agg(</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    customers<span class="op">=</span>(<span class="st">"income"</span>, <span class="st">"size"</span>),</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    median_income<span class="op">=</span>(<span class="st">"income"</span>, <span class="st">"median"</span>),</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    median_spend<span class="op">=</span>(<span class="st">"spending_score"</span>, <span class="st">"median"</span>),</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>).<span class="bu">round</span>(<span class="dv">0</span>)</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>profile[<span class="st">"share"</span>] <span class="op">=</span> (profile[<span class="st">"customers"</span>] <span class="op">/</span> <span class="bu">len</span>(customers) <span class="op">*</span> <span class="dv">100</span>).<span class="bu">round</span>(<span class="dv">1</span>).astype(<span class="bu">str</span>) <span class="op">+</span> <span class="st">"%"</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(profile)</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Now name them, and say what to do:"</span>)</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>overall_income <span class="op">=</span> customers[<span class="st">"income"</span>].median()</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>overall_spend <span class="op">=</span> customers[<span class="st">"spending_score"</span>].median()</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> seg, row <span class="kw">in</span> profile.iterrows():</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    rich <span class="op">=</span> <span class="st">"high"</span> <span class="cf">if</span> row[<span class="st">"median_income"</span>] <span class="op">&gt;</span> overall_income <span class="cf">else</span> <span class="st">"modest"</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    spends <span class="op">=</span> <span class="st">"high"</span> <span class="cf">if</span> row[<span class="st">"median_spend"</span>] <span class="op">&gt;</span> overall_spend <span class="cf">else</span> <span class="st">"low"</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    name <span class="op">=</span> {(<span class="st">"high"</span>, <span class="st">"high"</span>): <span class="st">"Best customers — reward and retain"</span>,</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"high"</span>, <span class="st">"low"</span>):  <span class="st">"Untapped — money, but not spending here"</span>,</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"modest"</span>, <span class="st">"low"</span>): <span class="st">"Budget-conscious — low priority"</span>,</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"modest"</span>, <span class="st">"high"</span>): <span class="st">"Enthusiasts on a budget — grow carefully"</span>}[(rich, spends)]</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  Segment </span><span class="sc">{</span>seg<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>name<span class="sc">:&lt;44}</span><span class="ss"> (</span><span class="sc">{</span>row[<span class="st">'share'</span>]<span class="sc">:&gt;5}</span><span class="ss"> of customers, "</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"$</span><span class="sc">{</span>row[<span class="st">'median_income'</span>]<span class="sc">:,.0f}</span><span class="ss">k income)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         customers  median_income  median_spend  share
 segment                                               
-0               70        83864.0          79.0  35.0%
-1               70        25734.0          19.0  35.0%
-2               60        89965.0          23.0  30.0%
+0               81           54.0          50.0  40.5%
+1               39           79.0          83.0  19.5%
+2               35           85.0          16.0  17.5%
+3               23           25.0          17.0  11.5%
+4               22           24.0          77.0  11.0%
 
 Now name them, and say what to do:
-  Segment 0: Best customers                     (35.0% of customers, ₹83,864 income)
-  Segment 1: Budget-conscious                   (35.0% of customers, ₹25,734 income)
-  Segment 2: Untapped — money but not spending  (30.0% of customers, ₹89,965 income)</code></pre>
+  Segment 0: Budget-conscious — low priority              (40.5% of customers, $54k income)
+  Segment 1: Best customers — reward and retain           (19.5% of customers, $79k income)
+  Segment 2: Untapped — money, but not spending here      (17.5% of customers, $85k income)
+  Segment 3: Budget-conscious — low priority              (11.5% of customers, $25k income)
+  Segment 4: Enthusiasts on a budget — grow carefully     (11.0% of customers, $24k income)</code></pre>
 </div>
 </div>
 <p><strong>That last block is the actual output of a clustering project.</strong> “Segment 1” became “high income, not spending — worth a targeted offer”, which somebody can act on tomorrow.</p>
@@ -1006,29 +1046,29 @@ Now name them, and say what to do:
 <p><strong>Its advantage over K-Means: you do not have to choose <em>k</em> in advance.</strong> You build the tree once and read off any number of clusters from it.</p>
 <section id="demo-8-the-dendrogram" class="level3" data-number="15.1.1">
 <h3 data-number="15.1.1" class="anchored" data-anchor-id="demo-8-the-dendrogram"><span class="header-section-number">15.1.1</span> Demo 8 — the dendrogram</h3>
-<div id="cell-fig-s10-dendro" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.cluster.hierarchy <span class="im">import</span> dendrogram, linkage, fcluster</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>sample <span class="op">=</span> customers[[<span class="st">"income"</span>, <span class="st">"spending_score"</span>]].sample(<span class="dv">40</span>, random_state<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> linkage(StandardScaler().fit_transform(sample), method<span class="op">=</span><span class="st">"ward"</span>)</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="fl">3.4</span>))</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>dendrogram(Z, no_labels<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>plt.axhline(<span class="dv">6</span>, color<span class="op">=</span><span class="st">"red"</span>, ls<span class="op">=</span><span class="st">"--"</span>)</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"distance at which clusters merged"</span>)</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Cut the tree where the vertical lines are longest"</span>)</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cut <span class="kw">in</span> [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]:</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> fcluster(Z, cut, criterion<span class="op">=</span><span class="st">"maxclust"</span>)</span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"cutting for </span><span class="sc">{</span>cut<span class="sc">}</span><span class="ss"> clusters → sizes </span><span class="sc">{</span>np<span class="sc">.</span>bincount(labels)[<span class="dv">1</span>:]<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-fig-s10-dendro" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.cluster.hierarchy <span class="im">import</span> dendrogram, linkage, fcluster</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>sample <span class="op">=</span> customers[[<span class="st">"income"</span>, <span class="st">"spending_score"</span>]].sample(<span class="dv">40</span>, random_state<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> linkage(StandardScaler().fit_transform(sample), method<span class="op">=</span><span class="st">"ward"</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="fl">3.4</span>))</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>dendrogram(Z, no_labels<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>plt.axhline(<span class="dv">6</span>, color<span class="op">=</span><span class="st">"red"</span>, ls<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"distance at which clusters merged"</span>)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Cut the tree where the vertical lines are longest"</span>)</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cut <span class="kw">in</span> [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]:</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> fcluster(Z, cut, criterion<span class="op">=</span><span class="st">"maxclust"</span>)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"cutting for </span><span class="sc">{</span>cut<span class="sc">}</span><span class="ss"> clusters → sizes </span><span class="sc">{</span>np<span class="sc">.</span>bincount(labels)[<span class="dv">1</span>:]<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="fig-s10-dendro" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-s10-dendro-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="session-10-unsupervised-learning-techniques-clustering_files/figure-html/fig-s10-dendro-output-1.png" width="841" height="342" class="figure-img">
+<img src="session-10-unsupervised-learning-techniques-clustering_files/figure-html/fig-s10-dendro-output-1.png" width="831" height="342" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s10-dendro-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;15.1: A dendrogram. Cutting across at a height gives that many clusters — the long vertical gap suggests where.
@@ -1037,9 +1077,9 @@ Figure&nbsp;15.1: A dendrogram. Cutting across at a height gives that many clust
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>cutting for 2 clusters → sizes [18, 22]
-cutting for 3 clusters → sizes [18, 9, 13]
-cutting for 4 clusters → sizes [7, 11, 9, 13]</code></pre>
+<pre><code>cutting for 2 clusters → sizes [9, 31]
+cutting for 3 clusters → sizes [9, 5, 26]
+cutting for 4 clusters → sizes [9, 5, 5, 21]</code></pre>
 </div>
 </div>
 </section>
@@ -1054,28 +1094,28 @@ cutting for 4 clusters → sizes [7, 11, 9, 13]</code></pre>
 <p>You do not give it <em>k</em>. You give it <code>eps</code> (how close counts as “near”) and <code>min_samples</code> (how many neighbours make a dense region).</p>
 <section id="demo-9-the-crescents-where-k-means-could-not-win" class="level3" data-number="15.2.1">
 <h3 data-number="15.2.1" class="anchored" data-anchor-id="demo-9-the-crescents-where-k-means-could-not-win"><span class="header-section-number">15.2.1</span> Demo 9 — the crescents, where K-Means could not win</h3>
-<div id="cell-fig-s10-dbscan" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans, DBSCAN</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_moons</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>moons, truth <span class="op">=</span> make_moons(n_samples<span class="op">=</span><span class="dv">400</span>, noise<span class="op">=</span><span class="fl">0.06</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>km_labels <span class="op">=</span> KMeans(<span class="dv">2</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(moons)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>db_labels <span class="op">=</span> DBSCAN(eps<span class="op">=</span><span class="fl">0.2</span>, min_samples<span class="op">=</span><span class="dv">5</span>).fit_predict(moons)</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="fl">3.2</span>))</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].scatter(<span class="op">*</span>moons.T, c<span class="op">=</span>truth, cmap<span class="op">=</span><span class="st">"viridis"</span>, s<span class="op">=</span><span class="dv">10</span>)<span class="op">;</span>      ax[<span class="dv">0</span>].set_title(<span class="st">"The truth"</span>)</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].scatter(<span class="op">*</span>moons.T, c<span class="op">=</span>km_labels, cmap<span class="op">=</span><span class="st">"viridis"</span>, s<span class="op">=</span><span class="dv">10</span>)<span class="op">;</span>  ax[<span class="dv">1</span>].set_title(<span class="st">"K-Means"</span>)</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">2</span>].scatter(<span class="op">*</span>moons.T, c<span class="op">=</span>db_labels, cmap<span class="op">=</span><span class="st">"viridis"</span>, s<span class="op">=</span><span class="dv">10</span>)<span class="op">;</span>  ax[<span class="dv">2</span>].set_title(<span class="st">"DBSCAN"</span>)</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> ax: a.set_xticks([])<span class="op">;</span> a.set_yticks([])</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>km_acc <span class="op">=</span> <span class="bu">max</span>((km_labels <span class="op">==</span> truth).mean(), <span class="dv">1</span> <span class="op">-</span> (km_labels <span class="op">==</span> truth).mean())</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>db_acc <span class="op">=</span> <span class="bu">max</span>((db_labels <span class="op">==</span> truth).mean(), <span class="dv">1</span> <span class="op">-</span> (db_labels <span class="op">==</span> truth).mean())</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"K-Means matches the true crescents: </span><span class="sc">{</span>km_acc<span class="sc">:.0%}</span><span class="ss">"</span>)</span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"DBSCAN  matches the true crescents: </span><span class="sc">{</span>db_acc<span class="sc">:.0%}</span><span class="ss">"</span>)</span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"DBSCAN labelled </span><span class="sc">{</span>(db_labels <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss"> points as noise (label -1)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-fig-s10-dbscan" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans, DBSCAN</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>mo <span class="op">=</span> pd.read_csv(<span class="st">"datasets/moons.csv"</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>moons, truth <span class="op">=</span> mo[[<span class="st">"x"</span>, <span class="st">"y"</span>]].values, mo[<span class="st">"true_group"</span>].values</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>km_labels <span class="op">=</span> KMeans(<span class="dv">2</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(moons)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>db_labels <span class="op">=</span> DBSCAN(eps<span class="op">=</span><span class="fl">0.2</span>, min_samples<span class="op">=</span><span class="dv">5</span>).fit_predict(moons)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="fl">3.2</span>))</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].scatter(<span class="op">*</span>moons.T, c<span class="op">=</span>truth, cmap<span class="op">=</span><span class="st">"viridis"</span>, s<span class="op">=</span><span class="dv">10</span>)<span class="op">;</span>      ax[<span class="dv">0</span>].set_title(<span class="st">"The truth"</span>)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].scatter(<span class="op">*</span>moons.T, c<span class="op">=</span>km_labels, cmap<span class="op">=</span><span class="st">"viridis"</span>, s<span class="op">=</span><span class="dv">10</span>)<span class="op">;</span>  ax[<span class="dv">1</span>].set_title(<span class="st">"K-Means"</span>)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">2</span>].scatter(<span class="op">*</span>moons.T, c<span class="op">=</span>db_labels, cmap<span class="op">=</span><span class="st">"viridis"</span>, s<span class="op">=</span><span class="dv">10</span>)<span class="op">;</span>  ax[<span class="dv">2</span>].set_title(<span class="st">"DBSCAN"</span>)</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> ax: a.set_xticks([])<span class="op">;</span> a.set_yticks([])</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>km_acc <span class="op">=</span> <span class="bu">max</span>((km_labels <span class="op">==</span> truth).mean(), <span class="dv">1</span> <span class="op">-</span> (km_labels <span class="op">==</span> truth).mean())</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>db_acc <span class="op">=</span> <span class="bu">max</span>((db_labels <span class="op">==</span> truth).mean(), <span class="dv">1</span> <span class="op">-</span> (db_labels <span class="op">==</span> truth).mean())</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"K-Means matches the true crescents: </span><span class="sc">{</span>km_acc<span class="sc">:.0%}</span><span class="ss">"</span>)</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"DBSCAN  matches the true crescents: </span><span class="sc">{</span>db_acc<span class="sc">:.0%}</span><span class="ss">"</span>)</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"DBSCAN labelled </span><span class="sc">{</span>(db_labels <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss"> points as noise (label -1)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="fig-s10-dbscan" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1097,18 +1137,18 @@ DBSCAN labelled 0 points as noise (label -1)</code></pre>
 </section>
 <section id="demo-10-choosing-between-the-three" class="level3" data-number="15.2.2">
 <h3 data-number="15.2.2" class="anchored" data-anchor-id="demo-10-choosing-between-the-three"><span class="header-section-number">15.2.2</span> Demo 10 — choosing between the three</h3>
-<div id="40cf5802" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">''</span><span class="sc">:&lt;22}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'K-Means'</span><span class="sc">:&lt;22}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Hierarchical'</span><span class="sc">:&lt;22}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'DBSCAN'</span><span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> [</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"must choose k?"</span>,     <span class="st">"yes"</span>,                 <span class="st">"no — cut the tree"</span>,   <span class="st">"no"</span>),</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"cluster shapes"</span>,     <span class="st">"round blobs only"</span>,    <span class="st">"flexible"</span>,            <span class="st">"any shape"</span>),</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"handles noise"</span>,      <span class="st">"no — forces a group"</span>, <span class="st">"no"</span>,                  <span class="st">"yes, explicitly"</span>),</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"speed on big data"</span>,  <span class="st">"fast"</span>,                <span class="st">"slow (n² memory)"</span>,    <span class="st">"medium"</span>),</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"clusters of very different density"</span>, <span class="st">"poor"</span>, <span class="st">"fair"</span>,               <span class="st">"poor"</span>),</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"main use"</span>,           <span class="st">"the default first try"</span>,<span class="st">"exploring structure"</span>,<span class="st">"odd shapes, outliers"</span>),</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> label, a, b, c <span class="kw">in</span> rows:</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>label<span class="sc">:&lt;22}</span><span class="ss"> </span><span class="sc">{</span>a<span class="sc">:&lt;22}</span><span class="ss"> </span><span class="sc">{</span>b<span class="sc">:&lt;22}</span><span class="ss"> </span><span class="sc">{</span>c<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="4f6345ff" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">''</span><span class="sc">:&lt;22}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'K-Means'</span><span class="sc">:&lt;22}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Hierarchical'</span><span class="sc">:&lt;22}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'DBSCAN'</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> [</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"must choose k?"</span>,     <span class="st">"yes"</span>,                 <span class="st">"no — cut the tree"</span>,   <span class="st">"no"</span>),</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"cluster shapes"</span>,     <span class="st">"round blobs only"</span>,    <span class="st">"flexible"</span>,            <span class="st">"any shape"</span>),</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"handles noise"</span>,      <span class="st">"no — forces a group"</span>, <span class="st">"no"</span>,                  <span class="st">"yes, explicitly"</span>),</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"speed on big data"</span>,  <span class="st">"fast"</span>,                <span class="st">"slow (n² memory)"</span>,    <span class="st">"medium"</span>),</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"clusters of very different density"</span>, <span class="st">"poor"</span>, <span class="st">"fair"</span>,               <span class="st">"poor"</span>),</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"main use"</span>,           <span class="st">"the default first try"</span>,<span class="st">"exploring structure"</span>,<span class="st">"odd shapes, outliers"</span>),</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> label, a, b, c <span class="kw">in</span> rows:</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>label<span class="sc">:&lt;22}</span><span class="ss"> </span><span class="sc">{</span>a<span class="sc">:&lt;22}</span><span class="ss"> </span><span class="sc">{</span>b<span class="sc">:&lt;22}</span><span class="ss"> </span><span class="sc">{</span>c<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                       K-Means                Hierarchical           DBSCAN
 must choose k?         yes                    no — cut the tree      no
@@ -1196,7 +1236,7 @@ main use               the default first try  exploring structure    odd shapes,
 <div class="callout-body-container callout-body">
 <p><strong>A1 — (b).</strong> Which is why this chapter measures <em>justification</em> rather than accuracy.</p>
 <p><strong>A2 — (b).</strong> This is exactly why the elbow method looks for a bend rather than a minimum.</p>
-<p><strong>A3 — (b).</strong> Demo 3 showed the vertical bands this produces.</p>
+<p><strong>A3 — (b).</strong> Demo 3 measured 43% of applicants changing group on real loan data.</p>
 <p><strong>A4 — (b).</strong> Demo 9 measured K-Means at 76% and DBSCAN at essentially perfect.</p>
 <p><strong>A5 — (b).</strong> Demo 6’s noise experiment gave respectable silhouette scores on data with no structure at all. The score cannot tell you whether a grouping is meaningful.</p>
 </div>
@@ -1218,7 +1258,7 @@ main use               the default first try  exploring structure    odd shapes,
 </div>
 <div class="callout-body-container callout-body">
 <p><strong>Task 1 — Choose k and defend it.</strong> For the <code>customers</code> data, produce both the elbow plot and the silhouette curve. <strong>State your k and give two reasons.</strong></p>
-<p><strong>Task 2 — Prove scaling matters.</strong> Cluster the customers unscaled and scaled, and report what percentage of customers end up in a different group.</p>
+<p><strong>Task 2 — Prove scaling matters.</strong> Using <code>datasets/loan_data_10k.csv</code>, cluster on <code>person_income</code> and <code>credit_score</code> unscaled and scaled. <strong>Report what percentage of applicants end up in a different group.</strong></p>
 <p><strong>Task 3 — Name the segments.</strong> Run Demo 7 with k=4 and write a one-sentence description and one recommended action for each segment.</p>
 <p><strong>Task 4 — Cluster noise.</strong> Generate 300 random points with no structure, run K-Means with k=3, and plot the result. <strong>Write one sentence on what this teaches you about trusting a cluster chart.</strong></p>
 </div>
@@ -1235,37 +1275,34 @@ main use               the default first try  exploring structure    odd shapes,
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="04967ee3" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">42</span>)</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>cust <span class="op">=</span> pd.DataFrame(np.vstack([</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    rng.normal([<span class="dv">25_000</span>, <span class="dv">20</span>], [<span class="dv">6_000</span>, <span class="dv">8</span>], (<span class="dv">70</span>, <span class="dv">2</span>)),</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    rng.normal([<span class="dv">85_000</span>, <span class="dv">80</span>], [<span class="dv">9_000</span>, <span class="dv">8</span>], (<span class="dv">70</span>, <span class="dv">2</span>)),</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    rng.normal([<span class="dv">88_000</span>, <span class="dv">22</span>], [<span class="dv">9_000</span>, <span class="dv">7</span>], (<span class="dv">60</span>, <span class="dv">2</span>)),</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>]), columns<span class="op">=</span>[<span class="st">"income"</span>, <span class="st">"spending_score"</span>])</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — how many customers change group when you scale?</span></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>raw <span class="op">=</span> KMeans(<span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(cust)</span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>scl <span class="op">=</span> KMeans(<span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(StandardScaler().fit_transform(cust))</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>best_match <span class="op">=</span> pd.crosstab(raw, scl).<span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>).<span class="bu">sum</span>()</span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Task 2 — </span><span class="sc">{</span><span class="dv">1</span> <span class="op">-</span> best_match<span class="op">/</span><span class="bu">len</span>(cust)<span class="sc">:.0%}</span><span class="ss"> of customers land in a different segment"</span>)</span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"         when the data is scaled. Any campaign built on the unscaled segments"</span>)</span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"         would target the wrong people."</span>)</span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 4 — clusters found in data that has none</span></span>
-<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>noise <span class="op">=</span> rng.normal(size<span class="op">=</span>(<span class="dv">300</span>, <span class="dv">2</span>))</span>
-<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>lab <span class="op">=</span> KMeans(<span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(noise)</span>
-<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Task 4 — K-Means split pure noise into groups of </span><span class="sc">{</span>np<span class="sc">.</span>bincount(lab)<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">."</span>)</span>
-<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"         A cluster chart always looks convincing. The chart is not the evidence."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="2556ab04" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>cust <span class="op">=</span> (pd.read_csv(<span class="st">"datasets/loan_data_10k.csv"</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>          .dropna(subset<span class="op">=</span>[<span class="st">"person_income"</span>, <span class="st">"credit_score"</span>])</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>          .sample(<span class="dv">2_000</span>, random_state<span class="op">=</span><span class="dv">0</span>)[[<span class="st">"person_income"</span>, <span class="st">"credit_score"</span>]])</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — how many applicants change group when you scale?</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>raw <span class="op">=</span> KMeans(<span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(cust)</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>scl <span class="op">=</span> KMeans(<span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(StandardScaler().fit_transform(cust))</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>best_match <span class="op">=</span> pd.crosstab(raw, scl).<span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>).<span class="bu">sum</span>()</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Task 2 — </span><span class="sc">{</span><span class="dv">1</span> <span class="op">-</span> best_match<span class="op">/</span><span class="bu">len</span>(cust)<span class="sc">:.0%}</span><span class="ss"> of applicants land in a different group"</span>)</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"         once the data is scaled. Income is measured in hundreds of thousands and"</span>)</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"         credit score in hundreds, so unscaled, income decides everything."</span>)</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 4 — clusters found in data that has none</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>noise <span class="op">=</span> pd.read_csv(<span class="st">"datasets/random_noise.csv"</span>)[[<span class="st">"x"</span>, <span class="st">"y"</span>]].values</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>lab <span class="op">=</span> KMeans(<span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(noise)</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Task 4 — K-Means split pure noise into groups of </span><span class="sc">{</span>np<span class="sc">.</span>bincount(lab)<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"         A cluster chart always looks convincing. The chart is not the evidence."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Task 2 — 23% of customers land in a different segment
-         when the data is scaled. Any campaign built on the unscaled segments
-         would target the wrong people.
+<pre><code>Task 2 — 45% of applicants land in a different group
+         once the data is scaled. Income is measured in hundreds of thousands and
+         credit score in hundreds, so unscaled, income decides everything.
 
-Task 4 — K-Means split pure noise into groups of [114, 89, 97].
+Task 4 — K-Means split pure noise into groups of [138, 137, 125].
          A cluster chart always looks convincing. The chart is not the evidence.</code></pre>
 </div>
 </div>

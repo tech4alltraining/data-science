@@ -10,3 +10,4 @@ statsmodels
 mlxtend
 joblib
 streamlit
+openpyxl

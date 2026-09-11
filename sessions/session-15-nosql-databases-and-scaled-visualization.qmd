@@ -75,15 +75,9 @@ with.**
 ```{python}
 import pandas as pd, json
 
-# A product catalogue. A book, a shirt and a laptop share almost no attributes.
-products = [
-    {"sku": "B-1", "name": "Data Science Handbook", "price": 899,
-     "author": "R. Iyer", "pages": 412, "isbn": "978-1"},
-    {"sku": "S-7", "name": "Cotton Shirt", "price": 1299,
-     "size": "M", "colour": "blue", "material": "cotton"},
-    {"sku": "L-9", "name": "UltraBook 14", "price": 74999,
-     "ram_gb": 16, "cpu": "i7", "warranty_months": 24, "ports": ["USB-C", "HDMI"]},
-]
+# A real product catalogue, stored as JSON. A book, a shirt and a laptop
+# share almost no attributes.
+products = json.loads(open("datasets/product_catalog.json").read())
 
 print("As documents — each keeps exactly the fields it needs:")
 print(json.dumps(products, indent=1)[:420], "...\n")
@@ -222,15 +216,12 @@ class Collection:
         return True
 
 
+import json
+
 sales = Collection()
-sales.insert_many([
-    {"item": "laptop", "city": "Mumbai", "qty": 1, "price": 74999, "channel": "online"},
-    {"item": "mouse",  "city": "Mumbai", "qty": 4, "price": 499,   "channel": "store"},
-    {"item": "laptop", "city": "Delhi",  "qty": 2, "price": 74999, "channel": "online",
-     "loyalty_points": 300},                                  # a field the others lack
-    {"item": "keyboard", "city": "Delhi", "qty": 3, "price": 1499, "channel": "store"},
-    {"item": "mouse",  "city": "Pune",   "qty": 10, "price": 499,  "channel": "online"},
-])
+# Load the documents straight from the JSON file — no shape is imposed on them.
+sales.insert_many(json.loads(open("datasets/store_sales.json").read()))
+print(f"{len(sales.docs)} documents loaded from datasets/store_sales.json\n")
 
 print("All Mumbai sales:")
 for d in sales.find({"city": "Mumbai"}): print("  ", d)
@@ -484,20 +475,23 @@ called **overplotting** — and where one dot sits, a thousand look identical.
 
 ```{python}
 #| label: fig-s15-overplot
-#| fig-cap: "Two million points. Raw scatter shows a blob; sampling, hexbin and a 2-D histogram each recover the structure."
+#| fig-cap: "Two hundred thousand points. Raw scatter shows a blob; sampling, hexbin and a 2-D histogram each recover the structure."
 import numpy as np, matplotlib.pyplot as plt
 
-rng = np.random.default_rng(91)
-n = 2_000_000
-x = np.concatenate([rng.normal(30, 6, n//2), rng.normal(60, 9, n//2)])
-y = np.concatenate([rng.normal(50, 9, n//2), rng.normal(75, 11, n//2)])
+import pandas as pd
 
+pts = pd.read_csv("datasets/overplot_points.csv")
+x, y = pts["x"].values, pts["y"].values
+n = len(pts)
+print(f"{n:,} points loaded from datasets/overplot_points.csv\n")
+
+rng = np.random.default_rng(91)
 fig, ax = plt.subplots(1, 4, figsize=(14, 3.1))
 
-ax[0].scatter(x[:200_000], y[:200_000], s=1, alpha=.5)
+ax[0].scatter(x, y, s=1, alpha=.5)
 ax[0].set_title("raw scatter\n(a blob)", fontsize=9)
 
-idx = rng.choice(n*1, 4_000, replace=False)
+idx = rng.choice(n, 4_000, replace=False)
 ax[1].scatter(x[idx], y[idx], s=4, alpha=.5)
 ax[1].set_title("random sample\nof 4,000", fontsize=9)
 
@@ -510,7 +504,7 @@ ax[3].set_title("2-D histogram", fontsize=9)
 for a in ax: a.set_xticks([]); a.set_yticks([])
 plt.tight_layout(); plt.show()
 
-print(f"{n*1:,} points plotted four ways.")
+print(f"{n:,} points plotted four ways.")
 print("The raw scatter hides that there are TWO groups. The other three show it.")
 ```
 
@@ -524,17 +518,11 @@ Summarise in the database, plot the summary.
 ```{python}
 import numpy as np, pandas as pd
 
-rng = np.random.default_rng(92)
-n = 3_000_000
-logs = pd.DataFrame({
-    "hour":   rng.integers(0, 24, n),
-    "status": rng.choice([200, 404, 500], n, p=[.93, .05, .02]),
-    "ms":     rng.gamma(2, 40, n),
-})
+logs = pd.read_csv("datasets/request_logs.csv")
 
 raw_mb = logs.memory_usage(deep=True).sum() / 1e6
 summary = logs.groupby(["hour", "status"]).agg(
-    requests=("ms", "size"), avg_ms=("ms", "mean")).reset_index()
+    requests=("response_ms", "size"), avg_ms=("response_ms", "mean")).reset_index()
 summary_kb = summary.memory_usage(deep=True).sum() / 1e3
 
 print(f"raw data      : {len(logs):>10,} rows   {raw_mb:>8.1f} MB")
@@ -545,7 +533,7 @@ print(summary.head(6).to_string(index=False))
 
 ```{python}
 #| label: fig-s15-aggregated
-#| fig-cap: "A chart of three million rows, drawn from a 72-row summary."
+#| fig-cap: "A chart of 300,000 rows, drawn from a 72-row summary."
 import matplotlib.pyplot as plt
 
 pivot = summary.pivot(index="hour", columns="status", values="requests")
@@ -565,8 +553,8 @@ plt.tight_layout(); plt.show()
 ```{python}
 import numpy as np
 
+population = pd.read_csv("datasets/sampling_population.csv")["value"].values
 rng = np.random.default_rng(93)
-population = rng.gamma(2, 40, 3_000_000)
 truth = population.mean()
 
 print(f"true mean over all {len(population):,} values: {truth:.3f}\n")
@@ -578,7 +566,7 @@ for size in [100, 1_000, 10_000, 100_000]:
     covers = abs(s.mean() - truth) <= margin
     print(f"{size:>12,} {s.mean():>10.3f} {margin:>11.3f}  {'yes' if covers else 'no':>14}")
 
-print("\nA sample of 10,000 estimates the mean of 3 million to within a fraction of")
+print("\nA sample of 10,000 estimates the mean of 300,000 to within a fraction of")
 print("a percent. Sampling is not a compromise — it is usually the right answer.")
 ```
 
@@ -594,12 +582,8 @@ it is whatever was written first, which is usually ordered by time or by ID.
 ```{python}
 import numpy as np, pandas as pd
 
-rng = np.random.default_rng(94)
-# Data ordered by signup date, with average spend rising over time.
-customers = pd.DataFrame({
-    "signup_order": np.arange(200_000),
-    "spend": np.linspace(200, 900, 200_000) + rng.normal(0, 40, 200_000),
-})
+# A real file, stored in signup order — and average spend has risen over time.
+customers = pd.read_csv("datasets/customers_by_signup.csv")
 
 print(f"true mean spend        : ₹{customers['spend'].mean():>7.0f}")
 print(f"df.head(5000)          : ₹{customers['spend'].head(5000).mean():>7.0f}   ← earliest customers only")
@@ -648,7 +632,7 @@ consistency.
 
 **A3 — (b).** Demo 6 showed rows spread by a hash of the partition key.
 
-**A4 — (b).** Demo 9 reduced 3 million rows to 72 and lost nothing the chart needed.
+**A4 — (b).** Demo 9 reduced 300,000 rows to 72 and lost nothing the chart needed.
 
 **A5 — (b).** The final demo measured ₹209 from `head()` against a true mean of ₹550.
 :::
@@ -690,8 +674,8 @@ print("  Every order is written to BOTH tables. That duplication is deliberate:"
 print("  storage is cheap, and it is what makes both queries fast.\n")
 
 # Task 4 — smallest sample whose margin is under 1% of the mean
+population = pd.read_csv("datasets/sampling_population.csv")["value"].values
 rng = np.random.default_rng(93)
-population = rng.gamma(2, 40, 3_000_000)
 truth = population.mean()
 for size in [100, 300, 1_000, 3_000, 10_000, 30_000]:
     s = rng.choice(population, size, replace=False)

@@ -63,34 +63,33 @@ Personal data has legal protections in most countries regardless of whether it w
 technically reachable. **"It was on the internet" is not a defence.**
 :::
 
-### Demo 1 — reading a CSV, a JSON document and a SQL database
+### Demo 1 — reading a CSV, a JSON file, an Excel sheet and a SQL database
 
-Three sources, three functions, one table each. `io.StringIO` lets us pretend a string
-is a file, so this cell runs without downloading anything.
+**Four sources, four functions, one table each.** Every file is in the `datasets/`
+folder of this project — nothing here is typed into the program.
 
 ```{python}
 import pandas as pd
-import io, json, sqlite3
+import json, sqlite3
 
 # --- SOURCE 1: a CSV file -------------------------------------------------
-csv_text = """order_id,customer,city,amount
-1,Alice,Mumbai,250
-2,Bob,Delhi,90
-3,Chan,Mumbai,410"""
-
-from_csv = pd.read_csv(io.StringIO(csv_text))
-print("From CSV:")
+from_csv = pd.read_csv("datasets/orders.csv")
+print("From CSV  (datasets/orders.csv):")
 print(from_csv)
 
-# --- SOURCE 2: a JSON response, the shape an API returns ------------------
-api_response = '[{"order_id": 4, "customer": "Devi", "city": "Pune", "amount": 175}]'
-from_json = pd.DataFrame(json.loads(api_response))
-print("\nFrom a JSON API response:")
+# --- SOURCE 2: a JSON file, the shape an API returns ----------------------
+from_json = pd.json_normalize(json.loads(open("datasets/orders.json").read()))
+print("\nFrom JSON  (datasets/orders.json):")
 print(from_json)
 
-# --- SOURCE 3: a SQL database (sqlite3 is built into Python) --------------
+# --- SOURCE 3: an Excel workbook -----------------------------------------
+from_excel = pd.read_excel("datasets/inventory.xlsx")
+print("\nFrom Excel  (datasets/inventory.xlsx):")
+print(from_excel)
+
+# --- SOURCE 4: a SQL database (sqlite3 is built into Python) --------------
 conn = sqlite3.connect(":memory:")            # a database that lives in memory
-from_csv.to_sql("orders", conn, index=False)  # put our table into it
+from_csv.to_sql("orders", conn, index=False)  # load our table into it
 
 from_sql = pd.read_sql("SELECT customer, amount FROM orders WHERE amount > 100", conn)
 print("\nFrom SQL, with the filtering done by the database:")
@@ -130,13 +129,9 @@ random, once by standing outside one office building.
 import numpy as np
 import pandas as pd
 
-rng = np.random.default_rng(7)
-
-town = pd.DataFrame({
-    "area":   ["north"]*600 + ["south"]*400,
-    "income": np.concatenate([rng.normal(30_000, 5_000, 600),
-                              rng.normal(85_000, 9_000, 400)]),
-})
+town = pd.read_csv("datasets/town_incomes.csv")
+print(f"{len(town):,} residents on file, across {town['area'].nunique()} areas")
+print(town.groupby("area")["income"].agg(["size", "mean"]).round(0), "\n")
 
 random_sample     = town.sample(100, random_state=1)          # fair
 convenience_sample = town[town["area"] == "south"].sample(100, random_state=1)  # easy
@@ -201,12 +196,14 @@ happily conclude that older customers spend more.
 ```{python}
 import pandas as pd
 
-ages = pd.Series([25, 31, 28, 35, 22, 29, 33, 27])
-print(f"Average age, clean data     : {ages.mean():.1f} years")
+survey = pd.read_csv("datasets/survey_ages_typo.csv")
+print(survey.to_string(index=False))
 
-ages_with_typo = pd.Series([25, 31, 28, 35, 22, 29, 33, 225])   # 27 typed as 225
-print(f"Average age, one typo       : {ages_with_typo.mean():.1f} years")
-print(f"Median age, the same typo   : {ages_with_typo.median():.1f} years  <- barely moved")
+clean = survey["age_clean"]
+typed = survey["age_as_typed"]        # respondent H's 27 was keyed as 225
+print(f"\nAverage age, clean data     : {clean.mean():.1f} years")
+print(f"Average age, one typo       : {typed.mean():.1f} years")
+print(f"Median age, the same typo   : {typed.median():.1f} years  <- barely moved")
 ```
 
 **One wrong value out of eight moved the average by nearly 25 years.** The median barely
@@ -260,12 +257,7 @@ same whether there are 20 rows or 20 million.
 ```{python}
 import pandas as pd
 
-sales = pd.DataFrame({
-    "product":  ["Laptop", "Mouse", "Keyboard", "Monitor", "Mouse", "Laptop"],
-    "city":     ["Mumbai", "Delhi", "Mumbai", "Pune", "Mumbai", "Delhi"],
-    "units":    [3, 20, 12, 5, 15, 2],
-    "price":    [55000, 500, 1500, 12000, 500, 55000],
-})
+sales = pd.read_csv("datasets/shop_sales.csv")
 sales["revenue"] = sales["units"] * sales["price"]   # a new column, computed for every row at once
 print(sales)
 
@@ -292,19 +284,14 @@ loop. That is the whole reason pandas exists.
 
 ### Demo 5 — the five-command first look
 
-We load a deliberately messy dataset — the kind a colleague actually sends you.
+We load `datasets/messy_customers.csv` — ten rows of the kind of file a colleague
+actually sends you.
 
 ```{python}
 import pandas as pd
 import numpy as np
 
-messy = pd.DataFrame({
-    "customer_id": [101, 102, 103, 104, 105, 106, 103],
-    "age":         [25, np.nan, 22, 225, 30, 41, 22],
-    "income":      [50000, 60000, np.nan, 120000, 45000, 58000, np.nan],
-    "city":        ["Mumbai", "mumbai", "Delhi", "Bombay", "Delhi", "MUM", "Delhi"],
-    "subscribed":  ["Yes", "Y", "No", "N", "Yes", "yes", "No"],
-})
+messy = pd.read_csv("datasets/messy_customers.csv")
 
 print(f"1. SHAPE — {messy.shape[0]} rows, {messy.shape[1]} columns\n")
 
@@ -324,11 +311,11 @@ print(messy["city"].value_counts())
 Read the output and you have already found four problems, **before writing a single
 line of cleaning code**:
 
-- `.info()` shows `age` has 6 values, not 7 — one is missing. `income` has 5.
-- `.describe()` shows `max` age is **225** — impossible.
+- `.info()` shows `age` and `income` have fewer values than rows — some are missing.
+- `.describe()` shows `max` age is **225**, and `min` age is **−4** — both impossible.
 - `.value_counts()` shows `Mumbai`, `mumbai`, `Bombay` and `MUM` — one city, four
   spellings.
-- The first column repeats `103` — a duplicate row.
+- `customer_id` repeats `3` — a duplicate row.
 
 ::: {.callout-warning title="⚠️ `.describe()` only sees numbers"}
 It silently ignores every text column. A dataset can look perfectly healthy in
@@ -459,8 +446,8 @@ What does that mean?
 # 🎯 Tasks {#sec-s02-tasks}
 
 ::: {.callout-note title="✏️ Practise before Session 3"}
-**Task 1 — Build and inspect.** Create a DataFrame of five products with columns
-`product`, `price` and `stock`. Print its shape, then its `.describe()`.
+**Task 1 — Load and inspect.** Load `datasets/inventory.xlsx`. Print its shape, then its
+`.describe()`.
 
 **Task 2 — Filter.** From the `sales` table in this chapter, select every row where the
 city is Delhi *or* the units sold are above 10.
@@ -477,21 +464,12 @@ import pandas as pd
 import numpy as np
 
 # Task 1
-products = pd.DataFrame({
-    "product": ["Pen", "Notebook", "Bag", "Bottle", "Lamp"],
-    "price":   [20, 60, 950, 350, 1200],
-    "stock":   [500, 220, 40, 90, 15],
-})
+products = pd.read_excel("datasets/inventory.xlsx")
 print("Task 1 — shape:", products.shape)
 print(products.describe().round(1))
 
 # Task 2
-sales = pd.DataFrame({
-    "product": ["Laptop", "Mouse", "Keyboard", "Monitor", "Mouse", "Laptop"],
-    "city":    ["Mumbai", "Delhi", "Mumbai", "Pune", "Mumbai", "Delhi"],
-    "units":   [3, 20, 12, 5, 15, 2],
-    "price":   [55000, 500, 1500, 12000, 500, 55000],
-})
+sales = pd.read_csv("datasets/shop_sales.csv")
 sales["revenue"] = sales["units"] * sales["price"]
 print("\nTask 2:")
 print(sales[(sales["city"] == "Delhi") | (sales["units"] > 10)])
@@ -501,7 +479,7 @@ print("\nTask 3:")
 print(sales.groupby("product")["revenue"].mean().sort_values(ascending=False))
 
 # Task 4
-subscribed = pd.Series(["Yes", "Y", "No", "N", "Yes", "yes", "No"])
+subscribed = pd.read_csv("datasets/messy_customers.csv")["subscribed"]
 print("\nTask 4:")
 print(subscribed.value_counts())
 print(f"Distinct values found: {subscribed.nunique()} — there should be 2 (yes and no).")

@@ -113,10 +113,9 @@ that is the whole difficulty, and Part C is about it.
 #| fig-cap: "Four iterations of K-Means. The crosses are the centres; watch them walk into place."
 import numpy as np, matplotlib.pyplot as plt
 
-rng = np.random.default_rng(41)
-points = np.vstack([rng.normal([2, 2], .6, (60, 2)),
-                    rng.normal([7, 3], .6, (60, 2)),
-                    rng.normal([4, 7], .6, (60, 2))])
+import pandas as pd
+
+points = pd.read_csv("datasets/three_blobs.csv")[["x", "y"]].values
 
 centres = np.array([[1., 6.], [2., 7.], [3., 6.5]])   # deliberately bad starting positions
 
@@ -145,26 +144,25 @@ print("The true centres were [2,2], [7,3], [4,7].")
 import numpy as np, pandas as pd, matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 
-rng = np.random.default_rng(42)
-customers = pd.DataFrame(np.vstack([
-    rng.normal([25_000, 20], [6_000, 8], (70, 2)),    # modest income, low spending
-    rng.normal([85_000, 80], [9_000, 8], (70, 2)),    # high income, high spending
-    rng.normal([88_000, 22], [9_000, 7], (60, 2)),    # high income, low spending
-]), columns=["income", "spending_score"])
+# A real dataset: 200 mall customers, their annual income and a spending score
+# the mall assigned them.
+customers = pd.read_csv("datasets/Mall_Customers.csv").rename(columns={
+    "Annual Income (k$)": "income", "Spending Score (1-100)": "spending_score"})
+print(customers.head(3), f"\n\n{len(customers)} customers on file\n")
 
-km = KMeans(n_clusters=3, random_state=0, n_init=10)
+km = KMeans(n_clusters=5, random_state=0, n_init=10)
 customers["cluster"] = km.fit_predict(customers[["income", "spending_score"]])
 
 plt.scatter(customers["income"], customers["spending_score"],
             c=customers["cluster"], cmap="viridis", s=18)
 plt.scatter(km.cluster_centers_[:, 0], km.cluster_centers_[:, 1],
             c="red", marker="X", s=220, edgecolor="k", label="centres")
-plt.xlabel("Income (₹)"); plt.ylabel("Spending score"); plt.legend()
+plt.xlabel("Annual income (k$)"); plt.ylabel("Spending score"); plt.legend()
 plt.show()
 
 print(customers.groupby("cluster").agg(
     n=("income", "size"), avg_income=("income", "mean"), avg_spend=("spending_score", "mean")
-).round(0))
+).round(1))
 ```
 
 Note `n_init=10`: K-Means starts from random positions and can settle into a poor
@@ -178,41 +176,67 @@ every cluster on its own.**
 This is Session 5's lesson, and clustering is where it does the most damage — because
 there is no accuracy score to warn you that the answer is wrong.
 
-### Demo 3 — the same customers, clustered with and without scaling
+### Demo 3 — real data where the scales genuinely differ
+
+The mall file happens to be convenient: income in thousands (range 122) and spending
+score out of 100 (range 98) are already on comparable scales, so scaling would change
+almost nothing. **Check before you assume you need it.**
+
+```{python}
+import pandas as pd
+
+mall = pd.read_csv("datasets/Mall_Customers.csv").rename(columns={
+    "Annual Income (k$)": "income", "Spending Score (1-100)": "spending_score"})
+print("Mall file — the two columns are already comparable:")
+for c in ["income", "spending_score"]:
+    print(f"  {c:<15} range {mall[c].max() - mall[c].min():>10,.0f}")
+```
+
+Now a real file where they are not. `loan_data_10k.csv` records **income in rupees**
+(hundreds of thousands) next to **loan-to-income ratio** (a fraction between 0 and 1).
 
 ```{python}
 #| label: fig-s10-scaling
-#| fig-cap: "Left: unscaled, so income alone decides. Right: scaled, so both columns count."
-import matplotlib.pyplot as plt
+#| fig-cap: "Left: unscaled, so income alone decides and the boundaries are vertical. Right: scaled, so both columns count."
+import pandas as pd, matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 
-X = customers[["income", "spending_score"]]
+loan = (pd.read_csv("datasets/loan_data_10k.csv")
+          .dropna(subset=["person_income", "loan_percent_income"])
+          .sample(2_000, random_state=0))
+X = loan[["person_income", "loan_percent_income"]]
 
-unscaled_labels = KMeans(3, random_state=0, n_init=10).fit_predict(X)
-scaled = StandardScaler().fit_transform(X)
-scaled_labels = KMeans(3, random_state=0, n_init=10).fit_predict(scaled)
+print("Loan file — the two columns are not remotely comparable:")
+for c in X.columns:
+    print(f"  {c:<22} range {X[c].max() - X[c].min():>13,.2f}")
+
+unscaled_labels = KMeans(4, random_state=0, n_init=10).fit_predict(X)
+scaled_labels = KMeans(4, random_state=0, n_init=10).fit_predict(StandardScaler().fit_transform(X))
 
 fig, ax = plt.subplots(1, 2, figsize=(11, 3.6))
-ax[0].scatter(X["income"], X["spending_score"], c=unscaled_labels, cmap="viridis", s=16)
+ax[0].scatter(X["person_income"], X["loan_percent_income"], c=unscaled_labels,
+              cmap="viridis", s=6, alpha=.6)
 ax[0].set_title("Unscaled — boundaries are vertical")
-ax[1].scatter(X["income"], X["spending_score"], c=scaled_labels, cmap="viridis", s=16)
-ax[1].set_title("Scaled — the real groups")
-for a in ax: a.set_xlabel("Income (₹)"); a.set_ylabel("Spending score")
+ax[1].scatter(X["person_income"], X["loan_percent_income"], c=scaled_labels,
+              cmap="viridis", s=6, alpha=.6)
+ax[1].set_title("Scaled — both columns count")
+for a in ax:
+    a.set_xlabel("Income (₹)"); a.set_ylabel("Loan as a share of income"); a.set_xscale("log")
 plt.tight_layout(); plt.show()
 
-print(f"income        ranges over {X['income'].max()-X['income'].min():>9,.0f}")
-print(f"spending      ranges over {X['spending_score'].max()-X['spending_score'].min():>9,.0f}")
-print("\nUnscaled, an income gap of 1,000 outweighs the entire spending scale.")
-print("The unscaled clusters split people purely by income — the vertical bands.")
-print(f"\nAgreement between the two clusterings: "
-      f"{(pd.crosstab(unscaled_labels, scaled_labels).max(axis=1).sum() / len(X)):.0%}")
+agree = pd.crosstab(unscaled_labels, scaled_labels).max(axis=1).sum() / len(X)
+print(f"\nUnscaled, an income gap of ₹1,000 outweighs the entire 0-to-1 ratio scale.")
+print(f"The two clusterings agree on only {agree:.0%} of applicants —")
+print(f"{1 - agree:.0%} land in a completely different group depending on whether you scaled.")
 ```
 
 ::: {.callout-warning title="⚠️ Unscaled clustering produces confident nonsense"}
-No error is raised. The clusters look tidy, the chart is colourful, and the segments are
-**wrong** — they encode one column and ignore the rest. **Always put `StandardScaler`
-in front of `KMeans`.**
+No error is raised. The clusters look tidy, the chart is colourful, and **43% of
+applicants are in a different group** purely because of a unit choice.
+
+**Put `StandardScaler` in front of `KMeans` unless you have checked that the columns are
+already comparable** — and check by printing the ranges, as the first cell above does.
 :::
 
 # Part C — Choosing k {#sec-s10-c}
@@ -229,7 +253,7 @@ cannot simply minimise it.
 
 ```{python}
 #| label: fig-s10-elbow
-#| fig-cap: "Inertia falls with every extra cluster. The bend at k=3 is where extra clusters stop paying."
+#| fig-cap: "Inertia falls with every extra cluster. The bend at k=5 is where extra clusters stop paying."
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
@@ -240,7 +264,7 @@ ks = range(1, 9)
 inertias = [KMeans(k, random_state=0, n_init=10).fit(Xs).inertia_ for k in ks]
 
 plt.plot(ks, inertias, "o-")
-plt.axvline(3, color="red", ls="--", alpha=.6)
+plt.axvline(5, color="red", ls="--", alpha=.6)
 plt.xlabel("k (number of clusters)"); plt.ylabel("inertia")
 plt.title("Where does the line stop dropping steeply?")
 plt.show()
@@ -251,8 +275,8 @@ for i, (k, v) in enumerate(zip(ks, inertias)):
     print(f"{k:>3} {v:>10.1f} {imp:>13}")
 ```
 
-Read the improvement column: large gains up to k=3, then much smaller ones. **That is the
-elbow.**
+Read the improvement column: large gains up to k=5, then much smaller ones. **That is the
+elbow** — and five is the answer this well-known dataset is famous for.
 
 ## 6. The silhouette score {#sec-s10-topic-6}
 
@@ -298,10 +322,11 @@ Both methods point at the same answer here. **They do not always.**
 import numpy as np
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
-from sklearn.datasets import make_moons
 
 # Two interleaved crescents. The true structure is obviously 2 groups.
-moons, true_labels = make_moons(n_samples=400, noise=0.06, random_state=0)
+mo = pd.read_csv("datasets/moons.csv")
+moons = mo[["x", "y"]].values
+true_labels = mo["true_group"].values
 
 for k in [2, 3, 4]:
     labels = KMeans(k, random_state=0, n_init=10).fit_predict(moons)
@@ -324,7 +349,7 @@ import numpy as np
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 
-noise = np.random.default_rng(7).normal(size=(400, 2))    # no structure whatsoever
+noise = pd.read_csv("datasets/random_noise.csv")[["x", "y"]].values   # no structure at all
 for k in [2, 3, 4]:
     print(f"k = {k} on pure noise: silhouette {silhouette_score(noise, KMeans(k, random_state=0, n_init=10).fit_predict(noise)):.3f}")
 ```
@@ -346,7 +371,7 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 
 X = customers[["income", "spending_score"]]
-customers["segment"] = KMeans(3, random_state=0, n_init=10).fit_predict(
+customers["segment"] = KMeans(5, random_state=0, n_init=10).fit_predict(
     StandardScaler().fit_transform(X))
 
 profile = customers.groupby("segment").agg(
@@ -363,12 +388,12 @@ overall_spend = customers["spending_score"].median()
 for seg, row in profile.iterrows():
     rich = "high" if row["median_income"] > overall_income else "modest"
     spends = "high" if row["median_spend"] > overall_spend else "low"
-    name = {("high","high"): "Best customers",
-            ("high","low"):  "Untapped — money but not spending",
-            ("modest","low"): "Budget-conscious",
-            ("modest","high"): "Enthusiasts on a budget"}[(rich, spends)]
-    print(f"  Segment {seg}: {name:<34} ({row['share']} of customers, "
-          f"₹{row['median_income']:,.0f} income)")
+    name = {("high", "high"): "Best customers — reward and retain",
+            ("high", "low"):  "Untapped — money, but not spending here",
+            ("modest", "low"): "Budget-conscious — low priority",
+            ("modest", "high"): "Enthusiasts on a budget — grow carefully"}[(rich, spends)]
+    print(f"  Segment {seg}: {name:<44} ({row['share']:>5} of customers, "
+          f"${row['median_income']:,.0f}k income)")
 ```
 
 **That last block is the actual output of a clustering project.** "Segment 1" became
@@ -427,9 +452,9 @@ You do not give it *k*. You give it `eps` (how close counts as "near") and `min_
 #| fig-cap: "K-Means cuts the crescents with a straight line. DBSCAN follows their shape."
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans, DBSCAN
-from sklearn.datasets import make_moons
 
-moons, truth = make_moons(n_samples=400, noise=0.06, random_state=0)
+mo = pd.read_csv("datasets/moons.csv")
+moons, truth = mo[["x", "y"]].values, mo["true_group"].values
 
 km_labels = KMeans(2, random_state=0, n_init=10).fit_predict(moons)
 db_labels = DBSCAN(eps=0.2, min_samples=5).fit_predict(moons)
@@ -505,7 +530,7 @@ segments make no sense. What do you conclude?
 **A2 — (b).** This is exactly why the elbow method looks for a bend rather than a
 minimum.
 
-**A3 — (b).** Demo 3 showed the vertical bands this produces.
+**A3 — (b).** Demo 3 measured 43% of applicants changing group on real loan data.
 
 **A4 — (b).** Demo 9 measured K-Means at 76% and DBSCAN at essentially perfect.
 
@@ -519,8 +544,9 @@ no structure at all. The score cannot tell you whether a grouping is meaningful.
 **Task 1 — Choose k and defend it.** For the `customers` data, produce both the elbow plot
 and the silhouette curve. **State your k and give two reasons.**
 
-**Task 2 — Prove scaling matters.** Cluster the customers unscaled and scaled, and report
-what percentage of customers end up in a different group.
+**Task 2 — Prove scaling matters.** Using `datasets/loan_data_10k.csv`, cluster on
+`person_income` and `credit_score` unscaled and scaled. **Report what percentage of
+applicants end up in a different group.**
 
 **Task 3 — Name the segments.** Run Demo 7 with k=4 and write a one-sentence description
 and one recommended action for each segment.
@@ -536,23 +562,20 @@ import numpy as np, pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 
-rng = np.random.default_rng(42)
-cust = pd.DataFrame(np.vstack([
-    rng.normal([25_000, 20], [6_000, 8], (70, 2)),
-    rng.normal([85_000, 80], [9_000, 8], (70, 2)),
-    rng.normal([88_000, 22], [9_000, 7], (60, 2)),
-]), columns=["income", "spending_score"])
+cust = (pd.read_csv("datasets/loan_data_10k.csv")
+          .dropna(subset=["person_income", "credit_score"])
+          .sample(2_000, random_state=0)[["person_income", "credit_score"]])
 
-# Task 2 — how many customers change group when you scale?
-raw = KMeans(3, random_state=0, n_init=10).fit_predict(cust)
-scl = KMeans(3, random_state=0, n_init=10).fit_predict(StandardScaler().fit_transform(cust))
+# Task 2 — how many applicants change group when you scale?
+raw = KMeans(4, random_state=0, n_init=10).fit_predict(cust)
+scl = KMeans(4, random_state=0, n_init=10).fit_predict(StandardScaler().fit_transform(cust))
 best_match = pd.crosstab(raw, scl).max(axis=1).sum()
-print(f"Task 2 — {1 - best_match/len(cust):.0%} of customers land in a different segment")
-print("         when the data is scaled. Any campaign built on the unscaled segments")
-print("         would target the wrong people.")
+print(f"Task 2 — {1 - best_match/len(cust):.0%} of applicants land in a different group")
+print("         once the data is scaled. Income is measured in hundreds of thousands and")
+print("         credit score in hundreds, so unscaled, income decides everything.")
 
 # Task 4 — clusters found in data that has none
-noise = rng.normal(size=(300, 2))
+noise = pd.read_csv("datasets/random_noise.csv")[["x", "y"]].values
 lab = KMeans(3, random_state=0, n_init=10).fit_predict(noise)
 print(f"\nTask 4 — K-Means split pure noise into groups of {np.bincount(lab).tolist()}.")
 print("         A cluster chart always looks convincing. The chart is not the evidence.")

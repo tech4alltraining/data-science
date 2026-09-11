@@ -128,9 +128,11 @@ distances to the points as small as possible. Squared, for the same reason as in
 import numpy as np, matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 
-rng = np.random.default_rng(31)
-experience = rng.uniform(0, 15, 40)
-salary = 25_000 + experience * 9_000 + rng.normal(0, 12_000, 40)
+import pandas as pd
+
+emp = pd.read_csv("datasets/experience_salary.csv")
+experience, salary = emp["experience_years"].values, emp["salary"].values
+print(emp.head(3), f"\n\n{len(emp)} employees on file\n")
 
 X = experience.reshape(-1, 1)          # scikit-learn wants a 2-D table, even for one column
 y = salary
@@ -202,17 +204,11 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
-rng = np.random.default_rng(32)
-n = 400
-area = rng.normal(1_200, 350, n).clip(400, 2_800)
-bedrooms = np.clip((area / 450).round(), 1, 5)
-age = rng.integers(0, 40, n)
+homes = pd.read_csv("datasets/house_prices.csv")
+print(f"{len(homes)} houses on file: {list(homes.columns)}\n")
 
-# The truth we are asking the model to recover:
-price = 3_200*area + 250_000*bedrooms - 45_000*age + 400_000 + rng.normal(0, 250_000, n)
-
-homes = pd.DataFrame({"area_sqft": area.round(), "bedrooms": bedrooms.astype(int),
-                      "age_years": age, "price": price.round(-3)})
+# The file was built from a known truth, so we can check what the model recovers:
+#   ₹3,200 per square foot · ₹250,000 per bedroom · −₹45,000 per year of age
 
 X = homes[["area_sqft", "bedrooms", "age_years"]]
 y = homes["price"]
@@ -300,8 +296,10 @@ automates exactly this comparison.
 import numpy as np
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
-actual    = np.array([100, 200, 300, 400, 500])
-predicted = np.array([110, 190, 310, 380, 520])
+import pandas as pd
+
+preds = pd.read_csv("datasets/predictions_small.csv")
+actual, predicted = preds["actual"].values, preds["predicted"].values
 errors = predicted - actual
 
 print(f"actual    : {actual.tolist()}")
@@ -326,14 +324,13 @@ print(f"\nscikit-learn agrees: MAE {mean_absolute_error(actual, predicted):.2f},
 import numpy as np
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
-actual = np.full(100, 500.0)
+import pandas as pd
 
-spread_out = actual + np.full(100, 20.0)                  # every prediction off by 20
-one_disaster = actual.copy() + 0.0
-one_disaster[0] += 2000                                    # 99 perfect, 1 catastrophic
+pat = pd.read_csv("datasets/two_error_patterns.csv")
+actual = pat["actual"].values
 
-for name, pred in [("everything off by 20", spread_out),
-                   ("99 perfect, 1 wrong by 2000", one_disaster)]:
+for name, pred in [("everything off by 20", pat["model_a_spread_out"].values),
+                   ("99 perfect, 1 wrong by 2000", pat["model_b_one_disaster"].values)]:
     mae = mean_absolute_error(actual, pred)
     rmse = np.sqrt(mean_squared_error(actual, pred))
     print(f"{name:<30} MAE {mae:7.2f}   RMSE {rmse:7.2f}")
@@ -401,13 +398,14 @@ can still work — but the coefficients and confidence in them cannot be trusted
 import numpy as np, matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 
-rng = np.random.default_rng(33)
-x = rng.uniform(1, 20, 250)
+import pandas as pd
 
+rs = pd.read_csv("datasets/residual_shapes.csv")
+x = rs["x"].values
 cases = {
-    "Healthy":         3*x + rng.normal(0, 2, 250),
-    "Curved pattern":  0.35*x**2 + rng.normal(0, 2, 250),
-    "Fanning out":     3*x + rng.normal(0, 1, 250) * x * 0.4,
+    "Healthy":        rs["healthy"].values,
+    "Curved pattern": rs["curved"].values,
+    "Fanning out":    rs["fanning_out"].values,
 }
 
 fig, axes = plt.subplots(1, 3, figsize=(12, 3.2))
@@ -439,10 +437,9 @@ from sklearn.pipeline import make_pipeline
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score
 
-rng = np.random.default_rng(34)
-speed = rng.uniform(20, 120, 300)                       # km/h
-# Fuel efficiency peaks in the middle and falls at both ends — a curve, not a line.
-efficiency = 25 - 0.004 * (speed - 65)**2 + rng.normal(0, 0.8, 300)
+fuel = pd.read_csv("datasets/fuel_efficiency.csv")
+speed, efficiency = fuel["speed_kmh"].values, fuel["efficiency_kmpl"].values
+# Efficiency peaks in the middle and falls at both ends — a curve, not a line.
 
 Xs = speed.reshape(-1, 1)
 Xtr, Xte, ytr, yte = train_test_split(Xs, efficiency, test_size=.3, random_state=0)
@@ -540,14 +537,9 @@ print("  film rating out of 10   → REGRESSION (but see the warning in topic 2)
 print("  which of 4 warehouses   → CLASSIFICATION (4 categories)")
 
 # Task 2 — how close did the model get to the truth?
-rng = np.random.default_rng(32)
-n = 400
-area = rng.normal(1_200, 350, n).clip(400, 2_800)
-bedrooms = np.clip((area/450).round(), 1, 5)
-age = rng.integers(0, 40, n)
-price = 3_200*area + 250_000*bedrooms - 45_000*age + 400_000 + rng.normal(0, 250_000, n)
-X = pd.DataFrame({"area_sqft": area.round(), "bedrooms": bedrooms.astype(int), "age_years": age})
-Xtr, Xte, ytr, yte = train_test_split(X, price, test_size=.2, random_state=0)
+homes = pd.read_csv("datasets/house_prices.csv")
+X = homes[["area_sqft", "bedrooms", "age_years"]]
+Xtr, Xte, ytr, yte = train_test_split(X, homes["price"], test_size=.2, random_state=0)
 m = LinearRegression().fit(Xtr, ytr)
 
 print("\nTask 2")

@@ -467,40 +467,36 @@ Note
 <p>A trained <code>LinearRegression</code> knows its coefficients. It does <strong>not</strong> know that its inputs were scaled before training. Feed it raw, unscaled numbers and it will apply coefficients meant for scaled ones — and return a number, confidently, with no error.</p>
 <section id="demo-1-the-silent-failure-measured" class="level3" data-number="14.2.1">
 <h3 data-number="14.2.1" class="anchored" data-anchor-id="demo-1-the-silent-failure-measured"><span class="header-section-number">14.2.1</span> Demo 1 — the silent failure, measured</h3>
-<div id="e47ba424" class="cell" data-execution_count="2">
+<div id="c3216e36" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">61</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">500</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>homes <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"area_sqft"</span>: rng.normal(<span class="dv">1_200</span>, <span class="dv">350</span>, n).clip(<span class="dv">400</span>, <span class="dv">3_000</span>).<span class="bu">round</span>(),</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"age_years"</span>: rng.integers(<span class="dv">0</span>, <span class="dv">40</span>, n),</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>homes[<span class="st">"price"</span>] <span class="op">=</span> (<span class="dv">3_200</span><span class="op">*</span>homes[<span class="st">"area_sqft"</span>] <span class="op">-</span> <span class="dv">45_000</span><span class="op">*</span>homes[<span class="st">"age_years"</span>]</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                  <span class="op">+</span> <span class="dv">400_000</span> <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">200_000</span>, n)).<span class="bu">round</span>(<span class="op">-</span><span class="dv">3</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> homes[[<span class="st">"area_sqft"</span>, <span class="st">"age_years"</span>]]</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> homes[<span class="st">"price"</span>]</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">.2</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>homes <span class="op">=</span> pd.read_csv(<span class="st">"datasets/house_prices_simple.csv"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(homes)<span class="sc">}</span><span class="ss"> houses on file: </span><span class="sc">{</span><span class="bu">list</span>(homes.columns)<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> homes[[<span class="st">"area_sqft"</span>, <span class="st">"age_years"</span>]]</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> homes[<span class="st">"price"</span>]</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">.2</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Train with scaling, as Session 5 taught.</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler().fit(X_train)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression().fit(scaler.transform(X_train), y_train)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>new_house <span class="op">=</span> pd.DataFrame([{<span class="st">"area_sqft"</span>: <span class="dv">1500</span>, <span class="st">"age_years"</span>: <span class="dv">5</span>}])</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Train with scaling, as Session 5 taught.</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler().fit(X_train)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression().fit(scaler.transform(X_train), y_train)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>new_house <span class="op">=</span> pd.DataFrame([{<span class="st">"area_sqft"</span>: <span class="dv">1500</span>, <span class="st">"age_years"</span>: <span class="dv">5</span>}])</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>right <span class="op">=</span> model.predict(scaler.transform(new_house))[<span class="dv">0</span>]     <span class="co"># scaled, as trained</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>wrong <span class="op">=</span> model.predict(new_house)[<span class="dv">0</span>]                       <span class="co"># raw — the bug</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correct  (scaled input) : ₹</span><span class="sc">{</span>right<span class="sc">:&gt;15,.0f}</span><span class="ss">"</span>)</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Bug      (raw input)    : ₹</span><span class="sc">{</span>wrong<span class="sc">:&gt;15,.0f}</span><span class="ss">"</span>)</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">No error was raised. The wrong answer is off by ₹</span><span class="sc">{</span><span class="bu">abs</span>(right<span class="op">-</span>wrong)<span class="sc">:,.0f}</span><span class="ss">."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>right <span class="op">=</span> model.predict(scaler.transform(new_house))[<span class="dv">0</span>]     <span class="co"># scaled, as trained</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>wrong <span class="op">=</span> model.predict(new_house)[<span class="dv">0</span>]                       <span class="co"># raw — the bug</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correct  (scaled input) : ₹</span><span class="sc">{</span>right<span class="sc">:&gt;15,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Bug      (raw input)    : ₹</span><span class="sc">{</span>wrong<span class="sc">:&gt;15,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">No error was raised. The wrong answer is off by ₹</span><span class="sc">{</span><span class="bu">abs</span>(right<span class="op">-</span>wrong)<span class="sc">:,.0f}</span><span class="ss">."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Correct  (scaled input) : ₹      4,994,176
+<pre><code>500 houses on file: ['area_sqft', 'age_years', 'price']
+
+Correct  (scaled input) : ₹      4,994,176
 Bug      (raw input)    : ₹  1,694,069,949
 
 No error was raised. The wrong answer is off by ₹1,689,075,773.</code></pre>
@@ -510,7 +506,7 @@ No error was raised. The wrong answer is off by ₹1,689,075,773.</code></pre>
 </section>
 <section id="demo-2-the-fix-one-object-that-carries-everything" class="level3" data-number="14.2.2">
 <h3 data-number="14.2.2" class="anchored" data-anchor-id="demo-2-the-fix-one-object-that-carries-everything"><span class="header-section-number">14.2.2</span> Demo 2 — the fix: one object that carries everything</h3>
-<div id="f0eaad0f" class="cell" data-execution_count="3">
+<div id="9c7edc22" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>pipeline <span class="op">=</span> Pipeline([</span>
@@ -537,7 +533,7 @@ to forget the scaler, because the scaler is inside the thing you saved.</code></
 <p><strong><code>joblib</code> writes a fitted Python object to a file and reads it back.</strong> It is preferred over <code>pickle</code> for scikit-learn because it stores large numeric arrays more efficiently.</p>
 <section id="demo-3-a-full-save-and-reload-round-trip" class="level3" data-number="14.3.1">
 <h3 data-number="14.3.1" class="anchored" data-anchor-id="demo-3-a-full-save-and-reload-round-trip"><span class="header-section-number">14.3.1</span> Demo 3 — a full save-and-reload round trip</h3>
-<div id="22b33a0f" class="cell" data-execution_count="4">
+<div id="d2ffe523" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> joblib, tempfile, os</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -565,7 +561,7 @@ largest difference: 0.0000000000</code></pre>
 </section>
 <section id="demo-4-save-everything-needed-to-reproduce-the-model" class="level3" data-number="14.3.2">
 <h3 data-number="14.3.2" class="anchored" data-anchor-id="demo-4-save-everything-needed-to-reproduce-the-model"><span class="header-section-number">14.3.2</span> Demo 4 — save everything needed to reproduce the model</h3>
-<div id="c12c888d" class="cell" data-execution_count="5">
+<div id="4234e190" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> joblib, sklearn, os, json</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> date</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error, r2_score</span>
@@ -593,7 +589,7 @@ largest difference: 0.0000000000</code></pre>
     "age_years"
   ],
   "target": "price",
-  "trained_on": "2026-09-10",
+  "trained_on": "2026-09-11",
   "n_training_rows": 400,
   "sklearn_version": "1.9.0",
   "test_mae": 169824.38561731137,
@@ -645,7 +641,7 @@ largest difference: 0.0000000000</code></pre>
 <p>A pipeline saved under scikit-learn 1.3 and loaded under 1.5 may warn, may behave differently, or may refuse to load. <strong>Pin your versions in <code>requirements.txt</code></strong> and record the version in the bundle so the mismatch is diagnosable rather than mysterious.</p>
 </div>
 </div>
-<div id="8568c47f" class="cell" data-execution_count="6">
+<div id="a8b327a9" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"requirements.txt should pin exactly what trained the model, for example:"</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  scikit-learn==</span><span class="sc">{</span>sklearn<span class="sc">.</span>__version__<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  pandas==</span><span class="sc">{</span>pd<span class="sc">.</span>__version__<span class="sc">}</span><span class="ss">"</span>)</span>
@@ -667,7 +663,7 @@ largest difference: 0.0000000000</code></pre>
 <p><strong>Write one function that turns raw user input into a prediction, and use it everywhere</strong> — the notebook, the app, the batch job, the tests. If the app builds its input rows differently from the notebook, you have two models.</p>
 <section id="demo-5-predict_one-with-input-validation" class="level3" data-number="15.1.1">
 <h3 data-number="15.1.1" class="anchored" data-anchor-id="demo-5-predict_one-with-input-validation"><span class="header-section-number">15.1.1</span> Demo 5 — <code>predict_one</code>, with input validation</h3>
-<div id="2019e76a" class="cell" data-execution_count="7">
+<div id="85cce07e" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, joblib</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_model(path):</span>
@@ -772,25 +768,21 @@ Rejected bad input: area_sqft -50 is outside the sensible range 200–10,000</co
 <p><strong>Most projects should start offline.</strong> If a nightly file of predictions solves the problem, you have avoided servers, uptime and latency entirely.</p>
 <section id="demo-6-offline-scoring-which-is-often-the-whole-product" class="level3" data-number="15.2.1">
 <h3 data-number="15.2.1" class="anchored" data-anchor-id="demo-6-offline-scoring-which-is-often-the-whole-product"><span class="header-section-number">15.2.1</span> Demo 6 — offline scoring, which is often the whole product</h3>
-<div id="6c5912ee" class="cell" data-execution_count="8">
+<div id="c8d2a1dc" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, joblib, os</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A batch job: score every property in the portfolio, write the file, stop.</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>portfolio <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"property_id"</span>: [<span class="ss">f"P</span><span class="sc">{</span>i<span class="sc">:04d}</span><span class="ss">"</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">9</span>)],</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"area_sqft"</span>: [<span class="dv">900</span>, <span class="dv">1250</span>, <span class="dv">1800</span>, <span class="dv">640</span>, <span class="dv">2200</span>, <span class="dv">1500</span>, <span class="dv">1050</span>, <span class="dv">3000</span>],</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"age_years"</span>: [<span class="dv">12</span>, <span class="dv">3</span>, <span class="dv">25</span>, <span class="dv">40</span>, <span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">18</span>, <span class="dv">5</span>],</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A batch job: read the properties awaiting valuation, score them, write the file, stop.</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>portfolio <span class="op">=</span> pd.read_csv(<span class="st">"datasets/property_portfolio.csv"</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>pipe, features <span class="op">=</span> load_model(bundle_path)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>portfolio[<span class="st">"estimated_price"</span>] <span class="op">=</span> pipe.predict(portfolio[features]).<span class="bu">round</span>(<span class="op">-</span><span class="dv">3</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>portfolio[<span class="st">"price_per_sqft"</span>] <span class="op">=</span> (portfolio[<span class="st">"estimated_price"</span>] <span class="op">/</span> portfolio[<span class="st">"area_sqft"</span>]).<span class="bu">round</span>(<span class="dv">0</span>)</span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>pipe, features <span class="op">=</span> load_model(bundle_path)</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>portfolio[<span class="st">"estimated_price"</span>] <span class="op">=</span> pipe.predict(portfolio[features]).<span class="bu">round</span>(<span class="op">-</span><span class="dv">3</span>)</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>portfolio[<span class="st">"price_per_sqft"</span>] <span class="op">=</span> (portfolio[<span class="st">"estimated_price"</span>] <span class="op">/</span> portfolio[<span class="st">"area_sqft"</span>]).<span class="bu">round</span>(<span class="dv">0</span>)</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(portfolio.to_string(index<span class="op">=</span><span class="va">False</span>))</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> os.path.join(folder, <span class="st">"valuations.csv"</span>)</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>portfolio.to_csv(out, index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">written to </span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>basename(out)<span class="sc">}</span><span class="ss"> — this file is the deliverable"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(portfolio.to_string(index<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> os.path.join(folder, <span class="st">"valuations.csv"</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>portfolio.to_csv(out, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">written to </span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>basename(out)<span class="sc">}</span><span class="ss"> — this file is the deliverable"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>property_id  area_sqft  age_years  estimated_price  price_per_sqft
       P0001        900         12        2739000.0          3043.0
@@ -808,7 +800,7 @@ written to valuations.csv — this file is the deliverable</code></pre>
 </section>
 <section id="demo-7-online-scoring-one-request-at-a-time" class="level3" data-number="15.2.2">
 <h3 data-number="15.2.2" class="anchored" data-anchor-id="demo-7-online-scoring-one-request-at-a-time"><span class="header-section-number">15.2.2</span> Demo 7 — online scoring, one request at a time</h3>
-<div id="9ca7ec13" class="cell" data-execution_count="9">
+<div id="87946869" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time, joblib</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>pipe, features <span class="op">=</span> load_model(bundle_path)          <span class="co"># load ONCE, not per request</span></span>
@@ -827,8 +819,8 @@ written to valuations.csv — this file is the deliverable</code></pre>
 <span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> payload <span class="kw">in</span> [{<span class="st">"area_sqft"</span>: <span class="dv">1500</span>, <span class="st">"age_years"</span>: <span class="dv">5</span>}, {<span class="st">"area_sqft"</span>: <span class="dv">2400</span>, <span class="st">"age_years"</span>: <span class="dv">20</span>}]:</span>
 <span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(payload, <span class="st">"→"</span>, handle_request(payload))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>{'area_sqft': 1500, 'age_years': 5} → {'estimated_price': 4994000.0, 'confidence_note': 'typical error ±₹169,824', 'latency_ms': 1.55}
-{'area_sqft': 2400, 'age_years': 20} → {'estimated_price': 7200000.0, 'confidence_note': 'typical error ±₹169,824', 'latency_ms': 1.34}</code></pre>
+<pre><code>{'area_sqft': 1500, 'age_years': 5} → {'estimated_price': 4994000.0, 'confidence_note': 'typical error ±₹169,824', 'latency_ms': 1.29}
+{'area_sqft': 2400, 'age_years': 20} → {'estimated_price': 7200000.0, 'confidence_note': 'typical error ±₹169,824', 'latency_ms': 1.12}</code></pre>
 </div>
 </div>
 <p><strong>Note where the model is loaded.</strong> Loading it inside the request function would reread the file on every call. Loading it once, when the process starts, is the difference between a page that responds instantly and one that does not.</p>
@@ -932,7 +924,7 @@ written to valuations.csv — this file is the deliverable</code></pre>
 <section id="demo-8-the-apps-logic-tested-without-a-browser" class="level3" data-number="16.2.1">
 <h3 data-number="16.2.1" class="anchored" data-anchor-id="demo-8-the-apps-logic-tested-without-a-browser"><span class="header-section-number">16.2.1</span> Demo 8 — the app’s logic, tested without a browser</h3>
 <p>You can and should test the prediction logic directly. Everything except the widgets is ordinary Python.</p>
-<div id="fff70232" class="cell" data-execution_count="10">
+<div id="cb6102ab" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, joblib</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>bundle <span class="op">=</span> joblib.load(bundle_path)</span>
@@ -1061,40 +1053,37 @@ Sanity checks the app should pass:
 </table>
 <section id="demo-10-detecting-drift-by-watching-the-inputs" class="level3" data-number="17.1.1">
 <h3 data-number="17.1.1" class="anchored" data-anchor-id="demo-10-detecting-drift-by-watching-the-inputs"><span class="header-section-number">17.1.1</span> Demo 10 — detecting drift by watching the inputs</h3>
-<div id="308db6f3" class="cell" data-execution_count="11">
+<div id="54dbe56e" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">62</span>)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>training_areas <span class="op">=</span> X_train[<span class="st">"area_sqft"</span>]</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>months <span class="op">=</span> {</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Month 1"</span>: rng.normal(<span class="dv">1_200</span>, <span class="dv">350</span>, <span class="dv">300</span>),</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Month 4"</span>: rng.normal(<span class="dv">1_260</span>, <span class="dv">360</span>, <span class="dv">300</span>),</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Month 8"</span>: rng.normal(<span class="dv">1_700</span>, <span class="dv">380</span>, <span class="dv">300</span>),      <span class="co"># the customer base has changed</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>training_areas <span class="op">=</span> X_train[<span class="st">"area_sqft"</span>]</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># What the live service actually received, month by month.</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>incoming <span class="op">=</span> pd.read_csv(<span class="st">"datasets/incoming_requests.csv"</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>months <span class="op">=</span> {m: g[<span class="st">"area_sqft"</span>].values <span class="cf">for</span> m, g <span class="kw">in</span> incoming.groupby(<span class="st">"month"</span>)}</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"training data: mean </span><span class="sc">{</span>training_areas<span class="sc">.</span>mean()<span class="sc">:,.0f}</span><span class="ss">, "</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"Q1 </span><span class="sc">{</span>training_areas<span class="sc">.</span>quantile(<span class="fl">.25</span>)<span class="sc">:,.0f}</span><span class="ss">, Q3 </span><span class="sc">{</span>training_areas<span class="sc">.</span>quantile(<span class="fl">.75</span>)<span class="sc">:,.0f}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
 <span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"training data: mean </span><span class="sc">{</span>training_areas<span class="sc">.</span>mean()<span class="sc">:,.0f}</span><span class="ss">, "</span></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"Q1 </span><span class="sc">{</span>training_areas<span class="sc">.</span>quantile(<span class="fl">.25</span>)<span class="sc">:,.0f}</span><span class="ss">, Q3 </span><span class="sc">{</span>training_areas<span class="sc">.</span>quantile(<span class="fl">.75</span>)<span class="sc">:,.0f}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, seen <span class="kw">in</span> months.items():</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    shift <span class="op">=</span> (seen.mean() <span class="op">-</span> training_areas.mean()) <span class="op">/</span> training_areas.std()</span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    outside <span class="op">=</span> ((seen <span class="op">&lt;</span> training_areas.<span class="bu">min</span>()) <span class="op">|</span> (seen <span class="op">&gt;</span> training_areas.<span class="bu">max</span>())).mean()</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>    flag <span class="op">=</span> <span class="st">"  ⚠ DRIFT — retrain"</span> <span class="cf">if</span> <span class="bu">abs</span>(shift) <span class="op">&gt;</span> <span class="fl">0.5</span> <span class="cf">else</span> <span class="st">""</span></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">: mean </span><span class="sc">{</span>seen<span class="sc">.</span>mean()<span class="sc">:&gt;7,.0f}</span><span class="ss">   shift </span><span class="sc">{</span>shift<span class="sc">:+.2f}</span><span class="ss"> std   "</span></span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"</span><span class="sc">{</span>outside<span class="sc">:&gt;5.1%}</span><span class="ss"> outside training range</span><span class="sc">{</span>flag<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, seen <span class="kw">in</span> months.items():</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    shift <span class="op">=</span> (seen.mean() <span class="op">-</span> training_areas.mean()) <span class="op">/</span> training_areas.std()</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    outside <span class="op">=</span> ((seen <span class="op">&lt;</span> training_areas.<span class="bu">min</span>()) <span class="op">|</span> (seen <span class="op">&gt;</span> training_areas.<span class="bu">max</span>())).mean()</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    flag <span class="op">=</span> <span class="st">"  ⚠ DRIFT — retrain"</span> <span class="cf">if</span> <span class="bu">abs</span>(shift) <span class="op">&gt;</span> <span class="fl">0.5</span> <span class="cf">else</span> <span class="st">""</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">: mean </span><span class="sc">{</span>seen<span class="sc">.</span>mean()<span class="sc">:&gt;7,.0f}</span><span class="ss">   shift </span><span class="sc">{</span>shift<span class="sc">:+.2f}</span><span class="ss"> std   "</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"</span><span class="sc">{</span>outside<span class="sc">:&gt;5.1%}</span><span class="ss"> outside training range</span><span class="sc">{</span>flag<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>training data: mean 1,184, Q1 953, Q3 1,418
 
-Month 1: mean   1,190   shift +0.02 std    0.3% outside training range
+Month 1: mean   1,189   shift +0.01 std    0.7% outside training range
 Month 4: mean   1,259   shift +0.21 std    0.7% outside training range
-Month 8: mean   1,694   shift +1.45 std    2.0% outside training range  ⚠ DRIFT — retrain</code></pre>
+Month 8: mean   1,695   shift +1.45 std    2.0% outside training range  ⚠ DRIFT — retrain</code></pre>
 </div>
 </div>
 <p><strong>No accuracy figure was needed.</strong> Watching the <em>inputs</em> catches drift before the predictions have visibly gone wrong — and long before anybody complains.</p>
 </section>
 <section id="demo-11-the-deployment-checklist-as-code" class="level3" data-number="17.1.2">
 <h3 data-number="17.1.2" class="anchored" data-anchor-id="demo-11-the-deployment-checklist-as-code"><span class="header-section-number">17.1.2</span> Demo 11 — the deployment checklist, as code</h3>
-<div id="5519d782" class="cell" data-execution_count="12">
+<div id="604efb2c" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> joblib, os</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> preflight(bundle_path):</span>
@@ -1245,7 +1234,7 @@ ready to deploy: True</code></pre>
 </div>
 <div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="58fc8896" class="cell" data-execution_count="13">
+<div id="975cd235" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd, joblib, os, tempfile</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>

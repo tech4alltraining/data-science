@@ -507,33 +507,16 @@ Note
 </table>
 <section id="the-dataset-for-this-chapter" class="level3" data-number="10.1.1">
 <h3 data-number="10.1.1" class="anchored" data-anchor-id="the-dataset-for-this-chapter"><span class="header-section-number">10.1.1</span> The dataset for this chapter</h3>
-<div id="66578ad9" class="cell" data-execution_count="2">
+<p><code>datasets/city_homes.csv</code> — 500 properties across three cities, with 25 areas unrecorded, because real files have gaps.</p>
+<div id="c537c261" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">21</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">500</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> rng.normal(<span class="dv">1_200</span>, <span class="dv">350</span>, n).clip(<span class="dv">350</span>, <span class="dv">3_000</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>age  <span class="op">=</span> rng.integers(<span class="dv">0</span>, <span class="dv">40</span>, n)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>city <span class="op">=</span> rng.choice([<span class="st">"Mumbai"</span>, <span class="st">"Pune"</span>, <span class="st">"Nagpur"</span>], n, p<span class="op">=</span>[<span class="fl">.45</span>, <span class="fl">.35</span>, <span class="fl">.20</span>])</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>city_premium <span class="op">=</span> pd.Series(city).<span class="bu">map</span>({<span class="st">"Mumbai"</span>: <span class="fl">1.9</span>, <span class="st">"Pune"</span>: <span class="fl">1.0</span>, <span class="st">"Nagpur"</span>: <span class="fl">0.6</span>}).values</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>price <span class="op">=</span> (area <span class="op">*</span> <span class="dv">3_500</span> <span class="op">*</span> city_premium <span class="op">-</span> age <span class="op">*</span> <span class="dv">60_000</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>         <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">300_000</span>, n)).clip(<span class="dv">500_000</span>, <span class="va">None</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>homes <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"area_sqft"</span>: area.<span class="bu">round</span>(<span class="dv">0</span>),</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"age_years"</span>: age,</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"city"</span>: city,</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bedrooms"</span>: np.clip((area <span class="op">/</span> <span class="dv">450</span>).<span class="bu">round</span>(), <span class="dv">1</span>, <span class="dv">6</span>).astype(<span class="bu">int</span>),</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"price"</span>: price.<span class="bu">round</span>(<span class="op">-</span><span class="dv">3</span>),</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>homes.loc[rng.choice(n, <span class="dv">25</span>, replace<span class="op">=</span><span class="va">False</span>), <span class="st">"area_sqft"</span>] <span class="op">=</span> np.nan   <span class="co"># some gaps</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"1. SHAPE — </span><span class="sc">{</span>homes<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> rows, </span><span class="sc">{</span>homes<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss"> columns</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>homes.info()</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">3. MISSING VALUES per column:"</span>)</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(homes.isna().<span class="bu">sum</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>homes <span class="op">=</span> pd.read_csv(<span class="st">"datasets/city_homes.csv"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"1. SHAPE — </span><span class="sc">{</span>homes<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> rows, </span><span class="sc">{</span>homes<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss"> columns</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>homes.info()</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">3. MISSING VALUES per column:"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(homes.isna().<span class="bu">sum</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1. SHAPE — 500 rows, 5 columns
 
@@ -814,20 +797,22 @@ Pune      172  2944500.0</code></pre>
 <div id="cell-fig-s08-scatter4" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">22</span>)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> rng.uniform(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">250</span>)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>pairs <span class="op">=</span> {</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Strong positive"</span>: <span class="dv">3</span><span class="op">*</span>x <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="fl">1.5</span>, <span class="dv">250</span>),</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Weak positive"</span>:   <span class="dv">3</span><span class="op">*</span>x <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">14</span>, <span class="dv">250</span>),</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Curved"</span>:          (x <span class="op">-</span> <span class="dv">5</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="fl">1.5</span>, <span class="dv">250</span>),</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"No relationship"</span>:  rng.normal(<span class="dv">15</span>, <span class="dv">5</span>, <span class="dv">250</span>),</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">4</span>, figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="dv">3</span>))</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, (name, y) <span class="kw">in</span> <span class="bu">zip</span>(axes, pairs.items()):</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    ax.scatter(x, y, s<span class="op">=</span><span class="dv">8</span>, alpha<span class="op">=</span><span class="fl">.6</span>)</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">\n</span><span class="ss">Pearson r = </span><span class="sc">{</span>np<span class="sc">.</span>corrcoef(x, y)[<span class="dv">0</span>,<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>rel <span class="op">=</span> pd.read_csv(<span class="st">"datasets/four_relationships.csv"</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> rel[<span class="st">"x"</span>].values</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>pairs <span class="op">=</span> {</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Strong positive"</span>: rel[<span class="st">"strong_positive"</span>].values,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Weak positive"</span>:   rel[<span class="st">"weak_positive"</span>].values,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Curved"</span>:          rel[<span class="st">"curved"</span>].values,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"No relationship"</span>: rel[<span class="st">"unrelated"</span>].values,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">4</span>, figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="dv">3</span>))</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, (name, y) <span class="kw">in</span> <span class="bu">zip</span>(axes, pairs.items()):</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    ax.scatter(x, y, s<span class="op">=</span><span class="dv">8</span>, alpha<span class="op">=</span><span class="fl">.6</span>)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">\n</span><span class="ss">Pearson r = </span><span class="sc">{</span>np<span class="sc">.</span>corrcoef(x, y)[<span class="dv">0</span>,<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="fig-s08-scatter4" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -946,11 +931,11 @@ Nagpur   118 houses, area–price correlation 0.67</code></pre>
 </table>
 <section id="demo-7-when-pearson-and-spearman-disagree" class="level3" data-number="12.2.1">
 <h3 data-number="12.2.1" class="anchored" data-anchor-id="demo-7-when-pearson-and-spearman-disagree"><span class="header-section-number">12.2.1</span> Demo 7 — when Pearson and Spearman disagree</h3>
-<div id="5f9f6af1" class="cell" data-execution_count="9">
+<div id="1761eb80" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> pd.Series(np.arange(<span class="dv">1</span>, <span class="dv">51</span>))</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x <span class="op">**</span> <span class="dv">3</span>                                     <span class="co"># perfectly related, but strongly curved</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>cubic <span class="op">=</span> pd.read_csv(<span class="st">"datasets/cubic_pair.csv"</span>)     <span class="co"># perfectly related, but curved</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> cubic[<span class="st">"x"</span>], cubic[<span class="st">"x_cubed"</span>]</span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Pearson  r = </span><span class="sc">{</span>x<span class="sc">.</span>corr(y, method<span class="op">=</span><span class="st">'pearson'</span>)<span class="sc">:.3f}</span><span class="ss">   (straight-line strength)"</span>)</span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Spearman r = </span><span class="sc">{</span>x<span class="sc">.</span>corr(y, method<span class="op">=</span><span class="st">'spearman'</span>)<span class="sc">:.3f}</span><span class="ss">   (rank agreement)"</span>)</span>
@@ -1040,23 +1025,19 @@ Name: price, dtype: float64</code></pre>
 </section>
 <section id="demo-9-a-confounder-manufactured-so-you-can-see-it" class="level3" data-number="12.2.3">
 <h3 data-number="12.2.3" class="anchored" data-anchor-id="demo-9-a-confounder-manufactured-so-you-can-see-it"><span class="header-section-number">12.2.3</span> Demo 9 — a confounder, manufactured so you can see it</h3>
-<div id="63238e1c" class="cell" data-execution_count="11">
+<div id="75aa6973" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">23</span>)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>temperature <span class="op">=</span> rng.uniform(<span class="dv">15</span>, <span class="dv">42</span>, <span class="dv">400</span>)                      <span class="co"># the real cause</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>ice_cream   <span class="op">=</span> temperature <span class="op">*</span> <span class="dv">120</span> <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">300</span>, <span class="dv">400</span>)   <span class="co"># caused by heat</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>drownings   <span class="op">=</span> temperature <span class="op">*</span> <span class="fl">0.4</span> <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">400</span>)     <span class="co"># also caused by heat</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">"temperature"</span>: temperature, <span class="st">"ice_cream"</span>: ice_cream, <span class="st">"drownings"</span>: drownings})</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"ice cream vs drownings : r = </span><span class="sc">{</span>df[<span class="st">'ice_cream'</span>]<span class="sc">.</span>corr(df[<span class="st">'drownings'</span>])<span class="sc">:.3f}</span><span class="ss">  ← strong!"</span>)</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"temperature vs ice cream: r = </span><span class="sc">{</span>df[<span class="st">'temperature'</span>]<span class="sc">.</span>corr(df[<span class="st">'ice_cream'</span>])<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"temperature vs drownings: r = </span><span class="sc">{</span>df[<span class="st">'temperature'</span>]<span class="sc">.</span>corr(df[<span class="st">'drownings'</span>])<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Hold temperature roughly constant and the relationship disappears.</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>hot_days <span class="op">=</span> df[(df[<span class="st">"temperature"</span>] <span class="op">&gt;</span> <span class="dv">30</span>) <span class="op">&amp;</span> (df[<span class="st">"temperature"</span>] <span class="op">&lt;</span> <span class="dv">33</span>)]</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Among days between 30-33°C only (</span><span class="sc">{</span><span class="bu">len</span>(hot_days)<span class="sc">}</span><span class="ss"> days):"</span>)</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"ice cream vs drownings : r = </span><span class="sc">{</span>hot_days[<span class="st">'ice_cream'</span>]<span class="sc">.</span>corr(hot_days[<span class="st">'drownings'</span>])<span class="sc">:.3f}</span><span class="ss">  ← collapsed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"datasets/icecream_drownings.csv"</span>).rename(</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>{<span class="st">"temperature_c"</span>: <span class="st">"temperature"</span>, <span class="st">"ice_cream_sales"</span>: <span class="st">"ice_cream"</span>})</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"ice cream vs drownings : r = </span><span class="sc">{</span>df[<span class="st">'ice_cream'</span>]<span class="sc">.</span>corr(df[<span class="st">'drownings'</span>])<span class="sc">:.3f}</span><span class="ss">  ← strong!"</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"temperature vs ice cream: r = </span><span class="sc">{</span>df[<span class="st">'temperature'</span>]<span class="sc">.</span>corr(df[<span class="st">'ice_cream'</span>])<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"temperature vs drownings: r = </span><span class="sc">{</span>df[<span class="st">'temperature'</span>]<span class="sc">.</span>corr(df[<span class="st">'drownings'</span>])<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Hold temperature roughly constant and the relationship disappears.</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>hot_days <span class="op">=</span> df[(df[<span class="st">"temperature"</span>] <span class="op">&gt;</span> <span class="dv">30</span>) <span class="op">&amp;</span> (df[<span class="st">"temperature"</span>] <span class="op">&lt;</span> <span class="dv">33</span>)]</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Among days between 30-33°C only (</span><span class="sc">{</span><span class="bu">len</span>(hot_days)<span class="sc">}</span><span class="ss"> days):"</span>)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"ice cream vs drownings : r = </span><span class="sc">{</span>hot_days[<span class="st">'ice_cream'</span>]<span class="sc">.</span>corr(hot_days[<span class="st">'drownings'</span>])<span class="sc">:.3f}</span><span class="ss">  ← collapsed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>ice cream vs drownings : r = 0.788  ← strong!
 temperature vs ice cream: r = 0.953
@@ -1077,7 +1058,7 @@ ice cream vs drownings : r = 0.233  ← collapsed</code></pre>
 <p><strong>A pivot table summarises one numeric column across two categorical columns</strong> — one down the rows, one across the columns. It is the same operation as a <code>groupby</code>, arranged into a grid that a person can read.</p>
 <section id="demo-10-the-same-data-as-a-groupby-and-as-a-pivot" class="level3" data-number="13.1.1">
 <h3 data-number="13.1.1" class="anchored" data-anchor-id="demo-10-the-same-data-as-a-groupby-and-as-a-pivot"><span class="header-section-number">13.1.1</span> Demo 10 — the same data as a groupby and as a pivot</h3>
-<div id="3f21ddbb" class="cell" data-execution_count="12">
+<div id="dc979613" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"As a groupby — correct, but hard to scan:"</span>)</span>
@@ -1112,7 +1093,7 @@ Pune       973000.0  2048000.0  3449000.0   4898000.0</code></pre>
 </section>
 <section id="demo-11-pivot-tables-answer-harder-questions" class="level3" data-number="13.1.2">
 <h3 data-number="13.1.2" class="anchored" data-anchor-id="demo-11-pivot-tables-answer-harder-questions"><span class="header-section-number">13.1.2</span> Demo 11 — pivot tables answer harder questions</h3>
-<div id="72890126" class="cell" data-execution_count="13">
+<div id="479ea8b1" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"How many houses in each combination? (check before trusting an average)"</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(homes.pivot_table(index<span class="op">=</span><span class="st">"city"</span>, columns<span class="op">=</span><span class="st">"bedrooms"</span>, values<span class="op">=</span><span class="st">"price"</span>,</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                        aggfunc<span class="op">=</span><span class="st">"count"</span>, fill_value<span class="op">=</span><span class="dv">0</span>))</span>
@@ -1179,7 +1160,7 @@ Figure&nbsp;13.1: Every numeric column against every other. The diagonal shows e
 </section>
 <section id="demo-13-the-full-first-pass-as-a-function" class="level3" data-number="13.1.4">
 <h3 data-number="13.1.4" class="anchored" data-anchor-id="demo-13-the-full-first-pass-as-a-function"><span class="header-section-number">13.1.4</span> Demo 13 — the full first pass, as a function</h3>
-<div id="26a4c443" class="cell" data-execution_count="15">
+<div id="e54f485e" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> first_look(df, target<span class="op">=</span><span class="va">None</span>):</span>
@@ -1334,7 +1315,7 @@ age_years   -0.229</code></pre>
 </div>
 <div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="7e2a55d2" class="cell" data-execution_count="16">
+<div id="e7fa76f9" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 1"</span>)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  spread of exam marks           → histogram (shape) or box plot (summary)"</span>)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  students per department        → bar chart"</span>)</span>

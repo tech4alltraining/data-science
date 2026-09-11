@@ -145,8 +145,11 @@ flowchart LR
 ```{python}
 import pandas as pd
 
-jan = pd.DataFrame({"date": ["2024-01-05", "2024-01-19"], "amount": [250, 90]})
-feb = pd.DataFrame({"date": ["2024-02-02", "2024-02-27"], "amount": [410, 130]})
+jan = pd.read_csv("datasets/sales_jan.csv")
+feb = pd.read_csv("datasets/sales_feb.csv")
+print("January:"); print(jan)
+print("\nFebruary:"); print(feb)
+print()
 
 stacked = pd.concat([jan, feb], ignore_index=True)
 print(stacked)
@@ -163,8 +166,10 @@ was used. **Check `.columns` on both tables before stacking.**
 :::
 
 ```{python}
-mismatched = pd.DataFrame({"date": ["2024-03-01"], "Amount": [500]})   # capital A
+mismatched = pd.read_csv("datasets/sales_mar.csv")   # this file spells it "Amount"
+print("March, as it arrived:"); print(mismatched)
 oops = pd.concat([jan, mismatched], ignore_index=True)
+print()
 print(oops)
 print("\nTwo amount columns, both half empty — and no error was raised.")
 ```
@@ -179,17 +184,8 @@ ID.
 ```{python}
 import pandas as pd
 
-customers = pd.DataFrame({
-    "user_id": [1, 2, 3, 4],
-    "name":    ["Alice", "Bob", "Chan", "Devi"],
-    "city":    ["Mumbai", "Delhi", "Mumbai", "Pune"],
-})
-
-purchases = pd.DataFrame({
-    "purchase_id": [101, 102, 103, 104],
-    "user_id":     [1, 1, 3, 5],       # Alice bought twice; user 5 is not in customers
-    "amount":      [250.0, 120.0, 75.5, 300.0],
-})
+customers = pd.read_csv("datasets/customers.csv")
+purchases = pd.read_csv("datasets/purchases.csv")
 
 print("customers:"); print(customers)
 print("\npurchases:"); print(purchases)
@@ -288,10 +284,13 @@ aggregate-then-join pattern is the one you will use most often in real work.
 human and differ to a computer.
 
 ```{python}
-left_tbl  = pd.DataFrame({"email": ["ASHA@mail.com", "brij@mail.com "], "plan": ["gold", "silver"]})
-right_tbl = pd.DataFrame({"email": ["asha@mail.com", "brij@mail.com"],  "spend": [900, 400]})
+left_tbl  = pd.read_csv("datasets/subscribers_plan.csv")
+right_tbl = pd.read_csv("datasets/subscribers_spend.csv")
+print("The two files, side by side — the emails LOOK identical:")
+print(left_tbl.to_dict("records"))
+print(right_tbl.to_dict("records"))
 
-print("Joining as-is:")
+print("\nJoining as-is:")
 print(pd.merge(left_tbl, right_tbl, on="email", how="inner"))
 print("→ 0 rows. One key has capitals, the other has a trailing space.\n")
 
@@ -308,7 +307,7 @@ This is why Session 3 comes before this chapter.
 ### Failure 2 — the same thing, different column names
 
 ```{python}
-orders = pd.DataFrame({"cust_ref": [1, 2], "total": [500, 250]})   # different key name
+orders = pd.read_csv("datasets/orders_by_ref.csv")   # this file calls the key cust_ref
 
 merged = pd.merge(customers, orders, left_on="user_id", right_on="cust_ref", how="inner")
 print(merged[["user_id", "name", "cust_ref", "total"]])
@@ -321,11 +320,10 @@ print("\n`left_on` and `right_on` join columns that mean the same thing but are 
 the numbers look plausible, and they are wrong.
 
 ```{python}
-# A dirty reference table: 'Mumbai' listed twice by mistake.
-regions = pd.DataFrame({
-    "city":   ["Mumbai", "Delhi", "Pune", "Mumbai"],
-    "region": ["West", "North", "West", "West"],
-})
+# A dirty reference table: 'Mumbai' is listed twice by mistake.
+regions = pd.read_csv("datasets/regions_dirty.csv")
+print(regions)
+print()
 
 blown_up = pd.merge(customers, regions, on="city", how="left")
 print(f"customers: {len(customers)} rows  →  after joining regions: {len(blown_up)} rows")
@@ -424,10 +422,8 @@ number of customers and the total amount spent by customers in that city.
 ```{python}
 import pandas as pd
 
-customers = pd.DataFrame({"user_id": [1,2,3,4], "name": ["Alice","Bob","Chan","Devi"],
-                          "city": ["Mumbai","Delhi","Mumbai","Pune"]})
-purchases = pd.DataFrame({"purchase_id": [101,102,103,104], "user_id": [1,1,3,5],
-                          "amount": [250.0,120.0,75.5,300.0]})
+customers = pd.read_csv("datasets/customers.csv")
+purchases = pd.read_csv("datasets/purchases.csv")
 
 # Task 1 — inner 3, left 5, right 4, outer 6
 for how in ["inner","left","right","outer"]:

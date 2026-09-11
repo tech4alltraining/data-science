@@ -1,6 +1,9 @@
 project:
   type: book
   output-dir: _site
+  # Every chapter resolves paths from the project root, so a chapter in sessions/
+  # loads data as "datasets/foo.csv" — the same string everywhere.
+  execute-dir: project
 
 book:
   title: "Data Science"

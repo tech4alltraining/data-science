@@ -64,28 +64,13 @@ Skipping EDA is operating without examining. It works right up until it does not
 
 ### The dataset for this chapter
 
+`datasets/city_homes.csv` — 500 properties across three cities, with 25 areas
+unrecorded, because real files have gaps.
+
 ```{python}
 import numpy as np, pandas as pd
 
-rng = np.random.default_rng(21)
-n = 500
-
-area = rng.normal(1_200, 350, n).clip(350, 3_000)
-age  = rng.integers(0, 40, n)
-city = rng.choice(["Mumbai", "Pune", "Nagpur"], n, p=[.45, .35, .20])
-city_premium = pd.Series(city).map({"Mumbai": 1.9, "Pune": 1.0, "Nagpur": 0.6}).values
-
-price = (area * 3_500 * city_premium - age * 60_000
-         + rng.normal(0, 300_000, n)).clip(500_000, None)
-
-homes = pd.DataFrame({
-    "area_sqft": area.round(0),
-    "age_years": age,
-    "city": city,
-    "bedrooms": np.clip((area / 450).round(), 1, 6).astype(int),
-    "price": price.round(-3),
-})
-homes.loc[rng.choice(n, 25, replace=False), "area_sqft"] = np.nan   # some gaps
+homes = pd.read_csv("datasets/city_homes.csv")
 
 print(f"1. SHAPE — {homes.shape[0]} rows, {homes.shape[1]} columns\n")
 homes.info()
@@ -233,13 +218,15 @@ way to see whether two numbers are related, and what *kind* of relationship it i
 #| fig-cap: "Strong positive, weak, curved, and none. Only the first is safe for a straight-line model."
 import numpy as np, matplotlib.pyplot as plt
 
-rng = np.random.default_rng(22)
-x = rng.uniform(0, 10, 250)
+import pandas as pd
+
+rel = pd.read_csv("datasets/four_relationships.csv")
+x = rel["x"].values
 pairs = {
-    "Strong positive": 3*x + rng.normal(0, 1.5, 250),
-    "Weak positive":   3*x + rng.normal(0, 14, 250),
-    "Curved":          (x - 5)**2 + rng.normal(0, 1.5, 250),
-    "No relationship":  rng.normal(15, 5, 250),
+    "Strong positive": rel["strong_positive"].values,
+    "Weak positive":   rel["weak_positive"].values,
+    "Curved":          rel["curved"].values,
+    "No relationship": rel["unrelated"].values,
 }
 
 fig, axes = plt.subplots(1, 4, figsize=(13, 3))
@@ -306,8 +293,8 @@ Two kinds, and they answer different questions:
 ```{python}
 import numpy as np, pandas as pd
 
-x = pd.Series(np.arange(1, 51))
-y = x ** 3                                     # perfectly related, but strongly curved
+cubic = pd.read_csv("datasets/cubic_pair.csv")     # perfectly related, but curved
+x, y = cubic["x"], cubic["x_cubed"]
 
 print(f"Pearson  r = {x.corr(y, method='pearson'):.3f}   (straight-line strength)")
 print(f"Spearman r = {x.corr(y, method='spearman'):.3f}   (rank agreement)")
@@ -369,12 +356,8 @@ Three things a correlation can mean:
 ```{python}
 import numpy as np, pandas as pd
 
-rng = np.random.default_rng(23)
-temperature = rng.uniform(15, 42, 400)                      # the real cause
-ice_cream   = temperature * 120 + rng.normal(0, 300, 400)   # caused by heat
-drownings   = temperature * 0.4 + rng.normal(0, 2, 400)     # also caused by heat
-
-df = pd.DataFrame({"temperature": temperature, "ice_cream": ice_cream, "drownings": drownings})
+df = pd.read_csv("datasets/icecream_drownings.csv").rename(
+    columns={"temperature_c": "temperature", "ice_cream_sales": "ice_cream"})
 print(f"ice cream vs drownings : r = {df['ice_cream'].corr(df['drownings']):.3f}  ← strong!")
 print(f"temperature vs ice cream: r = {df['temperature'].corr(df['ice_cream']):.3f}")
 print(f"temperature vs drownings: r = {df['temperature'].corr(df['drownings']):.3f}")

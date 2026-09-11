@@ -1,0 +1,38 @@
+[
+ {
+  "item": "laptop",
+  "city": "Mumbai",
+  "qty": 1,
+  "price": 74999,
+  "channel": "online"
+ },
+ {
+  "item": "mouse",
+  "city": "Mumbai",
+  "qty": 4,
+  "price": 499,
+  "channel": "store"
+ },
+ {
+  "item": "laptop",
+  "city": "Delhi",
+  "qty": 2,
+  "price": 74999,
+  "channel": "online",
+  "loyalty_points": 300
+ },
+ {
+  "item": "keyboard",
+  "city": "Delhi",
+  "qty": 3,
+  "price": 1499,
+  "channel": "store"
+ },
+ {
+  "item": "mouse",
+  "city": "Pune",
+  "qty": 10,
+  "price": 499,
+  "channel": "online"
+ }
+]

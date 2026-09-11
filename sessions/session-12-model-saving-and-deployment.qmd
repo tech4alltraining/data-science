@@ -72,14 +72,8 @@ from sklearn.linear_model import LinearRegression
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
 
-rng = np.random.default_rng(61)
-n = 500
-homes = pd.DataFrame({
-    "area_sqft": rng.normal(1_200, 350, n).clip(400, 3_000).round(),
-    "age_years": rng.integers(0, 40, n),
-})
-homes["price"] = (3_200*homes["area_sqft"] - 45_000*homes["age_years"]
-                  + 400_000 + rng.normal(0, 200_000, n)).round(-3)
+homes = pd.read_csv("datasets/house_prices_simple.csv")
+print(f"{len(homes)} houses on file: {list(homes.columns)}\n")
 
 X = homes[["area_sqft", "age_years"]]
 y = homes["price"]
@@ -257,12 +251,8 @@ problem, you have avoided servers, uptime and latency entirely.
 ```{python}
 import pandas as pd, joblib, os
 
-# A batch job: score every property in the portfolio, write the file, stop.
-portfolio = pd.DataFrame({
-    "property_id": [f"P{i:04d}" for i in range(1, 9)],
-    "area_sqft": [900, 1250, 1800, 640, 2200, 1500, 1050, 3000],
-    "age_years": [12, 3, 25, 40, 1, 8, 18, 5],
-})
+# A batch job: read the properties awaiting valuation, score them, write the file, stop.
+portfolio = pd.read_csv("datasets/property_portfolio.csv")
 
 pipe, features = load_model(bundle_path)
 portfolio["estimated_price"] = pipe.predict(portfolio[features]).round(-3)
@@ -439,14 +429,11 @@ learned from carries on changing.
 ```{python}
 import numpy as np, pandas as pd
 
-rng = np.random.default_rng(62)
 training_areas = X_train["area_sqft"]
 
-months = {
-    "Month 1": rng.normal(1_200, 350, 300),
-    "Month 4": rng.normal(1_260, 360, 300),
-    "Month 8": rng.normal(1_700, 380, 300),      # the customer base has changed
-}
+# What the live service actually received, month by month.
+incoming = pd.read_csv("datasets/incoming_requests.csv")
+months = {m: g["area_sqft"].values for m, g in incoming.groupby("month")}
 
 print(f"training data: mean {training_areas.mean():,.0f}, "
       f"Q1 {training_areas.quantile(.25):,.0f}, Q3 {training_areas.quantile(.75):,.0f}\n")

@@ -1,0 +1,11 @@
+customer_id,name,age,city,income,joined,subscribed
+1,Asha ,25.0,Mumbai,50000.0,2024-01-05,Yes
+2,Brij,31.0,mumbai,62000.0,05/02/2024,Y
+3,Chan,28.0,Delhi,,2024-03-11,No
+4,Devi,,Bombay,58000.0,2024-04-02,N
+5,Esha,22.0,Delhi,45000.0,2024-05-19,Yes
+6,Faiz,225.0,MUM,71000.0,2024-06-30,yes
+7,Gita,29.0,delhi,900000.0,2024-07-08,No
+8,Hari,33.0,Pune,55000.0,2024-08-15,Y
+3,Chan,28.0,Delhi,,2024-03-11,No
+9,Isha,-4.0,Pune,61000.0,2024-09-01,Yes

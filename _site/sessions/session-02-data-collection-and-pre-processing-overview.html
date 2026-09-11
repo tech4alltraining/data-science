@@ -317,7 +317,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#sec-s02-topic-1" id="toc-sec-s02-topic-1" class="nav-link" data-scroll-target="#sec-s02-topic-1"><span class="header-section-number">4.1</span> 1. Where data comes from</a>
   <ul class="collapse">
-  <li><a href="#demo-1-reading-a-csv-a-json-document-and-a-sql-database" id="toc-demo-1-reading-a-csv-a-json-document-and-a-sql-database" class="nav-link" data-scroll-target="#demo-1-reading-a-csv-a-json-document-and-a-sql-database"><span class="header-section-number">4.1.1</span> Demo 1 — reading a CSV, a JSON document and a SQL database</a></li>
+  <li><a href="#demo-1-reading-a-csv-a-json-file-an-excel-sheet-and-a-sql-database" id="toc-demo-1-reading-a-csv-a-json-file-an-excel-sheet-and-a-sql-database" class="nav-link" data-scroll-target="#demo-1-reading-a-csv-a-json-file-an-excel-sheet-and-a-sql-database"><span class="header-section-number">4.1.1</span> Demo 1 — reading a CSV, a JSON file, an Excel sheet and a SQL database</a></li>
   </ul></li>
   <li><a href="#sec-s02-topic-2" id="toc-sec-s02-topic-2" class="nav-link" data-scroll-target="#sec-s02-topic-2"><span class="header-section-number">4.2</span> 2. Sampling, and how a sample lies</a>
   <ul class="collapse">
@@ -503,52 +503,61 @@ Note
 <p>Before scraping anything, check the site’s <code>robots.txt</code> and its terms of service. Personal data has legal protections in most countries regardless of whether it was technically reachable. <strong>“It was on the internet” is not a defence.</strong></p>
 </div>
 </div>
-<section id="demo-1-reading-a-csv-a-json-document-and-a-sql-database" class="level3" data-number="4.1.1">
-<h3 data-number="4.1.1" class="anchored" data-anchor-id="demo-1-reading-a-csv-a-json-document-and-a-sql-database"><span class="header-section-number">4.1.1</span> Demo 1 — reading a CSV, a JSON document and a SQL database</h3>
-<p>Three sources, three functions, one table each. <code>io.StringIO</code> lets us pretend a string is a file, so this cell runs without downloading anything.</p>
-<div id="0c8d7c45" class="cell" data-execution_count="2">
+<section id="demo-1-reading-a-csv-a-json-file-an-excel-sheet-and-a-sql-database" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="demo-1-reading-a-csv-a-json-file-an-excel-sheet-and-a-sql-database"><span class="header-section-number">4.1.1</span> Demo 1 — reading a CSV, a JSON file, an Excel sheet and a SQL database</h3>
+<p><strong>Four sources, four functions, one table each.</strong> Every file is in the <code>datasets/</code> folder of this project — nothing here is typed into the program.</p>
+<div id="47526b67" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> io, json, sqlite3</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json, sqlite3</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># --- SOURCE 1: a CSV file -------------------------------------------------</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>csv_text <span class="op">=</span> <span class="st">"""order_id,customer,city,amount</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="st">1,Alice,Mumbai,250</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="st">2,Bob,Delhi,90</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="st">3,Chan,Mumbai,410"""</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>from_csv <span class="op">=</span> pd.read_csv(io.StringIO(csv_text))</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"From CSV:"</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(from_csv)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>from_csv <span class="op">=</span> pd.read_csv(<span class="st">"datasets/orders.csv"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"From CSV  (datasets/orders.csv):"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(from_csv)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># --- SOURCE 2: a JSON file, the shape an API returns ----------------------</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>from_json <span class="op">=</span> pd.json_normalize(json.loads(<span class="bu">open</span>(<span class="st">"datasets/orders.json"</span>).read()))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">From JSON  (datasets/orders.json):"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(from_json)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># --- SOURCE 2: a JSON response, the shape an API returns ------------------</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>api_response <span class="op">=</span> <span class="st">'[{"order_id": 4, "customer": "Devi", "city": "Pune", "amount": 175}]'</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>from_json <span class="op">=</span> pd.DataFrame(json.loads(api_response))</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">From a JSON API response:"</span>)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(from_json)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># --- SOURCE 3: a SQL database (sqlite3 is built into Python) --------------</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>conn <span class="op">=</span> sqlite3.<span class="ex">connect</span>(<span class="st">":memory:"</span>)            <span class="co"># a database that lives in memory</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>from_csv.to_sql(<span class="st">"orders"</span>, conn, index<span class="op">=</span><span class="va">False</span>)  <span class="co"># put our table into it</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>from_sql <span class="op">=</span> pd.read_sql(<span class="st">"SELECT customer, amount FROM orders WHERE amount &gt; 100"</span>, conn)</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">From SQL, with the filtering done by the database:"</span>)</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(from_sql)</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>conn.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># --- SOURCE 3: an Excel workbook -----------------------------------------</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>from_excel <span class="op">=</span> pd.read_excel(<span class="st">"datasets/inventory.xlsx"</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">From Excel  (datasets/inventory.xlsx):"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(from_excel)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># --- SOURCE 4: a SQL database (sqlite3 is built into Python) --------------</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>conn <span class="op">=</span> sqlite3.<span class="ex">connect</span>(<span class="st">":memory:"</span>)            <span class="co"># a database that lives in memory</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>from_csv.to_sql(<span class="st">"orders"</span>, conn, index<span class="op">=</span><span class="va">False</span>)  <span class="co"># load our table into it</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>from_sql <span class="op">=</span> pd.read_sql(<span class="st">"SELECT customer, amount FROM orders WHERE amount &gt; 100"</span>, conn)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">From SQL, with the filtering done by the database:"</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(from_sql)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>conn.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>From CSV:
-   order_id customer    city  amount
-0         1    Alice  Mumbai     250
-1         2      Bob   Delhi      90
-2         3     Chan  Mumbai     410
+<pre><code>From CSV  (datasets/orders.csv):
+   order_id customer  amount
+0         1    Alice   250.0
+1         2      Bob    90.0
+2         3     Chan   410.0
 
-From a JSON API response:
-   order_id customer  city  amount
-0         4     Devi  Pune     175
+From JSON  (datasets/orders.json):
+   order_id customer  amount gift_wrap delivery.city delivery.express
+0         1    Alice   250.0       NaN           NaN              NaN
+1         2      Bob    90.0      True           NaN              NaN
+2         3     Chan   410.0       NaN        Mumbai            False
+
+From Excel  (datasets/inventory.xlsx):
+    product  price  stock
+0       Pen     20    500
+1  Notebook     60    220
+2       Bag    950     40
+3    Bottle    350     90
+4      Lamp   1200     15
 
 From SQL, with the filtering done by the database:
   customer  amount
-0    Alice     250
-1     Chan     410</code></pre>
+0    Alice   250.0
+1     Chan   410.0</code></pre>
 </div>
 </div>
 <p>Notice the last one. <strong>The database did the filtering before Python saw the data.</strong> When a table has ten million rows and you need three hundred, that difference decides whether your laptop copes.</p>
@@ -613,26 +622,28 @@ From SQL, with the filtering done by the database:
 <section id="demo-2-the-same-population-two-samples-two-different-answers" class="level3" data-number="4.2.1">
 <h3 data-number="4.2.1" class="anchored" data-anchor-id="demo-2-the-same-population-two-samples-two-different-answers"><span class="header-section-number">4.2.1</span> Demo 2 — the same population, two samples, two different answers</h3>
 <p>A town where income genuinely differs by neighbourhood. We survey it twice: once at random, once by standing outside one office building.</p>
-<div id="7f94e6e3" class="cell" data-execution_count="3">
+<div id="daada931" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">7</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>town <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"area"</span>:   [<span class="st">"north"</span>]<span class="op">*</span><span class="dv">600</span> <span class="op">+</span> [<span class="st">"south"</span>]<span class="op">*</span><span class="dv">400</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"income"</span>: np.concatenate([rng.normal(<span class="dv">30_000</span>, <span class="dv">5_000</span>, <span class="dv">600</span>),</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                              rng.normal(<span class="dv">85_000</span>, <span class="dv">9_000</span>, <span class="dv">400</span>)]),</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>random_sample     <span class="op">=</span> town.sample(<span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">1</span>)          <span class="co"># fair</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>convenience_sample <span class="op">=</span> town[town[<span class="st">"area"</span>] <span class="op">==</span> <span class="st">"south"</span>].sample(<span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">1</span>)  <span class="co"># easy</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"True average income of the whole town : ₹</span><span class="sc">{</span>town[<span class="st">'income'</span>]<span class="sc">.</span>mean()<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Estimate from the random sample       : ₹</span><span class="sc">{</span>random_sample[<span class="st">'income'</span>]<span class="sc">.</span>mean()<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Estimate from the convenient sample   : ₹</span><span class="sc">{</span>convenience_sample[<span class="st">'income'</span>]<span class="sc">.</span>mean()<span class="sc">:,.0f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>town <span class="op">=</span> pd.read_csv(<span class="st">"datasets/town_incomes.csv"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(town)<span class="sc">:,}</span><span class="ss"> residents on file, across </span><span class="sc">{</span>town[<span class="st">'area'</span>]<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss"> areas"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(town.groupby(<span class="st">"area"</span>)[<span class="st">"income"</span>].agg([<span class="st">"size"</span>, <span class="st">"mean"</span>]).<span class="bu">round</span>(<span class="dv">0</span>), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>random_sample     <span class="op">=</span> town.sample(<span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">1</span>)          <span class="co"># fair</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>convenience_sample <span class="op">=</span> town[town[<span class="st">"area"</span>] <span class="op">==</span> <span class="st">"south"</span>].sample(<span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">1</span>)  <span class="co"># easy</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"True average income of the whole town : ₹</span><span class="sc">{</span>town[<span class="st">'income'</span>]<span class="sc">.</span>mean()<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Estimate from the random sample       : ₹</span><span class="sc">{</span>random_sample[<span class="st">'income'</span>]<span class="sc">.</span>mean()<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Estimate from the convenient sample   : ₹</span><span class="sc">{</span>convenience_sample[<span class="st">'income'</span>]<span class="sc">.</span>mean()<span class="sc">:,.0f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>True average income of the whole town : ₹51,670
+<pre><code>1,000 residents on file, across 2 areas
+       size     mean
+area                
+north   600  29331.0
+south   400  85179.0 
+
+True average income of the whole town : ₹51,670
 Estimate from the random sample       : ₹50,939
 Estimate from the convenient sample   : ₹86,078</code></pre>
 </div>
@@ -714,17 +725,29 @@ Estimate from the convenient sample   : ₹86,078</code></pre>
 <p>An algorithm cannot see that these are problems. It will treat <code>225</code> as a real age and happily conclude that older customers spend more.</p>
 <section id="demo-3-watch-one-bad-value-ruin-a-summary" class="level3" data-number="5.1.1">
 <h3 data-number="5.1.1" class="anchored" data-anchor-id="demo-3-watch-one-bad-value-ruin-a-summary"><span class="header-section-number">5.1.1</span> Demo 3 — watch one bad value ruin a summary</h3>
-<div id="d8525b7e" class="cell" data-execution_count="4">
+<div id="b323853f" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ages <span class="op">=</span> pd.Series([<span class="dv">25</span>, <span class="dv">31</span>, <span class="dv">28</span>, <span class="dv">35</span>, <span class="dv">22</span>, <span class="dv">29</span>, <span class="dv">33</span>, <span class="dv">27</span>])</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Average age, clean data     : </span><span class="sc">{</span>ages<span class="sc">.</span>mean()<span class="sc">:.1f}</span><span class="ss"> years"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>survey <span class="op">=</span> pd.read_csv(<span class="st">"datasets/survey_ages_typo.csv"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(survey.to_string(index<span class="op">=</span><span class="va">False</span>))</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>ages_with_typo <span class="op">=</span> pd.Series([<span class="dv">25</span>, <span class="dv">31</span>, <span class="dv">28</span>, <span class="dv">35</span>, <span class="dv">22</span>, <span class="dv">29</span>, <span class="dv">33</span>, <span class="dv">225</span>])   <span class="co"># 27 typed as 225</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Average age, one typo       : </span><span class="sc">{</span>ages_with_typo<span class="sc">.</span>mean()<span class="sc">:.1f}</span><span class="ss"> years"</span>)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Median age, the same typo   : </span><span class="sc">{</span>ages_with_typo<span class="sc">.</span>median()<span class="sc">:.1f}</span><span class="ss"> years  &lt;- barely moved"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>clean <span class="op">=</span> survey[<span class="st">"age_clean"</span>]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>typed <span class="op">=</span> survey[<span class="st">"age_as_typed"</span>]        <span class="co"># respondent H's 27 was keyed as 225</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Average age, clean data     : </span><span class="sc">{</span>clean<span class="sc">.</span>mean()<span class="sc">:.1f}</span><span class="ss"> years"</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Average age, one typo       : </span><span class="sc">{</span>typed<span class="sc">.</span>mean()<span class="sc">:.1f}</span><span class="ss"> years"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Median age, the same typo   : </span><span class="sc">{</span>typed<span class="sc">.</span>median()<span class="sc">:.1f}</span><span class="ss"> years  &lt;- barely moved"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Average age, clean data     : 28.8 years
+<pre><code>respondent  age_clean  age_as_typed
+         A         25            25
+         B         31            31
+         C         28            28
+         D         35            35
+         E         22            22
+         F         29            29
+         G         33            33
+         H         27           225
+
+Average age, clean data     : 28.8 years
 Average age, one typo       : 53.5 years
 Median age, the same typo   : 30.0 years  &lt;- barely moved</code></pre>
 </div>
@@ -833,22 +856,17 @@ Median age, the same typo   : 30.0 years  &lt;- barely moved</code></pre>
 </div>
 <section id="demo-4-building-a-table-and-the-column-inside-it" class="level3" data-number="6.1.1">
 <h3 data-number="6.1.1" class="anchored" data-anchor-id="demo-4-building-a-table-and-the-column-inside-it"><span class="header-section-number">6.1.1</span> Demo 4 — building a table, and the column inside it</h3>
-<div id="7a525c1c" class="cell" data-execution_count="5">
+<div id="167720b3" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>sales <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"product"</span>:  [<span class="st">"Laptop"</span>, <span class="st">"Mouse"</span>, <span class="st">"Keyboard"</span>, <span class="st">"Monitor"</span>, <span class="st">"Mouse"</span>, <span class="st">"Laptop"</span>],</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"city"</span>:     [<span class="st">"Mumbai"</span>, <span class="st">"Delhi"</span>, <span class="st">"Mumbai"</span>, <span class="st">"Pune"</span>, <span class="st">"Mumbai"</span>, <span class="st">"Delhi"</span>],</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"units"</span>:    [<span class="dv">3</span>, <span class="dv">20</span>, <span class="dv">12</span>, <span class="dv">5</span>, <span class="dv">15</span>, <span class="dv">2</span>],</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"price"</span>:    [<span class="dv">55000</span>, <span class="dv">500</span>, <span class="dv">1500</span>, <span class="dv">12000</span>, <span class="dv">500</span>, <span class="dv">55000</span>],</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>sales[<span class="st">"revenue"</span>] <span class="op">=</span> sales[<span class="st">"units"</span>] <span class="op">*</span> sales[<span class="st">"price"</span>]   <span class="co"># a new column, computed for every row at once</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">One column on its own is a Series:"</span>)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales[<span class="st">"revenue"</span>])</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">type of the table  : </span><span class="sc">{</span><span class="bu">type</span>(sales)<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"type of one column : </span><span class="sc">{</span><span class="bu">type</span>(sales[<span class="st">'revenue'</span>])<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>sales <span class="op">=</span> pd.read_csv(<span class="st">"datasets/shop_sales.csv"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>sales[<span class="st">"revenue"</span>] <span class="op">=</span> sales[<span class="st">"units"</span>] <span class="op">*</span> sales[<span class="st">"price"</span>]   <span class="co"># a new column, computed for every row at once</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">One column on its own is a Series:"</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales[<span class="st">"revenue"</span>])</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">type of the table  : </span><span class="sc">{</span><span class="bu">type</span>(sales)<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"type of one column : </span><span class="sc">{</span><span class="bu">type</span>(sales[<span class="st">'revenue'</span>])<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    product    city  units  price  revenue
 0    Laptop  Mumbai      3  55000   165000
@@ -913,82 +931,80 @@ type of one column : Series</code></pre>
 </table>
 <section id="demo-5-the-five-command-first-look" class="level3" data-number="6.2.1">
 <h3 data-number="6.2.1" class="anchored" data-anchor-id="demo-5-the-five-command-first-look"><span class="header-section-number">6.2.1</span> Demo 5 — the five-command first look</h3>
-<p>We load a deliberately messy dataset — the kind a colleague actually sends you.</p>
-<div id="5cefd9a0" class="cell" data-execution_count="6">
+<p>We load <code>datasets/messy_customers.csv</code> — ten rows of the kind of file a colleague actually sends you.</p>
+<div id="5261e67f" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>messy <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"customer_id"</span>: [<span class="dv">101</span>, <span class="dv">102</span>, <span class="dv">103</span>, <span class="dv">104</span>, <span class="dv">105</span>, <span class="dv">106</span>, <span class="dv">103</span>],</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"age"</span>:         [<span class="dv">25</span>, np.nan, <span class="dv">22</span>, <span class="dv">225</span>, <span class="dv">30</span>, <span class="dv">41</span>, <span class="dv">22</span>],</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"income"</span>:      [<span class="dv">50000</span>, <span class="dv">60000</span>, np.nan, <span class="dv">120000</span>, <span class="dv">45000</span>, <span class="dv">58000</span>, np.nan],</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"city"</span>:        [<span class="st">"Mumbai"</span>, <span class="st">"mumbai"</span>, <span class="st">"Delhi"</span>, <span class="st">"Bombay"</span>, <span class="st">"Delhi"</span>, <span class="st">"MUM"</span>, <span class="st">"Delhi"</span>],</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"subscribed"</span>:  [<span class="st">"Yes"</span>, <span class="st">"Y"</span>, <span class="st">"No"</span>, <span class="st">"N"</span>, <span class="st">"Yes"</span>, <span class="st">"yes"</span>, <span class="st">"No"</span>],</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"1. SHAPE — </span><span class="sc">{</span>messy<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> rows, </span><span class="sc">{</span>messy<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss"> columns</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>messy <span class="op">=</span> pd.read_csv(<span class="st">"datasets/messy_customers.csv"</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"1. SHAPE — </span><span class="sc">{</span>messy<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> rows, </span><span class="sc">{</span>messy<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss"> columns</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"2. HEAD — the first few rows"</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(messy.head(<span class="dv">3</span>))</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">3. INFO — types and how many values are actually present"</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>messy.info()</span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"2. HEAD — the first few rows"</span>)</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(messy.head(<span class="dv">3</span>))</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">4. DESCRIBE — the numeric columns"</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(messy.describe().<span class="bu">round</span>(<span class="dv">1</span>))</span>
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">3. INFO — types and how many values are actually present"</span>)</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>messy.info()</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">4. DESCRIBE — the numeric columns"</span>)</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(messy.describe().<span class="bu">round</span>(<span class="dv">1</span>))</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">5. VALUE_COUNTS — what is in the text columns"</span>)</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(messy[<span class="st">"city"</span>].value_counts())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">5. VALUE_COUNTS — what is in the text columns"</span>)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(messy[<span class="st">"city"</span>].value_counts())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>1. SHAPE — 7 rows, 5 columns
+<pre><code>1. SHAPE — 10 rows, 7 columns
 
 2. HEAD — the first few rows
-   customer_id   age   income    city subscribed
-0          101  25.0  50000.0  Mumbai        Yes
-1          102   NaN  60000.0  mumbai          Y
-2          103  22.0      NaN   Delhi         No
+   customer_id   name   age    city   income      joined subscribed
+0            1  Asha   25.0  Mumbai  50000.0  2024-01-05        Yes
+1            2   Brij  31.0  mumbai  62000.0  05/02/2024          Y
+2            3   Chan  28.0   Delhi      NaN  2024-03-11         No
 
 3. INFO — types and how many values are actually present
 &lt;class 'pandas.DataFrame'&gt;
-RangeIndex: 7 entries, 0 to 6
-Data columns (total 5 columns):
+RangeIndex: 10 entries, 0 to 9
+Data columns (total 7 columns):
  #   Column       Non-Null Count  Dtype  
 ---  ------       --------------  -----  
- 0   customer_id  7 non-null      int64  
- 1   age          6 non-null      float64
- 2   income       5 non-null      float64
- 3   city         7 non-null      str    
- 4   subscribed   7 non-null      str    
-dtypes: float64(2), int64(1), str(2)
-memory usage: 412.0 bytes
+ 0   customer_id  10 non-null     int64  
+ 1   name         10 non-null     str    
+ 2   age          9 non-null      float64
+ 3   city         10 non-null     str    
+ 4   income       8 non-null      float64
+ 5   joined       10 non-null     str    
+ 6   subscribed   10 non-null     str    
+dtypes: float64(2), int64(1), str(4)
+memory usage: 692.0 bytes
 
 4. DESCRIBE — the numeric columns
        customer_id    age    income
-count          7.0    6.0       5.0
-mean         103.4   60.8   66600.0
-std            1.7   80.7   30459.8
-min          101.0   22.0   45000.0
-25%          102.5   22.8   50000.0
-50%          103.0   27.5   58000.0
-75%          104.5   38.2   60000.0
-max          106.0  225.0  120000.0
+count         10.0    9.0       8.0
+mean           4.8   46.3  162750.0
+std            2.7   67.9  297998.0
+min            1.0   -4.0   45000.0
+25%            3.0   25.0   53750.0
+50%            4.5   28.0   59500.0
+75%            6.8   31.0   64250.0
+max            9.0  225.0  900000.0
 
 5. VALUE_COUNTS — what is in the text columns
 city
 Delhi     3
+Pune      2
 Mumbai    1
 mumbai    1
 Bombay    1
 MUM       1
+delhi     1
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>Read the output and you have already found four problems, <strong>before writing a single line of cleaning code</strong>:</p>
 <ul>
-<li><code>.info()</code> shows <code>age</code> has 6 values, not 7 — one is missing. <code>income</code> has 5.</li>
-<li><code>.describe()</code> shows <code>max</code> age is <strong>225</strong> — impossible.</li>
+<li><code>.info()</code> shows <code>age</code> and <code>income</code> have fewer values than rows — some are missing.</li>
+<li><code>.describe()</code> shows <code>max</code> age is <strong>225</strong>, and <code>min</code> age is <strong>−4</strong> — both impossible.</li>
 <li><code>.value_counts()</code> shows <code>Mumbai</code>, <code>mumbai</code>, <code>Bombay</code> and <code>MUM</code> — one city, four spellings.</li>
-<li>The first column repeats <code>103</code> — a duplicate row.</li>
+<li><code>customer_id</code> repeats <code>3</code> — a duplicate row.</li>
 </ul>
 <div class="callout callout-style-default callout-warning callout-titled" title="⚠️ `.describe()` only sees numbers">
 <div class="callout-header d-flex align-content-center">
@@ -1041,7 +1057,7 @@ Name: count, dtype: int64</code></pre>
 </table>
 <section id="demo-6-the-three-selectors-side-by-side" class="level3" data-number="6.3.1">
 <h3 data-number="6.3.1" class="anchored" data-anchor-id="demo-6-the-three-selectors-side-by-side"><span class="header-section-number">6.3.1</span> Demo 6 — the three selectors, side by side</h3>
-<div id="53088f1a" class="cell" data-execution_count="7">
+<div id="640e50c0" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Whole column:"</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales[<span class="st">"product"</span>].tolist())</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1095,7 +1111,7 @@ Name: count, dtype: int64</code></pre>
 <section id="demo-7-filtering-with-a-condition" class="level3" data-number="6.3.2">
 <h3 data-number="6.3.2" class="anchored" data-anchor-id="demo-7-filtering-with-a-condition"><span class="header-section-number">6.3.2</span> Demo 7 — filtering with a condition</h3>
 <p>Filtering is the single most-used operation in pandas. You write a condition; pandas gives you back only the rows where it is true.</p>
-<div id="f21f92f3" class="cell" data-execution_count="8">
+<div id="aa16032b" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The condition on its own produces True/False for every row:</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Is revenue over 50,000?"</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>((sales[<span class="st">"revenue"</span>] <span class="op">&gt;</span> <span class="dv">50_000</span>).tolist())</span>
@@ -1143,7 +1159,7 @@ Mumbai rows with more than 10 units:
 <p><strong><code>groupby</code> splits the table into groups, applies a calculation to each, and puts the answers back together.</strong> It is how you turn a table of transactions into a summary somebody wants to read.</p>
 <section id="demo-8-from-raw-rows-to-an-answer" class="level3" data-number="6.4.1">
 <h3 data-number="6.4.1" class="anchored" data-anchor-id="demo-8-from-raw-rows-to-an-answer"><span class="header-section-number">6.4.1</span> Demo 8 — from raw rows to an answer</h3>
-<div id="4a5c5c35" class="cell" data-execution_count="9">
+<div id="3dc7e910" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Total revenue per city:"</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales.groupby(<span class="st">"city"</span>)[<span class="st">"revenue"</span>].<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>))</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1187,7 +1203,7 @@ Name: revenue, dtype: int64</code></pre>
 </section>
 <section id="demo-9-writing-the-answer-back-out" class="level3" data-number="6.4.2">
 <h3 data-number="6.4.2" class="anchored" data-anchor-id="demo-9-writing-the-answer-back-out"><span class="header-section-number">6.4.2</span> Demo 9 — writing the answer back out</h3>
-<div id="3618b942" class="cell" data-execution_count="10">
+<div id="1d6ab65b" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>summary <span class="op">=</span> sales.groupby(<span class="st">"city"</span>)[<span class="st">"revenue"</span>].<span class="bu">sum</span>().reset_index()</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(summary.to_csv(index<span class="op">=</span><span class="va">False</span>))    <span class="co"># what would be written to a file</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1258,7 +1274,7 @@ Pune,60000
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Task 1 — Build and inspect.</strong> Create a DataFrame of five products with columns <code>product</code>, <code>price</code> and <code>stock</code>. Print its shape, then its <code>.describe()</code>.</p>
+<p><strong>Task 1 — Load and inspect.</strong> Load <code>datasets/inventory.xlsx</code>. Print its shape, then its <code>.describe()</code>.</p>
 <p><strong>Task 2 — Filter.</strong> From the <code>sales</code> table in this chapter, select every row where the city is Delhi <em>or</em> the units sold are above 10.</p>
 <p><strong>Task 3 — Group.</strong> Find the average revenue per product, sorted from highest to lowest.</p>
 <p><strong>Task 4 — Spot the trouble.</strong> Run <code>.value_counts()</code> on <code>messy["subscribed"]</code> from Demo 5. <strong>How many distinct values does it contain, and how many should it contain?</strong></p>
@@ -1276,39 +1292,30 @@ Pune,60000
 </div>
 <div id="callout-13" class="callout-13-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="dbf9d442" class="cell" data-execution_count="11">
+<div id="f50833ba" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 1</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>products <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"product"</span>: [<span class="st">"Pen"</span>, <span class="st">"Notebook"</span>, <span class="st">"Bag"</span>, <span class="st">"Bottle"</span>, <span class="st">"Lamp"</span>],</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"price"</span>:   [<span class="dv">20</span>, <span class="dv">60</span>, <span class="dv">950</span>, <span class="dv">350</span>, <span class="dv">1200</span>],</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"stock"</span>:   [<span class="dv">500</span>, <span class="dv">220</span>, <span class="dv">40</span>, <span class="dv">90</span>, <span class="dv">15</span>],</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 1 — shape:"</span>, products.shape)</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(products.describe().<span class="bu">round</span>(<span class="dv">1</span>))</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>sales <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"product"</span>: [<span class="st">"Laptop"</span>, <span class="st">"Mouse"</span>, <span class="st">"Keyboard"</span>, <span class="st">"Monitor"</span>, <span class="st">"Mouse"</span>, <span class="st">"Laptop"</span>],</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"city"</span>:    [<span class="st">"Mumbai"</span>, <span class="st">"Delhi"</span>, <span class="st">"Mumbai"</span>, <span class="st">"Pune"</span>, <span class="st">"Mumbai"</span>, <span class="st">"Delhi"</span>],</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"units"</span>:   [<span class="dv">3</span>, <span class="dv">20</span>, <span class="dv">12</span>, <span class="dv">5</span>, <span class="dv">15</span>, <span class="dv">2</span>],</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"price"</span>:   [<span class="dv">55000</span>, <span class="dv">500</span>, <span class="dv">1500</span>, <span class="dv">12000</span>, <span class="dv">500</span>, <span class="dv">55000</span>],</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>sales[<span class="st">"revenue"</span>] <span class="op">=</span> sales[<span class="st">"units"</span>] <span class="op">*</span> sales[<span class="st">"price"</span>]</span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 2:"</span>)</span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales[(sales[<span class="st">"city"</span>] <span class="op">==</span> <span class="st">"Delhi"</span>) <span class="op">|</span> (sales[<span class="st">"units"</span>] <span class="op">&gt;</span> <span class="dv">10</span>)])</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 3</span></span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 3:"</span>)</span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales.groupby(<span class="st">"product"</span>)[<span class="st">"revenue"</span>].mean().sort_values(ascending<span class="op">=</span><span class="va">False</span>))</span>
-<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 4</span></span>
-<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>subscribed <span class="op">=</span> pd.Series([<span class="st">"Yes"</span>, <span class="st">"Y"</span>, <span class="st">"No"</span>, <span class="st">"N"</span>, <span class="st">"Yes"</span>, <span class="st">"yes"</span>, <span class="st">"No"</span>])</span>
-<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 4:"</span>)</span>
-<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(subscribed.value_counts())</span>
-<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Distinct values found: </span><span class="sc">{</span>subscribed<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss"> — there should be 2 (yes and no)."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>products <span class="op">=</span> pd.read_excel(<span class="st">"datasets/inventory.xlsx"</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 1 — shape:"</span>, products.shape)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(products.describe().<span class="bu">round</span>(<span class="dv">1</span>))</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>sales <span class="op">=</span> pd.read_csv(<span class="st">"datasets/shop_sales.csv"</span>)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>sales[<span class="st">"revenue"</span>] <span class="op">=</span> sales[<span class="st">"units"</span>] <span class="op">*</span> sales[<span class="st">"price"</span>]</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 2:"</span>)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales[(sales[<span class="st">"city"</span>] <span class="op">==</span> <span class="st">"Delhi"</span>) <span class="op">|</span> (sales[<span class="st">"units"</span>] <span class="op">&gt;</span> <span class="dv">10</span>)])</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 3</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 3:"</span>)</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales.groupby(<span class="st">"product"</span>)[<span class="st">"revenue"</span>].mean().sort_values(ascending<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 4</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>subscribed <span class="op">=</span> pd.read_csv(<span class="st">"datasets/messy_customers.csv"</span>)[<span class="st">"subscribed"</span>]</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 4:"</span>)</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(subscribed.value_counts())</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Distinct values found: </span><span class="sc">{</span>subscribed<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss"> — there should be 2 (yes and no)."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Task 1 — shape: (5, 3)
         price  stock
@@ -1337,9 +1344,10 @@ Mouse         8750.0
 Name: revenue, dtype: float64
 
 Task 4:
-Yes    2
-No     2
-Y      1
+subscribed
+Yes    3
+No     3
+Y      2
 N      1
 yes    1
 Name: count, dtype: int64

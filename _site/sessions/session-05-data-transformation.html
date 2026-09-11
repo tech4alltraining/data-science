@@ -493,34 +493,32 @@ Note
 </div>
 <section id="demo-1-watch-a-unit-decide-the-answer" class="level3" data-number="7.1.1">
 <h3 data-number="7.1.1" class="anchored" data-anchor-id="demo-1-watch-a-unit-decide-the-answer"><span class="header-section-number">7.1.1</span> Demo 1 — watch a unit decide the answer</h3>
-<div id="a7b91394" class="cell" data-execution_count="2">
+<div id="645ffd0a" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>people <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"age"</span>:    [<span class="dv">25</span>, <span class="dv">55</span>, <span class="dv">26</span>],</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"income"</span>: [<span class="dv">50_000</span>, <span class="dv">51_000</span>, <span class="dv">90_000</span>],</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>}, index<span class="op">=</span>[<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>])</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(people)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>people <span class="op">=</span> pd.read_csv(<span class="st">"datasets/three_people.csv"</span>, index_col<span class="op">=</span><span class="st">"person"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(people)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> distance(p, q):</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(((p <span class="op">-</span> q) <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>())</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> distance(p, q):</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(((p <span class="op">-</span> q) <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>())</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">RAW — who is A most similar to?"</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  A to B: </span><span class="sc">{</span>distance(people.loc[<span class="st">'A'</span>], people.loc[<span class="st">'B'</span>])<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  A to C: </span><span class="sc">{</span>distance(people.loc[<span class="st">'A'</span>], people.loc[<span class="st">'C'</span>])<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  → B, because their incomes are close. Age was ignored."</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>scaled <span class="op">=</span> (people <span class="op">-</span> people.<span class="bu">min</span>()) <span class="op">/</span> (people.<span class="bu">max</span>() <span class="op">-</span> people.<span class="bu">min</span>())   <span class="co"># squash both to 0–1</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">SCALED — the same question:"</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  A to B: </span><span class="sc">{</span>distance(scaled.loc[<span class="st">'A'</span>], scaled.loc[<span class="st">'B'</span>])<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  A to C: </span><span class="sc">{</span>distance(scaled.loc[<span class="st">'A'</span>], scaled.loc[<span class="st">'C'</span>])<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  → C, a 26-year-old. Now age counts as much as income."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">RAW — who is A most similar to?"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  A to B: </span><span class="sc">{</span>distance(people.loc[<span class="st">'A'</span>], people.loc[<span class="st">'B'</span>])<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  A to C: </span><span class="sc">{</span>distance(people.loc[<span class="st">'A'</span>], people.loc[<span class="st">'C'</span>])<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  → B, because their incomes are close. Age was ignored."</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>scaled <span class="op">=</span> (people <span class="op">-</span> people.<span class="bu">min</span>()) <span class="op">/</span> (people.<span class="bu">max</span>() <span class="op">-</span> people.<span class="bu">min</span>())   <span class="co"># squash both to 0–1</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">SCALED — the same question:"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  A to B: </span><span class="sc">{</span>distance(scaled.loc[<span class="st">'A'</span>], scaled.loc[<span class="st">'B'</span>])<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  A to C: </span><span class="sc">{</span>distance(scaled.loc[<span class="st">'A'</span>], scaled.loc[<span class="st">'C'</span>])<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  → C, a 26-year-old. Now age counts as much as income."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   age  income
-A   25   50000
-B   55   51000
-C   26   90000
+<pre><code>        age  income
+person             
+A        25   50000
+B        55   51000
+C        26   90000
 
 RAW — who is A most similar to?
   A to B: 1,000
@@ -592,32 +590,30 @@ SCALED — the same question:
 </table>
 <section id="demo-2-proving-trees-do-not-care" class="level3" data-number="7.2.1">
 <h3 data-number="7.2.1" class="anchored" data-anchor-id="demo-2-proving-trees-do-not-care"><span class="header-section-number">7.2.1</span> Demo 2 — proving trees do not care</h3>
-<div id="fa78c8bd" class="cell" data-execution_count="3">
+<div id="8a2624ba" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsClassifier</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">0</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">400</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.column_stack([rng.normal(<span class="dv">40</span>, <span class="dv">12</span>, n),          <span class="co"># age</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                     rng.normal(<span class="dv">60_000</span>, <span class="dv">25_000</span>, n)]) <span class="co"># income</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> (X[:, <span class="dv">1</span>] <span class="op">&gt;</span> <span class="dv">60_000</span>).astype(<span class="bu">int</span>)                   <span class="co"># the truth depends on income</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>Xtr, Xte, ytr, yte <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>Xtr_s <span class="op">=</span> StandardScaler().fit(Xtr).transform(Xtr)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>Xte_s <span class="op">=</span> StandardScaler().fit(Xtr).transform(Xte)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, model <span class="kw">in</span> [(<span class="st">"Decision tree"</span>, DecisionTreeClassifier(random_state<span class="op">=</span><span class="dv">0</span>)),</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>                    (<span class="st">"k-Nearest Neighbours"</span>, KNeighborsClassifier())]:</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    raw_score    <span class="op">=</span> model.fit(Xtr, ytr).score(Xte, yte)</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    scaled_score <span class="op">=</span> model.fit(Xtr_s, ytr).score(Xte_s, yte)</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:&lt;22}</span><span class="ss"> unscaled </span><span class="sc">{</span>raw_score<span class="sc">:.3f}</span><span class="ss">   scaled </span><span class="sc">{</span>scaled_score<span class="sc">:.3f}</span><span class="ss">   "</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"difference </span><span class="sc">{</span>scaled_score<span class="op">-</span>raw_score<span class="sc">:+.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>cv <span class="op">=</span> pd.read_csv(<span class="st">"datasets/customer_value.csv"</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> cv[[<span class="st">"age"</span>, <span class="st">"income"</span>]].values</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> cv[<span class="st">"high_value"</span>].values                          <span class="co"># the truth depends on income only</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>Xtr, Xte, ytr, yte <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>Xtr_s <span class="op">=</span> StandardScaler().fit(Xtr).transform(Xtr)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>Xte_s <span class="op">=</span> StandardScaler().fit(Xtr).transform(Xte)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, model <span class="kw">in</span> [(<span class="st">"Decision tree"</span>, DecisionTreeClassifier(random_state<span class="op">=</span><span class="dv">0</span>)),</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>                    (<span class="st">"k-Nearest Neighbours"</span>, KNeighborsClassifier())]:</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    raw_score    <span class="op">=</span> model.fit(Xtr, ytr).score(Xte, yte)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    scaled_score <span class="op">=</span> model.fit(Xtr_s, ytr).score(Xte_s, yte)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:&lt;22}</span><span class="ss"> unscaled </span><span class="sc">{</span>raw_score<span class="sc">:.3f}</span><span class="ss">   scaled </span><span class="sc">{</span>scaled_score<span class="sc">:.3f}</span><span class="ss">   "</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"difference </span><span class="sc">{</span>scaled_score<span class="op">-</span>raw_score<span class="sc">:+.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Decision tree          unscaled 1.000   scaled 1.000   difference +0.000
-k-Nearest Neighbours   unscaled 1.000   scaled 0.958   difference -0.042</code></pre>
+<pre><code>Decision tree          unscaled 0.972   scaled 0.972   difference +0.000
+k-Nearest Neighbours   unscaled 0.694   scaled 0.994   difference +0.300</code></pre>
 </div>
 </div>
 <p><strong>The tree is unchanged. k-NN improves.</strong> That is the table above, measured rather than asserted.</p>
@@ -694,23 +690,20 @@ k-Nearest Neighbours   unscaled 1.000   scaled 0.958   difference -0.042</code><
 </div>
 <section id="demo-3-all-five-on-the-same-small-table" class="level3" data-number="8.1.1">
 <h3 data-number="8.1.1" class="anchored" data-anchor-id="demo-3-all-five-on-the-same-small-table"><span class="header-section-number">8.1.1</span> Demo 3 — all five, on the same small table</h3>
-<div id="95f4cb0c" class="cell" data-execution_count="4">
+<div id="23a98b51" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> (MinMaxScaler, StandardScaler, RobustScaler,</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                                   Normalizer, Binarizer)</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"age"</span>:    [<span class="dv">25</span>, <span class="dv">32</span>, <span class="dv">47</span>, <span class="dv">51</span>, <span class="dv">62</span>, <span class="dv">29</span>],</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"income"</span>: [<span class="dv">30_000</span>, <span class="dv">42_000</span>, <span class="dv">61_000</span>, <span class="dv">58_000</span>, <span class="dv">250_000</span>, <span class="dv">35_000</span>],   <span class="co"># one high earner</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"ORIGINAL"</span>)<span class="op">;</span> <span class="bu">print</span>(data)</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, tool <span class="kw">in</span> [(<span class="st">"MinMaxScaler  (0 to 1)"</span>, MinMaxScaler()),</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                   (<span class="st">"StandardScaler (mean 0)"</span>, StandardScaler()),</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                   (<span class="st">"RobustScaler  (median 0)"</span>, RobustScaler())]:</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> pd.DataFrame(tool.fit_transform(data), columns<span class="op">=</span>data.columns)</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">"</span>)<span class="op">;</span> <span class="bu">print</span>(out.<span class="bu">round</span>(<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">"datasets/six_earners.csv"</span>)     <span class="co"># six people, one of them a high earner</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"ORIGINAL"</span>)<span class="op">;</span> <span class="bu">print</span>(data)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, tool <span class="kw">in</span> [(<span class="st">"MinMaxScaler  (0 to 1)"</span>, MinMaxScaler()),</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                   (<span class="st">"StandardScaler (mean 0)"</span>, StandardScaler()),</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                   (<span class="st">"RobustScaler  (median 0)"</span>, RobustScaler())]:</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> pd.DataFrame(tool.fit_transform(data), columns<span class="op">=</span>data.columns)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">"</span>)<span class="op">;</span> <span class="bu">print</span>(out.<span class="bu">round</span>(<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>ORIGINAL
    age  income
@@ -750,7 +743,7 @@ RobustScaler  (median 0)
 </div>
 </div>
 <p>Look at what the outlier does to each one:</p>
-<div id="2401bdaa" class="cell" data-execution_count="5">
+<div id="8119d031" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, tool <span class="kw">in</span> [(<span class="st">"MinMax"</span>, MinMaxScaler()), (<span class="st">"Standard"</span>, StandardScaler()),</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                   (<span class="st">"Robust"</span>, RobustScaler())]:</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> tool.fit_transform(data)[:, <span class="dv">1</span>]      <span class="co"># the income column</span></span>
@@ -766,27 +759,27 @@ Robust    income → range  -0.85 to   8.51 ; the five ordinary earners now sit 
 </section>
 <section id="demo-4-normalizer-and-binarizer-which-do-something-different" class="level3" data-number="8.1.2">
 <h3 data-number="8.1.2" class="anchored" data-anchor-id="demo-4-normalizer-and-binarizer-which-do-something-different"><span class="header-section-number">8.1.2</span> Demo 4 — Normalizer and Binarizer, which do something different</h3>
-<div id="48edd138" class="cell" data-execution_count="6">
+<div id="8e3697bc" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> Normalizer, Binarizer</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalizer works ACROSS a row. Here: word counts in two documents.</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>docs <span class="op">=</span> np.array([</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>],     <span class="co"># a short document</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">30</span>, <span class="dv">10</span>, <span class="dv">0</span>],   <span class="co"># a long document with the SAME proportions</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Raw word counts:"</span>)<span class="op">;</span> <span class="bu">print</span>(docs)</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">After Normalizer — the two documents are now identical, as they should be:"</span>)</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Normalizer().fit_transform(docs).<span class="bu">round</span>(<span class="dv">3</span>))</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Binarizer: above the line or below it.</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> np.array([[<span class="dv">35</span>], [<span class="dv">52</span>], [<span class="dv">67</span>], [<span class="dv">40</span>], [<span class="dv">88</span>]])</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Exam marks:"</span>, scores.ravel().tolist())</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Pass (1) or fail (0) at 50:"</span>, Binarizer(threshold<span class="op">=</span><span class="dv">50</span>).fit_transform(scores).ravel().tolist())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>wc <span class="op">=</span> pd.read_csv(<span class="st">"datasets/word_counts.csv"</span>, index_col<span class="op">=</span><span class="st">"document"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>docs <span class="op">=</span> wc.values</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Raw word counts (datasets/word_counts.csv):"</span>)<span class="op">;</span> <span class="bu">print</span>(wc)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">After Normalizer — the two documents are now identical, as they should be:"</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Normalizer().fit_transform(docs).<span class="bu">round</span>(<span class="dv">3</span>))</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Binarizer: above the line or below it.</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> pd.read_csv(<span class="st">"datasets/exam_marks.csv"</span>)[[<span class="st">"mark"</span>]].values</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Exam marks:"</span>, scores.ravel().tolist())</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Pass (1) or fail (0) at 50:"</span>, Binarizer(threshold<span class="op">=</span><span class="dv">50</span>).fit_transform(scores).ravel().tolist())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Raw word counts:
-[[ 3  1  0]
- [30 10  0]]
+<pre><code>Raw word counts (datasets/word_counts.csv):
+          data  model  python
+document                     
+short        3      1       0
+long        30     10       0
 
 After Normalizer — the two documents are now identical, as they should be:
 [[0.949 0.316 0.   ]
@@ -804,17 +797,16 @@ Pass (1) or fail (0) at 50: [0, 1, 1, 0, 1]</code></pre>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">1</span>)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>income <span class="op">=</span> np.random.gamma(<span class="dv">2</span>, <span class="dv">20_000</span>, <span class="dv">1_000</span>).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>scaled <span class="op">=</span> StandardScaler().fit_transform(income)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="fl">3.2</span>))</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].hist(income, bins<span class="op">=</span><span class="dv">40</span>)<span class="op">;</span> ax[<span class="dv">0</span>].set_title(<span class="st">"Before"</span>)<span class="op">;</span> ax[<span class="dv">0</span>].set_xlabel(<span class="st">"Income (₹)"</span>)</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].hist(scaled, bins<span class="op">=</span><span class="dv">40</span>)<span class="op">;</span> ax[<span class="dv">1</span>].set_title(<span class="st">"After StandardScaler"</span>)<span class="op">;</span> ax[<span class="dv">1</span>].set_xlabel(<span class="st">"Standard deviations"</span>)</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Before: mean </span><span class="sc">{</span>income<span class="sc">.</span>mean()<span class="sc">:&gt;10,.0f}</span><span class="ss">   std </span><span class="sc">{</span>income<span class="sc">.</span>std()<span class="sc">:&gt;10,.0f}</span><span class="ss">   skew stays the same"</span>)</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"After : mean </span><span class="sc">{</span>scaled<span class="sc">.</span>mean()<span class="sc">:&gt;10.2f}</span><span class="ss">   std </span><span class="sc">{</span>scaled<span class="sc">.</span>std()<span class="sc">:&gt;10.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>income <span class="op">=</span> pd.read_csv(<span class="st">"datasets/skewed_incomes.csv"</span>)[[<span class="st">"income"</span>]].values</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>scaled <span class="op">=</span> StandardScaler().fit_transform(income)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="fl">3.2</span>))</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].hist(income, bins<span class="op">=</span><span class="dv">40</span>)<span class="op">;</span> ax[<span class="dv">0</span>].set_title(<span class="st">"Before"</span>)<span class="op">;</span> ax[<span class="dv">0</span>].set_xlabel(<span class="st">"Income (₹)"</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].hist(scaled, bins<span class="op">=</span><span class="dv">40</span>)<span class="op">;</span> ax[<span class="dv">1</span>].set_title(<span class="st">"After StandardScaler"</span>)<span class="op">;</span> ax[<span class="dv">1</span>].set_xlabel(<span class="st">"Standard deviations"</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Before: mean </span><span class="sc">{</span>income<span class="sc">.</span>mean()<span class="sc">:&gt;10,.0f}</span><span class="ss">   std </span><span class="sc">{</span>income<span class="sc">.</span>std()<span class="sc">:&gt;10,.0f}</span><span class="ss">   skew stays the same"</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"After : mean </span><span class="sc">{</span>scaled<span class="sc">.</span>mean()<span class="sc">:&gt;10.2f}</span><span class="ss">   std </span><span class="sc">{</span>scaled<span class="sc">.</span>std()<span class="sc">:&gt;10.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="fig-s05-shape" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -828,7 +820,7 @@ Figure&nbsp;8.1: Before and after standardizing. The distribution’s shape is i
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Before: mean     40,897   std     29,922   skew stays the same
+<pre><code>Before: mean     39,469   std     27,531   skew stays the same
 After : mean       0.00   std       1.00</code></pre>
 </div>
 </div>
@@ -843,12 +835,12 @@ After : mean       0.00   std       1.00</code></pre>
 </div>
 <div class="callout-body-container callout-body">
 <p>Both histograms lean the same way. Scaling shifts and stretches; it does not <strong>reshape</strong>. If a column is heavily skewed and you need it symmetric, you need a different tool — a <strong>log transform</strong>:</p>
-<div id="75331166" class="cell" data-execution_count="8">
+<div id="c4c5c80b" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Skewness before log transform:"</span>, <span class="bu">float</span>(pd.Series(income.ravel()).skew().<span class="bu">round</span>(<span class="dv">2</span>)))</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Skewness after  log transform:"</span>, <span class="bu">float</span>(pd.Series(np.log1p(income.ravel())).skew().<span class="bu">round</span>(<span class="dv">2</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Skewness before log transform: 1.56
-Skewness after  log transform: -0.82</code></pre>
+<pre><code>Skewness before log transform: 1.36
+Skewness after  log transform: -1.01</code></pre>
 </div>
 </div>
 </div>
@@ -899,31 +891,27 @@ Skewness after  log transform: -0.82</code></pre>
 </table>
 <section id="demo-6-the-three-encodings-and-the-trap-in-the-middle" class="level3" data-number="9.1.1">
 <h3 data-number="9.1.1" class="anchored" data-anchor-id="demo-6-the-three-encodings-and-the-trap-in-the-middle"><span class="header-section-number">9.1.1</span> Demo 6 — the three encodings, and the trap in the middle</h3>
-<div id="3c947122" class="cell" data-execution_count="9">
+<div id="453a20b8" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> LabelEncoder, OrdinalEncoder</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"city"</span>: [<span class="st">"Mumbai"</span>, <span class="st">"Delhi"</span>, <span class="st">"Pune"</span>, <span class="st">"Mumbai"</span>, <span class="st">"Delhi"</span>],</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"size"</span>: [<span class="st">"small"</span>, <span class="st">"large"</span>, <span class="st">"medium"</span>, <span class="st">"medium"</span>, <span class="st">"small"</span>],</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"approved"</span>: [<span class="st">"yes"</span>, <span class="st">"no"</span>, <span class="st">"yes"</span>, <span class="st">"yes"</span>, <span class="st">"no"</span>],</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df)</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. LABEL ENCODING — one number per category. Correct for the TARGET only.</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>le <span class="op">=</span> LabelEncoder()</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"approved_num"</span>] <span class="op">=</span> le.fit_transform(df[<span class="st">"approved"</span>])</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Label encoding the target: </span><span class="sc">{</span><span class="bu">dict</span>(<span class="bu">zip</span>(le.classes_, <span class="bu">range</span>(<span class="bu">len</span>(le.classes_))))<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. ORDINAL ENCODING — for categories with a genuine order. You supply the order.</span></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>oe <span class="op">=</span> OrdinalEncoder(categories<span class="op">=</span>[[<span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span>]])</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"size_num"</span>] <span class="op">=</span> oe.fit_transform(df[[<span class="st">"size"</span>]]).astype(<span class="bu">int</span>)</span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Ordinal encoding 'size' (small=0 &lt; medium=1 &lt; large=2):"</span>)</span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[[<span class="st">"size"</span>, <span class="st">"size_num"</span>]])</span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. ONE-HOT ENCODING — for categories with no order. One column per value.</span></span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">One-hot encoding 'city':"</span>)</span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.get_dummies(df[<span class="st">"city"</span>], prefix<span class="op">=</span><span class="st">"city"</span>).astype(<span class="bu">int</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"datasets/encoding_example.csv"</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. LABEL ENCODING — one number per category. Correct for the TARGET only.</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>le <span class="op">=</span> LabelEncoder()</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"approved_num"</span>] <span class="op">=</span> le.fit_transform(df[<span class="st">"approved"</span>])</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Label encoding the target: </span><span class="sc">{</span><span class="bu">dict</span>(<span class="bu">zip</span>(le.classes_, <span class="bu">range</span>(<span class="bu">len</span>(le.classes_))))<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. ORDINAL ENCODING — for categories with a genuine order. You supply the order.</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>oe <span class="op">=</span> OrdinalEncoder(categories<span class="op">=</span>[[<span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span>]])</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"size_num"</span>] <span class="op">=</span> oe.fit_transform(df[[<span class="st">"size"</span>]]).astype(<span class="bu">int</span>)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Ordinal encoding 'size' (small=0 &lt; medium=1 &lt; large=2):"</span>)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[[<span class="st">"size"</span>, <span class="st">"size_num"</span>]])</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. ONE-HOT ENCODING — for categories with no order. One column per value.</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">One-hot encoding 'city':"</span>)</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.get_dummies(df[<span class="st">"city"</span>], prefix<span class="op">=</span><span class="st">"city"</span>).astype(<span class="bu">int</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     city    size approved
 0  Mumbai   small      yes
@@ -968,22 +956,21 @@ One-hot encoding 'city':
 </section>
 <section id="demo-7-the-invented-ordering-measured" class="level3" data-number="9.1.2">
 <h3 data-number="9.1.2" class="anchored" data-anchor-id="demo-7-the-invented-ordering-measured"><span class="header-section-number">9.1.2</span> Demo 7 — the invented ordering, measured</h3>
-<div id="3c8eca9e" class="cell" data-execution_count="10">
+<div id="6bf30529" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">5</span>)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">300</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>city <span class="op">=</span> rng.choice([<span class="st">"Delhi"</span>, <span class="st">"Mumbai"</span>, <span class="st">"Pune"</span>], n)</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># The truth: Mumbai is expensive, the other two are similar. No ordering exists.</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>rent <span class="op">=</span> np.where(city <span class="op">==</span> <span class="st">"Mumbai"</span>, <span class="dv">40_000</span>, <span class="dv">18_000</span>) <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">2_000</span>, n)</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>label <span class="op">=</span> pd.Series(city).<span class="bu">map</span>({<span class="st">"Delhi"</span>: <span class="dv">0</span>, <span class="st">"Mumbai"</span>: <span class="dv">1</span>, <span class="st">"Pune"</span>: <span class="dv">2</span>}).values.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>onehot <span class="op">=</span> pd.get_dummies(city).astype(<span class="bu">int</span>).values</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, X <span class="kw">in</span> [(<span class="st">"label encoded (wrong)"</span>, label), (<span class="st">"one-hot encoded (right)"</span>, onehot)]:</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    r2 <span class="op">=</span> LinearRegression().fit(X, rent).score(X, rent)</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:&lt;26}</span><span class="ss"> explains </span><span class="sc">{</span>r2<span class="sc">:6.1%}</span><span class="ss"> of the variation in rent"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The truth in this file: Mumbai is expensive, the other two are similar.</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># There is no ordering among the three cities.</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>cr <span class="op">=</span> pd.read_csv(<span class="st">"datasets/city_rent.csv"</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>city, rent <span class="op">=</span> cr[<span class="st">"city"</span>].values, cr[<span class="st">"rent"</span>].values</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>label <span class="op">=</span> pd.Series(city).<span class="bu">map</span>({<span class="st">"Delhi"</span>: <span class="dv">0</span>, <span class="st">"Mumbai"</span>: <span class="dv">1</span>, <span class="st">"Pune"</span>: <span class="dv">2</span>}).values.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>onehot <span class="op">=</span> pd.get_dummies(city).astype(<span class="bu">int</span>).values</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, X <span class="kw">in</span> [(<span class="st">"label encoded (wrong)"</span>, label), (<span class="st">"one-hot encoded (right)"</span>, onehot)]:</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    r2 <span class="op">=</span> LinearRegression().fit(X, rent).score(X, rent)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:&lt;26}</span><span class="ss"> explains </span><span class="sc">{</span>r2<span class="sc">:6.1%}</span><span class="ss"> of the variation in rent"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>label encoded (wrong)      explains   0.0% of the variation in rent
 one-hot encoded (right)    explains  96.5% of the variation in rent</code></pre>
@@ -1041,38 +1028,37 @@ one-hot encoded (right)    explains  96.5% of the variation in rent</code></pre>
 </div>
 <section id="demo-8-splitting-with-the-naming-convention-we-use-everywhere" class="level3" data-number="10.1.1">
 <h3 data-number="10.1.1" class="anchored" data-anchor-id="demo-8-splitting-with-the-naming-convention-we-use-everywhere"><span class="header-section-number">10.1.1</span> Demo 8 — splitting, with the naming convention we use everywhere</h3>
-<div id="ad8c2a7c" class="cell" data-execution_count="11">
+<div id="bff3268e" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, numpy <span class="im">as</span> np</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">1</span>)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"area_sqft"</span>: rng.integers(<span class="dv">400</span>, <span class="dv">2500</span>, <span class="dv">200</span>),</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"age_years"</span>: rng.integers(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">200</span>),</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"approved"</span>:  rng.choice([<span class="dv">0</span>, <span class="dv">1</span>], <span class="dv">200</span>, p<span class="op">=</span>[<span class="fl">0.75</span>, <span class="fl">0.25</span>]),   <span class="co"># only 25% approved</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># A real, imbalanced dataset: loan applications where approval is uncommon.</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">"datasets/loan_imbalanced.csv"</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(data)<span class="sc">:,}</span><span class="ss"> applications, </span><span class="sc">{</span>data[<span class="st">'loan_status'</span>]<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss"> approved</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> data[[<span class="st">"person_age"</span>, <span class="st">"person_income"</span>, <span class="st">"loan_amnt"</span>, <span class="st">"credit_score"</span>]]  <span class="co"># inputs — capital X</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data[<span class="st">"loan_status"</span>]                                                 <span class="co"># answer — lowercase y</span></span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> data[[<span class="st">"area_sqft"</span>, <span class="st">"age_years"</span>]]     <span class="co"># the inputs — always called X</span></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data[<span class="st">"approved"</span>]                     <span class="co"># the answer  — always called y</span></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>, stratify<span class="op">=</span>y</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Whole dataset : </span><span class="sc">{</span><span class="bu">len</span>(X)<span class="sc">}</span><span class="ss"> rows"</span>)</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Training set  : </span><span class="sc">{</span><span class="bu">len</span>(X_train)<span class="sc">}</span><span class="ss"> rows"</span>)</span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Test set      : </span><span class="sc">{</span><span class="bu">len</span>(X_test)<span class="sc">}</span><span class="ss"> rows"</span>)</span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Approval rate overall  : </span><span class="sc">{</span>y<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Approval rate in train : </span><span class="sc">{</span>y_train<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Approval rate in test  : </span><span class="sc">{</span>y_test<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">   &lt;- kept the same by stratify=y"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>, stratify<span class="op">=</span>y</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Whole dataset : </span><span class="sc">{</span><span class="bu">len</span>(X)<span class="sc">}</span><span class="ss"> rows"</span>)</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Training set  : </span><span class="sc">{</span><span class="bu">len</span>(X_train)<span class="sc">}</span><span class="ss"> rows"</span>)</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Test set      : </span><span class="sc">{</span><span class="bu">len</span>(X_test)<span class="sc">}</span><span class="ss"> rows"</span>)</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Approval rate overall  : </span><span class="sc">{</span>y<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Approval rate in train : </span><span class="sc">{</span>y_train<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Approval rate in test  : </span><span class="sc">{</span>y_test<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">   &lt;- kept the same by stratify=y"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Whole dataset : 200 rows
-Training set  : 160 rows
-Test set      : 40 rows
+<pre><code>5,464 applications, 8.5% approved
 
-Approval rate overall  : 22.0%
-Approval rate in train : 21.9%
-Approval rate in test  : 22.5%   &lt;- kept the same by stratify=y</code></pre>
+Whole dataset : 5464 rows
+Training set  : 4371 rows
+Test set      : 1093 rows
+
+Approval rate overall  : 8.5%
+Approval rate in train : 8.5%
+Approval rate in test  : 8.5%   &lt;- kept the same by stratify=y</code></pre>
 </div>
 </div>
 <p>Three arguments earn their place:</p>
@@ -1122,34 +1108,33 @@ Approval rate in test  : 22.5%   &lt;- kept the same by stratify=y</code></pre>
 <h3 data-number="10.2.1" class="anchored" data-anchor-id="demo-9-how-big-is-the-damage-two-kinds-of-leakage-measured"><span class="header-section-number">10.2.1</span> Demo 9 — how big is the damage? Two kinds of leakage, measured</h3>
 <p>Leakage is often taught with a warning and no number. Let us get the number, because <strong>the two kinds do not cost the same.</strong></p>
 <p><strong>Kind 1 — a scaler fitted on everything.</strong> The scaler learns a minimum and maximum from all rows, including the test rows.</p>
-<div id="a4b8a9c7" class="cell" data-execution_count="12">
+<div id="3a54b7ff" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsRegressor</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error</span>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">3</span>)</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">60</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> rng.lognormal(<span class="dv">3</span>, <span class="fl">1.1</span>, size<span class="op">=</span>(n, <span class="dv">3</span>))</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> X[:, <span class="dv">0</span>] <span class="op">*</span> <span class="dv">2</span> <span class="op">+</span> X[:, <span class="dv">1</span>] <span class="op">*</span> <span class="fl">0.5</span> <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>leaked, honest <span class="op">=</span> [], []</span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> seed <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">200</span>):                       <span class="co"># 200 splits, so we compare averages not luck</span></span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    Xtr, Xte, ytr, yte <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span>seed)</span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ❌ scaler sees every row, then we split</span></span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> MinMaxScaler().fit_transform(X)</span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    aXtr, aXte, aytr, ayte <span class="op">=</span> train_test_split(a, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span>seed)</span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    leaked.append(mean_absolute_error(ayte, KNeighborsRegressor(<span class="dv">3</span>).fit(aXtr, aytr).predict(aXte)))</span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ✅ scaler learns from training rows only</span></span>
-<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>    sc <span class="op">=</span> MinMaxScaler().fit(Xtr)</span>
-<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>    honest.append(mean_absolute_error(yte, KNeighborsRegressor(<span class="dv">3</span>).fit(sc.transform(Xtr), ytr)</span>
-<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>                                              .predict(sc.transform(Xte))))</span>
-<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"scaler fitted on everything : average error </span><span class="sc">{</span>np<span class="sc">.</span>mean(leaked)<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"scaler fitted on train only : average error </span><span class="sc">{</span>np<span class="sc">.</span>mean(honest)<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>small <span class="op">=</span> pd.read_csv(<span class="st">"datasets/lognormal_small.csv"</span>)   <span class="co"># 60 rows, skewed, so extremes matter</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> small[[<span class="st">"f1"</span>, <span class="st">"f2"</span>, <span class="st">"f3"</span>]].values</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> small[<span class="st">"target"</span>].values</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>leaked, honest <span class="op">=</span> [], []</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> seed <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">200</span>):                       <span class="co"># 200 splits, so we compare averages not luck</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    Xtr, Xte, ytr, yte <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span>seed)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ❌ scaler sees every row, then we split</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> MinMaxScaler().fit_transform(X)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    aXtr, aXte, aytr, ayte <span class="op">=</span> train_test_split(a, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span>seed)</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    leaked.append(mean_absolute_error(ayte, KNeighborsRegressor(<span class="dv">3</span>).fit(aXtr, aytr).predict(aXte)))</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ✅ scaler learns from training rows only</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    sc <span class="op">=</span> MinMaxScaler().fit(Xtr)</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>    honest.append(mean_absolute_error(yte, KNeighborsRegressor(<span class="dv">3</span>).fit(sc.transform(Xtr), ytr)</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>                                              .predict(sc.transform(Xte))))</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"scaler fitted on everything : average error </span><span class="sc">{</span>np<span class="sc">.</span>mean(leaked)<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"scaler fitted on train only : average error </span><span class="sc">{</span>np<span class="sc">.</span>mean(honest)<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>scaler fitted on everything : average error 51.39
 scaler fitted on train only : average error 49.52</code></pre>
@@ -1157,16 +1142,16 @@ scaler fitted on train only : average error 49.52</code></pre>
 </div>
 <p><strong>Read that carefully, because it does not say what you were probably expecting.</strong> The leaked version is not better. On this data it is very slightly <em>worse</em>. Scaler leakage is real, but its effect is usually tiny — a minimum and a maximum are only two numbers, and thirty extra rows barely move them.</p>
 <p><strong>Kind 2 — feature selection done on everything.</strong> Now the same rule, broken in a different place. Here is data with <strong>nothing to learn</strong>: 2,000 columns of pure random noise, and a target that is literally a coin flip.</p>
-<div id="d797ff96" class="cell" data-execution_count="13">
+<div id="9ab71d70" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_selection <span class="im">import</span> SelectKBest, f_classif</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score, StratifiedKFold</span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">0</span>)</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> rng.normal(size<span class="op">=</span>(<span class="dv">60</span>, <span class="dv">2000</span>))       <span class="co"># 2,000 columns of noise</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> rng.integers(<span class="dv">0</span>, <span class="dv">2</span>, size<span class="op">=</span><span class="dv">60</span>)       <span class="co"># coin flips — there is no pattern to find</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>noise <span class="op">=</span> pd.read_csv(<span class="st">"datasets/pure_noise.csv"</span>)   <span class="co"># 200 columns of noise, 60 rows</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> noise.drop(columns<span class="op">=</span><span class="st">"coin_flip"</span>).values</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> noise[<span class="st">"coin_flip"</span>].values                    <span class="co"># coin flips — nothing to find</span></span>
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>cv <span class="op">=</span> StratifiedKFold(<span class="dv">5</span>, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
@@ -1183,7 +1168,7 @@ scaler fitted on train only : average error 49.52</code></pre>
 <span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"selection done inside the fold : </span><span class="sc">{</span>honest<span class="sc">:.0%}</span><span class="ss"> accuracy"</span>)</span>
 <span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"the truth                      : 50% — the labels are coin flips"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>selection done on all the data : 80% accuracy
+<pre><code>selection done on all the data : 82% accuracy
 selection done inside the fold : 55% accuracy
 the truth                      : 50% — the labels are coin flips</code></pre>
 </div>
@@ -1239,7 +1224,7 @@ the truth                      : 50% — the labels are coin flips</code></pre>
 <p><strong>A <code>Pipeline</code> chains the steps together so that “fit on train only” happens automatically.</strong> You then cannot leak by forgetting.</p>
 <section id="demo-10-the-whole-preparation-as-one-object" class="level3" data-number="10.3.1">
 <h3 data-number="10.3.1" class="anchored" data-anchor-id="demo-10-the-whole-preparation-as-one-object"><span class="header-section-number">10.3.1</span> Demo 10 — the whole preparation as one object</h3>
-<div id="a2a61988" class="cell" data-execution_count="14">
+<div id="9b0756e5" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
@@ -1248,37 +1233,32 @@ the truth                      : 50% — the labels are coin flips</code></pre>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">2</span>)</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">400</span></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"income"</span>:  rng.normal(<span class="dv">60_000</span>, <span class="dv">20_000</span>, n),</span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"age"</span>:     rng.integers(<span class="dv">21</span>, <span class="dv">65</span>, n),</span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"city"</span>:    rng.choice([<span class="st">"Mumbai"</span>, <span class="st">"Delhi"</span>, <span class="st">"Pune"</span>], n),</span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"approved"</span>: rng.choice([<span class="dv">0</span>, <span class="dv">1</span>], n, p<span class="op">=</span>[<span class="fl">0.6</span>, <span class="fl">0.4</span>]),</span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>df.loc[rng.choice(n, <span class="dv">30</span>, replace<span class="op">=</span><span class="va">False</span>), <span class="st">"income"</span>] <span class="op">=</span> np.nan     <span class="co"># some gaps</span></span>
-<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop(columns<span class="op">=</span><span class="st">"approved"</span>)</span>
-<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">"approved"</span>]</span>
-<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>,</span>
-<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>                                                    random_state<span class="op">=</span><span class="dv">0</span>, stratify<span class="op">=</span>y)</span>
-<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>prepare <span class="op">=</span> ColumnTransformer([</span>
-<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"numbers"</span>, Pipeline([(<span class="st">"fill"</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>)),</span>
-<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>                          (<span class="st">"scale"</span>, StandardScaler())]), [<span class="st">"income"</span>, <span class="st">"age"</span>]),</span>
-<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"categories"</span>, OneHotEncoder(handle_unknown<span class="op">=</span><span class="st">"ignore"</span>), [<span class="st">"city"</span>]),</span>
-<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Pipeline([(<span class="st">"prepare"</span>, prepare), (<span class="st">"classify"</span>, LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>))])</span>
-<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)          <span class="co"># every step learns from X_train only</span></span>
-<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Test accuracy: </span><span class="sc">{</span>model<span class="sc">.</span>score(X_test, y_test)<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Columns after preparation: </span><span class="sc">{</span>model<span class="sc">.</span>named_steps[<span class="st">'prepare'</span>]<span class="sc">.</span>transform(X_train)<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"(2 numeric + 3 one-hot city columns)"</span>)</span>
-<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">The median used for filling was learned from the training rows only —"</span>)</span>
-<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"the pipeline made that happen without anyone having to remember it."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"datasets/loan_applicants.csv"</span>)   <span class="co"># 400 applicants, 30 with no income recorded</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(df)<span class="sc">}</span><span class="ss"> applicants, </span><span class="sc">{</span>df[<span class="st">'income'</span>]<span class="sc">.</span>isna()<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss"> missing incomes</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop(columns<span class="op">=</span><span class="st">"approved"</span>)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">"approved"</span>]</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>,</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>                                                    random_state<span class="op">=</span><span class="dv">0</span>, stratify<span class="op">=</span>y)</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>prepare <span class="op">=</span> ColumnTransformer([</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"numbers"</span>, Pipeline([(<span class="st">"fill"</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>)),</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>                          (<span class="st">"scale"</span>, StandardScaler())]), [<span class="st">"income"</span>, <span class="st">"age"</span>]),</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"categories"</span>, OneHotEncoder(handle_unknown<span class="op">=</span><span class="st">"ignore"</span>), [<span class="st">"city"</span>]),</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Pipeline([(<span class="st">"prepare"</span>, prepare), (<span class="st">"classify"</span>, LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>))])</span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)          <span class="co"># every step learns from X_train only</span></span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Test accuracy: </span><span class="sc">{</span>model<span class="sc">.</span>score(X_test, y_test)<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Columns after preparation: </span><span class="sc">{</span>model<span class="sc">.</span>named_steps[<span class="st">'prepare'</span>]<span class="sc">.</span>transform(X_train)<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"(2 numeric + 3 one-hot city columns)"</span>)</span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">The median used for filling was learned from the training rows only —"</span>)</span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"the pipeline made that happen without anyone having to remember it."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test accuracy: 0.588
+<pre><code>400 applicants, 30 missing incomes
+
+Test accuracy: 0.588
 
 Columns after preparation: 5
 (2 numeric + 3 one-hot city columns)
@@ -1391,7 +1371,7 @@ the pipeline made that happen without anyone having to remember it.</code></pre>
 </div>
 <div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="17926055" class="cell" data-execution_count="15">
+<div id="b8092ba0" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1403,8 +1383,8 @@ the pipeline made that happen without anyone having to remember it.</code></pre>
 <span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  word counts, uneven doc lengths  → Normalizer (works across the row)"</span>)</span>
 <span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 3 — what stratify was protecting you from</span></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">1</span>)</span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> pd.Series(rng.choice([<span class="dv">0</span>, <span class="dv">1</span>], <span class="dv">200</span>, p<span class="op">=</span>[<span class="fl">0.75</span>, <span class="fl">0.25</span>]))</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co"># A small sample makes the problem visible; on 5,000 rows the wobble is tiny.</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> pd.read_csv(<span class="st">"datasets/loan_imbalanced.csv"</span>)[<span class="st">"loan_status"</span>].sample(<span class="dv">200</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>rates <span class="op">=</span> [train_test_split(y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span>s)[<span class="dv">1</span>].mean() <span class="cf">for</span> s <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>)]</span>
 <span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Task 3 — test-set approval rate across 10 splits, no stratify:"</span>)</span>
 <span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  lowest </span><span class="sc">{</span><span class="bu">min</span>(rates)<span class="sc">:.1%}</span><span class="ss">, highest </span><span class="sc">{</span><span class="bu">max</span>(rates)<span class="sc">:.1%}</span><span class="ss">, true rate </span><span class="sc">{</span>y<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
@@ -1417,7 +1397,7 @@ the pipeline made that happen without anyone having to remember it.</code></pre>
   word counts, uneven doc lengths  → Normalizer (works across the row)
 
 Task 3 — test-set approval rate across 10 splits, no stratify:
-  lowest 17.5%, highest 40.0%, true rate 27.5%
+  lowest 2.5%, highest 10.0%, true rate 8.0%
   The measured score would change with the seed — you would be reporting luck.</code></pre>
 </div>
 </div>

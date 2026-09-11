@@ -1,0 +1,22 @@
+[
+ {
+  "order_id": 1,
+  "customer": "Alice",
+  "amount": 250.0
+ },
+ {
+  "order_id": 2,
+  "customer": "Bob",
+  "amount": 90.0,
+  "gift_wrap": true
+ },
+ {
+  "order_id": 3,
+  "customer": "Chan",
+  "amount": 410.0,
+  "delivery": {
+   "city": "Mumbai",
+   "express": false
+  }
+ }
+]

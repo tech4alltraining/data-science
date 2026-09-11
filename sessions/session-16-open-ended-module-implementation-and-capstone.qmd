@@ -60,30 +60,7 @@ model happens to do well on. **Write the number down first**, and keep it visibl
 ```{python}
 import numpy as np, pandas as pd
 
-rng = np.random.default_rng(101)
-n = 3_000
-
-customers = pd.DataFrame({
-    "customer_id":   np.arange(1, n + 1),
-    "tenure_months": rng.integers(1, 72, n),
-    "monthly_spend": rng.gamma(4, 300, n).round(2),
-    "support_calls": rng.poisson(1.3, n),
-    "city":          rng.choice(["Mumbai", "Delhi", "Pune", "Chennai"], n, p=[.35, .3, .2, .15]),
-    "plan":          rng.choice(["basic", "standard", "premium"], n, p=[.45, .35, .20]),
-})
-
-# The truth we are asking the model to recover: churn rises with support calls,
-# falls with tenure, and is higher on the basic plan.
-risk = (-2.4
-        + 0.42 * customers["support_calls"]
-        - 0.030 * customers["tenure_months"]
-        + 0.9 * (customers["plan"] == "basic"))
-customers["churned"] = (rng.random(n) < 1 / (1 + np.exp(-risk))).astype(int)
-
-# Real data is never clean.
-customers.loc[rng.choice(n, 120, replace=False), "monthly_spend"] = np.nan
-customers.loc[rng.choice(n, 40, replace=False), "tenure_months"] = -1      # impossible
-customers = pd.concat([customers, customers.sample(60, random_state=1)])    # duplicates
+customers = pd.read_csv("datasets/telecom_churn.csv")
 
 print(f"rows: {len(customers):,}   churn rate: {customers['churned'].mean():.1%}")
 print(f"\nQUESTION      : which customers will churn in the next quarter?")
@@ -314,19 +291,13 @@ again.
 ### Demo 7 — by hand, on ten baskets
 
 ```{python}
-baskets = [
-    {"bread", "butter", "jam"},
-    {"bread", "butter"},
-    {"bread", "butter", "jam", "milk"},
-    {"milk", "eggs"},
-    {"bread", "jam"},
-    {"bread", "butter", "milk"},
-    {"butter", "jam"},
-    {"bread", "butter", "jam"},
-    {"milk", "eggs", "bread"},
-    {"bread", "butter", "jam"},
-]
+# Ten baskets, one per line, from a real text file.
+baskets = [set(line.split()) for line in
+           open("datasets/baskets_small.txt").read().strip().split("\n")]
 n = len(baskets)
+for i, b in enumerate(baskets, 1):
+    print(f"  basket {i:>2}: {sorted(b)}")
+print()
 
 def support(items):
     items = set(items)
@@ -386,18 +357,13 @@ without checking.
 import numpy as np, pandas as pd
 from mlxtend.frequent_patterns import apriori, association_rules
 
-rng = np.random.default_rng(102)
-products = ["bread", "butter", "jam", "milk", "eggs", "coffee", "sugar", "tea", "rice", "oil"]
-
-# Build 4,000 baskets with three deliberately planted rules, so we can check
-# that the algorithm finds what we know is there.
-transactions = []
-for _ in range(4_000):
-    basket = set(rng.choice(products, rng.integers(1, 4), replace=False))
-    if "bread" in basket and rng.random() < 0.80: basket.add("butter")     # planted
-    if "butter" in basket and rng.random() < 0.65: basket.add("jam")       # planted
-    if "coffee" in basket and rng.random() < 0.75: basket.add("sugar")     # planted
-    transactions.append(basket)
+# 4,000 real baskets. Three rules were planted when the file was generated,
+# so we can check the algorithm against a truth we know — see
+# datasets/make_session_16.py.
+raw = pd.read_csv("datasets/grocery_baskets.csv")
+transactions = [set(items.split(",")) for items in raw["items"]]
+products = sorted({p for t in transactions for p in t})
+print(f"{len(transactions):,} baskets, {len(products)} distinct products\n")
 
 onehot = pd.DataFrame([{p: (p in t) for p in products} for t in transactions])
 

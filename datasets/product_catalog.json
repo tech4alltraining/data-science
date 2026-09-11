@@ -1,0 +1,30 @@
+[
+ {
+  "sku": "B-1",
+  "name": "Data Science Handbook",
+  "price": 899,
+  "author": "R. Iyer",
+  "pages": 412,
+  "isbn": "978-1"
+ },
+ {
+  "sku": "S-7",
+  "name": "Cotton Shirt",
+  "price": 1299,
+  "size": "M",
+  "colour": "blue",
+  "material": "cotton"
+ },
+ {
+  "sku": "L-9",
+  "name": "UltraBook 14",
+  "price": 74999,
+  "ram_gb": 16,
+  "cpu": "i7",
+  "warranty_months": 24,
+  "ports": [
+   "USB-C",
+   "HDMI"
+  ]
+ }
+]
