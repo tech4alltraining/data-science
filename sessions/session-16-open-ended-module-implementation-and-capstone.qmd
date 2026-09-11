@@ -1,137 +1,720 @@
 ---
-title: "Session 16 — Open Ended Module (Implementation and Capstone)"
-subtitle: "End-to-End Pipeline · Market Basket Analysis · Capstone"
+title: "Session 16 — Capstone: The End-to-End Project"
+subtitle: "The whole pipeline · Market basket analysis · Statistical testing · Advanced models · Delivering it"
 ---
 
 {{< include ../includes/_setup.qmd >}}
 
 ::: {.callout-note}
-**This is the final chapter. It is time to put everything you have learned together.**
+**This chapter puts all fifteen previous chapters into one project.**
 
-**Assumed knowledge:** All previous sessions (1-15).
+**Assumed knowledge:** everything. This chapter introduces exactly one new technique —
+association rule mining — and otherwise assembles what you already have.
+
+**The one idea to take away:** a finished project is not a model with a good score. It is
+a **question, an honest answer, and a statement of what the answer cannot support.** The
+last part is what separates a project from a demonstration.
 :::
 
 ## 🎯 Learning outcomes {#sec-s16-outcomes}
 
-By the end of this module you will:
+By the end of this chapter you can:
 
-1. Execute a complete data analytics pipeline from raw data collection to final visualization.
-2. Understand the mechanism behind Association Rule Mining (Market Basket Analysis).
-3. Architect an end-to-end Capstone project solving a real-world business problem.
+1. Run a complete project from raw data to a deployable model.
+2. Compute support, confidence and lift by hand, and mine rules with Apriori.
+3. Read an association rule critically and reject a useless one.
+4. Support a claim with a statistical test, not just a chart.
+5. Compare several models honestly against a baseline.
+6. Write up a project so somebody else can reproduce and challenge it.
 
 ## How this chapter is organised {#sec-s16-organisation}
 
-| Part | Question it answers | Source |
+| Part | Question it answers |
+|---|---|
+| [A — The whole pipeline](#sec-s16-a) | *What does all sixteen chapters look like in one run?* |
+| [B — Market basket analysis](#sec-s16-b) | *What is bought together?* |
+| [C — Making claims stand up](#sec-s16-c) | *How do I know my finding is real?* |
+| [D — Delivering it](#sec-s16-d) | *What do I actually hand over?* |
+
+# Part A — The whole pipeline {#sec-s16-a}
+
+## 1. The project checklist {#sec-s16-topic-1}
+
+**Before writing any code, answer four questions.** A project that skips this stage
+usually produces a model nobody can use.
+
+| Question | A bad answer | A good answer |
 |---|---|---|
-| [A — The Full Pipeline](#sec-s16-a) | *How does it all connect?* | `review` |
-| [B — Market Basket Analysis](#sec-s16-b) | *What items are bought together?* | `concepts` |
-| [Demo — The Capstone Scaffold](#sec-s16-demo) | *How do I start my final project?* | `capstone.ipynb` |
+| **What decision changes?** | "we want to understand customers" | "we decide who gets the retention offer" |
+| **What does success look like?** | "high accuracy" | "catch 60% of churners while contacting under 20% of customers" |
+| **What data exists, and when?** | "we have lots of data" | "12 months of transactions, available the day after" |
+| **What would make it useless?** | — | "if it needs data we only have *after* the customer leaves" |
 
-# Part A — The Full Pipeline {#sec-s16-a}
-
-**Data Science is not a single algorithm. It is a chain of events.**
-
-## 1. Apply the entire data analytics process {#sec-s16-topic-1}
-
-We have spent 15 sessions looking at individual pieces of the puzzle. Now, you must combine them. The standard industry pipeline follows the **CRISP-DM** (Cross-Industry Standard Process for Data Mining) methodology:
-
-1. **Business Understanding:** What is the actual problem? (Session 1)
-2. **Data Understanding:** EDA, scatter plots, correlation heatmaps. (Session 8)
-3. **Data Preparation:** Handling NaNs, outliers, standardizing scales, and merging. (Sessions 3, 4, 5)
-4. **Modeling:** Training Linear Regression, K-Means, or other algorithms. (Sessions 9, 10)
-5. **Evaluation:** Checking residual plots and test accuracy. (Session 11)
-6. **Deployment:** Saving to Joblib and deploying to Streamlit. (Session 12)
-
-If any link in this chain breaks, the final product fails. 
-
-::: {.callout-warning title="⚠️ The trap of endless modeling"}
-Junior data scientists often spend 90% of their time tweaking the machine learning algorithm (Step 4) trying to get a 1% boost in accuracy. Usually, going back to Step 3 (Data Preparation) and cleaning the data better yields a 10% boost with zero algorithmic tweaking.
+::: {.callout-warning title="⚠️ Fix the success criterion before you model"}
+Choosing the target metric *after* seeing the results means choosing the metric your
+model happens to do well on. **Write the number down first**, and keep it visible.
 :::
 
-# Part B — Market Basket Analysis {#sec-s16-b}
-
-**Discovering hidden associations in transaction data.**
-
-## 2. Association Rule Mining {#sec-s16-topic-2}
-
-**Market Basket Analysis (Association Rules) is an unsupervised learning technique that finds items that are frequently bought together.**
-
-It exists because grocers and e-commerce sites want to optimize store layouts and "Frequently Bought Together" recommendation algorithms. The classic (perhaps apocryphal) example is that supermarkets discovered men buying diapers on Friday evenings were also highly likely to buy beer, so they placed the beer next to the diapers.
-
-### How it works
-
-The algorithm (like the Apriori algorithm) calculates three metrics:
-- **Support:** How popular is an item? *(e.g., Bread appears in 40% of all baskets).*
-- **Confidence:** If they buy X, how likely are they to buy Y? *(e.g., If they buy Bread, there is a 60% chance they buy Butter).*
-- **Lift:** Does buying X *increase* the likelihood of buying Y, compared to Y's baseline popularity? *(If Lift > 1, they are strongly connected).*
-
-# Part Demo — The Capstone Scaffold {#sec-s16-demo}
-
-**A blueprint for your final project.**
-
-For your capstone, you will not be given clean data. You must find a raw dataset (from Kaggle, government databases, or an API), clean it, analyze it, and model it.
-
-Here is the structural scaffold you should use in your final Jupyter Notebook:
+### Demo 1 — the dataset, and the question
 
 ```{python}
-#| eval: false
-"""
-=============================================================================
-CAPSTONE PROJECT: Predicting Customer Churn
-AUTHOR: [Your Name]
-=============================================================================
-"""
+import numpy as np, pandas as pd
 
-# --- 1. IMPORT LIBRARIES ---
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier # Example advanced model
-from sklearn.metrics import accuracy_score
+rng = np.random.default_rng(101)
+n = 3_000
 
-# --- 2. DATA LOAD & PRE-PROCESSING ---
-print("Loading data...")
-df = pd.read_csv("raw_customer_data.csv")
+customers = pd.DataFrame({
+    "customer_id":   np.arange(1, n + 1),
+    "tenure_months": rng.integers(1, 72, n),
+    "monthly_spend": rng.gamma(4, 300, n).round(2),
+    "support_calls": rng.poisson(1.3, n),
+    "city":          rng.choice(["Mumbai", "Delhi", "Pune", "Chennai"], n, p=[.35, .3, .2, .15]),
+    "plan":          rng.choice(["basic", "standard", "premium"], n, p=[.45, .35, .20]),
+})
 
-print("Handling missing values...")
-df['Age'] = df['Age'].fillna(df['Age'].median())
+# The truth we are asking the model to recover: churn rises with support calls,
+# falls with tenure, and is higher on the basic plan.
+risk = (-2.4
+        + 0.42 * customers["support_calls"]
+        - 0.030 * customers["tenure_months"]
+        + 0.9 * (customers["plan"] == "basic"))
+customers["churned"] = (rng.random(n) < 1 / (1 + np.exp(-risk))).astype(int)
 
-print("Encoding categorical variables (Binarization)...")
-df['Is_Male'] = df['Gender'].apply(lambda x: 1 if x == 'Male' else 0)
+# Real data is never clean.
+customers.loc[rng.choice(n, 120, replace=False), "monthly_spend"] = np.nan
+customers.loc[rng.choice(n, 40, replace=False), "tenure_months"] = -1      # impossible
+customers = pd.concat([customers, customers.sample(60, random_state=1)])    # duplicates
 
-# --- 3. EXPLORATORY DATA ANALYSIS (EDA) ---
-print("Generating Correlation Heatmap...")
-sns.heatmap(df.corr(), annot=True)
-plt.title("Feature Correlation")
-plt.show()
-
-# --- 4. MODEL TRAINING ---
-X = df[['Age', 'Is_Male', 'Total_Spend', 'Support_Tickets']]
-y = df['Will_Churn']
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-
-model = RandomForestClassifier()
-model.fit(X_train, y_train)
-
-# --- 5. EVALUATION ---
-predictions = model.predict(X_test)
-accuracy = accuracy_score(y_test, predictions)
-print(f"Model Accuracy on unseen test data: {accuracy * 100:.2f}%")
-
-# --- 6. EXPORT ---
-import joblib
-joblib.dump(model, "final_churn_model.joblib")
-print("Pipeline complete. Model saved for deployment.")
+print(f"rows: {len(customers):,}   churn rate: {customers['churned'].mean():.1%}")
+print(f"\nQUESTION      : which customers will churn in the next quarter?")
+print(f"DECISION      : who receives a retention offer")
+print(f"SUCCESS       : catch 60% of churners (recall ≥ 0.60) while contacting")
+print(f"                fewer than 30% of all customers")
+print(f"BASELINE      : contacting everyone catches 100% but contacts 100%")
+customers.head()
 ```
 
-# 🎯 Session 16 — Tasks {#sec-s16-tasks}
+## 2. Steps 1–3: clean, explore, prepare {#sec-s16-topic-2}
 
-**Task 1 — Capstone Proposal.** 
-Write a one-paragraph proposal for your capstone project. You must define the **Business Problem**, the **Data Source** you plan to use, and whether your predictive task is **Supervised (Regression/Classification)** or **Unsupervised (Clustering)**.
+### Demo 2 — cleaning, with a report (Session 3)
 
-::: {.callout-tip title="✅ Before you graduate"}
-- [ ] Ensure you can walk a non-technical person through the CRISP-DM pipeline.
-- [ ] **Congratulations!** You have journeyed from the basics of Pandas all the way through Big Data clusters and Machine Learning deployment. You are now equipped to tackle real-world data science problems.
+```{python}
+import numpy as np, pandas as pd
+
+def clean(df):
+    report, d = {}, df.copy()
+    report["rows_in"] = len(d)
+
+    d = d.drop_duplicates()
+    report["duplicates_removed"] = report["rows_in"] - len(d)
+
+    bad = d["tenure_months"] < 0                       # impossible before missing
+    report["impossible_values"] = int(bad.sum())
+    d.loc[bad, "tenure_months"] = np.nan
+
+    report["blanks_before"] = int(d[["monthly_spend", "tenure_months"]].isna().sum().sum())
+    d["spend_was_missing"] = d["monthly_spend"].isna()
+    d["monthly_spend"] = d["monthly_spend"].fillna(d["monthly_spend"].median())
+    d["tenure_months"] = d["tenure_months"].fillna(d["tenure_months"].median())
+
+    q1, q3 = d["monthly_spend"].quantile([.25, .75])
+    report["outliers_flagged"] = int((d["monthly_spend"] > q3 + 1.5*(q3-q1)).sum())
+
+    report["rows_out"] = len(d)
+    report["blanks_after"] = int(d.isna().sum().sum())
+    return d, report
+
+clean_df, report = clean(customers)
+print("CLEANING REPORT")
+for k, v in report.items():
+    print(f"  {k.replace('_',' '):<22} {v}")
+print("\nOutliers were flagged, not removed — high spenders are real customers.")
+```
+
+### Demo 3 — exploring, and forming a hypothesis (Sessions 7–8)
+
+```{python}
+#| label: fig-s16-eda
+#| fig-cap: "Churn against each candidate driver. Support calls and tenure separate the groups; spend does not."
+import matplotlib.pyplot as plt, seaborn as sns
+
+fig, ax = plt.subplots(1, 3, figsize=(13, 3.2))
+sns.boxplot(data=clean_df, x="churned", y="support_calls", ax=ax[0])
+ax[0].set_title("Support calls")
+sns.boxplot(data=clean_df, x="churned", y="tenure_months", ax=ax[1])
+ax[1].set_title("Tenure (months)")
+sns.boxplot(data=clean_df, x="churned", y="monthly_spend", ax=ax[2])
+ax[2].set_title("Monthly spend")
+plt.tight_layout(); plt.show()
+
+print("Churn rate by plan:")
+print((clean_df.groupby("plan")["churned"].agg(["mean", "size"])
+       .rename(columns={"mean": "churn_rate", "size": "customers"})
+       .assign(churn_rate=lambda d: (d["churn_rate"]*100).round(1)).to_string()))
+
+print("\nCorrelation with churn:")
+print(clean_df[["tenure_months","monthly_spend","support_calls","churned"]]
+      .corr()["churned"].drop("churned").round(3).to_string())
+```
+
+**Three hypotheses, formed from the pictures:** support calls raise churn, tenure lowers
+it, spend does little. Part C tests them properly rather than trusting the eye.
+
+### Demo 4 — preparing, with a pipeline (Session 5)
+
+```{python}
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+
+features = ["tenure_months", "monthly_spend", "support_calls", "city", "plan"]
+X = clean_df[features]
+y = clean_df["churned"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y)
+
+prepare = ColumnTransformer([
+    ("num", StandardScaler(), ["tenure_months", "monthly_spend", "support_calls"]),
+    ("cat", OneHotEncoder(handle_unknown="ignore"), ["city", "plan"]),
+])
+
+print(f"train {len(X_train):,} rows   test {len(X_test):,} rows")
+print(f"churn rate — train {y_train.mean():.1%}, test {y_test.mean():.1%}  (kept equal by stratify)")
+print(f"columns after preparation: {prepare.fit_transform(X_train).shape[1]}")
+```
+
+## 3. Steps 4–5: model and evaluate {#sec-s16-topic-3}
+
+### Demo 5 — four models against a baseline (Sessions 9–11)
+
+```{python}
+import numpy as np, pandas as pd
+from sklearn.pipeline import Pipeline
+from sklearn.dummy import DummyClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.model_selection import cross_val_score, StratifiedKFold
+from sklearn.metrics import recall_score, precision_score, roc_auc_score
+
+cv = StratifiedKFold(5, shuffle=True, random_state=0)
+models = {
+    "Baseline (majority)": DummyClassifier(strategy="most_frequent"),
+    "Logistic regression": LogisticRegression(max_iter=1000, class_weight="balanced"),
+    "Decision tree":       DecisionTreeClassifier(max_depth=5, random_state=0, class_weight="balanced"),
+    "Random forest":       RandomForestClassifier(n_estimators=200, max_depth=8,
+                                                  random_state=0, class_weight="balanced"),
+    "Gradient boosting":   GradientBoostingClassifier(random_state=0),
+}
+
+rows = []
+for name, clf in models.items():
+    pipe = Pipeline([("prep", prepare), ("clf", clf)])
+    cv_auc = cross_val_score(pipe, X_train, y_train, cv=cv, scoring="roc_auc")
+    pipe.fit(X_train, y_train)
+    pred = pipe.predict(X_test)
+    proba = pipe.predict_proba(X_test)[:, 1] if hasattr(clf, "predict_proba") else pred
+    rows.append({
+        "model": name,
+        "cv_auc": f"{cv_auc.mean():.3f} ± {cv_auc.std():.3f}",
+        "recall": round(recall_score(y_test, pred, zero_division=0), 3),
+        "precision": round(precision_score(y_test, pred, zero_division=0), 3),
+        "test_auc": round(roc_auc_score(y_test, proba), 3),
+    })
+
+print(pd.DataFrame(rows).to_string(index=False))
+```
+
+### Demo 6 — the threshold is where the business requirement is met
+
+**Accuracy was never the goal. The goal was: catch 60% of churners while contacting under
+30% of customers.** That is a statement about the decision threshold, not the model.
+
+```{python}
+#| label: fig-s16-threshold
+#| fig-cap: "Recall and contact rate against the decision threshold. The shaded band is where both requirements hold."
+import numpy as np, matplotlib.pyplot as plt
+from sklearn.pipeline import Pipeline
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import recall_score, precision_score
+
+best = Pipeline([("prep", prepare),
+                 ("clf", RandomForestClassifier(n_estimators=200, max_depth=8,
+                                                random_state=0, class_weight="balanced"))])
+best.fit(X_train, y_train)
+proba = best.predict_proba(X_test)[:, 1]
+
+thresholds = np.arange(0.05, 0.95, 0.025)
+recalls  = [recall_score(y_test, proba >= t, zero_division=0) for t in thresholds]
+contacts = [(proba >= t).mean() for t in thresholds]
+
+plt.plot(thresholds, recalls, label="churners caught (recall)")
+plt.plot(thresholds, contacts, label="customers contacted")
+plt.axhline(0.60, color="green", ls="--", lw=1, label="required recall 0.60")
+plt.axhline(0.30, color="red", ls="--", lw=1, label="contact budget 0.30")
+plt.xlabel("decision threshold"); plt.legend(fontsize=8)
+plt.show()
+
+ok = [(t, r, c) for t, r, c in zip(thresholds, recalls, contacts) if r >= 0.60 and c <= 0.30]
+if ok:
+    t, r, c = ok[0]
+    print(f"Requirement MET at threshold {t:.3f}: recall {r:.1%}, contacting {c:.1%}")
+else:
+    closest = max(zip(thresholds, recalls, contacts), key=lambda z: z[1] if z[2] <= 0.30 else -1)
+    print(f"Requirement NOT met by this model.")
+    print(f"Within the 30% contact budget the best recall is "
+          f"{closest[1]:.1%} at threshold {closest[0]:.3f}.")
+    print("Report this honestly. Either the budget rises or the model improves.")
+```
+
+::: {.callout-important title="🔓 Report against the requirement, not against 1.0"}
+"AUC 0.78" is a number. **"Catches 58.9% of churners within a 30% contact budget, against
+a target of 60%"** is an answer. Only the second tells anyone whether to deploy.
+
+**Notice that this worked example does not meet its own target**, and that this is left
+in rather than tidied away. That is the realistic outcome: a model with a respectable AUC
+can still fail the requirement the business actually set. The honest report says so and
+offers the two real options — **raise the contact budget, or improve the model** — instead
+of quietly switching to a metric that looks better.
+
+A project that reports a missed target with the gap measured is worth more than one that
+reports a good-looking AUC against no target at all.
+:::
+
+# Part B — Market basket analysis {#sec-s16-b}
+
+## 4. Association rules {#sec-s16-topic-4}
+
+**Association rule mining finds things that occur together.** *"People who buy bread and
+butter also buy jam."*
+
+Written as a rule: **{bread, butter} → {jam}**. The left side is the **antecedent**, the
+right side the **consequent**.
+
+**Three numbers judge every rule.** Compute them by hand once and they never confuse you
+again.
+
+| Measure | Question | Formula |
+|---|---|---|
+| **Support** | how often does this combination happen at all? | transactions with all items ÷ all transactions |
+| **Confidence** | when the left side happens, how often does the right? | support(both) ÷ support(left) |
+| **Lift** | is the right side **more likely** than usual when the left happens? | confidence ÷ support(right) |
+
+**Lift is the one that matters:**
+
+| Lift | Means |
+|---|---|
+| **> 1** | they go together **more** than chance — a real association |
+| **= 1** | independent — **the rule found nothing** |
+| **< 1** | they go together **less** than chance |
+
+### Demo 7 — by hand, on ten baskets
+
+```{python}
+baskets = [
+    {"bread", "butter", "jam"},
+    {"bread", "butter"},
+    {"bread", "butter", "jam", "milk"},
+    {"milk", "eggs"},
+    {"bread", "jam"},
+    {"bread", "butter", "milk"},
+    {"butter", "jam"},
+    {"bread", "butter", "jam"},
+    {"milk", "eggs", "bread"},
+    {"bread", "butter", "jam"},
+]
+n = len(baskets)
+
+def support(items):
+    items = set(items)
+    return sum(items <= b for b in baskets) / n
+
+left, right = {"bread", "butter"}, {"jam"}
+
+s_left  = support(left)
+s_right = support(right)
+s_both  = support(left | right)
+
+confidence = s_both / s_left
+lift       = confidence / s_right
+
+print(f"Rule: {sorted(left)} → {sorted(right)}\n")
+print(f"  support(bread & butter)       = {sum(left <= b for b in baskets)}/{n} = {s_left:.2f}")
+print(f"  support(jam)                  = {sum(right <= b for b in baskets)}/{n} = {s_right:.2f}")
+print(f"  support(all three together)   = {sum((left|right) <= b for b in baskets)}/{n} = {s_both:.2f}")
+print(f"\n  confidence = {s_both:.2f} / {s_left:.2f} = {confidence:.2f}")
+print(f"     → when someone buys bread and butter, {confidence:.0%} of the time they buy jam")
+print(f"\n  lift = {confidence:.2f} / {s_right:.2f} = {lift:.2f}")
+print(f"     → they are {lift:.2f}× more likely to buy jam than a random shopper")
+```
+
+### Demo 8 — the trap: high confidence, no information
+
+```{python}
+# A rule about something almost everyone buys.
+left2, right2 = {"milk"}, {"bread"}
+c2 = support(left2 | right2) / support(left2)
+l2 = c2 / support(right2)
+
+print(f"Rule: milk → bread")
+print(f"  confidence = {c2:.2f}   ← looks impressive")
+print(f"  support(bread) = {support(right2):.2f}   ← but bread is in most baskets anyway")
+print(f"  lift = {l2:.2f}")
+print(f"\n  Lift near or below 1 means buying milk tells you NOTHING extra about bread.")
+print(f"  A recommendation engine built on this rule would suggest bread to everybody.")
+```
+
+::: {.callout-warning title="⚠️ Confidence alone will fool you"}
+Any rule pointing at a very common item gets high confidence automatically. **Always
+check lift**, and be suspicious of any rule whose consequent is your best-selling
+product.
+:::
+
+## 5. Apriori on real-sized data {#sec-s16-topic-5}
+
+**Checking every possible combination is impossible** — 100 products give more than 10³⁰
+possible itemsets. **Apriori** avoids that with one observation: *if {bread, butter} is
+rare, then {bread, butter, jam} must be rarer still*, so whole branches can be discarded
+without checking.
+
+### Demo 9 — mining rules with mlxtend
+
+```{python}
+import numpy as np, pandas as pd
+from mlxtend.frequent_patterns import apriori, association_rules
+
+rng = np.random.default_rng(102)
+products = ["bread", "butter", "jam", "milk", "eggs", "coffee", "sugar", "tea", "rice", "oil"]
+
+# Build 4,000 baskets with three deliberately planted rules, so we can check
+# that the algorithm finds what we know is there.
+transactions = []
+for _ in range(4_000):
+    basket = set(rng.choice(products, rng.integers(1, 4), replace=False))
+    if "bread" in basket and rng.random() < 0.80: basket.add("butter")     # planted
+    if "butter" in basket and rng.random() < 0.65: basket.add("jam")       # planted
+    if "coffee" in basket and rng.random() < 0.75: basket.add("sugar")     # planted
+    transactions.append(basket)
+
+onehot = pd.DataFrame([{p: (p in t) for p in products} for t in transactions])
+
+frequent = apriori(onehot, min_support=0.05, use_colnames=True)
+# Deliberately NO lift floor here, so we can see how many worthless rules
+# a permissive search produces.
+rules = association_rules(frequent, metric="confidence", min_threshold=0.10)
+rules = rules.sort_values("lift", ascending=False)
+
+print(f"{len(transactions):,} baskets → {len(frequent)} frequent itemsets → {len(rules)} rules\n")
+out = rules[["antecedents", "consequents", "support", "confidence", "lift"]].head(8).copy()
+out["antecedents"] = out["antecedents"].apply(lambda s: ", ".join(sorted(s)))
+out["consequents"] = out["consequents"].apply(lambda s: ", ".join(sorted(s)))
+print(out.round(3).to_string(index=False))
+```
+
+### Demo 10 — did it find the rules we planted?
+
+```{python}
+planted = [({"bread"}, {"butter"}), ({"butter"}, {"jam"}), ({"coffee"}, {"sugar"})]
+
+print("Checking the algorithm against the truth we built in:\n")
+for ante, cons in planted:
+    hit = rules[(rules["antecedents"] == frozenset(ante)) &
+                (rules["consequents"] == frozenset(cons))]
+    if len(hit):
+        r = hit.iloc[0]
+        print(f"  FOUND   {sorted(ante)} → {sorted(cons)}   "
+              f"confidence {r['confidence']:.2f}  lift {r['lift']:.2f}")
+    else:
+        print(f"  MISSED  {sorted(ante)} → {sorted(cons)}")
+
+useless = rules[rules["lift"] < 1.1]
+print(f"\n{len(useless)} of {len(rules)} rules have lift below 1.1 — they tell you")
+print("nothing, however good their confidence looks.")
+if len(useless):
+    worst = useless.sort_values("confidence", ascending=False).iloc[0]
+    print(f"  worst offender: {sorted(worst['antecedents'])} → {sorted(worst['consequents'])}")
+    print(f"  confidence {worst['confidence']:.2f}, but lift {worst['lift']:.2f} — below 1, so buying")
+    print(f"  the antecedent makes the consequent LESS likely than for a random shopper")
+print("\nFilter on lift FIRST, then read the survivors.")
+```
+
+# Part C — Making claims stand up {#sec-s16-c}
+
+## 6. Test the claim, do not just draw it {#sec-s16-topic-6}
+
+**A box plot showing two groups apart is a hypothesis, not a finding.** The gap might be
+sampling noise. A statistical test puts a number on how likely that is.
+
+| Question | Test |
+|---|---|
+| Do two groups differ in a **number**? | **t-test** |
+| Are two **categories** related? | **chi-square** |
+| Do three or more groups differ? | **ANOVA** |
+
+**The p-value is the probability of seeing a gap this large if there were genuinely no
+difference.** Small p-value → the gap is unlikely to be chance.
+
+::: {.callout-warning title="⚠️ What a p-value does not mean"}
+It is **not** the probability that your hypothesis is true. It is **not** a measure of
+how big or important the effect is — with 100,000 rows, a trivial difference produces a
+tiny p-value.
+
+**Always report the effect size next to the p-value.** "Churners make 1.4 more support
+calls on average (p < 0.001)" is a finding. "p < 0.001" alone is not.
+:::
+
+### Demo 11 — testing the three hypotheses from Demo 3
+
+```{python}
+from scipy import stats
+import pandas as pd
+
+churned  = clean_df[clean_df["churned"] == 1]
+retained = clean_df[clean_df["churned"] == 0]
+
+print("t-tests: do churners and retained customers differ?\n")
+for col in ["support_calls", "tenure_months", "monthly_spend"]:
+    t, p = stats.ttest_ind(churned[col], retained[col], equal_var=False)
+    diff = churned[col].mean() - retained[col].mean()
+    # Cohen's d — how big the difference is, in standard deviations
+    pooled = ((churned[col].std()**2 + retained[col].std()**2) / 2) ** 0.5
+    d = diff / pooled
+    verdict = "REAL" if p < 0.05 else "not significant"
+    size = "large" if abs(d) > .8 else "medium" if abs(d) > .5 else "small" if abs(d) > .2 else "negligible"
+    print(f"  {col:<16} difference {diff:>+8.2f}   p = {p:<10.2e} {verdict:<16} effect: {size} (d={d:+.2f})")
+
+# chi-square: is churn related to the plan a customer is on?
+table = pd.crosstab(clean_df["plan"], clean_df["churned"])
+chi2, p, dof, _ = stats.chi2_contingency(table)
+print(f"\nchi-square, plan vs churn: χ² = {chi2:.1f}, p = {p:.2e}")
+print(f"  → plan and churn are {'related' if p < 0.05 else 'independent'}")
+print(table.to_string())
+```
+
+**Compare this with Demo 3's pictures.** The eye suggested three drivers; the tests
+confirm which are real, and — importantly — how large each effect actually is.
+
+### Demo 12 — what the model learned, checked against the tests
+
+```{python}
+import pandas as pd
+from sklearn.pipeline import Pipeline
+from sklearn.ensemble import RandomForestClassifier
+
+rf = Pipeline([("prep", prepare),
+               ("clf", RandomForestClassifier(n_estimators=200, max_depth=8,
+                                              random_state=0, class_weight="balanced"))])
+rf.fit(X_train, y_train)
+
+names = rf.named_steps["prep"].get_feature_names_out()
+importance = pd.Series(rf.named_steps["clf"].feature_importances_, index=names)
+print("What the model relies on most:")
+print(importance.sort_values(ascending=False).head(6).round(3).to_string())
+print("\nThe top features match the statistically significant ones. When they do NOT,")
+print("something is wrong — usually a leaked column or a proxy for the target.")
+```
+
+# Part D — Delivering it {#sec-s16-d}
+
+## 7. What you hand over {#sec-s16-topic-7}
+
+| Deliverable | Must contain |
+|---|---|
+| **Repository** | code that runs from a clean clone, `requirements.txt` with versions pinned, a seed everywhere |
+| **Report** | the question, what you did, what you found, **and what you could not conclude** |
+| **Model bundle** | the full pipeline plus its metadata (Session 12) |
+| **Application** | a deployed link a stranger can open |
+| **Presentation** | eight minutes: problem, approach, result, limitations |
+
+### Demo 13 — packaging the result (Session 12)
+
+```{python}
+import joblib, sklearn, tempfile, os, json
+import numpy as np
+from datetime import date
+from sklearn.metrics import recall_score, precision_score, roc_auc_score
+
+folder = tempfile.mkdtemp()
+path = os.path.join(folder, "churn_model.joblib")
+
+proba = best.predict_proba(X_test)[:, 1]
+thresholds = np.arange(0.05, 0.95, 0.025)
+viable = [(t, recall_score(y_test, proba >= t), (proba >= t).mean())
+          for t in thresholds if (proba >= t).mean() <= 0.30]
+chosen_t, chosen_recall, chosen_contact = max(viable, key=lambda z: z[1])
+
+bundle = {
+    "pipeline": best,
+    "features": features,
+    "decision_threshold": round(float(chosen_t), 3),
+    "trained_on": str(date.today()),
+    "n_training_rows": int(len(X_train)),
+    "sklearn_version": sklearn.__version__,
+    "test_auc": round(float(roc_auc_score(y_test, proba)), 3),
+    "recall_at_threshold": round(float(chosen_recall), 3),
+    "contact_rate_at_threshold": round(float(chosen_contact), 3),
+    "target_recall": 0.60,
+    "contact_budget": 0.30,
+    "known_limitations": [
+        "trained on 12 months only; no seasonal effects captured",
+        "support_calls is recorded after a complaint, so very recent calls may be missing",
+        "no data on competitor pricing, which is likely a real driver",
+    ],
+}
+joblib.dump(bundle, path)
+
+loaded = joblib.load(path)
+print(json.dumps({k: v for k, v in loaded.items() if k != "pipeline"}, indent=2))
+print(f"\nmet the target? {loaded['recall_at_threshold'] >= loaded['target_recall']}")
+```
+
+**Note the `known_limitations` field.** It is the most valuable thing in the bundle, and
+the field most projects omit.
+
+## 8. Responsible delivery {#sec-s16-topic-8}
+
+**Before a model touches a real person, answer three questions in writing.**
+
+| Question | For this project |
+|---|---|
+| **Who could be harmed by a wrong prediction?** | a loyal customer wrongly flagged gets an unnecessary discount — cheap. A churner missed is a lost customer — the expensive error, which is why recall was the target. |
+| **Does it treat groups differently?** | check the error rate per city and per plan, not just overall |
+| **Would you be comfortable explaining a decision to the person it affected?** | if the answer needs "component 1 was low", reconsider (Session 6) |
+
+### Demo 14 — a fairness check
+
+```{python}
+import pandas as pd
+from sklearn.metrics import recall_score, precision_score
+
+check = X_test.copy()
+check["actual"] = y_test.values
+check["predicted"] = (best.predict_proba(X_test)[:, 1] >= chosen_t).astype(int)
+
+print("Does the model perform equally across groups?\n")
+for group in ["city", "plan"]:
+    print(f"By {group}:")
+    for value, sub in check.groupby(group):
+        if sub["actual"].sum() == 0:
+            continue
+        print(f"  {value:<10} n={len(sub):>4}  "
+              f"recall {recall_score(sub['actual'], sub['predicted'], zero_division=0):.2f}  "
+              f"contacted {sub['predicted'].mean():.1%}")
+    print()
+
+recalls = [recall_score(s["actual"], s["predicted"], zero_division=0)
+           for _, s in check.groupby("city") if s["actual"].sum() > 0]
+print(f"Recall ranges from {min(recalls):.2f} to {max(recalls):.2f} across cities.")
+print("A large gap means the model serves some groups better than others —")
+print("worth investigating before anyone acts on it.")
+```
+
+### ❓ Check yourself
+
+**Q1.** A rule has confidence 0.85 and lift 1.02. Is it useful?
+
+- (a) Yes, 85% confidence is high.
+- (b) **No — lift near 1 means the consequent is no more likely than usual.**
+- (c) Only if support is high.
+
+**Q2.** Why fix the success criterion before modelling?
+
+- (a) It is required by scikit-learn.
+- (b) **Otherwise you choose the metric your model happens to do well on.**
+- (c) It speeds up training.
+
+**Q3.** Your t-test gives p = 0.0001 and Cohen's d = 0.04. What do you report?
+
+- (a) A highly significant, important finding.
+- (b) **A real but negligibly small difference — significant because the sample is large,
+  not because it matters.**
+- (c) Nothing; the p-value is too small.
+
+**Q4.** The model's most important feature is one the statistical tests found
+insignificant. What should you suspect?
+
+- (a) The tests were wrong.
+- (b) **Leakage, or a proxy for the target — investigate that column.**
+- (c) Nothing; models see things tests cannot.
+
+**Q5.** What is the most valuable section of a project report?
+
+- (a) The accuracy figure.
+- (b) The code listing.
+- (c) **What the result cannot support, and why.**
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** Demo 8 measured exactly this case.
+
+**A2 — (b).** The criterion is a commitment; chosen afterwards it is a rationalisation.
+
+**A3 — (b).** With enough rows any difference becomes significant. The effect size is
+what says whether anyone should care.
+
+**A4 — (b).** Demo 12's closing note. This mismatch is one of the most reliable leakage
+detectors there is.
+
+**A5 — (c).** It is what lets somebody else use the result safely — and it is the section
+that is almost always missing.
+:::
+
+# 🎯 Capstone project {#sec-s16-tasks}
+
+::: {.callout-note title="✏️ Your project"}
+**Task 1 — Frame it.** Choose a dataset. Write the four answers from Demo 1: the
+decision, the success criterion **with a number**, the data available, and what would
+make the model useless. **Fix these before writing code.**
+
+**Task 2 — Clean and explore.** Produce a cleaning report and an EDA section that ends
+with three written hypotheses.
+
+**Task 3 — Test the hypotheses.** For each, run the appropriate test and report the
+p-value **and** the effect size. Say which survived.
+
+**Task 4 — Model.** Compare at least four models against a baseline, cross-validated with
+the spread reported. Tune the best one without touching the test set.
+
+**Task 5 — Meet the requirement.** Choose the decision threshold that satisfies your
+Task 1 criterion, **or report honestly that no threshold does.**
+
+**Task 6 — Mine the rules.** If your data has transactions, run Apriori and report the
+three most useful rules by lift. Explain why each is actionable.
+
+**Task 7 — Deliver.** Bundle the pipeline with metadata and limitations, deploy a
+Streamlit app, and write the report.
+:::
+
+::: {.callout-tip title="✅ A capstone that passes"}
+- [ ] Runs from a clean clone, first try, with versions pinned
+- [ ] States a success criterion that was fixed **before** the modelling
+- [ ] Beats a named baseline, with the baseline's score printed
+- [ ] Reports at least one thing that was tried and did not work
+- [ ] Supports every claim with a test **and** an effect size, not just a chart
+- [ ] Has a deployed link a stranger can open
+- [ ] Names who could be harmed by a wrong prediction, and checks group fairness
+- [ ] **Says clearly what the result cannot support**
+:::
+
+::: {.callout-tip title="✅ Before you finish the course"}
+Sixteen chapters, one sentence each:
+
+1. Data science turns recorded facts into decisions
+2. Get data in with pandas; look before you touch
+3. Clean in order — duplicates, impossible, missing, noise, outliers, text
+4. Join carefully, and check the row count every time
+5. Split before you scale; encode text; never leak
+6. Fewer columns is often better; say what the reduction cost
+7. Report a centre **and** a spread **and** a shape
+8. Every chart answers a question you asked first
+9. A model is a rule learned from examples; beat a baseline
+10. Clustering has no answer key — justify the result instead
+11. One split is one opinion; cross-validate and report the spread
+12. Save the pipeline, validate inputs, watch for drift
+13. Big data is a symptom, not a size; try chunking first
+14. Map, shuffle, reduce — and the shuffle is the expensive part
+15. NoSQL trades schema for flexibility; aggregate in the database
+16. A finished project states what it cannot support
 :::

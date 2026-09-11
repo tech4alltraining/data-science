@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Session 2 — Data Collection and Pre-Processing Overview – Data Science Course</title>
+<title>3&nbsp; Session 2 — Data Collection and Pre-Processing Overview – Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,7 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -77,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-99913b7803b80b0c1d2b970a25816663.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-7202036dd3638cbfcbeb4151d116aa42.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -105,14 +105,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
-
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-sidebar floating quarto-light">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -121,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-02-data-collection-and-pre-processing-overview.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 2 — Data Collection and Pre-Processing Overview</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-01-introduction-to-data-science.html">Part A — Getting hold of data</a></li><li class="breadcrumb-item"><a href="../sessions/session-02-data-collection-and-pre-processing-overview.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 2 — Data Collection and Pre-Processing Overview</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -133,10 +131,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Data Science Course</a> 
+      <a href="../">Data Science</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -149,105 +147,160 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science Course</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part A — Getting hold of data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-01-introduction-to-data-science.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Session 1 — Introduction to Data Science</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-02-data-collection-and-pre-processing-overview.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 2 — Data Collection and Pre-Processing Overview</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part B — Making data fit to use</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-03-data-cleaning.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Session 3 — Data Cleaning</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-04-data-integration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Session 4 — Data Integration</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-05-data-transformation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Session 5 — Data Transformation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-06-data-reduction-and-discretization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Session 6 — Data Reduction and Discretization</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part C — Understanding data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-07-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Session 7 — Descriptive Statistics</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-08-exploratory-data-analytics-eda-and-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analytics (EDA) and Visualization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analysis and Visualization</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part D — Learning from data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-09-supervised-learning-techniques.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Session 9 — Supervised Learning Techniques</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-10-unsupervised-learning-techniques-clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning Techniques &amp; Clustering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning and Clustering</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-11-data-model-evaluation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 11 — Data Model Evaluation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 11 — Model Evaluation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-12-model-saving-and-deployment.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Session 12 — Model Saving and Deployment</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part E — Data at scale</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-13-big-data-analytics-fundamentals.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Session 13 — Big Data Analytics Fundamentals</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-14-distributed-data-processing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Session 14 — Distributed Data Processing</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-15-nosql-databases-and-scaled-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Scaled Visualization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Visualization at Scale</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-16-open-ended-module-implementation-and-capstone.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Open Ended Module (Implementation and Capstone)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Capstone: The End-to-End Project</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -260,40 +313,59 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#sec-s02-outcomes" id="toc-sec-s02-outcomes" class="nav-link active" data-scroll-target="#sec-s02-outcomes"><span class="header-section-number">3.1</span> 🎯 Learning outcomes</a></li>
   <li><a href="#sec-s02-organisation" id="toc-sec-s02-organisation" class="nav-link" data-scroll-target="#sec-s02-organisation"><span class="header-section-number">3.2</span> How this chapter is organised</a></li>
-  <li><a href="#sec-s02-a" id="toc-sec-s02-a" class="nav-link" data-scroll-target="#sec-s02-a"><span class="header-section-number">4</span> Part A — Collection and Pre-Processing</a>
+  <li><a href="#sec-s02-a" id="toc-sec-s02-a" class="nav-link" data-scroll-target="#sec-s02-a"><span class="header-section-number">4</span> Part A — Getting data</a>
   <ul class="collapse">
-  <li><a href="#sec-s02-topic-1" id="toc-sec-s02-topic-1" class="nav-link" data-scroll-target="#sec-s02-topic-1"><span class="header-section-number">4.1</span> 1. Data Collection Strategies</a>
+  <li><a href="#sec-s02-topic-1" id="toc-sec-s02-topic-1" class="nav-link" data-scroll-target="#sec-s02-topic-1"><span class="header-section-number">4.1</span> 1. Where data comes from</a>
   <ul class="collapse">
-  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works"><span class="header-section-number">4.1.1</span> How it works</a></li>
-  <li><a href="#mcqs" id="toc-mcqs" class="nav-link" data-scroll-target="#mcqs"><span class="header-section-number">4.1.2</span> ❓ MCQs</a></li>
+  <li><a href="#demo-1-reading-a-csv-a-json-document-and-a-sql-database" id="toc-demo-1-reading-a-csv-a-json-document-and-a-sql-database" class="nav-link" data-scroll-target="#demo-1-reading-a-csv-a-json-document-and-a-sql-database"><span class="header-section-number">4.1.1</span> Demo 1 — reading a CSV, a JSON document and a SQL database</a></li>
   </ul></li>
-  <li><a href="#sec-s02-topic-2" id="toc-sec-s02-topic-2" class="nav-link" data-scroll-target="#sec-s02-topic-2"><span class="header-section-number">4.2</span> 2. Data Pre-Processing Overview</a>
+  <li><a href="#sec-s02-topic-2" id="toc-sec-s02-topic-2" class="nav-link" data-scroll-target="#sec-s02-topic-2"><span class="header-section-number">4.2</span> 2. Sampling, and how a sample lies</a>
   <ul class="collapse">
-  <li><a href="#how-it-works-1" id="toc-how-it-works-1" class="nav-link" data-scroll-target="#how-it-works-1"><span class="header-section-number">4.2.1</span> How it works</a></li>
-  <li><a href="#mcqs-1" id="toc-mcqs-1" class="nav-link" data-scroll-target="#mcqs-1"><span class="header-section-number">4.2.2</span> ❓ MCQs</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#sec-s02-b" id="toc-sec-s02-b" class="nav-link" data-scroll-target="#sec-s02-b"><span class="header-section-number">5</span> Part B — Working with Pandas</a>
-  <ul class="collapse">
-  <li><a href="#sec-s02-topic-3" id="toc-sec-s02-topic-3" class="nav-link" data-scroll-target="#sec-s02-topic-3"><span class="header-section-number">5.1</span> 3. Working with Pandas data frames</a>
-  <ul class="collapse">
-  <li><a href="#how-it-works-2" id="toc-how-it-works-2" class="nav-link" data-scroll-target="#how-it-works-2"><span class="header-section-number">5.1.1</span> How it works</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">5.1.2</span> 📘 Examples</a></li>
-  <li><a href="#scenarios" id="toc-scenarios" class="nav-link" data-scroll-target="#scenarios"><span class="header-section-number">5.1.3</span> 🌍 Scenarios</a></li>
+  <li><a href="#demo-2-the-same-population-two-samples-two-different-answers" id="toc-demo-2-the-same-population-two-samples-two-different-answers" class="nav-link" data-scroll-target="#demo-2-the-same-population-two-samples-two-different-answers"><span class="header-section-number">4.2.1</span> Demo 2 — the same population, two samples, two different answers</a></li>
+  <li><a href="#check-yourself" id="toc-check-yourself" class="nav-link" data-scroll-target="#check-yourself"><span class="header-section-number">4.2.2</span> ❓ Check yourself</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s02-demo" id="toc-sec-s02-demo" class="nav-link" data-scroll-target="#sec-s02-demo"><span class="header-section-number">6</span> Part Demo — Inspecting Messy Data</a></li>
-  <li><a href="#sec-s02-tasks" id="toc-sec-s02-tasks" class="nav-link" data-scroll-target="#sec-s02-tasks"><span class="header-section-number">7</span> 🎯 Session 2 — Tasks</a></li>
+  <li><a href="#sec-s02-b" id="toc-sec-s02-b" class="nav-link" data-scroll-target="#sec-s02-b"><span class="header-section-number">5</span> Part B — The preprocessing map</a>
+  <ul class="collapse">
+  <li><a href="#sec-s02-topic-3" id="toc-sec-s02-topic-3" class="nav-link" data-scroll-target="#sec-s02-topic-3"><span class="header-section-number">5.1</span> 3. Why raw data is never usable</a>
+  <ul class="collapse">
+  <li><a href="#demo-3-watch-one-bad-value-ruin-a-summary" id="toc-demo-3-watch-one-bad-value-ruin-a-summary" class="nav-link" data-scroll-target="#demo-3-watch-one-bad-value-ruin-a-summary"><span class="header-section-number">5.1.1</span> Demo 3 — watch one bad value ruin a summary</a></li>
+  </ul></li>
+  <li><a href="#sec-s02-topic-4" id="toc-sec-s02-topic-4" class="nav-link" data-scroll-target="#sec-s02-topic-4"><span class="header-section-number">5.2</span> 4. The order we clean in</a></li>
+  </ul></li>
+  <li><a href="#sec-s02-c" id="toc-sec-s02-c" class="nav-link" data-scroll-target="#sec-s02-c"><span class="header-section-number">6</span> Part C — Pandas</a>
+  <ul class="collapse">
+  <li><a href="#sec-s02-topic-5" id="toc-sec-s02-topic-5" class="nav-link" data-scroll-target="#sec-s02-topic-5"><span class="header-section-number">6.1</span> 5. The Series and the DataFrame</a>
+  <ul class="collapse">
+  <li><a href="#demo-4-building-a-table-and-the-column-inside-it" id="toc-demo-4-building-a-table-and-the-column-inside-it" class="nav-link" data-scroll-target="#demo-4-building-a-table-and-the-column-inside-it"><span class="header-section-number">6.1.1</span> Demo 4 — building a table, and the column inside it</a></li>
+  </ul></li>
+  <li><a href="#sec-s02-topic-6" id="toc-sec-s02-topic-6" class="nav-link" data-scroll-target="#sec-s02-topic-6"><span class="header-section-number">6.2</span> 6. Looking at an unfamiliar dataset</a>
+  <ul class="collapse">
+  <li><a href="#demo-5-the-five-command-first-look" id="toc-demo-5-the-five-command-first-look" class="nav-link" data-scroll-target="#demo-5-the-five-command-first-look"><span class="header-section-number">6.2.1</span> Demo 5 — the five-command first look</a></li>
+  </ul></li>
+  <li><a href="#sec-s02-topic-7" id="toc-sec-s02-topic-7" class="nav-link" data-scroll-target="#sec-s02-topic-7"><span class="header-section-number">6.3</span> 7. Selecting and filtering</a>
+  <ul class="collapse">
+  <li><a href="#demo-6-the-three-selectors-side-by-side" id="toc-demo-6-the-three-selectors-side-by-side" class="nav-link" data-scroll-target="#demo-6-the-three-selectors-side-by-side"><span class="header-section-number">6.3.1</span> Demo 6 — the three selectors, side by side</a></li>
+  <li><a href="#demo-7-filtering-with-a-condition" id="toc-demo-7-filtering-with-a-condition" class="nav-link" data-scroll-target="#demo-7-filtering-with-a-condition"><span class="header-section-number">6.3.2</span> Demo 7 — filtering with a condition</a></li>
+  </ul></li>
+  <li><a href="#sec-s02-topic-8" id="toc-sec-s02-topic-8" class="nav-link" data-scroll-target="#sec-s02-topic-8"><span class="header-section-number">6.4</span> 8. Grouping: answering real questions</a>
+  <ul class="collapse">
+  <li><a href="#demo-8-from-raw-rows-to-an-answer" id="toc-demo-8-from-raw-rows-to-an-answer" class="nav-link" data-scroll-target="#demo-8-from-raw-rows-to-an-answer"><span class="header-section-number">6.4.1</span> Demo 8 — from raw rows to an answer</a></li>
+  <li><a href="#demo-9-writing-the-answer-back-out" id="toc-demo-9-writing-the-answer-back-out" class="nav-link" data-scroll-target="#demo-9-writing-the-answer-back-out"><span class="header-section-number">6.4.2</span> Demo 9 — writing the answer back out</a></li>
+  <li><a href="#check-yourself-1" id="toc-check-yourself-1" class="nav-link" data-scroll-target="#check-yourself-1"><span class="header-section-number">6.4.3</span> ❓ Check yourself</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s02-tasks" id="toc-sec-s02-tasks" class="nav-link" data-scroll-target="#sec-s02-tasks"><span class="header-section-number">7</span> 🎯 Tasks</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-01-introduction-to-data-science.html">Part A — Getting hold of data</a></li><li class="breadcrumb-item"><a href="../sessions/session-02-data-collection-and-pre-processing-overview.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 2 — Data Collection and Pre-Processing Overview</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 2 — Data Collection and Pre-Processing Overview</span></h1>
-<p class="subtitle lead">Collection Strategies · Pre-Processing · Pandas DataFrames</p>
+<p class="subtitle lead">Where data comes from · Sampling · The preprocessing map · Pandas: load, look, select, group</p>
 </div>
 
 
@@ -310,11 +382,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<!-- Setup code for the book -->
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -325,17 +392,22 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>This chapter introduces how we gather raw data and prepare it for analysis using Python.</strong></p>
-<p><strong>Assumed knowledge:</strong> Concepts from Session 1 (Roles and Definitions).</p>
+<p><strong>This chapter is about getting data into Python and having a first look at it.</strong></p>
+<p><strong>Assumed knowledge:</strong> Session 1 — what data science is, and the three kinds of data. No Python experience is assumed. Every function is explained the first time it appears.</p>
+<p><strong>The one idea to take away:</strong> <code>pandas</code> gives you a table you can command. Learn four verbs — <strong>load, look, select, group</strong> — and you can answer most questions about most datasets.</p>
 </div>
 </div>
 <section id="sec-s02-outcomes" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="sec-s02-outcomes"><span class="header-section-number">3.1</span> 🎯 Learning outcomes</h2>
 <p>By the end of this chapter you can:</p>
 <ol type="1">
-<li>Identify three common strategies for collecting raw data.</li>
-<li>Explain why data pre-processing is mandatory before any analysis can begin.</li>
-<li>Load a dataset into a Pandas DataFrame and inspect its structure.</li>
+<li>Name five ways data is collected and pick the right one for a situation.</li>
+<li>Explain how a badly chosen sample produces a confidently wrong answer.</li>
+<li>List the preprocessing steps in the order this course performs them.</li>
+<li>Load data from a CSV file, a JSON document and a SQL database.</li>
+<li>Inspect an unfamiliar dataset with <code>.head()</code>, <code>.info()</code>, <code>.describe()</code> and <code>.value_counts()</code>.</li>
+<li>Select rows and columns with <code>[]</code>, <code>.loc</code> and <code>.iloc</code>, and filter with a condition.</li>
+<li>Answer a question about a dataset using <code>groupby</code>.</li>
 </ol>
 </section>
 <section id="sec-s02-organisation" class="level2" data-number="3.2">
@@ -345,127 +417,265 @@ Note
 <tr class="header">
 <th>Part</th>
 <th>Question it answers</th>
-<th>Source</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#sec-s02-a">A — Collection and Pre-Processing</a></td>
-<td><em>Where does data come from, and why is it always messy?</em></td>
-<td><code>concepts</code></td>
+<td><a href="#sec-s02-a">A — Getting data</a></td>
+<td><em>Where does data come from, and what can go wrong before you even see it?</em></td>
 </tr>
 <tr class="even">
-<td><a href="#sec-s02-b">B — Working with Pandas</a></td>
-<td><em>How do we actually look at this data in Python?</em></td>
-<td><code>pandas_basics.ipynb</code></td>
+<td><a href="#sec-s02-b">B — The preprocessing map</a></td>
+<td><em>Why is raw data never usable, and in what order do we fix it?</em></td>
 </tr>
 <tr class="odd">
-<td><a href="#sec-s02-demo">Demo — Inspecting Messy Data</a></td>
-<td><em>What does a real-world messy dataset look like when loaded?</em></td>
-<td><code>pandas_demo.py</code></td>
+<td><a href="#sec-s02-c">C — Pandas</a></td>
+<td><em>How do I actually hold a table in Python and ask it questions?</em></td>
 </tr>
 </tbody>
 </table>
+<p>Part A is concepts. Part B is the plan for Sessions 3–6. Part C is where you start typing.</p>
 </section>
 <section id="sec-s02-a" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Part A — Collection and Pre-Processing</h1>
-<p><strong>Before we can analyze data, we have to find it and clean it up.</strong></p>
+<h1 data-number="4"><span class="header-section-number">4</span> Part A — Getting data</h1>
 <section id="sec-s02-topic-1" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="sec-s02-topic-1"><span class="header-section-number">4.1</span> 1. Data Collection Strategies</h2>
-<p><strong>Data collection is the process of gathering raw information from various sources to answer a specific business question.</strong></p>
-<p>It exists because algorithms cannot learn from nothing. You must feed them historical examples (data) so they can find patterns.</p>
-<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — Mining for Gold">
+<h2 data-number="4.1" class="anchored" data-anchor-id="sec-s02-topic-1"><span class="header-section-number">4.1</span> 1. Where data comes from</h2>
+<p><strong>Data collection is gathering the raw facts you will need to answer a question. It comes before everything else, and a mistake here cannot be fixed later.</strong></p>
+<p>Five routes cover almost every project:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Route</th>
+<th>What it means</th>
+<th>Use it when</th>
+<th>Watch out for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Internal databases</strong></td>
+<td>data your organisation already stores</td>
+<td>the facts are about your own customers or operations</td>
+<td>you need access permission, and the schema is rarely documented</td>
+</tr>
+<tr class="even">
+<td><strong>Files handed to you</strong></td>
+<td>CSV, Excel, exports</td>
+<td>somebody else already extracted it</td>
+<td>no one can tell you how it was extracted</td>
+</tr>
+<tr class="odd">
+<td><strong>APIs</strong></td>
+<td>asking another service for data, programmatically</td>
+<td>the data belongs to someone who is happy to share it</td>
+<td>rate limits, and the format changing without warning</td>
+</tr>
+<tr class="even">
+<td><strong>Web scraping</strong></td>
+<td>reading a public web page with code</td>
+<td>there is no API and the data is public</td>
+<td>terms of service, and the page layout changing</td>
+</tr>
+<tr class="odd">
+<td><strong>Sensors and surveys</strong></td>
+<td>collecting new data yourself</td>
+<td>it does not exist yet</td>
+<td>it is slow and expensive</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Collect legally">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>🧠 Analogy — Mining for Gold
+<span class="screen-reader-only">Warning</span>⚠️ Collect legally
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>The everyday thing:</strong> A gold mining operation.</p>
-<p><strong>The mapping:</strong> - The <strong>mountain</strong> is the internet or your company’s user base. - The <strong>excavator</strong> is your data collection strategy (APIs, web scraping). - The <strong>chunks of raw rock</strong> you pull out are the raw data.</p>
-<p><strong>Where it breaks down:</strong> Mining removes gold from the mountain permanently, but collecting data from a website doesn’t delete the data from the website.</p>
+<p>Before scraping anything, check the site’s <code>robots.txt</code> and its terms of service. Personal data has legal protections in most countries regardless of whether it was technically reachable. <strong>“It was on the internet” is not a defence.</strong></p>
 </div>
 </div>
-<section id="how-it-works" class="level3" data-number="4.1.1">
-<h3 data-number="4.1.1" class="anchored" data-anchor-id="how-it-works"><span class="header-section-number">4.1.1</span> How it works</h3>
-<p>There are three primary ways modern teams collect data: 1. <strong>Internal Databases:</strong> Pulling data your company already owns (e.g., customer purchase history from a SQL database). 2. <strong>APIs (Application Programming Interfaces):</strong> Requesting data programmatically from third-party services (e.g., getting live weather data from the OpenWeather API). 3. <strong>Web Scraping:</strong> Writing scripts to automatically read and extract information from public websites when an API is not available.</p>
-</section>
-<section id="mcqs" class="level3" data-number="4.1.2">
-<h3 data-number="4.1.2" class="anchored" data-anchor-id="mcqs"><span class="header-section-number">4.1.2</span> ❓ MCQs</h3>
-<p><strong>Q1.</strong> If you need to gather public pricing information from a competitor’s website that does not offer an API, which strategy must you use?</p>
-<ul>
-<li><ol type="a">
-<li>Querying your internal SQL database.</li>
-</ol></li>
-<li><ol start="2" type="a">
-<li><strong>Web Scraping.</strong></li>
-</ol></li>
-<li><ol start="3" type="a">
-<li>Guessing the prices based on market trends.</li>
-</ol></li>
-<li><ol start="4" type="a">
-<li>Waiting for the competitor to email you their data.</li>
-</ol></li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<section id="demo-1-reading-a-csv-a-json-document-and-a-sql-database" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="demo-1-reading-a-csv-a-json-document-and-a-sql-database"><span class="header-section-number">4.1.1</span> Demo 1 — reading a CSV, a JSON document and a SQL database</h3>
+<p>Three sources, three functions, one table each. <code>io.StringIO</code> lets us pretend a string is a file, so this cell runs without downloading anything.</p>
+<div id="0c8d7c45" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> io, json, sqlite3</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># --- SOURCE 1: a CSV file -------------------------------------------------</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>csv_text <span class="op">=</span> <span class="st">"""order_id,customer,city,amount</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="st">1,Alice,Mumbai,250</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="st">2,Bob,Delhi,90</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="st">3,Chan,Mumbai,410"""</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>from_csv <span class="op">=</span> pd.read_csv(io.StringIO(csv_text))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"From CSV:"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(from_csv)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># --- SOURCE 2: a JSON response, the shape an API returns ------------------</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>api_response <span class="op">=</span> <span class="st">'[{"order_id": 4, "customer": "Devi", "city": "Pune", "amount": 175}]'</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>from_json <span class="op">=</span> pd.DataFrame(json.loads(api_response))</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">From a JSON API response:"</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(from_json)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># --- SOURCE 3: a SQL database (sqlite3 is built into Python) --------------</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>conn <span class="op">=</span> sqlite3.<span class="ex">connect</span>(<span class="st">":memory:"</span>)            <span class="co"># a database that lives in memory</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>from_csv.to_sql(<span class="st">"orders"</span>, conn, index<span class="op">=</span><span class="va">False</span>)  <span class="co"># put our table into it</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>from_sql <span class="op">=</span> pd.read_sql(<span class="st">"SELECT customer, amount FROM orders WHERE amount &gt; 100"</span>, conn)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">From SQL, with the filtering done by the database:"</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(from_sql)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>conn.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>From CSV:
+   order_id customer    city  amount
+0         1    Alice  Mumbai     250
+1         2      Bob   Delhi      90
+2         3     Chan  Mumbai     410
+
+From a JSON API response:
+   order_id customer  city  amount
+0         4     Devi  Pune     175
+
+From SQL, with the filtering done by the database:
+  customer  amount
+0    Alice     250
+1     Chan     410</code></pre>
+</div>
+</div>
+<p>Notice the last one. <strong>The database did the filtering before Python saw the data.</strong> When a table has ten million rows and you need three hundred, that difference decides whether your laptop copes.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — three ways to get groceries">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Answers
+<span class="screen-reader-only">Tip</span>🧠 Analogy — three ways to get groceries
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>A1 — (b).</strong> Web scraping allows you to programmatically extract information directly from the HTML of a webpage when no official API is provided.</p>
+<ul>
+<li><strong>Reading a CSV</strong> is having a box delivered: everything arrives, you sort it out.</li>
+<li><strong>Calling an API</strong> is ordering from a menu: you ask for specific items and get those.</li>
+<li><strong>Querying SQL</strong> is sending someone into the shop with a list: the selecting happens in the shop, and only what you asked for comes home.</li>
+</ul>
 </div>
 </div>
-</div>
-<p><strong>Once you collect the data, you will immediately notice a problem: it is never ready to use.</strong></p>
 </section>
 </section>
 <section id="sec-s02-topic-2" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="sec-s02-topic-2"><span class="header-section-number">4.2</span> 2. Data Pre-Processing Overview</h2>
-<p><strong>Data pre-processing is the act of cleaning and formatting raw data into a pristine table that a machine learning algorithm can understand.</strong></p>
-<p>It exists because raw data is incredibly messy. Users make typos, sensors fail and record blank values, and different systems use different formats (e.g., <code>10/05/2024</code> vs <code>2024-10-05</code>). If you feed messy data into a model, the model will produce garbage predictions.</p>
-<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ The trap of skipping the cleaning phase">
+<h2 data-number="4.2" class="anchored" data-anchor-id="sec-s02-topic-2"><span class="header-section-number">4.2</span> 2. Sampling, and how a sample lies</h2>
+<p><strong>A sample is a subset of the data you actually analyse. You almost always work with one — and if the subset is not representative, every later step is wasted.</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sampling method</th>
+<th>How it picks</th>
+<th>Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Random</strong></td>
+<td>every row has an equal chance</td>
+<td>needs the full list to pick from</td>
+</tr>
+<tr class="even">
+<td><strong>Stratified</strong></td>
+<td>picks proportionally from each group</td>
+<td>you have to know the groups</td>
+</tr>
+<tr class="odd">
+<td><strong>Systematic</strong></td>
+<td>every <em>n</em>th row</td>
+<td>fails if the data has a repeating pattern</td>
+</tr>
+<tr class="even">
+<td><strong>Convenience</strong></td>
+<td>whatever was easy to get</td>
+<td><strong>usually biased, and usually invisible</strong></td>
+</tr>
+</tbody>
+</table>
+<section id="demo-2-the-same-population-two-samples-two-different-answers" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="demo-2-the-same-population-two-samples-two-different-answers"><span class="header-section-number">4.2.1</span> Demo 2 — the same population, two samples, two different answers</h3>
+<p>A town where income genuinely differs by neighbourhood. We survey it twice: once at random, once by standing outside one office building.</p>
+<div id="7f94e6e3" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">7</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>town <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"area"</span>:   [<span class="st">"north"</span>]<span class="op">*</span><span class="dv">600</span> <span class="op">+</span> [<span class="st">"south"</span>]<span class="op">*</span><span class="dv">400</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"income"</span>: np.concatenate([rng.normal(<span class="dv">30_000</span>, <span class="dv">5_000</span>, <span class="dv">600</span>),</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                              rng.normal(<span class="dv">85_000</span>, <span class="dv">9_000</span>, <span class="dv">400</span>)]),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>random_sample     <span class="op">=</span> town.sample(<span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">1</span>)          <span class="co"># fair</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>convenience_sample <span class="op">=</span> town[town[<span class="st">"area"</span>] <span class="op">==</span> <span class="st">"south"</span>].sample(<span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">1</span>)  <span class="co"># easy</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"True average income of the whole town : ₹</span><span class="sc">{</span>town[<span class="st">'income'</span>]<span class="sc">.</span>mean()<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Estimate from the random sample       : ₹</span><span class="sc">{</span>random_sample[<span class="st">'income'</span>]<span class="sc">.</span>mean()<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Estimate from the convenient sample   : ₹</span><span class="sc">{</span>convenience_sample[<span class="st">'income'</span>]<span class="sc">.</span>mean()<span class="sc">:,.0f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>True average income of the whole town : ₹51,670
+Estimate from the random sample       : ₹50,939
+Estimate from the convenient sample   : ₹86,078</code></pre>
+</div>
+</div>
+<p>The convenient sample is not <em>noisy</em> — it is <strong>wrong in a consistent direction</strong>, and no amount of extra data collected the same way will correct it. This is called <strong>sampling bias</strong>, and it is the failure that no later technique can repair.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ More data does not fix a biased sample">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>⚠️ The trap of skipping the cleaning phase
+<span class="screen-reader-only">Warning</span>⚠️ More data does not fix a biased sample
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><em>“I just want to get to the fun machine learning part!”</em></p>
-<p><strong>Garbage in, garbage out.</strong> If you don’t pre-process your data, your highly advanced neural network will confidently give you the wrong answer because it learned from typos and missing values. Data Scientists spend 80% of their time pre-processing.</p>
+<p>Doubling a biased sample gives you a more confident wrong answer. <strong>Only changing how you collect fixes bias.</strong> Always ask “who could not have appeared in this data?” before you trust it.</p>
 </div>
 </div>
-<section id="how-it-works-1" class="level3" data-number="4.2.1">
-<h3 data-number="4.2.1" class="anchored" data-anchor-id="how-it-works-1"><span class="header-section-number">4.2.1</span> How it works</h3>
-<p>Pre-processing generally involves: - <strong>Handling Missing Values:</strong> What do we do if a user didn’t enter their age? (Delete the row, or guess the average?) - <strong>Formatting:</strong> Ensuring all text is lowercase, or all dates follow the same format. - <strong>Removing Duplicates:</strong> Ensuring a user who clicked “Submit” twice isn’t counted as two separate purchases.</p>
 </section>
-<section id="mcqs-1" class="level3" data-number="4.2.2">
-<h3 data-number="4.2.2" class="anchored" data-anchor-id="mcqs-1"><span class="header-section-number">4.2.2</span> ❓ MCQs</h3>
-<p><strong>Q2.</strong> Why do Data Scientists spend so much time pre-processing data?</p>
+<section id="check-yourself" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="check-yourself"><span class="header-section-number">4.2.2</span> ❓ Check yourself</h3>
+<p><strong>Q1.</strong> You need competitor pricing from a website with no API. Which route?</p>
 <ul>
 <li><ol type="a">
-<li>Because Python is very slow at reading files.</li>
+<li>Query your internal database.</li>
 </ol></li>
 <li><ol start="2" type="a">
-<li><strong>Because raw data contains errors, missing values, and inconsistencies that ruin analysis.</strong></li>
+<li><strong>Web scraping.</strong></li>
 </ol></li>
 <li><ol start="3" type="a">
-<li>Because pre-processing is the only way to generate charts.</li>
+<li>A customer survey.</li>
 </ol></li>
-<li><ol start="4" type="a">
-<li>Because it is required by international privacy laws.</li>
+</ul>
+<p><strong>Q2.</strong> A phone survey run between 10am and 4pm on weekdays finds that 78% of people are satisfied with local bus services. What is the main problem?</p>
+<ul>
+<li><ol type="a">
+<li>The sample is too small.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>People who commute by bus are at work during those hours and cannot answer.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Phone surveys are illegal.</li>
 </ol></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled" title="Answers">
@@ -480,149 +690,582 @@ Note
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>A2 — (b).</strong> Real-world data is generated by humans and imperfect systems, leading to errors that must be fixed before an algorithm can find accurate patterns.</p>
+<p><strong>A1 — (b).</strong> No API means scraping — after checking the terms of service.</p>
+<p><strong>A2 — (b).</strong> The people most affected by bus services are systematically excluded. The result is biased, not merely imprecise, and a bigger sample would not help.</p>
 </div>
 </div>
 </div>
-<p><strong>We know we need to collect and clean data, but what tool do we use to actually do this in Python?</strong></p>
 </section>
 </section>
 </section>
 <section id="sec-s02-b" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Part B — Working with Pandas</h1>
-<p><strong>Pandas is the industry-standard tool for looking at and manipulating tabular data in Python.</strong></p>
+<h1 data-number="5"><span class="header-section-number">5</span> Part B — The preprocessing map</h1>
 <section id="sec-s02-topic-3" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="sec-s02-topic-3"><span class="header-section-number">5.1</span> 3. Working with Pandas data frames</h2>
-<p><strong>A Pandas DataFrame is essentially a programmatic Excel spreadsheet inside Python.</strong></p>
-<p>It exists because standard Python lists and dictionaries are too slow and cumbersome for doing math on millions of rows of tabular data. Pandas gives us a fast, intuitive way to filter, group, and calculate statistics on large datasets.</p>
-<section id="how-it-works-2" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="how-it-works-2"><span class="header-section-number">5.1.1</span> How it works</h3>
-<p>You import the library (<code>import pandas as pd</code>), load a file (like a CSV) into a DataFrame object, and then use built-in methods to inspect it.</p>
+<h2 data-number="5.1" class="anchored" data-anchor-id="sec-s02-topic-3"><span class="header-section-number">5.1</span> 3. Why raw data is never usable</h2>
+<p><strong>Preprocessing is turning raw data into a table an algorithm can read. It is most of the work in most projects.</strong></p>
+<p>Raw data is messy because it is produced by people and by imperfect machines:</p>
+<ul>
+<li>somebody typed their age as <code>225</code></li>
+<li>a sensor dropped offline and recorded nothing for four hours</li>
+<li>one system writes dates as <code>10/05/2024</code>, another as <code>2024-05-10</code></li>
+<li>a customer pressed <em>Submit</em> twice</li>
+<li>the “city” column contains <code>Mumbai</code>, <code>mumbai</code>, <code>Bombay</code> and <code>MUM</code></li>
+</ul>
+<p>An algorithm cannot see that these are problems. It will treat <code>225</code> as a real age and happily conclude that older customers spend more.</p>
+<section id="demo-3-watch-one-bad-value-ruin-a-summary" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="demo-3-watch-one-bad-value-ruin-a-summary"><span class="header-section-number">5.1.1</span> Demo 3 — watch one bad value ruin a summary</h3>
+<div id="d8525b7e" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ages <span class="op">=</span> pd.Series([<span class="dv">25</span>, <span class="dv">31</span>, <span class="dv">28</span>, <span class="dv">35</span>, <span class="dv">22</span>, <span class="dv">29</span>, <span class="dv">33</span>, <span class="dv">27</span>])</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Average age, clean data     : </span><span class="sc">{</span>ages<span class="sc">.</span>mean()<span class="sc">:.1f}</span><span class="ss"> years"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>ages_with_typo <span class="op">=</span> pd.Series([<span class="dv">25</span>, <span class="dv">31</span>, <span class="dv">28</span>, <span class="dv">35</span>, <span class="dv">22</span>, <span class="dv">29</span>, <span class="dv">33</span>, <span class="dv">225</span>])   <span class="co"># 27 typed as 225</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Average age, one typo       : </span><span class="sc">{</span>ages_with_typo<span class="sc">.</span>mean()<span class="sc">:.1f}</span><span class="ss"> years"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Median age, the same typo   : </span><span class="sc">{</span>ages_with_typo<span class="sc">.</span>median()<span class="sc">:.1f}</span><span class="ss"> years  &lt;- barely moved"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Average age, clean data     : 28.8 years
+Average age, one typo       : 53.5 years
+Median age, the same typo   : 30.0 years  &lt;- barely moved</code></pre>
+</div>
+</div>
+<p><strong>One wrong value out of eight moved the average by nearly 25 years.</strong> The median barely noticed. Session 7 explains why; Session 3 fixes the typo. For now, the point is only that raw data cannot be trusted.</p>
 </section>
-<section id="examples" class="level3" data-number="5.1.2">
-<h3 data-number="5.1.2" class="anchored" data-anchor-id="examples"><span class="header-section-number">5.1.2</span> 📘 Examples</h3>
-<p><strong>Example 1 — Creating a simple DataFrame from scratch</strong></p>
-<div id="025a851b" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating data manually using a dictionary</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Name"</span>: [<span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Charlie"</span>],</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Age"</span>: [<span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>],</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"City"</span>: [<span class="st">"New York"</span>, <span class="st">"London"</span>, <span class="st">"Paris"</span>]</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting it into a Pandas DataFrame</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(data)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Displaying the DataFrame</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="1">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+</section>
+<section id="sec-s02-topic-4" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="sec-s02-topic-4"><span class="header-section-number">5.2</span> 4. The order we clean in</h2>
+<p><strong>The steps have to happen in a specific order.</strong> Running them in a different order produces numbers that look fine and are wrong.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Name</th>
-<th data-quarto-table-cell-role="th">Age</th>
-<th data-quarto-table-cell-role="th">City</th>
+<th>#</th>
+<th>Step</th>
+<th>Chapter</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>Alice</td>
-<td>25</td>
-<td>New York</td>
+<td>1</td>
+<td><strong>Load</strong> the data</td>
+<td>this chapter</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>Bob</td>
-<td>30</td>
-<td>London</td>
+<td>2</td>
+<td><strong>Explore</strong> it — what is here?</td>
+<td>this chapter, and Sessions 7–8</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>Charlie</td>
-<td>35</td>
-<td>Paris</td>
+<td>3</td>
+<td><strong>Duplicates</strong> — remove repeated rows</td>
+<td>Session 3</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><strong>Impossible values</strong> — an age of 225 is an error, not an extreme</td>
+<td>Session 3</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>Missing values</strong> — decide what to do about blanks</td>
+<td>Session 3</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><strong>Outliers</strong> — decide about genuine extremes</td>
+<td>Session 3</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td><strong>Combine</strong> other tables you need</td>
+<td>Session 4</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td><strong>Encode and scale</strong> — turn text into numbers, put columns on one scale</td>
+<td>Session 5</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td><strong>Reduce</strong> — drop or compress columns you do not need</td>
+<td>Session 6</td>
 </tr>
 </tbody>
 </table>
-
-</div>
-</div>
-</div>
-<p><strong>Example 2 — Inspecting the data</strong></p>
-<div class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># .head(2) shows only the first 2 rows. Useful when you have millions of rows!</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="tbl-s02-example" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="2">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-s02-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;5.1: Using .head() to look at just the top rows of a large dataset.
-</figcaption>
-<div aria-describedby="tbl-s02-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display" data-execution_count="2">
-<div>
-
-
-<table class="dataframe do-not-create-environment cell caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Name</th>
-<th data-quarto-table-cell-role="th">Age</th>
-<th data-quarto-table-cell-role="th">City</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>Alice</td>
-<td>25</td>
-<td>New York</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>Bob</td>
-<td>30</td>
-<td>London</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-</figure>
-</div>
-</div>
-</section>
-<section id="scenarios" class="level3" data-number="5.1.3">
-<h3 data-number="5.1.3" class="anchored" data-anchor-id="scenarios"><span class="header-section-number">5.1.3</span> 🌍 Scenarios</h3>
-<p><strong>Scenario 1 — You have a massive file with 500,000 rows.</strong> You cannot print it to the screen. You must use <code>df.head()</code> to just peek at the first 5 rows to understand what the columns are.</p>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Tasks">
+<div class="callout callout-style-default callout-important callout-titled" title="🔓 Two orderings that are not negotiable">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Tasks
+<span class="screen-reader-only">Important</span>🔓 Two orderings that are not negotiable
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<ol type="1">
-<li>Create a dictionary with columns <code>Product</code>, <code>Price</code>, and <code>Stock</code>.</li>
-<li>Convert it to a Pandas DataFrame.</li>
-<li>Print just the first row using <code>.head(1)</code>.</li>
-</ol>
+<p><strong>Impossible values before missing values (step 4 before step 5).</strong> An age of 225 is a mistake. Turn it into “missing” <em>first</em>, then let step 5 deal with it. Do it the other way round and the mistake survives untouched into your model.</p>
+<p><strong>Scaling comes last, and only after the data is split for testing.</strong> Session 5 explains why, and shows the wrong answer you get otherwise.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s02-c" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Part C — Pandas</h1>
+<section id="sec-s02-topic-5" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="sec-s02-topic-5"><span class="header-section-number">6.1</span> 5. The Series and the DataFrame</h2>
+<p><strong><code>pandas</code> is the library that gives Python a table. A <code>DataFrame</code> is a whole table; a <code>Series</code> is a single column of one.</strong></p>
+<p>Plain Python can hold data in lists and dictionaries, but doing arithmetic across millions of rows that way is slow and awkward. Pandas does it in one expression.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — a spreadsheet that takes orders">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>🧠 Analogy — a spreadsheet that takes orders
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A DataFrame is a spreadsheet you talk to instead of click on. Instead of dragging to select rows 4–19, you say <em>“give me the rows where city is Mumbai”</em> — and it works the same whether there are 20 rows or 20 million.</p>
+</div>
+</div>
+<section id="demo-4-building-a-table-and-the-column-inside-it" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="demo-4-building-a-table-and-the-column-inside-it"><span class="header-section-number">6.1.1</span> Demo 4 — building a table, and the column inside it</h3>
+<div id="7a525c1c" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>sales <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"product"</span>:  [<span class="st">"Laptop"</span>, <span class="st">"Mouse"</span>, <span class="st">"Keyboard"</span>, <span class="st">"Monitor"</span>, <span class="st">"Mouse"</span>, <span class="st">"Laptop"</span>],</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"city"</span>:     [<span class="st">"Mumbai"</span>, <span class="st">"Delhi"</span>, <span class="st">"Mumbai"</span>, <span class="st">"Pune"</span>, <span class="st">"Mumbai"</span>, <span class="st">"Delhi"</span>],</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"units"</span>:    [<span class="dv">3</span>, <span class="dv">20</span>, <span class="dv">12</span>, <span class="dv">5</span>, <span class="dv">15</span>, <span class="dv">2</span>],</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"price"</span>:    [<span class="dv">55000</span>, <span class="dv">500</span>, <span class="dv">1500</span>, <span class="dv">12000</span>, <span class="dv">500</span>, <span class="dv">55000</span>],</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>sales[<span class="st">"revenue"</span>] <span class="op">=</span> sales[<span class="st">"units"</span>] <span class="op">*</span> sales[<span class="st">"price"</span>]   <span class="co"># a new column, computed for every row at once</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">One column on its own is a Series:"</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales[<span class="st">"revenue"</span>])</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">type of the table  : </span><span class="sc">{</span><span class="bu">type</span>(sales)<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"type of one column : </span><span class="sc">{</span><span class="bu">type</span>(sales[<span class="st">'revenue'</span>])<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    product    city  units  price  revenue
+0    Laptop  Mumbai      3  55000   165000
+1     Mouse   Delhi     20    500    10000
+2  Keyboard  Mumbai     12   1500    18000
+3   Monitor    Pune      5  12000    60000
+4     Mouse  Mumbai     15    500     7500
+5    Laptop   Delhi      2  55000   110000
+
+One column on its own is a Series:
+0    165000
+1     10000
+2     18000
+3     60000
+4      7500
+5    110000
+Name: revenue, dtype: int64
+
+type of the table  : DataFrame
+type of one column : Series</code></pre>
+</div>
+</div>
+<p>The line <code>sales["units"] * sales["price"]</code> multiplied six pairs of numbers without a loop. That is the whole reason pandas exists.</p>
+</section>
+</section>
+<section id="sec-s02-topic-6" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="sec-s02-topic-6"><span class="header-section-number">6.2</span> 6. Looking at an unfamiliar dataset</h2>
+<p><strong>Five commands tell you almost everything about a table you have never seen.</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Answers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>.shape</code></td>
+<td>how big is it?</td>
+</tr>
+<tr class="even">
+<td><code>.head()</code></td>
+<td>what do the rows look like?</td>
+</tr>
+<tr class="odd">
+<td><code>.info()</code></td>
+<td>what type is each column, and how many values are missing?</td>
+</tr>
+<tr class="even">
+<td><code>.describe()</code></td>
+<td>what are the numeric columns like?</td>
+</tr>
+<tr class="odd">
+<td><code>.value_counts()</code></td>
+<td>what values does this text column contain, and how often?</td>
+</tr>
+</tbody>
+</table>
+<section id="demo-5-the-five-command-first-look" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="demo-5-the-five-command-first-look"><span class="header-section-number">6.2.1</span> Demo 5 — the five-command first look</h3>
+<p>We load a deliberately messy dataset — the kind a colleague actually sends you.</p>
+<div id="5cefd9a0" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>messy <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"customer_id"</span>: [<span class="dv">101</span>, <span class="dv">102</span>, <span class="dv">103</span>, <span class="dv">104</span>, <span class="dv">105</span>, <span class="dv">106</span>, <span class="dv">103</span>],</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"age"</span>:         [<span class="dv">25</span>, np.nan, <span class="dv">22</span>, <span class="dv">225</span>, <span class="dv">30</span>, <span class="dv">41</span>, <span class="dv">22</span>],</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"income"</span>:      [<span class="dv">50000</span>, <span class="dv">60000</span>, np.nan, <span class="dv">120000</span>, <span class="dv">45000</span>, <span class="dv">58000</span>, np.nan],</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"city"</span>:        [<span class="st">"Mumbai"</span>, <span class="st">"mumbai"</span>, <span class="st">"Delhi"</span>, <span class="st">"Bombay"</span>, <span class="st">"Delhi"</span>, <span class="st">"MUM"</span>, <span class="st">"Delhi"</span>],</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"subscribed"</span>:  [<span class="st">"Yes"</span>, <span class="st">"Y"</span>, <span class="st">"No"</span>, <span class="st">"N"</span>, <span class="st">"Yes"</span>, <span class="st">"yes"</span>, <span class="st">"No"</span>],</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"1. SHAPE — </span><span class="sc">{</span>messy<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> rows, </span><span class="sc">{</span>messy<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss"> columns</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"2. HEAD — the first few rows"</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(messy.head(<span class="dv">3</span>))</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">3. INFO — types and how many values are actually present"</span>)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>messy.info()</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">4. DESCRIBE — the numeric columns"</span>)</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(messy.describe().<span class="bu">round</span>(<span class="dv">1</span>))</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">5. VALUE_COUNTS — what is in the text columns"</span>)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(messy[<span class="st">"city"</span>].value_counts())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1. SHAPE — 7 rows, 5 columns
+
+2. HEAD — the first few rows
+   customer_id   age   income    city subscribed
+0          101  25.0  50000.0  Mumbai        Yes
+1          102   NaN  60000.0  mumbai          Y
+2          103  22.0      NaN   Delhi         No
+
+3. INFO — types and how many values are actually present
+&lt;class 'pandas.DataFrame'&gt;
+RangeIndex: 7 entries, 0 to 6
+Data columns (total 5 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   customer_id  7 non-null      int64  
+ 1   age          6 non-null      float64
+ 2   income       5 non-null      float64
+ 3   city         7 non-null      str    
+ 4   subscribed   7 non-null      str    
+dtypes: float64(2), int64(1), str(2)
+memory usage: 412.0 bytes
+
+4. DESCRIBE — the numeric columns
+       customer_id    age    income
+count          7.0    6.0       5.0
+mean         103.4   60.8   66600.0
+std            1.7   80.7   30459.8
+min          101.0   22.0   45000.0
+25%          102.5   22.8   50000.0
+50%          103.0   27.5   58000.0
+75%          104.5   38.2   60000.0
+max          106.0  225.0  120000.0
+
+5. VALUE_COUNTS — what is in the text columns
+city
+Delhi     3
+Mumbai    1
+mumbai    1
+Bombay    1
+MUM       1
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<p>Read the output and you have already found four problems, <strong>before writing a single line of cleaning code</strong>:</p>
+<ul>
+<li><code>.info()</code> shows <code>age</code> has 6 values, not 7 — one is missing. <code>income</code> has 5.</li>
+<li><code>.describe()</code> shows <code>max</code> age is <strong>225</strong> — impossible.</li>
+<li><code>.value_counts()</code> shows <code>Mumbai</code>, <code>mumbai</code>, <code>Bombay</code> and <code>MUM</code> — one city, four spellings.</li>
+<li>The first column repeats <code>103</code> — a duplicate row.</li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ `.describe()` only sees numbers">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ <code>.describe()</code> only sees numbers
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It silently ignores every text column. A dataset can look perfectly healthy in <code>.describe()</code> while its text columns are chaos. <strong>Always run <code>.value_counts()</code> on the text columns too.</strong></p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s02-topic-7" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="sec-s02-topic-7"><span class="header-section-number">6.3</span> 7. Selecting and filtering</h2>
+<p><strong>Selecting is choosing which rows and columns you want. There are three tools, and they are easy to confuse.</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>Selects by</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>df["col"]</code></td>
+<td>column name</td>
+<td><code>sales["price"]</code></td>
+</tr>
+<tr class="even">
+<td><code>df.loc[rows, cols]</code></td>
+<td><strong>label</strong> — the name of the row or column</td>
+<td><code>sales.loc[2, "price"]</code></td>
+</tr>
+<tr class="odd">
+<td><code>df.iloc[rows, cols]</code></td>
+<td><strong>position</strong> — the number, counting from 0</td>
+<td><code>sales.iloc[2, 3]</code></td>
+</tr>
+</tbody>
+</table>
+<section id="demo-6-the-three-selectors-side-by-side" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="demo-6-the-three-selectors-side-by-side"><span class="header-section-number">6.3.1</span> Demo 6 — the three selectors, side by side</h3>
+<div id="53088f1a" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Whole column:"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales[<span class="st">"product"</span>].tolist())</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">.loc — by label: row 2, column named 'price'"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales.loc[<span class="dv">2</span>, <span class="st">"price"</span>])</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">.iloc — by position: row 2, the 4th column (counting from 0)"</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales.iloc[<span class="dv">2</span>, <span class="dv">3</span>])</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">.loc with a range — rows 1 to 3, two named columns:"</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales.loc[<span class="dv">1</span>:<span class="dv">3</span>, [<span class="st">"product"</span>, <span class="st">"revenue"</span>]])</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">.iloc with a range — the first 2 rows, the first 2 columns:"</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales.iloc[<span class="dv">0</span>:<span class="dv">2</span>, <span class="dv">0</span>:<span class="dv">2</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Whole column:
+['Laptop', 'Mouse', 'Keyboard', 'Monitor', 'Mouse', 'Laptop']
+
+.loc — by label: row 2, column named 'price'
+1500
+
+.iloc — by position: row 2, the 4th column (counting from 0)
+1500
+
+.loc with a range — rows 1 to 3, two named columns:
+    product  revenue
+1     Mouse    10000
+2  Keyboard    18000
+3   Monitor    60000
+
+.iloc with a range — the first 2 rows, the first 2 columns:
+  product    city
+0  Laptop  Mumbai
+1   Mouse   Delhi</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ `.loc` includes the last item, `.iloc` does not">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ <code>.loc</code> includes the last item, <code>.iloc</code> does not
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>sales.loc[1:3]</code> returns rows 1, 2 <strong>and 3</strong> — three rows. <code>sales.iloc[1:3]</code> returns rows 1 and 2 — two rows. This catches everybody at least once. <code>.loc</code> follows label logic (“from this one to that one”); <code>.iloc</code> follows Python slicing (“stop before”).</p>
+</div>
+</div>
+</section>
+<section id="demo-7-filtering-with-a-condition" class="level3" data-number="6.3.2">
+<h3 data-number="6.3.2" class="anchored" data-anchor-id="demo-7-filtering-with-a-condition"><span class="header-section-number">6.3.2</span> Demo 7 — filtering with a condition</h3>
+<p>Filtering is the single most-used operation in pandas. You write a condition; pandas gives you back only the rows where it is true.</p>
+<div id="f21f92f3" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The condition on its own produces True/False for every row:</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Is revenue over 50,000?"</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>((sales[<span class="st">"revenue"</span>] <span class="op">&gt;</span> <span class="dv">50_000</span>).tolist())</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Put it in square brackets to keep only the True rows:</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Only the big-revenue rows:"</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales[sales[<span class="st">"revenue"</span>] <span class="op">&gt;</span> <span class="dv">50_000</span>])</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Two conditions: &amp; means "and", | means "or". Each condition needs its own brackets.</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Mumbai rows with more than 10 units:"</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales[(sales[<span class="st">"city"</span>] <span class="op">==</span> <span class="st">"Mumbai"</span>) <span class="op">&amp;</span> (sales[<span class="st">"units"</span>] <span class="op">&gt;</span> <span class="dv">10</span>)])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Is revenue over 50,000?
+[True, False, False, True, False, True]
+
+Only the big-revenue rows:
+   product    city  units  price  revenue
+0   Laptop  Mumbai      3  55000   165000
+3  Monitor    Pune      5  12000    60000
+5   Laptop   Delhi      2  55000   110000
+
+Mumbai rows with more than 10 units:
+    product    city  units  price  revenue
+2  Keyboard  Mumbai     12   1500    18000
+4     Mouse  Mumbai     15    500     7500</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Use `&amp;` and `|`, not `and` and `or`">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Use <code>&amp;</code> and <code>|</code>, not <code>and</code> and <code>or</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>sales[(a) and (b)]</code> raises an error. Pandas compares whole columns at a time, so it needs <code>&amp;</code> and <code>|</code>, and <strong>each condition must be in its own brackets</strong> — without them, Python’s order of operations gives you a confusing error.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s02-topic-8" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="sec-s02-topic-8"><span class="header-section-number">6.4</span> 8. Grouping: answering real questions</h2>
+<p><strong><code>groupby</code> splits the table into groups, applies a calculation to each, and puts the answers back together.</strong> It is how you turn a table of transactions into a summary somebody wants to read.</p>
+<section id="demo-8-from-raw-rows-to-an-answer" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="demo-8-from-raw-rows-to-an-answer"><span class="header-section-number">6.4.1</span> Demo 8 — from raw rows to an answer</h3>
+<div id="4a5c5c35" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Total revenue per city:"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales.groupby(<span class="st">"city"</span>)[<span class="st">"revenue"</span>].<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Units sold per product, and the average price:"</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales.groupby(<span class="st">"product"</span>).agg(</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    total_units<span class="op">=</span>(<span class="st">"units"</span>, <span class="st">"sum"</span>),</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    avg_price<span class="op">=</span>(<span class="st">"price"</span>, <span class="st">"mean"</span>),</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    times_sold<span class="op">=</span>(<span class="st">"units"</span>, <span class="st">"count"</span>),</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Revenue by city and product together:"</span>)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales.groupby([<span class="st">"city"</span>, <span class="st">"product"</span>])[<span class="st">"revenue"</span>].<span class="bu">sum</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total revenue per city:
+city
+Mumbai    190500
+Delhi     120000
+Pune       60000
+Name: revenue, dtype: int64
+
+Units sold per product, and the average price:
+          total_units  avg_price  times_sold
+product                                     
+Keyboard           12     1500.0           1
+Laptop              5    55000.0           2
+Monitor             5    12000.0           1
+Mouse              35      500.0           2
+
+Revenue by city and product together:
+city    product 
+Delhi   Laptop      110000
+        Mouse        10000
+Mumbai  Keyboard     18000
+        Laptop      165000
+        Mouse         7500
+Pune    Monitor      60000
+Name: revenue, dtype: int64</code></pre>
+</div>
+</div>
+<p>Three lines answered three business questions. <code>groupby</code> is the verb that turns a table into a report.</p>
+</section>
+<section id="demo-9-writing-the-answer-back-out" class="level3" data-number="6.4.2">
+<h3 data-number="6.4.2" class="anchored" data-anchor-id="demo-9-writing-the-answer-back-out"><span class="header-section-number">6.4.2</span> Demo 9 — writing the answer back out</h3>
+<div id="3618b942" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>summary <span class="op">=</span> sales.groupby(<span class="st">"city"</span>)[<span class="st">"revenue"</span>].<span class="bu">sum</span>().reset_index()</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(summary.to_csv(index<span class="op">=</span><span class="va">False</span>))    <span class="co"># what would be written to a file</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>city,revenue
+Delhi,120000
+Mumbai,190500
+Pune,60000
+</code></pre>
+</div>
+</div>
+<p>In a real project the last line is <code>summary.to_csv("revenue_by_city.csv", index=False)</code>. <code>index=False</code> stops pandas adding an unnamed extra column of row numbers — a small detail that causes a lot of confusion when the file is opened in Excel.</p>
+</section>
+<section id="check-yourself-1" class="level3" data-number="6.4.3">
+<h3 data-number="6.4.3" class="anchored" data-anchor-id="check-yourself-1"><span class="header-section-number">6.4.3</span> ❓ Check yourself</h3>
+<p><strong>Q3.</strong> <code>.info()</code> reports 1,000 entries but the <code>income</code> column has 940 non-null values. What does that mean?</p>
+<ul>
+<li><ol type="a">
+<li>940 customers earn money.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>60 income values are missing.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>The file is corrupt.</li>
+</ol></li>
+</ul>
+<p><strong>Q4.</strong> Which returns the <em>second</em> row of a DataFrame?</p>
+<ul>
+<li><ol type="a">
+<li><code>df.loc[2]</code></li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong><code>df.iloc[1]</code></strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li><code>df["2"]</code></li>
+</ol></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" title="Answers">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Answers
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>A3 — (b).</strong> 1,000 − 940 = 60 blanks. Session 3 covers what to do about them.</p>
+<p><strong>A4 — (b).</strong> <code>.iloc</code> counts positions from 0, so position 1 is the second row. <code>df.loc[2]</code> looks for a row <em>labelled</em> 2, which is usually the third row.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="sec-s02-tasks" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> 🎯 Tasks</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise before Session 3">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Practise before Session 3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Task 1 — Build and inspect.</strong> Create a DataFrame of five products with columns <code>product</code>, <code>price</code> and <code>stock</code>. Print its shape, then its <code>.describe()</code>.</p>
+<p><strong>Task 2 — Filter.</strong> From the <code>sales</code> table in this chapter, select every row where the city is Delhi <em>or</em> the units sold are above 10.</p>
+<p><strong>Task 3 — Group.</strong> Find the average revenue per product, sorted from highest to lowest.</p>
+<p><strong>Task 4 — Spot the trouble.</strong> Run <code>.value_counts()</code> on <code>messy["subscribed"]</code> from Demo 5. <strong>How many distinct values does it contain, and how many should it contain?</strong></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -631,250 +1274,81 @@ Table&nbsp;5.1: Using .head() to look at just the top rows of a large dataset.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="971eb556" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>inventory <span class="op">=</span> {</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Product"</span>: [<span class="st">"Laptop"</span>, <span class="st">"Mouse"</span>, <span class="st">"Keyboard"</span>],</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Price"</span>: [<span class="fl">999.99</span>, <span class="fl">25.50</span>, <span class="fl">45.00</span>],</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Stock"</span>: [<span class="dv">50</span>, <span class="dv">200</span>, <span class="dv">150</span>]</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>df_inventory <span class="op">=</span> pd.DataFrame(inventory)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>df_inventory.head(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Product</th>
-<th data-quarto-table-cell-role="th">Price</th>
-<th data-quarto-table-cell-role="th">Stock</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>Laptop</td>
-<td>999.99</td>
-<td>50</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-</section>
-</section>
-<section id="sec-s02-demo" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Part Demo — Inspecting Messy Data</h1>
-<p><strong>Loading a raw, messy dataset to inspect its structure using Pandas.</strong></p>
-<p>Let’s simulate loading a messy CSV file that a Data Engineer just handed to us. We will use three critical Pandas commands to figure out what is wrong with it: - <code>.head()</code> to look at the raw rows. - <code>.info()</code> to see data types and count missing values. - <code>.describe()</code> to see mathematical summaries.</p>
-<div class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulating a messy dataset being loaded from a CSV</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>messy_data <span class="op">=</span> {</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CustomerID"</span>: [<span class="dv">101</span>, <span class="dv">102</span>, <span class="dv">103</span>, <span class="dv">104</span>, <span class="dv">105</span>],</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Age"</span>: [<span class="dv">25</span>, np.nan, <span class="dv">22</span>, <span class="dv">150</span>, <span class="dv">30</span>], <span class="co"># Note the missing value (NaN) and the impossible age (150)</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Income"</span>: [<span class="dv">50000</span>, <span class="dv">60000</span>, np.nan, <span class="dv">120000</span>, <span class="dv">45000</span>],</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Subscribed"</span>: [<span class="st">"Yes"</span>, <span class="st">"Y"</span>, <span class="st">"No"</span>, <span class="st">"N"</span>, <span class="st">"Yes"</span>] <span class="co"># Inconsistent formatting</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>df_messy <span class="op">=</span> pd.DataFrame(messy_data)</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"--- USING .head() ---"</span>)</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"># See the inconsistencies visually</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>display(df_messy.head())</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">--- USING .info() ---"</span>)</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co"># See that Age and Income are missing some non-null values</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>df_messy.info()</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">--- USING .describe() ---"</span>)</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Notice that the max Age is 150! A clear error we need to fix later.</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>display(df_messy.describe())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="dbf9d442" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 1</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>products <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"product"</span>: [<span class="st">"Pen"</span>, <span class="st">"Notebook"</span>, <span class="st">"Bag"</span>, <span class="st">"Bottle"</span>, <span class="st">"Lamp"</span>],</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"price"</span>:   [<span class="dv">20</span>, <span class="dv">60</span>, <span class="dv">950</span>, <span class="dv">350</span>, <span class="dv">1200</span>],</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"stock"</span>:   [<span class="dv">500</span>, <span class="dv">220</span>, <span class="dv">40</span>, <span class="dv">90</span>, <span class="dv">15</span>],</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 1 — shape:"</span>, products.shape)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(products.describe().<span class="bu">round</span>(<span class="dv">1</span>))</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>sales <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"product"</span>: [<span class="st">"Laptop"</span>, <span class="st">"Mouse"</span>, <span class="st">"Keyboard"</span>, <span class="st">"Monitor"</span>, <span class="st">"Mouse"</span>, <span class="st">"Laptop"</span>],</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"city"</span>:    [<span class="st">"Mumbai"</span>, <span class="st">"Delhi"</span>, <span class="st">"Mumbai"</span>, <span class="st">"Pune"</span>, <span class="st">"Mumbai"</span>, <span class="st">"Delhi"</span>],</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"units"</span>:   [<span class="dv">3</span>, <span class="dv">20</span>, <span class="dv">12</span>, <span class="dv">5</span>, <span class="dv">15</span>, <span class="dv">2</span>],</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"price"</span>:   [<span class="dv">55000</span>, <span class="dv">500</span>, <span class="dv">1500</span>, <span class="dv">12000</span>, <span class="dv">500</span>, <span class="dv">55000</span>],</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>sales[<span class="st">"revenue"</span>] <span class="op">=</span> sales[<span class="st">"units"</span>] <span class="op">*</span> sales[<span class="st">"price"</span>]</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 2:"</span>)</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales[(sales[<span class="st">"city"</span>] <span class="op">==</span> <span class="st">"Delhi"</span>) <span class="op">|</span> (sales[<span class="st">"units"</span>] <span class="op">&gt;</span> <span class="dv">10</span>)])</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 3</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 3:"</span>)</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales.groupby(<span class="st">"product"</span>)[<span class="st">"revenue"</span>].mean().sort_values(ascending<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 4</span></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>subscribed <span class="op">=</span> pd.Series([<span class="st">"Yes"</span>, <span class="st">"Y"</span>, <span class="st">"No"</span>, <span class="st">"N"</span>, <span class="st">"Yes"</span>, <span class="st">"yes"</span>, <span class="st">"No"</span>])</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 4:"</span>)</span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(subscribed.value_counts())</span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Distinct values found: </span><span class="sc">{</span>subscribed<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss"> — there should be 2 (yes and no)."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>--- USING .head() ---</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
---- USING .info() ---
-&lt;class 'pandas.DataFrame'&gt;
-RangeIndex: 5 entries, 0 to 4
-Data columns (total 4 columns):
- #   Column      Non-Null Count  Dtype  
----  ------      --------------  -----  
- 0   CustomerID  5 non-null      int64  
- 1   Age         4 non-null      float64
- 2   Income      4 non-null      float64
- 3   Subscribed  5 non-null      str    
-dtypes: float64(2), int64(1), str(1)
-memory usage: 292.0 bytes
+<pre><code>Task 1 — shape: (5, 3)
+        price  stock
+count     5.0    5.0
+mean    516.0  173.0
+std     533.3  199.2
+min      20.0   15.0
+25%      60.0   40.0
+50%     350.0   90.0
+75%     950.0  220.0
+max    1200.0  500.0
 
---- USING .describe() ---</code></pre>
-</div>
-<div id="fig-pandas-demo" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="4">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-pandas-demo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="fig-pandas-demo-1" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-pandas-demo-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div>
+Task 2:
+    product    city  units  price  revenue
+1     Mouse   Delhi     20    500    10000
+2  Keyboard  Mumbai     12   1500    18000
+4     Mouse  Mumbai     15    500     7500
+5    Laptop   Delhi      2  55000   110000
 
+Task 3:
+product
+Laptop      137500.0
+Monitor      60000.0
+Keyboard     18000.0
+Mouse         8750.0
+Name: revenue, dtype: float64
 
-<table class="dataframe do-not-create-environment caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">CustomerID</th>
-<th data-quarto-table-cell-role="th">Age</th>
-<th data-quarto-table-cell-role="th">Income</th>
-<th data-quarto-table-cell-role="th">Subscribed</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>101</td>
-<td>25.0</td>
-<td>50000.0</td>
-<td>Yes</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>102</td>
-<td>NaN</td>
-<td>60000.0</td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>103</td>
-<td>22.0</td>
-<td>NaN</td>
-<td>No</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>104</td>
-<td>150.0</td>
-<td>120000.0</td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
-<td>105</td>
-<td>30.0</td>
-<td>45000.0</td>
-<td>Yes</td>
-</tr>
-</tbody>
-</table>
-
+Task 4:
+Yes    2
+No     2
+Y      1
+N      1
+yes    1
+Name: count, dtype: int64
+Distinct values found: 5 — there should be 2 (yes and no).</code></pre>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-pandas-demo-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a)
-</figcaption>
-</figure>
-</div>
-<div id="fig-pandas-demo-2" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-pandas-demo-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div>
-
-
-<table class="dataframe do-not-create-environment caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">CustomerID</th>
-<th data-quarto-table-cell-role="th">Age</th>
-<th data-quarto-table-cell-role="th">Income</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">count</th>
-<td>5.000000</td>
-<td>4.000000</td>
-<td>4.000000</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">mean</th>
-<td>103.000000</td>
-<td>56.750000</td>
-<td>68750.000000</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">std</th>
-<td>1.581139</td>
-<td>62.254183</td>
-<td>34731.109974</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">min</th>
-<td>101.000000</td>
-<td>22.000000</td>
-<td>45000.000000</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">25%</th>
-<td>102.000000</td>
-<td>24.250000</td>
-<td>48750.000000</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">50%</th>
-<td>103.000000</td>
-<td>27.500000</td>
-<td>55000.000000</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">75%</th>
-<td>104.000000</td>
-<td>60.000000</td>
-<td>75000.000000</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">max</th>
-<td>105.000000</td>
-<td>150.000000</td>
-<td>120000.000000</td>
-</tr>
-</tbody>
-</table>
-
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-pandas-demo-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b)
-</figcaption>
-</figure>
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-pandas-demo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6.1
-</figcaption>
-</figure>
-</div>
-</div>
-</section>
-<section id="sec-s02-tasks" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> 🎯 Session 2 — Tasks</h1>
-<p><strong>Complete these tasks in order to solidify your understanding.</strong></p>
-<p><strong>Task 1 — The Data Detective.</strong> Look closely at the output of <code>.describe()</code> in the demo above. Write down the <code>mean</code> (average) income of the customers. <strong>Report what happens to the mean if we were to incorrectly type a customer’s income as $1,000,000 instead of $100,000.</strong> (Hint: Averages are highly sensitive to extreme outliers).</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="✅ Before you move on">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -886,8 +1360,12 @@ Figure&nbsp;6.1
 </div>
 <div class="callout-body-container callout-body">
 <ul class="task-list">
-<li><label><input type="checkbox">Ensure you understand the difference between <code>.head()</code> (looking at rows) and <code>.info()</code> (looking at column data types).</label></li>
-<li><label><input type="checkbox"><strong>The one thing from this chapter that is easiest to forget:</strong> The <code>np.nan</code> stands for “Not a Number” and is how Pandas represents missing or blank data.</label></li>
+<li><label><input type="checkbox">I can load data from a CSV, a JSON document and a SQL query</label></li>
+<li><label><input type="checkbox">I can explain sampling bias and why more data does not fix it</label></li>
+<li><label><input type="checkbox">I know the difference between <code>.loc</code> and <code>.iloc</code></label></li>
+<li><label><input type="checkbox">I can filter with two conditions using <code>&amp;</code> and <code>|</code></label></li>
+<li><label><input type="checkbox">I can answer a business question with <code>groupby</code></label></li>
+<li><label><input type="checkbox"><strong>Easiest thing to forget:</strong> <code>.describe()</code> ignores text columns entirely. Run <code>.value_counts()</code> on them or you will miss half the mess.</label></li>
 </ul>
 </div>
 </div>

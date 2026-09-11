@@ -1,132 +1,570 @@
 ---
-title: "Session 10 — Unsupervised Learning Techniques & Clustering"
-subtitle: "Finding hidden patterns without labels"
+title: "Session 10 — Unsupervised Learning and Clustering"
+subtitle: "Learning without labels · K-Means · Choosing k · Hierarchical · DBSCAN · Profiling"
 ---
 
 {{< include ../includes/_setup.qmd >}}
 
 ::: {.callout-note}
-**This chapter covers what to do when you have raw data, but no answer key.**
+**This chapter finds structure in data that has no answer column at all.**
 
-**Assumed knowledge:** Supervised Learning concepts (Session 9).
+**Assumed knowledge:** Session 5 — scaling, and why distance-based methods need it.
+Session 8 — scatter plots. Session 9 — the `fit` / `predict` shape of a scikit-learn
+model.
+
+**The one idea to take away:** there is **no right answer to check against**. That
+changes everything: you cannot measure accuracy, so you must justify your result instead.
+This chapter is mostly about how to justify one.
 :::
 
 ## 🎯 Learning outcomes {#sec-s10-outcomes}
 
 By the end of this chapter you can:
 
-1. Explain the fundamental difference between Supervised and Unsupervised Learning.
-2. Describe how clustering groups similar data points together.
-3. Apply the K-Means clustering algorithm to segment a dataset.
+1. Explain how unsupervised learning differs from supervised learning.
+2. Describe the K-Means algorithm step by step.
+3. Show why clustering must be done on scaled data.
+4. Choose *k* using an elbow plot and a silhouette score, and say what to do when they
+   disagree.
+5. Use hierarchical clustering and DBSCAN, and say when each beats K-Means.
+6. Turn clusters into a description a business can act on.
 
 ## How this chapter is organised {#sec-s10-organisation}
 
-| Part | Question it answers | Source |
+| Part | Question it answers |
+|---|---|
+| [A — Learning without labels](#sec-s10-a) | *What can you learn with no answer key?* |
+| [B — K-Means](#sec-s10-b) | *How does the standard method actually work?* |
+| [C — Choosing k](#sec-s10-c) | *How many groups are there?* |
+| [D — When K-Means fails](#sec-s10-d) | *What do I use instead?* |
+
+# Part A — Learning without labels {#sec-s10-a}
+
+## 1. Unsupervised learning {#sec-s10-topic-1}
+
+**Unsupervised learning finds structure in data that has no target column.** Nobody has
+labelled anything; the algorithm has only the features.
+
+| | Supervised (Session 9) | Unsupervised (this chapter) |
 |---|---|---|
-| [A — Unsupervised Learning](#sec-s10-a) | *How do machines learn without answers?* | `concepts` |
-| [Demo — K-Means Clustering](#sec-s10-demo) | *How do we group customers into segments?* | `kmeans_demo.py` |
+| Data | `X` **and** `y` | `X` only |
+| Goal | predict `y` for new rows | find structure in `X` |
+| Can you measure accuracy? | **yes** — compare to the true `y` | **no** — there is no true answer |
+| Fails by | predicting badly | producing groups that mean nothing |
 
-# Part A — Unsupervised Learning {#sec-s10-a}
+Three families:
 
-**Finding structure in the unknown.**
+| Family | Finds | Covered in |
+|---|---|---|
+| **Clustering** | groups of similar rows | this chapter |
+| **Dimensionality reduction** | a smaller set of columns | Session 6 (PCA) |
+| **Association rules** | things that occur together | Session 16 |
 
-## 1. Unsupervised learning and clustering {#sec-s10-topic-1}
+::: {.callout-tip title="🧠 Analogy — sorting the laundry"}
+Nobody told you the categories. You tip the basket out and start making piles — darks,
+whites, towels — because things in a pile *resemble* each other.
 
-**Unsupervised Learning is the process of feeding an algorithm raw, unlabeled data and asking it to find hidden patterns on its own.**
-
-It exists because labeled data is incredibly expensive. Paying humans to manually tag 50,000 images as "Cat" or "Dog" takes weeks. Unsupervised algorithms don't need tags. They just look at the pixels and group similar images together. 
-
-::: {.callout-tip title="🧠 Analogy — Sorting the Laundry"}
-**The everyday thing:** Doing laundry with no instructions.
-
-**The mapping:** 
-- In **Supervised Learning**, someone hands you a shirt and says "This is a dark." You learn what a dark is.
-- In **Unsupervised Learning (Clustering)**, you are thrown into a room with a massive pile of mixed clothes and no instructions.
-- You intuitively group them by similarity: you make a pile of whites, a pile of darks, and a pile of delicates. No one told you the labels, you just found the natural clusters.
+**Somebody else would make different piles.** By fabric, perhaps, or by owner. Neither is
+wrong. **That is unsupervised learning: several defensible answers, and no marking
+scheme.**
 :::
 
-### How it works
+## 2. What clustering is for {#sec-s10-topic-2}
 
-The most common unsupervised technique is **Clustering**.
-Clustering measures the mathematical distance between data points. Points that are close together are grouped into a "Cluster."
+**Clustering puts rows into groups so that rows in a group are more similar to each other
+than to rows in other groups.**
 
-This is heavily used in **Customer Segmentation**. A marketing team doesn't know *what* groups exist in their user base. They feed age, income, and spending habits into a clustering algorithm, and the algorithm reveals that there are 3 distinct groups (e.g., "Bargain Hunters", "Luxury Buyers", "Window Shoppers").
+| Use | What the clusters become |
+|---|---|
+| Customer segmentation | marketing groups with different offers |
+| Document grouping | topics |
+| Image compression | a small palette of representative colours |
+| Anomaly detection | whatever does not fit any cluster |
+| Exploration | the first look at data nobody has labelled |
 
-### ❓ MCQs
+**"Similar" means "close together" — so clustering is a distance calculation**, and every
+warning from Session 5 about scale applies with full force.
 
-**Q1.** Which of the following is a classic Unsupervised Learning task?
+# Part B — K-Means {#sec-s10-b}
 
-- (a) Predicting the price of a house based on historical sales.
-- (b) **Grouping customers into 5 segments based on their purchasing habits.**
-- (c) Training a spam filter with 10,000 labeled emails.
+## 3. How K-Means works {#sec-s10-topic-3}
 
-::: {.callout-note collapse="true" title="Answers"}
-**A1 — (b).** Grouping (clustering) without predefined categories is unsupervised. Predicting a price or filtering labeled spam is supervised.
-:::
+**K-Means splits data into *k* groups by repeatedly moving *k* centre points until they
+settle.**
 
-# Part Demo — K-Means Clustering {#sec-s10-demo}
-
-**Executing K-Means on a mall customer dataset to group shoppers into distinct segments.**
-
-K-Means is the most famous clustering algorithm. The "K" stands for the number of clusters you want it to find.
-
-```{python}
-#| label: fig-kmeans-demo
-#| fig-cap: "Grouping customers into 3 distinct clusters using K-Means."
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans
-
-# 1. Generate Mock Customer Data (Income vs Spending Score)
-np.random.seed(42)
-# Cluster 1: Low income, low spending
-c1 = np.random.normal(loc=[20, 20], scale=5, size=(50, 2))
-# Cluster 2: High income, high spending
-c2 = np.random.normal(loc=[80, 80], scale=8, size=(50, 2))
-# Cluster 3: High income, low spending
-c3 = np.random.normal(loc=[80, 20], scale=5, size=(50, 2))
-
-X = np.vstack((c1, c2, c3))
-df = pd.DataFrame(X, columns=["Income", "Spending_Score"])
-
-# 2. Initialize K-Means (We tell it to look for 3 groups)
-# Notice we only pass X. There is no 'y' (labels) in unsupervised learning!
-kmeans = KMeans(n_clusters=3, random_state=42, n_init=10)
-
-# 3. Fit the model and get the cluster assignments
-df["Cluster"] = kmeans.fit_predict(df)
-
-# 4. Get the center points of each cluster
-centroids = kmeans.cluster_centers_
-
-# 5. Visualize the result
-plt.figure(figsize=(8, 5))
-
-# Plot the points, colored by the cluster the AI assigned them to
-plt.scatter(df["Income"], df["Spending_Score"], c=df["Cluster"], cmap='viridis', alpha=0.6)
-
-# Plot the red 'X' centroids
-plt.scatter(centroids[:, 0], centroids[:, 1], c='red', marker='x', s=200, linewidth=3, label="Cluster Center")
-
-plt.title("K-Means Customer Segmentation")
-plt.xlabel("Annual Income ($k)")
-plt.ylabel("Spending Score (1-100)")
-plt.legend()
-plt.grid(True, alpha=0.3)
-plt.show()
+```{mermaid}
+flowchart TB
+    S1["<b>1.</b> Pick k. Place k centres at random"]
+    S2["<b>2.</b> Assign every point to its<br/>nearest centre"]
+    S3["<b>3.</b> Move each centre to the average<br/>of the points assigned to it"]
+    S4{"Did anything<br/>move?"}
+    S1 --> S2 --> S3 --> S4
+    S4 -- yes --> S2
+    S4 -- no --> S5["<b>Done.</b> The centres have settled"]
 ```
 
-::: {.callout-warning title="⚠️ The trap of choosing K"}
-The K-Means algorithm will blindly divide your data into whatever `K` you choose. If you tell it to find 100 clusters, it will aggressively chop up your data into 100 tiny pieces, even if only 3 natural groups exist. You must use tools (like the Elbow Method) to find the optimal K.
+**You must choose *k* yourself.** The algorithm cannot tell you how many groups exist —
+that is the whole difficulty, and Part C is about it.
+
+### Demo 1 — watching the centres settle, step by step
+
+```{python}
+#| label: fig-s10-kmeans-steps
+#| fig-cap: "Four iterations of K-Means. The crosses are the centres; watch them walk into place."
+import numpy as np, matplotlib.pyplot as plt
+
+rng = np.random.default_rng(41)
+points = np.vstack([rng.normal([2, 2], .6, (60, 2)),
+                    rng.normal([7, 3], .6, (60, 2)),
+                    rng.normal([4, 7], .6, (60, 2))])
+
+centres = np.array([[1., 6.], [2., 7.], [3., 6.5]])   # deliberately bad starting positions
+
+fig, axes = plt.subplots(1, 4, figsize=(13, 3.1))
+for step, ax in enumerate(axes):
+    distances = np.linalg.norm(points[:, None] - centres[None], axis=2)
+    labels = distances.argmin(axis=1)                       # step 2: assign
+    ax.scatter(points[:, 0], points[:, 1], c=labels, s=12, cmap="viridis")
+    ax.scatter(centres[:, 0], centres[:, 1], c="red", marker="X", s=150, edgecolor="k")
+    ax.set_title(f"iteration {step}", fontsize=10); ax.set_xticks([]); ax.set_yticks([])
+    for j in range(3):                                       # step 3: move
+        if (labels == j).any():
+            centres[j] = points[labels == j].mean(axis=0)
+plt.tight_layout(); plt.show()
+
+print("Started at:", [[1., 6.], [2., 7.], [3., 6.5]], "— all three bunched in one corner")
+print("Ended at:  ", centres.round(1).tolist())
+print("The true centres were [2,2], [7,3], [4,7].")
+```
+
+### Demo 2 — the same thing with scikit-learn
+
+```{python}
+#| label: fig-s10-kmeans-sklearn
+#| fig-cap: "Customer segments by income and spending score, with the centres marked."
+import numpy as np, pandas as pd, matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+
+rng = np.random.default_rng(42)
+customers = pd.DataFrame(np.vstack([
+    rng.normal([25_000, 20], [6_000, 8], (70, 2)),    # modest income, low spending
+    rng.normal([85_000, 80], [9_000, 8], (70, 2)),    # high income, high spending
+    rng.normal([88_000, 22], [9_000, 7], (60, 2)),    # high income, low spending
+]), columns=["income", "spending_score"])
+
+km = KMeans(n_clusters=3, random_state=0, n_init=10)
+customers["cluster"] = km.fit_predict(customers[["income", "spending_score"]])
+
+plt.scatter(customers["income"], customers["spending_score"],
+            c=customers["cluster"], cmap="viridis", s=18)
+plt.scatter(km.cluster_centers_[:, 0], km.cluster_centers_[:, 1],
+            c="red", marker="X", s=220, edgecolor="k", label="centres")
+plt.xlabel("Income (₹)"); plt.ylabel("Spending score"); plt.legend()
+plt.show()
+
+print(customers.groupby("cluster").agg(
+    n=("income", "size"), avg_income=("income", "mean"), avg_spend=("spending_score", "mean")
+).round(0))
+```
+
+Note `n_init=10`: K-Means starts from random positions and can settle into a poor
+arrangement, so it runs ten times from different starts and keeps the best.
+
+## 4. Scale first — always {#sec-s10-topic-4}
+
+**K-Means measures straight-line distance. An unscaled column with big numbers decides
+every cluster on its own.**
+
+This is Session 5's lesson, and clustering is where it does the most damage — because
+there is no accuracy score to warn you that the answer is wrong.
+
+### Demo 3 — the same customers, clustered with and without scaling
+
+```{python}
+#| label: fig-s10-scaling
+#| fig-cap: "Left: unscaled, so income alone decides. Right: scaled, so both columns count."
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+
+X = customers[["income", "spending_score"]]
+
+unscaled_labels = KMeans(3, random_state=0, n_init=10).fit_predict(X)
+scaled = StandardScaler().fit_transform(X)
+scaled_labels = KMeans(3, random_state=0, n_init=10).fit_predict(scaled)
+
+fig, ax = plt.subplots(1, 2, figsize=(11, 3.6))
+ax[0].scatter(X["income"], X["spending_score"], c=unscaled_labels, cmap="viridis", s=16)
+ax[0].set_title("Unscaled — boundaries are vertical")
+ax[1].scatter(X["income"], X["spending_score"], c=scaled_labels, cmap="viridis", s=16)
+ax[1].set_title("Scaled — the real groups")
+for a in ax: a.set_xlabel("Income (₹)"); a.set_ylabel("Spending score")
+plt.tight_layout(); plt.show()
+
+print(f"income        ranges over {X['income'].max()-X['income'].min():>9,.0f}")
+print(f"spending      ranges over {X['spending_score'].max()-X['spending_score'].min():>9,.0f}")
+print("\nUnscaled, an income gap of 1,000 outweighs the entire spending scale.")
+print("The unscaled clusters split people purely by income — the vertical bands.")
+print(f"\nAgreement between the two clusterings: "
+      f"{(pd.crosstab(unscaled_labels, scaled_labels).max(axis=1).sum() / len(X)):.0%}")
+```
+
+::: {.callout-warning title="⚠️ Unscaled clustering produces confident nonsense"}
+No error is raised. The clusters look tidy, the chart is colourful, and the segments are
+**wrong** — they encode one column and ignore the rest. **Always put `StandardScaler`
+in front of `KMeans`.**
 :::
 
-# 🎯 Session 10 — Tasks {#sec-s10-tasks}
+# Part C — Choosing k {#sec-s10-c}
 
-**Task 1 — Break the Clusters.** 
-In the code above, change `KMeans(n_clusters=3)` to `KMeans(n_clusters=6)`. Run the code. **Report what happens to the visual groups.** (You should notice the AI starts cutting the natural groups in half).
+## 5. The elbow method {#sec-s10-topic-5}
+
+**Inertia is the total squared distance from every point to its own centre.** More
+clusters always means lower inertia — with one cluster per point it reaches zero — so you
+cannot simply minimise it.
+
+**The elbow method looks for the point where the improvement stops being worth it.**
+
+### Demo 4 — the elbow
+
+```{python}
+#| label: fig-s10-elbow
+#| fig-cap: "Inertia falls with every extra cluster. The bend at k=3 is where extra clusters stop paying."
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+
+Xs = StandardScaler().fit_transform(customers[["income", "spending_score"]])
+
+ks = range(1, 9)
+inertias = [KMeans(k, random_state=0, n_init=10).fit(Xs).inertia_ for k in ks]
+
+plt.plot(ks, inertias, "o-")
+plt.axvline(3, color="red", ls="--", alpha=.6)
+plt.xlabel("k (number of clusters)"); plt.ylabel("inertia")
+plt.title("Where does the line stop dropping steeply?")
+plt.show()
+
+print(f"{'k':>3} {'inertia':>10} {'improvement':>13}")
+for i, (k, v) in enumerate(zip(ks, inertias)):
+    imp = "" if i == 0 else f"{(inertias[i-1]-v)/inertias[i-1]:>12.1%}"
+    print(f"{k:>3} {v:>10.1f} {imp:>13}")
+```
+
+Read the improvement column: large gains up to k=3, then much smaller ones. **That is the
+elbow.**
+
+## 6. The silhouette score {#sec-s10-topic-6}
+
+**The silhouette score measures, for each point, how much closer it is to its own cluster
+than to the next nearest one.** It runs from −1 to +1.
+
+| Score | Means |
+|---|---|
+| **near +1** | comfortably inside its own cluster |
+| **near 0** | on the boundary — could belong to either |
+| **negative** | **closer to a different cluster — probably misassigned** |
+
+Unlike inertia, it does **not** automatically improve with more clusters, so you can
+compare values across different *k* directly.
+
+### Demo 5 — silhouette across k
+
+```{python}
+#| label: fig-s10-silhouette
+#| fig-cap: "Silhouette by k. Unlike inertia, higher is genuinely better, so the peak is the answer."
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
+
+ks = range(2, 9)
+scores = [silhouette_score(Xs, KMeans(k, random_state=0, n_init=10).fit_predict(Xs)) for k in ks]
+
+plt.plot(list(ks), scores, "o-", color="darkgreen")
+best = list(ks)[int(np.argmax(scores))]
+plt.axvline(best, color="red", ls="--", alpha=.6)
+plt.xlabel("k"); plt.ylabel("silhouette score"); plt.title("Higher is better")
+plt.show()
+
+for k, s in zip(ks, scores):
+    print(f"k = {k}: silhouette {s:.3f}{'   ← best' if k == best else ''}")
+```
+
+Both methods point at the same answer here. **They do not always.**
+
+### Demo 6 — when the silhouette score is wrong
+
+```{python}
+import numpy as np
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
+from sklearn.datasets import make_moons
+
+# Two interleaved crescents. The true structure is obviously 2 groups.
+moons, true_labels = make_moons(n_samples=400, noise=0.06, random_state=0)
+
+for k in [2, 3, 4]:
+    labels = KMeans(k, random_state=0, n_init=10).fit_predict(moons)
+    print(f"k = {k}: silhouette {silhouette_score(moons, labels):.3f}")
+
+agree = (KMeans(2, random_state=0, n_init=10).fit_predict(moons) == true_labels)
+print(f"\nAt k=2, K-Means agrees with the true crescents for "
+      f"{max(agree.mean(), 1-agree.mean()):.0%} of points.")
+print("The score prefers k=2, and yet K-Means still cuts the crescents in the wrong")
+print("place — because it can only draw straight boundaries. A good score does not")
+print("mean a good clustering.")
+```
+
+:::: {.callout-warning title="⚠️ Clustering always returns clusters"}
+Ask K-Means for four groups in pure random noise and you will get four groups, each with
+a centre and a colour, and a chart that looks meaningful.
+
+```{python}
+import numpy as np
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
+
+noise = np.random.default_rng(7).normal(size=(400, 2))    # no structure whatsoever
+for k in [2, 3, 4]:
+    print(f"k = {k} on pure noise: silhouette {silhouette_score(noise, KMeans(k, random_state=0, n_init=10).fit_predict(noise)):.3f}")
+```
+
+Those are not zero. **The elbow and the silhouette are evidence, not proof. The real
+test is whether the clusters mean something to somebody who knows the business.**
+::::
+
+## 7. Profiling: turning clusters into an answer {#sec-s10-topic-7}
+
+**A cluster number is not a deliverable.** `cluster = 2` means nothing to a marketing
+team. The deliverable is a **description**.
+
+### Demo 7 — from cluster numbers to named segments
+
+```{python}
+import pandas as pd
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+
+X = customers[["income", "spending_score"]]
+customers["segment"] = KMeans(3, random_state=0, n_init=10).fit_predict(
+    StandardScaler().fit_transform(X))
+
+profile = customers.groupby("segment").agg(
+    customers=("income", "size"),
+    median_income=("income", "median"),
+    median_spend=("spending_score", "median"),
+).round(0)
+profile["share"] = (profile["customers"] / len(customers) * 100).round(1).astype(str) + "%"
+print(profile)
+
+print("\nNow name them, and say what to do:")
+overall_income = customers["income"].median()
+overall_spend = customers["spending_score"].median()
+for seg, row in profile.iterrows():
+    rich = "high" if row["median_income"] > overall_income else "modest"
+    spends = "high" if row["median_spend"] > overall_spend else "low"
+    name = {("high","high"): "Best customers",
+            ("high","low"):  "Untapped — money but not spending",
+            ("modest","low"): "Budget-conscious",
+            ("modest","high"): "Enthusiasts on a budget"}[(rich, spends)]
+    print(f"  Segment {seg}: {name:<34} ({row['share']} of customers, "
+          f"₹{row['median_income']:,.0f} income)")
+```
+
+**That last block is the actual output of a clustering project.** "Segment 1" became
+"high income, not spending — worth a targeted offer", which somebody can act on tomorrow.
+
+# Part D — When K-Means fails {#sec-s10-d}
+
+## 8. Hierarchical clustering {#sec-s10-topic-8}
+
+**Hierarchical clustering builds a tree.** It starts with every point as its own cluster
+and repeatedly merges the two closest, until everything is one cluster. You then cut the
+tree wherever you like.
+
+**Its advantage over K-Means: you do not have to choose *k* in advance.** You build the
+tree once and read off any number of clusters from it.
+
+### Demo 8 — the dendrogram
+
+```{python}
+#| label: fig-s10-dendro
+#| fig-cap: "A dendrogram. Cutting across at a height gives that many clusters — the long vertical gap suggests where."
+import matplotlib.pyplot as plt
+from scipy.cluster.hierarchy import dendrogram, linkage, fcluster
+from sklearn.preprocessing import StandardScaler
+
+sample = customers[["income", "spending_score"]].sample(40, random_state=1)
+Z = linkage(StandardScaler().fit_transform(sample), method="ward")
+
+plt.figure(figsize=(9, 3.4))
+dendrogram(Z, no_labels=True)
+plt.axhline(6, color="red", ls="--")
+plt.ylabel("distance at which clusters merged")
+plt.title("Cut the tree where the vertical lines are longest")
+plt.show()
+
+for cut in [2, 3, 4]:
+    labels = fcluster(Z, cut, criterion="maxclust")
+    print(f"cutting for {cut} clusters → sizes {np.bincount(labels)[1:].tolist()}")
+```
+
+## 9. DBSCAN {#sec-s10-topic-9}
+
+**DBSCAN groups points that are packed closely together and labels everything else as
+noise.** It has two strengths K-Means does not:
+
+- clusters can be **any shape**, not just round blobs
+- points that belong to no cluster are marked as **noise** rather than forced into one
+
+You do not give it *k*. You give it `eps` (how close counts as "near") and `min_samples`
+(how many neighbours make a dense region).
+
+### Demo 9 — the crescents, where K-Means could not win
+
+```{python}
+#| label: fig-s10-dbscan
+#| fig-cap: "K-Means cuts the crescents with a straight line. DBSCAN follows their shape."
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans, DBSCAN
+from sklearn.datasets import make_moons
+
+moons, truth = make_moons(n_samples=400, noise=0.06, random_state=0)
+
+km_labels = KMeans(2, random_state=0, n_init=10).fit_predict(moons)
+db_labels = DBSCAN(eps=0.2, min_samples=5).fit_predict(moons)
+
+fig, ax = plt.subplots(1, 3, figsize=(12, 3.2))
+ax[0].scatter(*moons.T, c=truth, cmap="viridis", s=10);      ax[0].set_title("The truth")
+ax[1].scatter(*moons.T, c=km_labels, cmap="viridis", s=10);  ax[1].set_title("K-Means")
+ax[2].scatter(*moons.T, c=db_labels, cmap="viridis", s=10);  ax[2].set_title("DBSCAN")
+for a in ax: a.set_xticks([]); a.set_yticks([])
+plt.tight_layout(); plt.show()
+
+km_acc = max((km_labels == truth).mean(), 1 - (km_labels == truth).mean())
+db_acc = max((db_labels == truth).mean(), 1 - (db_labels == truth).mean())
+print(f"K-Means matches the true crescents: {km_acc:.0%}")
+print(f"DBSCAN  matches the true crescents: {db_acc:.0%}")
+print(f"DBSCAN labelled {(db_labels == -1).sum()} points as noise (label -1)")
+```
+
+### Demo 10 — choosing between the three
+
+```{python}
+print(f"{'':<22} {'K-Means':<22} {'Hierarchical':<22} {'DBSCAN'}")
+rows = [
+    ("must choose k?",     "yes",                 "no — cut the tree",   "no"),
+    ("cluster shapes",     "round blobs only",    "flexible",            "any shape"),
+    ("handles noise",      "no — forces a group", "no",                  "yes, explicitly"),
+    ("speed on big data",  "fast",                "slow (n² memory)",    "medium"),
+    ("clusters of very different density", "poor", "fair",               "poor"),
+    ("main use",           "the default first try","exploring structure","odd shapes, outliers"),
+]
+for label, a, b, c in rows:
+    print(f"{label:<22} {a:<22} {b:<22} {c}")
+```
+
+### ❓ Check yourself
+
+**Q1.** What makes clustering unsupervised?
+
+- (a) It is less accurate.
+- (b) **There is no target column, so there is no correct answer to compare against.**
+- (c) It runs without training.
+
+**Q2.** Why does inertia always fall as *k* rises?
+
+- (a) A bug in scikit-learn.
+- (b) **More centres means every point is nearer to one, until with one centre per point
+  inertia is zero.**
+- (c) It does not.
+
+**Q3.** You cluster income (in rupees) and age (in years) without scaling. What happens?
+
+- (a) Nothing important.
+- (b) **Income decides every cluster, because its numbers are thousands of times larger.**
+- (c) The code raises an error.
+
+**Q4.** Your data forms two interlocking crescents. Which method?
+
+- (a) K-Means with k=2.
+- (b) **DBSCAN.**
+- (c) K-Means with k=4.
+
+**Q5.** The silhouette score for your clustering is 0.61, and the business says the
+segments make no sense. What do you conclude?
+
+- (a) The business is wrong; 0.61 is a good score.
+- (b) **The clusters are mathematically separated but not meaningful — go back and change
+  the features, not the score.**
+- (c) Increase k until the score improves.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** Which is why this chapter measures *justification* rather than accuracy.
+
+**A2 — (b).** This is exactly why the elbow method looks for a bend rather than a
+minimum.
+
+**A3 — (b).** Demo 3 showed the vertical bands this produces.
+
+**A4 — (b).** Demo 9 measured K-Means at 76% and DBSCAN at essentially perfect.
+
+**A5 — (b).** Demo 6's noise experiment gave respectable silhouette scores on data with
+no structure at all. The score cannot tell you whether a grouping is meaningful.
+:::
+
+# 🎯 Tasks {#sec-s10-tasks}
+
+::: {.callout-note title="✏️ Practise"}
+**Task 1 — Choose k and defend it.** For the `customers` data, produce both the elbow plot
+and the silhouette curve. **State your k and give two reasons.**
+
+**Task 2 — Prove scaling matters.** Cluster the customers unscaled and scaled, and report
+what percentage of customers end up in a different group.
+
+**Task 3 — Name the segments.** Run Demo 7 with k=4 and write a one-sentence description
+and one recommended action for each segment.
+
+**Task 4 — Cluster noise.** Generate 300 random points with no structure, run K-Means
+with k=3, and plot the result. **Write one sentence on what this teaches you about
+trusting a cluster chart.**
+:::
+
+:::: {.callout-note collapse="true" title="Solutions"}
+```{python}
+import numpy as np, pandas as pd
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+
+rng = np.random.default_rng(42)
+cust = pd.DataFrame(np.vstack([
+    rng.normal([25_000, 20], [6_000, 8], (70, 2)),
+    rng.normal([85_000, 80], [9_000, 8], (70, 2)),
+    rng.normal([88_000, 22], [9_000, 7], (60, 2)),
+]), columns=["income", "spending_score"])
+
+# Task 2 — how many customers change group when you scale?
+raw = KMeans(3, random_state=0, n_init=10).fit_predict(cust)
+scl = KMeans(3, random_state=0, n_init=10).fit_predict(StandardScaler().fit_transform(cust))
+best_match = pd.crosstab(raw, scl).max(axis=1).sum()
+print(f"Task 2 — {1 - best_match/len(cust):.0%} of customers land in a different segment")
+print("         when the data is scaled. Any campaign built on the unscaled segments")
+print("         would target the wrong people.")
+
+# Task 4 — clusters found in data that has none
+noise = rng.normal(size=(300, 2))
+lab = KMeans(3, random_state=0, n_init=10).fit_predict(noise)
+print(f"\nTask 4 — K-Means split pure noise into groups of {np.bincount(lab).tolist()}.")
+print("         A cluster chart always looks convincing. The chart is not the evidence.")
+```
+::::
 
 ::: {.callout-tip title="✅ Before you move on"}
-- [ ] Ensure you understand why there is no `y` (label) passed to the `.fit()` function in unsupervised learning.
-- [ ] **The one thing from this chapter that is easiest to forget:** Unsupervised learning doesn't give you the *meaning* of the cluster. The AI groups them together, but a human Data Analyst must look at Cluster 2 and label it "Luxury Buyers."
+- [ ] I can describe the K-Means loop in three steps
+- [ ] I always scale before clustering, and I know what happens if I do not
+- [ ] I can read an elbow plot and a silhouette curve
+- [ ] I know DBSCAN handles odd shapes and noise, and K-Means does not
+- [ ] I deliver named, described segments — not cluster numbers
+- [ ] **Easiest thing to forget:** clustering always returns clusters. A tidy chart is
+      not evidence that groups exist.
 :::

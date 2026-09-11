@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; Session 4 — Data Integration – Data Science Course</title>
+<title>5&nbsp; Session 4 — Data Integration – Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -77,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-99913b7803b80b0c1d2b970a25816663.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-7202036dd3638cbfcbeb4151d116aa42.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -105,11 +105,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-sidebar floating quarto-light">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -118,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-04-data-integration.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Session 4 — Data Integration</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-03-data-cleaning.html">Part B — Making data fit to use</a></li><li class="breadcrumb-item"><a href="../sessions/session-04-data-integration.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Session 4 — Data Integration</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -130,10 +134,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Data Science Course</a> 
+      <a href="../">Data Science</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -146,105 +150,160 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science Course</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part A — Getting hold of data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-01-introduction-to-data-science.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Session 1 — Introduction to Data Science</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-02-data-collection-and-pre-processing-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 2 — Data Collection and Pre-Processing Overview</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part B — Making data fit to use</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-03-data-cleaning.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Session 3 — Data Cleaning</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-04-data-integration.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Session 4 — Data Integration</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-05-data-transformation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Session 5 — Data Transformation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-06-data-reduction-and-discretization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Session 6 — Data Reduction and Discretization</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part C — Understanding data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-07-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Session 7 — Descriptive Statistics</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-08-exploratory-data-analytics-eda-and-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analytics (EDA) and Visualization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analysis and Visualization</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part D — Learning from data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-09-supervised-learning-techniques.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Session 9 — Supervised Learning Techniques</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-10-unsupervised-learning-techniques-clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning Techniques &amp; Clustering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning and Clustering</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-11-data-model-evaluation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 11 — Data Model Evaluation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 11 — Model Evaluation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-12-model-saving-and-deployment.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Session 12 — Model Saving and Deployment</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part E — Data at scale</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-13-big-data-analytics-fundamentals.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Session 13 — Big Data Analytics Fundamentals</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-14-distributed-data-processing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Session 14 — Distributed Data Processing</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-15-nosql-databases-and-scaled-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Scaled Visualization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Visualization at Scale</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-16-open-ended-module-implementation-and-capstone.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Open Ended Module (Implementation and Capstone)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Capstone: The End-to-End Project</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -257,28 +316,58 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#sec-s04-outcomes" id="toc-sec-s04-outcomes" class="nav-link active" data-scroll-target="#sec-s04-outcomes"><span class="header-section-number">5.1</span> 🎯 Learning outcomes</a></li>
   <li><a href="#sec-s04-organisation" id="toc-sec-s04-organisation" class="nav-link" data-scroll-target="#sec-s04-organisation"><span class="header-section-number">5.2</span> How this chapter is organised</a></li>
-  <li><a href="#sec-s04-a" id="toc-sec-s04-a" class="nav-link" data-scroll-target="#sec-s04-a"><span class="header-section-number">6</span> Part A — Virtual integration, Physical data integration, Application based integration, Manual Integration, and Middleware data integration.</a>
+  <li><a href="#sec-s04-a" id="toc-sec-s04-a" class="nav-link" data-scroll-target="#sec-s04-a"><span class="header-section-number">6</span> Part A — Five ways to integrate</a>
   <ul class="collapse">
-  <li><a href="#sec-s04-topic-1" id="toc-sec-s04-topic-1" class="nav-link" data-scroll-target="#sec-s04-topic-1"><span class="header-section-number">6.1</span> 1. Virtual integration, Physical data integration, Application based integration, Manual Integration, and Middleware data integration.</a>
+  <li><a href="#sec-s04-topic-1" id="toc-sec-s04-topic-1" class="nav-link" data-scroll-target="#sec-s04-topic-1"><span class="header-section-number">6.1</span> 1. Why data is never in one place</a></li>
+  <li><a href="#sec-s04-topic-2" id="toc-sec-s04-topic-2" class="nav-link" data-scroll-target="#sec-s04-topic-2"><span class="header-section-number">6.2</span> 2. The five approaches</a>
   <ul class="collapse">
-  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works"><span class="header-section-number">6.1.1</span> How it works</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">6.1.2</span> 📘 Examples</a></li>
-  <li><a href="#scenarios" id="toc-scenarios" class="nav-link" data-scroll-target="#scenarios"><span class="header-section-number">6.1.3</span> 🌍 Scenarios</a></li>
-  <li><a href="#mcqs" id="toc-mcqs" class="nav-link" data-scroll-target="#mcqs"><span class="header-section-number">6.1.4</span> ❓ MCQs</a></li>
+  <li><a href="#how-to-choose" id="toc-how-to-choose" class="nav-link" data-scroll-target="#how-to-choose"><span class="header-section-number">6.2.1</span> How to choose</a></li>
+  <li><a href="#check-yourself" id="toc-check-yourself" class="nav-link" data-scroll-target="#check-yourself"><span class="header-section-number">6.2.2</span> ❓ Check yourself</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s04-demo" id="toc-sec-s04-demo" class="nav-link" data-scroll-target="#sec-s04-demo"><span class="header-section-number">7</span> Part Demo — Applied Walkthrough</a></li>
-  <li><a href="#sec-s04-tasks" id="toc-sec-s04-tasks" class="nav-link" data-scroll-target="#sec-s04-tasks"><span class="header-section-number">8</span> 🎯 Session 4 — Tasks</a></li>
+  <li><a href="#sec-s04-b" id="toc-sec-s04-b" class="nav-link" data-scroll-target="#sec-s04-b"><span class="header-section-number">7</span> Part B — Doing it in pandas</a>
+  <ul class="collapse">
+  <li><a href="#sec-s04-topic-3" id="toc-sec-s04-topic-3" class="nav-link" data-scroll-target="#sec-s04-topic-3"><span class="header-section-number">7.1</span> 3. Stacking versus linking</a>
+  <ul class="collapse">
+  <li><a href="#demo-1-stacking-with-concat" id="toc-demo-1-stacking-with-concat" class="nav-link" data-scroll-target="#demo-1-stacking-with-concat"><span class="header-section-number">7.1.1</span> Demo 1 — stacking with concat</a></li>
+  </ul></li>
+  <li><a href="#sec-s04-topic-4" id="toc-sec-s04-topic-4" class="nav-link" data-scroll-target="#sec-s04-topic-4"><span class="header-section-number">7.2</span> 4. Linking tables with merge</a>
+  <ul class="collapse">
+  <li><a href="#demo-2-a-first-merge" id="toc-demo-2-a-first-merge" class="nav-link" data-scroll-target="#demo-2-a-first-merge"><span class="header-section-number">7.2.1</span> Demo 2 — a first merge</a></li>
+  </ul></li>
+  <li><a href="#sec-s04-topic-5" id="toc-sec-s04-topic-5" class="nav-link" data-scroll-target="#sec-s04-topic-5"><span class="header-section-number">7.3</span> 5. The four join types</a>
+  <ul class="collapse">
+  <li><a href="#demo-3-all-four-on-the-same-two-tables" id="toc-demo-3-all-four-on-the-same-two-tables" class="nav-link" data-scroll-target="#demo-3-all-four-on-the-same-two-tables"><span class="header-section-number">7.3.1</span> Demo 3 — all four, on the same two tables</a></li>
+  </ul></li>
+  <li><a href="#sec-s04-topic-6" id="toc-sec-s04-topic-6" class="nav-link" data-scroll-target="#sec-s04-topic-6"><span class="header-section-number">7.4</span> 6. Aggregate, then join</a>
+  <ul class="collapse">
+  <li><a href="#demo-4-one-row-per-customer" id="toc-demo-4-one-row-per-customer" class="nav-link" data-scroll-target="#demo-4-one-row-per-customer"><span class="header-section-number">7.4.1</span> Demo 4 — one row per customer</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s04-c" id="toc-sec-s04-c" class="nav-link" data-scroll-target="#sec-s04-c"><span class="header-section-number">8</span> Part C — What goes wrong</a>
+  <ul class="collapse">
+  <li><a href="#sec-s04-topic-7" id="toc-sec-s04-topic-7" class="nav-link" data-scroll-target="#sec-s04-topic-7"><span class="header-section-number">8.1</span> 7. The three failures</a>
+  <ul class="collapse">
+  <li><a href="#failure-1-the-key-does-not-match" id="toc-failure-1-the-key-does-not-match" class="nav-link" data-scroll-target="#failure-1-the-key-does-not-match"><span class="header-section-number">8.1.1</span> Failure 1 — the key does not match</a></li>
+  <li><a href="#failure-2-the-same-thing-different-column-names" id="toc-failure-2-the-same-thing-different-column-names" class="nav-link" data-scroll-target="#failure-2-the-same-thing-different-column-names"><span class="header-section-number">8.1.2</span> Failure 2 — the same thing, different column names</a></li>
+  <li><a href="#failure-3-duplicate-keys-multiply-rows" id="toc-failure-3-duplicate-keys-multiply-rows" class="nav-link" data-scroll-target="#failure-3-duplicate-keys-multiply-rows"><span class="header-section-number">8.1.3</span> Failure 3 — duplicate keys multiply rows</a></li>
+  </ul></li>
+  <li><a href="#sec-s04-topic-8" id="toc-sec-s04-topic-8" class="nav-link" data-scroll-target="#sec-s04-topic-8"><span class="header-section-number">8.2</span> 8. The check that catches all three</a>
+  <ul class="collapse">
+  <li><a href="#check-yourself-1" id="toc-check-yourself-1" class="nav-link" data-scroll-target="#check-yourself-1"><span class="header-section-number">8.2.1</span> ❓ Check yourself</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s04-tasks" id="toc-sec-s04-tasks" class="nav-link" data-scroll-target="#sec-s04-tasks"><span class="header-section-number">9</span> 🎯 Tasks</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-03-data-cleaning.html">Part B — Making data fit to use</a></li><li class="breadcrumb-item"><a href="../sessions/session-04-data-integration.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Session 4 — Data Integration</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Session 4 — Data Integration</span></h1>
-<p class="subtitle lead">Virtual integration, Physical data integration, Application based integration, Manual Integration, and Middleware data integration.</p>
+<p class="subtitle lead">Five ways to combine sources · concat · merge · the four join types · what goes wrong</p>
 </div>
 
 
@@ -295,11 +384,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<!-- Setup code for the book -->
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -310,15 +394,20 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>This chapter introduces the fundamental concepts of Data Integration.</strong></p>
-<p><strong>Assumed knowledge:</strong> Concepts from Session 3.</p>
+<p><strong>This chapter is about combining data that arrives in more than one piece.</strong></p>
+<p><strong>Assumed knowledge:</strong> Sessions 2 and 3 — loading a DataFrame, filtering, and cleaning text columns. The text-cleaning part matters here: <strong>you cannot join on a key you have not cleaned.</strong></p>
+<p><strong>The one idea to take away:</strong> every join can silently lose rows or silently multiply them. <strong>Print the row count before and after. Every time.</strong></p>
 </div>
 </div>
 <section id="sec-s04-outcomes" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="sec-s04-outcomes"><span class="header-section-number">5.1</span> 🎯 Learning outcomes</h2>
 <p>By the end of this chapter you can:</p>
 <ol type="1">
-<li>Understand and implement Virtual integration, Physical data integration, Application based integration, Manual Integration, and Middleware data integration.</li>
+<li>Describe the five approaches to data integration and pick one for a situation.</li>
+<li>Stack tables with <code>concat</code> and link tables with <code>merge</code>.</li>
+<li>Use all four join types and predict how many rows each returns.</li>
+<li>Detect a join that lost rows and a join that multiplied them.</li>
+<li>Fix the three things that break a join: mismatched keys, different names for the same thing, and duplicate keys.</li>
 </ol>
 </section>
 <section id="sec-s04-organisation" class="level2" data-number="5.2">
@@ -328,115 +417,166 @@ Note
 <tr class="header">
 <th>Part</th>
 <th>Question it answers</th>
-<th>Source</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#sec-s04-a">A — Virtual integration, Physical data integration, Application based integration, Manual Integration, and Middleware data integration.</a></td>
-<td><em>…?</em></td>
-<td><code>trainer_notebook.ipynb</code></td>
+<td><a href="#sec-s04-a">A — Five ways to integrate</a></td>
+<td><em>Why is data split up, and what are the options for putting it together?</em></td>
+</tr>
+<tr class="even">
+<td><a href="#sec-s04-b">B — Doing it in pandas</a></td>
+<td><em>How do I actually link two tables?</em></td>
+</tr>
+<tr class="odd">
+<td><a href="#sec-s04-c">C — What goes wrong</a></td>
+<td><em>Why did my row count change, and which of my rows disappeared?</em></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="sec-s04-a" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Part A — Virtual integration, Physical data integration, Application based integration, Manual Integration, and Middleware data integration.</h1>
-<p><strong>Overview of Virtual integration, Physical data integration, Application based integration, Manual Integration, and Middleware data integration. and its practical applications.</strong></p>
+<h1 data-number="6"><span class="header-section-number">6</span> Part A — Five ways to integrate</h1>
 <section id="sec-s04-topic-1" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="sec-s04-topic-1"><span class="header-section-number">6.1</span> 1. Virtual integration, Physical data integration, Application based integration, Manual Integration, and Middleware data integration.</h2>
-<p><strong>One plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.</strong></p>
-<p><strong>Then why it exists: what breaks, or what is unbearably tedious, without it.</strong></p>
-<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — something the reader already understands">
+<h2 data-number="6.1" class="anchored" data-anchor-id="sec-s04-topic-1"><span class="header-section-number">6.1</span> 1. Why data is never in one place</h2>
+<p><strong>Data integration is combining data from several sources into one view you can analyse.</strong></p>
+<p>It exists because organisations do not store data for the convenience of analysts. Sales sit in the sales system, support tickets in the helpdesk, web visits in the analytics tool. Each was built for its own job. <strong>The question “do customers who contact support buy less?” touches all three, and no single system can answer it.</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — the wedding guest list">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>🧠 Analogy — something the reader already understands
+<span class="screen-reader-only">Tip</span>🧠 Analogy — the wedding guest list
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>The everyday thing.</strong></p>
-<p><strong>The mapping:</strong> this part is the data, this part is the model, this part is the error.</p>
-<p><strong>Where it breaks down:</strong> every analogy is wrong somewhere, and the reader will walk into that place unaided.</p>
+<p>One partner keeps family names in a notebook; the other keeps friends in a spreadsheet. Neither list is wrong. But you cannot count chairs, order food or print place cards until they are one list.</p>
+<p><strong>The painful part is not the copying — it is that “R. Sharma” and “Raj Sharma” might be the same person, or might be two people.</strong> That question is the whole of data integration.</p>
 </div>
-</div>
-<section id="how-it-works" class="level3" data-number="6.1.1">
-<h3 data-number="6.1.1" class="anchored" data-anchor-id="how-it-works"><span class="header-section-number">6.1.1</span> How it works</h3>
-<p><strong>The mechanism, in plain words first.</strong></p>
-</section>
-<section id="examples" class="level3" data-number="6.1.2">
-<h3 data-number="6.1.2" class="anchored" data-anchor-id="examples"><span class="header-section-number">6.1.2</span> 📘 Examples</h3>
-<p><strong>Example 1 — the smallest thing that works</strong></p>
-<div id="5b6c643d" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># placeholder</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="scenarios" class="level3" data-number="6.1.3">
-<h3 data-number="6.1.3" class="anchored" data-anchor-id="scenarios"><span class="header-section-number">6.1.3</span> 🌍 Scenarios</h3>
-<p><strong>Scenario 1 — the same idea in a situation the reader recognises</strong></p>
-<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ The trap, and its consequence">
+<section id="sec-s04-topic-2" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="sec-s04-topic-2"><span class="header-section-number">6.2</span> 2. The five approaches</h2>
+<p><strong>There are five ways to combine sources. They differ in one thing: how much data you copy, and who does the translating.</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Approach</th>
+<th>What happens</th>
+<th>Data is copied?</th>
+<th>Good</th>
+<th>Bad</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Physical</strong> (data warehouse)</td>
+<td>copy everything into one central database on a schedule</td>
+<td><strong>yes</strong></td>
+<td>fast queries; one place to look</td>
+<td>data is as old as the last copy; expensive</td>
+</tr>
+<tr class="even">
+<td><strong>Virtual</strong> (federation)</td>
+<td>leave data where it is; a layer queries each source live when asked</td>
+<td><strong>no</strong></td>
+<td>always current; nothing to store</td>
+<td>slow; breaks when any source is down</td>
+</tr>
+<tr class="odd">
+<td><strong>Application-based</strong></td>
+<td>each application translates and pushes its own data to the others</td>
+<td>partly</td>
+<td>no central system needed</td>
+<td>every app must know about every other; <em>n</em> apps means many links</td>
+</tr>
+<tr class="even">
+<td><strong>Middleware</strong></td>
+<td>one translation layer sits between sources and converts formats</td>
+<td>partly</td>
+<td>apps stay simple; one place to fix</td>
+<td>the middleware becomes a single point of failure</td>
+</tr>
+<tr class="odd">
+<td><strong>Manual</strong></td>
+<td>a person exports CSVs and combines them by hand</td>
+<td>yes</td>
+<td>needs nothing; works today</td>
+<td>slow, unrepeatable, <strong>and error-prone</strong></td>
+</tr>
+</tbody>
+</table>
+<section id="how-to-choose" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="how-to-choose"><span class="header-section-number">6.2.1</span> How to choose</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+    Q1{"Does the answer have to be&lt;br/&gt;up to the second?"}
+    Q1 -- yes --&gt; V["&lt;b&gt;Virtual&lt;/b&gt;&lt;br/&gt;query the sources live"]
+    Q1 -- no --&gt; Q2{"Will the same question&lt;br/&gt;be asked repeatedly?"}
+    Q2 -- no --&gt; M["&lt;b&gt;Manual&lt;/b&gt;&lt;br/&gt;a one-off export is fine"]
+    Q2 -- yes --&gt; Q3{"Many systems that must&lt;br/&gt;talk to each other?"}
+    Q3 -- yes --&gt; MW["&lt;b&gt;Middleware&lt;/b&gt;&lt;br/&gt;one translation layer"]
+    Q3 -- no --&gt; P["&lt;b&gt;Physical&lt;/b&gt;&lt;br/&gt;copy into a warehouse"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Manual integration is where most reporting errors come from">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>⚠️ The trap, and its consequence
+<span class="screen-reader-only">Warning</span>⚠️ Manual integration is where most reporting errors come from
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><em>“It will not error — it will be quietly wrong.”</em></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Tasks">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Tasks
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Do exactly what was just shown, on different data.</li>
-<li>Break it deliberately and report the exact error message.</li>
-</ol>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="f13e03db" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solutions</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
+<p>Copying and pasting between spreadsheets leaves no record of what was done, cannot be repeated identically, and fails silently when a column shifts by one. <strong>If a manual integration is going to happen more than twice, write the code instead.</strong></p>
 </div>
 </div>
 </section>
-<section id="mcqs" class="level3" data-number="6.1.4">
-<h3 data-number="6.1.4" class="anchored" data-anchor-id="mcqs"><span class="header-section-number">6.1.4</span> ❓ MCQs</h3>
-<p><strong>Q1.</strong> The question…</p>
+<section id="check-yourself" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="check-yourself"><span class="header-section-number">6.2.2</span> ❓ Check yourself</h3>
+<p><strong>Q1.</strong> A dashboard must show live warehouse stock, and stock changes every few seconds. Which approach?</p>
 <ul>
 <li><ol type="a">
-<li>Wrong</li>
+<li>Physical integration into a nightly warehouse.</li>
 </ol></li>
 <li><ol start="2" type="a">
-<li><strong>Right, in bold</strong></li>
+<li><strong>Virtual integration, querying the stock system directly.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Manual integration.</li>
+</ol></li>
+</ul>
+<p><strong>Q2.</strong> Twelve internal systems each need data from the other eleven, and every team is writing its own converter. Which approach fixes this?</p>
+<ul>
+<li><ol type="a">
+<li>Manual integration.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li>Virtual integration.</li>
+</ol></li>
+<li><ol start="3" type="a">
+<li><strong>Middleware — one translation layer instead of many pairwise converters.</strong></li>
 </ol></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -445,27 +585,575 @@ Note
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>A1 — (b).</strong> The right answer restated, <strong>why the nearest wrong option is wrong</strong>.</p>
+<p><strong>A1 — (b).</strong> A nightly copy would show yesterday’s stock, which for this question is worse than useless. Virtual integration trades speed for freshness, and freshness is what this dashboard is for.</p>
+<p><strong>A2 — (c).</strong> With 12 systems talking directly, you can end up maintaining dozens of converters. Middleware means each system talks to one thing.</p>
 </div>
 </div>
 </div>
-<p><strong>A bridge sentence pointing at the question the next topic answers.</strong></p>
 </section>
 </section>
 </section>
-<section id="sec-s04-demo" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Part Demo — Applied Walkthrough</h1>
-<p><strong>Using Pandas <code>.merge()</code> and <code>.join()</code> to combine two disparate datasets (e.g., merging a “Customer Info” table with a “Purchase History” table using a common ID).</strong></p>
-<div id="6c3e6037" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># demo placeholder</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="sec-s04-b" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Part B — Doing it in pandas</h1>
+<section id="sec-s04-topic-3" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="sec-s04-topic-3"><span class="header-section-number">7.1</span> 3. Stacking versus linking</h2>
+<p><strong>There are two different operations, and mixing them up is the most common beginner error.</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Operation</th>
+<th>Question it answers</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Stacking</strong></td>
+<td>“here are more rows of the same thing”</td>
+<td><code>pd.concat</code></td>
+</tr>
+<tr class="even">
+<td><strong>Linking</strong></td>
+<td>“here is extra information about the same things”</td>
+<td><code>pd.merge</code></td>
+</tr>
+</tbody>
+</table>
+<p>Two months of sales → <strong>stack</strong>. Customers and their orders → <strong>link</strong>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    subgraph S["concat — stacking"]
+        A1["Jan sales&lt;br/&gt;100 rows"] --&gt; C1["200 rows&lt;br/&gt;same columns"]
+        A2["Feb sales&lt;br/&gt;100 rows"] --&gt; C1
+    end
+    subgraph M["merge — linking"]
+        B1["customers&lt;br/&gt;name, city"] --&gt; C2["one row per match&lt;br/&gt;more columns"]
+        B2["orders&lt;br/&gt;amount, date"] --&gt; C2
+    end
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<section id="demo-1-stacking-with-concat" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="demo-1-stacking-with-concat"><span class="header-section-number">7.1.1</span> Demo 1 — stacking with concat</h3>
+<div id="48cd3086" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>jan <span class="op">=</span> pd.DataFrame({<span class="st">"date"</span>: [<span class="st">"2024-01-05"</span>, <span class="st">"2024-01-19"</span>], <span class="st">"amount"</span>: [<span class="dv">250</span>, <span class="dv">90</span>]})</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>feb <span class="op">=</span> pd.DataFrame({<span class="st">"date"</span>: [<span class="st">"2024-02-02"</span>, <span class="st">"2024-02-27"</span>], <span class="st">"amount"</span>: [<span class="dv">410</span>, <span class="dv">130</span>]})</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>stacked <span class="op">=</span> pd.concat([jan, feb], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(stacked)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="sc">{</span><span class="bu">len</span>(jan)<span class="sc">}</span><span class="ss"> + </span><span class="sc">{</span><span class="bu">len</span>(feb)<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span><span class="bu">len</span>(stacked)<span class="sc">}</span><span class="ss"> rows. Columns unchanged: </span><span class="sc">{</span><span class="bu">list</span>(stacked.columns)<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         date  amount
+0  2024-01-05     250
+1  2024-01-19      90
+2  2024-02-02     410
+3  2024-02-27     130
+
+2 + 2 = 4 rows. Columns unchanged: ['date', 'amount']</code></pre>
+</div>
+</div>
+<p><code>ignore_index=True</code> renumbers the rows. Without it you get row labels 0, 1, 0, 1 — two rows labelled 0, which causes confusing errors later.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ concat lines columns up by *name*">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ concat lines columns up by <em>name</em>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If one month’s file calls the column <code>amount</code> and the other calls it <code>Amount</code>, <code>concat</code> does not complain. It creates <strong>both</strong> columns and fills each with blanks where the other was used. <strong>Check <code>.columns</code> on both tables before stacking.</strong></p>
+</div>
+</div>
+<div id="985456f5" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mismatched <span class="op">=</span> pd.DataFrame({<span class="st">"date"</span>: [<span class="st">"2024-03-01"</span>], <span class="st">"Amount"</span>: [<span class="dv">500</span>]})   <span class="co"># capital A</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>oops <span class="op">=</span> pd.concat([jan, mismatched], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(oops)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Two amount columns, both half empty — and no error was raised."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         date  amount  Amount
+0  2024-01-05   250.0     NaN
+1  2024-01-19    90.0     NaN
+2  2024-03-01     NaN   500.0
+
+Two amount columns, both half empty — and no error was raised.</code></pre>
+</div>
 </div>
 </section>
-<section id="sec-s04-tasks" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> 🎯 Session 4 — Tasks</h1>
-<p><strong>Complete these tasks in order to solidify your understanding.</strong></p>
-<p><strong>Task 1 — Apply concepts.</strong> Practice the concepts learned in this session.</p>
+</section>
+<section id="sec-s04-topic-4" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="sec-s04-topic-4"><span class="header-section-number">7.2</span> 4. Linking tables with merge</h2>
+<p><strong><code>merge</code> joins two tables using a shared column called the key.</strong> The key is usually an ID.</p>
+<section id="demo-2-a-first-merge" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="demo-2-a-first-merge"><span class="header-section-number">7.2.1</span> Demo 2 — a first merge</h3>
+<div id="162c4e7f" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>customers <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"user_id"</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>],</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"name"</span>:    [<span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Chan"</span>, <span class="st">"Devi"</span>],</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"city"</span>:    [<span class="st">"Mumbai"</span>, <span class="st">"Delhi"</span>, <span class="st">"Mumbai"</span>, <span class="st">"Pune"</span>],</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>purchases <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"purchase_id"</span>: [<span class="dv">101</span>, <span class="dv">102</span>, <span class="dv">103</span>, <span class="dv">104</span>],</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"user_id"</span>:     [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>],       <span class="co"># Alice bought twice; user 5 is not in customers</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"amount"</span>:      [<span class="fl">250.0</span>, <span class="fl">120.0</span>, <span class="fl">75.5</span>, <span class="fl">300.0</span>],</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"customers:"</span>)<span class="op">;</span> <span class="bu">print</span>(customers)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">purchases:"</span>)<span class="op">;</span> <span class="bu">print</span>(purchases)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>joined <span class="op">=</span> pd.merge(customers, purchases, on<span class="op">=</span><span class="st">"user_id"</span>, how<span class="op">=</span><span class="st">"inner"</span>)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Inner join:"</span>)<span class="op">;</span> <span class="bu">print</span>(joined)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">customers </span><span class="sc">{</span><span class="bu">len</span>(customers)<span class="sc">}</span><span class="ss"> rows + purchases </span><span class="sc">{</span><span class="bu">len</span>(purchases)<span class="sc">}</span><span class="ss"> rows → </span><span class="sc">{</span><span class="bu">len</span>(joined)<span class="sc">}</span><span class="ss"> rows"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>customers:
+   user_id   name    city
+0        1  Alice  Mumbai
+1        2    Bob   Delhi
+2        3   Chan  Mumbai
+3        4   Devi    Pune
+
+purchases:
+   purchase_id  user_id  amount
+0          101        1   250.0
+1          102        1   120.0
+2          103        3    75.5
+3          104        5   300.0
+
+Inner join:
+   user_id   name    city  purchase_id  amount
+0        1  Alice  Mumbai          101   250.0
+1        1  Alice  Mumbai          102   120.0
+2        3   Chan  Mumbai          103    75.5
+
+customers 4 rows + purchases 4 rows → 3 rows</code></pre>
+</div>
+</div>
+<p>Read that row count carefully. <strong>Four and four made three.</strong> Bob and Devi vanished (no purchases), user 5 vanished (not a known customer), and Alice appears twice (two purchases). This is normal, and it is why you check.</p>
+</section>
+</section>
+<section id="sec-s04-topic-5" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="sec-s04-topic-5"><span class="header-section-number">7.3</span> 5. The four join types</h2>
+<p><strong>The join type answers one question: which rows do you keep when there is no match?</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Keeps</th>
+<th>Use when</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>inner</code></td>
+<td>only rows matching in <strong>both</strong></td>
+<td>you need complete records</td>
+</tr>
+<tr class="even">
+<td><code>left</code></td>
+<td><strong>all</strong> left rows; blanks where no match</td>
+<td>the left table is your population</td>
+</tr>
+<tr class="odd">
+<td><code>right</code></td>
+<td><strong>all</strong> right rows</td>
+<td>rare — usually a <code>left</code> with the tables swapped</td>
+</tr>
+<tr class="even">
+<td><code>outer</code></td>
+<td><strong>everything</strong> from both</td>
+<td>you are looking for what does not match</td>
+</tr>
+</tbody>
+</table>
+<section id="demo-3-all-four-on-the-same-two-tables" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="demo-3-all-four-on-the-same-two-tables"><span class="header-section-number">7.3.1</span> Demo 3 — all four, on the same two tables</h3>
+<div id="43cc49ca" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> how <span class="kw">in</span> [<span class="st">"inner"</span>, <span class="st">"left"</span>, <span class="st">"right"</span>, <span class="st">"outer"</span>]:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> pd.merge(customers, purchases, on<span class="op">=</span><span class="st">"user_id"</span>, how<span class="op">=</span>how)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    names <span class="op">=</span> result[<span class="st">"name"</span>].fillna(<span class="st">"(unknown)"</span>).tolist()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>how<span class="sc">:&gt;6}</span><span class="ss">: </span><span class="sc">{</span><span class="bu">len</span>(result)<span class="sc">}</span><span class="ss"> rows — </span><span class="sc">{</span>names<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> inner: 3 rows — ['Alice', 'Alice', 'Chan']
+  left: 5 rows — ['Alice', 'Alice', 'Bob', 'Chan', 'Devi']
+ right: 4 rows — ['Alice', 'Alice', 'Chan', '(unknown)']
+ outer: 6 rows — ['Alice', 'Alice', 'Bob', 'Chan', 'Devi', '(unknown)']</code></pre>
+</div>
+</div>
+<p>Now read what each one is <em>for</em>:</p>
+<div id="eb6e023f" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"LEFT — every customer, whether or not they bought anything:"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>left <span class="op">=</span> pd.merge(customers, purchases, on<span class="op">=</span><span class="st">"user_id"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(left[[<span class="st">"name"</span>, <span class="st">"city"</span>, <span class="st">"amount"</span>]])</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Who has never bought anything? The rows where amount is blank:"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(left[left[<span class="st">"amount"</span>].isna()][<span class="st">"name"</span>].tolist())</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">OUTER — everything, including the purchase by an unknown user 5:"</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>outer <span class="op">=</span> pd.merge(customers, purchases, on<span class="op">=</span><span class="st">"user_id"</span>, how<span class="op">=</span><span class="st">"outer"</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(outer[outer[<span class="st">"name"</span>].isna()][[<span class="st">"user_id"</span>, <span class="st">"purchase_id"</span>, <span class="st">"amount"</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>LEFT — every customer, whether or not they bought anything:
+    name    city  amount
+0  Alice  Mumbai   250.0
+1  Alice  Mumbai   120.0
+2    Bob   Delhi     NaN
+3   Chan  Mumbai    75.5
+4   Devi    Pune     NaN
+
+Who has never bought anything? The rows where amount is blank:
+['Bob', 'Devi']
+
+OUTER — everything, including the purchase by an unknown user 5:
+   user_id  purchase_id  amount
+5        5        104.0   300.0</code></pre>
+</div>
+</div>
+<p><strong>The <code>left</code> join answered a business question the <code>inner</code> join could not</strong>: which customers have never purchased. An inner join deletes exactly those people.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — the class register">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>🧠 Analogy — the class register
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>inner</code> — students who are on the register <strong>and</strong> sat the exam. <code>left</code> — the whole register; those who missed the exam show a blank mark. <code>outer</code> — the register plus any exam papers from people who are not on it.</p>
+<p><strong>The blanks are not a nuisance. They are usually the finding.</strong></p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s04-topic-6" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="sec-s04-topic-6"><span class="header-section-number">7.4</span> 6. Aggregate, then join</h2>
+<p><strong>When one side has many rows per key, joining directly multiplies rows. Usually you want a summary instead.</strong></p>
+<section id="demo-4-one-row-per-customer" class="level3" data-number="7.4.1">
+<h3 data-number="7.4.1" class="anchored" data-anchor-id="demo-4-one-row-per-customer"><span class="header-section-number">7.4.1</span> Demo 4 — one row per customer</h3>
+<div id="eb7d6f5e" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wrong for most purposes: Alice appears twice, so any count of customers is now wrong.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>naive <span class="op">=</span> pd.merge(customers, purchases, on<span class="op">=</span><span class="st">"user_id"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Naive join: </span><span class="sc">{</span><span class="bu">len</span>(naive)<span class="sc">}</span><span class="ss"> rows for </span><span class="sc">{</span><span class="bu">len</span>(customers)<span class="sc">}</span><span class="ss"> customers"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Right: summarise the many side first, then join one-to-one.</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>per_customer <span class="op">=</span> purchases.groupby(<span class="st">"user_id"</span>).agg(</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    n_purchases<span class="op">=</span>(<span class="st">"purchase_id"</span>, <span class="st">"count"</span>),</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    total_spent<span class="op">=</span>(<span class="st">"amount"</span>, <span class="st">"sum"</span>),</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>).reset_index()</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>summary <span class="op">=</span> pd.merge(customers, per_customer, on<span class="op">=</span><span class="st">"user_id"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>summary[<span class="st">"n_purchases"</span>] <span class="op">=</span> summary[<span class="st">"n_purchases"</span>].fillna(<span class="dv">0</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>summary[<span class="st">"total_spent"</span>] <span class="op">=</span> summary[<span class="st">"total_spent"</span>].fillna(<span class="dv">0</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Aggregate-then-join: </span><span class="sc">{</span><span class="bu">len</span>(summary)<span class="sc">}</span><span class="ss"> rows for </span><span class="sc">{</span><span class="bu">len</span>(customers)<span class="sc">}</span><span class="ss"> customers"</span>)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(summary)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Naive join: 5 rows for 4 customers
+
+Aggregate-then-join: 4 rows for 4 customers
+   user_id   name    city  n_purchases  total_spent
+0        1  Alice  Mumbai            2        370.0
+1        2    Bob   Delhi            0          0.0
+2        3   Chan  Mumbai            1         75.5
+3        4   Devi    Pune            0          0.0</code></pre>
+</div>
+</div>
+<p><strong>One row per customer, every customer present, spending totalled.</strong> This aggregate-then-join pattern is the one you will use most often in real work.</p>
+</section>
+</section>
+</section>
+<section id="sec-s04-c" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Part C — What goes wrong</h1>
+<section id="sec-s04-topic-7" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="sec-s04-topic-7"><span class="header-section-number">8.1</span> 7. The three failures</h2>
+<section id="failure-1-the-key-does-not-match" class="level3" data-number="8.1.1">
+<h3 data-number="8.1.1" class="anchored" data-anchor-id="failure-1-the-key-does-not-match"><span class="header-section-number">8.1.1</span> Failure 1 — the key does not match</h3>
+<p><strong>The most common cause of “the join returned nothing”.</strong> The keys look identical to a human and differ to a computer.</p>
+<div id="160401c9" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>left_tbl  <span class="op">=</span> pd.DataFrame({<span class="st">"email"</span>: [<span class="st">"ASHA@mail.com"</span>, <span class="st">"brij@mail.com "</span>], <span class="st">"plan"</span>: [<span class="st">"gold"</span>, <span class="st">"silver"</span>]})</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>right_tbl <span class="op">=</span> pd.DataFrame({<span class="st">"email"</span>: [<span class="st">"asha@mail.com"</span>, <span class="st">"brij@mail.com"</span>],  <span class="st">"spend"</span>: [<span class="dv">900</span>, <span class="dv">400</span>]})</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Joining as-is:"</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.merge(left_tbl, right_tbl, on<span class="op">=</span><span class="st">"email"</span>, how<span class="op">=</span><span class="st">"inner"</span>))</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"→ 0 rows. One key has capitals, the other has a trailing space.</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t <span class="kw">in</span> (left_tbl, right_tbl):</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    t[<span class="st">"email"</span>] <span class="op">=</span> t[<span class="st">"email"</span>].<span class="bu">str</span>.strip().<span class="bu">str</span>.lower()</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"After cleaning the key:"</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.merge(left_tbl, right_tbl, on<span class="op">=</span><span class="st">"email"</span>, how<span class="op">=</span><span class="st">"inner"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Joining as-is:
+Empty DataFrame
+Columns: [email, plan, spend]
+Index: []
+→ 0 rows. One key has capitals, the other has a trailing space.
+
+After cleaning the key:
+           email    plan  spend
+0  asha@mail.com    gold    900
+1  brij@mail.com  silver    400</code></pre>
+</div>
+</div>
+<p><strong>Clean the key before you join.</strong> Trim spaces, fix the case, standardise the format. This is why Session 3 comes before this chapter.</p>
+</section>
+<section id="failure-2-the-same-thing-different-column-names" class="level3" data-number="8.1.2">
+<h3 data-number="8.1.2" class="anchored" data-anchor-id="failure-2-the-same-thing-different-column-names"><span class="header-section-number">8.1.2</span> Failure 2 — the same thing, different column names</h3>
+<div id="d58f208a" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>orders <span class="op">=</span> pd.DataFrame({<span class="st">"cust_ref"</span>: [<span class="dv">1</span>, <span class="dv">2</span>], <span class="st">"total"</span>: [<span class="dv">500</span>, <span class="dv">250</span>]})   <span class="co"># different key name</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>merged <span class="op">=</span> pd.merge(customers, orders, left_on<span class="op">=</span><span class="st">"user_id"</span>, right_on<span class="op">=</span><span class="st">"cust_ref"</span>, how<span class="op">=</span><span class="st">"inner"</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(merged[[<span class="st">"user_id"</span>, <span class="st">"name"</span>, <span class="st">"cust_ref"</span>, <span class="st">"total"</span>]])</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">`left_on` and `right_on` join columns that mean the same thing but are named differently."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   user_id   name  cust_ref  total
+0        1  Alice         1    500
+1        2    Bob         2    250
+
+`left_on` and `right_on` join columns that mean the same thing but are named differently.</code></pre>
+</div>
+</div>
+</section>
+<section id="failure-3-duplicate-keys-multiply-rows" class="level3" data-number="8.1.3">
+<h3 data-number="8.1.3" class="anchored" data-anchor-id="failure-3-duplicate-keys-multiply-rows"><span class="header-section-number">8.1.3</span> Failure 3 — duplicate keys multiply rows</h3>
+<p><strong>This is the dangerous one, because nothing fails.</strong> The code runs, the model trains, the numbers look plausible, and they are wrong.</p>
+<div id="83a2526c" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A dirty reference table: 'Mumbai' listed twice by mistake.</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>regions <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"city"</span>:   [<span class="st">"Mumbai"</span>, <span class="st">"Delhi"</span>, <span class="st">"Pune"</span>, <span class="st">"Mumbai"</span>],</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"region"</span>: [<span class="st">"West"</span>, <span class="st">"North"</span>, <span class="st">"West"</span>, <span class="st">"West"</span>],</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>blown_up <span class="op">=</span> pd.merge(customers, regions, on<span class="op">=</span><span class="st">"city"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"customers: </span><span class="sc">{</span><span class="bu">len</span>(customers)<span class="sc">}</span><span class="ss"> rows  →  after joining regions: </span><span class="sc">{</span><span class="bu">len</span>(blown_up)<span class="sc">}</span><span class="ss"> rows"</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(blown_up[[<span class="st">"user_id"</span>, <span class="st">"name"</span>, <span class="st">"city"</span>, <span class="st">"region"</span>]])</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Alice and Chan each appear twice. Every total computed from this table is now"</span>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"double-counted for Mumbai — and nothing raised an error."</span>)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co"># The fix: make sure the lookup table has one row per key before joining.</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>regions_clean <span class="op">=</span> regions.drop_duplicates(subset<span class="op">=</span><span class="st">"city"</span>)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>fixed <span class="op">=</span> pd.merge(customers, regions_clean, on<span class="op">=</span><span class="st">"city"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">After de-duplicating the lookup table: </span><span class="sc">{</span><span class="bu">len</span>(fixed)<span class="sc">}</span><span class="ss"> rows"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>customers: 4 rows  →  after joining regions: 6 rows
+   user_id   name    city region
+0        1  Alice  Mumbai   West
+1        1  Alice  Mumbai   West
+2        2    Bob   Delhi  North
+3        3   Chan  Mumbai   West
+4        3   Chan  Mumbai   West
+5        4   Devi    Pune   West
+
+Alice and Chan each appear twice. Every total computed from this table is now
+double-counted for Mumbai — and nothing raised an error.
+
+After de-duplicating the lookup table: 4 rows</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s04-topic-8" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="sec-s04-topic-8"><span class="header-section-number">8.2</span> 8. The check that catches all three</h2>
+<p><strong>One helper function, used after every join, catches every failure in this chapter.</strong></p>
+<div id="ed5e458f" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> check_join(left, right, result, name<span class="op">=</span><span class="st">"join"</span>):</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Report what a join did to the row count, and whether keys went unmatched."""</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">: left </span><span class="sc">{</span><span class="bu">len</span>(left)<span class="sc">}</span><span class="ss"> × right </span><span class="sc">{</span><span class="bu">len</span>(right)<span class="sc">}</span><span class="ss"> → result </span><span class="sc">{</span><span class="bu">len</span>(result)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(result) <span class="op">&gt;</span> <span class="bu">len</span>(left):</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  ⚠ GREW by </span><span class="sc">{</span><span class="bu">len</span>(result)<span class="op">-</span><span class="bu">len</span>(left)<span class="sc">}</span><span class="ss"> rows — the right table has duplicate keys"</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="bu">len</span>(result) <span class="op">&lt;</span> <span class="bu">len</span>(left):</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  ⚠ SHRANK by </span><span class="sc">{</span><span class="bu">len</span>(left)<span class="op">-</span><span class="bu">len</span>(result)<span class="sc">}</span><span class="ss"> rows — some left keys had no match"</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"  ✓ one row in, one row out"</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    blanks <span class="op">=</span> result.isna().<span class="bu">sum</span>()</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> blanks.<span class="bu">any</span>():</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  unmatched values appear as blanks in: </span><span class="sc">{</span>blanks[blanks<span class="op">&gt;</span><span class="dv">0</span>]<span class="sc">.</span>to_dict()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>check_join(customers, regions, blown_up, <span class="st">"customers + dirty regions"</span>)</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>check_join(customers, regions_clean, fixed, <span class="st">"customers + clean regions"</span>)</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>check_join(customers, purchases, pd.merge(customers, purchases, on<span class="op">=</span><span class="st">"user_id"</span>), <span class="st">"customers + purchases (inner)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>customers + dirty regions: left 4 × right 4 → result 6
+  ⚠ GREW by 2 rows — the right table has duplicate keys
+
+customers + clean regions: left 4 × right 3 → result 4
+  ✓ one row in, one row out
+
+customers + purchases (inner): left 4 × right 4 → result 3
+  ⚠ SHRANK by 1 rows — some left keys had no match</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ A join that changes the row count is a claim, not an accident">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ A join that changes the row count is a claim, not an accident
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A shrinking join says <em>“these records had no match”</em>. A growing join says <em>“one of these keys is not unique”</em>. Both may be fine — but <strong>you should be able to say which, and why</strong>, before you use the result.</p>
+</div>
+</div>
+<section id="check-yourself-1" class="level3" data-number="8.2.1">
+<h3 data-number="8.2.1" class="anchored" data-anchor-id="check-yourself-1"><span class="header-section-number">8.2.1</span> ❓ Check yourself</h3>
+<p><strong>Q3.</strong> You have 1,000 customers and join a <code>city → region</code> lookup. You get 1,043 rows. What happened?</p>
+<ul>
+<li><ol type="a">
+<li>43 customers were added.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>The lookup table has duplicate city entries, so some customers matched twice.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>The join type was wrong.</li>
+</ol></li>
+</ul>
+<p><strong>Q4.</strong> You want every product listed in a sales report, including those that sold nothing this month. Which join?</p>
+<ul>
+<li><ol type="a">
+<li><code>inner</code>, from sales to products.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong><code>left</code>, from products to sales.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li><code>right</code>, from products to sales.</li>
+</ol></li>
+</ul>
+<p><strong>Q5.</strong> A merge on <code>email</code> returns 0 rows even though both tables clearly contain the same people. Most likely cause?</p>
+<ul>
+<li><ol type="a">
+<li>Pandas is broken.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>The keys differ in case or whitespace.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>The tables are too large.</li>
+</ol></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" title="Answers">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Answers
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>A3 — (b).</strong> Demo in Failure 3. Every total computed afterwards is inflated for the duplicated cities.</p>
+<p><strong>A4 — (b).</strong> Start from the table whose rows you want to keep all of. Products with no sales come through with blank sales figures — which is exactly the answer you wanted.</p>
+<p><strong>A5 — (b).</strong> Failure 1. <code>"ASHA@mail.com"</code> and <code>"asha@mail.com"</code> are different strings.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="sec-s04-tasks" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> 🎯 Tasks</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Practise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Task 1 — Predict, then check.</strong> Before running anything, write down how many rows each of the four join types will return for <code>customers</code> and <code>purchases</code>. Then run Demo 3. <strong>Report which you got wrong and why.</strong></p>
+<p><strong>Task 2 — Find the silent customers.</strong> Using a left join, list every customer who has never made a purchase.</p>
+<p><strong>Task 3 — Break it, then fix it.</strong> Add a second <code>"Delhi"</code> row to the <code>regions</code> table. Join, and use <code>check_join</code> to detect the damage. Then fix it.</p>
+<p><strong>Task 4 — Aggregate then join.</strong> Produce a table with one row per <strong>city</strong> showing the number of customers and the total amount spent by customers in that city.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="2ffcc63f" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>customers <span class="op">=</span> pd.DataFrame({<span class="st">"user_id"</span>: [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>], <span class="st">"name"</span>: [<span class="st">"Alice"</span>,<span class="st">"Bob"</span>,<span class="st">"Chan"</span>,<span class="st">"Devi"</span>],</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"city"</span>: [<span class="st">"Mumbai"</span>,<span class="st">"Delhi"</span>,<span class="st">"Mumbai"</span>,<span class="st">"Pune"</span>]})</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>purchases <span class="op">=</span> pd.DataFrame({<span class="st">"purchase_id"</span>: [<span class="dv">101</span>,<span class="dv">102</span>,<span class="dv">103</span>,<span class="dv">104</span>], <span class="st">"user_id"</span>: [<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>],</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"amount"</span>: [<span class="fl">250.0</span>,<span class="fl">120.0</span>,<span class="fl">75.5</span>,<span class="fl">300.0</span>]})</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 1 — inner 3, left 5, right 4, outer 6</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> how <span class="kw">in</span> [<span class="st">"inner"</span>,<span class="st">"left"</span>,<span class="st">"right"</span>,<span class="st">"outer"</span>]:</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Task 1 — </span><span class="sc">{</span>how<span class="sc">:&gt;6}</span><span class="ss">: </span><span class="sc">{</span><span class="bu">len</span>(pd.merge(customers, purchases, on<span class="op">=</span><span class="st">'user_id'</span>, how<span class="op">=</span>how))<span class="sc">}</span><span class="ss"> rows"</span>)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>left <span class="op">=</span> pd.merge(customers, purchases, on<span class="op">=</span><span class="st">"user_id"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 2 — never purchased:"</span>, left[left[<span class="st">"amount"</span>].isna()][<span class="st">"name"</span>].tolist())</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 4 — aggregate the many side, then join, then group by city</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>per_cust <span class="op">=</span> purchases.groupby(<span class="st">"user_id"</span>)[<span class="st">"amount"</span>].<span class="bu">sum</span>().reset_index(name<span class="op">=</span><span class="st">"spent"</span>)</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>by_city <span class="op">=</span> (pd.merge(customers, per_cust, on<span class="op">=</span><span class="st">"user_id"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>             .assign(spent<span class="op">=</span><span class="kw">lambda</span> d: d[<span class="st">"spent"</span>].fillna(<span class="dv">0</span>))</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>             .groupby(<span class="st">"city"</span>)</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>             .agg(customers<span class="op">=</span>(<span class="st">"user_id"</span>,<span class="st">"count"</span>), total_spent<span class="op">=</span>(<span class="st">"spent"</span>,<span class="st">"sum"</span>)))</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 4:"</span>)<span class="op">;</span> <span class="bu">print</span>(by_city)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Task 1 —  inner: 3 rows
+Task 1 —   left: 5 rows
+Task 1 —  right: 4 rows
+Task 1 —  outer: 6 rows
+
+Task 2 — never purchased: ['Bob', 'Devi']
+
+Task 4:
+        customers  total_spent
+city                          
+Delhi           1          0.0
+Mumbai          2        445.5
+Pune            1          0.0</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="callout callout-style-default callout-tip callout-titled" title="✅ Before you move on">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -477,8 +1165,11 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <ul class="task-list">
-<li><label><input type="checkbox">Ensure you can explain Virtual integration, Physical data integration, Application based integration, Manual Integration, and Middleware data integration. in plain English</label></li>
-<li><label><input type="checkbox"><strong>The one thing from this chapter that is easiest to forget</strong></label></li>
+<li><label><input type="checkbox">I can name all five integration approaches and choose between them</label></li>
+<li><label><input type="checkbox">I know when to <code>concat</code> and when to <code>merge</code></label></li>
+<li><label><input type="checkbox">I can predict the row count of an inner, left, right and outer join</label></li>
+<li><label><input type="checkbox">I clean the key column before joining on it</label></li>
+<li><label><input type="checkbox"><strong>Easiest thing to forget:</strong> check the row count after every join. A join that quietly doubles rows produces totals that are wrong and never raises an error.</label></li>
 </ul>
 </div>
 </div>

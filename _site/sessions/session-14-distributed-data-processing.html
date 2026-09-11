@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>15&nbsp; Session 14 — Distributed Data Processing – Data Science Course</title>
+<title>15&nbsp; Session 14 — Distributed Data Processing – Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -77,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-99913b7803b80b0c1d2b970a25816663.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-7202036dd3638cbfcbeb4151d116aa42.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -107,9 +107,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-sidebar floating quarto-light">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -118,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-14-distributed-data-processing.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Session 14 — Distributed Data Processing</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-13-big-data-analytics-fundamentals.html">Part E — Data at scale</a></li><li class="breadcrumb-item"><a href="../sessions/session-14-distributed-data-processing.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Session 14 — Distributed Data Processing</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -130,10 +131,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Data Science Course</a> 
+      <a href="../">Data Science</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -146,105 +147,160 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science Course</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part A — Getting hold of data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-01-introduction-to-data-science.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Session 1 — Introduction to Data Science</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-02-data-collection-and-pre-processing-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 2 — Data Collection and Pre-Processing Overview</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part B — Making data fit to use</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-03-data-cleaning.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Session 3 — Data Cleaning</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-04-data-integration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Session 4 — Data Integration</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-05-data-transformation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Session 5 — Data Transformation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-06-data-reduction-and-discretization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Session 6 — Data Reduction and Discretization</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part C — Understanding data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-07-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Session 7 — Descriptive Statistics</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-08-exploratory-data-analytics-eda-and-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analytics (EDA) and Visualization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analysis and Visualization</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part D — Learning from data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-09-supervised-learning-techniques.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Session 9 — Supervised Learning Techniques</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-10-unsupervised-learning-techniques-clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning Techniques &amp; Clustering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning and Clustering</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-11-data-model-evaluation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 11 — Data Model Evaluation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 11 — Model Evaluation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-12-model-saving-and-deployment.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Session 12 — Model Saving and Deployment</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part E — Data at scale</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-13-big-data-analytics-fundamentals.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Session 13 — Big Data Analytics Fundamentals</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-14-distributed-data-processing.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Session 14 — Distributed Data Processing</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-15-nosql-databases-and-scaled-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Scaled Visualization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Visualization at Scale</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-16-open-ended-module-implementation-and-capstone.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Open Ended Module (Implementation and Capstone)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Capstone: The End-to-End Project</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -257,33 +313,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#sec-s14-outcomes" id="toc-sec-s14-outcomes" class="nav-link active" data-scroll-target="#sec-s14-outcomes"><span class="header-section-number">15.1</span> 🎯 Learning outcomes</a></li>
   <li><a href="#sec-s14-organisation" id="toc-sec-s14-organisation" class="nav-link" data-scroll-target="#sec-s14-organisation"><span class="header-section-number">15.2</span> How this chapter is organised</a></li>
-  <li><a href="#sec-s14-a" id="toc-sec-s14-a" class="nav-link" data-scroll-target="#sec-s14-a"><span class="header-section-number">16</span> Part A — MapReduce and Hadoop</a>
+  <li><a href="#sec-s14-a" id="toc-sec-s14-a" class="nav-link" data-scroll-target="#sec-s14-a"><span class="header-section-number">16</span> Part A — MapReduce</a>
   <ul class="collapse">
-  <li><a href="#sec-s14-topic-1" id="toc-sec-s14-topic-1" class="nav-link" data-scroll-target="#sec-s14-topic-1"><span class="header-section-number">16.1</span> 1. Big Data Analytics using Map Reduce</a>
+  <li><a href="#sec-s14-topic-1" id="toc-sec-s14-topic-1" class="nav-link" data-scroll-target="#sec-s14-topic-1"><span class="header-section-number">16.1</span> 1. The idea</a></li>
+  <li><a href="#sec-s14-topic-2" id="toc-sec-s14-topic-2" class="nav-link" data-scroll-target="#sec-s14-topic-2"><span class="header-section-number">16.2</span> 2. Word count, by hand</a>
   <ul class="collapse">
-  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works"><span class="header-section-number">16.1.1</span> How it works</a></li>
-  <li><a href="#mcqs" id="toc-mcqs" class="nav-link" data-scroll-target="#mcqs"><span class="header-section-number">16.1.2</span> ❓ MCQs</a></li>
+  <li><a href="#demo-1-the-same-thing-in-plain-python" id="toc-demo-1-the-same-thing-in-plain-python" class="nav-link" data-scroll-target="#demo-1-the-same-thing-in-plain-python"><span class="header-section-number">16.2.1</span> Demo 1 — the same thing in plain Python</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s14-b" id="toc-sec-s14-b" class="nav-link" data-scroll-target="#sec-s14-b"><span class="header-section-number">17</span> Part B — Apache Spark</a>
+  <li><a href="#sec-s14-b" id="toc-sec-s14-b" class="nav-link" data-scroll-target="#sec-s14-b"><span class="header-section-number">17</span> Part B — Building it</a>
   <ul class="collapse">
-  <li><a href="#sec-s14-topic-2" id="toc-sec-s14-topic-2" class="nav-link" data-scroll-target="#sec-s14-topic-2"><span class="header-section-number">17.1</span> 2. Apache Hadoop vs Apache Spark</a>
+  <li><a href="#sec-s14-topic-3" id="toc-sec-s14-topic-3" class="nav-link" data-scroll-target="#sec-s14-topic-3"><span class="header-section-number">17.1</span> 3. A general MapReduce engine</a>
   <ul class="collapse">
-  <li><a href="#how-it-works-1" id="toc-how-it-works-1" class="nav-link" data-scroll-target="#how-it-works-1"><span class="header-section-number">17.1.1</span> How it works</a></li>
+  <li><a href="#demo-2-one-engine-three-different-jobs" id="toc-demo-2-one-engine-three-different-jobs" class="nav-link" data-scroll-target="#demo-2-one-engine-three-different-jobs"><span class="header-section-number">17.1.1</span> Demo 2 — one engine, three different jobs</a></li>
+  </ul></li>
+  <li><a href="#sec-s14-topic-4" id="toc-sec-s14-topic-4" class="nav-link" data-scroll-target="#sec-s14-topic-4"><span class="header-section-number">17.2</span> 4. Why the shuffle is the expensive step</a>
+  <ul class="collapse">
+  <li><a href="#demo-3-a-combiner-and-how-much-traffic-it-saves" id="toc-demo-3-a-combiner-and-how-much-traffic-it-saves" class="nav-link" data-scroll-target="#demo-3-a-combiner-and-how-much-traffic-it-saves"><span class="header-section-number">17.2.1</span> Demo 3 — a combiner, and how much traffic it saves</a></li>
+  </ul></li>
+  <li><a href="#sec-s14-topic-5" id="toc-sec-s14-topic-5" class="nav-link" data-scroll-target="#sec-s14-topic-5"><span class="header-section-number">17.3</span> 5. <code>groupby</code> is MapReduce</a>
+  <ul class="collapse">
+  <li><a href="#demo-4-the-same-answer-both-ways" id="toc-demo-4-the-same-answer-both-ways" class="nav-link" data-scroll-target="#demo-4-the-same-answer-both-ways"><span class="header-section-number">17.3.1</span> Demo 4 — the same answer, both ways</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s14-demo" id="toc-sec-s14-demo" class="nav-link" data-scroll-target="#sec-s14-demo"><span class="header-section-number">18</span> Part Demo — PySpark vs Pandas</a></li>
-  <li><a href="#sec-s14-tasks" id="toc-sec-s14-tasks" class="nav-link" data-scroll-target="#sec-s14-tasks"><span class="header-section-number">19</span> 🎯 Session 14 — Tasks</a></li>
+  <li><a href="#sec-s14-c" id="toc-sec-s14-c" class="nav-link" data-scroll-target="#sec-s14-c"><span class="header-section-number">18</span> Part C — Spark</a>
+  <ul class="collapse">
+  <li><a href="#sec-s14-topic-6" id="toc-sec-s14-topic-6" class="nav-link" data-scroll-target="#sec-s14-topic-6"><span class="header-section-number">18.1</span> 6. Why Spark replaced MapReduce</a>
+  <ul class="collapse">
+  <li><a href="#demo-5-the-cost-of-writing-to-disk-between-passes" id="toc-demo-5-the-cost-of-writing-to-disk-between-passes" class="nav-link" data-scroll-target="#demo-5-the-cost-of-writing-to-disk-between-passes"><span class="header-section-number">18.1.1</span> Demo 5 — the cost of writing to disk between passes</a></li>
+  </ul></li>
+  <li><a href="#sec-s14-topic-7" id="toc-sec-s14-topic-7" class="nav-link" data-scroll-target="#sec-s14-topic-7"><span class="header-section-number">18.2</span> 7. Lazy evaluation</a>
+  <ul class="collapse">
+  <li><a href="#demo-6-lazy-evaluation-built-in-plain-python" id="toc-demo-6-lazy-evaluation-built-in-plain-python" class="nav-link" data-scroll-target="#demo-6-lazy-evaluation-built-in-plain-python"><span class="header-section-number">18.2.1</span> Demo 6 — lazy evaluation, built in plain Python</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s14-d" id="toc-sec-s14-d" class="nav-link" data-scroll-target="#sec-s14-d"><span class="header-section-number">19</span> Part D — PySpark</a>
+  <ul class="collapse">
+  <li><a href="#sec-s14-topic-8" id="toc-sec-s14-topic-8" class="nav-link" data-scroll-target="#sec-s14-topic-8"><span class="header-section-number">19.1</span> 8. The PySpark DataFrame API</a>
+  <ul class="collapse">
+  <li><a href="#demo-7-the-same-job-in-the-plain-python-engine" id="toc-demo-7-the-same-job-in-the-plain-python-engine" class="nav-link" data-scroll-target="#demo-7-the-same-job-in-the-plain-python-engine"><span class="header-section-number">19.1.1</span> Demo 7 — the same job, in the plain-Python engine</a></li>
+  </ul></li>
+  <li><a href="#sec-s14-topic-9" id="toc-sec-s14-topic-9" class="nav-link" data-scroll-target="#sec-s14-topic-9"><span class="header-section-number">19.2</span> 9. When not to use Spark</a>
+  <ul class="collapse">
+  <li><a href="#demo-8-the-crossover-modelled" id="toc-demo-8-the-crossover-modelled" class="nav-link" data-scroll-target="#demo-8-the-crossover-modelled"><span class="header-section-number">19.2.1</span> Demo 8 — the crossover, modelled</a></li>
+  <li><a href="#check-yourself" id="toc-check-yourself" class="nav-link" data-scroll-target="#check-yourself"><span class="header-section-number">19.2.2</span> ❓ Check yourself</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s14-tasks" id="toc-sec-s14-tasks" class="nav-link" data-scroll-target="#sec-s14-tasks"><span class="header-section-number">20</span> 🎯 Tasks</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-13-big-data-analytics-fundamentals.html">Part E — Data at scale</a></li><li class="breadcrumb-item"><a href="../sessions/session-14-distributed-data-processing.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Session 14 — Distributed Data Processing</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Session 14 — Distributed Data Processing</span></h1>
-<p class="subtitle lead">MapReduce · Apache Hadoop · Apache Spark</p>
+<p class="subtitle lead">MapReduce by hand · Shuffle and reduce · Hadoop vs Spark · Lazy evaluation · PySpark</p>
 </div>
 
 
@@ -300,11 +386,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<!-- Setup code for the book -->
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -315,17 +396,23 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>This chapter covers how we actually do math on datasets that are scattered across 1,000 computers.</strong></p>
-<p><strong>Assumed knowledge:</strong> Big Data Fundamentals (Session 13).</p>
+<p><strong>This chapter is about splitting one calculation across many machines.</strong></p>
+<p><strong>Assumed knowledge:</strong> Session 13 — the five Vs, HDFS, and why one machine eventually stops being enough. Session 2 — <code>groupby</code>, which turns out to be MapReduce in disguise.</p>
+<p><strong>The one idea to take away:</strong> MapReduce is three steps — <strong>map, shuffle, reduce</strong> — and you can write all three in plain Python in twenty lines. Every distributed engine, Spark included, is an efficient implementation of that idea.</p>
+<p><strong>A note on running this chapter:</strong> real Spark needs Java and a cluster. Every executable cell here is <strong>plain Python</strong> that implements the same mechanism, so you can see exactly what happens. The PySpark blocks are marked and shown for reference — they are the code you would run on a real cluster.</p>
 </div>
 </div>
 <section id="sec-s14-outcomes" class="level2" data-number="15.1">
 <h2 data-number="15.1" class="anchored" data-anchor-id="sec-s14-outcomes"><span class="header-section-number">15.1</span> 🎯 Learning outcomes</h2>
 <p>By the end of this chapter you can:</p>
 <ol type="1">
-<li>Explain the MapReduce paradigm conceptually.</li>
-<li>Differentiate between Apache Hadoop and Apache Spark.</li>
-<li>Understand PySpark code and how it differs from Pandas.</li>
+<li>Trace a MapReduce word count by hand.</li>
+<li>Implement map, shuffle and reduce in plain Python.</li>
+<li>Explain why the shuffle is the expensive step.</li>
+<li>Say why Spark replaced MapReduce.</li>
+<li>Explain lazy evaluation, transformations and actions.</li>
+<li>Read and write PySpark DataFrame code.</li>
+<li>Say when a distributed engine is the wrong tool.</li>
 </ol>
 </section>
 <section id="sec-s14-organisation" class="level2" data-number="15.2">
@@ -335,73 +422,799 @@ Note
 <tr class="header">
 <th>Part</th>
 <th>Question it answers</th>
-<th>Source</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#sec-s14-a">A — MapReduce and Hadoop</a></td>
-<td><em>How do we process distributed data?</em></td>
-<td><code>concepts</code></td>
+<td><a href="#sec-s14-a">A — MapReduce</a></td>
+<td><em>How do you split a calculation across machines?</em></td>
 </tr>
 <tr class="even">
-<td><a href="#sec-s14-b">B — Apache Spark</a></td>
-<td><em>Why is Spark 100x faster than Hadoop?</em></td>
-<td><code>concepts</code></td>
+<td><a href="#sec-s14-b">B — Building it</a></td>
+<td><em>What do the three steps actually do?</em></td>
 </tr>
 <tr class="odd">
-<td><a href="#sec-s14-demo">Demo — PySpark vs Pandas</a></td>
-<td><em>What does Spark code look like?</em></td>
-<td><code>spark_demo.py</code></td>
+<td><a href="#sec-s14-c">C — Spark</a></td>
+<td><em>Why did something replace it, and what changed?</em></td>
+</tr>
+<tr class="even">
+<td><a href="#sec-s14-d">D — PySpark</a></td>
+<td><em>What does the code look like in practice?</em></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="sec-s14-a" class="level1" data-number="16">
-<h1 data-number="16"><span class="header-section-number">16</span> Part A — MapReduce and Hadoop</h1>
-<p><strong>You cannot move 10 Terabytes of data to the calculator. You must move the calculator to the data.</strong></p>
+<h1 data-number="16"><span class="header-section-number">16</span> Part A — MapReduce</h1>
 <section id="sec-s14-topic-1" class="level2" data-number="16.1">
-<h2 data-number="16.1" class="anchored" data-anchor-id="sec-s14-topic-1"><span class="header-section-number">16.1</span> 1. Big Data Analytics using Map Reduce</h2>
-<p><strong>MapReduce is a programming paradigm that splits a massive calculation into two distinct phases: Map (filtering/sorting across many machines) and Reduce (aggregating the final results).</strong></p>
-<p>It exists because traditional databases try to drag all the data into the central processor to sum it up. Over a network, moving 10 Terabytes of data takes hours. MapReduce solves this by sending a tiny 1-kilobyte script to the 100 computers where the data <em>already lives</em>, having them do the math locally, and only sending the tiny final answer back over the network.</p>
-<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — The Ballot Counters">
+<h2 data-number="16.1" class="anchored" data-anchor-id="sec-s14-topic-1"><span class="header-section-number">16.1</span> 1. The idea</h2>
+<p><strong>MapReduce splits a calculation into pieces that can run independently, then combines the pieces.</strong></p>
+<p>It works because a great many useful calculations have a particular shape: <strong>you can do most of the work on each chunk separately, and only a small amount of combining at the end.</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — counting votes">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>🧠 Analogy — The Ballot Counters
+<span class="screen-reader-only">Tip</span>🧠 Analogy — counting votes
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>The everyday thing:</strong> Counting 10 million votes in a national election.</p>
-<p><strong>The mapping:</strong> - <strong>Traditional:</strong> You bring all 10 million paper ballots to one guy in the capital city. He counts them one by one. It takes a year. - <strong>Map Phase:</strong> Every individual polling station (the distributed computers) counts their own 10,000 ballots locally. - <strong>Reduce Phase:</strong> Each station phones in their final tally (just two numbers: Candidate A: 6000, Candidate B: 4000) to the capital. The capital just adds those small numbers together. The election is decided in an hour.</p>
+<p>One person counting a million ballots takes weeks.</p>
+<p>Instead: <strong>map</strong> — a hundred counters each take a box and tally their own box. <strong>Shuffle</strong> — all the tallies for “Party A” are gathered together, all for “Party B” together. <strong>Reduce</strong> — one person adds up the tallies for each party.</p>
+<p>The counting was split a hundred ways. The adding-up at the end is tiny, because it works on tallies, not ballots.</p>
+<p><strong>Where it breaks down:</strong> <em>“which ballot was cast at exactly 3pm?”</em> does not split like this. Not every question fits the shape.</p>
 </div>
 </div>
-<section id="how-it-works" class="level3" data-number="16.1.1">
-<h3 data-number="16.1.1" class="anchored" data-anchor-id="how-it-works"><span class="header-section-number">16.1.1</span> How it works</h3>
-<ul>
-<li><strong>Map:</strong> Extracts the relevant data. (e.g., “Look at this server’s logs, and count every time you see ‘Error 404’”).</li>
-<li><strong>Shuffle:</strong> Groups similar data together.</li>
-<li><strong>Reduce:</strong> Sums it all up. (e.g., “Add up all the 404 counts from all 100 servers into one grand total”).</li>
-</ul>
+<p><strong>The three steps:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Input</th>
+<th>Output</th>
+<th>Runs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Map</strong></td>
+<td>one chunk of data</td>
+<td>many <code>(key, value)</code> pairs</td>
+<td>in parallel, everywhere</td>
+</tr>
+<tr class="even">
+<td><strong>Shuffle</strong></td>
+<td>all pairs</td>
+<td>pairs grouped by key</td>
+<td>across the network — <strong>the expensive part</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Reduce</strong></td>
+<td>all values for one key</td>
+<td>one result per key</td>
+<td>in parallel, everywhere</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="mcqs" class="level3" data-number="16.1.2">
-<h3 data-number="16.1.2" class="anchored" data-anchor-id="mcqs"><span class="header-section-number">16.1.2</span> ❓ MCQs</h3>
-<p><strong>Q1.</strong> What is the primary bottleneck that MapReduce avoids by processing data locally where it sits on the hard drive?</p>
+<section id="sec-s14-topic-2" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="sec-s14-topic-2"><span class="header-section-number">16.2</span> 2. Word count, by hand</h2>
+<p><strong>Word count is the “hello world” of MapReduce.</strong> Trace it on three sentences before looking at any code.</p>
+<p>Input, split across three machines:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Machine</th>
+<th>Line</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><code>the cat sat</code></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><code>the cat ran</code></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><code>the dog ran</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>MAP</strong> — each machine emits <code>(word, 1)</code> for every word it sees, knowing nothing about the others:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Machine 1</th>
+<th>Machine 2</th>
+<th>Machine 3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>(the,1) (cat,1) (sat,1)</code></td>
+<td><code>(the,1) (cat,1) (ran,1)</code></td>
+<td><code>(the,1) (dog,1) (ran,1)</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>SHUFFLE</strong> — every pair with the same key is moved to the same machine:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Key</th>
+<th>Values gathered</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>the</code></td>
+<td><code>[1, 1, 1]</code></td>
+</tr>
+<tr class="even">
+<td><code>cat</code></td>
+<td><code>[1, 1]</code></td>
+</tr>
+<tr class="odd">
+<td><code>sat</code></td>
+<td><code>[1]</code></td>
+</tr>
+<tr class="even">
+<td><code>ran</code></td>
+<td><code>[1, 1]</code></td>
+</tr>
+<tr class="odd">
+<td><code>dog</code></td>
+<td><code>[1]</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>REDUCE</strong> — add up each list: <code>the=3, cat=2, sat=1, ran=2, dog=1</code>.</p>
+<section id="demo-1-the-same-thing-in-plain-python" class="level3" data-number="16.2.1">
+<h3 data-number="16.2.1" class="anchored" data-anchor-id="demo-1-the-same-thing-in-plain-python"><span class="header-section-number">16.2.1</span> Demo 1 — the same thing in plain Python</h3>
+<div id="40227ce8" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>lines <span class="op">=</span> [<span class="st">"the cat sat"</span>, <span class="st">"the cat ran"</span>, <span class="st">"the dog ran"</span>]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># --- MAP: runs independently on each line. No machine knows about any other. ---</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> map_step(line):</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [(word, <span class="dv">1</span>) <span class="cf">for</span> word <span class="kw">in</span> line.split()]</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>mapped <span class="op">=</span> [map_step(line) <span class="cf">for</span> line <span class="kw">in</span> lines]</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, pairs <span class="kw">in</span> <span class="bu">enumerate</span>(mapped, <span class="dv">1</span>):</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"machine </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss"> emitted: </span><span class="sc">{</span>pairs<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># --- SHUFFLE: gather every value that shares a key ---------------------------</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>shuffled <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> pairs <span class="kw">in</span> mapped:</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> key, value <span class="kw">in</span> pairs:</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        shuffled[key].append(value)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">after shuffle: </span><span class="sc">{</span><span class="bu">dict</span>(shuffled)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># --- REDUCE: one machine per key, combining its list -------------------------</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> reduce_step(key, values):</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> key, <span class="bu">sum</span>(values)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> <span class="bu">dict</span>(reduce_step(k, v) <span class="cf">for</span> k, v <span class="kw">in</span> shuffled.items())</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">final counts: </span><span class="sc">{</span>result<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>machine 1 emitted: [('the', 1), ('cat', 1), ('sat', 1)]
+machine 2 emitted: [('the', 1), ('cat', 1), ('ran', 1)]
+machine 3 emitted: [('the', 1), ('dog', 1), ('ran', 1)]
+
+after shuffle: {'the': [1, 1, 1], 'cat': [1, 1], 'sat': [1], 'ran': [1, 1], 'dog': [1]}
+
+final counts: {'the': 3, 'cat': 2, 'sat': 1, 'ran': 2, 'dog': 1}</code></pre>
+</div>
+</div>
+<p><strong>That is MapReduce.</strong> Twenty lines, no cluster. Hadoop’s contribution is not the idea — it is doing this across a thousand machines while some of them fail.</p>
+</section>
+</section>
+</section>
+<section id="sec-s14-b" class="level1" data-number="17">
+<h1 data-number="17"><span class="header-section-number">17</span> Part B — Building it</h1>
+<section id="sec-s14-topic-3" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="sec-s14-topic-3"><span class="header-section-number">17.1</span> 3. A general MapReduce engine</h2>
+<p><strong>The same three steps solve any problem of that shape.</strong> Write the engine once and pass in different map and reduce functions.</p>
+<section id="demo-2-one-engine-three-different-jobs" class="level3" data-number="17.1.1">
+<h3 data-number="17.1.1" class="anchored" data-anchor-id="demo-2-one-engine-three-different-jobs"><span class="header-section-number">17.1.1</span> Demo 2 — one engine, three different jobs</h3>
+<div id="fa9b44d1" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mapreduce(chunks, mapper, reducer, verbose<span class="op">=</span><span class="va">False</span>):</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""A single-machine MapReduce. The real thing does this across a cluster."""</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># MAP — independent per chunk, so this is where parallelism happens</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    mapped <span class="op">=</span> []</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> chunk <span class="kw">in</span> chunks:</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        mapped.extend(mapper(chunk))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># SHUFFLE — group by key. This is the step that crosses the network.</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k, v <span class="kw">in</span> mapped:</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        grouped[k].append(v)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> verbose:</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  map emitted </span><span class="sc">{</span><span class="bu">len</span>(mapped)<span class="sc">}</span><span class="ss"> pairs → shuffled into </span><span class="sc">{</span><span class="bu">len</span>(grouped)<span class="sc">}</span><span class="ss"> keys"</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># REDUCE — independent per key, so this is parallel too</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {k: reducer(k, v) <span class="cf">for</span> k, v <span class="kw">in</span> grouped.items()}</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>sales_chunks <span class="op">=</span> [</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">"Mumbai"</span>, <span class="dv">250</span>), (<span class="st">"Delhi"</span>, <span class="dv">100</span>), (<span class="st">"Mumbai"</span>, <span class="dv">300</span>)],</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">"Pune"</span>, <span class="dv">80</span>),    (<span class="st">"Delhi"</span>, <span class="dv">150</span>), (<span class="st">"Mumbai"</span>, <span class="dv">120</span>)],</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">"Pune"</span>, <span class="dv">200</span>),   (<span class="st">"Pune"</span>, <span class="dv">60</span>),   (<span class="st">"Delhi"</span>, <span class="dv">90</span>)],</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"JOB 1 — total sales per city"</span>)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">" "</span>, mapreduce(sales_chunks, <span class="kw">lambda</span> c: c, <span class="kw">lambda</span> k, v: <span class="bu">sum</span>(v), verbose<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">JOB 2 — average sale per city"</span>)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">" "</span>, mapreduce(sales_chunks, <span class="kw">lambda</span> c: c, <span class="kw">lambda</span> k, v: <span class="bu">round</span>(<span class="bu">sum</span>(v)<span class="op">/</span><span class="bu">len</span>(v), <span class="dv">1</span>)))</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">JOB 3 — largest single sale per city"</span>)</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">" "</span>, mapreduce(sales_chunks, <span class="kw">lambda</span> c: c, <span class="kw">lambda</span> k, v: <span class="bu">max</span>(v)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>JOB 1 — total sales per city
+  map emitted 9 pairs → shuffled into 3 keys
+  {'Mumbai': 670, 'Delhi': 340, 'Pune': 340}
+
+JOB 2 — average sale per city
+  {'Mumbai': 223.3, 'Delhi': 113.3, 'Pune': 113.3}
+
+JOB 3 — largest single sale per city
+  {'Mumbai': 300, 'Delhi': 150, 'Pune': 200}</code></pre>
+</div>
+</div>
+<p><strong>Only the reducer changed.</strong> The map step and the shuffle were identical, which is exactly why the model is worth having.</p>
+</section>
+</section>
+<section id="sec-s14-topic-4" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="sec-s14-topic-4"><span class="header-section-number">17.2</span> 4. Why the shuffle is the expensive step</h2>
+<p><strong>Map and reduce run locally. The shuffle moves data between machines</strong> — over a network hundreds of times slower than memory.</p>
+<p><strong>The fix is the combiner: reduce locally before sending anything.</strong></p>
+<section id="demo-3-a-combiner-and-how-much-traffic-it-saves" class="level3" data-number="17.2.1">
+<h3 data-number="17.2.1" class="anchored" data-anchor-id="demo-3-a-combiner-and-how-much-traffic-it-saves"><span class="header-section-number">17.2.1</span> Demo 3 — a combiner, and how much traffic it saves</h3>
+<div id="d0ecee8c" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 3 machines, each holding many rows for the same few cities.</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>chunks <span class="op">=</span> [</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">"Mumbai"</span>, <span class="dv">1</span>)] <span class="op">*</span> <span class="dv">4_000</span> <span class="op">+</span> [(<span class="st">"Delhi"</span>, <span class="dv">1</span>)] <span class="op">*</span> <span class="dv">3_000</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">"Mumbai"</span>, <span class="dv">1</span>)] <span class="op">*</span> <span class="dv">5_000</span> <span class="op">+</span> [(<span class="st">"Pune"</span>, <span class="dv">1</span>)] <span class="op">*</span> <span class="dv">2_000</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">"Delhi"</span>, <span class="dv">1</span>)] <span class="op">*</span> <span class="dv">6_000</span> <span class="op">+</span> [(<span class="st">"Pune"</span>, <span class="dv">1</span>)] <span class="op">*</span> <span class="dv">1_000</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># WITHOUT a combiner: every single pair crosses the network</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>pairs_sent <span class="op">=</span> <span class="bu">sum</span>(<span class="bu">len</span>(c) <span class="cf">for</span> c <span class="kw">in</span> chunks)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># WITH a combiner: each machine sums its own rows first, then sends the totals</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>combined <span class="op">=</span> []</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> chunks:</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    local <span class="op">=</span> defaultdict(<span class="bu">int</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k, v <span class="kw">in</span> c:</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        local[k] <span class="op">+=</span> v</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    combined.append(<span class="bu">list</span>(local.items()))</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>combined_sent <span class="op">=</span> <span class="bu">sum</span>(<span class="bu">len</span>(c) <span class="cf">for</span> c <span class="kw">in</span> combined)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"without a combiner: </span><span class="sc">{</span>pairs_sent<span class="sc">:&gt;7,}</span><span class="ss"> pairs cross the network"</span>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"with a combiner   : </span><span class="sc">{</span>combined_sent<span class="sc">:&gt;7,}</span><span class="ss"> pairs cross the network"</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"reduction         : </span><span class="sc">{</span><span class="dv">1</span> <span class="op">-</span> combined_sent<span class="op">/</span>pairs_sent<span class="sc">:.4%}</span><span class="ss">"</span>)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Both give the same answer:</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>final <span class="op">=</span> defaultdict(<span class="bu">int</span>)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> combined:</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k, v <span class="kw">in</span> c:</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>        final[k] <span class="op">+=</span> v</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">same result either way: </span><span class="sc">{</span><span class="bu">dict</span>(final)<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>without a combiner:  21,000 pairs cross the network
+with a combiner   :       6 pairs cross the network
+reduction         : 99.9714%
+
+same result either way: {'Mumbai': 9000, 'Delhi': 9000, 'Pune': 3000}</code></pre>
+</div>
+</div>
+<p><strong>Traffic fell by more than 99.9%</strong> and the answer is identical. This is the single most important optimisation in distributed processing, and Spark applies it automatically for operations like <code>reduceByKey</code>.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Not every reducer can be combined">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Not every reducer can be combined
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A combiner is only safe when the reduce operation gives the same answer regardless of how you group the work. <code>sum</code>, <code>min</code>, <code>max</code> and <code>count</code> are fine.</p>
+<p><strong><code>average</code> is not.</strong> The average of the averages of unequal groups is not the overall average:</p>
+<div id="123f1c10" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> [[<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">90</span>], [<span class="dv">100</span>]]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>naive <span class="op">=</span> <span class="bu">sum</span>(<span class="bu">sum</span>(g)<span class="op">/</span><span class="bu">len</span>(g) <span class="cf">for</span> g <span class="kw">in</span> groups) <span class="op">/</span> <span class="bu">len</span>(groups)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>true  <span class="op">=</span> <span class="bu">sum</span>(<span class="bu">sum</span>(g) <span class="cf">for</span> g <span class="kw">in</span> groups) <span class="op">/</span> <span class="bu">sum</span>(<span class="bu">len</span>(g) <span class="cf">for</span> g <span class="kw">in</span> groups)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"average of the averages : </span><span class="sc">{</span>naive<span class="sc">:.2f}</span><span class="ss">   ← wrong"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"true overall average    : </span><span class="sc">{</span>true<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>average of the averages : 75.00   ← wrong
+true overall average    : 55.00</code></pre>
+</div>
+</div>
+<p><strong>The fix:</strong> have the combiner emit <code>(sum, count)</code> pairs rather than an average, and let the reducer divide at the very end.</p>
+</div>
+</div>
+<div id="ffffc5fb" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The correct combinable average: carry (sum, count) through the shuffle.</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>partials <span class="op">=</span> [(<span class="bu">sum</span>(g), <span class="bu">len</span>(g)) <span class="cf">for</span> g <span class="kw">in</span> groups]</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>total_sum <span class="op">=</span> <span class="bu">sum</span>(s <span class="cf">for</span> s, _ <span class="kw">in</span> partials)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>total_n   <span class="op">=</span> <span class="bu">sum</span>(n <span class="cf">for</span> _, n <span class="kw">in</span> partials)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"combinable average: </span><span class="sc">{</span>total_sum<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>total_n<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>total_sum<span class="op">/</span>total_n<span class="sc">:.2f}</span><span class="ss">  ✓ correct"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>combinable average: 550/10 = 55.00  ✓ correct</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s14-topic-5" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="sec-s14-topic-5"><span class="header-section-number">17.3</span> 5. <code>groupby</code> is MapReduce</h2>
+<p><strong>You have been writing MapReduce jobs since Session 2.</strong> <code>df.groupby("city")["amount"].sum()</code> is a map (pick out city and amount), a shuffle (gather by city), and a reduce (sum).</p>
+<section id="demo-4-the-same-answer-both-ways" class="level3" data-number="17.3.1">
+<h3 data-number="17.3.1" class="anchored" data-anchor-id="demo-4-the-same-answer-both-ways"><span class="header-section-number">17.3.1</span> Demo 4 — the same answer, both ways</h3>
+<div id="d0fc3ac0" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> [r <span class="cf">for</span> chunk <span class="kw">in</span> sales_chunks <span class="cf">for</span> r <span class="kw">in</span> chunk]</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(rows, columns<span class="op">=</span>[<span class="st">"city"</span>, <span class="st">"amount"</span>])</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"pandas groupby:"</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.groupby(<span class="st">"city"</span>)[<span class="st">"amount"</span>].<span class="bu">sum</span>().to_dict())</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">our MapReduce engine:"</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mapreduce(sales_chunks, <span class="kw">lambda</span> c: c, <span class="kw">lambda</span> k, v: <span class="bu">sum</span>(v)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>pandas groupby:
+{'Delhi': 340, 'Mumbai': 670, 'Pune': 340}
+
+our MapReduce engine:
+{'Mumbai': 670, 'Delhi': 340, 'Pune': 340}</code></pre>
+</div>
+</div>
+<p><strong>The difference is only where the work happens.</strong> Pandas does all three steps in one process on one machine. A cluster does the map and reduce on many machines and moves data between them for the shuffle.</p>
+</section>
+</section>
+</section>
+<section id="sec-s14-c" class="level1" data-number="18">
+<h1 data-number="18"><span class="header-section-number">18</span> Part C — Spark</h1>
+<section id="sec-s14-topic-6" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="sec-s14-topic-6"><span class="header-section-number">18.1</span> 6. Why Spark replaced MapReduce</h2>
+<p><strong>Hadoop MapReduce writes to disk between every stage.</strong> For a single pass that is fine. For an algorithm that passes over the data twenty times — which is what training a model means — it is ruinous.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Hadoop MapReduce</th>
+<th>Apache Spark</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Between stages</td>
+<td><strong>writes to disk</strong></td>
+<td><strong>keeps data in memory</strong></td>
+</tr>
+<tr class="even">
+<td>Multi-pass work</td>
+<td>very slow</td>
+<td>fast</td>
+</tr>
+<tr class="odd">
+<td>Programming model</td>
+<td>map and reduce only</td>
+<td>many operations, plus SQL</td>
+</tr>
+<tr class="even">
+<td>Interactive queries</td>
+<td>no</td>
+<td>yes</td>
+</tr>
+<tr class="odd">
+<td>Written in</td>
+<td>Java</td>
+<td>Scala, with Python, R and SQL front ends</td>
+</tr>
+</tbody>
+</table>
+<section id="demo-5-the-cost-of-writing-to-disk-between-passes" class="level3" data-number="18.1.1">
+<h3 data-number="18.1.1" class="anchored" data-anchor-id="demo-5-the-cost-of-writing-to-disk-between-passes"><span class="header-section-number">18.1.1</span> Demo 5 — the cost of writing to disk between passes</h3>
+<div id="acaac997" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>DISK_ROUND_TRIP_S <span class="op">=</span> <span class="dv">12</span>       <span class="co"># writing and re-reading a large intermediate result</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>MEMORY_S <span class="op">=</span> <span class="fl">0.4</span>               <span class="co"># keeping it in memory instead</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>COMPUTE_PER_PASS_S <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'passes over the data'</span><span class="sc">:&gt;21}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'MapReduce'</span><span class="sc">:&gt;12}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Spark'</span><span class="sc">:&gt;10}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'speed-up'</span><span class="sc">:&gt;10}</span><span class="ss">"</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">56</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> passes <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">30</span>]:</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    mr    <span class="op">=</span> passes <span class="op">*</span> COMPUTE_PER_PASS_S <span class="op">+</span> (passes <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> DISK_ROUND_TRIP_S</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    spark <span class="op">=</span> passes <span class="op">*</span> COMPUTE_PER_PASS_S <span class="op">+</span> (passes <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> MEMORY_S</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>passes<span class="sc">:&gt;21}</span><span class="ss"> </span><span class="sc">{</span>mr<span class="sc">:&gt;10.1f}</span><span class="ss"> s </span><span class="sc">{</span>spark<span class="sc">:&gt;8.1f}</span><span class="ss"> s </span><span class="sc">{</span>mr<span class="op">/</span>spark<span class="sc">:&gt;9.1f}</span><span class="ss">×"</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">One pass: barely any difference — this is why MapReduce was fine for reports."</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Thirty passes, which is what training a model looks like: Spark wins outright."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> passes over the data    MapReduce      Spark   speed-up
+--------------------------------------------------------
+                    1        5.0 s      5.0 s       1.0×
+                    3       39.0 s     15.8 s       2.5×
+                   10      158.0 s     53.6 s       2.9×
+                   30      498.0 s    161.6 s       3.1×
+
+One pass: barely any difference — this is why MapReduce was fine for reports.
+Thirty passes, which is what training a model looks like: Spark wins outright.</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s14-topic-7" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="sec-s14-topic-7"><span class="header-section-number">18.2</span> 7. Lazy evaluation</h2>
+<p><strong>Spark does not run your code when you write it. It builds a plan, and only runs when you ask for a result.</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Kind</th>
+<th>Examples</th>
+<th>Runs immediately?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Transformation</strong></td>
+<td><code>filter</code>, <code>select</code>, <code>groupBy</code>, <code>join</code>, <code>withColumn</code></td>
+<td><strong>no</strong> — it is recorded in the plan</td>
+</tr>
+<tr class="even">
+<td><strong>Action</strong></td>
+<td><code>show</code>, <code>count</code>, <code>collect</code>, <code>write</code></td>
+<td><strong>yes</strong> — the whole plan executes</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why this is a feature:</strong> with the whole plan in hand before running anything, Spark can rearrange it. If you filter after selecting two columns, it can push the filter earlier and read far less data.</p>
+<section id="demo-6-lazy-evaluation-built-in-plain-python" class="level3" data-number="18.2.1">
+<h3 data-number="18.2.1" class="anchored" data-anchor-id="demo-6-lazy-evaluation-built-in-plain-python"><span class="header-section-number">18.2.1</span> Demo 6 — lazy evaluation, built in plain Python</h3>
+<div id="adff252f" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> LazyFrame:</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""A miniature of Spark's laziness: record operations, run only on an action."""</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, rows, plan<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._rows <span class="op">=</span> rows</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._plan <span class="op">=</span> plan <span class="kw">or</span> []</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- transformations: recorded, not executed ---------------------------</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="bu">filter</span>(<span class="va">self</span>, fn, label):</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  recorded: filter(</span><span class="sc">{</span>label<span class="sc">}</span><span class="ss">)   ← nothing has run"</span>)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> LazyFrame(<span class="va">self</span>._rows, <span class="va">self</span>._plan <span class="op">+</span> [(<span class="st">"filter"</span>, fn, label)])</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> select(<span class="va">self</span>, keys):</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  recorded: select(</span><span class="sc">{</span>keys<span class="sc">}</span><span class="ss">)    ← nothing has run"</span>)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> LazyFrame(<span class="va">self</span>._rows, <span class="va">self</span>._plan <span class="op">+</span> [(<span class="st">"select"</span>, keys, <span class="bu">str</span>(keys))])</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- actions: the whole plan finally executes --------------------------</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> collect(<span class="va">self</span>):</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  ACTION — executing </span><span class="sc">{</span><span class="bu">len</span>(<span class="va">self</span>._plan)<span class="sc">}</span><span class="ss"> recorded steps now"</span>)</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>        rows <span class="op">=</span> <span class="va">self</span>._rows</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> kind, arg, _ <span class="kw">in</span> <span class="va">self</span>._plan:</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>            rows <span class="op">=</span> [r <span class="cf">for</span> r <span class="kw">in</span> rows <span class="cf">if</span> arg(r)] <span class="cf">if</span> kind <span class="op">==</span> <span class="st">"filter"</span> <span class="op">\</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>                   <span class="cf">else</span> [{k: r[k] <span class="cf">for</span> k <span class="kw">in</span> arg} <span class="cf">for</span> r <span class="kw">in</span> rows]</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> rows</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> [{<span class="st">"city"</span>: <span class="st">"Mumbai"</span>, <span class="st">"amount"</span>: <span class="dv">250</span>, <span class="st">"cashier"</span>: <span class="st">"A"</span>},</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>        {<span class="st">"city"</span>: <span class="st">"Delhi"</span>,  <span class="st">"amount"</span>: <span class="dv">100</span>, <span class="st">"cashier"</span>: <span class="st">"B"</span>},</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>        {<span class="st">"city"</span>: <span class="st">"Mumbai"</span>, <span class="st">"amount"</span>: <span class="dv">900</span>, <span class="st">"cashier"</span>: <span class="st">"C"</span>},</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>        {<span class="st">"city"</span>: <span class="st">"Pune"</span>,   <span class="st">"amount"</span>: <span class="dv">80</span>,  <span class="st">"cashier"</span>: <span class="st">"D"</span>}]</span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Building the plan:"</span>)</span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> (LazyFrame(data)</span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>         .<span class="bu">filter</span>(<span class="kw">lambda</span> r: r[<span class="st">"city"</span>] <span class="op">==</span> <span class="st">"Mumbai"</span>, <span class="st">"city == Mumbai"</span>)</span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>         .<span class="bu">filter</span>(<span class="kw">lambda</span> r: r[<span class="st">"amount"</span>] <span class="op">&gt;</span> <span class="dv">200</span>, <span class="st">"amount &gt; 200"</span>)</span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>         .select([<span class="st">"city"</span>, <span class="st">"amount"</span>]))</span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Nothing has been computed yet. Now we ask for the answer:"</span>)</span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">" "</span>, query.collect())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Building the plan:
+  recorded: filter(city == Mumbai)   ← nothing has run
+  recorded: filter(amount &gt; 200)   ← nothing has run
+  recorded: select(['city', 'amount'])    ← nothing has run
+
+Nothing has been computed yet. Now we ask for the answer:
+  ACTION — executing 3 recorded steps now
+  [{'city': 'Mumbai', 'amount': 250}, {'city': 'Mumbai', 'amount': 900}]</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Lazy evaluation moves your errors">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Lazy evaluation moves your errors
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A typo in a column name inside a transformation may not surface until an action runs — possibly many lines later, in code that looks unrelated. Worse, a long chain that appears instant is doing nothing at all, and then one <code>.show()</code> takes twenty minutes.</p>
+<p><strong>When timing Spark code, time the action.</strong> The transformations are free because they have not happened.</p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="sec-s14-d" class="level1" data-number="19">
+<h1 data-number="19"><span class="header-section-number">19</span> Part D — PySpark</h1>
+<section id="sec-s14-topic-8" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="sec-s14-topic-8"><span class="header-section-number">19.1</span> 8. The PySpark DataFrame API</h2>
+<p><strong>PySpark’s DataFrame API is deliberately close to pandas</strong>, so most of what you learned in Session 2 transfers.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Task</th>
+<th>pandas</th>
+<th>PySpark</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>read a file</td>
+<td><code>pd.read_csv(path)</code></td>
+<td><code>spark.read.csv(path, header=True)</code></td>
+</tr>
+<tr class="even">
+<td>first rows</td>
+<td><code>df.head()</code></td>
+<td><code>df.show(5)</code></td>
+</tr>
+<tr class="odd">
+<td>filter</td>
+<td><code>df[df.amount &gt; 100]</code></td>
+<td><code>df.filter(df.amount &gt; 100)</code></td>
+</tr>
+<tr class="even">
+<td>new column</td>
+<td><code>df["x"] = ...</code></td>
+<td><code>df.withColumn("x", ...)</code></td>
+</tr>
+<tr class="odd">
+<td>group and total</td>
+<td><code>df.groupby("city")["amount"].sum()</code></td>
+<td><code>df.groupBy("city").sum("amount")</code></td>
+</tr>
+<tr class="even">
+<td>row count</td>
+<td><code>len(df)</code></td>
+<td><code>df.count()</code></td>
+</tr>
+<tr class="odd">
+<td>to pandas</td>
+<td>—</td>
+<td><code>df.toPandas()</code></td>
+</tr>
+</tbody>
+</table>
+<p>The code below is real PySpark. <strong>It is shown rather than run, because Spark requires a Java runtime that this book’s environment does not have.</strong> On a machine with <code>pip install pyspark</code> and Java 17, it runs as written.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql <span class="im">import</span> SparkSession</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql <span class="im">import</span> functions <span class="im">as</span> F</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>spark <span class="op">=</span> SparkSession.builder.appName(<span class="st">"log-analysis"</span>).master(<span class="st">"local[*]"</span>).getOrCreate()</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># TRANSFORMATION — nothing is read yet, Spark only records the plan</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>logs <span class="op">=</span> spark.read.csv(<span class="st">"hdfs:///user/data/logs/clicks.csv"</span>, header<span class="op">=</span><span class="va">True</span>, inferSchema<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>errors_by_server <span class="op">=</span> (</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    logs</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(F.col(<span class="st">"status"</span>) <span class="op">&gt;=</span> <span class="dv">500</span>)              <span class="co"># transformation</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    .groupBy(<span class="st">"server_ip"</span>)                        <span class="co"># transformation</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    .agg(F.count(<span class="st">"*"</span>).alias(<span class="st">"error_count"</span>),</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>         F.avg(<span class="st">"response_ms"</span>).alias(<span class="st">"avg_ms"</span>))   <span class="co"># transformation</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    .orderBy(F.desc(<span class="st">"error_count"</span>))              <span class="co"># transformation</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="co"># ACTION — only now does Spark read the file and execute the whole plan</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>errors_by_server.show(<span class="dv">5</span>)</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Bring a small result back into pandas for plotting</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>summary <span class="op">=</span> errors_by_server.limit(<span class="dv">20</span>).toPandas()</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>spark.stop()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong><code>master("local[*]")</code> runs Spark on your own machine using every core</strong>, which is how you develop and test. Moving to a real cluster changes that one string and nothing else.</p>
+<section id="demo-7-the-same-job-in-the-plain-python-engine" class="level3" data-number="19.1.1">
+<h3 data-number="19.1.1" class="anchored" data-anchor-id="demo-7-the-same-job-in-the-plain-python-engine"><span class="header-section-number">19.1.1</span> Demo 7 — the same job, in the plain-Python engine</h3>
+<p>So you can see the answer this produces, here is the identical calculation with our own MapReduce.</p>
+<div id="5818d11a" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">81</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">60_000</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>servers <span class="op">=</span> [<span class="ss">f"10.0.0.</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>)]</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> [<span class="fl">.10</span>, <span class="fl">.10</span>, <span class="fl">.10</span>, <span class="fl">.10</span>, <span class="fl">.10</span>, <span class="fl">.50</span>]        <span class="co"># one server is much busier</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>log <span class="op">=</span> [{<span class="st">"server"</span>: rng.choice(servers, p<span class="op">=</span>weights),</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"status"</span>: <span class="bu">int</span>(rng.choice([<span class="dv">200</span>, <span class="dv">404</span>, <span class="dv">500</span>, <span class="dv">503</span>], p<span class="op">=</span>[<span class="fl">.90</span>, <span class="fl">.05</span>, <span class="fl">.03</span>, <span class="fl">.02</span>])),</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ms"</span>: <span class="bu">float</span>(rng.gamma(<span class="dv">2</span>, <span class="dv">40</span>))}</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>       <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n)]</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># filter → group → aggregate, exactly as the PySpark plan above</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>errors <span class="op">=</span> [r <span class="cf">for</span> r <span class="kw">in</span> log <span class="cf">if</span> r[<span class="st">"status"</span>] <span class="op">&gt;=</span> <span class="dv">500</span>]</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>grouped <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> errors:</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    grouped[r[<span class="st">"server"</span>]].append(r[<span class="st">"ms"</span>])</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>summary <span class="op">=</span> <span class="bu">sorted</span>(((s, <span class="bu">len</span>(v), <span class="bu">sum</span>(v)<span class="op">/</span><span class="bu">len</span>(v)) <span class="cf">for</span> s, v <span class="kw">in</span> grouped.items()),</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>                 key<span class="op">=</span><span class="kw">lambda</span> t: <span class="op">-</span>t[<span class="dv">1</span>])</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">:,}</span><span class="ss"> log rows → </span><span class="sc">{</span><span class="bu">len</span>(errors)<span class="sc">:,}</span><span class="ss"> errors (</span><span class="sc">{</span><span class="bu">len</span>(errors)<span class="op">/</span>n<span class="sc">:.1%}</span><span class="ss">)</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'server'</span><span class="sc">:&lt;12}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'errors'</span><span class="sc">:&gt;8}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'avg ms'</span><span class="sc">:&gt;9}</span><span class="ss">"</span>)</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s, c, avg <span class="kw">in</span> summary:</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>s<span class="sc">:&lt;12}</span><span class="ss"> </span><span class="sc">{</span>c<span class="sc">:&gt;8,}</span><span class="ss"> </span><span class="sc">{</span>avg<span class="sc">:&gt;9.1f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>60,000 log rows → 2,958 errors (4.9%)
+
+server         errors    avg ms
+10.0.0.6        1,461      81.2
+10.0.0.5          317      78.5
+10.0.0.4          307      83.0
+10.0.0.3          295      78.8
+10.0.0.1          291      81.3
+10.0.0.2          287      85.3</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s14-topic-9" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="sec-s14-topic-9"><span class="header-section-number">19.2</span> 9. When not to use Spark</h2>
+<section id="demo-8-the-crossover-modelled" class="level3" data-number="19.2.1">
+<h3 data-number="19.2.1" class="anchored" data-anchor-id="demo-8-the-crossover-modelled"><span class="header-section-number">19.2.1</span> Demo 8 — the crossover, modelled</h3>
+<div id="921b962d" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd, time</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">82</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>SPARK_STARTUP_S <span class="op">=</span> <span class="fl">6.0</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>SPARK_CORES <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>SHUFFLE_OVERHEAD_S <span class="op">=</span> <span class="fl">0.9</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'rows'</span><span class="sc">:&gt;13}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'pandas'</span><span class="sc">:&gt;11}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Spark (modelled)'</span><span class="sc">:&gt;18}</span><span class="ss">   winner"</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">58</span>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> [<span class="dv">50_000</span>, <span class="dv">500_000</span>, <span class="dv">5_000_000</span>]:</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.DataFrame({<span class="st">"k"</span>: rng.integers(<span class="dv">0</span>, <span class="dv">200</span>, n), <span class="st">"v"</span>: rng.normal(size<span class="op">=</span>n)})</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> time.perf_counter()<span class="op">;</span> df.groupby(<span class="st">"k"</span>)[<span class="st">"v"</span>].agg([<span class="st">"sum"</span>, <span class="st">"mean"</span>])<span class="op">;</span> pandas_s <span class="op">=</span> time.perf_counter() <span class="op">-</span> t</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    spark_s <span class="op">=</span> SPARK_STARTUP_S <span class="op">+</span> SHUFFLE_OVERHEAD_S <span class="op">+</span> pandas_s <span class="op">*</span> <span class="dv">4</span> <span class="op">/</span> SPARK_CORES</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">:&gt;13,}</span><span class="ss"> </span><span class="sc">{</span>pandas_s<span class="op">*</span><span class="dv">1000</span><span class="sc">:&gt;9.1f}</span><span class="ss"> ms </span><span class="sc">{</span>spark_s<span class="sc">:&gt;15.2f}</span><span class="ss"> s   "</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"</span><span class="sc">{</span><span class="st">'pandas'</span> <span class="cf">if</span> pandas_s <span class="op">&lt;</span> spark_s <span class="cf">else</span> <span class="st">'Spark'</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>break_even <span class="op">=</span> SPARK_STARTUP_S <span class="op">+</span> SHUFFLE_OVERHEAD_S</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Spark pays about </span><span class="sc">{</span>break_even<span class="sc">:.1f}</span><span class="ss"> s before it does any work at all."</span>)</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"It only wins once the job would take substantially longer than that in pandas —"</span>)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"which, on a modern laptop, means tens of gigabytes."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         rows      pandas   Spark (modelled)   winner
+----------------------------------------------------------
+       50,000       4.0 ms            6.90 s   pandas
+      500,000       8.5 ms            6.90 s   pandas
+    5,000,000      60.6 ms            6.93 s   pandas
+
+Spark pays about 6.9 s before it does any work at all.
+It only wins once the job would take substantially longer than that in pandas —
+which, on a modern laptop, means tens of gigabytes.</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Use Spark when the data does not fit, not when it feels large">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Use Spark when the data does not fit, not when it feels large
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Spark earns its overhead when:</p>
+<ul>
+<li>the data genuinely does not fit in one machine’s memory, <strong>or</strong></li>
+<li>the job would take hours on one machine, <strong>or</strong></li>
+<li>it is already where your data lives and the cluster is already running</li>
+</ul>
+<p>It does <strong>not</strong> earn it for a 200 MB CSV, however important that CSV is.</p>
+</div>
+</div>
+</section>
+<section id="check-yourself" class="level3" data-number="19.2.2">
+<h3 data-number="19.2.2" class="anchored" data-anchor-id="check-yourself"><span class="header-section-number">19.2.2</span> ❓ Check yourself</h3>
+<p><strong>Q1.</strong> Which MapReduce step moves data between machines?</p>
 <ul>
 <li><ol type="a">
-<li>CPU processing speed.</li>
+<li>Map.</li>
 </ol></li>
 <li><ol start="2" type="a">
-<li><strong>Network transfer speed (Moving massive data across wires is slow).</strong></li>
+<li><strong>Shuffle.</strong></li>
 </ol></li>
 <li><ol start="3" type="a">
-<li>Monitor refresh rates.</li>
+<li>Reduce.</li>
+</ol></li>
+</ul>
+<p><strong>Q2.</strong> A combiner sums values locally before the shuffle. For which reducer is this unsafe?</p>
+<ul>
+<li><ol type="a">
+<li><code>sum</code>.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong><code>average</code>.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li><code>max</code>.</li>
+</ol></li>
+</ul>
+<p><strong>Q3.</strong> Why is Spark faster than Hadoop MapReduce for training a model?</p>
+<ul>
+<li><ol type="a">
+<li>It is written in a faster language.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>It keeps intermediate results in memory instead of writing them to disk between every pass.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>It uses more machines.</li>
+</ol></li>
+</ul>
+<p><strong>Q4.</strong> You chain six PySpark transformations and it returns instantly. What happened?</p>
+<ul>
+<li><ol type="a">
+<li>Spark is very fast.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Nothing ran. Transformations are lazy; the work happens on an action.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>The data was cached.</li>
+</ol></li>
+</ul>
+<p><strong>Q5.</strong> A 300 MB CSV takes pandas 4 seconds to summarise. Should you move it to Spark?</p>
+<ul>
+<li><ol type="a">
+<li>Yes, Spark is built for data.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>No — Spark’s startup alone costs more than the whole job.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Only if you have a cluster.</li>
 </ol></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -410,75 +1223,99 @@ Note
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>A1 — (b).</strong> It is always faster to send a small Python script to a server than it is to send 500GB of data from that server to your laptop.</p>
+<p><strong>A1 — (b).</strong> Which is why the combiner in Demo 3 matters so much.</p>
+<p><strong>A2 — (b).</strong> Demo 3’s warning measured the wrong answer it produces.</p>
+<p><strong>A3 — (b).</strong> Demo 5 modelled the gap widening with each extra pass.</p>
+<p><strong>A4 — (b).</strong> And the next action will take as long as all six put together.</p>
+<p><strong>A5 — (b).</strong> Demo 8. A 4-second job cannot repay a 7-second overhead.</p>
 </div>
 </div>
 </div>
 </section>
 </section>
 </section>
-<section id="sec-s14-b" class="level1" data-number="17">
-<h1 data-number="17"><span class="header-section-number">17</span> Part B — Apache Spark</h1>
-<p><strong>Hadoop wrote everything to disk. Spark keeps it all in RAM.</strong></p>
-<section id="sec-s14-topic-2" class="level2" data-number="17.1">
-<h2 data-number="17.1" class="anchored" data-anchor-id="sec-s14-topic-2"><span class="header-section-number">17.1</span> 2. Apache Hadoop vs Apache Spark</h2>
-<p><strong>Apache Spark is the modern, lightning-fast successor to Hadoop’s MapReduce engine.</strong></p>
-<p>It exists because Hadoop was slow. Between the Map phase and the Reduce phase, Hadoop wrote all intermediate results to physical hard drives to prevent data loss if a server crashed. Reading and writing from physical hard drives is slow. Spark, instead, keeps all intermediate data purely in RAM (memory).</p>
-<section id="how-it-works-1" class="level3" data-number="17.1.1">
-<h3 data-number="17.1.1" class="anchored" data-anchor-id="how-it-works-1"><span class="header-section-number">17.1.1</span> How it works</h3>
-<p>Spark operates using <strong>RDDs (Resilient Distributed Datasets)</strong> or <strong>DataFrames</strong>. If a server crashes while holding data in RAM, Spark just looks at the history of how that data was made (the “lineage”) and instantly recalculates it on another server.</p>
-<p>Because RAM is 100x faster than hard drives, Spark runs 100x faster than Hadoop for many machine learning tasks.</p>
-</section>
-</section>
-</section>
-<section id="sec-s14-demo" class="level1" data-number="18">
-<h1 data-number="18"><span class="header-section-number">18</span> Part Demo — PySpark vs Pandas</h1>
-<p><strong>Running a PySpark DataFrame script.</strong></p>
-<p>Pandas syntax and PySpark syntax look similar, but under the hood, Spark is orchestrating 100 machines.</p>
-<div id="b3b420d0" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: You need a Spark Cluster to run this.</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql <span class="im">import</span> SparkSession</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.functions <span class="im">import</span> col, count</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Initialize the Spark Cluster connection</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>spark <span class="op">=</span> SparkSession.builder.appName(<span class="st">"LogAnalyzer"</span>).getOrCreate()</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Read a massive 500GB distributed file</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Spark doesn't actually read it yet! It uses "Lazy Evaluation". It just remembers the command.</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>df_logs <span class="op">=</span> spark.read.csv(<span class="st">"hdfs://user/logs/massive_logs.csv"</span>, header<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Perform a Map and Reduce operation</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># We filter for errors, group by the server IP, and count them.</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>error_counts <span class="op">=</span> (df_logs</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(col(<span class="st">"status_code"</span>) <span class="op">==</span> <span class="dv">404</span>)     <span class="co"># Map Phase</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    .groupBy(<span class="st">"server_ip"</span>)                  <span class="co"># Shuffle Phase</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    .agg(count(<span class="st">"*"</span>).alias(<span class="st">"error_count"</span>))  <span class="co"># Reduce Phase</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Trigger the computation!</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Up until this point, Spark did zero math. The .show() command forces it to execute </span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co"># the massive distributed plan and fetch the top 5 results.</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>error_counts.orderBy(col(<span class="st">"error_count"</span>).desc()).show(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ The trap of Lazy Evaluation">
+<section id="sec-s14-tasks" class="level1" data-number="20">
+<h1 data-number="20"><span class="header-section-number">20</span> 🎯 Tasks</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>⚠️ The trap of Lazy Evaluation
+<span class="screen-reader-only">Note</span>✏️ Practise
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>In Pandas, when you write <code>df.filter()</code>, it happens instantly. In Spark, it does <em>nothing</em> until you call an “Action” like <code>.show()</code> or <code>.collect()</code>. If you write a 50-line script and make a typo on line 2, Spark won’t tell you there’s an error until line 51 when you finally ask to see the result!</p>
+<p><strong>Task 1 — Trace it by hand.</strong> Before running anything, work out the map output, the shuffle groups and the reduce output for <code>["a b a", "b c", "a c c"]</code>. Then check with Demo 1.</p>
+<p><strong>Task 2 — Write a new job.</strong> Using the <code>mapreduce</code> engine from Demo 2, count how many <strong>distinct</strong> cashiers served each city. <strong>Say whether your reducer is combinable.</strong></p>
+<p><strong>Task 3 — Build a combinable average.</strong> Write a mapper that emits <code>(city, (amount, 1))</code> and a reducer that returns the correct average, so a combiner would be safe.</p>
+<p><strong>Task 4 — Find the crossover.</strong> Run Demo 8 at 10, 20 and 50 million rows. <strong>Report the row count at which the modelled Spark time beats pandas on your machine.</strong></p>
 </div>
 </div>
-</section>
-<section id="sec-s14-tasks" class="level1" data-number="19">
-<h1 data-number="19"><span class="header-section-number">19</span> 🎯 Session 14 — Tasks</h1>
-<p><strong>Task 1 — The Pandas Translation.</strong> Look at the Spark filtering command <code>df_logs.filter(col("status_code") == 404)</code>. If <code>df_logs</code> was a standard Pandas DataFrame, write the Pandas equivalent to filter for rows where the status code is 404.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="cecf2cc1" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mapreduce(chunks, mapper, reducer):</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    mapped <span class="op">=</span> []</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> c <span class="kw">in</span> chunks:</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        mapped.extend(mapper(c))</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k, v <span class="kw">in</span> mapped:</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>        grouped[k].append(v)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {k: reducer(k, v) <span class="cf">for</span> k, v <span class="kw">in</span> grouped.items()}</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 1</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>lines <span class="op">=</span> [<span class="st">"a b a"</span>, <span class="st">"b c"</span>, <span class="st">"a c c"</span>]</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 1 — map:    "</span>, [[(w, <span class="dv">1</span>) <span class="cf">for</span> w <span class="kw">in</span> l.split()] <span class="cf">for</span> l <span class="kw">in</span> lines])</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 1 — reduce: "</span>, mapreduce([l.split() <span class="cf">for</span> l <span class="kw">in</span> lines],</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>                                     <span class="kw">lambda</span> c: [(w, <span class="dv">1</span>) <span class="cf">for</span> w <span class="kw">in</span> c],</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>                                     <span class="kw">lambda</span> k, v: <span class="bu">sum</span>(v)))</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — distinct cashiers per city</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>records <span class="op">=</span> [[(<span class="st">"Mumbai"</span>, <span class="st">"A"</span>), (<span class="st">"Delhi"</span>, <span class="st">"B"</span>)],</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>           [(<span class="st">"Mumbai"</span>, <span class="st">"A"</span>), (<span class="st">"Mumbai"</span>, <span class="st">"C"</span>)],</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>           [(<span class="st">"Delhi"</span>, <span class="st">"B"</span>),  (<span class="st">"Pune"</span>, <span class="st">"D"</span>)]]</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 2 —"</span>, mapreduce(records, <span class="kw">lambda</span> c: c, <span class="kw">lambda</span> k, v: <span class="bu">len</span>(<span class="bu">set</span>(v))))</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  NOT combinable as a count: local counts would double-count a cashier who"</span>)</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  appears on two machines. Combinable if each machine sends the SET of names."</span>)</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 3 — combinable average</span></span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>sales <span class="op">=</span> [[(<span class="st">"Mumbai"</span>, <span class="dv">250</span>), (<span class="st">"Delhi"</span>, <span class="dv">100</span>)],</span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>         [(<span class="st">"Mumbai"</span>, <span class="dv">300</span>), (<span class="st">"Pune"</span>, <span class="dv">80</span>)],</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>         [(<span class="st">"Mumbai"</span>, <span class="dv">120</span>), (<span class="st">"Delhi"</span>, <span class="dv">150</span>)]]</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>sums <span class="op">=</span> mapreduce(sales, <span class="kw">lambda</span> c: [(k, (v, <span class="dv">1</span>)) <span class="cf">for</span> k, v <span class="kw">in</span> c],</span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>                 <span class="kw">lambda</span> k, pairs: (<span class="bu">sum</span>(s <span class="cf">for</span> s, _ <span class="kw">in</span> pairs), <span class="bu">sum</span>(n <span class="cf">for</span> _, n <span class="kw">in</span> pairs)))</span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 3 —"</span>, {k: <span class="bu">round</span>(s<span class="op">/</span>n, <span class="dv">1</span>) <span class="cf">for</span> k, (s, n) <span class="kw">in</span> sums.items()})</span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  Carrying (sum, count) through the shuffle makes the average combinable."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Task 1 — map:     [[('a', 1), ('b', 1), ('a', 1)], [('b', 1), ('c', 1)], [('a', 1), ('c', 1), ('c', 1)]]
+Task 1 — reduce:  {'a': 3, 'b': 2, 'c': 3}
+
+Task 2 — {'Mumbai': 2, 'Delhi': 1, 'Pune': 1}
+  NOT combinable as a count: local counts would double-count a cashier who
+  appears on two machines. Combinable if each machine sends the SET of names.
+
+Task 3 — {'Mumbai': 223.3, 'Delhi': 125.0, 'Pune': 80.0}
+  Carrying (sum, count) through the shuffle makes the average combinable.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="callout callout-style-default callout-tip callout-titled" title="✅ Before you move on">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -490,8 +1327,12 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <ul class="task-list">
-<li><label><input type="checkbox">Understand why Spark is drastically faster than traditional Hadoop MapReduce.</label></li>
-<li><label><input type="checkbox"><strong>The one thing from this chapter that is easiest to forget:</strong> Spark uses Lazy Evaluation. It builds an execution plan and waits for an action before crunching the numbers.</label></li>
+<li><label><input type="checkbox">I can trace map, shuffle and reduce on three short lines</label></li>
+<li><label><input type="checkbox">I know the shuffle is the expensive step and what a combiner does about it</label></li>
+<li><label><input type="checkbox">I know why <code>average</code> is not directly combinable, and the <code>(sum, count)</code> fix</label></li>
+<li><label><input type="checkbox">I can explain lazy evaluation and tell a transformation from an action</label></li>
+<li><label><input type="checkbox">I can read PySpark DataFrame code</label></li>
+<li><label><input type="checkbox"><strong>Easiest thing to forget:</strong> <code>groupby</code> in pandas is the same three steps. Spark did not invent the idea — it distributed it.</label></li>
 </ul>
 </div>
 </div>
@@ -907,8 +1748,8 @@ Note
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../sessions/session-15-nosql-databases-and-scaled-visualization.html" class="pagination-link" aria-label="Session 15 — NoSQL Databases and Scaled Visualization">
-        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Scaled Visualization</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../sessions/session-15-nosql-databases-and-scaled-visualization.html" class="pagination-link" aria-label="Session 15 — NoSQL Databases and Visualization at Scale">
+        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Visualization at Scale</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

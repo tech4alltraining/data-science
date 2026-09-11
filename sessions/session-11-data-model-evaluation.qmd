@@ -1,119 +1,653 @@
 ---
-title: "Session 11 — Data Model Evaluation"
-subtitle: "Metrics · Residual Plots · Visual Verification"
+title: "Session 11 — Model Evaluation"
+subtitle: "Overfitting · Cross-validation · Residual and distribution plots · Tuning"
 ---
 
 {{< include ../includes/_setup.qmd >}}
 
 ::: {.callout-note}
-**This chapter answers the most terrifying question in Data Science: "Is my model actually any good?"**
+**This chapter answers one question: is the model's score real, or did you get lucky?**
 
-**Assumed knowledge:** Supervised Learning (Session 9).
+**Assumed knowledge:** Session 5 — the train–test split and leakage. Session 9 — fitting
+a regression and reading MAE, RMSE and R².
+
+**The one idea to take away:** **one split is one opinion.** A number from a single
+train–test split can move by a lot when you change the random seed, and a decision based
+on a difference smaller than that movement has not been made — it has been guessed.
 :::
 
 ## 🎯 Learning outcomes {#sec-s11-outcomes}
 
 By the end of this chapter you can:
 
-1. Explain why evaluating a model on the data it was trained on is cheating.
-2. Evaluate a regression model using visualization techniques like Residual Plots.
+1. Recognise overfitting and underfitting from training and test scores.
+2. Explain the bias–variance trade-off in plain words.
+3. Run k-fold cross-validation and report a score with its spread.
+4. Choose between holdout, k-fold, stratified k-fold, leave-one-out and bootstrapping.
+5. Diagnose a model from its residual plot and its error distribution.
+6. Tune hyperparameters with grid search without touching the test set.
+7. Explain why tuning on the test set invalidates the result.
 
 ## How this chapter is organised {#sec-s11-organisation}
 
-| Part | Question it answers | Source |
+| Part | Question it answers |
+|---|---|
+| [A — The two failures](#sec-s11-a) | *What are the ways a model goes wrong?* |
+| [B — Validation strategies](#sec-s11-b) | *How do I get a score I can trust?* |
+| [C — Evaluating with pictures](#sec-s11-c) | *What does the score not tell me?* |
+| [D — Tuning](#sec-s11-d) | *How do I improve it without cheating?* |
+
+# Part A — The two failures {#sec-s11-a}
+
+## 1. Overfitting and underfitting {#sec-s11-topic-1}
+
+**A model can fail in two opposite directions.**
+
+| | Underfitting | Overfitting |
 |---|---|---|
-| [A — Evaluation Techniques](#sec-s11-a) | *How do we score a model?* | `concepts` |
-| [Demo — Plotting Residuals](#sec-s11-demo) | *What does a healthy model look like?* | `eval_demo.py` |
+| The model is | too simple | too complex |
+| Training score | **poor** | **excellent** |
+| Test score | **poor** | **poor** |
+| It has | missed the pattern | memorised the noise |
+| Fix by | adding features, using a richer model | simplifying, adding data, regularising |
 
-# Part A — Evaluation Techniques {#sec-s11-a}
+**The diagnosis is the gap.** Poor on both means underfitting. Excellent on training and
+poor on test means overfitting.
 
-**A model that predicts 100% perfectly is almost certainly broken.**
+::: {.callout-tip title="🧠 Analogy — three students revising"}
+- The **underfitting** student skimmed one page. They do badly on the practice papers and
+  badly in the exam.
+- The **overfitting** student memorised every practice paper word for word. Perfect on
+  practice, lost in the exam when the questions are worded differently.
+- The **good** student learned the method. Slightly imperfect on practice, and fine in the
+  exam.
 
-## 1. Train/Test Splits and Metrics {#sec-s11-topic-1}
-
-**Evaluation is the process of testing an algorithm on completely new data that it has never seen before.**
-
-It exists to prevent **Overfitting**. If you train a model on historical housing prices, and then ask it to predict *those exact same houses*, it might score perfectly because it simply memorized the answers. 
-
-::: {.callout-tip title="🧠 Analogy — The Math Exam"}
-**The everyday thing:** A teacher giving a final exam.
-
-**The mapping:** 
-- Giving the model the same data for training and testing is like a teacher giving students the exact exam questions as homework the night before. 
-- A student getting 100% doesn't mean they are good at math; it just means they memorized the worksheet.
-- **Evaluation splits** hold back 20% of the data (the unseen final exam) to test true generalization.
+**Only the exam tells them apart** — which is why the test set must stay sealed.
 :::
 
-### How it works
-
-- **Classification Metrics:** Accuracy (What % did we get right?), Precision, Recall.
-- **Regression Metrics:** Mean Absolute Error (MAE - on average, how many dollars off was our prediction?).
-
-### ❓ MCQs
-
-**Q1.** Why do we split our dataset into a "Training set" and a "Testing set"?
-
-- (a) To make the code run faster.
-- (b) **To ensure we test the model on data it has never seen, proving it can generalize rather than just memorize.**
-- (c) Because Scikit-Learn will crash if we use the whole dataset.
-
-::: {.callout-note collapse="true" title="Answers"}
-**A1 — (b).** Generalization is the entire point of machine learning. If it can't predict new data, it is useless.
-:::
-
-# Part Demo — Plotting Residuals {#sec-s11-demo}
-
-**Visualizing errors is much more powerful than just looking at a single score.**
-
-A **Residual** is simply the difference between the truth and the prediction. (e.g., If the house costs $200k, and the model predicts $180k, the residual is -$20k).
-
-If your model is good, the residuals should be completely random. It should over-predict and under-predict evenly. If there is a pattern in the residuals, your model missed a pattern in the data!
+### Demo 1 — watching a model overfit, in one table
 
 ```{python}
-#| label: fig-residual-demo
-#| fig-cap: "A healthy residual plot showing random, evenly distributed errors."
 import numpy as np
-import matplotlib.pyplot as plt
+from sklearn.preprocessing import PolynomialFeatures, StandardScaler
+from sklearn.linear_model import LinearRegression
+from sklearn.pipeline import make_pipeline
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score
 
-# 1. Mock Evaluation Data
-np.random.seed(42)
-# True house prices
-y_true = np.random.uniform(100000, 500000, 100)
-# Model predictions (True price + some random error)
-error = np.random.normal(0, 25000, 100) 
-y_pred = y_true + error
+rng = np.random.default_rng(51)
+x = rng.uniform(0, 10, 40)
+y = 2 + 1.5*x + rng.normal(0, 3, 40)          # the truth is a straight line plus noise
 
-# 2. Calculate Residuals
-residuals = y_true - y_pred
+Xtr, Xte, ytr, yte = train_test_split(x.reshape(-1, 1), y, test_size=.35, random_state=0)
 
-# 3. Visualize!
-plt.figure(figsize=(10, 5))
-
-# Scatter the predicted prices against the errors
-plt.scatter(y_pred, residuals, alpha=0.6, color='purple')
-
-# Draw a line at ZERO error
-plt.axhline(0, color='red', linestyle='dashed', linewidth=2)
-
-plt.title("Residual Plot (Errors)")
-plt.xlabel("Predicted Price ($)")
-plt.ylabel("Residual Error ($)")
-plt.grid(True, alpha=0.3)
-plt.show()
+print(f"{'model':<14} {'train R²':>9} {'test R²':>11}   verdict")
+print("-" * 52)
+for degree in [1, 2, 3, 5, 8, 12, 16]:
+    # StandardScaler between the two steps keeps high powers numerically stable
+    m = make_pipeline(PolynomialFeatures(degree), StandardScaler(), LinearRegression()).fit(Xtr, ytr)
+    tr, te = r2_score(ytr, m.predict(Xtr)), r2_score(yte, m.predict(Xte))
+    verdict = "OVERFITTING" if tr - te > 0.2 else "reasonable"
+    print(f"degree {degree:<7} {tr:>9.3f} {te:>11.3f}   {verdict}")
 ```
 
-::: {.callout-warning title="⚠️ The trap of the curved residual"}
-Look at the plot above. The purple dots are scattered randomly above and below the red line. This is a **Good** model. 
+**Watch the two columns separate.** Training R² climbs steadily as the model is given
+more freedom — it can always bend closer to points it has already seen. The test score
+peaks around degree 5 and then falls off a cliff: **−45 at degree 12, −187 at degree 16.**
 
-If those dots formed a "U" shape (a smile), it would mean your model is consistently guessing too low in the middle, and too high on the edges. That pattern means linear regression was the wrong algorithm for this dataset!
+A negative R² means *worse than always guessing the average*. The degree-16 model fits
+its training data better than any other model in the table and is, on unseen data, far
+worse than useless.
+
+### Demo 2 — the same thing as a picture
+
+```{python}
+#| label: fig-s11-overfit
+#| fig-cap: "Degree 1 misses the pattern. Degree 14 passes through every training point and is useless between them."
+import numpy as np, matplotlib.pyplot as plt
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+from sklearn.pipeline import make_pipeline
+
+grid = np.linspace(0, 10, 300).reshape(-1, 1)
+fig, axes = plt.subplots(1, 3, figsize=(12, 3.2))
+for ax, degree in zip(axes, [1, 3, 14]):
+    m = make_pipeline(PolynomialFeatures(degree), LinearRegression()).fit(Xtr, ytr)
+    ax.scatter(Xtr, ytr, s=18, label="training")
+    ax.scatter(Xte, yte, s=18, color="orange", label="test")
+    ax.plot(grid, m.predict(grid), "r-", lw=1.8)
+    ax.set_ylim(y.min()-6, y.max()+6)
+    ax.set_title(f"degree {degree}", fontsize=10)
+axes[0].legend(fontsize=8)
+plt.tight_layout(); plt.show()
+
+print("Degree 14 passes almost exactly through the blue training points — and swings")
+print("wildly between them, which is where the orange test points live.")
+```
+
+## 2. Bias and variance {#sec-s11-topic-2}
+
+**These are the technical names for the two failures.**
+
+| Term | Means | Shows up as |
+|---|---|---|
+| **Bias** | error from wrong assumptions — the model is too simple to represent the truth | underfitting |
+| **Variance** | error from sensitivity to the particular training data | overfitting |
+
+**The trade-off:** making a model more flexible reduces bias and increases variance. There
+is a middle point, and finding it is what the rest of this chapter is for.
+
+### Demo 3 — variance made visible
+
+```{python}
+#| label: fig-s11-variance
+#| fig-cap: "The same model fitted to six different samples from the same source. The flexible model changes shape wildly; the simple one barely moves."
+import numpy as np, matplotlib.pyplot as plt
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+from sklearn.pipeline import make_pipeline
+
+rng = np.random.default_rng(52)
+grid = np.linspace(0, 10, 200).reshape(-1, 1)
+
+fig, ax = plt.subplots(1, 2, figsize=(10, 3.3))
+for degree, a in zip([1, 12], ax):
+    for _ in range(6):                                    # six different samples
+        xs = rng.uniform(0, 10, 30)
+        ys = 2 + 1.5*xs + rng.normal(0, 3, 30)
+        m = make_pipeline(PolynomialFeatures(degree), LinearRegression()).fit(xs.reshape(-1,1), ys)
+        a.plot(grid, m.predict(grid), lw=1.2, alpha=.8)
+    a.set_ylim(-10, 30); a.set_title(f"degree {degree}: {'low' if degree==1 else 'high'} variance")
+plt.tight_layout(); plt.show()
+
+print("Left: six nearly identical lines — low variance, the model is stable.")
+print("Right: six wildly different curves from the same underlying truth —")
+print("       high variance. Which one you get depends on which rows you happened to draw.")
+```
+
+# Part B — Validation strategies {#sec-s11-b}
+
+## 3. Why one split is not enough {#sec-s11-topic-3}
+
+**A single train–test split gives you one number, and that number depends on which rows
+happened to land in the test set.**
+
+### Demo 4 — the same model, twenty different scores
+
+```{python}
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score
+
+rng = np.random.default_rng(53)
+n = 120
+X = rng.normal(size=(n, 3))
+y = X @ [3, -2, 1] + rng.normal(0, 2.5, n)
+
+scores = []
+for seed in range(20):
+    Xtr, Xte, ytr, yte = train_test_split(X, y, test_size=.3, random_state=seed)
+    scores.append(r2_score(yte, LinearRegression().fit(Xtr, ytr).predict(Xte)))
+
+scores = np.array(scores)
+print(f"lowest  R² : {scores.min():.3f}")
+print(f"highest R² : {scores.max():.3f}")
+print(f"spread     : {scores.max()-scores.min():.3f}")
+print(f"average    : {scores.mean():.3f}  (± {scores.std():.3f})")
+print("\nSame model, same data, same code. Only the random seed changed.")
+```
+
+::: {.callout-warning title="⚠️ Report a range, not a point"}
+If your model scores 0.71 and a colleague's scores 0.74, and single splits vary by 0.15,
+**you have not shown that yours is worse.** You have shown two draws from overlapping
+ranges.
+
+**Any comparison of two models must use the same folds and account for the spread.**
 :::
 
-# 🎯 Session 11 — Tasks {#sec-s11-tasks}
+## 4. K-fold cross-validation {#sec-s11-topic-4}
 
-**Task 1 — Mean Absolute Error.** 
-Look at the Y-axis of the residual plot. The errors range roughly from +$50,000 to -$50,000. This is the absolute error for individual houses. The Mean Absolute Error (MAE) would be the average of all these distances from zero.
+**Cross-validation splits the data into *k* parts, then trains *k* times — each time
+holding out a different part for testing.** Every row is used for testing exactly once.
+
+```{mermaid}
+flowchart TB
+    D["all training data, split into 5 folds"]
+    D --> R1["run 1: test on fold 1, train on 2,3,4,5"]
+    D --> R2["run 2: test on fold 2, train on 1,3,4,5"]
+    D --> R3["run 3: test on fold 3, train on 1,2,4,5"]
+    D --> R4["run 4: test on fold 4, train on 1,2,3,5"]
+    D --> R5["run 5: test on fold 5, train on 1,2,3,4"]
+    R1 --> A["average the 5 scores<br/><b>and report the spread</b>"]
+    R2 --> A
+    R3 --> A
+    R4 --> A
+    R5 --> A
+```
+
+### Demo 5 — cross-validation, fold by fold
+
+```{python}
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import cross_val_score, KFold
+
+cv = KFold(5, shuffle=True, random_state=0)
+fold_scores = cross_val_score(LinearRegression(), X, y, cv=cv, scoring="r2")
+
+for i, s in enumerate(fold_scores, 1):
+    print(f"  fold {i}: R² = {s:.3f}")
+print(f"\nreport this: R² = {fold_scores.mean():.3f} ± {fold_scores.std():.3f}")
+print(f"a single split could have given you anything from {fold_scores.min():.3f} "
+      f"to {fold_scores.max():.3f}")
+```
+
+## 5. Choosing a validation strategy {#sec-s11-topic-5}
+
+```{python}
+print(f"{'strategy':<24} {'how it works':<44} {'use when'}")
+print("-" * 108)
+rows = [
+    ("Holdout",           "one split, e.g. 80/20",                      "data is huge; you need a quick answer"),
+    ("K-fold",            "k splits, every row tested once",            "the default"),
+    ("Stratified k-fold", "k-fold keeping class proportions",           "classification, especially imbalanced"),
+    ("Leave-one-out",     "k = number of rows",                         "very small datasets; expensive"),
+    ("Bootstrapping",     "sample with replacement, many times",        "you want a confidence interval"),
+    ("Time-series split", "always train on the past, test on the future","the rows are ordered in time"),
+]
+for r in rows:
+    print(f"{r[0]:<24} {r[1]:<44} {r[2]}")
+```
+
+::: {.callout-warning title="⚠️ Never shuffle time-ordered data"}
+Ordinary k-fold shuffles rows, so a model can be trained on **next month** and tested on
+**last month**. It will look excellent and be worthless, because in production the future
+is not available. **For anything with a time order, use `TimeSeriesSplit`.**
+:::
+
+### Demo 6 — bootstrapping for a confidence interval
+
+```{python}
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+
+rng = np.random.default_rng(54)
+boot_scores = []
+for _ in range(500):
+    idx = rng.integers(0, len(X), len(X))               # sample rows WITH replacement
+    oob = np.setdiff1d(np.arange(len(X)), idx)          # rows not drawn = the test set
+    if len(oob) < 5:
+        continue
+    m = LinearRegression().fit(X[idx], y[idx])
+    boot_scores.append(r2_score(y[oob], m.predict(X[oob])))
+
+lo, hi = np.percentile(boot_scores, [2.5, 97.5])
+print(f"bootstrap estimate of R²: {np.mean(boot_scores):.3f}")
+print(f"95% confidence interval : {lo:.3f} to {hi:.3f}")
+print(f"\nBased on {len(boot_scores)} resamples. Quote the interval, not the point.")
+```
+
+# Part C — Evaluating with pictures {#sec-s11-c}
+
+## 6. What a score cannot tell you {#sec-s11-topic-6}
+
+**A single number compresses every mistake into one figure, and hides where the mistakes
+are.** Two models with identical R² can be wrong in completely different ways.
+
+### Demo 7 — the residual plot
+
+```{python}
+#| label: fig-s11-residuals
+#| fig-cap: "Predicted versus residual. A healthy model shows a shapeless band around zero."
+import numpy as np, matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+
+rng = np.random.default_rng(55)
+xs = rng.uniform(1, 20, 300)
+
+cases = {
+    "Healthy":          3*xs + rng.normal(0, 2, 300),
+    "Missing a curve":  0.3*xs**2 + rng.normal(0, 2, 300),
+    "Growing error":    3*xs + rng.normal(0, 1, 300) * xs * .35,
+}
+
+fig, axes = plt.subplots(1, 3, figsize=(12, 3.2))
+for ax, (name, yy) in zip(axes, cases.items()):
+    m = LinearRegression().fit(xs.reshape(-1,1), yy)
+    pred = m.predict(xs.reshape(-1,1))
+    ax.scatter(pred, yy - pred, s=9, alpha=.6)
+    ax.axhline(0, color="red", lw=1.5)
+    ax.set_title(f"{name}\nR² = {m.score(xs.reshape(-1,1), yy):.3f}", fontsize=9)
+    ax.set_xlabel("predicted"); ax.set_ylabel("residual")
+plt.tight_layout(); plt.show()
+
+print("All three have a respectable R². Only the first is a model you should ship.")
+print("  curve  → the relationship is not linear; the model is systematically wrong")
+print("           at both ends and systematically right in the middle")
+print("  fan    → the model is reliable for small predictions and unreliable for large")
+print("           ones. A single R² averages those two very different situations.")
+```
+
+## 7. The distribution of the errors {#sec-s11-topic-7}
+
+**Plotting the errors themselves shows whether the model is biased and how bad the worst
+cases are.**
+
+### Demo 8 — the error distribution, and what it reveals
+
+```{python}
+#| label: fig-s11-errordist
+#| fig-cap: "Left: errors centred on zero and symmetric — healthy. Right: a long tail, so a few predictions are badly wrong."
+import numpy as np, matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+
+rng = np.random.default_rng(56)
+n = 600
+Xa = rng.normal(size=(n, 2))
+good_y = Xa @ [3, -2] + rng.normal(0, 1, n)
+skew_y = Xa @ [3, -2] + rng.standard_t(2.2, n)          # heavy tails: rare big errors
+
+fig, ax = plt.subplots(1, 2, figsize=(10, 3.2))
+for a, (name, yy) in zip(ax, [("Healthy errors", good_y), ("Heavy-tailed errors", skew_y)]):
+    Xtr, Xte, ytr, yte = train_test_split(Xa, yy, test_size=.3, random_state=0)
+    err = yte - LinearRegression().fit(Xtr, ytr).predict(Xte)
+    a.hist(err, bins=40); a.axvline(0, color="red")
+    a.set_title(f"{name}\nmean error {err.mean():+.2f}, worst {np.abs(err).max():.1f}", fontsize=9)
+    a.set_xlabel("error")
+plt.tight_layout(); plt.show()
+
+print("Both models have a mean error near zero — they are unbiased on average.")
+print("The right-hand one still has occasional predictions that are badly wrong.")
+print("If a single bad prediction is expensive, the average was never the right measure.")
+```
+
+### Demo 9 — predicted versus actual
+
+```{python}
+#| label: fig-s11-predvsactual
+#| fig-cap: "Predicted against actual. Perfect predictions lie on the diagonal."
+import numpy as np, matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+
+Xtr, Xte, ytr, yte = train_test_split(Xa, good_y, test_size=.3, random_state=0)
+pred = LinearRegression().fit(Xtr, ytr).predict(Xte)
+
+plt.scatter(yte, pred, s=12, alpha=.6)
+lims = [min(yte.min(), pred.min()), max(yte.max(), pred.max())]
+plt.plot(lims, lims, "r--", lw=1.5, label="perfect prediction")
+plt.xlabel("actual"); plt.ylabel("predicted"); plt.legend()
+plt.show()
+
+print("Points above the line: the model predicted too high. Below: too low.")
+print("A systematic tilt away from the diagonal means the model is biased at one end.")
+```
+
+## 8. Learning curves {#sec-s11-topic-8}
+
+**A learning curve shows the score as training data increases. It tells you what to do
+next.**
+
+### Demo 10 — "get more data" or "get a better model"?
+
+```{python}
+#| label: fig-s11-learning
+#| fig-cap: "Left: the curves converge at a poor score — more data will not help. Right: a gap that is still closing — more data will help."
+import numpy as np, matplotlib.pyplot as plt
+from sklearn.model_selection import learning_curve
+from sklearn.linear_model import LinearRegression
+from sklearn.tree import DecisionTreeRegressor
+
+rng = np.random.default_rng(57)
+n = 600
+Xb = rng.uniform(-3, 3, size=(n, 2))
+yb = np.sin(Xb[:, 0]*2) * 4 + Xb[:, 1] + rng.normal(0, .4, n)    # a curved truth
+
+fig, ax = plt.subplots(1, 2, figsize=(11, 3.3))
+for a, (name, model) in zip(ax, [("Too simple (linear)", LinearRegression()),
+                                 ("Flexible (deep tree)", DecisionTreeRegressor(random_state=0))]):
+    sizes, train_s, val_s = learning_curve(model, Xb, yb, cv=5,
+                                           train_sizes=np.linspace(.1, 1, 8), scoring="r2")
+    a.plot(sizes, train_s.mean(1), "o-", label="training score")
+    a.plot(sizes, val_s.mean(1), "o-", label="validation score")
+    a.set_title(name, fontsize=10); a.set_xlabel("training rows"); a.set_ylim(-.1, 1.05)
+    a.legend(fontsize=8)
+plt.tight_layout(); plt.show()
+
+print("LEFT — both curves flat and low, sitting on top of each other:")
+print("       the model is too simple. More data changes nothing. Change the model.")
+print("RIGHT — a gap between the curves that is still narrowing:")
+print("       the model is learning. More data would still help.")
+```
+
+# Part D — Tuning {#sec-s11-d}
+
+## 9. Hyperparameters {#sec-s11-topic-9}
+
+**A hyperparameter is a setting you choose before training** — the depth of a tree, the
+*k* in k-Nearest Neighbours, the strength of a regularisation penalty. The model learns
+its coefficients; it does not learn these.
+
+| Method | How it searches | Use when |
+|---|---|---|
+| **Grid search** | every combination you list | few settings, small ranges |
+| **Random search** | random combinations, a fixed budget | many settings — usually beats grid for the same cost |
+| **Bayesian optimisation** | uses past results to choose what to try next | training is expensive |
+
+### Demo 11 — grid search, done correctly
+
+```{python}
+import numpy as np
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.model_selection import GridSearchCV, train_test_split
+from sklearn.metrics import r2_score
+
+Xtr, Xte, ytr, yte = train_test_split(Xb, yb, test_size=.25, random_state=0)
+
+grid = GridSearchCV(
+    DecisionTreeRegressor(random_state=0),
+    param_grid={"max_depth": [2, 3, 5, 8, 12, None],
+                "min_samples_leaf": [1, 5, 20]},
+    cv=5, scoring="r2",
+)
+grid.fit(Xtr, ytr)          # note: only the TRAINING data goes in here
+
+print(f"combinations tried : {len(grid.cv_results_['params'])}")
+print(f"best settings      : {grid.best_params_}")
+print(f"best CV score      : {grid.best_score_:.3f}   (measured on the training folds)")
+print(f"score on the sealed test set: {r2_score(yte, grid.predict(Xte)):.3f}")
+```
+
+**The test set was used exactly once, at the very end.** The search compared 18
+combinations using cross-validation *inside* the training data.
+
+### Demo 12 — what tuning on the test set does
+
+The damage from peeking is **selection bias**: when you try many candidates and keep the
+one that scored highest, the score you kept is partly a measure of luck. Here the signal
+is genuinely weak, so the candidates are nearly equivalent and "best" is mostly noise —
+which is exactly the situation where peeking hurts most.
+
+```{python}
+import numpy as np
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score
+
+rng = np.random.default_rng(77)
+n = 400
+Xw = rng.normal(size=(n, 6))
+yw = Xw[:, 0] * 1.2 + rng.normal(0, 3.0, n)          # weak signal, plenty of noise
+
+Xtr, Xtmp, ytr, ytmp = train_test_split(Xw, yw, test_size=.4, random_state=0)
+Xpeek, Xfresh, ypeek, yfresh = train_test_split(Xtmp, ytmp, test_size=.5, random_state=1)
+
+candidates = [(d, leaf) for d in [2, 3, 4, 5, 6, 8, 12, None]
+                        for leaf in [1, 2, 5, 10, 20, 40, 80]]
+
+def score_on(Xset, yset, depth, leaf):
+    m = DecisionTreeRegressor(max_depth=depth, min_samples_leaf=leaf, random_state=0)
+    return r2_score(yset, m.fit(Xtr, ytr).predict(Xset))
+
+peeked = {c: score_on(Xpeek, ypeek, *c) for c in candidates}
+best = max(peeked, key=peeked.get)
+
+print(f"settings tried            : {len(candidates)}")
+print(f"best score while peeking  : {peeked[best]:+.3f}   (max_depth={best[0]}, min_samples_leaf={best[1]})")
+print(f"that same model, fresh data: {score_on(Xfresh, yfresh, *best):+.3f}")
+print(f"\nflattery                  : {peeked[best] - score_on(Xfresh, yfresh, *best):+.3f}")
+print(f"average candidate, peek set : {np.mean(list(peeked.values())):+.3f}")
+```
+
+**The reported figure was positive. The truth was negative.** Nothing about that model
+was good — it was simply the luckiest of 56 draws against one small set of rows, and the
+score that made it look best was the part that would not repeat.
+
+Note that the *average* candidate scored badly on the peek set too. The problem is not
+that the models were good and got worse; it is that **taking the maximum over many
+noisy measurements returns an inflated measurement.**
+
+::: {.callout-important title="🔓 The test set is spent after one use"}
+Every time you look at the test score and change something because of it, you leak a
+little information into your choices. Do it twenty times and the test set has quietly
+become a second training set.
+
+**The discipline:**
+
+1. Split off the test set and **do not touch it**
+2. Do all tuning with cross-validation on the training data
+3. Look at the test set **once**, at the very end, and report what it says
+4. If you then change the model, you need a fresh test set
+:::
+
+### Demo 13 — the whole evaluation, as one report
+
+```{python}
+import numpy as np
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.dummy import DummyRegressor
+from sklearn.model_selection import cross_val_score, KFold, train_test_split
+from sklearn.metrics import mean_absolute_error, r2_score
+
+Xtr, Xte, ytr, yte = train_test_split(Xb, yb, test_size=.25, random_state=0)
+cv = KFold(5, shuffle=True, random_state=0)
+
+for name, model in [("Baseline (mean)", DummyRegressor()),
+                    ("Linear regression", LinearRegression()),
+                    ("Random forest", RandomForestRegressor(n_estimators=120, random_state=0))]:
+    folds = cross_val_score(model, Xtr, ytr, cv=cv, scoring="r2")
+    model.fit(Xtr, ytr)
+    pred = model.predict(Xte)
+    print(f"{name:<20} CV R² {folds.mean():>6.3f} ± {folds.std():.3f}   "
+          f"test R² {r2_score(yte, pred):>6.3f}   test MAE {mean_absolute_error(yte, pred):>5.2f}")
+
+print("\nThe forest wins, and the ± tells you the win is larger than the fold-to-fold noise.")
+```
+
+### ❓ Check yourself
+
+**Q1.** Training R² is 0.99, test R² is 0.41. What is happening?
+
+- (a) Underfitting.
+- (b) **Overfitting.**
+- (c) The model is good.
+
+**Q2.** Both scores are around 0.3. What should you do?
+
+- (a) Simplify the model.
+- (b) **Use a richer model or add better features — it is underfitting.**
+- (c) Collect more rows.
+
+**Q3.** Why report R² as 0.71 ± 0.06 rather than 0.71?
+
+- (a) It looks more professional.
+- (b) **A single split can vary by more than the difference you are trying to detect.**
+- (c) R² is always uncertain.
+
+**Q4.** Your data is monthly sales for five years. Which validation?
+
+- (a) K-fold with shuffling.
+- (b) **TimeSeriesSplit — always train on earlier months, test on later ones.**
+- (c) Leave-one-out.
+
+**Q5.** You tried 30 model settings, kept the one with the best test score, and reported
+that score. What is wrong?
+
+- (a) 30 is too many.
+- (b) **The test set was used to make a choice, so the reported score is optimistic. It
+  is no longer an unbiased estimate.**
+- (c) Nothing.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** Excellent on seen data, poor on unseen data — Demo 1's right-hand column.
+
+**A2 — (b).** Poor on both is the underfitting signature. Demo 10's left panel shows what
+the learning curve looks like.
+
+**A3 — (b).** Demo 4 measured a spread of over 0.15 across seeds on the same model.
+
+**A4 — (b).** Shuffling lets the model train on the future. It will look excellent and be
+worthless.
+
+**A5 — (b).** Demo 12 measured exactly this gap.
+:::
+
+# 🎯 Tasks {#sec-s11-tasks}
+
+::: {.callout-note title="✏️ Practise"}
+**Task 1 — Find the sweet spot.** In Demo 1, add degrees 3, 4, 6 and 7. **Report which
+degree has the best test R², and how far the training score has run ahead of it there.**
+
+**Task 2 — Measure the spread.** Run Demo 4 with 100 seeds instead of 20. **Report the
+standard deviation, and state the smallest score difference you would be willing to call
+a real difference.**
+
+**Task 3 — Diagnose.** For each pair, say overfitting, underfitting or healthy:
+train 0.95 / test 0.93; train 0.99 / test 0.52; train 0.44 / test 0.42;
+train 0.72 / test 0.70.
+
+**Task 4 — Tune honestly.** Grid-search a `RandomForestRegressor` over `max_depth` and
+`n_estimators` using cross-validation on the training set only, then report the test
+score once.
+:::
+
+:::: {.callout-note collapse="true" title="Solutions"}
+```{python}
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score
+
+print("Task 3")
+for tr, te in [(0.95, 0.93), (0.99, 0.52), (0.44, 0.42), (0.72, 0.70)]:
+    if tr - te > 0.2:            v = "OVERFITTING — big gap"
+    elif tr < 0.6:               v = "UNDERFITTING — poor on both"
+    else:                        v = "healthy — good, and the gap is small"
+    print(f"  train {tr:.2f} / test {te:.2f}  → {v}")
+
+# Task 2 — how big must a difference be before it means anything?
+rng = np.random.default_rng(53)
+n = 120
+X = rng.normal(size=(n, 3)); y = X @ [3, -2, 1] + rng.normal(0, 2.5, n)
+s = np.array([r2_score(*(lambda a: (a[3], LinearRegression().fit(a[0], a[2]).predict(a[1])))(
+        train_test_split(X, y, test_size=.3, random_state=k))) for k in range(100)])
+print(f"\nTask 2 — over 100 seeds: mean {s.mean():.3f}, std {s.std():.3f}, "
+      f"range {s.min():.3f} to {s.max():.3f}")
+print(f"  A gap smaller than about {2*s.std():.2f} is inside the noise — do not")
+print("  claim one model beat another on less than that.")
+```
+::::
 
 ::: {.callout-tip title="✅ Before you move on"}
-- [ ] Verify you understand that a Residual is just `Truth - Prediction`.
-- [ ] **The one thing from this chapter that is easiest to forget:** Never, ever, evaluate your model on the same data you used to train it.
+- [ ] I can diagnose overfitting and underfitting from two numbers
+- [ ] I report a cross-validated score with its spread, not a single split
+- [ ] I know not to shuffle time-ordered data
+- [ ] I draw the residual plot before believing the R²
+- [ ] I tune with cross-validation and touch the test set once
+- [ ] **Easiest thing to forget:** every peek at the test set spends a little of it. Set
+      it aside at the start and leave it alone.
 :::

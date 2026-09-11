@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>7&nbsp; Session 6 — Data Reduction and Discretization – Data Science Course</title>
+<title>7&nbsp; Session 6 — Data Reduction and Discretization – Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,7 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -77,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-99913b7803b80b0c1d2b970a25816663.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-7202036dd3638cbfcbeb4151d116aa42.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -105,14 +105,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
-
+<link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-sidebar floating quarto-light">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -121,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-06-data-reduction-and-discretization.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Session 6 — Data Reduction and Discretization</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-03-data-cleaning.html">Part B — Making data fit to use</a></li><li class="breadcrumb-item"><a href="../sessions/session-06-data-reduction-and-discretization.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Session 6 — Data Reduction and Discretization</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -133,10 +134,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Data Science Course</a> 
+      <a href="../">Data Science</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -149,105 +150,160 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science Course</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part A — Getting hold of data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-01-introduction-to-data-science.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Session 1 — Introduction to Data Science</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-02-data-collection-and-pre-processing-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 2 — Data Collection and Pre-Processing Overview</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part B — Making data fit to use</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-03-data-cleaning.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Session 3 — Data Cleaning</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-04-data-integration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Session 4 — Data Integration</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-05-data-transformation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Session 5 — Data Transformation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-06-data-reduction-and-discretization.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Session 6 — Data Reduction and Discretization</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part C — Understanding data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-07-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Session 7 — Descriptive Statistics</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-08-exploratory-data-analytics-eda-and-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analytics (EDA) and Visualization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analysis and Visualization</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part D — Learning from data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-09-supervised-learning-techniques.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Session 9 — Supervised Learning Techniques</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-10-unsupervised-learning-techniques-clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning Techniques &amp; Clustering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning and Clustering</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-11-data-model-evaluation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 11 — Data Model Evaluation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 11 — Model Evaluation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-12-model-saving-and-deployment.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Session 12 — Model Saving and Deployment</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part E — Data at scale</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-13-big-data-analytics-fundamentals.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Session 13 — Big Data Analytics Fundamentals</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-14-distributed-data-processing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Session 14 — Distributed Data Processing</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-15-nosql-databases-and-scaled-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Scaled Visualization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Visualization at Scale</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-16-open-ended-module-implementation-and-capstone.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Open Ended Module (Implementation and Capstone)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Capstone: The End-to-End Project</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -260,33 +316,59 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#sec-s06-outcomes" id="toc-sec-s06-outcomes" class="nav-link active" data-scroll-target="#sec-s06-outcomes"><span class="header-section-number">7.1</span> 🎯 Learning outcomes</a></li>
   <li><a href="#sec-s06-organisation" id="toc-sec-s06-organisation" class="nav-link" data-scroll-target="#sec-s06-organisation"><span class="header-section-number">7.2</span> How this chapter is organised</a></li>
-  <li><a href="#sec-s06-a" id="toc-sec-s06-a" class="nav-link" data-scroll-target="#sec-s06-a"><span class="header-section-number">8</span> Part A — Data Reduction</a>
+  <li><a href="#sec-s06-a" id="toc-sec-s06-a" class="nav-link" data-scroll-target="#sec-s06-a"><span class="header-section-number">8</span> Part A — Why reduce at all</a>
   <ul class="collapse">
-  <li><a href="#sec-s06-topic-1" id="toc-sec-s06-topic-1" class="nav-link" data-scroll-target="#sec-s06-topic-1"><span class="header-section-number">8.1</span> 1. Dimensionality and Numerosity Reduction</a>
+  <li><a href="#sec-s06-topic-1" id="toc-sec-s06-topic-1" class="nav-link" data-scroll-target="#sec-s06-topic-1"><span class="header-section-number">8.1</span> 1. The three kinds of reduction</a></li>
+  <li><a href="#sec-s06-topic-2" id="toc-sec-s06-topic-2" class="nav-link" data-scroll-target="#sec-s06-topic-2"><span class="header-section-number">8.2</span> 2. Why more columns can hurt</a>
   <ul class="collapse">
-  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works"><span class="header-section-number">8.1.1</span> How it works</a></li>
-  <li><a href="#mcqs" id="toc-mcqs" class="nav-link" data-scroll-target="#mcqs"><span class="header-section-number">8.1.2</span> ❓ MCQs</a></li>
+  <li><a href="#demo-1-adding-useless-columns-makes-the-model-worse" id="toc-demo-1-adding-useless-columns-makes-the-model-worse" class="nav-link" data-scroll-target="#demo-1-adding-useless-columns-makes-the-model-worse"><span class="header-section-number">8.2.1</span> Demo 1 — adding useless columns makes the model worse</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s06-b" id="toc-sec-s06-b" class="nav-link" data-scroll-target="#sec-s06-b"><span class="header-section-number">9</span> Part B — Discretization</a>
+  <li><a href="#sec-s06-b" id="toc-sec-s06-b" class="nav-link" data-scroll-target="#sec-s06-b"><span class="header-section-number">9</span> Part B — Fewer columns</a>
   <ul class="collapse">
-  <li><a href="#sec-s06-topic-2" id="toc-sec-s06-topic-2" class="nav-link" data-scroll-target="#sec-s06-topic-2"><span class="header-section-number">9.1</span> 2. Top-down and Bottom-up Discretization</a>
+  <li><a href="#sec-s06-topic-3" id="toc-sec-s06-topic-3" class="nav-link" data-scroll-target="#sec-s06-topic-3"><span class="header-section-number">9.1</span> 3. Feature selection: keep some, drop the rest</a>
   <ul class="collapse">
-  <li><a href="#how-it-works-1" id="toc-how-it-works-1" class="nav-link" data-scroll-target="#how-it-works-1"><span class="header-section-number">9.1.1</span> How it works</a></li>
+  <li><a href="#demo-2-the-three-families-on-one-dataset" id="toc-demo-2-the-three-families-on-one-dataset" class="nav-link" data-scroll-target="#demo-2-the-three-families-on-one-dataset"><span class="header-section-number">9.1.1</span> Demo 2 — the three families on one dataset</a></li>
+  </ul></li>
+  <li><a href="#sec-s06-topic-4" id="toc-sec-s06-topic-4" class="nav-link" data-scroll-target="#sec-s06-topic-4"><span class="header-section-number">9.2</span> 4. PCA: compressing columns instead of dropping them</a>
+  <ul class="collapse">
+  <li><a href="#demo-3-three-overlapping-columns-become-one" id="toc-demo-3-three-overlapping-columns-become-one" class="nav-link" data-scroll-target="#demo-3-three-overlapping-columns-become-one"><span class="header-section-number">9.2.1</span> Demo 3 — three overlapping columns become one</a></li>
+  <li><a href="#demo-4-choosing-how-many-components-to-keep" id="toc-demo-4-choosing-how-many-components-to-keep" class="nav-link" data-scroll-target="#demo-4-choosing-how-many-components-to-keep"><span class="header-section-number">9.2.2</span> Demo 4 — choosing how many components to keep</a></li>
+  <li><a href="#demo-5-always-scale-before-pca" id="toc-demo-5-always-scale-before-pca" class="nav-link" data-scroll-target="#demo-5-always-scale-before-pca"><span class="header-section-number">9.2.3</span> Demo 5 — always scale before PCA</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s06-demo" id="toc-sec-s06-demo" class="nav-link" data-scroll-target="#sec-s06-demo"><span class="header-section-number">10</span> Part Demo — PCA and Cut</a></li>
-  <li><a href="#sec-s06-tasks" id="toc-sec-s06-tasks" class="nav-link" data-scroll-target="#sec-s06-tasks"><span class="header-section-number">11</span> 🎯 Session 6 — Tasks</a></li>
+  <li><a href="#sec-s06-c" id="toc-sec-s06-c" class="nav-link" data-scroll-target="#sec-s06-c"><span class="header-section-number">10</span> Part C — Fewer rows</a>
+  <ul class="collapse">
+  <li><a href="#sec-s06-topic-5" id="toc-sec-s06-topic-5" class="nav-link" data-scroll-target="#sec-s06-topic-5"><span class="header-section-number">10.1</span> 5. Numerosity reduction</a>
+  <ul class="collapse">
+  <li><a href="#demo-6-a-sample-a-histogram-and-a-two-number-model" id="toc-demo-6-a-sample-a-histogram-and-a-two-number-model" class="nav-link" data-scroll-target="#demo-6-a-sample-a-histogram-and-a-two-number-model"><span class="header-section-number">10.1.1</span> Demo 6 — a sample, a histogram, and a two-number model</a></li>
+  </ul></li>
+  <li><a href="#sec-s06-topic-6" id="toc-sec-s06-topic-6" class="nav-link" data-scroll-target="#sec-s06-topic-6"><span class="header-section-number">10.2</span> 6. Cube aggregation</a>
+  <ul class="collapse">
+  <li><a href="#demo-7-rolling-the-same-data-up-three-ways" id="toc-demo-7-rolling-the-same-data-up-three-ways" class="nav-link" data-scroll-target="#demo-7-rolling-the-same-data-up-three-ways"><span class="header-section-number">10.2.1</span> Demo 7 — rolling the same data up three ways</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s06-d" id="toc-sec-s06-d" class="nav-link" data-scroll-target="#sec-s06-d"><span class="header-section-number">11</span> Part D — Discretization</a>
+  <ul class="collapse">
+  <li><a href="#sec-s06-topic-7" id="toc-sec-s06-topic-7" class="nav-link" data-scroll-target="#sec-s06-topic-7"><span class="header-section-number">11.1</span> 7. Turning numbers into categories</a>
+  <ul class="collapse">
+  <li><a href="#demo-8-equal-width-and-equal-frequency-top-down" id="toc-demo-8-equal-width-and-equal-frequency-top-down" class="nav-link" data-scroll-target="#demo-8-equal-width-and-equal-frequency-top-down"><span class="header-section-number">11.1.1</span> Demo 8 — equal-width and equal-frequency, top-down</a></li>
+  <li><a href="#demo-9-bins-chosen-by-domain-knowledge-which-usually-beats-both" id="toc-demo-9-bins-chosen-by-domain-knowledge-which-usually-beats-both" class="nav-link" data-scroll-target="#demo-9-bins-chosen-by-domain-knowledge-which-usually-beats-both"><span class="header-section-number">11.1.2</span> Demo 9 — bins chosen by domain knowledge, which usually beats both</a></li>
+  <li><a href="#demo-10-bottom-up-merging-by-hand" id="toc-demo-10-bottom-up-merging-by-hand" class="nav-link" data-scroll-target="#demo-10-bottom-up-merging-by-hand"><span class="header-section-number">11.1.3</span> Demo 10 — bottom-up merging, by hand</a></li>
+  <li><a href="#check-yourself" id="toc-check-yourself" class="nav-link" data-scroll-target="#check-yourself"><span class="header-section-number">11.1.4</span> ❓ Check yourself</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s06-tasks" id="toc-sec-s06-tasks" class="nav-link" data-scroll-target="#sec-s06-tasks"><span class="header-section-number">12</span> 🎯 Tasks</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-03-data-cleaning.html">Part B — Making data fit to use</a></li><li class="breadcrumb-item"><a href="../sessions/session-06-data-reduction-and-discretization.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Session 6 — Data Reduction and Discretization</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Session 6 — Data Reduction and Discretization</span></h1>
-<p class="subtitle lead">Dimensionality Reduction · PCA · Discretization</p>
+<p class="subtitle lead">Fewer columns · Fewer rows · Cube aggregation · PCA · Binning, top-down and bottom-up</p>
 </div>
 
 
@@ -303,11 +385,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<!-- Setup code for the book -->
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -318,17 +395,22 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>This chapter teaches how to shrink massive datasets without losing the critical information hidden within them.</strong></p>
-<p><strong>Assumed knowledge:</strong> Data Transformation (Session 5).</p>
+<p><strong>This chapter is about making a dataset smaller without making it less useful.</strong></p>
+<p><strong>Assumed knowledge:</strong> Sessions 2–5 — DataFrames, <code>groupby</code>, cleaning, scaling, and the train–test split.</p>
+<p><strong>The one idea to take away:</strong> every reduction throws something away. The skill is <strong>knowing what you threw away and being able to say it was not needed.</strong> A reduction you cannot justify is data loss with extra steps.</p>
 </div>
 </div>
 <section id="sec-s06-outcomes" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="sec-s06-outcomes"><span class="header-section-number">7.1</span> 🎯 Learning outcomes</h2>
 <p>By the end of this chapter you can:</p>
 <ol type="1">
-<li>Explain the “Curse of Dimensionality” and why too much data can be harmful.</li>
-<li>Reduce a dataset’s complexity using Principal Component Analysis (PCA).</li>
-<li>Convert continuous numerical data into categorized bins using discretization.</li>
+<li>Say why more columns can make a model <em>worse</em>, not better.</li>
+<li>Distinguish dimensionality reduction, numerosity reduction and cube aggregation.</li>
+<li>Select features three ways: filter, wrapper and embedded.</li>
+<li>Compress columns with PCA and choose how many components to keep.</li>
+<li>Aggregate a detailed table up to a summary level.</li>
+<li>Convert continuous numbers into categories with top-down and bottom-up methods.</li>
+<li>State what each reduction cost you.</li>
 </ol>
 </section>
 <section id="sec-s06-organisation" class="level2" data-number="7.2">
@@ -338,72 +420,804 @@ Note
 <tr class="header">
 <th>Part</th>
 <th>Question it answers</th>
-<th>Source</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#sec-s06-a">A — Data Reduction</a></td>
-<td><em>How do we shrink a dataset?</em></td>
-<td><code>concepts</code></td>
+<td><a href="#sec-s06-a">A — Why reduce at all</a></td>
+<td><em>Surely more data is better?</em></td>
 </tr>
 <tr class="even">
-<td><a href="#sec-s06-b">B — Discretization</a></td>
-<td><em>How do we group continuous numbers?</em></td>
-<td><code>concepts</code></td>
+<td><a href="#sec-s06-b">B — Fewer columns</a></td>
+<td><em>How do I drop or compress columns safely?</em></td>
 </tr>
 <tr class="odd">
-<td><a href="#sec-s06-demo">Demo — PCA and Cut</a></td>
-<td><em>What does this look like in Python?</em></td>
-<td><code>reduction_demo.py</code></td>
+<td><a href="#sec-s06-c">C — Fewer rows</a></td>
+<td><em>How do I summarise without losing the story?</em></td>
+</tr>
+<tr class="even">
+<td><a href="#sec-s06-d">D — Discretization</a></td>
+<td><em>How do I turn numbers into categories, and why would I?</em></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="sec-s06-a" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Part A — Data Reduction</h1>
-<p><strong>Having more data is usually good, but having too many columns (features) can paralyze a machine learning model.</strong></p>
+<h1 data-number="8"><span class="header-section-number">8</span> Part A — Why reduce at all</h1>
 <section id="sec-s06-topic-1" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="sec-s06-topic-1"><span class="header-section-number">8.1</span> 1. Dimensionality and Numerosity Reduction</h2>
-<p><strong>Dimensionality reduction is the process of reducing the number of columns in a dataset. Numerosity reduction is reducing the number of rows.</strong></p>
-<p>It exists to solve the <strong>Curse of Dimensionality</strong>. If you are trying to predict the price of a car, using 5 columns (mileage, age, brand, engine size, condition) is great. Using 5,000 columns (including the exact hex code of the paint, the thread count of the seats, the brand of the radio dial) will confuse the model. It will desperately try to find patterns in the noise.</p>
-<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — The Shadow">
+<h2 data-number="8.1" class="anchored" data-anchor-id="sec-s06-topic-1"><span class="header-section-number">8.1</span> 1. The three kinds of reduction</h2>
+<p><strong>Data reduction means producing a smaller dataset that still answers the question.</strong> There are three directions to shrink in.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Kind</th>
+<th>Shrinks</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Dimensionality reduction</strong></td>
+<td><strong>columns</strong></td>
+<td>200 survey questions → 5 underlying attitudes</td>
+</tr>
+<tr class="even">
+<td><strong>Numerosity reduction</strong></td>
+<td><strong>rows</strong></td>
+<td>10 million transactions → a 100,000-row sample, or a fitted model</td>
+</tr>
+<tr class="odd">
+<td><strong>Cube aggregation</strong></td>
+<td><strong>detail</strong></td>
+<td>daily sales per shop → monthly sales per region</td>
+</tr>
+</tbody>
+</table>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    D["original table&lt;br/&gt;1,000,000 rows × 200 cols"]
+    D --&gt; A["&lt;b&gt;dimensionality&lt;/b&gt;&lt;br/&gt;1,000,000 × 5"]
+    D --&gt; B["&lt;b&gt;numerosity&lt;/b&gt;&lt;br/&gt;100,000 × 200"]
+    D --&gt; C["&lt;b&gt;cube aggregation&lt;/b&gt;&lt;br/&gt;1,200 × 4&lt;br/&gt;(months × regions)"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-s06-topic-2" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="sec-s06-topic-2"><span class="header-section-number">8.2</span> 2. Why more columns can hurt</h2>
+<p><strong>Adding columns adds noise as well as information, and past a point the noise wins.</strong> This is called the <strong>curse of dimensionality</strong>.</p>
+<p>The intuition: with 5 columns and 1,000 rows, the model has plenty of examples of each combination. With 500 columns and the same 1,000 rows, every row is unique and far from every other, so “find rows similar to this one” stops meaning anything.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — describing a person">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>🧠 Analogy — The Shadow
+<span class="screen-reader-only">Tip</span>🧠 Analogy — describing a person
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>The everyday thing:</strong> Looking at a 3D object’s shadow.</p>
-<p><strong>The mapping:</strong> - A dataset with 3 columns is a <strong>3D object</strong>. - <strong>PCA (Dimensionality Reduction)</strong> shines a light on that object to cast a <strong>2D shadow</strong>. - You lose one dimension of detail (depth), but you still retain the overall shape of the object, and a 2D shadow is much easier to draw (process).</p>
+<p>Describe someone with <strong>3</strong> facts — height, age, city — and you can find people like them.</p>
+<p>Describe them with <strong>300</strong> facts, including shoe size, favourite biscuit and the number of letters in their mother’s name, and <strong>everybody is unique</strong>. You have described them perfectly and lost the ability to compare them to anyone.</p>
 </div>
 </div>
-<section id="how-it-works" class="level3" data-number="8.1.1">
-<h3 data-number="8.1.1" class="anchored" data-anchor-id="how-it-works"><span class="header-section-number">8.1.1</span> How it works</h3>
-<ul>
-<li><strong>Principal Component Analysis (PCA):</strong> A mathematical technique that compresses multiple correlated columns into a smaller set of “Principal Components” that capture the majority of the original variance.</li>
-<li><strong>Data Cube Aggregation:</strong> Grouping row data (e.g., combining daily sales into monthly sales to reduce the row count).</li>
-</ul>
+<section id="demo-1-adding-useless-columns-makes-the-model-worse" class="level3" data-number="8.2.1">
+<h3 data-number="8.2.1" class="anchored" data-anchor-id="demo-1-adding-useless-columns-makes-the-model-worse"><span class="header-section-number">8.2.1</span> Demo 1 — adding useless columns makes the model worse</h3>
+<div id="0f63cf89" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">0</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">200</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>signal <span class="op">=</span> rng.normal(size<span class="op">=</span>(n, <span class="dv">3</span>))                      <span class="co"># 3 columns that genuinely matter</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> signal <span class="op">@</span> [<span class="fl">4.0</span>, <span class="op">-</span><span class="fl">2.0</span>, <span class="fl">1.0</span>] <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'useless columns added'</span><span class="sc">:&gt;22}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">'test R²'</span><span class="sc">:&gt;8}</span><span class="ss">"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">34</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n_noise <span class="kw">in</span> [<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">20</span>, <span class="dv">100</span>, <span class="dv">190</span>]:</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    noise <span class="op">=</span> rng.normal(size<span class="op">=</span>(n, n_noise))</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> np.hstack([signal, noise])</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    Xtr, Xte, ytr, yte <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> LinearRegression().fit(Xtr, ytr)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n_noise<span class="sc">:&gt;22}</span><span class="ss"> | </span><span class="sc">{</span>r2_score(yte, model.predict(Xte))<span class="sc">:&gt;8.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> useless columns added |  test R²
+----------------------------------
+                     0 |    0.956
+                     5 |    0.952
+                    20 |    0.949
+                   100 |    0.763
+                   190 |    0.557</code></pre>
+</div>
+</div>
+<p><strong>The three useful columns never changed.</strong> Every extra column was pure noise, and the model’s performance on unseen data fell steadily as they were added. The model spent its capacity learning the noise in the training set.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ A column that helps on training data can still hurt">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ A column that helps on training data can still hurt
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you measured performance on the <em>training</em> rows instead, the score would rise with every column added — a model can always fit more junk. <strong>Only the test score reveals the damage</strong>, which is why Session 5 taught the split before this chapter needed it.</p>
+</div>
+</div>
 </section>
-<section id="mcqs" class="level3" data-number="8.1.2">
-<h3 data-number="8.1.2" class="anchored" data-anchor-id="mcqs"><span class="header-section-number">8.1.2</span> ❓ MCQs</h3>
-<p><strong>Q1.</strong> What is the primary goal of Dimensionality Reduction (like PCA)?</p>
+</section>
+</section>
+<section id="sec-s06-b" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Part B — Fewer columns</h1>
+<section id="sec-s06-topic-3" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="sec-s06-topic-3"><span class="header-section-number">9.1</span> 3. Feature selection: keep some, drop the rest</h2>
+<p><strong>Feature selection keeps a subset of your original columns.</strong> Its great advantage over compression is that the survivors are still <em>readable</em>: <code>income</code> is still <code>income</code>.</p>
+<p>Three families:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Family</th>
+<th>How it decides</th>
+<th>Cost</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Filter</strong></td>
+<td>score each column against the target, independently of any model</td>
+<td>cheap</td>
+<td>correlation, chi-square, mutual information</td>
+</tr>
+<tr class="even">
+<td><strong>Wrapper</strong></td>
+<td>train a model repeatedly, adding or removing columns</td>
+<td>expensive</td>
+<td>recursive feature elimination</td>
+</tr>
+<tr class="odd">
+<td><strong>Embedded</strong></td>
+<td>the model selects while it trains</td>
+<td>cheap</td>
+<td>Lasso, tree feature importance</td>
+</tr>
+</tbody>
+</table>
+<section id="demo-2-the-three-families-on-one-dataset" class="level3" data-number="9.1.1">
+<h3 data-number="9.1.1" class="anchored" data-anchor-id="demo-2-the-three-families-on-one-dataset"><span class="header-section-number">9.1.1</span> Demo 2 — the three families on one dataset</h3>
+<div id="f50710c3" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_selection <span class="im">import</span> SelectKBest, f_regression, RFE</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression, LassoCV</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">1</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">300</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"area"</span>:      rng.normal(<span class="dv">1200</span>, <span class="dv">300</span>, n),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bedrooms"</span>:  rng.integers(<span class="dv">1</span>, <span class="dv">6</span>, n),</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"age"</span>:       rng.integers(<span class="dv">0</span>, <span class="dv">40</span>, n),</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"noise_1"</span>:   rng.normal(size<span class="op">=</span>n),</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"noise_2"</span>:   rng.normal(size<span class="op">=</span>n),</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"noise_3"</span>:   rng.normal(size<span class="op">=</span>n),</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">30</span><span class="op">*</span>X[<span class="st">"area"</span>] <span class="op">+</span> <span class="dv">50_000</span><span class="op">*</span>X[<span class="st">"bedrooms"</span>] <span class="op">-</span> <span class="dv">8_000</span><span class="op">*</span>X[<span class="st">"age"</span>] <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">20_000</span>, n)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># FILTER — score each column on its own</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> pd.Series(f_regression(X, y)[<span class="dv">0</span>], index<span class="op">=</span>X.columns)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"FILTER — how strongly each column relates to price on its own:"</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(scores.sort_values(ascending<span class="op">=</span><span class="va">False</span>).<span class="bu">round</span>(<span class="dv">1</span>))</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># WRAPPER — repeatedly retrain, dropping the weakest column each time</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>rfe <span class="op">=</span> RFE(LinearRegression(), n_features_to_select<span class="op">=</span><span class="dv">3</span>).fit(X, y)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">WRAPPER (RFE) kept: </span><span class="sc">{</span>X<span class="sc">.</span>columns[rfe.support_]<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co"># EMBEDDED — a random forest reports importance as a by-product of training</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>forest <span class="op">=</span> RandomForestRegressor(n_estimators<span class="op">=</span><span class="dv">200</span>, random_state<span class="op">=</span><span class="dv">0</span>).fit(X, y)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">EMBEDDED — random forest importances:"</span>)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Series(forest.feature_importances_, index<span class="op">=</span>X.columns).sort_values(ascending<span class="op">=</span><span class="va">False</span>).<span class="bu">round</span>(<span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>FILTER — how strongly each column relates to price on its own:
+age         409.5
+bedrooms    148.9
+area          0.9
+noise_2       0.7
+noise_1       0.1
+noise_3       0.1
+dtype: float64
+
+WRAPPER (RFE) kept: ['bedrooms', 'age', 'noise_3']
+
+EMBEDDED — random forest importances:
+age         0.600
+bedrooms    0.359
+area        0.013
+noise_1     0.011
+noise_2     0.009
+noise_3     0.008
+dtype: float64</code></pre>
+</div>
+</div>
+<p>All three found the same three real columns. <strong>When the three families agree, you can drop the rest with confidence. When they disagree, that disagreement is information</strong> — usually it means two columns carry the same signal.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="🔓 Selection is a step that learns — it belongs in the pipeline">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>🔓 Selection is a step that learns — it belongs in the pipeline
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Session 5’s Demo 9 manufactured 80% accuracy from coin flips by selecting features on all the data. <strong>Feature selection must be fitted on the training set only</strong>, which means it goes <em>inside</em> a <code>Pipeline</code>, never before the split.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s06-topic-4" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="sec-s06-topic-4"><span class="header-section-number">9.2</span> 4. PCA: compressing columns instead of dropping them</h2>
+<p><strong>Principal Component Analysis replaces your columns with a smaller number of new columns, each a blend of the originals, chosen to keep as much variation as possible.</strong></p>
+<p>It helps when your columns overlap. Height, arm span and leg length all measure “how big is this person” — three columns carrying roughly one fact.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — the shadow">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>🧠 Analogy — the shadow
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Hold a teapot up to a lamp. The shadow on the wall is 2-D — you have thrown a whole dimension away. <strong>Yet you can still tell it is a teapot</strong>, because you turned it to cast the most informative shadow.</p>
+<p>PCA is choosing that angle automatically: the direction in which the data is most spread out, because that is the direction carrying the most information.</p>
+<p><strong>Where it breaks down:</strong> you cannot tell from the shadow whether the handle is on the near side or the far side. Some questions need the dimension you dropped.</p>
+</div>
+</div>
+<section id="demo-3-three-overlapping-columns-become-one" class="level3" data-number="9.2.1">
+<h3 data-number="9.2.1" class="anchored" data-anchor-id="demo-3-three-overlapping-columns-become-one"><span class="header-section-number">9.2.1</span> Demo 3 — three overlapping columns become one</h3>
+<div id="a1accdd2" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">2</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">200</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>size <span class="op">=</span> rng.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)                       <span class="co"># the hidden fact: overall body size</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>body <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"height_cm"</span>:  <span class="dv">170</span> <span class="op">+</span> size<span class="op">*</span><span class="dv">10</span> <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="fl">1.5</span>, n),</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"arm_span_cm"</span>:<span class="dv">170</span> <span class="op">+</span> size<span class="op">*</span><span class="dv">10</span> <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="fl">1.5</span>, n),</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"leg_len_cm"</span>:  <span class="dv">80</span> <span class="op">+</span> size<span class="op">*</span><span class="dv">5</span>  <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="fl">1.0</span>, n),</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"These three columns move together:"</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(body.corr().<span class="bu">round</span>(<span class="dv">2</span>))</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>scaled <span class="op">=</span> StandardScaler().fit_transform(body)    <span class="co"># PCA needs scaled input</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA().fit(scaled)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">How much of the total variation each new component carries:"</span>)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, v <span class="kw">in</span> <span class="bu">enumerate</span>(pca.explained_variance_ratio_, <span class="dv">1</span>):</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  component </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>v<span class="sc">:6.1%}</span><span class="ss">"</span>)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Keeping just component 1 retains </span><span class="sc">{</span>pca<span class="sc">.</span>explained_variance_ratio_[<span class="dv">0</span>]<span class="sc">:.1%}</span><span class="ss"> "</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"of the information, from 3 columns down to 1."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>These three columns move together:
+             height_cm  arm_span_cm  leg_len_cm
+height_cm         1.00         0.98        0.96
+arm_span_cm       0.98         1.00        0.96
+leg_len_cm        0.96         0.96        1.00
+
+How much of the total variation each new component carries:
+  component 1:  97.8%
+  component 2:   1.4%
+  component 3:   0.8%
+
+Keeping just component 1 retains 97.8% of the information, from 3 columns down to 1.</code></pre>
+</div>
+</div>
+</section>
+<section id="demo-4-choosing-how-many-components-to-keep" class="level3" data-number="9.2.2">
+<h3 data-number="9.2.2" class="anchored" data-anchor-id="demo-4-choosing-how-many-components-to-keep"><span class="header-section-number">9.2.2</span> Demo 4 — choosing how many components to keep</h3>
+<div id="cell-fig-s06-scree" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">4</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">400</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>hidden <span class="op">=</span> rng.normal(size<span class="op">=</span>(n, <span class="dv">4</span>))                       <span class="co"># 4 real underlying factors</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>loadings <span class="op">=</span> rng.normal(size<span class="op">=</span>(<span class="dv">4</span>, <span class="dv">12</span>))</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> hidden <span class="op">@</span> loadings <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="fl">0.35</span>, size<span class="op">=</span>(n, <span class="dv">12</span>))   <span class="co"># seen as 12 columns</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA().fit(StandardScaler().fit_transform(X))</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>var <span class="op">=</span> pca.explained_variance_ratio_</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>cum <span class="op">=</span> np.cumsum(var)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="fl">9.5</span>, <span class="fl">3.4</span>))</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].bar(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">13</span>), var)<span class="op">;</span> ax[<span class="dv">0</span>].set_title(<span class="st">"Variance per component"</span>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_xlabel(<span class="st">"component"</span>)<span class="op">;</span> ax[<span class="dv">0</span>].set_ylabel(<span class="st">"share of variation"</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].plot(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">13</span>), cum, <span class="st">"o-"</span>)<span class="op">;</span> ax[<span class="dv">1</span>].axhline(<span class="fl">0.90</span>, color<span class="op">=</span><span class="st">"red"</span>, ls<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"Cumulative"</span>)<span class="op">;</span> ax[<span class="dv">1</span>].set_xlabel(<span class="st">"components kept"</span>)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].annotate(<span class="st">"90%"</span>, (<span class="dv">11</span>, <span class="fl">0.91</span>), color<span class="op">=</span><span class="st">"red"</span>)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>need <span class="op">=</span> <span class="bu">int</span>(np.argmax(cum <span class="op">&gt;=</span> <span class="fl">0.90</span>) <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"12 columns were built from 4 hidden factors."</span>)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"PCA needs </span><span class="sc">{</span>need<span class="sc">}</span><span class="ss"> components to retain 90% of the variation."</span>)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Component-by-component: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(var[:<span class="dv">6</span>], <span class="dv">3</span>)<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss"> ..."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s06-scree" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s06-scree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-06-data-reduction-and-discretization_files/figure-html/fig-s06-scree-output-1.png" width="1024" height="363" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s06-scree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9.1: The scree plot. Keep components up to the elbow, or up to a variance target.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>12 columns were built from 4 hidden factors.
+PCA needs 4 components to retain 90% of the variation.
+Component-by-component: [0.387, 0.349, 0.13, 0.089, 0.014, 0.009] ...</code></pre>
+</div>
+</div>
+<p>The bars drop sharply after the fourth component — the “elbow” — which is exactly the number of hidden factors the data was built from. <strong>PCA found the true structure without being told it.</strong></p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ PCA costs you the ability to explain the model">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ PCA costs you the ability to explain the model
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>After PCA your model’s inputs are <code>component_1</code> and <code>component_2</code>. When somebody asks <em>“why was this loan refused?”</em>, the honest answer is <em>“component 1 was low”</em> — which means nothing to the applicant, and in regulated industries may not be a permitted answer at all.</p>
+<p><strong>If you need explanations, prefer feature selection.</strong> It keeps the original column names.</p>
+</div>
+</div>
+</section>
+<section id="demo-5-always-scale-before-pca" class="level3" data-number="9.2.3">
+<h3 data-number="9.2.3" class="anchored" data-anchor-id="demo-5-always-scale-before-pca"><span class="header-section-number">9.2.3</span> Demo 5 — always scale before PCA</h3>
+<div id="883706d9" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">6</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>mixed <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"age_years"</span>:  rng.normal(<span class="dv">40</span>, <span class="dv">12</span>, <span class="dv">300</span>),          <span class="co"># tens</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"income_rs"</span>:  rng.normal(<span class="dv">60_000</span>, <span class="dv">20_000</span>, <span class="dv">300</span>),  <span class="co"># tens of thousands</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"rating"</span>:     rng.normal(<span class="fl">3.5</span>, <span class="fl">0.8</span>, <span class="dv">300</span>),        <span class="co"># single digits</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>unscaled <span class="op">=</span> PCA().fit(mixed)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>scaled   <span class="op">=</span> PCA().fit(StandardScaler().fit_transform(mixed))</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Without scaling, component 1 carries </span><span class="sc">{</span>unscaled<span class="sc">.</span>explained_variance_ratio_[<span class="dv">0</span>]<span class="sc">:.1%}</span><span class="ss"> "</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>      <span class="st">"of the variation"</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  its make-up: </span><span class="sc">{</span><span class="bu">dict</span>(<span class="bu">zip</span>(mixed.columns, unscaled.components_[<span class="dv">0</span>].<span class="bu">round</span>(<span class="dv">3</span>)))<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">With scaling, component 1 carries </span><span class="sc">{</span>scaled<span class="sc">.</span>explained_variance_ratio_[<span class="dv">0</span>]<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  its make-up: </span><span class="sc">{</span><span class="bu">dict</span>(<span class="bu">zip</span>(mixed.columns, scaled.components_[<span class="dv">0</span>].<span class="bu">round</span>(<span class="dv">3</span>)))<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Without scaling, component 1 carries 100.0% of the variation
+  its make-up: {'age_years': np.float64(0.0), 'income_rs': np.float64(1.0), 'rating': np.float64(0.0)}
+
+With scaling, component 1 carries 36.7%
+  its make-up: {'age_years': np.float64(0.423), 'income_rs': np.float64(0.671), 'rating': np.float64(0.609)}</code></pre>
+</div>
+</div>
+<p>Unscaled, component 1 is essentially <strong>just the income column</strong> — because income has the biggest raw numbers, so it has the biggest variance, and PCA chases variance. Scaling first gives every column an equal chance to contribute.</p>
+</section>
+</section>
+</section>
+<section id="sec-s06-c" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Part C — Fewer rows</h1>
+<section id="sec-s06-topic-5" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="sec-s06-topic-5"><span class="header-section-number">10.1</span> 5. Numerosity reduction</h2>
+<p><strong>Numerosity reduction replaces the rows with something smaller that still answers the question.</strong> Two approaches:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Approach</th>
+<th>Idea</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Non-parametric</strong></td>
+<td>keep some of the actual data</td>
+<td>sampling, histograms, cluster centres</td>
+</tr>
+<tr class="even">
+<td><strong>Parametric</strong></td>
+<td>keep a <em>model</em> of the data instead of the data</td>
+<td>store a fitted line’s two numbers instead of a million points</td>
+</tr>
+</tbody>
+</table>
+<section id="demo-6-a-sample-a-histogram-and-a-two-number-model" class="level3" data-number="10.1.1">
+<h3 data-number="10.1.1" class="anchored" data-anchor-id="demo-6-a-sample-a-histogram-and-a-two-number-model"><span class="header-section-number">10.1.1</span> Demo 6 — a sample, a histogram, and a two-number model</h3>
+<div id="2f4a1ea2" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">7</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>full <span class="op">=</span> rng.normal(<span class="dv">50_000</span>, <span class="dv">12_000</span>, <span class="dv">1_000_000</span>)          <span class="co"># a million values</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Full data      : </span><span class="sc">{</span>full<span class="sc">.</span>nbytes<span class="op">/</span><span class="fl">1e6</span><span class="sc">:8.1f}</span><span class="ss"> MB, mean </span><span class="sc">{</span>full<span class="sc">.</span>mean()<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. SAMPLING — keep 1 in 1,000</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>sample <span class="op">=</span> rng.choice(full, <span class="dv">1_000</span>, replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Sample (1,000) : </span><span class="sc">{</span>sample<span class="sc">.</span>nbytes<span class="op">/</span><span class="fl">1e6</span><span class="sc">:8.4f}</span><span class="ss"> MB, mean </span><span class="sc">{</span>sample<span class="sc">.</span>mean()<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. HISTOGRAM — keep only the bin counts</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>counts, edges <span class="op">=</span> np.histogram(full, bins<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Histogram (50) : </span><span class="sc">{</span>(counts.nbytes<span class="op">+</span>edges.nbytes)<span class="op">/</span><span class="fl">1e6</span><span class="sc">:8.4f}</span><span class="ss"> MB, "</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"mean </span><span class="sc">{</span>np<span class="sc">.</span>average((edges[:<span class="op">-</span><span class="dv">1</span>]<span class="op">+</span>edges[<span class="dv">1</span>:])<span class="op">/</span><span class="dv">2</span>, weights<span class="op">=</span>counts)<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. PARAMETRIC — keep two numbers, and generate data from them when needed</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Two numbers    : </span><span class="sc">{</span><span class="dv">16</span><span class="op">/</span><span class="fl">1e6</span><span class="sc">:8.6f}</span><span class="ss"> MB, mean </span><span class="sc">{</span>full<span class="sc">.</span>mean()<span class="sc">:,.0f}</span><span class="ss"> "</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"(stored as mean and standard deviation)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Full data      :      8.0 MB, mean 49,999
+Sample (1,000) :   0.0080 MB, mean 50,302
+Histogram (50) :   0.0008 MB, mean 49,999
+Two numbers    : 0.000016 MB, mean 49,999 (stored as mean and standard deviation)</code></pre>
+</div>
+</div>
+<p>Four representations of the same million numbers, and all four give essentially the same average. The last one is <strong>50,000 times smaller</strong> — but it can only answer questions the normal distribution can answer. Ask it “how many people earn exactly ₹1,00,000?” and it will invent a plausible answer rather than report a real one.</p>
+</section>
+</section>
+<section id="sec-s06-topic-6" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="sec-s06-topic-6"><span class="header-section-number">10.2</span> 6. Cube aggregation</h2>
+<p><strong>Cube aggregation rolls detail up along a dimension</strong> — days into months, shops into regions, products into categories. The word “cube” comes from data warehousing, where data is imagined as a block with an axis for time, place and product.</p>
+<p><strong>Rolling up</strong> is going from fine to coarse (day → month). <strong>Drilling down</strong> is the reverse.</p>
+<section id="demo-7-rolling-the-same-data-up-three-ways" class="level3" data-number="10.2.1">
+<h3 data-number="10.2.1" class="anchored" data-anchor-id="demo-7-rolling-the-same-data-up-three-ways"><span class="header-section-number">10.2.1</span> Demo 7 — rolling the same data up three ways</h3>
+<div id="d2d15ed7" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, numpy <span class="im">as</span> np</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">8</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>days <span class="op">=</span> pd.date_range(<span class="st">"2024-01-01"</span>, <span class="st">"2024-06-30"</span>, freq<span class="op">=</span><span class="st">"D"</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>sales <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"date"</span>:   np.repeat(days, <span class="dv">3</span>),</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"shop"</span>:   np.tile([<span class="st">"Andheri"</span>, <span class="st">"Bandra"</span>, <span class="st">"Colaba"</span>], <span class="bu">len</span>(days)),</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"region"</span>: np.tile([<span class="st">"West"</span>, <span class="st">"West"</span>, <span class="st">"South"</span>], <span class="bu">len</span>(days)),</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"amount"</span>: rng.integers(<span class="dv">5_000</span>, <span class="dv">40_000</span>, <span class="bu">len</span>(days) <span class="op">*</span> <span class="dv">3</span>),</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Finest level: </span><span class="sc">{</span><span class="bu">len</span>(sales)<span class="sc">:,}</span><span class="ss"> rows (day × shop)"</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>by_month <span class="op">=</span> sales.groupby(sales[<span class="st">"date"</span>].dt.to_period(<span class="st">"M"</span>))[<span class="st">"amount"</span>].<span class="bu">sum</span>()</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Rolled up to month: </span><span class="sc">{</span><span class="bu">len</span>(by_month)<span class="sc">}</span><span class="ss"> rows"</span>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(by_month)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>by_region_month <span class="op">=</span> sales.groupby([sales[<span class="st">"date"</span>].dt.to_period(<span class="st">"M"</span>), <span class="st">"region"</span>])[<span class="st">"amount"</span>].<span class="bu">sum</span>()</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Rolled up to month × region: </span><span class="sc">{</span><span class="bu">len</span>(by_region_month)<span class="sc">}</span><span class="ss"> rows"</span>)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(by_region_month.head(<span class="dv">6</span>))</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">The classic cube view — months down, regions across:"</span>)</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales.pivot_table(index<span class="op">=</span>sales[<span class="st">"date"</span>].dt.to_period(<span class="st">"M"</span>),</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>                        columns<span class="op">=</span><span class="st">"region"</span>, values<span class="op">=</span><span class="st">"amount"</span>, aggfunc<span class="op">=</span><span class="st">"sum"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Finest level: 546 rows (day × shop)
+
+Rolled up to month: 6 rows
+date
+2024-01    1984810
+2024-02    2019283
+2024-03    2126630
+2024-04    2070147
+2024-05    2233655
+2024-06    2042230
+Freq: M, Name: amount, dtype: int64
+
+Rolled up to month × region: 12 rows
+date     region
+2024-01  South      689085
+         West      1295725
+2024-02  South      667514
+         West      1351769
+2024-03  South      716980
+         West      1409650
+Name: amount, dtype: int64
+
+The classic cube view — months down, regions across:
+region    South     West
+date                    
+2024-01  689085  1295725
+2024-02  667514  1351769
+2024-03  716980  1409650
+2024-04  646163  1423984
+2024-05  754648  1479007
+2024-06  690845  1351385</code></pre>
+</div>
+</div>
+<p>550 rows became 12. <strong>Every total is still exactly right</strong> — aggregation loses detail, not accuracy.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Aggregation can hide a reversal">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Aggregation can hide a reversal
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A region can show rising sales every month while <em>every shop inside it</em> is falling — if new shops opened. The roll-up is arithmetically correct and tells the opposite story to the detail.</p>
+<p><strong>Before you act on an aggregate, drill back down once and check the parts agree with the whole.</strong></p>
+</div>
+</div>
+<div id="c640469e" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Watch it happen: two shops both decline, yet the total rises.</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>detail <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"month"</span>: [<span class="st">"Jan"</span>,<span class="st">"Jan"</span>,<span class="st">"Feb"</span>,<span class="st">"Feb"</span>,<span class="st">"Feb"</span>],</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"shop"</span>:  [<span class="st">"A"</span>,<span class="st">"B"</span>,<span class="st">"A"</span>,<span class="st">"B"</span>,<span class="st">"C"</span>],       <span class="co"># shop C opens in February</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sales"</span>: [<span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">90</span>, <span class="dv">90</span>, <span class="dv">120</span>],</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(detail.pivot_table(index<span class="op">=</span><span class="st">"month"</span>, columns<span class="op">=</span><span class="st">"shop"</span>, values<span class="op">=</span><span class="st">"sales"</span>))</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Total per month:"</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(detail.groupby(<span class="st">"month"</span>)[<span class="st">"sales"</span>].<span class="bu">sum</span>())</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Total is up. Every shop that existed in January is down."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>shop       A      B      C
+month                     
+Feb     90.0   90.0  120.0
+Jan    100.0  100.0    NaN
+
+Total per month:
+month
+Feb    300
+Jan    200
+Name: sales, dtype: int64
+
+Total is up. Every shop that existed in January is down.</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="sec-s06-d" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> Part D — Discretization</h1>
+<section id="sec-s06-topic-7" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="sec-s06-topic-7"><span class="header-section-number">11.1</span> 7. Turning numbers into categories</h2>
+<p><strong>Discretization — also called binning — converts a continuous number into a category.</strong> Ages 0–120 become “child”, “adult”, “senior”.</p>
+<p>Why would you deliberately throw away precision?</p>
+<ul>
+<li><strong>Readability.</strong> “Seniors buy 3× more insurance” is a sentence a manager can act on. “Insurance purchase rises 0.03 units per year of age” is not.</li>
+<li><strong>Robustness.</strong> A small error in age cannot move somebody across a bin boundary, so the result is stable.</li>
+<li><strong>Non-linear patterns.</strong> If risk is high for the very young and the very old, a straight line cannot express that. Three bins can.</li>
+</ul>
+<p><strong>The two families are named by the direction they work in:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Family</th>
+<th>Starts from</th>
+<th>Method</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Top-down</strong> (splitting)</td>
+<td>the whole range as one bin</td>
+<td>keep cutting it</td>
+<td>equal-width, equal-frequency, entropy-based</td>
+</tr>
+<tr class="even">
+<td><strong>Bottom-up</strong> (merging)</td>
+<td>every distinct value as its own bin</td>
+<td>keep merging neighbours</td>
+<td>chi-merge</td>
+</tr>
+</tbody>
+</table>
+<section id="demo-8-equal-width-and-equal-frequency-top-down" class="level3" data-number="11.1.1">
+<h3 data-number="11.1.1" class="anchored" data-anchor-id="demo-8-equal-width-and-equal-frequency-top-down"><span class="header-section-number">11.1.1</span> Demo 8 — equal-width and equal-frequency, top-down</h3>
+<div id="364adc00" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, numpy <span class="im">as</span> np</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">9</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>ages <span class="op">=</span> pd.Series(np.concatenate([rng.integers(<span class="dv">18</span>, <span class="dv">35</span>, <span class="dv">70</span>),    <span class="co"># mostly young</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                                 rng.integers(<span class="dv">35</span>, <span class="dv">80</span>, <span class="dv">30</span>)]))</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># EQUAL WIDTH — cut the range into slices of the same size</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>equal_width <span class="op">=</span> pd.cut(ages, bins<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"EQUAL WIDTH (pd.cut) — same age range per bin, very different counts:"</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(equal_width.value_counts().sort_index())</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co"># EQUAL FREQUENCY — cut so each bin holds the same number of people</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>equal_freq <span class="op">=</span> pd.qcut(ages, q<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">EQUAL FREQUENCY (pd.qcut) — same count per bin, very different age ranges:"</span>)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(equal_freq.value_counts().sort_index())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>EQUAL WIDTH (pd.cut) — same age range per bin, very different counts:
+(17.94, 33.0]    62
+(33.0, 48.0]     20
+(48.0, 63.0]     11
+(63.0, 78.0]      7
+Name: count, dtype: int64
+
+EQUAL FREQUENCY (pd.qcut) — same count per bin, very different age ranges:
+(17.999, 26.75]    25
+(26.75, 32.0]      27
+(32.0, 38.5]       23
+(38.5, 78.0]       25
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<p><strong>Neither is right in general.</strong> Equal-width gave a bin with only a handful of people in it — too few to say anything about. Equal-frequency gave every bin a usable count, but its boundaries fall at arbitrary ages nobody would choose.</p>
+</section>
+<section id="demo-9-bins-chosen-by-domain-knowledge-which-usually-beats-both" class="level3" data-number="11.1.2">
+<h3 data-number="11.1.2" class="anchored" data-anchor-id="demo-9-bins-chosen-by-domain-knowledge-which-usually-beats-both"><span class="header-section-number">11.1.2</span> Demo 9 — bins chosen by domain knowledge, which usually beats both</h3>
+<div id="ae2ac433" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>labelled <span class="op">=</span> pd.cut(ages,</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                  bins<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">12</span>, <span class="dv">19</span>, <span class="dv">35</span>, <span class="dv">60</span>, <span class="dv">120</span>],</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                  labels<span class="op">=</span>[<span class="st">"child"</span>, <span class="st">"teen"</span>, <span class="st">"young adult"</span>, <span class="st">"middle aged"</span>, <span class="st">"senior"</span>])</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(labelled.value_counts().sort_index())</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">These boundaries mean something to a person. That is usually worth more"</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"than a mathematically tidy split."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>child           0
+teen            9
+young adult    63
+middle aged    17
+senior         11
+Name: count, dtype: int64
+
+These boundaries mean something to a person. That is usually worth more
+than a mathematically tidy split.</code></pre>
+</div>
+</div>
+</section>
+<section id="demo-10-bottom-up-merging-by-hand" class="level3" data-number="11.1.3">
+<h3 data-number="11.1.3" class="anchored" data-anchor-id="demo-10-bottom-up-merging-by-hand"><span class="header-section-number">11.1.3</span> Demo 10 — bottom-up merging, by hand</h3>
+<p>Bottom-up methods start with every value separate and merge neighbours that behave alike. Here is the idea in twenty lines: merge adjacent bins while their outcome rates are similar.</p>
+<div id="f63ac726" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ten age groups and the proportion in each who bought insurance.</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"age_group"</span>: [<span class="ss">f"</span><span class="sc">{</span>a<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>a<span class="op">+</span><span class="dv">4</span><span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> a <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">20</span>, <span class="dv">70</span>, <span class="dv">5</span>)],</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"n"</span>:         [<span class="dv">50</span>, <span class="dv">55</span>, <span class="dv">60</span>, <span class="dv">58</span>, <span class="dv">52</span>, <span class="dv">49</span>, <span class="dv">45</span>, <span class="dv">40</span>, <span class="dv">38</span>, <span class="dv">35</span>],</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bought"</span>:    [<span class="fl">.05</span>, <span class="fl">.06</span>, <span class="fl">.05</span>, <span class="fl">.07</span>, <span class="fl">.20</span>, <span class="fl">.22</span>, <span class="fl">.21</span>, <span class="fl">.45</span>, <span class="fl">.47</span>, <span class="fl">.46</span>],</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Starting bins:"</span>)<span class="op">;</span> <span class="bu">print</span>(bins.to_string(index<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge neighbours whose rates differ by less than 5 percentage points.</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>merged, current <span class="op">=</span> [], bins.iloc[<span class="dv">0</span>].to_dict()</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _, nxt <span class="kw">in</span> bins.iloc[<span class="dv">1</span>:].iterrows():</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">abs</span>(nxt[<span class="st">"bought"</span>] <span class="op">-</span> current[<span class="st">"bought"</span>]) <span class="op">&lt;</span> <span class="fl">0.05</span>:</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>        current <span class="op">=</span> {<span class="st">"age_group"</span>: current[<span class="st">"age_group"</span>].split(<span class="st">"-"</span>)[<span class="dv">0</span>] <span class="op">+</span> <span class="st">"-"</span> <span class="op">+</span> nxt[<span class="st">"age_group"</span>].split(<span class="st">"-"</span>)[<span class="dv">1</span>],</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"n"</span>: current[<span class="st">"n"</span>] <span class="op">+</span> nxt[<span class="st">"n"</span>],</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"bought"</span>: (current[<span class="st">"bought"</span>] <span class="op">+</span> nxt[<span class="st">"bought"</span>]) <span class="op">/</span> <span class="dv">2</span>}</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>        merged.append(current)<span class="op">;</span> current <span class="op">=</span> nxt.to_dict()</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>merged.append(current)</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">After bottom-up merging: </span><span class="sc">{</span><span class="bu">len</span>(bins)<span class="sc">}</span><span class="ss"> bins → </span><span class="sc">{</span><span class="bu">len</span>(merged)<span class="sc">}</span><span class="ss"> bins"</span>)</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.DataFrame(merged).<span class="bu">round</span>(<span class="dv">3</span>).to_string(index<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Starting bins:
+age_group  n  bought
+    20-24 50    0.05
+    25-29 55    0.06
+    30-34 60    0.05
+    35-39 58    0.07
+    40-44 52    0.20
+    45-49 49    0.22
+    50-54 45    0.21
+    55-59 40    0.45
+    60-64 38    0.47
+    65-69 35    0.46
+
+After bottom-up merging: 10 bins → 3 bins
+age_group   n  bought
+    20-39 223   0.061
+    40-54 146   0.210
+    55-69 113   0.460</code></pre>
+</div>
+</div>
+<p><strong>The merging found the real structure</strong>: three groups with genuinely different buying rates, rather than ten arbitrary five-year slices. That is what bottom-up discretization is for — <strong>letting the data decide where the boundaries belong.</strong></p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Binning always destroys information">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Binning always destroys information
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Once ages 35 and 59 are both “middle aged”, no later step can tell them apart. If the thing you are predicting varies smoothly with age, binning has thrown away the pattern.</p>
+<p><strong>Bin when the categories mean something to a human. Do not bin just to tidy up.</strong></p>
+</div>
+</div>
+</section>
+<section id="check-yourself" class="level3" data-number="11.1.4">
+<h3 data-number="11.1.4" class="anchored" data-anchor-id="check-yourself"><span class="header-section-number">11.1.4</span> ❓ Check yourself</h3>
+<p><strong>Q1.</strong> You add 50 columns of random noise to a dataset. What happens to the <em>training</em> score and the <em>test</em> score?</p>
 <ul>
 <li><ol type="a">
-<li>To delete all the outliers in a dataset.</li>
+<li>Both fall.</li>
 </ol></li>
 <li><ol start="2" type="a">
-<li><strong>To reduce the number of columns while retaining as much of the original information as possible.</strong></li>
+<li><strong>Training score rises, test score falls.</strong></li>
 </ol></li>
 <li><ol start="3" type="a">
-<li>To reduce the number of rows by taking a random sample.</li>
+<li>Both rise.</li>
+</ol></li>
+</ul>
+<p><strong>Q2.</strong> Which reduces rows rather than columns?</p>
+<ul>
+<li><ol type="a">
+<li>PCA.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Sampling.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Recursive feature elimination.</li>
+</ol></li>
+</ul>
+<p><strong>Q3.</strong> Why must data be scaled before PCA?</p>
+<ul>
+<li><ol type="a">
+<li>PCA cannot handle negative numbers.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>PCA chases variance, so the column with the biggest raw numbers would dominate regardless of importance.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>It makes PCA faster.</li>
+</ol></li>
+</ul>
+<p><strong>Q4.</strong> A bank must tell rejected applicants why they were rejected. Selection or PCA?</p>
+<ul>
+<li><ol type="a">
+<li>PCA — it is more powerful.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Feature selection — the surviving columns still have meaningful names.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Either.</li>
 </ol></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -412,144 +1226,102 @@ Note
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>A1 — (b).</strong> PCA mathematically compresses columns. Reducing rows is numerosity reduction (sampling or aggregation).</p>
+<p><strong>A1 — (b).</strong> A model can always fit more noise on data it has seen. Demo 1 measured the test score falling.</p>
+<p><strong>A2 — (b).</strong> PCA and RFE both work on columns.</p>
+<p><strong>A3 — (b).</strong> Demo 5 showed component 1 becoming “the income column” when scaling was skipped.</p>
+<p><strong>A4 — (b).</strong> “Component 1 was low” is not an explanation anybody can act on.</p>
 </div>
 </div>
 </div>
 </section>
 </section>
 </section>
-<section id="sec-s06-b" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> Part B — Discretization</h1>
-<p><strong>Sometimes specific numbers don’t matter as much as the category they fall into.</strong></p>
-<section id="sec-s06-topic-2" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="sec-s06-topic-2"><span class="header-section-number">9.1</span> 2. Top-down and Bottom-up Discretization</h2>
-<p><strong>Discretization (Binning) is the process of converting continuous numbers into discrete categories.</strong></p>
-<p>It exists because human behavior often reacts to thresholds, not continuous scales. A marketing algorithm doesn’t need to know the difference between a 21-year-old and a 22-year-old. It needs to know if they are a “Young Adult” or a “Senior.”</p>
-<section id="how-it-works-1" class="level3" data-number="9.1.1">
-<h3 data-number="9.1.1" class="anchored" data-anchor-id="how-it-works-1"><span class="header-section-number">9.1.1</span> How it works</h3>
-<ul>
-<li><strong>Top-Down (Splitting):</strong> You look at the whole dataset (Ages 0 to 100) and decide to split it into equal chunks: [0-33], [34-66], [67-100].</li>
-<li><strong>Bottom-Up (Merging):</strong> You start with exact numbers (Ages 21, 22, 23) and merge them based on similarity until distinct groups form.</li>
-</ul>
-</section>
-</section>
-</section>
-<section id="sec-s06-demo" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> Part Demo — PCA and Cut</h1>
-<p><strong>Using PCA to compress a dataset, and Pandas <code>.cut()</code> to discretize age.</strong></p>
-<div id="cell-fig-reduction-demo" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 1. DISCRETIZATION (pd.cut) ---</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>ages <span class="op">=</span> pd.DataFrame({<span class="st">"Age"</span>: [<span class="dv">15</span>, <span class="dv">22</span>, <span class="dv">34</span>, <span class="dv">45</span>, <span class="dv">65</span>, <span class="dv">80</span>, <span class="dv">12</span>, <span class="dv">29</span>]})</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert continuous ages into buckets!</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>ages[<span class="st">"Age_Group"</span>] <span class="op">=</span> pd.cut(ages[<span class="st">"Age"</span>], bins<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">18</span>, <span class="dv">35</span>, <span class="dv">60</span>, <span class="dv">100</span>], labels<span class="op">=</span>[<span class="st">"Child"</span>, <span class="st">"Young Adult"</span>, <span class="st">"Adult"</span>, <span class="st">"Senior"</span>])</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"--- Discretized Ages ---"</span>)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>display(ages.head())</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 2. PCA (Dimensionality Reduction) ---</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Imagine a dataset with 3 correlated columns: Height, Arm Span, Leg Length</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>height <span class="op">=</span> np.random.normal(<span class="dv">170</span>, <span class="dv">10</span>, <span class="dv">100</span>)</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>arm_span <span class="op">=</span> height <span class="op">*</span> <span class="fl">1.02</span> <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">100</span>)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>leg_length <span class="op">=</span> height <span class="op">*</span> <span class="fl">0.45</span> <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">100</span>)</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>df_3d <span class="op">=</span> pd.DataFrame({<span class="st">"Height"</span>: height, <span class="st">"Arm_Span"</span>: arm_span, <span class="st">"Leg_Length"</span>: leg_length})</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Compress these 3 columns into just 1 Principal Component</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>compressed_1d <span class="op">=</span> pca.fit_transform(df_3d)</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">--- PCA Compression ---"</span>)</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Original shape: </span><span class="sc">{</span>df_3d<span class="sc">.</span>shape<span class="sc">}</span><span class="ss"> (3 columns)"</span>)</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Compressed shape: </span><span class="sc">{</span>compressed_1d<span class="sc">.</span>shape<span class="sc">}</span><span class="ss"> (1 column)"</span>)</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Variance explained by 1 component: </span><span class="sc">{</span>pca<span class="sc">.</span>explained_variance_ratio_[<span class="dv">0</span>]<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%"</span>)</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co"># We shrunk the data by 66%, but kept 99% of the information!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>--- Discretized Ages ---</code></pre>
-</div>
-<div id="fig-reduction-demo" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-reduction-demo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Age</th>
-<th data-quarto-table-cell-role="th">Age_Group</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>15</td>
-<td>Child</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>22</td>
-<td>Young Adult</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>34</td>
-<td>Young Adult</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>45</td>
-<td>Adult</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
-<td>65</td>
-<td>Senior</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-reduction-demo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10.1: Using PCA to compress data, and pd.cut for binning.
-</figcaption>
-</figure>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
---- PCA Compression ---
-Original shape: (100, 3) (3 columns)
-Compressed shape: (100, 1) (1 column)
-Variance explained by 1 component: 98.40%</code></pre>
-</div>
-</div>
-<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ The trap of PCA interpretability">
+<section id="sec-s06-tasks" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> 🎯 Tasks</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>⚠️ The trap of PCA interpretability
+<span class="screen-reader-only">Note</span>✏️ Practise
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>While PCA is amazing for compression, it destroys human interpretability. After running PCA, you no longer have a “Height” column. You have a “Principal Component 1” column, which is a mathematically blended smoothie of Height, Arm Span, and Leg Length.</p>
+<p><strong>Task 1 — Find the elbow.</strong> In Demo 4, change the number of hidden factors from 4 to 7 and re-run. <strong>Report how many components PCA now needs for 90%.</strong></p>
+<p><strong>Task 2 — Compare three reductions.</strong> Take the 6-column dataset from Demo 2. Build a model three ways — all columns, the 3 selected columns, and 3 PCA components — and report the test R² for each. <strong>Which wins, and does that surprise you?</strong></p>
+<p><strong>Task 3 — Choose bins.</strong> Discretize income into bins that would make sense to a marketing team. Justify each boundary in one sentence.</p>
+<p><strong>Task 4 — Break an aggregate.</strong> Extend the shop example so that three shops are open in January and five in February. Show the regional total rising while every original shop falls.</p>
 </div>
 </div>
-</section>
-<section id="sec-s06-tasks" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> 🎯 Session 6 — Tasks</h1>
-<p><strong>Task 1 — Custom Bins.</strong> Using the <code>ages</code> DataFrame above, write the Pandas code using <code>pd.cut()</code> to create a binary column: Ages 0-49 are “Young”, Ages 50-100 are “Old”.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="fc0d0431" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — all columns vs selected columns vs PCA components</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">1</span>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">300</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"area"</span>: rng.normal(<span class="dv">1200</span>, <span class="dv">300</span>, n), <span class="st">"bedrooms"</span>: rng.integers(<span class="dv">1</span>, <span class="dv">6</span>, n),</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"age"</span>: rng.integers(<span class="dv">0</span>, <span class="dv">40</span>, n),    <span class="st">"noise_1"</span>: rng.normal(size<span class="op">=</span>n),</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"noise_2"</span>: rng.normal(size<span class="op">=</span>n),    <span class="st">"noise_3"</span>: rng.normal(size<span class="op">=</span>n),</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">30</span><span class="op">*</span>X[<span class="st">"area"</span>] <span class="op">+</span> <span class="dv">50_000</span><span class="op">*</span>X[<span class="st">"bedrooms"</span>] <span class="op">-</span> <span class="dv">8_000</span><span class="op">*</span>X[<span class="st">"age"</span>] <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">20_000</span>, n)</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>Xtr, Xte, ytr, yte <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>real <span class="op">=</span> [<span class="st">"area"</span>, <span class="st">"bedrooms"</span>, <span class="st">"age"</span>]</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>sc <span class="op">=</span> StandardScaler().fit(Xtr)</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">3</span>).fit(sc.transform(Xtr))</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> {</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"all 6 columns"</span>:      LinearRegression().fit(Xtr, ytr).score(Xte, yte),</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"3 selected columns"</span>: LinearRegression().fit(Xtr[real], ytr).score(Xte[real], yte),</span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"3 PCA components"</span>:   LinearRegression().fit(p.transform(sc.transform(Xtr)), ytr)</span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>                                            .score(p.transform(sc.transform(Xte)), yte),</span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, v <span class="kw">in</span> results.items():</span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Task 2 — </span><span class="sc">{</span>k<span class="sc">:&lt;20}</span><span class="ss"> test R² </span><span class="sc">{</span>v<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">All-columns and selection are indistinguishable — a gap of 0.0003 is noise,"</span>)</span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"not a result. With 300 rows and only 3 junk columns, the model coped."</span>)</span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"PCA is the surprise: R² near zero means it predicts no better than always"</span>)</span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"guessing the average price. It chose its 3 directions by variance alone, and"</span>)</span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"the noise columns have variance too. PCA never looks at the target, so it"</span>)</span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"cannot know which variation is the useful kind."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Task 2 — all 6 columns        test R² 0.9714
+Task 2 — 3 selected columns   test R² 0.9711
+Task 2 — 3 PCA components     test R² -0.0066
+
+All-columns and selection are indistinguishable — a gap of 0.0003 is noise,
+not a result. With 300 rows and only 3 junk columns, the model coped.
+PCA is the surprise: R² near zero means it predicts no better than always
+guessing the average price. It chose its 3 directions by variance alone, and
+the noise columns have variance too. PCA never looks at the target, so it
+cannot know which variation is the useful kind.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="callout callout-style-default callout-tip callout-titled" title="✅ Before you move on">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -561,8 +1333,12 @@ Variance explained by 1 component: 98.40%</code></pre>
 </div>
 <div class="callout-body-container callout-body">
 <ul class="task-list">
-<li><label><input type="checkbox">Ensure you understand the trade-off between dimensionality reduction and interpretability.</label></li>
-<li><label><input type="checkbox"><strong>The one thing from this chapter that is easiest to forget:</strong> PCA only works well if the columns you are compressing are highly correlated (like Height and Arm Span). If the columns are completely unrelated, PCA will fail to compress them effectively.</label></li>
+<li><label><input type="checkbox">I can explain why extra columns can lower a test score</label></li>
+<li><label><input type="checkbox">I know the difference between dimensionality, numerosity and cube reduction</label></li>
+<li><label><input type="checkbox">I can name the filter, wrapper and embedded families and give an example of each</label></li>
+<li><label><input type="checkbox">I scale before PCA, and I can say what happens if I do not</label></li>
+<li><label><input type="checkbox">I can explain top-down and bottom-up discretization</label></li>
+<li><label><input type="checkbox"><strong>Easiest thing to forget:</strong> PCA never looks at the target. It keeps the directions with the most <em>variation</em>, which is not the same as the most <em>usefulness</em>.</label></li>
 </ul>
 </div>
 </div>

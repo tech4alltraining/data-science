@@ -1,123 +1,603 @@
 ---
 title: "Session 12 — Model Saving and Deployment"
-subtitle: "Joblib · Streamlit · Online vs Offline"
+subtitle: "Saving the pipeline · Inference · Offline vs online · Streamlit · What breaks after launch"
 ---
 
 {{< include ../includes/_setup.qmd >}}
 
 ::: {.callout-note}
-**This chapter covers how to take your AI out of your Jupyter notebook and give it to a real user.**
+**This chapter puts a model somewhere other people can use it.**
 
-**Assumed knowledge:** Training models (Session 9).
+**Assumed knowledge:** Session 5 — pipelines. Session 9 — training a regression.
+Session 11 — evaluating one honestly.
+
+**The one idea to take away:** **save the whole pipeline, never the model alone.** A
+model saved without its scaler and encoder will accept raw input and return confident
+nonsense, and nothing will raise an error.
 :::
 
 ## 🎯 Learning outcomes {#sec-s12-outcomes}
 
 By the end of this chapter you can:
 
-1. Save a trained Scikit-Learn model to your hard drive using `joblib`.
-2. Differentiate between offline batch deployment and online real-time deployment.
-3. Understand how Streamlit is used to build web interfaces for data models.
+1. Save and reload a trained pipeline with `joblib`.
+2. Explain why saving the estimator alone produces silent, wrong predictions.
+3. Write a `predict_one()` function that takes raw user input.
+4. Choose between offline (batch) and online (live) deployment.
+5. Write and run a Streamlit application around a saved model.
+6. Name three things that break a deployed model after launch.
 
 ## How this chapter is organised {#sec-s12-organisation}
 
-| Part | Question it answers | Source |
-|---|---|---|
-| [A — Saving and Deployment](#sec-s12-a) | *How does code become a product?* | `concepts` |
-| [Demo — The Streamlit App](#sec-s12-demo) | *What does the web app code look like?* | `app_demo.py` |
+| Part | Question it answers |
+|---|---|
+| [A — Saving](#sec-s12-a) | *How do I keep a trained model?* |
+| [B — Serving](#sec-s12-b) | *How does somebody else get a prediction?* |
+| [C — Streamlit](#sec-s12-c) | *How do I build the page they use?* |
+| [D — After launch](#sec-s12-d) | *What goes wrong once it is live?* |
 
-# Part A — Saving and Deployment {#sec-s12-a}
+# Part A — Saving {#sec-s12-a}
 
-**A model trapped in a notebook generates zero revenue.**
+## 1. Why a trained model has to be saved {#sec-s12-topic-1}
 
-## 1. Saving trained models {#sec-s12-topic-1}
+**Training happens once; predicting happens thousands of times.** Retraining a model
+every time somebody asks a question would be slow, expensive, and would give slightly
+different answers each run.
 
-**Serialization (Saving) is the process of converting a trained algorithm in RAM into a physical file on your hard drive.**
+So the trained model is written to a file. That file contains the learned
+numbers — coefficients, tree splits, the scaler's mean — and can be loaded in
+milliseconds.
 
-It exists because training a complex model can take days. If you close your laptop, the RAM is cleared, and the brain is destroyed. You must save it so another computer can load it instantly.
+::: {.callout-tip title="🧠 Analogy — the recipe and the cooking"}
+Working out a recipe takes weeks of experimenting. Cooking from it takes twenty minutes.
 
-### How it works
-
-In Python, we use libraries like `pickle` or `joblib` to "freeze-dry" the model into a `.pkl` or `.joblib` file.
-
-### 📘 Examples
-
-**Example 1 — Saving and Loading**
-
-```{python}
-#| eval: false
-from sklearn.linear_model import LinearRegression
-import joblib
-
-# 1. Assume we have a trained model
-model = LinearRegression()
-# model.fit(X_train, y_train)
-
-# 2. SAVE the model to disk
-joblib.dump(model, "house_predictor.joblib")
-
-# ... On a different server ...
-
-# 3. LOAD the model back into memory instantly
-loaded_model = joblib.load("house_predictor.joblib")
-# loaded_model.predict(new_data)
-```
-
-## 2. Offline vs Online Deployment {#sec-s12-topic-2}
-
-**Deployment is how the business actually queries your model.**
-
-- **Offline (Batch) Deployment:** The model runs once a night at 2:00 AM, looks at all the new users, predicts who will cancel their subscription, and drops a CSV file on the marketing team's desk for the morning.
-- **Online (Real-time) Deployment:** The model is wrapped in an API. When a user swipes their credit card, the bank's server pings your model instantly to ask "Is this fraud?", and your model replies in 50 milliseconds.
-
-# Part Demo — The Streamlit App {#sec-s12-demo}
-
-**Building a user interface with Streamlit.**
-
-Streamlit is an incredible Python library that turns data scripts into shareable web apps in minutes, without requiring any HTML or CSS knowledge.
-
-*(Note: Streamlit apps run from the terminal, not inside Jupyter cells. The code below is what you would save as `app.py` and run via the terminal command `streamlit run app.py`)*
-
-```{python}
-#| eval: false
-# Save this code into a file named app.py
-import streamlit as st
-import joblib
-import pandas as pd
-
-# Load the saved model (this happens once when the app starts)
-model = joblib.load("house_predictor.joblib")
-
-# Build the Web UI
-st.title("🏡 AI House Price Estimator")
-st.write("Enter the details of the house below to get an instant AI valuation.")
-
-# Create sliders for user input!
-sqft = st.slider("Square Footage", min_value=500, max_value=5000, value=1500)
-beds = st.slider("Number of Bedrooms", min_value=1, max_value=6, value=3)
-
-# When the user clicks the button...
-if st.button("Predict Price"):
-    # Format the input just like the training data
-    user_data = pd.DataFrame({"SquareFeet": [sqft], "Bedrooms": [beds]})
-    
-    # Make the prediction
-    prediction = model.predict(user_data)[0]
-    
-    # Show the result beautifully on the web page
-    st.success(f"Estimated Market Value: ${prediction:,.2f}")
-```
-
-::: {.callout-warning title="⚠️ The trap of environment mismatch"}
-If you trained your model using `scikit-learn` version 1.0, but your Streamlit server is running `scikit-learn` version 1.3, the `joblib.load()` command will often crash. The environment where you deploy MUST identically match the environment where you trained.
+**Training is developing the recipe. Saving is writing it down. Prediction is cooking.**
+You do not redevelop the recipe every time somebody orders dinner.
 :::
 
-# 🎯 Session 12 — Tasks {#sec-s12-tasks}
+## 2. Save the pipeline, not the model {#sec-s12-topic-2}
 
-**Task 1 — Local Deployment.** 
-Create a new file called `app.py` on your computer. Copy the Streamlit code above into it. Open your terminal and run `pip install streamlit`, then run `streamlit run app.py`. **Report what opens in your browser.**
+**This is the mistake that costs the most and announces itself the least.**
+
+A trained `LinearRegression` knows its coefficients. It does **not** know that its inputs
+were scaled before training. Feed it raw, unscaled numbers and it will apply
+coefficients meant for scaled ones — and return a number, confidently, with no error.
+
+### Demo 1 — the silent failure, measured
+
+```{python}
+import numpy as np, pandas as pd
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LinearRegression
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import train_test_split
+
+rng = np.random.default_rng(61)
+n = 500
+homes = pd.DataFrame({
+    "area_sqft": rng.normal(1_200, 350, n).clip(400, 3_000).round(),
+    "age_years": rng.integers(0, 40, n),
+})
+homes["price"] = (3_200*homes["area_sqft"] - 45_000*homes["age_years"]
+                  + 400_000 + rng.normal(0, 200_000, n)).round(-3)
+
+X = homes[["area_sqft", "age_years"]]
+y = homes["price"]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.2, random_state=0)
+
+# Train with scaling, as Session 5 taught.
+scaler = StandardScaler().fit(X_train)
+model = LinearRegression().fit(scaler.transform(X_train), y_train)
+
+new_house = pd.DataFrame([{"area_sqft": 1500, "age_years": 5}])
+
+right = model.predict(scaler.transform(new_house))[0]     # scaled, as trained
+wrong = model.predict(new_house)[0]                       # raw — the bug
+
+print(f"Correct  (scaled input) : ₹{right:>15,.0f}")
+print(f"Bug      (raw input)    : ₹{wrong:>15,.0f}")
+print(f"\nNo error was raised. The wrong answer is off by ₹{abs(right-wrong):,.0f}.")
+```
+
+**Both lines ran without complaint.** In a web app, the second would be shown to a user
+as a house valuation.
+
+### Demo 2 — the fix: one object that carries everything
+
+```{python}
+from sklearn.pipeline import Pipeline
+
+pipeline = Pipeline([
+    ("scale", StandardScaler()),
+    ("model", LinearRegression()),
+]).fit(X_train, y_train)
+
+print(f"Pipeline on raw input   : ₹{pipeline.predict(new_house)[0]:>15,.0f}")
+print(f"Correct answer from above: ₹{right:>15,.0f}")
+print("\nThe pipeline takes RAW input and scales it internally. There is no way")
+print("to forget the scaler, because the scaler is inside the thing you saved.")
+```
+
+## 3. Saving and loading {#sec-s12-topic-3}
+
+**`joblib` writes a fitted Python object to a file and reads it back.** It is preferred
+over `pickle` for scikit-learn because it stores large numeric arrays more efficiently.
+
+### Demo 3 — a full save-and-reload round trip
+
+```{python}
+import joblib, tempfile, os
+import numpy as np
+
+folder = tempfile.mkdtemp()
+path = os.path.join(folder, "house_price_pipeline.joblib")
+
+joblib.dump(pipeline, path)
+print(f"saved to {os.path.basename(path)}  ({os.path.getsize(path):,} bytes)")
+
+loaded = joblib.load(path)
+print(f"loaded back: {type(loaded).__name__} with steps {[n for n, _ in loaded.steps]}")
+
+before = pipeline.predict(X_test)
+after   = loaded.predict(X_test)
+print(f"\npredictions identical after reload: {np.allclose(before, after)}")
+print(f"largest difference: {np.abs(before - after).max():.10f}")
+```
+
+### Demo 4 — save everything needed to reproduce the model
+
+```{python}
+import joblib, sklearn, os, json
+from datetime import date
+from sklearn.metrics import mean_absolute_error, r2_score
+
+bundle = {
+    "pipeline": pipeline,
+    "feature_names": list(X.columns),           # so the app builds rows in the right order
+    "target": "price",
+    "trained_on": str(date.today()),
+    "n_training_rows": len(X_train),
+    "sklearn_version": sklearn.__version__,
+    "test_mae": float(mean_absolute_error(y_test, pipeline.predict(X_test))),
+    "test_r2": float(r2_score(y_test, pipeline.predict(X_test))),
+}
+
+bundle_path = os.path.join(folder, "model_bundle.joblib")
+joblib.dump(bundle, bundle_path)
+
+back = joblib.load(bundle_path)
+print(json.dumps({k: v for k, v in back.items() if k != "pipeline"}, indent=2))
+```
+
+**Everything except the pipeline itself is metadata**, and every field earns its place:
+
+| Field | Answers |
+|---|---|
+| `feature_names` | *what order do the columns go in?* |
+| `sklearn_version` | *why does this behave differently now?* |
+| `test_mae`, `test_r2` | *is the live model still as good as when we shipped it?* |
+| `trained_on` | *how stale is this?* |
+
+::: {.callout-warning title="⚠️ A saved model is tied to its library version"}
+A pipeline saved under scikit-learn 1.3 and loaded under 1.5 may warn, may behave
+differently, or may refuse to load. **Pin your versions in `requirements.txt`** and record
+the version in the bundle so the mismatch is diagnosable rather than mysterious.
+:::
+
+```{python}
+print("requirements.txt should pin exactly what trained the model, for example:")
+print(f"  scikit-learn=={sklearn.__version__}")
+print(f"  pandas=={pd.__version__}")
+print(f"  numpy=={np.__version__}")
+```
+
+# Part B — Serving {#sec-s12-b}
+
+## 4. One inference function {#sec-s12-topic-4}
+
+**Write one function that turns raw user input into a prediction, and use it
+everywhere** — the notebook, the app, the batch job, the tests. If the app builds its
+input rows differently from the notebook, you have two models.
+
+### Demo 5 — `predict_one`, with input validation
+
+```{python}
+import pandas as pd, joblib
+
+def load_model(path):
+    b = joblib.load(path)
+    return b["pipeline"], b["feature_names"]
+
+def predict_price(area_sqft, age_years, model_path=bundle_path):
+    """Turn raw user input into a price. Validates before predicting."""
+    if not 200 <= area_sqft <= 10_000:
+        raise ValueError(f"area_sqft {area_sqft} is outside the sensible range 200–10,000")
+    if not 0 <= age_years <= 120:
+        raise ValueError(f"age_years {age_years} is outside the sensible range 0–120")
+
+    pipe, features = load_model(model_path)
+    row = pd.DataFrame([{"area_sqft": area_sqft, "age_years": age_years}])[features]
+    return float(pipe.predict(row)[0])
+
+for area, age in [(800, 2), (1500, 5), (2400, 20)]:
+    print(f"{area:>5} sqft, {age:>2} years old → ₹{predict_price(area, age):>12,.0f}")
+
+try:
+    predict_price(-50, 5)
+except ValueError as e:
+    print(f"\nRejected bad input: {e}")
+```
+
+::: {.callout-important title="🔓 Validate at the door"}
+A model will happily predict a price for a house of −50 square feet. **The model is not
+where you catch nonsense — the input layer is.** Every deployed model needs a range check
+in front of it, because users type things.
+:::
+
+## 5. Offline and online deployment {#sec-s12-topic-5}
+
+**There are two ways to deliver predictions, and the choice follows from when the answer
+is needed.**
+
+| | **Offline (batch)** | **Online (live)** |
+|---|---|---|
+| When it runs | on a schedule — nightly, weekly | the moment someone asks |
+| Input | a whole file of rows | one row |
+| Output | a table of predictions | one answer |
+| Delivered as | a CSV, a database table, a dashboard | a web app or an API |
+| Needs a server running? | no — a scheduled job | **yes, always on** |
+| Cost | low | higher |
+| Good for | churn scores, restock lists, risk ratings | loan decisions, fraud checks, search |
+
+**Most projects should start offline.** If a nightly file of predictions solves the
+problem, you have avoided servers, uptime and latency entirely.
+
+### Demo 6 — offline scoring, which is often the whole product
+
+```{python}
+import pandas as pd, joblib, os
+
+# A batch job: score every property in the portfolio, write the file, stop.
+portfolio = pd.DataFrame({
+    "property_id": [f"P{i:04d}" for i in range(1, 9)],
+    "area_sqft": [900, 1250, 1800, 640, 2200, 1500, 1050, 3000],
+    "age_years": [12, 3, 25, 40, 1, 8, 18, 5],
+})
+
+pipe, features = load_model(bundle_path)
+portfolio["estimated_price"] = pipe.predict(portfolio[features]).round(-3)
+portfolio["price_per_sqft"] = (portfolio["estimated_price"] / portfolio["area_sqft"]).round(0)
+
+print(portfolio.to_string(index=False))
+
+out = os.path.join(folder, "valuations.csv")
+portfolio.to_csv(out, index=False)
+print(f"\nwritten to {os.path.basename(out)} — this file is the deliverable")
+```
+
+### Demo 7 — online scoring, one request at a time
+
+```{python}
+import time, joblib
+
+pipe, features = load_model(bundle_path)          # load ONCE, not per request
+
+def handle_request(payload: dict) -> dict:
+    """What a web endpoint does for a single incoming request."""
+    start = time.perf_counter()
+    row = pd.DataFrame([payload])[features]
+    price = float(pipe.predict(row)[0])
+    return {
+        "estimated_price": round(price, -3),
+        "confidence_note": "typical error ±₹{:,.0f}".format(joblib.load(bundle_path)["test_mae"]),
+        "latency_ms": round((time.perf_counter() - start) * 1000, 2),
+    }
+
+for payload in [{"area_sqft": 1500, "age_years": 5}, {"area_sqft": 2400, "age_years": 20}]:
+    print(payload, "→", handle_request(payload))
+```
+
+**Note where the model is loaded.** Loading it inside the request function would reread
+the file on every call. Loading it once, when the process starts, is the difference
+between a page that responds instantly and one that does not.
+
+# Part C — Streamlit {#sec-s12-c}
+
+## 6. What Streamlit does {#sec-s12-topic-6}
+
+**Streamlit turns a Python script into a web page.** There is no HTML, no JavaScript and
+no web framework to learn: you write `st.slider(...)` and a slider appears.
+
+Every Streamlit app is the same four steps:
+
+| Step | Code |
+|---|---|
+| 1. Load the model once | `@st.cache_resource` + `joblib.load` |
+| 2. Collect input from widgets | `st.slider`, `st.number_input`, `st.selectbox` |
+| 3. Predict | `pipeline.predict(row)` |
+| 4. Show the answer | `st.metric`, `st.write` |
+
+## 7. The app {#sec-s12-topic-7}
+
+The code below is a complete, working application. It is shown rather than run, because
+a Streamlit app needs a web server — the cells in this book run in a notebook kernel.
+**Save it as `app.py` and run `streamlit run app.py`.**
+
+```python
+# app.py — a complete house price estimator
+import streamlit as st
+import pandas as pd
+import joblib
+
+st.set_page_config(page_title="House price estimator", page_icon="🏠")
+
+# --- STEP 1: load the model ONCE, not on every interaction -----------------
+@st.cache_resource
+def load_bundle():
+    return joblib.load("model_bundle.joblib")
+
+bundle = load_bundle()
+pipeline = bundle["pipeline"]
+features = bundle["feature_names"]
+
+# --- STEP 2: collect input -------------------------------------------------
+st.title("🏠 House price estimator")
+st.caption(f"Model trained {bundle['trained_on']} on {bundle['n_training_rows']:,} properties")
+
+col1, col2 = st.columns(2)
+with col1:
+    area = st.slider("Floor area (sq ft)", 400, 3000, 1200, step=50)
+with col2:
+    age = st.slider("Age of property (years)", 0, 40, 5)
+
+# --- STEP 3: predict -------------------------------------------------------
+row = pd.DataFrame([{"area_sqft": area, "age_years": age}])[features]
+price = float(pipeline.predict(row)[0])
+
+# --- STEP 4: show the answer, with its uncertainty -------------------------
+st.metric("Estimated price", f"₹{price:,.0f}")
+st.caption(f"Typical error on unseen properties: ±₹{bundle['test_mae']:,.0f}")
+
+with st.expander("How reliable is this?"):
+    st.write(f"""
+    - Test R²: **{bundle['test_r2']:.2f}** — the share of price variation the model explains
+    - Trained on properties between 400 and 3,000 sq ft. Estimates outside that
+      range are extrapolation and should not be relied on.
+    - This is a statistical estimate, not a valuation.
+    """)
+```
+
+::: {.callout-warning title="⚠️ `@st.cache_resource` is not optional"}
+Without it, Streamlit reruns the **entire script** every time a slider moves — including
+`joblib.load`. On a large model that is a visible freeze on every interaction.
+`@st.cache_resource` loads it once and keeps it.
+:::
+
+### Demo 8 — the app's logic, tested without a browser
+
+You can and should test the prediction logic directly. Everything except the widgets is
+ordinary Python.
+
+```{python}
+import pandas as pd, joblib
+
+bundle = joblib.load(bundle_path)
+pipe, features = bundle["pipeline"], bundle["feature_names"]
+
+def app_logic(area, age):
+    row = pd.DataFrame([{"area_sqft": area, "age_years": age}])[features]
+    return float(pipe.predict(row)[0])
+
+print(f"{'area':>6} {'age':>4} {'estimate':>16}")
+for area in [600, 1200, 2000]:
+    for age in [0, 20]:
+        print(f"{area:>6} {age:>4} ₹{app_logic(area, age):>15,.0f}")
+
+print(f"\nSanity checks the app should pass:")
+print(f"  bigger house costs more     : {app_logic(2000, 5) > app_logic(1000, 5)}")
+print(f"  older house costs less      : {app_logic(1500, 30) < app_logic(1500, 2)}")
+print(f"  test MAE quoted to the user : ₹{bundle['test_mae']:,.0f}")
+```
+
+## 8. Publishing it {#sec-s12-topic-8}
+
+**Streamlit Community Cloud hosts small apps free, straight from a GitHub repository.**
+
+| Your repository needs | Why |
+|---|---|
+| `app.py` | the application |
+| `model_bundle.joblib` | the trained pipeline, **committed** |
+| `requirements.txt` | with versions pinned |
+| `README.md` | what it does and what it must not be used for |
+
+Then: push to GitHub → connect the repository at `share.streamlit.io` → choose
+`app.py` → deploy.
+
+::: {.callout-warning title="⚠️ Never commit secrets"}
+API keys, database passwords and connection strings must not be in the repository, and
+must not be in the model bundle. Streamlit provides `st.secrets` for this. **A key pushed
+to GitHub is compromised even if you delete it afterwards** — the history keeps it.
+:::
+
+# Part D — After launch {#sec-s12-d}
+
+## 9. What breaks {#sec-s12-topic-9}
+
+**A deployed model degrades even when nobody touches the code**, because the world it
+learned from carries on changing.
+
+| Problem | What happens | How you notice |
+|---|---|---|
+| **Data drift** | inputs shift — house sizes, customer ages | monitor input distributions |
+| **Concept drift** | the *relationship* shifts — a market crash | monitor live accuracy |
+| **Schema change** | an upstream column is renamed or reformatted | the app crashes, or worse, silently misreads |
+| **Version drift** | the library is upgraded under the model | pin versions; record them |
+| **Extrapolation** | users enter values outside the training range | validate inputs |
+
+### Demo 10 — detecting drift by watching the inputs
+
+```{python}
+import numpy as np, pandas as pd
+
+rng = np.random.default_rng(62)
+training_areas = X_train["area_sqft"]
+
+months = {
+    "Month 1": rng.normal(1_200, 350, 300),
+    "Month 4": rng.normal(1_260, 360, 300),
+    "Month 8": rng.normal(1_700, 380, 300),      # the customer base has changed
+}
+
+print(f"training data: mean {training_areas.mean():,.0f}, "
+      f"Q1 {training_areas.quantile(.25):,.0f}, Q3 {training_areas.quantile(.75):,.0f}\n")
+
+for name, seen in months.items():
+    shift = (seen.mean() - training_areas.mean()) / training_areas.std()
+    outside = ((seen < training_areas.min()) | (seen > training_areas.max())).mean()
+    flag = "  ⚠ DRIFT — retrain" if abs(shift) > 0.5 else ""
+    print(f"{name}: mean {seen.mean():>7,.0f}   shift {shift:+.2f} std   "
+          f"{outside:>5.1%} outside training range{flag}")
+```
+
+**No accuracy figure was needed.** Watching the *inputs* catches drift before the
+predictions have visibly gone wrong — and long before anybody complains.
+
+### Demo 11 — the deployment checklist, as code
+
+```{python}
+import joblib, os
+
+def preflight(bundle_path):
+    """Checks to run before any model goes live."""
+    b = joblib.load(bundle_path)
+    checks = {
+        "pipeline saved (not a bare model)": hasattr(b["pipeline"], "steps"),
+        "preprocessing inside the pipeline": any("scal" in n or "prep" in n or "impute" in n
+                                                 for n, _ in b["pipeline"].steps),
+        "feature order recorded":            bool(b.get("feature_names")),
+        "library version recorded":          bool(b.get("sklearn_version")),
+        "test score recorded":               b.get("test_r2") is not None,
+        "training date recorded":            bool(b.get("trained_on")),
+        "file is loadable":                  os.path.getsize(bundle_path) > 0,
+    }
+    for name, ok in checks.items():
+        print(f"  {'✓' if ok else '✗'}  {name}")
+    return all(checks.values())
+
+print("PRE-FLIGHT CHECKS")
+print(f"\nready to deploy: {preflight(bundle_path)}")
+```
+
+### ❓ Check yourself
+
+**Q1.** You save only the `LinearRegression` and not its scaler. What happens in
+production?
+
+- (a) The app crashes on the first request.
+- (b) **It returns confident, wrong predictions with no error.**
+- (c) Predictions are slightly less accurate.
+
+**Q2.** A nightly job scores every customer for churn risk and writes a CSV. What kind of
+deployment?
+
+- (a) Online.
+- (b) **Offline (batch).**
+- (c) Neither.
+
+**Q3.** Why use `@st.cache_resource` on the model loader?
+
+- (a) It makes predictions more accurate.
+- (b) **Streamlit reruns the whole script on every interaction; without it the model
+  reloads from disk each time.**
+- (c) It is required by Streamlit Cloud.
+
+**Q4.** Your model's accuracy has fallen six months after launch, but the code is
+unchanged. Most likely cause?
+
+- (a) The file has corrupted.
+- (b) **Drift — the incoming data or the underlying relationship has changed.**
+- (c) Streamlit updated.
+
+**Q5.** A user asks the app to value a 9,000 sq ft house. The training data went up to
+3,000. What should the app do?
+
+- (a) Return the prediction.
+- (b) **Refuse, or return it with a prominent warning that it is outside the model's
+  range.**
+- (c) Return the maximum training price.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** Demo 1 measured the size of the error. Silence is what makes it dangerous.
+
+**A2 — (b).** No server, no latency requirement — the file is the product.
+
+**A3 — (b).** Every slider move reruns the script top to bottom.
+
+**A4 — (b).** Demo 10 shows how to catch it by watching inputs rather than waiting for
+complaints.
+
+**A5 — (b).** Session 9's extrapolation warning, now with a user attached.
+:::
+
+# 🎯 Tasks {#sec-s12-tasks}
+
+::: {.callout-note title="✏️ Practise"}
+**Task 1 — Break it deliberately.** Save a bare `LinearRegression` (no pipeline), reload
+it, and predict on raw input. **Report the difference from the correct prediction.**
+
+**Task 2 — Extend the bundle.** Add the minimum and maximum of each training feature to
+the bundle, and make `predict_price` warn when an input falls outside those bounds.
+
+**Task 3 — Build and run the app.** Save `app.py` and `model_bundle.joblib` to a folder
+and run `streamlit run app.py`. **Report what happens when you move a slider past the
+training range.**
+
+**Task 4 — Detect drift.** Generate a month of input data where the *age* distribution
+has shifted rather than area, and extend Demo 10 to catch it.
+:::
+
+:::: {.callout-note collapse="true" title="Solutions"}
+```{python}
+import numpy as np, pandas as pd, joblib, os, tempfile
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LinearRegression
+from sklearn.pipeline import Pipeline
+
+# Task 1 — the bare model versus the pipeline
+d = tempfile.mkdtemp()
+bare_path = os.path.join(d, "bare.joblib")
+joblib.dump(model, bare_path)                      # the estimator only
+
+bare = joblib.load(bare_path)
+new = pd.DataFrame([{"area_sqft": 1500, "age_years": 5}])
+print(f"Task 1 — bare model on raw input : ₹{bare.predict(new)[0]:>14,.0f}")
+print(f"         pipeline on raw input   : ₹{pipeline.predict(new)[0]:>14,.0f}")
+print(f"         difference              : ₹{abs(bare.predict(new)[0]-pipeline.predict(new)[0]):>14,.0f}")
+
+# Task 2 — record the training ranges and warn on extrapolation
+bounds = {c: (float(X_train[c].min()), float(X_train[c].max())) for c in X_train.columns}
+print(f"\nTask 2 — training ranges: {bounds}")
+
+def predict_checked(area, age):
+    warnings = [f"{c}={v} is outside the training range {bounds[c]}"
+                for c, v in [("area_sqft", area), ("age_years", age)]
+                if not bounds[c][0] <= v <= bounds[c][1]]
+    price = float(pipeline.predict(pd.DataFrame([{"area_sqft": area, "age_years": age}]))[0])
+    return price, warnings
+
+for a in [1500, 9000]:
+    p, w = predict_checked(a, 5)
+    print(f"  {a:>5} sqft → ₹{p:>12,.0f}   {'⚠ ' + w[0] if w else 'within range'}")
+```
+::::
 
 ::: {.callout-tip title="✅ Before you move on"}
-- [ ] Understand why we save models using `joblib`.
-- [ ] **The one thing from this chapter that is easiest to forget:** A model is just a file. Deployment is just putting that file on a server that has the internet connected to it.
+- [ ] I save the whole pipeline, never a bare estimator
+- [ ] My bundle records feature order, library version and test score
+- [ ] I have one `predict_one()` used by the notebook and the app alike
+- [ ] I validate inputs before they reach the model
+- [ ] I know the difference between batch and live deployment, and why batch is often
+      enough
+- [ ] **Easiest thing to forget:** a deployed model gets worse on its own. Monitor the
+      inputs, not just the complaints.
 :::

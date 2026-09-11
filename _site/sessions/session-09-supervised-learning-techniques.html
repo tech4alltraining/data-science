@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>10&nbsp; Session 9 — Supervised Learning Techniques – Data Science Course</title>
+<title>10&nbsp; Session 9 — Supervised Learning Techniques – Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -77,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-99913b7803b80b0c1d2b970a25816663.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-7202036dd3638cbfcbeb4151d116aa42.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -106,10 +106,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-sidebar floating quarto-light">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -118,7 +148,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-09-supervised-learning-techniques.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Session 9 — Supervised Learning Techniques</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-09-supervised-learning-techniques.html">Part D — Learning from data</a></li><li class="breadcrumb-item"><a href="../sessions/session-09-supervised-learning-techniques.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Session 9 — Supervised Learning Techniques</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -130,10 +160,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Data Science Course</a> 
+      <a href="../">Data Science</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -146,105 +176,160 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science Course</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part A — Getting hold of data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-01-introduction-to-data-science.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Session 1 — Introduction to Data Science</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-02-data-collection-and-pre-processing-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 2 — Data Collection and Pre-Processing Overview</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part B — Making data fit to use</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-03-data-cleaning.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Session 3 — Data Cleaning</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-04-data-integration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Session 4 — Data Integration</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-05-data-transformation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Session 5 — Data Transformation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-06-data-reduction-and-discretization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Session 6 — Data Reduction and Discretization</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part C — Understanding data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-07-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Session 7 — Descriptive Statistics</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-08-exploratory-data-analytics-eda-and-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analytics (EDA) and Visualization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analysis and Visualization</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part D — Learning from data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-09-supervised-learning-techniques.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Session 9 — Supervised Learning Techniques</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-10-unsupervised-learning-techniques-clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning Techniques &amp; Clustering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning and Clustering</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-11-data-model-evaluation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 11 — Data Model Evaluation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 11 — Model Evaluation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-12-model-saving-and-deployment.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Session 12 — Model Saving and Deployment</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part E — Data at scale</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-13-big-data-analytics-fundamentals.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Session 13 — Big Data Analytics Fundamentals</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-14-distributed-data-processing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Session 14 — Distributed Data Processing</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-15-nosql-databases-and-scaled-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Scaled Visualization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Visualization at Scale</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-16-open-ended-module-implementation-and-capstone.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Open Ended Module (Implementation and Capstone)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Capstone: The End-to-End Project</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -257,48 +342,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#sec-s09-outcomes" id="toc-sec-s09-outcomes" class="nav-link active" data-scroll-target="#sec-s09-outcomes"><span class="header-section-number">10.1</span> 🎯 Learning outcomes</a></li>
   <li><a href="#sec-s09-organisation" id="toc-sec-s09-organisation" class="nav-link" data-scroll-target="#sec-s09-organisation"><span class="header-section-number">10.2</span> How this chapter is organised</a></li>
-  <li><a href="#sec-s09-a" id="toc-sec-s09-a" class="nav-link" data-scroll-target="#sec-s09-a"><span class="header-section-number">11</span> Part A — Supervised learning techniques</a>
+  <li><a href="#sec-s09-a" id="toc-sec-s09-a" class="nav-link" data-scroll-target="#sec-s09-a"><span class="header-section-number">11</span> Part A — What supervised learning is</a>
   <ul class="collapse">
-  <li><a href="#sec-s09-topic-1" id="toc-sec-s09-topic-1" class="nav-link" data-scroll-target="#sec-s09-topic-1"><span class="header-section-number">11.1</span> 1. Supervised learning techniques</a>
+  <li><a href="#sec-s09-topic-1" id="toc-sec-s09-topic-1" class="nav-link" data-scroll-target="#sec-s09-topic-1"><span class="header-section-number">11.1</span> 1. Learning from labelled examples</a></li>
+  <li><a href="#sec-s09-topic-2" id="toc-sec-s09-topic-2" class="nav-link" data-scroll-target="#sec-s09-topic-2"><span class="header-section-number">11.2</span> 2. Regression or classification?</a>
   <ul class="collapse">
-  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works"><span class="header-section-number">11.1.1</span> How it works</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">11.1.2</span> 📘 Examples</a></li>
-  <li><a href="#scenarios" id="toc-scenarios" class="nav-link" data-scroll-target="#scenarios"><span class="header-section-number">11.1.3</span> 🌍 Scenarios</a></li>
-  <li><a href="#mcqs" id="toc-mcqs" class="nav-link" data-scroll-target="#mcqs"><span class="header-section-number">11.1.4</span> ❓ MCQs</a></li>
+  <li><a href="#demo-1-telling-them-apart" id="toc-demo-1-telling-them-apart" class="nav-link" data-scroll-target="#demo-1-telling-them-apart"><span class="header-section-number">11.2.1</span> Demo 1 — telling them apart</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s09-b" id="toc-sec-s09-b" class="nav-link" data-scroll-target="#sec-s09-b"><span class="header-section-number">12</span> Part B — Prediction and Decision Making</a>
+  <li><a href="#sec-s09-b" id="toc-sec-s09-b" class="nav-link" data-scroll-target="#sec-s09-b"><span class="header-section-number">12</span> Part B — Simple regression</a>
   <ul class="collapse">
-  <li><a href="#sec-s09-topic-2" id="toc-sec-s09-topic-2" class="nav-link" data-scroll-target="#sec-s09-topic-2"><span class="header-section-number">12.1</span> 2. Prediction and Decision Making</a>
+  <li><a href="#sec-s09-topic-3" id="toc-sec-s09-topic-3" class="nav-link" data-scroll-target="#sec-s09-topic-3"><span class="header-section-number">12.1</span> 3. One input, one line</a>
   <ul class="collapse">
-  <li><a href="#how-it-works-1" id="toc-how-it-works-1" class="nav-link" data-scroll-target="#how-it-works-1"><span class="header-section-number">12.1.1</span> How it works</a></li>
-  <li><a href="#examples-1" id="toc-examples-1" class="nav-link" data-scroll-target="#examples-1"><span class="header-section-number">12.1.2</span> 📘 Examples</a></li>
-  <li><a href="#scenarios-1" id="toc-scenarios-1" class="nav-link" data-scroll-target="#scenarios-1"><span class="header-section-number">12.1.3</span> 🌍 Scenarios</a></li>
-  <li><a href="#mcqs-1" id="toc-mcqs-1" class="nav-link" data-scroll-target="#mcqs-1"><span class="header-section-number">12.1.4</span> ❓ MCQs</a></li>
+  <li><a href="#demo-2-fitting-one-line-and-reading-it-out-loud" id="toc-demo-2-fitting-one-line-and-reading-it-out-loud" class="nav-link" data-scroll-target="#demo-2-fitting-one-line-and-reading-it-out-loud"><span class="header-section-number">12.1.1</span> Demo 2 — fitting one line, and reading it out loud</a></li>
+  <li><a href="#demo-3-using-it-to-predict" id="toc-demo-3-using-it-to-predict" class="nav-link" data-scroll-target="#demo-3-using-it-to-predict"><span class="header-section-number">12.1.2</span> Demo 3 — using it to predict</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s09-c" id="toc-sec-s09-c" class="nav-link" data-scroll-target="#sec-s09-c"><span class="header-section-number">13</span> Part C — Simple and Multiple Regression</a>
+  <li><a href="#sec-s09-c" id="toc-sec-s09-c" class="nav-link" data-scroll-target="#sec-s09-c"><span class="header-section-number">13</span> Part C — Multiple regression</a>
   <ul class="collapse">
-  <li><a href="#sec-s09-topic-3" id="toc-sec-s09-topic-3" class="nav-link" data-scroll-target="#sec-s09-topic-3"><span class="header-section-number">13.1</span> 3. Simple and Multiple Regression</a>
+  <li><a href="#sec-s09-topic-4" id="toc-sec-s09-topic-4" class="nav-link" data-scroll-target="#sec-s09-topic-4"><span class="header-section-number">13.1</span> 4. Several inputs at once</a>
   <ul class="collapse">
-  <li><a href="#how-it-works-2" id="toc-how-it-works-2" class="nav-link" data-scroll-target="#how-it-works-2"><span class="header-section-number">13.1.1</span> How it works</a></li>
-  <li><a href="#examples-2" id="toc-examples-2" class="nav-link" data-scroll-target="#examples-2"><span class="header-section-number">13.1.2</span> 📘 Examples</a></li>
-  <li><a href="#scenarios-2" id="toc-scenarios-2" class="nav-link" data-scroll-target="#scenarios-2"><span class="header-section-number">13.1.3</span> 🌍 Scenarios</a></li>
-  <li><a href="#mcqs-2" id="toc-mcqs-2" class="nav-link" data-scroll-target="#mcqs-2"><span class="header-section-number">13.1.4</span> ❓ MCQs</a></li>
+  <li><a href="#demo-4-a-real-multiple-regression-done-properly" id="toc-demo-4-a-real-multiple-regression-done-properly" class="nav-link" data-scroll-target="#demo-4-a-real-multiple-regression-done-properly"><span class="header-section-number">13.1.1</span> Demo 4 — a real multiple regression, done properly</a></li>
+  <li><a href="#demo-5-why-holding-constant-changes-the-answer" id="toc-demo-5-why-holding-constant-changes-the-answer" class="nav-link" data-scroll-target="#demo-5-why-holding-constant-changes-the-answer"><span class="header-section-number">13.1.2</span> Demo 5 — why “holding constant” changes the answer</a></li>
+  <li><a href="#demo-6-adding-features-one-at-a-time" id="toc-demo-6-adding-features-one-at-a-time" class="nav-link" data-scroll-target="#demo-6-adding-features-one-at-a-time"><span class="header-section-number">13.1.3</span> Demo 6 — adding features one at a time</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s09-demo" id="toc-sec-s09-demo" class="nav-link" data-scroll-target="#sec-s09-demo"><span class="header-section-number">14</span> Part Demo — Applied Walkthrough</a></li>
-  <li><a href="#sec-s09-tasks" id="toc-sec-s09-tasks" class="nav-link" data-scroll-target="#sec-s09-tasks"><span class="header-section-number">15</span> 🎯 Session 9 — Tasks</a></li>
+  <li><a href="#sec-s09-d" id="toc-sec-s09-d" class="nav-link" data-scroll-target="#sec-s09-d"><span class="header-section-number">14</span> Part D — Measuring it</a>
+  <ul class="collapse">
+  <li><a href="#sec-s09-topic-5" id="toc-sec-s09-topic-5" class="nav-link" data-scroll-target="#sec-s09-topic-5"><span class="header-section-number">14.1</span> 5. The three regression metrics</a>
+  <ul class="collapse">
+  <li><a href="#demo-7-computed-by-hand-then-by-scikit-learn" id="toc-demo-7-computed-by-hand-then-by-scikit-learn" class="nav-link" data-scroll-target="#demo-7-computed-by-hand-then-by-scikit-learn"><span class="header-section-number">14.1.1</span> Demo 7 — computed by hand, then by scikit-learn</a></li>
+  <li><a href="#demo-8-why-mae-and-rmse-disagree-and-when-it-matters" id="toc-demo-8-why-mae-and-rmse-disagree-and-when-it-matters" class="nav-link" data-scroll-target="#demo-8-why-mae-and-rmse-disagree-and-when-it-matters"><span class="header-section-number">14.1.2</span> Demo 8 — why MAE and RMSE disagree, and when it matters</a></li>
+  <li><a href="#demo-9-always-compare-against-a-baseline" id="toc-demo-9-always-compare-against-a-baseline" class="nav-link" data-scroll-target="#demo-9-always-compare-against-a-baseline"><span class="header-section-number">14.1.3</span> Demo 9 — always compare against a baseline</a></li>
+  </ul></li>
+  <li><a href="#sec-s09-topic-6" id="toc-sec-s09-topic-6" class="nav-link" data-scroll-target="#sec-s09-topic-6"><span class="header-section-number">14.2</span> 6. Checking the assumptions</a>
+  <ul class="collapse">
+  <li><a href="#demo-10-the-residual-plot-and-the-two-shapes-that-condemn-a-model" id="toc-demo-10-the-residual-plot-and-the-two-shapes-that-condemn-a-model" class="nav-link" data-scroll-target="#demo-10-the-residual-plot-and-the-two-shapes-that-condemn-a-model"><span class="header-section-number">14.2.1</span> Demo 10 — the residual plot, and the two shapes that condemn a model</a></li>
+  <li><a href="#demo-11-when-the-straight-line-is-the-wrong-shape" id="toc-demo-11-when-the-straight-line-is-the-wrong-shape" class="nav-link" data-scroll-target="#demo-11-when-the-straight-line-is-the-wrong-shape"><span class="header-section-number">14.2.2</span> Demo 11 — when the straight line is the wrong shape</a></li>
+  <li><a href="#check-yourself" id="toc-check-yourself" class="nav-link" data-scroll-target="#check-yourself"><span class="header-section-number">14.2.3</span> ❓ Check yourself</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s09-tasks" id="toc-sec-s09-tasks" class="nav-link" data-scroll-target="#sec-s09-tasks"><span class="header-section-number">15</span> 🎯 Tasks</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-09-supervised-learning-techniques.html">Part D — Learning from data</a></li><li class="breadcrumb-item"><a href="../sessions/session-09-supervised-learning-techniques.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Session 9 — Supervised Learning Techniques</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Session 9 — Supervised Learning Techniques</span></h1>
-<p class="subtitle lead">Supervised learning techniques · Prediction and Decision Making · Simple and Multiple Regression</p>
+<p class="subtitle lead">Labelled data · Regression vs classification · Simple and multiple regression · Metrics</p>
 </div>
 
 
@@ -315,11 +409,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<!-- Setup code for the book -->
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -330,17 +419,22 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>This chapter introduces the fundamental concepts of Supervised Learning Techniques.</strong></p>
-<p><strong>Assumed knowledge:</strong> Concepts from Session 8.</p>
+<p><strong>This chapter is where the course stops describing the past and starts predicting.</strong></p>
+<p><strong>Assumed knowledge:</strong> Session 5 — the train–test split, encoding and pipelines. Session 8 — scatter plots and correlation. You will use all of them here.</p>
+<p><strong>The one idea to take away:</strong> a model is a <strong>rule learned from examples</strong>. Session 5 gave you <code>X_train, X_test, y_train, y_test</code>; this chapter fills them with a real problem and measures how well the learned rule does on data it has never seen.</p>
 </div>
 </div>
 <section id="sec-s09-outcomes" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="sec-s09-outcomes"><span class="header-section-number">10.1</span> 🎯 Learning outcomes</h2>
 <p>By the end of this chapter you can:</p>
 <ol type="1">
-<li>Understand and implement Supervised learning techniques</li>
-<li>Understand and implement Prediction and Decision Making</li>
-<li>Understand and implement Simple and Multiple Regression</li>
+<li>Explain supervised learning and why it needs labelled data.</li>
+<li>Tell a regression problem from a classification problem.</li>
+<li>Fit a simple linear regression and read its slope and intercept as a sentence.</li>
+<li>Fit a multiple regression and interpret a coefficient correctly.</li>
+<li>Report MAE, RMSE and R², and say which to quote to whom.</li>
+<li>Compare a model against a baseline and say whether it earned its place.</li>
+<li>Name three assumptions linear regression makes and check one.</li>
 </ol>
 </section>
 <section id="sec-s09-organisation" class="level2" data-number="10.2">
@@ -350,125 +444,770 @@ Note
 <tr class="header">
 <th>Part</th>
 <th>Question it answers</th>
-<th>Source</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#sec-s09-a">A — Supervised learning techniques</a></td>
-<td><em>…?</em></td>
-<td><code>trainer_notebook.ipynb</code></td>
+<td><a href="#sec-s09-a">A — What supervised learning is</a></td>
+<td><em>How does a machine learn from examples?</em></td>
 </tr>
 <tr class="even">
-<td><a href="#sec-s09-b">B — Prediction and Decision Making</a></td>
-<td><em>…?</em></td>
-<td><code>trainer_notebook.ipynb</code></td>
+<td><a href="#sec-s09-b">B — Simple regression</a></td>
+<td><em>How do I predict a number from one input?</em></td>
 </tr>
 <tr class="odd">
-<td><a href="#sec-s09-c">C — Simple and Multiple Regression</a></td>
-<td><em>…?</em></td>
-<td><code>trainer_notebook.ipynb</code></td>
+<td><a href="#sec-s09-c">C — Multiple regression</a></td>
+<td><em>And from several inputs?</em></td>
+</tr>
+<tr class="even">
+<td><a href="#sec-s09-d">D — Measuring it</a></td>
+<td><em>Is the prediction any good?</em></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="sec-s09-a" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> Part A — Supervised learning techniques</h1>
-<p><strong>Overview of Supervised learning techniques and its practical applications.</strong></p>
+<h1 data-number="11"><span class="header-section-number">11</span> Part A — What supervised learning is</h1>
 <section id="sec-s09-topic-1" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="sec-s09-topic-1"><span class="header-section-number">11.1</span> 1. Supervised learning techniques</h2>
-<p><strong>One plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.</strong></p>
-<p><strong>Then why it exists: what breaks, or what is unbearably tedious, without it.</strong></p>
-<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — something the reader already understands">
+<h2 data-number="11.1" class="anchored" data-anchor-id="sec-s09-topic-1"><span class="header-section-number">11.1</span> 1. Learning from labelled examples</h2>
+<p><strong>Supervised learning trains an algorithm on historical data where the answer is already known.</strong> The known answer is called the <strong>label</strong> or the <strong>target</strong>.</p>
+<p>You do not tell the algorithm the rule. You show it thousands of examples with their answers, and it works the rule out.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — flashcards">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>🧠 Analogy — something the reader already understands
+<span class="screen-reader-only">Tip</span>🧠 Analogy — flashcards
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>The everyday thing.</strong></p>
-<p><strong>The mapping:</strong> this part is the data, this part is the model, this part is the error.</p>
-<p><strong>Where it breaks down:</strong> every analogy is wrong somewhere, and the reader will walk into that place unaided.</p>
+<p>A student revising with flashcards:</p>
+<ul>
+<li>the <strong>front</strong> of the card is the input — the features</li>
+<li>the <strong>back</strong> is the answer — the label</li>
+<li><strong>learning</strong> is guessing, flipping the card, and adjusting</li>
+</ul>
+<p><strong>Where it breaks down:</strong> a student understands <em>why</em> the answer is what it is. A model only finds a pattern that fits. Show it enough cards where the answer happens to correlate with the card’s colour, and it will learn colour.</p>
 </div>
 </div>
-<section id="how-it-works" class="level3" data-number="11.1.1">
-<h3 data-number="11.1.1" class="anchored" data-anchor-id="how-it-works"><span class="header-section-number">11.1.1</span> How it works</h3>
-<p><strong>The mechanism, in plain words first.</strong></p>
+<p><strong>The two vocabulary words used everywhere from here on:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Word</th>
+<th>Means</th>
+<th>Written as</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Features</strong></td>
+<td>the inputs you know</td>
+<td><code>X</code> — a table, capital X</td>
+</tr>
+<tr class="even">
+<td><strong>Target</strong></td>
+<td>the answer you want</td>
+<td><code>y</code> — one column, lowercase y</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="examples" class="level3" data-number="11.1.2">
-<h3 data-number="11.1.2" class="anchored" data-anchor-id="examples"><span class="header-section-number">11.1.2</span> 📘 Examples</h3>
-<p><strong>Example 1 — the smallest thing that works</strong></p>
-<div id="c5f6c6d0" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># placeholder</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="sec-s09-topic-2" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="sec-s09-topic-2"><span class="header-section-number">11.2</span> 2. Regression or classification?</h2>
+<p><strong>Every supervised problem is one of two kinds, decided entirely by what the target looks like.</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Target is</th>
+<th>Question</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Regression</strong></td>
+<td>a <strong>number</strong></td>
+<td><em>how much? how many?</em></td>
+<td>house price, tomorrow’s temperature, delivery time</td>
+</tr>
+<tr class="even">
+<td><strong>Classification</strong></td>
+<td>a <strong>category</strong></td>
+<td><em>which one? yes or no?</em></td>
+<td>spam or not, will they default, which disease</td>
+</tr>
+</tbody>
+</table>
+<p><strong>This chapter is regression.</strong> Session 10’s clustering and later work covers the rest.</p>
+<section id="demo-1-telling-them-apart" class="level3" data-number="11.2.1">
+<h3 data-number="11.2.1" class="anchored" data-anchor-id="demo-1-telling-them-apart"><span class="header-section-number">11.2.1</span> Demo 1 — telling them apart</h3>
+<div id="2e20198f" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>problems <span class="op">=</span> [</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Predict a flat's monthly rent"</span>,                 <span class="st">"₹28,400"</span>,        <span class="st">"number"</span>),</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Will this customer cancel their subscription?"</span>, <span class="st">"yes / no"</span>,       <span class="st">"category"</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"How many units will we sell next month?"</span>,       <span class="st">"1,840"</span>,          <span class="st">"number"</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Which of 5 categories is this news article?"</span>,   <span class="st">"sport"</span>,          <span class="st">"category"</span>),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"What score out of 10 will this film get?"</span>,      <span class="st">"7.3"</span>,            <span class="st">"number"</span>),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'problem'</span><span class="sc">:&lt;48}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'answer looks like'</span><span class="sc">:&lt;18}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'task'</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">84</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> q, example, kind <span class="kw">in</span> problems:</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>q<span class="sc">:&lt;48}</span><span class="ss"> </span><span class="sc">{</span>example<span class="sc">:&lt;18}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'REGRESSION'</span> <span class="cf">if</span> kind<span class="op">==</span><span class="st">'number'</span> <span class="cf">else</span> <span class="st">'CLASSIFICATION'</span><span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>problem                                          answer looks like  task
+------------------------------------------------------------------------------------
+Predict a flat's monthly rent                    ₹28,400            REGRESSION
+Will this customer cancel their subscription?    yes / no           CLASSIFICATION
+How many units will we sell next month?          1,840              REGRESSION
+Which of 5 categories is this news article?      sport              CLASSIFICATION
+What score out of 10 will this film get?         7.3                REGRESSION</code></pre>
 </div>
-</section>
-<section id="scenarios" class="level3" data-number="11.1.3">
-<h3 data-number="11.1.3" class="anchored" data-anchor-id="scenarios"><span class="header-section-number">11.1.3</span> 🌍 Scenarios</h3>
-<p><strong>Scenario 1 — the same idea in a situation the reader recognises</strong></p>
-<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ The trap, and its consequence">
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ A number is not always a regression target">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>⚠️ The trap, and its consequence
+<span class="screen-reader-only">Warning</span>⚠️ A number is not always a regression target
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><em>“It will not error — it will be quietly wrong.”</em></p>
+<p>A rating of 1 to 5 <em>looks</em> numeric. But if the gap between 1 and 2 does not mean the same as the gap between 4 and 5, treating it as a number is a claim about the world you may not want to make. <strong>Ask what the number measures, not what type it is stored as.</strong></p>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Tasks">
+</section>
+</section>
+</section>
+<section id="sec-s09-b" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> Part B — Simple regression</h1>
+<section id="sec-s09-topic-3" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="sec-s09-topic-3"><span class="header-section-number">12.1</span> 3. One input, one line</h2>
+<p><strong>Simple linear regression draws the single straight line that comes closest to all your data points, and uses it to predict.</strong></p>
+<p>The line is described by two numbers:</p>
+<p><span class="math display">\[\text{prediction} = \text{intercept} + \text{slope} \times \text{input}\]</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Number</th>
+<th>Means</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>slope</strong></td>
+<td>how much the prediction changes for a one-unit increase in the input</td>
+</tr>
+<tr class="even">
+<td><strong>intercept</strong></td>
+<td>the prediction when the input is zero</td>
+</tr>
+</tbody>
+</table>
+<p><strong>“Closest” has a precise meaning:</strong> the line that makes the sum of the squared vertical distances to the points as small as possible. Squared, for the same reason as in Session 7 — so that errors above and below the line cannot cancel out.</p>
+<section id="demo-2-fitting-one-line-and-reading-it-out-loud" class="level3" data-number="12.1.1">
+<h3 data-number="12.1.1" class="anchored" data-anchor-id="demo-2-fitting-one-line-and-reading-it-out-loud"><span class="header-section-number">12.1.1</span> Demo 2 — fitting one line, and reading it out loud</h3>
+<div id="cell-fig-s09-simple" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">31</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>experience <span class="op">=</span> rng.uniform(<span class="dv">0</span>, <span class="dv">15</span>, <span class="dv">40</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>salary <span class="op">=</span> <span class="dv">25_000</span> <span class="op">+</span> experience <span class="op">*</span> <span class="dv">9_000</span> <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">12_000</span>, <span class="dv">40</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> experience.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)          <span class="co"># scikit-learn wants a 2-D table, even for one column</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> salary</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression().fit(X, y)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>line <span class="op">=</span> model.predict(X)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>plt.scatter(experience, salary, s<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"actual people"</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> np.argsort(experience)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>plt.plot(experience[order], line[order], <span class="st">"r-"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"the fitted line"</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> xi, yi, pi <span class="kw">in</span> <span class="bu">zip</span>(experience, salary, line):</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    plt.plot([xi, xi], [yi, pi], color<span class="op">=</span><span class="st">"grey"</span>, lw<span class="op">=</span><span class="fl">.6</span>, alpha<span class="op">=</span><span class="fl">.6</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Years of experience"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"Salary (₹)"</span>)<span class="op">;</span> plt.legend()</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"intercept = ₹</span><span class="sc">{</span>model<span class="sc">.</span>intercept_<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"slope     = ₹</span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:,.0f}</span><span class="ss"> per year of experience"</span>)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Read as a sentence:"</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'  "Someone with no experience earns about ₹</span><span class="sc">{</span>model<span class="sc">.</span>intercept_<span class="sc">:,.0f}</span><span class="ss">.'</span>)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'   Each additional year is worth about ₹</span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:,.0f}</span><span class="ss">."'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s09-simple" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s09-simple-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-09-supervised-learning-techniques_files/figure-html/fig-s09-simple-output-1.png" width="711" height="408" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s09-simple-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12.1: The line of best fit. Grey lines are the residuals — the errors the fit is minimising.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>intercept = ₹18,238
+slope     = ₹9,726 per year of experience
+
+Read as a sentence:
+  "Someone with no experience earns about ₹18,238.
+   Each additional year is worth about ₹9,726."</code></pre>
+</div>
+</div>
+</section>
+<section id="demo-3-using-it-to-predict" class="level3" data-number="12.1.2">
+<h3 data-number="12.1.2" class="anchored" data-anchor-id="demo-3-using-it-to-predict"><span class="header-section-number">12.1.2</span> Demo 3 — using it to predict</h3>
+<div id="d5b9d2a4" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> years <span class="kw">in</span> [<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">12</span>]:</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> model.predict([[years]])[<span class="dv">0</span>]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>years<span class="sc">:&gt;2}</span><span class="ss"> years of experience → predicted salary ₹</span><span class="sc">{</span>pred<span class="sc">:&gt;9,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">40 years of experience → ₹</span><span class="sc">{</span>model<span class="sc">.</span>predict([[<span class="dv">40</span>]])[<span class="dv">0</span>]<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  ⚠ nobody in the training data had more than 15 years. This number is a"</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"    guess about territory the model has never seen — it is extrapolation."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 0 years of experience → predicted salary ₹   18,238
+ 3 years of experience → predicted salary ₹   47,416
+ 7 years of experience → predicted salary ₹   86,319
+12 years of experience → predicted salary ₹  134,948
+
+40 years of experience → ₹407,271
+  ⚠ nobody in the training data had more than 15 years. This number is a
+    guess about territory the model has never seen — it is extrapolation.</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ The intercept is often meaningless">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Tasks
+<span class="screen-reader-only">Warning</span>⚠️ The intercept is often meaningless
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<ol type="1">
-<li>Do exactly what was just shown, on different data.</li>
-<li>Break it deliberately and report the exact error message.</li>
-</ol>
+<p>Here “zero years of experience” is a real situation, so the intercept means something. But in a model predicting house price from area, the intercept is the price of a house with <strong>zero square feet</strong> — a number the maths needs and the world does not have.</p>
+<p><strong>Do not report an intercept as a finding unless zero is a real value for that input.</strong></p>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+</section>
+</section>
+</section>
+<section id="sec-s09-c" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> Part C — Multiple regression</h1>
+<section id="sec-s09-topic-4" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="sec-s09-topic-4"><span class="header-section-number">13.1</span> 4. Several inputs at once</h2>
+<p><strong>Multiple regression uses two or more features.</strong> Instead of a line through a scatter plot, it fits a flat surface through a cloud — but the code is identical, and so is the interpretation, with one crucial addition.</p>
+<p><span class="math display">\[\text{price} = \text{intercept} + b_1 \times \text{area} + b_2 \times \text{bedrooms} + b_3 \times \text{age}\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="🔓 What a coefficient means, exactly">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
+<span class="screen-reader-only">Important</span>🔓 What a coefficient means, exactly
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="6323a114" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solutions</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A coefficient is the effect of that feature <strong>while every other feature is held constant.</strong></p>
+<p>That phrase is the whole thing. “Each extra bedroom adds ₹4 lakh” is wrong. <strong>“Each extra bedroom adds ₹4 lakh, comparing houses of the same area and age”</strong> is right — and it is a completely different claim, because bigger houses usually have more bedrooms anyway.</p>
 </div>
 </div>
+<section id="demo-4-a-real-multiple-regression-done-properly" class="level3" data-number="13.1.1">
+<h3 data-number="13.1.1" class="anchored" data-anchor-id="demo-4-a-real-multiple-regression-done-properly"><span class="header-section-number">13.1.1</span> Demo 4 — a real multiple regression, done properly</h3>
+<div id="8f620d36" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error, mean_squared_error, r2_score</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">32</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">400</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> rng.normal(<span class="dv">1_200</span>, <span class="dv">350</span>, n).clip(<span class="dv">400</span>, <span class="dv">2_800</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>bedrooms <span class="op">=</span> np.clip((area <span class="op">/</span> <span class="dv">450</span>).<span class="bu">round</span>(), <span class="dv">1</span>, <span class="dv">5</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> rng.integers(<span class="dv">0</span>, <span class="dv">40</span>, n)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># The truth we are asking the model to recover:</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>price <span class="op">=</span> <span class="dv">3_200</span><span class="op">*</span>area <span class="op">+</span> <span class="dv">250_000</span><span class="op">*</span>bedrooms <span class="op">-</span> <span class="dv">45_000</span><span class="op">*</span>age <span class="op">+</span> <span class="dv">400_000</span> <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">250_000</span>, n)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>homes <span class="op">=</span> pd.DataFrame({<span class="st">"area_sqft"</span>: area.<span class="bu">round</span>(), <span class="st">"bedrooms"</span>: bedrooms.astype(<span class="bu">int</span>),</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"age_years"</span>: age, <span class="st">"price"</span>: price.<span class="bu">round</span>(<span class="op">-</span><span class="dv">3</span>)})</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> homes[[<span class="st">"area_sqft"</span>, <span class="st">"bedrooms"</span>, <span class="st">"age_years"</span>]]</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> homes[<span class="st">"price"</span>]</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression().fit(X_train, y_train)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"What the model learned:"</span>)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, coef <span class="kw">in</span> <span class="bu">zip</span>(X.columns, model.coef_):</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>name<span class="sc">:&lt;12}</span><span class="ss"> </span><span class="sc">{</span>coef<span class="sc">:&gt;12,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span><span class="st">'intercept'</span><span class="sc">:&lt;12}</span><span class="ss"> </span><span class="sc">{</span>model<span class="sc">.</span>intercept_<span class="sc">:&gt;12,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Read as sentences (each holds the others constant):"</span>)</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  one more square foot  → ₹</span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:&gt;10,.0f}</span><span class="ss">   (same bedrooms, same age)"</span>)</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  one more bedroom      → ₹</span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">1</span>]<span class="sc">:&gt;10,.0f}</span><span class="ss">   (same area, same age)"</span>)</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  one more year of age  → ₹</span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">2</span>]<span class="sc">:&gt;10,.0f}</span><span class="ss">   (same area, same bedrooms)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>What the model learned:
+  area_sqft           3,051
+  bedrooms          291,399
+  age_years         -44,476
+  intercept         436,494
+
+Read as sentences (each holds the others constant):
+  one more square foot  → ₹     3,051   (same bedrooms, same age)
+  one more bedroom      → ₹   291,399   (same area, same age)
+  one more year of age  → ₹   -44,476   (same area, same bedrooms)</code></pre>
 </div>
 </div>
 </section>
-<section id="mcqs" class="level3" data-number="11.1.4">
-<h3 data-number="11.1.4" class="anchored" data-anchor-id="mcqs"><span class="header-section-number">11.1.4</span> ❓ MCQs</h3>
-<p><strong>Q1.</strong> The question…</p>
+<section id="demo-5-why-holding-constant-changes-the-answer" class="level3" data-number="13.1.2">
+<h3 data-number="13.1.2" class="anchored" data-anchor-id="demo-5-why-holding-constant-changes-the-answer"><span class="header-section-number">13.1.2</span> Demo 5 — why “holding constant” changes the answer</h3>
+<div id="0b1121f5" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>alone <span class="op">=</span> LinearRegression().fit(X_train[[<span class="st">"bedrooms"</span>]], y_train)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"bedrooms ALONE          : ₹</span><span class="sc">{</span>alone<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:&gt;12,.0f}</span><span class="ss"> per bedroom"</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"bedrooms WITH area, age : ₹</span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">1</span>]<span class="sc">:&gt;12,.0f}</span><span class="ss"> per bedroom"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">correlation between area and bedrooms: </span><span class="sc">{</span>X_train[<span class="st">'area_sqft'</span>]<span class="sc">.</span>corr(X_train[<span class="st">'bedrooms'</span>])<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>bedrooms ALONE          : ₹   1,492,208 per bedroom
+bedrooms WITH area, age : ₹     291,399 per bedroom
+
+correlation between area and bedrooms: 0.95</code></pre>
+</div>
+</div>
+<p><strong>On its own, a bedroom looks worth far more.</strong> That is because bedrooms come attached to floor area, and the single-feature model credits the bedroom with the area’s effect too. Once area is in the model, the bedroom coefficient reports only what a bedroom adds <em>by itself</em>.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Highly correlated features make coefficients unreliable">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Highly correlated features make coefficients unreliable
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When two features carry nearly the same information — as area and bedrooms do here — the model can split the credit between them almost arbitrarily. The <em>predictions</em> stay fine; the <strong>individual coefficients become unstable</strong> and should not be quoted as findings. This is called <strong>multicollinearity</strong>, and Session 8’s heatmap is how you spot it coming.</p>
+</div>
+</div>
+</section>
+<section id="demo-6-adding-features-one-at-a-time" class="level3" data-number="13.1.3">
+<h3 data-number="13.1.3" class="anchored" data-anchor-id="demo-6-adding-features-one-at-a-time"><span class="header-section-number">13.1.3</span> Demo 6 — adding features one at a time</h3>
+<div id="197a39fd" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score, mean_absolute_error</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>sets <span class="op">=</span> [[<span class="st">"area_sqft"</span>],</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"area_sqft"</span>, <span class="st">"bedrooms"</span>],</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"area_sqft"</span>, <span class="st">"bedrooms"</span>, <span class="st">"age_years"</span>]]</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'features'</span><span class="sc">:&lt;40}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'test R²'</span><span class="sc">:&gt;9}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'test MAE'</span><span class="sc">:&gt;14}</span><span class="ss">"</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">65</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cols <span class="kw">in</span> sets:</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> LinearRegression().fit(X_train[cols], y_train)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> m.predict(X_test[cols])</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">', '</span><span class="sc">.</span>join(cols)<span class="sc">:&lt;40}</span><span class="ss"> </span><span class="sc">{</span>r2_score(y_test, pred)<span class="sc">:&gt;9.3f}</span><span class="ss"> </span><span class="sc">{</span>mean_absolute_error(y_test, pred)<span class="sc">:&gt;14,.0f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>features                                   test R²       test MAE
+-----------------------------------------------------------------
+area_sqft                                    0.868        473,788
+area_sqft, bedrooms                          0.866        484,325
+area_sqft, bedrooms, age_years               0.971        206,858</code></pre>
+</div>
+</div>
+<p><strong>Adding <code>bedrooms</code> made the model very slightly <em>worse</em></strong> — 0.868 down to 0.866. Area already carried that information, so the extra column brought no signal and a little noise. <strong>Adding <code>age_years</code> improved R² from 0.87 to 0.97 and more than halved the typical error</strong>, because age is genuinely new information that area cannot supply.</p>
+<p><strong>That is the whole of feature selection in one table:</strong> a column earns its place by improving the score on data the model has not seen, not by sounding relevant. Session 6 automates exactly this comparison.</p>
+</section>
+</section>
+</section>
+<section id="sec-s09-d" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> Part D — Measuring it</h1>
+<section id="sec-s09-topic-5" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="sec-s09-topic-5"><span class="header-section-number">14.1</span> 5. The three regression metrics</h2>
+<p><strong>A prediction is never exactly right. The metric decides how you count the misses.</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th>What it is</th>
+<th>Units</th>
+<th>Character</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>MAE</strong></td>
+<td>average size of the error</td>
+<td>same as the target</td>
+<td>treats all errors evenly</td>
+</tr>
+<tr class="even">
+<td><strong>RMSE</strong></td>
+<td>square root of the average <em>squared</em> error</td>
+<td>same as the target</td>
+<td><strong>punishes large errors much harder</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>R²</strong></td>
+<td>share of the variation the model explains</td>
+<td>none — a fraction</td>
+<td>1.0 perfect, 0 no better than the average</td>
+</tr>
+</tbody>
+</table>
+<section id="demo-7-computed-by-hand-then-by-scikit-learn" class="level3" data-number="14.1.1">
+<h3 data-number="14.1.1" class="anchored" data-anchor-id="demo-7-computed-by-hand-then-by-scikit-learn"><span class="header-section-number">14.1.1</span> Demo 7 — computed by hand, then by scikit-learn</h3>
+<div id="ddf66e2d" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error, mean_squared_error, r2_score</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>actual    <span class="op">=</span> np.array([<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">300</span>, <span class="dv">400</span>, <span class="dv">500</span>])</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>predicted <span class="op">=</span> np.array([<span class="dv">110</span>, <span class="dv">190</span>, <span class="dv">310</span>, <span class="dv">380</span>, <span class="dv">520</span>])</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>errors <span class="op">=</span> predicted <span class="op">-</span> actual</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"actual    : </span><span class="sc">{</span>actual<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"predicted : </span><span class="sc">{</span>predicted<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"errors    : </span><span class="sc">{</span>errors<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">MAE  = average of |errors|      = </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">abs</span>(errors)<span class="sc">.</span>mean()<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"RMSE = √(average of errors²)    = </span><span class="sc">{</span>np<span class="sc">.</span>sqrt((errors<span class="op">**</span><span class="dv">2</span>).mean())<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>ss_res <span class="op">=</span> (errors <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>()</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>ss_tot <span class="op">=</span> ((actual <span class="op">-</span> actual.mean()) <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>()</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"R²   = 1 - </span><span class="sc">{</span>ss_res<span class="sc">}</span><span class="ss"> / </span><span class="sc">{</span>ss_tot<span class="sc">:.0f}</span><span class="ss"> = </span><span class="sc">{</span><span class="dv">1</span> <span class="op">-</span> ss_res<span class="op">/</span>ss_tot<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">scikit-learn agrees: MAE </span><span class="sc">{</span>mean_absolute_error(actual, predicted)<span class="sc">:.2f}</span><span class="ss">, "</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"RMSE </span><span class="sc">{</span>np<span class="sc">.</span>sqrt(mean_squared_error(actual, predicted))<span class="sc">:.2f}</span><span class="ss">, "</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"R² </span><span class="sc">{</span>r2_score(actual, predicted)<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>actual    : [100, 200, 300, 400, 500]
+predicted : [110, 190, 310, 380, 520]
+errors    : [10, -10, 10, -20, 20]
+
+MAE  = average of |errors|      = 14.00
+RMSE = √(average of errors²)    = 14.83
+R²   = 1 - 1100 / 100000 = 0.9890
+
+scikit-learn agrees: MAE 14.00, RMSE 14.83, R² 0.9890</code></pre>
+</div>
+</div>
+</section>
+<section id="demo-8-why-mae-and-rmse-disagree-and-when-it-matters" class="level3" data-number="14.1.2">
+<h3 data-number="14.1.2" class="anchored" data-anchor-id="demo-8-why-mae-and-rmse-disagree-and-when-it-matters"><span class="header-section-number">14.1.2</span> Demo 8 — why MAE and RMSE disagree, and when it matters</h3>
+<div id="7a7b9a9e" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error, mean_squared_error</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>actual <span class="op">=</span> np.full(<span class="dv">100</span>, <span class="fl">500.0</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>spread_out <span class="op">=</span> actual <span class="op">+</span> np.full(<span class="dv">100</span>, <span class="fl">20.0</span>)                  <span class="co"># every prediction off by 20</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>one_disaster <span class="op">=</span> actual.copy() <span class="op">+</span> <span class="fl">0.0</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>one_disaster[<span class="dv">0</span>] <span class="op">+=</span> <span class="dv">2000</span>                                    <span class="co"># 99 perfect, 1 catastrophic</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, pred <span class="kw">in</span> [(<span class="st">"everything off by 20"</span>, spread_out),</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>                   (<span class="st">"99 perfect, 1 wrong by 2000"</span>, one_disaster)]:</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    mae <span class="op">=</span> mean_absolute_error(actual, pred)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    rmse <span class="op">=</span> np.sqrt(mean_squared_error(actual, pred))</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:&lt;30}</span><span class="ss"> MAE </span><span class="sc">{</span>mae<span class="sc">:7.2f}</span><span class="ss">   RMSE </span><span class="sc">{</span>rmse<span class="sc">:7.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>everything off by 20           MAE   20.00   RMSE   20.00
+99 perfect, 1 wrong by 2000    MAE   20.00   RMSE  200.00</code></pre>
+</div>
+</div>
+<p><strong>Both models have the same MAE.</strong> RMSE separates them completely, because it squares the errors before averaging — so one enormous mistake counts for far more than a hundred small ones.</p>
+<p><strong>Which to report:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>If</th>
+<th>Use</th>
+<th>Because</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>all errors cost the same</td>
+<td><strong>MAE</strong></td>
+<td>it is the plain average error, and it is easy to explain</td>
+</tr>
+<tr class="even">
+<td>one big error is disastrous — a bridge, a dosage, a delivery promise</td>
+<td><strong>RMSE</strong></td>
+<td>it makes large errors visible</td>
+</tr>
+<tr class="odd">
+<td>you are talking to a non-technical audience</td>
+<td><strong>MAE</strong></td>
+<td><em>“we are typically off by ₹2 lakh”</em> needs no explanation</td>
+</tr>
+<tr class="even">
+<td>you are comparing across different datasets</td>
+<td><strong>R²</strong></td>
+<td>it has no units</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="demo-9-always-compare-against-a-baseline" class="level3" data-number="14.1.3">
+<h3 data-number="14.1.3" class="anchored" data-anchor-id="demo-9-always-compare-against-a-baseline"><span class="header-section-number">14.1.3</span> Demo 9 — always compare against a baseline</h3>
+<div id="d8755981" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyRegressor</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error, r2_score</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>baseline <span class="op">=</span> DummyRegressor(strategy<span class="op">=</span><span class="st">"mean"</span>).fit(X_train, y_train)   <span class="co"># always predicts the average</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>real     <span class="op">=</span> LinearRegression().fit(X_train, y_train)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, m <span class="kw">in</span> [(<span class="st">"Baseline (always the mean)"</span>, baseline), (<span class="st">"Linear regression"</span>, real)]:</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> m.predict(X_test)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:&lt;28}</span><span class="ss"> MAE ₹</span><span class="sc">{</span>mean_absolute_error(y_test, pred)<span class="sc">:&gt;10,.0f}</span><span class="ss">   R² </span><span class="sc">{</span>r2_score(y_test, pred)<span class="sc">:&gt;7.3f}</span><span class="ss">"</span>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>improvement <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> mean_absolute_error(y_test, real.predict(X_test)) <span class="op">/</span> <span class="op">\</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>                  mean_absolute_error(y_test, baseline.predict(X_test))</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">The model reduced the typical error by </span><span class="sc">{</span>improvement<span class="sc">:.0%}</span><span class="ss"> versus guessing the average."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Baseline (always the mean)   MAE ₹ 1,222,939   R²  -0.011
+Linear regression            MAE ₹   206,858   R²   0.971
+
+The model reduced the typical error by 83% versus guessing the average.</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="🔓 R² of 0 means 'no better than the average'">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>🔓 R² of 0 means ‘no better than the average’
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>That is exactly what the baseline scores. <strong>R² is defined against that baseline</strong>, so a model with R² of 0.02 has essentially learned nothing, and a <em>negative</em> R² means it is worse than always guessing the mean.</p>
+<p><strong>Always run the baseline.</strong> It converts “R² is 0.62” — which sounds like a number someone could argue about — into “the model cuts the typical error by a third”, which is a business fact.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s09-topic-6" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="sec-s09-topic-6"><span class="header-section-number">14.2</span> 6. Checking the assumptions</h2>
+<p><strong>Linear regression assumes things about your data. When they are false, the predictions can still work — but the coefficients and confidence in them cannot be trusted.</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Assumption</th>
+<th>Means</th>
+<th>How to check</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Linearity</strong></td>
+<td>the relationship really is a straight line</td>
+<td>residual plot</td>
+</tr>
+<tr class="even">
+<td><strong>Constant spread</strong></td>
+<td>errors are equally large everywhere</td>
+<td>residual plot</td>
+</tr>
+<tr class="odd">
+<td><strong>Independence</strong></td>
+<td>one row’s error tells you nothing about the next</td>
+<td>know how the data was collected</td>
+</tr>
+<tr class="even">
+<td><strong>No severe multicollinearity</strong></td>
+<td>features are not near-copies of each other</td>
+<td>correlation heatmap</td>
+</tr>
+</tbody>
+</table>
+<section id="demo-10-the-residual-plot-and-the-two-shapes-that-condemn-a-model" class="level3" data-number="14.2.1">
+<h3 data-number="14.2.1" class="anchored" data-anchor-id="demo-10-the-residual-plot-and-the-two-shapes-that-condemn-a-model"><span class="header-section-number">14.2.1</span> Demo 10 — the residual plot, and the two shapes that condemn a model</h3>
+<div id="cell-fig-s09-residuals" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">33</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> rng.uniform(<span class="dv">1</span>, <span class="dv">20</span>, <span class="dv">250</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>cases <span class="op">=</span> {</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Healthy"</span>:         <span class="dv">3</span><span class="op">*</span>x <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">250</span>),</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Curved pattern"</span>:  <span class="fl">0.35</span><span class="op">*</span>x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">250</span>),</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Fanning out"</span>:     <span class="dv">3</span><span class="op">*</span>x <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">250</span>) <span class="op">*</span> x <span class="op">*</span> <span class="fl">0.4</span>,</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="fl">3.2</span>))</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, (name, yy) <span class="kw">in</span> <span class="bu">zip</span>(axes, cases.items()):</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> LinearRegression().fit(x.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), yy)</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    resid <span class="op">=</span> yy <span class="op">-</span> m.predict(x.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    ax.scatter(m.predict(x.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)), resid, s<span class="op">=</span><span class="dv">10</span>, alpha<span class="op">=</span><span class="fl">.6</span>)</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    ax.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">"red"</span>, lw<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    ax.set_title(name, fontsize<span class="op">=</span><span class="dv">10</span>)<span class="op">;</span> ax.set_xlabel(<span class="st">"predicted"</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">"error"</span>)</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"A residual plot should look like a shapeless cloud centred on zero."</span>)</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  A CURVE  → the true relationship is not a straight line; add a squared term"</span>)</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"             or use a model that can bend."</span>)</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  A FAN    → errors grow with the size of the prediction. The model is far less"</span>)</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"             reliable for large values than the single R² suggests."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s09-residuals" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s09-residuals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-09-supervised-learning-techniques_files/figure-html/fig-s09-residuals-output-1.png" width="1309" height="341" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s09-residuals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14.1: Left: a healthy residual plot — formless cloud around zero. Middle: a curve, so the relationship is not linear. Right: a fan, so error grows with size.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A residual plot should look like a shapeless cloud centred on zero.
+  A CURVE  → the true relationship is not a straight line; add a squared term
+             or use a model that can bend.
+  A FAN    → errors grow with the size of the prediction. The model is far less
+             reliable for large values than the single R² suggests.</code></pre>
+</div>
+</div>
+<p>Session 11 goes further with this. For now: <strong>draw the residual plot before you believe the R².</strong></p>
+</section>
+<section id="demo-11-when-the-straight-line-is-the-wrong-shape" class="level3" data-number="14.2.2">
+<h3 data-number="14.2.2" class="anchored" data-anchor-id="demo-11-when-the-straight-line-is-the-wrong-shape"><span class="header-section-number">14.2.2</span> Demo 11 — when the straight line is the wrong shape</h3>
+<div id="1be3e876" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PolynomialFeatures</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">34</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>speed <span class="op">=</span> rng.uniform(<span class="dv">20</span>, <span class="dv">120</span>, <span class="dv">300</span>)                       <span class="co"># km/h</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Fuel efficiency peaks in the middle and falls at both ends — a curve, not a line.</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>efficiency <span class="op">=</span> <span class="dv">25</span> <span class="op">-</span> <span class="fl">0.004</span> <span class="op">*</span> (speed <span class="op">-</span> <span class="dv">65</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="fl">0.8</span>, <span class="dv">300</span>)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>Xs <span class="op">=</span> speed.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>Xtr, Xte, ytr, yte <span class="op">=</span> train_test_split(Xs, efficiency, test_size<span class="op">=</span><span class="fl">.3</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>straight <span class="op">=</span> LinearRegression().fit(Xtr, ytr)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>curved   <span class="op">=</span> make_pipeline(PolynomialFeatures(<span class="dv">2</span>), LinearRegression()).fit(Xtr, ytr)</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"straight line       R² = </span><span class="sc">{</span>r2_score(yte, straight.predict(Xte))<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"curve (degree 2)    R² = </span><span class="sc">{</span>r2_score(yte, curved.predict(Xte))<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">The straight line explains almost nothing, because efficiency rises then falls."</span>)</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"`PolynomialFeatures(2)` adds a squared term, and the same LinearRegression"</span>)</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"then fits a curve — the model is still 'linear' in its coefficients."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>straight line       R² = 0.173
+curve (degree 2)    R² = 0.939
+
+The straight line explains almost nothing, because efficiency rises then falls.
+`PolynomialFeatures(2)` adds a squared term, and the same LinearRegression
+then fits a curve — the model is still 'linear' in its coefficients.</code></pre>
+</div>
+</div>
+</section>
+<section id="check-yourself" class="level3" data-number="14.2.3">
+<h3 data-number="14.2.3" class="anchored" data-anchor-id="check-yourself"><span class="header-section-number">14.2.3</span> ❓ Check yourself</h3>
+<p><strong>Q1.</strong> A bank predicts whether a customer will default (yes/no). What kind of task?</p>
 <ul>
 <li><ol type="a">
-<li>Wrong</li>
+<li>Regression.</li>
 </ol></li>
 <li><ol start="2" type="a">
-<li><strong>Right, in bold</strong></li>
+<li><strong>Classification.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Neither.</li>
+</ol></li>
+</ul>
+<p><strong>Q2.</strong> In a multiple regression the coefficient on <code>bedrooms</code> is ₹250,000. What does it mean?</p>
+<ul>
+<li><ol type="a">
+<li>Every house with a bedroom is worth ₹250,000 more.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Comparing houses of the same area and age, an extra bedroom adds about ₹250,000.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Bedrooms cost ₹250,000 to build.</li>
+</ol></li>
+</ul>
+<p><strong>Q3.</strong> Model A: every prediction off by 20. Model B: 99 perfect, one off by 2,000. Which metric separates them?</p>
+<ul>
+<li><ol type="a">
+<li>MAE.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>RMSE.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Neither.</li>
+</ol></li>
+</ul>
+<p><strong>Q4.</strong> Your model scores R² = 0.02 on the test set. What does that mean?</p>
+<ul>
+<li><ol type="a">
+<li>It is 2% accurate.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>It is barely better than always predicting the average.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>It is 98% wrong.</li>
+</ol></li>
+</ul>
+<p><strong>Q5.</strong> A residual plot fans out as predictions grow. What does that tell you?</p>
+<ul>
+<li><ol type="a">
+<li>The model is broken.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Errors grow with the size of the prediction, so the model is less reliable for large values than the overall score suggests.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>There is a missing feature.</li>
 </ol></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -477,79 +1216,35 @@ Note
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>A1 — (b).</strong> The right answer restated, <strong>why the nearest wrong option is wrong</strong>.</p>
+<p><strong>A1 — (b).</strong> The target is a category.</p>
+<p><strong>A2 — (b).</strong> The “holding everything else constant” clause is the whole meaning of a coefficient. Demo 5 showed the number more than doubling without it.</p>
+<p><strong>A3 — (b).</strong> Demo 8 measured identical MAEs and very different RMSEs.</p>
+<p><strong>A4 — (b).</strong> R² is defined against the always-predict-the-mean baseline, so 0.02 means almost no improvement on it.</p>
+<p><strong>A5 — (b).</strong> Demo 10’s third panel. Quote the R² alone and you overstate reliability for exactly the expensive cases.</p>
 </div>
 </div>
 </div>
-<p><strong>A bridge sentence pointing at the question the next topic answers.</strong></p>
 </section>
 </section>
 </section>
-<section id="sec-s09-b" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> Part B — Prediction and Decision Making</h1>
-<p><strong>Overview of Prediction and Decision Making and its practical applications.</strong></p>
-<section id="sec-s09-topic-2" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="sec-s09-topic-2"><span class="header-section-number">12.1</span> 2. Prediction and Decision Making</h2>
-<p><strong>One plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.</strong></p>
-<p><strong>Then why it exists: what breaks, or what is unbearably tedious, without it.</strong></p>
-<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — something the reader already understands">
+<section id="sec-s09-tasks" class="level1" data-number="15">
+<h1 data-number="15"><span class="header-section-number">15</span> 🎯 Tasks</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>🧠 Analogy — something the reader already understands
+<span class="screen-reader-only">Note</span>✏️ Practise
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>The everyday thing.</strong></p>
-<p><strong>The mapping:</strong> this part is the data, this part is the model, this part is the error.</p>
-<p><strong>Where it breaks down:</strong> every analogy is wrong somewhere, and the reader will walk into that place unaided.</p>
-</div>
-</div>
-<section id="how-it-works-1" class="level3" data-number="12.1.1">
-<h3 data-number="12.1.1" class="anchored" data-anchor-id="how-it-works-1"><span class="header-section-number">12.1.1</span> How it works</h3>
-<p><strong>The mechanism, in plain words first.</strong></p>
-</section>
-<section id="examples-1" class="level3" data-number="12.1.2">
-<h3 data-number="12.1.2" class="anchored" data-anchor-id="examples-1"><span class="header-section-number">12.1.2</span> 📘 Examples</h3>
-<p><strong>Example 1 — the smallest thing that works</strong></p>
-<div id="f2015b1d" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># placeholder</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="scenarios-1" class="level3" data-number="12.1.3">
-<h3 data-number="12.1.3" class="anchored" data-anchor-id="scenarios-1"><span class="header-section-number">12.1.3</span> 🌍 Scenarios</h3>
-<p><strong>Scenario 1 — the same idea in a situation the reader recognises</strong></p>
-<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ The trap, and its consequence">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>⚠️ The trap, and its consequence
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><em>“It will not error — it will be quietly wrong.”</em></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Tasks">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Tasks
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Do exactly what was just shown, on different data.</li>
-<li>Break it deliberately and report the exact error message.</li>
-</ol>
+<p><strong>Task 1 — Classify the problem.</strong> Regression or classification: predicting how many days a patient stays in hospital; whether an email is spam; a film’s rating out of 10; which of four warehouses should ship an order.</p>
+<p><strong>Task 2 — Read the coefficients.</strong> In Demo 4, the true relationship used 3,200 per square foot, 250,000 per bedroom and −45,000 per year. <strong>Report how close the model’s recovered coefficients came, and explain which one is furthest off and why.</strong></p>
+<p><strong>Task 3 — Extrapolate and be careful.</strong> Use the Demo 4 model to predict the price of a 6,000 sqft house. <strong>Report the number and write one sentence on why you would not quote it to a client.</strong></p>
+<p><strong>Task 4 — Beat the baseline.</strong> Add a <code>price_per_sqft</code>-style engineered feature of your own to Demo 4 and report whether the test MAE improves. <strong>Report honestly if it does not.</strong></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Solutions">
@@ -564,170 +1259,65 @@ Note
 </div>
 <div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="48a39ac2" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solutions</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="4f2e4d7b" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 1"</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  days in hospital        → REGRESSION (a count, a number)"</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  spam or not             → CLASSIFICATION"</span>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  film rating out of 10   → REGRESSION (but see the warning in topic 2)"</span>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  which of 4 warehouses   → CLASSIFICATION (4 categories)"</span>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — how close did the model get to the truth?</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">32</span>)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">400</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> rng.normal(<span class="dv">1_200</span>, <span class="dv">350</span>, n).clip(<span class="dv">400</span>, <span class="dv">2_800</span>)</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>bedrooms <span class="op">=</span> np.clip((area<span class="op">/</span><span class="dv">450</span>).<span class="bu">round</span>(), <span class="dv">1</span>, <span class="dv">5</span>)</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> rng.integers(<span class="dv">0</span>, <span class="dv">40</span>, n)</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>price <span class="op">=</span> <span class="dv">3_200</span><span class="op">*</span>area <span class="op">+</span> <span class="dv">250_000</span><span class="op">*</span>bedrooms <span class="op">-</span> <span class="dv">45_000</span><span class="op">*</span>age <span class="op">+</span> <span class="dv">400_000</span> <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">250_000</span>, n)</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> pd.DataFrame({<span class="st">"area_sqft"</span>: area.<span class="bu">round</span>(), <span class="st">"bedrooms"</span>: bedrooms.astype(<span class="bu">int</span>), <span class="st">"age_years"</span>: age})</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>Xtr, Xte, ytr, yte <span class="op">=</span> train_test_split(X, price, test_size<span class="op">=</span><span class="fl">.2</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> LinearRegression().fit(Xtr, ytr)</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 2"</span>)</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, truth, got <span class="kw">in</span> <span class="bu">zip</span>(X.columns, [<span class="dv">3_200</span>, <span class="dv">250_000</span>, <span class="op">-</span><span class="dv">45_000</span>], m.coef_):</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>name<span class="sc">:&lt;12}</span><span class="ss"> truth </span><span class="sc">{</span>truth<span class="sc">:&gt;10,}</span><span class="ss">   recovered </span><span class="sc">{</span>got<span class="sc">:&gt;12,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  bedrooms is furthest off: it correlates 0.98 with area, so the model cannot"</span>)</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  tell which of the two deserves the credit. Predictions are fine; this one"</span>)</span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  coefficient should not be quoted as a finding."</span>)</span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Task 3 — a 6,000 sqft, 3-bed, 5-year-old house:"</span>)</span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  ₹</span><span class="sc">{</span>m<span class="sc">.</span>predict(pd.DataFrame([{<span class="st">'area_sqft'</span>:<span class="dv">6000</span>,<span class="st">'bedrooms'</span>:<span class="dv">3</span>,<span class="st">'age_years'</span>:<span class="dv">5</span>}]))[<span class="dv">0</span>]<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  The largest house in training was </span><span class="sc">{</span>X[<span class="st">'area_sqft'</span>]<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:,.0f}</span><span class="ss"> sqft. This is"</span>)</span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  extrapolation — the straight line has been extended into territory where no"</span>)</span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  evidence exists that the relationship still holds."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Task 1
+  days in hospital        → REGRESSION (a count, a number)
+  spam or not             → CLASSIFICATION
+  film rating out of 10   → REGRESSION (but see the warning in topic 2)
+  which of 4 warehouses   → CLASSIFICATION (4 categories)
+
+Task 2
+  area_sqft    truth      3,200   recovered        3,050
+  bedrooms     truth    250,000   recovered      291,549
+  age_years    truth    -45,000   recovered      -44,479
+  bedrooms is furthest off: it correlates 0.98 with area, so the model cannot
+  tell which of the two deserves the credit. Predictions are fine; this one
+  coefficient should not be quoted as a finding.
+
+Task 3 — a 6,000 sqft, 3-bed, 5-year-old house:
+  ₹19,390,607
+  The largest house in training was 2,345 sqft. This is
+  extrapolation — the straight line has been extended into territory where no
+  evidence exists that the relationship still holds.</code></pre>
 </div>
 </div>
 </div>
 </div>
-</section>
-<section id="mcqs-1" class="level3" data-number="12.1.4">
-<h3 data-number="12.1.4" class="anchored" data-anchor-id="mcqs-1"><span class="header-section-number">12.1.4</span> ❓ MCQs</h3>
-<p><strong>Q1.</strong> The question…</p>
-<ul>
-<li><ol type="a">
-<li>Wrong</li>
-</ol></li>
-<li><ol start="2" type="a">
-<li><strong>Right, in bold</strong></li>
-</ol></li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Answers
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>A1 — (b).</strong> The right answer restated, <strong>why the nearest wrong option is wrong</strong>.</p>
-</div>
-</div>
-</div>
-<p><strong>A bridge sentence pointing at the question the next topic answers.</strong></p>
-</section>
-</section>
-</section>
-<section id="sec-s09-c" class="level1" data-number="13">
-<h1 data-number="13"><span class="header-section-number">13</span> Part C — Simple and Multiple Regression</h1>
-<p><strong>Overview of Simple and Multiple Regression and its practical applications.</strong></p>
-<section id="sec-s09-topic-3" class="level2" data-number="13.1">
-<h2 data-number="13.1" class="anchored" data-anchor-id="sec-s09-topic-3"><span class="header-section-number">13.1</span> 3. Simple and Multiple Regression</h2>
-<p><strong>One plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.</strong></p>
-<p><strong>Then why it exists: what breaks, or what is unbearably tedious, without it.</strong></p>
-<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — something the reader already understands">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>🧠 Analogy — something the reader already understands
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>The everyday thing.</strong></p>
-<p><strong>The mapping:</strong> this part is the data, this part is the model, this part is the error.</p>
-<p><strong>Where it breaks down:</strong> every analogy is wrong somewhere, and the reader will walk into that place unaided.</p>
-</div>
-</div>
-<section id="how-it-works-2" class="level3" data-number="13.1.1">
-<h3 data-number="13.1.1" class="anchored" data-anchor-id="how-it-works-2"><span class="header-section-number">13.1.1</span> How it works</h3>
-<p><strong>The mechanism, in plain words first.</strong></p>
-</section>
-<section id="examples-2" class="level3" data-number="13.1.2">
-<h3 data-number="13.1.2" class="anchored" data-anchor-id="examples-2"><span class="header-section-number">13.1.2</span> 📘 Examples</h3>
-<p><strong>Example 1 — the smallest thing that works</strong></p>
-<div id="b47cc29c" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># placeholder</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="scenarios-2" class="level3" data-number="13.1.3">
-<h3 data-number="13.1.3" class="anchored" data-anchor-id="scenarios-2"><span class="header-section-number">13.1.3</span> 🌍 Scenarios</h3>
-<p><strong>Scenario 1 — the same idea in a situation the reader recognises</strong></p>
-<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ The trap, and its consequence">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>⚠️ The trap, and its consequence
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><em>“It will not error — it will be quietly wrong.”</em></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Tasks">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Tasks
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Do exactly what was just shown, on different data.</li>
-<li>Break it deliberately and report the exact error message.</li>
-</ol>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-15" class="callout-15-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="79681c1c" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solutions</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="mcqs-2" class="level3" data-number="13.1.4">
-<h3 data-number="13.1.4" class="anchored" data-anchor-id="mcqs-2"><span class="header-section-number">13.1.4</span> ❓ MCQs</h3>
-<p><strong>Q1.</strong> The question…</p>
-<ul>
-<li><ol type="a">
-<li>Wrong</li>
-</ol></li>
-<li><ol start="2" type="a">
-<li><strong>Right, in bold</strong></li>
-</ol></li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Answers
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-16" class="callout-16-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>A1 — (b).</strong> The right answer restated, <strong>why the nearest wrong option is wrong</strong>.</p>
-</div>
-</div>
-</div>
-<p><strong>A bridge sentence pointing at the question the next topic answers.</strong></p>
-</section>
-</section>
-</section>
-<section id="sec-s09-demo" class="level1" data-number="14">
-<h1 data-number="14"><span class="header-section-number">14</span> Part Demo — Applied Walkthrough</h1>
-<p><strong>Training a Multiple Linear Regression model using Scikit-Learn to predict real estate prices based on inputs like square footage and the number of bedrooms.</strong></p>
-<div id="8e05aabb" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># demo placeholder</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="sec-s09-tasks" class="level1" data-number="15">
-<h1 data-number="15"><span class="header-section-number">15</span> 🎯 Session 9 — Tasks</h1>
-<p><strong>Complete these tasks in order to solidify your understanding.</strong></p>
-<p><strong>Task 1 — Apply concepts.</strong> Practice the concepts learned in this session.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="✅ Before you move on">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -739,8 +1329,12 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <ul class="task-list">
-<li><label><input type="checkbox">Ensure you can explain Supervised learning techniques in plain English</label></li>
-<li><label><input type="checkbox"><strong>The one thing from this chapter that is easiest to forget</strong></label></li>
+<li><label><input type="checkbox">I can tell a regression problem from a classification problem</label></li>
+<li><label><input type="checkbox">I can read a slope and an intercept as an English sentence</label></li>
+<li><label><input type="checkbox">I always say “holding the other features constant” when quoting a coefficient</label></li>
+<li><label><input type="checkbox">I know when to report MAE and when to report RMSE</label></li>
+<li><label><input type="checkbox">I run a baseline before believing any score</label></li>
+<li><label><input type="checkbox"><strong>Easiest thing to forget:</strong> draw the residual plot. A high R² with a curved residual plot means the model is wrong in a way the score cannot show you.</label></li>
 </ul>
 </div>
 </div>
@@ -1151,13 +1745,13 @@ Note
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../sessions/session-08-exploratory-data-analytics-eda-and-visualization.html" class="pagination-link" aria-label="Session 8 — Exploratory Data Analytics (EDA) and Visualization">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analytics (EDA) and Visualization</span></span>
+      <a href="../sessions/session-08-exploratory-data-analytics-eda-and-visualization.html" class="pagination-link" aria-label="Session 8 — Exploratory Data Analysis and Visualization">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analysis and Visualization</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../sessions/session-10-unsupervised-learning-techniques-clustering.html" class="pagination-link" aria-label="Session 10 — Unsupervised Learning Techniques &amp; Clustering">
-        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning Techniques &amp; Clustering</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../sessions/session-10-unsupervised-learning-techniques-clustering.html" class="pagination-link" aria-label="Session 10 — Unsupervised Learning and Clustering">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning and Clustering</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

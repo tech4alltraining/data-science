@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>9&nbsp; Session 8 — Exploratory Data Analytics (EDA) and Visualization – Data Science Course</title>
+<title>9&nbsp; Session 8 — Exploratory Data Analysis and Visualization – Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -77,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-99913b7803b80b0c1d2b970a25816663.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-7202036dd3638cbfcbeb4151d116aa42.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -107,9 +107,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-sidebar floating quarto-light">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -118,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-08-exploratory-data-analytics-eda-and-visualization.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analytics (EDA) and Visualization</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-07-descriptive-statistics.html">Part C — Understanding data</a></li><li class="breadcrumb-item"><a href="../sessions/session-08-exploratory-data-analytics-eda-and-visualization.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analysis and Visualization</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -130,10 +131,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Data Science Course</a> 
+      <a href="../">Data Science</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -146,105 +147,160 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science Course</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part A — Getting hold of data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-01-introduction-to-data-science.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Session 1 — Introduction to Data Science</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-02-data-collection-and-pre-processing-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 2 — Data Collection and Pre-Processing Overview</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part B — Making data fit to use</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-03-data-cleaning.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Session 3 — Data Cleaning</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-04-data-integration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Session 4 — Data Integration</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-05-data-transformation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Session 5 — Data Transformation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-06-data-reduction-and-discretization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Session 6 — Data Reduction and Discretization</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part C — Understanding data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-07-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Session 7 — Descriptive Statistics</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-08-exploratory-data-analytics-eda-and-visualization.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analytics (EDA) and Visualization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analysis and Visualization</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part D — Learning from data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-09-supervised-learning-techniques.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Session 9 — Supervised Learning Techniques</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-10-unsupervised-learning-techniques-clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning Techniques &amp; Clustering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning and Clustering</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-11-data-model-evaluation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 11 — Data Model Evaluation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 11 — Model Evaluation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-12-model-saving-and-deployment.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Session 12 — Model Saving and Deployment</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part E — Data at scale</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-13-big-data-analytics-fundamentals.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Session 13 — Big Data Analytics Fundamentals</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-14-distributed-data-processing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Session 14 — Distributed Data Processing</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-15-nosql-databases-and-scaled-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Scaled Visualization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Visualization at Scale</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-16-open-ended-module-implementation-and-capstone.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Open Ended Module (Implementation and Capstone)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Capstone: The End-to-End Project</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -257,58 +313,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#sec-s08-outcomes" id="toc-sec-s08-outcomes" class="nav-link active" data-scroll-target="#sec-s08-outcomes"><span class="header-section-number">9.1</span> 🎯 Learning outcomes</a></li>
   <li><a href="#sec-s08-organisation" id="toc-sec-s08-organisation" class="nav-link" data-scroll-target="#sec-s08-organisation"><span class="header-section-number">9.2</span> How this chapter is organised</a></li>
-  <li><a href="#sec-s08-a" id="toc-sec-s08-a" class="nav-link" data-scroll-target="#sec-s08-a"><span class="header-section-number">10</span> Part A — Basic plots using Matplotlib</a>
+  <li><a href="#sec-s08-a" id="toc-sec-s08-a" class="nav-link" data-scroll-target="#sec-s08-a"><span class="header-section-number">10</span> Part A — What EDA is</a>
   <ul class="collapse">
-  <li><a href="#sec-s08-topic-1" id="toc-sec-s08-topic-1" class="nav-link" data-scroll-target="#sec-s08-topic-1"><span class="header-section-number">10.1</span> 1. Basic plots using Matplotlib</a>
+  <li><a href="#sec-s08-topic-1" id="toc-sec-s08-topic-1" class="nav-link" data-scroll-target="#sec-s08-topic-1"><span class="header-section-number">10.1</span> 1. The first pass</a>
   <ul class="collapse">
-  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works"><span class="header-section-number">10.1.1</span> How it works</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">10.1.2</span> 📘 Examples</a></li>
-  <li><a href="#scenarios" id="toc-scenarios" class="nav-link" data-scroll-target="#scenarios"><span class="header-section-number">10.1.3</span> 🌍 Scenarios</a></li>
-  <li><a href="#mcqs" id="toc-mcqs" class="nav-link" data-scroll-target="#mcqs"><span class="header-section-number">10.1.4</span> ❓ MCQs</a></li>
+  <li><a href="#the-dataset-for-this-chapter" id="toc-the-dataset-for-this-chapter" class="nav-link" data-scroll-target="#the-dataset-for-this-chapter"><span class="header-section-number">10.1.1</span> The dataset for this chapter</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s08-b" id="toc-sec-s08-b" class="nav-link" data-scroll-target="#sec-s08-b"><span class="header-section-number">11</span> Part B — Box Plots, Pivot Table</a>
+  <li><a href="#sec-s08-b" id="toc-sec-s08-b" class="nav-link" data-scroll-target="#sec-s08-b"><span class="header-section-number">11</span> Part B — One column at a time</a>
   <ul class="collapse">
-  <li><a href="#sec-s08-topic-2" id="toc-sec-s08-topic-2" class="nav-link" data-scroll-target="#sec-s08-topic-2"><span class="header-section-number">11.1</span> 2. Box Plots, Pivot Table</a>
+  <li><a href="#sec-s08-topic-2" id="toc-sec-s08-topic-2" class="nav-link" data-scroll-target="#sec-s08-topic-2"><span class="header-section-number">11.1</span> 2. Matplotlib in one page</a>
   <ul class="collapse">
-  <li><a href="#how-it-works-1" id="toc-how-it-works-1" class="nav-link" data-scroll-target="#how-it-works-1"><span class="header-section-number">11.1.1</span> How it works</a></li>
-  <li><a href="#examples-1" id="toc-examples-1" class="nav-link" data-scroll-target="#examples-1"><span class="header-section-number">11.1.2</span> 📘 Examples</a></li>
-  <li><a href="#scenarios-1" id="toc-scenarios-1" class="nav-link" data-scroll-target="#scenarios-1"><span class="header-section-number">11.1.3</span> 🌍 Scenarios</a></li>
-  <li><a href="#mcqs-1" id="toc-mcqs-1" class="nav-link" data-scroll-target="#mcqs-1"><span class="header-section-number">11.1.4</span> ❓ MCQs</a></li>
+  <li><a href="#demo-1-the-four-steps" id="toc-demo-1-the-four-steps" class="nav-link" data-scroll-target="#demo-1-the-four-steps"><span class="header-section-number">11.1.1</span> Demo 1 — the four steps</a></li>
+  </ul></li>
+  <li><a href="#sec-s08-topic-3" id="toc-sec-s08-topic-3" class="nav-link" data-scroll-target="#sec-s08-topic-3"><span class="header-section-number">11.2</span> 3. Choosing the chart</a>
+  <ul class="collapse">
+  <li><a href="#demo-2-histogram-versus-box-plot-what-each-one-hides" id="toc-demo-2-histogram-versus-box-plot-what-each-one-hides" class="nav-link" data-scroll-target="#demo-2-histogram-versus-box-plot-what-each-one-hides"><span class="header-section-number">11.2.1</span> Demo 2 — histogram versus box plot: what each one hides</a></li>
+  <li><a href="#demo-3-bar-charts-for-categories" id="toc-demo-3-bar-charts-for-categories" class="nav-link" data-scroll-target="#demo-3-bar-charts-for-categories"><span class="header-section-number">11.2.2</span> Demo 3 — bar charts for categories</a></li>
+  </ul></li>
+  <li><a href="#sec-s08-topic-4" id="toc-sec-s08-topic-4" class="nav-link" data-scroll-target="#sec-s08-topic-4"><span class="header-section-number">11.3</span> 4. Seaborn: statistical charts in one line</a>
+  <ul class="collapse">
+  <li><a href="#demo-4-grouped-box-plots-which-is-where-seaborn-earns-its-place" id="toc-demo-4-grouped-box-plots-which-is-where-seaborn-earns-its-place" class="nav-link" data-scroll-target="#demo-4-grouped-box-plots-which-is-where-seaborn-earns-its-place"><span class="header-section-number">11.3.1</span> Demo 4 — grouped box plots, which is where seaborn earns its place</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s08-c" id="toc-sec-s08-c" class="nav-link" data-scroll-target="#sec-s08-c"><span class="header-section-number">12</span> Part C — Correlation Statistics, Correlation coefficient</a>
+  <li><a href="#sec-s08-c" id="toc-sec-s08-c" class="nav-link" data-scroll-target="#sec-s08-c"><span class="header-section-number">12</span> Part C — Two columns together</a>
   <ul class="collapse">
-  <li><a href="#sec-s08-topic-3" id="toc-sec-s08-topic-3" class="nav-link" data-scroll-target="#sec-s08-topic-3"><span class="header-section-number">12.1</span> 3. Correlation Statistics, Correlation coefficient</a>
+  <li><a href="#sec-s08-topic-5" id="toc-sec-s08-topic-5" class="nav-link" data-scroll-target="#sec-s08-topic-5"><span class="header-section-number">12.1</span> 5. Scatter plots</a>
   <ul class="collapse">
-  <li><a href="#how-it-works-2" id="toc-how-it-works-2" class="nav-link" data-scroll-target="#how-it-works-2"><span class="header-section-number">12.1.1</span> How it works</a></li>
-  <li><a href="#examples-2" id="toc-examples-2" class="nav-link" data-scroll-target="#examples-2"><span class="header-section-number">12.1.2</span> 📘 Examples</a></li>
-  <li><a href="#scenarios-2" id="toc-scenarios-2" class="nav-link" data-scroll-target="#scenarios-2"><span class="header-section-number">12.1.3</span> 🌍 Scenarios</a></li>
-  <li><a href="#mcqs-2" id="toc-mcqs-2" class="nav-link" data-scroll-target="#mcqs-2"><span class="header-section-number">12.1.4</span> ❓ MCQs</a></li>
+  <li><a href="#demo-5-four-relationships-four-shapes" id="toc-demo-5-four-relationships-four-shapes" class="nav-link" data-scroll-target="#demo-5-four-relationships-four-shapes"><span class="header-section-number">12.1.1</span> Demo 5 — four relationships, four shapes</a></li>
+  <li><a href="#demo-6-the-real-data" id="toc-demo-6-the-real-data" class="nav-link" data-scroll-target="#demo-6-the-real-data"><span class="header-section-number">12.1.2</span> Demo 6 — the real data</a></li>
+  </ul></li>
+  <li><a href="#sec-s08-topic-6" id="toc-sec-s08-topic-6" class="nav-link" data-scroll-target="#sec-s08-topic-6"><span class="header-section-number">12.2</span> 6. Correlation</a>
+  <ul class="collapse">
+  <li><a href="#demo-7-when-pearson-and-spearman-disagree" id="toc-demo-7-when-pearson-and-spearman-disagree" class="nav-link" data-scroll-target="#demo-7-when-pearson-and-spearman-disagree"><span class="header-section-number">12.2.1</span> Demo 7 — when Pearson and Spearman disagree</a></li>
+  <li><a href="#demo-8-the-correlation-heatmap" id="toc-demo-8-the-correlation-heatmap" class="nav-link" data-scroll-target="#demo-8-the-correlation-heatmap"><span class="header-section-number">12.2.2</span> Demo 8 — the correlation heatmap</a></li>
+  <li><a href="#demo-9-a-confounder-manufactured-so-you-can-see-it" id="toc-demo-9-a-confounder-manufactured-so-you-can-see-it" class="nav-link" data-scroll-target="#demo-9-a-confounder-manufactured-so-you-can-see-it"><span class="header-section-number">12.2.3</span> Demo 9 — a confounder, manufactured so you can see it</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s08-d" id="toc-sec-s08-d" class="nav-link" data-scroll-target="#sec-s08-d"><span class="header-section-number">13</span> Part D — Correlation and scatter plots</a>
+  <li><a href="#sec-s08-d" id="toc-sec-s08-d" class="nav-link" data-scroll-target="#sec-s08-d"><span class="header-section-number">13</span> Part D — Many columns at once</a>
   <ul class="collapse">
-  <li><a href="#sec-s08-topic-4" id="toc-sec-s08-topic-4" class="nav-link" data-scroll-target="#sec-s08-topic-4"><span class="header-section-number">13.1</span> 4. Correlation and scatter plots</a>
+  <li><a href="#sec-s08-topic-7" id="toc-sec-s08-topic-7" class="nav-link" data-scroll-target="#sec-s08-topic-7"><span class="header-section-number">13.1</span> 7. Pivot tables</a>
   <ul class="collapse">
-  <li><a href="#how-it-works-3" id="toc-how-it-works-3" class="nav-link" data-scroll-target="#how-it-works-3"><span class="header-section-number">13.1.1</span> How it works</a></li>
-  <li><a href="#examples-3" id="toc-examples-3" class="nav-link" data-scroll-target="#examples-3"><span class="header-section-number">13.1.2</span> 📘 Examples</a></li>
-  <li><a href="#scenarios-3" id="toc-scenarios-3" class="nav-link" data-scroll-target="#scenarios-3"><span class="header-section-number">13.1.3</span> 🌍 Scenarios</a></li>
-  <li><a href="#mcqs-3" id="toc-mcqs-3" class="nav-link" data-scroll-target="#mcqs-3"><span class="header-section-number">13.1.4</span> ❓ MCQs</a></li>
+  <li><a href="#demo-10-the-same-data-as-a-groupby-and-as-a-pivot" id="toc-demo-10-the-same-data-as-a-groupby-and-as-a-pivot" class="nav-link" data-scroll-target="#demo-10-the-same-data-as-a-groupby-and-as-a-pivot"><span class="header-section-number">13.1.1</span> Demo 10 — the same data as a groupby and as a pivot</a></li>
+  <li><a href="#demo-11-pivot-tables-answer-harder-questions" id="toc-demo-11-pivot-tables-answer-harder-questions" class="nav-link" data-scroll-target="#demo-11-pivot-tables-answer-harder-questions"><span class="header-section-number">13.1.2</span> Demo 11 — pivot tables answer harder questions</a></li>
+  <li><a href="#demo-12-the-pair-plot-everything-against-everything" id="toc-demo-12-the-pair-plot-everything-against-everything" class="nav-link" data-scroll-target="#demo-12-the-pair-plot-everything-against-everything"><span class="header-section-number">13.1.3</span> Demo 12 — the pair plot: everything against everything</a></li>
+  <li><a href="#demo-13-the-full-first-pass-as-a-function" id="toc-demo-13-the-full-first-pass-as-a-function" class="nav-link" data-scroll-target="#demo-13-the-full-first-pass-as-a-function"><span class="header-section-number">13.1.4</span> Demo 13 — the full first pass, as a function</a></li>
+  <li><a href="#check-yourself" id="toc-check-yourself" class="nav-link" data-scroll-target="#check-yourself"><span class="header-section-number">13.1.5</span> ❓ Check yourself</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s08-demo" id="toc-sec-s08-demo" class="nav-link" data-scroll-target="#sec-s08-demo"><span class="header-section-number">14</span> Part Demo — Applied Walkthrough</a></li>
-  <li><a href="#sec-s08-tasks" id="toc-sec-s08-tasks" class="nav-link" data-scroll-target="#sec-s08-tasks"><span class="header-section-number">15</span> 🎯 Session 8 — Tasks</a></li>
+  <li><a href="#sec-s08-tasks" id="toc-sec-s08-tasks" class="nav-link" data-scroll-target="#sec-s08-tasks"><span class="header-section-number">14</span> 🎯 Tasks</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-07-descriptive-statistics.html">Part C — Understanding data</a></li><li class="breadcrumb-item"><a href="../sessions/session-08-exploratory-data-analytics-eda-and-visualization.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analysis and Visualization</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analytics (EDA) and Visualization</span></h1>
-<p class="subtitle lead">Basic plots using Matplotlib · Box Plots, Pivot Table · Correlation Statistics, Correlation coefficient · Correlation and scatter plots</p>
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analysis and Visualization</span></h1>
+<p class="subtitle lead">Matplotlib · Seaborn · Choosing the chart · Box plots · Pivot tables · Correlation</p>
 </div>
 
 
@@ -325,11 +388,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<!-- Setup code for the book -->
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -340,18 +398,21 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>This chapter introduces the fundamental concepts of Exploratory Data Analytics (EDA) and Visualization.</strong></p>
-<p><strong>Assumed knowledge:</strong> Concepts from Session 7.</p>
+<p><strong>This chapter is about looking at data before you model it — and drawing charts that answer a question rather than decorate a page.</strong></p>
+<p><strong>Assumed knowledge:</strong> Session 7 — mean, median, spread, quartiles, skewness. A box plot is a drawn five-number summary, so that chapter has to come first.</p>
+<p><strong>The one idea to take away:</strong> <strong>every chart must have a question attached.</strong> A chart drawn without one will show you a pattern, because the eye finds patterns in anything.</p>
 </div>
 </div>
 <section id="sec-s08-outcomes" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="sec-s08-outcomes"><span class="header-section-number">9.1</span> 🎯 Learning outcomes</h2>
 <p>By the end of this chapter you can:</p>
 <ol type="1">
-<li>Understand and implement Basic plots using Matplotlib</li>
-<li>Understand and implement Box Plots, Pivot Table</li>
-<li>Understand and implement Correlation Statistics, Correlation coefficient</li>
-<li>Understand and implement Correlation and scatter plots</li>
+<li>Run a structured first pass over an unfamiliar dataset.</li>
+<li>Choose the right chart for a question using a lookup table.</li>
+<li>Draw histograms, box plots, bar charts, scatter plots and heatmaps.</li>
+<li>Build a pivot table and read it.</li>
+<li>Compute and interpret Pearson and Spearman correlation.</li>
+<li>Explain why a strong correlation does not establish a cause, with an example.</li>
 </ol>
 </section>
 <section id="sec-s08-organisation" class="level2" data-number="9.2">
@@ -361,475 +422,868 @@ Note
 <tr class="header">
 <th>Part</th>
 <th>Question it answers</th>
-<th>Source</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#sec-s08-a">A — Basic plots using Matplotlib</a></td>
-<td><em>…?</em></td>
-<td><code>trainer_notebook.ipynb</code></td>
+<td><a href="#sec-s08-a">A — What EDA is</a></td>
+<td><em>What am I looking for, and in what order?</em></td>
 </tr>
 <tr class="even">
-<td><a href="#sec-s08-b">B — Box Plots, Pivot Table</a></td>
-<td><em>…?</em></td>
-<td><code>trainer_notebook.ipynb</code></td>
+<td><a href="#sec-s08-b">B — One column at a time</a></td>
+<td><em>What is inside this single column?</em></td>
 </tr>
 <tr class="odd">
-<td><a href="#sec-s08-c">C — Correlation Statistics, Correlation coefficient</a></td>
-<td><em>…?</em></td>
-<td><code>trainer_notebook.ipynb</code></td>
+<td><a href="#sec-s08-c">C — Two columns together</a></td>
+<td><em>Do these two move together?</em></td>
 </tr>
 <tr class="even">
-<td><a href="#sec-s08-d">D — Correlation and scatter plots</a></td>
-<td><em>…?</em></td>
-<td><code>trainer_notebook.ipynb</code></td>
+<td><a href="#sec-s08-d">D — Many columns at once</a></td>
+<td><em>What is the overall structure?</em></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="sec-s08-a" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> Part A — Basic plots using Matplotlib</h1>
-<p><strong>Overview of Basic plots using Matplotlib and its practical applications.</strong></p>
+<h1 data-number="10"><span class="header-section-number">10</span> Part A — What EDA is</h1>
 <section id="sec-s08-topic-1" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="sec-s08-topic-1"><span class="header-section-number">10.1</span> 1. Basic plots using Matplotlib</h2>
-<p><strong>One plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.</strong></p>
-<p><strong>Then why it exists: what breaks, or what is unbearably tedious, without it.</strong></p>
-<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — something the reader already understands">
+<h2 data-number="10.1" class="anchored" data-anchor-id="sec-s08-topic-1"><span class="header-section-number">10.1</span> 1. The first pass</h2>
+<p><strong>Exploratory Data Analysis is the deliberate look at a dataset before modelling it</strong> — to understand what is there, to find problems, and to form the questions worth asking.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — the doctor's examination">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>🧠 Analogy — something the reader already understands
+<span class="screen-reader-only">Tip</span>🧠 Analogy — the doctor’s examination
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>The everyday thing.</strong></p>
-<p><strong>The mapping:</strong> this part is the data, this part is the model, this part is the error.</p>
-<p><strong>Where it breaks down:</strong> every analogy is wrong somewhere, and the reader will walk into that place unaided.</p>
+<p>A doctor does not begin with surgery. They take a pulse, listen to the chest, ask questions. Most of it finds nothing — and that is the point. <strong>The examination rules things out</strong>, and occasionally finds something that changes the plan entirely.</p>
+<p>Skipping EDA is operating without examining. It works right up until it does not.</p>
 </div>
 </div>
-<section id="how-it-works" class="level3" data-number="10.1.1">
-<h3 data-number="10.1.1" class="anchored" data-anchor-id="how-it-works"><span class="header-section-number">10.1.1</span> How it works</h3>
-<p><strong>The mechanism, in plain words first.</strong></p>
-</section>
-<section id="examples" class="level3" data-number="10.1.2">
-<h3 data-number="10.1.2" class="anchored" data-anchor-id="examples"><span class="header-section-number">10.1.2</span> 📘 Examples</h3>
-<p><strong>Example 1 — the smallest thing that works</strong></p>
-<div id="d3805e1d" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># placeholder</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Five questions, asked in this order, on every new dataset:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Question</th>
+<th>Tool</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>How big is it, and what type is each column?</td>
+<td><code>.shape</code>, <code>.info()</code></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>What does each column look like on its own?</td>
+<td>histogram, box plot, <code>.value_counts()</code></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>What is missing or impossible?</td>
+<td><code>.isna().sum()</code>, <code>.describe()</code></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Which columns move together?</td>
+<td>scatter plot, correlation</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>What differs between groups?</td>
+<td><code>groupby</code>, pivot table</td>
+</tr>
+</tbody>
+</table>
+<section id="the-dataset-for-this-chapter" class="level3" data-number="10.1.1">
+<h3 data-number="10.1.1" class="anchored" data-anchor-id="the-dataset-for-this-chapter"><span class="header-section-number">10.1.1</span> The dataset for this chapter</h3>
+<div id="66578ad9" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">21</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> rng.normal(<span class="dv">1_200</span>, <span class="dv">350</span>, n).clip(<span class="dv">350</span>, <span class="dv">3_000</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>age  <span class="op">=</span> rng.integers(<span class="dv">0</span>, <span class="dv">40</span>, n)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>city <span class="op">=</span> rng.choice([<span class="st">"Mumbai"</span>, <span class="st">"Pune"</span>, <span class="st">"Nagpur"</span>], n, p<span class="op">=</span>[<span class="fl">.45</span>, <span class="fl">.35</span>, <span class="fl">.20</span>])</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>city_premium <span class="op">=</span> pd.Series(city).<span class="bu">map</span>({<span class="st">"Mumbai"</span>: <span class="fl">1.9</span>, <span class="st">"Pune"</span>: <span class="fl">1.0</span>, <span class="st">"Nagpur"</span>: <span class="fl">0.6</span>}).values</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>price <span class="op">=</span> (area <span class="op">*</span> <span class="dv">3_500</span> <span class="op">*</span> city_premium <span class="op">-</span> age <span class="op">*</span> <span class="dv">60_000</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>         <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">300_000</span>, n)).clip(<span class="dv">500_000</span>, <span class="va">None</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>homes <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"area_sqft"</span>: area.<span class="bu">round</span>(<span class="dv">0</span>),</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"age_years"</span>: age,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"city"</span>: city,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bedrooms"</span>: np.clip((area <span class="op">/</span> <span class="dv">450</span>).<span class="bu">round</span>(), <span class="dv">1</span>, <span class="dv">6</span>).astype(<span class="bu">int</span>),</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"price"</span>: price.<span class="bu">round</span>(<span class="op">-</span><span class="dv">3</span>),</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>homes.loc[rng.choice(n, <span class="dv">25</span>, replace<span class="op">=</span><span class="va">False</span>), <span class="st">"area_sqft"</span>] <span class="op">=</span> np.nan   <span class="co"># some gaps</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"1. SHAPE — </span><span class="sc">{</span>homes<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> rows, </span><span class="sc">{</span>homes<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss"> columns</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>homes.info()</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">3. MISSING VALUES per column:"</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(homes.isna().<span class="bu">sum</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1. SHAPE — 500 rows, 5 columns
+
+&lt;class 'pandas.DataFrame'&gt;
+RangeIndex: 500 entries, 0 to 499
+Data columns (total 5 columns):
+ #   Column     Non-Null Count  Dtype  
+---  ------     --------------  -----  
+ 0   area_sqft  475 non-null    float64
+ 1   age_years  500 non-null    int64  
+ 2   city       500 non-null    str    
+ 3   bedrooms   500 non-null    int64  
+ 4   price      500 non-null    float64
+dtypes: float64(2), int64(2), str(1)
+memory usage: 19.7 KB
+
+3. MISSING VALUES per column:
+area_sqft    25
+age_years     0
+city          0
+bedrooms      0
+price         0
+dtype: int64</code></pre>
 </div>
-</section>
-<section id="scenarios" class="level3" data-number="10.1.3">
-<h3 data-number="10.1.3" class="anchored" data-anchor-id="scenarios"><span class="header-section-number">10.1.3</span> 🌍 Scenarios</h3>
-<p><strong>Scenario 1 — the same idea in a situation the reader recognises</strong></p>
-<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ The trap, and its consequence">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>⚠️ The trap, and its consequence
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><em>“It will not error — it will be quietly wrong.”</em></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Tasks">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Tasks
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Do exactly what was just shown, on different data.</li>
-<li>Break it deliberately and report the exact error message.</li>
-</ol>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="a707ec43" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solutions</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="mcqs" class="level3" data-number="10.1.4">
-<h3 data-number="10.1.4" class="anchored" data-anchor-id="mcqs"><span class="header-section-number">10.1.4</span> ❓ MCQs</h3>
-<p><strong>Q1.</strong> The question…</p>
-<ul>
-<li><ol type="a">
-<li>Wrong</li>
-</ol></li>
-<li><ol start="2" type="a">
-<li><strong>Right, in bold</strong></li>
-</ol></li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Answers
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>A1 — (b).</strong> The right answer restated, <strong>why the nearest wrong option is wrong</strong>.</p>
-</div>
-</div>
-</div>
-<p><strong>A bridge sentence pointing at the question the next topic answers.</strong></p>
 </section>
 </section>
 </section>
 <section id="sec-s08-b" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> Part B — Box Plots, Pivot Table</h1>
-<p><strong>Overview of Box Plots, Pivot Table and its practical applications.</strong></p>
+<h1 data-number="11"><span class="header-section-number">11</span> Part B — One column at a time</h1>
 <section id="sec-s08-topic-2" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="sec-s08-topic-2"><span class="header-section-number">11.1</span> 2. Box Plots, Pivot Table</h2>
-<p><strong>One plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.</strong></p>
-<p><strong>Then why it exists: what breaks, or what is unbearably tedious, without it.</strong></p>
-<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — something the reader already understands">
+<h2 data-number="11.1" class="anchored" data-anchor-id="sec-s08-topic-2"><span class="header-section-number">11.1</span> 2. Matplotlib in one page</h2>
+<p><strong>Matplotlib is Python’s base plotting library.</strong> Almost every chart follows the same four steps.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Code</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. Make a figure and axes</td>
+<td><code>fig, ax = plt.subplots()</code></td>
+</tr>
+<tr class="even">
+<td>2. Draw something on the axes</td>
+<td><code>ax.hist(...)</code>, <code>ax.scatter(...)</code></td>
+</tr>
+<tr class="odd">
+<td>3. Label it</td>
+<td><code>ax.set_xlabel(...)</code>, <code>ax.set_title(...)</code></td>
+</tr>
+<tr class="even">
+<td>4. Show it</td>
+<td><code>plt.show()</code></td>
+</tr>
+</tbody>
+</table>
+<section id="demo-1-the-four-steps" class="level3" data-number="11.1.1">
+<h3 data-number="11.1.1" class="anchored" data-anchor-id="demo-1-the-four-steps"><span class="header-section-number">11.1.1</span> Demo 1 — the four steps</h3>
+<div id="cell-fig-s08-first" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="fl">3.2</span>))          <span class="co"># 1. create</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>ax.hist(homes[<span class="st">"price"</span>] <span class="op">/</span> <span class="fl">1e6</span>, bins<span class="op">=</span><span class="dv">40</span>)            <span class="co"># 2. draw</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Price (₹ millions)"</span>)               <span class="co"># 3. label</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Number of houses"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"How much do these houses cost?"</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>plt.show()                                        <span class="co"># 4. show</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s08-first" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s08-first-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-08-exploratory-data-analytics-eda-and-visualization_files/figure-html/fig-s08-first-output-1.png" width="671" height="363" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s08-first-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11.1: A histogram of house prices. Steps: create, draw, label, show.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Note the title.</strong> It is a question, not a label. <code>"Price distribution"</code> tells the reader nothing they could not see; <code>"How much do these houses cost?"</code> tells them what to look for.</p>
+</section>
+</section>
+<section id="sec-s08-topic-3" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="sec-s08-topic-3"><span class="header-section-number">11.2</span> 3. Choosing the chart</h2>
+<p><strong>The chart follows from the question and the column types — it is not a matter of taste.</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Your question</th>
+<th>Column types</th>
+<th>Chart</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>How is one number spread out?</td>
+<td>1 numeric</td>
+<td><strong>histogram</strong></td>
+</tr>
+<tr class="even">
+<td>What is its centre, spread and outliers?</td>
+<td>1 numeric</td>
+<td><strong>box plot</strong></td>
+</tr>
+<tr class="odd">
+<td>How many of each category?</td>
+<td>1 categorical</td>
+<td><strong>bar chart</strong></td>
+</tr>
+<tr class="even">
+<td>Do these two numbers move together?</td>
+<td>2 numeric</td>
+<td><strong>scatter plot</strong></td>
+</tr>
+<tr class="odd">
+<td>Does this number differ by group?</td>
+<td>1 numeric + 1 categorical</td>
+<td><strong>box plot by group</strong></td>
+</tr>
+<tr class="even">
+<td>How do all my numeric columns relate?</td>
+<td>many numeric</td>
+<td><strong>heatmap</strong></td>
+</tr>
+<tr class="odd">
+<td>How does something change over time?</td>
+<td>time + numeric</td>
+<td><strong>line chart</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ The pie chart is almost always the wrong answer">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>🧠 Analogy — something the reader already understands
+<span class="screen-reader-only">Warning</span>⚠️ The pie chart is almost always the wrong answer
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>The everyday thing.</strong></p>
-<p><strong>The mapping:</strong> this part is the data, this part is the model, this part is the error.</p>
-<p><strong>Where it breaks down:</strong> every analogy is wrong somewhere, and the reader will walk into that place unaided.</p>
+<p>People compare angles badly. Any pie chart with more than three slices is harder to read than the bar chart of the same data — and a bar chart can be sorted, which a pie cannot. <strong>Use a bar chart.</strong></p>
 </div>
 </div>
-<section id="how-it-works-1" class="level3" data-number="11.1.1">
-<h3 data-number="11.1.1" class="anchored" data-anchor-id="how-it-works-1"><span class="header-section-number">11.1.1</span> How it works</h3>
-<p><strong>The mechanism, in plain words first.</strong></p>
-</section>
-<section id="examples-1" class="level3" data-number="11.1.2">
-<h3 data-number="11.1.2" class="anchored" data-anchor-id="examples-1"><span class="header-section-number">11.1.2</span> 📘 Examples</h3>
-<p><strong>Example 1 — the smallest thing that works</strong></p>
-<div id="de37330a" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># placeholder</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="demo-2-histogram-versus-box-plot-what-each-one-hides" class="level3" data-number="11.2.1">
+<h3 data-number="11.2.1" class="anchored" data-anchor-id="demo-2-histogram-versus-box-plot-what-each-one-hides"><span class="header-section-number">11.2.1</span> Demo 2 — histogram versus box plot: what each one hides</h3>
+<div id="cell-fig-s08-hist-box" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="fl">3.2</span>))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].hist(homes[<span class="st">"price"</span>] <span class="op">/</span> <span class="fl">1e6</span>, bins<span class="op">=</span><span class="dv">40</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_title(<span class="st">"Histogram — shows the shape"</span>)<span class="op">;</span> ax[<span class="dv">0</span>].set_xlabel(<span class="st">"₹ millions"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].boxplot(homes[<span class="st">"price"</span>] <span class="op">/</span> <span class="fl">1e6</span>, orientation<span class="op">=</span><span class="st">"horizontal"</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"Box plot — shows the summary"</span>)<span class="op">;</span> ax[<span class="dv">1</span>].set_xlabel(<span class="st">"₹ millions"</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>q1, med, q3 <span class="op">=</span> homes[<span class="st">"price"</span>].quantile([<span class="fl">.25</span>, <span class="fl">.5</span>, <span class="fl">.75</span>])</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>iqr <span class="op">=</span> q3 <span class="op">-</span> q1</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>flagged <span class="op">=</span> ((homes[<span class="st">"price"</span>] <span class="op">&lt;</span> q1 <span class="op">-</span> <span class="fl">1.5</span><span class="op">*</span>iqr) <span class="op">|</span> (homes[<span class="st">"price"</span>] <span class="op">&gt;</span> q3 <span class="op">+</span> <span class="fl">1.5</span><span class="op">*</span>iqr)).<span class="bu">sum</span>()</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"skewness </span><span class="sc">{</span>homes[<span class="st">'price'</span>]<span class="sc">.</span>skew()<span class="sc">:.2f}</span><span class="ss">  →  the histogram shows a right lean"</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"the box plot flags </span><span class="sc">{</span>flagged<span class="sc">}</span><span class="ss"> houses as outliers by the IQR rule"</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The histogram cannot tell you that count; the box plot cannot show you the shape."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s08-hist-box" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s08-hist-box-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-08-exploratory-data-analytics-eda-and-visualization_files/figure-html/fig-s08-hist-box-output-1.png" width="1089" height="341" class="figure-img">
 </div>
-</section>
-<section id="scenarios-1" class="level3" data-number="11.1.3">
-<h3 data-number="11.1.3" class="anchored" data-anchor-id="scenarios-1"><span class="header-section-number">11.1.3</span> 🌍 Scenarios</h3>
-<p><strong>Scenario 1 — the same idea in a situation the reader recognises</strong></p>
-<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ The trap, and its consequence">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>⚠️ The trap, and its consequence
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><em>“It will not error — it will be quietly wrong.”</em></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Tasks">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Tasks
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s08-hist-box-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11.2: Same column, two views. The histogram shows the shape; the box plot shows the summary and flags outliers.
+</figcaption>
+</figure>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Do exactly what was just shown, on different data.</li>
-<li>Break it deliberately and report the exact error message.</li>
-</ol>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="ebe083b8" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solutions</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>skewness 0.59  →  the histogram shows a right lean
+the box plot flags 0 houses as outliers by the IQR rule
+The histogram cannot tell you that count; the box plot cannot show you the shape.</code></pre>
 </div>
 </div>
 </section>
-<section id="mcqs-1" class="level3" data-number="11.1.4">
-<h3 data-number="11.1.4" class="anchored" data-anchor-id="mcqs-1"><span class="header-section-number">11.1.4</span> ❓ MCQs</h3>
-<p><strong>Q1.</strong> The question…</p>
-<ul>
-<li><ol type="a">
-<li>Wrong</li>
-</ol></li>
-<li><ol start="2" type="a">
-<li><strong>Right, in bold</strong></li>
-</ol></li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="demo-3-bar-charts-for-categories" class="level3" data-number="11.2.2">
+<h3 data-number="11.2.2" class="anchored" data-anchor-id="demo-3-bar-charts-for-categories"><span class="header-section-number">11.2.2</span> Demo 3 — bar charts for categories</h3>
+<div id="cell-fig-s08-bar" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>counts <span class="op">=</span> homes[<span class="st">"city"</span>].value_counts()</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>means  <span class="op">=</span> homes.groupby(<span class="st">"city"</span>)[<span class="st">"price"</span>].mean().sort_values(ascending<span class="op">=</span><span class="va">False</span>) <span class="op">/</span> <span class="fl">1e6</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="fl">3.2</span>))</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].bar(counts.index, counts.values)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_title(<span class="st">"How many houses per city?"</span>)<span class="op">;</span> ax[<span class="dv">0</span>].set_ylabel(<span class="st">"count"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].bar(means.index, means.values, color<span class="op">=</span><span class="st">"darkorange"</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"What does a house cost per city?"</span>)<span class="op">;</span> ax[<span class="dv">1</span>].set_ylabel(<span class="st">"₹ millions"</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(counts.to_string())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s08-bar" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s08-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-08-exploratory-data-analytics-eda-and-visualization_files/figure-html/fig-s08-bar-output-1.png" width="1089" height="341" class="figure-img">
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Answers
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>A1 — (b).</strong> The right answer restated, <strong>why the nearest wrong option is wrong</strong>.</p>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s08-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11.3: Counts, and the average price per city. Two different questions, two different bars.
+</figcaption>
+</figure>
 </div>
 </div>
+<div class="cell-output cell-output-stdout">
+<pre><code>city
+Mumbai    207
+Pune      172
+Nagpur    121</code></pre>
 </div>
-<p><strong>A bridge sentence pointing at the question the next topic answers.</strong></p>
+</div>
+<p><strong>Two bar charts of the same column that answer completely different questions.</strong> The left one is about how the data was collected; the right one is about houses.</p>
+</section>
+</section>
+<section id="sec-s08-topic-4" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="sec-s08-topic-4"><span class="header-section-number">11.3</span> 4. Seaborn: statistical charts in one line</h2>
+<p><strong>Seaborn sits on top of matplotlib and knows about DataFrames.</strong> What takes six lines in matplotlib usually takes one in seaborn.</p>
+<section id="demo-4-grouped-box-plots-which-is-where-seaborn-earns-its-place" class="level3" data-number="11.3.1">
+<h3 data-number="11.3.1" class="anchored" data-anchor-id="demo-4-grouped-box-plots-which-is-where-seaborn-earns-its-place"><span class="header-section-number">11.3.1</span> Demo 4 — grouped box plots, which is where seaborn earns its place</h3>
+<div id="cell-fig-s08-seaborn" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">3.4</span>))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>homes, x<span class="op">=</span><span class="st">"city"</span>, y<span class="op">=</span><span class="st">"price"</span>, ax<span class="op">=</span>ax[<span class="dv">0</span>])</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_title(<span class="st">"Does price differ by city?"</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>sns.violinplot(data<span class="op">=</span>homes, x<span class="op">=</span><span class="st">"bedrooms"</span>, y<span class="op">=</span><span class="st">"price"</span>, ax<span class="op">=</span>ax[<span class="dv">1</span>])</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"Does price differ by bedroom count?"</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> ax: a.set_ylabel(<span class="st">"Price (₹)"</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(homes.groupby(<span class="st">"city"</span>)[<span class="st">"price"</span>].agg([<span class="st">"count"</span>, <span class="st">"median"</span>]).<span class="bu">round</span>(<span class="dv">0</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s08-seaborn" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s08-seaborn-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-08-exploratory-data-analytics-eda-and-visualization_files/figure-html/fig-s08-seaborn-output-1.png" width="1199" height="363" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s08-seaborn-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11.4: Price by city, and by number of bedrooms. One line each.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        count     median
+city                    
+Mumbai    207  6994000.0
+Nagpur    121  1413000.0
+Pune      172  2944500.0</code></pre>
+</div>
+</div>
+<p><strong>A violin plot is a box plot with the distribution’s shape drawn on it.</strong> Use it when the shape matters — for instance when a group is secretly two groups.</p>
 </section>
 </section>
 </section>
 <section id="sec-s08-c" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> Part C — Correlation Statistics, Correlation coefficient</h1>
-<p><strong>Overview of Correlation Statistics, Correlation coefficient and its practical applications.</strong></p>
-<section id="sec-s08-topic-3" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="sec-s08-topic-3"><span class="header-section-number">12.1</span> 3. Correlation Statistics, Correlation coefficient</h2>
-<p><strong>One plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.</strong></p>
-<p><strong>Then why it exists: what breaks, or what is unbearably tedious, without it.</strong></p>
-<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — something the reader already understands">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<h1 data-number="12"><span class="header-section-number">12</span> Part C — Two columns together</h1>
+<section id="sec-s08-topic-5" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="sec-s08-topic-5"><span class="header-section-number">12.1</span> 5. Scatter plots</h2>
+<p><strong>A scatter plot puts one column on each axis and one dot per row.</strong> It is the fastest way to see whether two numbers are related, and what <em>kind</em> of relationship it is.</p>
+<section id="demo-5-four-relationships-four-shapes" class="level3" data-number="12.1.1">
+<h3 data-number="12.1.1" class="anchored" data-anchor-id="demo-5-four-relationships-four-shapes"><span class="header-section-number">12.1.1</span> Demo 5 — four relationships, four shapes</h3>
+<div id="cell-fig-s08-scatter4" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">22</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> rng.uniform(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">250</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>pairs <span class="op">=</span> {</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Strong positive"</span>: <span class="dv">3</span><span class="op">*</span>x <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="fl">1.5</span>, <span class="dv">250</span>),</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Weak positive"</span>:   <span class="dv">3</span><span class="op">*</span>x <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">14</span>, <span class="dv">250</span>),</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Curved"</span>:          (x <span class="op">-</span> <span class="dv">5</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="fl">1.5</span>, <span class="dv">250</span>),</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"No relationship"</span>:  rng.normal(<span class="dv">15</span>, <span class="dv">5</span>, <span class="dv">250</span>),</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">4</span>, figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="dv">3</span>))</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, (name, y) <span class="kw">in</span> <span class="bu">zip</span>(axes, pairs.items()):</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    ax.scatter(x, y, s<span class="op">=</span><span class="dv">8</span>, alpha<span class="op">=</span><span class="fl">.6</span>)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">\n</span><span class="ss">Pearson r = </span><span class="sc">{</span>np<span class="sc">.</span>corrcoef(x, y)[<span class="dv">0</span>,<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s08-scatter4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s08-scatter4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-08-exploratory-data-analytics-eda-and-visualization_files/figure-html/fig-s08-scatter4-output-1.png" width="1411" height="318" class="figure-img">
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>🧠 Analogy — something the reader already understands
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s08-scatter4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12.1: Strong positive, weak, curved, and none. Only the first is safe for a straight-line model.
+</figcaption>
+</figure>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p><strong>The everyday thing.</strong></p>
-<p><strong>The mapping:</strong> this part is the data, this part is the model, this part is the error.</p>
-<p><strong>Where it breaks down:</strong> every analogy is wrong somewhere, and the reader will walk into that place unaided.</p>
 </div>
-</div>
-<section id="how-it-works-2" class="level3" data-number="12.1.1">
-<h3 data-number="12.1.1" class="anchored" data-anchor-id="how-it-works-2"><span class="header-section-number">12.1.1</span> How it works</h3>
-<p><strong>The mechanism, in plain words first.</strong></p>
+<p><strong>Look at the curved one.</strong> Its correlation is near zero, and yet <code>x</code> predicts <code>y</code> almost perfectly — just not with a straight line. <strong>Correlation only measures straight- line relationships</strong>, which is the single most important limitation to remember.</p>
 </section>
-<section id="examples-2" class="level3" data-number="12.1.2">
-<h3 data-number="12.1.2" class="anchored" data-anchor-id="examples-2"><span class="header-section-number">12.1.2</span> 📘 Examples</h3>
-<p><strong>Example 1 — the smallest thing that works</strong></p>
-<div id="efb18964" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># placeholder</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="demo-6-the-real-data" class="level3" data-number="12.1.2">
+<h3 data-number="12.1.2" class="anchored" data-anchor-id="demo-6-the-real-data"><span class="header-section-number">12.1.2</span> Demo 6 — the real data</h3>
+<div id="cell-fig-s08-real-scatter" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">3.6</span>))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].scatter(homes[<span class="st">"area_sqft"</span>], homes[<span class="st">"price"</span>]<span class="op">/</span><span class="fl">1e6</span>, s<span class="op">=</span><span class="dv">10</span>, alpha<span class="op">=</span><span class="fl">.5</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_xlabel(<span class="st">"Area (sqft)"</span>)<span class="op">;</span> ax[<span class="dv">0</span>].set_ylabel(<span class="st">"₹ millions"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_title(<span class="st">"Ignoring city — one cloud"</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data<span class="op">=</span>homes, x<span class="op">=</span><span class="st">"area_sqft"</span>, y<span class="op">=</span>homes[<span class="st">"price"</span>]<span class="op">/</span><span class="fl">1e6</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>                hue<span class="op">=</span><span class="st">"city"</span>, s<span class="op">=</span><span class="dv">18</span>, alpha<span class="op">=</span><span class="fl">.75</span>, ax<span class="op">=</span>ax[<span class="dv">1</span>])</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_xlabel(<span class="st">"Area (sqft)"</span>)<span class="op">;</span> ax[<span class="dv">1</span>].set_ylabel(<span class="st">"₹ millions"</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"Coloured by city — three lines"</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> [<span class="st">"Mumbai"</span>, <span class="st">"Pune"</span>, <span class="st">"Nagpur"</span>]:</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    sub <span class="op">=</span> homes[homes[<span class="st">"city"</span>] <span class="op">==</span> c].dropna()</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> sub[<span class="st">"area_sqft"</span>].corr(sub[<span class="st">"price"</span>])</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>c<span class="sc">:&lt;8}</span><span class="ss"> </span><span class="sc">{</span><span class="bu">len</span>(sub)<span class="sc">:&gt;3}</span><span class="ss"> houses, area–price correlation </span><span class="sc">{</span>r<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s08-real-scatter" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s08-real-scatter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-08-exploratory-data-analytics-eda-and-visualization_files/figure-html/fig-s08-real-scatter-output-1.png" width="1199" height="385" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s08-real-scatter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12.2: Area against price, coloured by city. The colour reveals three separate relationships.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Mumbai   193 houses, area–price correlation 0.94
+Pune     164 houses, area–price correlation 0.85
+Nagpur   118 houses, area–price correlation 0.67</code></pre>
+</div>
+</div>
+<p><strong>Adding one colour changed the finding.</strong> The left chart says “bigger houses cost more, roughly”. The right chart says “bigger houses cost more <em>at a different rate in each city</em>” — which is a far more useful statement, and a modelling instruction.</p>
+</section>
+</section>
+<section id="sec-s08-topic-6" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="sec-s08-topic-6"><span class="header-section-number">12.2</span> 6. Correlation</h2>
+<p><strong>Correlation puts a number on how strongly two columns move together.</strong> It runs from −1 to +1.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>+1</strong></td>
+<td>perfect: when one rises, the other rises exactly in step</td>
+</tr>
+<tr class="even">
+<td><strong>+0.7</strong></td>
+<td>strong positive</td>
+</tr>
+<tr class="odd">
+<td><strong>0</strong></td>
+<td>no straight-line relationship</td>
+</tr>
+<tr class="even">
+<td><strong>−0.7</strong></td>
+<td>strong negative: one rises as the other falls</td>
+</tr>
+<tr class="odd">
+<td><strong>−1</strong></td>
+<td>perfect negative</td>
+</tr>
+</tbody>
+</table>
+<p>Two kinds, and they answer different questions:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Kind</th>
+<th>Measures</th>
+<th>Use when</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Pearson</strong></td>
+<td>straight-line relationship</td>
+<td>the relationship looks linear</td>
+</tr>
+<tr class="even">
+<td><strong>Spearman</strong></td>
+<td>whether they rise together <strong>in rank order</strong></td>
+<td>the relationship is curved but consistently increasing</td>
+</tr>
+</tbody>
+</table>
+<section id="demo-7-when-pearson-and-spearman-disagree" class="level3" data-number="12.2.1">
+<h3 data-number="12.2.1" class="anchored" data-anchor-id="demo-7-when-pearson-and-spearman-disagree"><span class="header-section-number">12.2.1</span> Demo 7 — when Pearson and Spearman disagree</h3>
+<div id="5f9f6af1" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> pd.Series(np.arange(<span class="dv">1</span>, <span class="dv">51</span>))</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x <span class="op">**</span> <span class="dv">3</span>                                     <span class="co"># perfectly related, but strongly curved</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Pearson  r = </span><span class="sc">{</span>x<span class="sc">.</span>corr(y, method<span class="op">=</span><span class="st">'pearson'</span>)<span class="sc">:.3f}</span><span class="ss">   (straight-line strength)"</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Spearman r = </span><span class="sc">{</span>x<span class="sc">.</span>corr(y, method<span class="op">=</span><span class="st">'spearman'</span>)<span class="sc">:.3f}</span><span class="ss">   (rank agreement)"</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Spearman is exactly 1.0: every time x goes up, y goes up. Always."</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Pearson is below 1.0 because the relationship is a curve, not a line."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Pearson  r = 0.919   (straight-line strength)
+Spearman r = 1.000   (rank agreement)
+
+Spearman is exactly 1.0: every time x goes up, y goes up. Always.
+Pearson is below 1.0 because the relationship is a curve, not a line.</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — two dancers">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>🧠 Analogy — two dancers
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Pearson</strong> asks: <em>do they move in step, by the same amount, at the same time?</em></p>
+<p><strong>Spearman</strong> asks only: <em>when one steps forward, does the other step forward too?</em> It does not care by how much.</p>
+<p>A pair who always move together but with very different stride lengths score perfectly on Spearman and poorly on Pearson.</p>
+</div>
 </div>
 </section>
-<section id="scenarios-2" class="level3" data-number="12.1.3">
-<h3 data-number="12.1.3" class="anchored" data-anchor-id="scenarios-2"><span class="header-section-number">12.1.3</span> 🌍 Scenarios</h3>
-<p><strong>Scenario 1 — the same idea in a situation the reader recognises</strong></p>
-<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ The trap, and its consequence">
+<section id="demo-8-the-correlation-heatmap" class="level3" data-number="12.2.2">
+<h3 data-number="12.2.2" class="anchored" data-anchor-id="demo-8-the-correlation-heatmap"><span class="header-section-number">12.2.2</span> Demo 8 — the correlation heatmap</h3>
+<div id="cell-fig-s08-heatmap" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>numeric <span class="op">=</span> homes.select_dtypes(<span class="st">"number"</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>corr <span class="op">=</span> numeric.corr()</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="fl">5.5</span>, <span class="dv">4</span>))</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>sns.heatmap(corr, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">".2f"</span>, cmap<span class="op">=</span><span class="st">"RdBu_r"</span>, center<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>            vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">1</span>, square<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>ax)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"What moves with what?"</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Correlation with price, strongest first:"</span>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(corr[<span class="st">"price"</span>].drop(<span class="st">"price"</span>).sort_values(key<span class="op">=</span><span class="bu">abs</span>, ascending<span class="op">=</span><span class="va">False</span>).<span class="bu">round</span>(<span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s08-heatmap" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s08-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-08-exploratory-data-analytics-eda-and-visualization_files/figure-html/fig-s08-heatmap-output-1.png" width="510" height="429" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s08-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12.3: Every numeric pair at once. Read the row for your target column first.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Correlation with price, strongest first:
+area_sqft    0.488
+bedrooms     0.432
+age_years   -0.229
+Name: price, dtype: float64</code></pre>
+</div>
+</div>
+<p><strong>Read the <code>price</code> row first</strong> — it ranks your predictors. Then look for very high correlations <em>between</em> predictors: <code>area_sqft</code> and <code>bedrooms</code> are nearly the same column, because bedrooms were derived from area. Keeping both tells a model the same fact twice.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Correlation is not causation">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>⚠️ The trap, and its consequence
+<span class="screen-reader-only">Warning</span>⚠️ Correlation is not causation
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><em>“It will not error — it will be quietly wrong.”</em></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Tasks">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Tasks
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<p>Ice cream sales correlate strongly with drowning deaths. Ice cream does not cause drowning: <strong>hot weather causes both.</strong> A third variable driving two others is called a <strong>confounder</strong>, and it produces most of the spurious correlations you will meet.</p>
+<p>Three things a correlation can mean:</p>
 <ol type="1">
-<li>Do exactly what was just shown, on different data.</li>
-<li>Break it deliberately and report the exact error message.</li>
+<li>A causes B</li>
+<li>B causes A</li>
+<li><strong>C causes both</strong> — usually this one</li>
 </ol>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-15" class="callout-15-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="e1a3ba88" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solutions</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
+<p><strong>A correlation is a question worth investigating, never an answer.</strong></p>
 </div>
 </div>
 </section>
-<section id="mcqs-2" class="level3" data-number="12.1.4">
-<h3 data-number="12.1.4" class="anchored" data-anchor-id="mcqs-2"><span class="header-section-number">12.1.4</span> ❓ MCQs</h3>
-<p><strong>Q1.</strong> The question…</p>
-<ul>
-<li><ol type="a">
-<li>Wrong</li>
-</ol></li>
-<li><ol start="2" type="a">
-<li><strong>Right, in bold</strong></li>
-</ol></li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="demo-9-a-confounder-manufactured-so-you-can-see-it" class="level3" data-number="12.2.3">
+<h3 data-number="12.2.3" class="anchored" data-anchor-id="demo-9-a-confounder-manufactured-so-you-can-see-it"><span class="header-section-number">12.2.3</span> Demo 9 — a confounder, manufactured so you can see it</h3>
+<div id="63238e1c" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">23</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>temperature <span class="op">=</span> rng.uniform(<span class="dv">15</span>, <span class="dv">42</span>, <span class="dv">400</span>)                      <span class="co"># the real cause</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>ice_cream   <span class="op">=</span> temperature <span class="op">*</span> <span class="dv">120</span> <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">300</span>, <span class="dv">400</span>)   <span class="co"># caused by heat</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>drownings   <span class="op">=</span> temperature <span class="op">*</span> <span class="fl">0.4</span> <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">400</span>)     <span class="co"># also caused by heat</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">"temperature"</span>: temperature, <span class="st">"ice_cream"</span>: ice_cream, <span class="st">"drownings"</span>: drownings})</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"ice cream vs drownings : r = </span><span class="sc">{</span>df[<span class="st">'ice_cream'</span>]<span class="sc">.</span>corr(df[<span class="st">'drownings'</span>])<span class="sc">:.3f}</span><span class="ss">  ← strong!"</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"temperature vs ice cream: r = </span><span class="sc">{</span>df[<span class="st">'temperature'</span>]<span class="sc">.</span>corr(df[<span class="st">'ice_cream'</span>])<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"temperature vs drownings: r = </span><span class="sc">{</span>df[<span class="st">'temperature'</span>]<span class="sc">.</span>corr(df[<span class="st">'drownings'</span>])<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Hold temperature roughly constant and the relationship disappears.</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>hot_days <span class="op">=</span> df[(df[<span class="st">"temperature"</span>] <span class="op">&gt;</span> <span class="dv">30</span>) <span class="op">&amp;</span> (df[<span class="st">"temperature"</span>] <span class="op">&lt;</span> <span class="dv">33</span>)]</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Among days between 30-33°C only (</span><span class="sc">{</span><span class="bu">len</span>(hot_days)<span class="sc">}</span><span class="ss"> days):"</span>)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"ice cream vs drownings : r = </span><span class="sc">{</span>hot_days[<span class="st">'ice_cream'</span>]<span class="sc">.</span>corr(hot_days[<span class="st">'drownings'</span>])<span class="sc">:.3f}</span><span class="ss">  ← collapsed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ice cream vs drownings : r = 0.788  ← strong!
+temperature vs ice cream: r = 0.953
+temperature vs drownings: r = 0.831
+
+Among days between 30-33°C only (48 days):
+ice cream vs drownings : r = 0.233  ← collapsed</code></pre>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Answers
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-16" class="callout-16-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>A1 — (b).</strong> The right answer restated, <strong>why the nearest wrong option is wrong</strong>.</p>
-</div>
-</div>
-</div>
-<p><strong>A bridge sentence pointing at the question the next topic answers.</strong></p>
+<p><strong>The relationship collapsed when temperature was held still</strong> — from 0.79 to a value close to zero. That collapse is the signature of a confounder. In the code above we <em>know</em> the truth because we wrote it. With real data you cannot see the arrows — you can only test them.</p>
 </section>
 </section>
 </section>
 <section id="sec-s08-d" class="level1" data-number="13">
-<h1 data-number="13"><span class="header-section-number">13</span> Part D — Correlation and scatter plots</h1>
-<p><strong>Overview of Correlation and scatter plots and its practical applications.</strong></p>
-<section id="sec-s08-topic-4" class="level2" data-number="13.1">
-<h2 data-number="13.1" class="anchored" data-anchor-id="sec-s08-topic-4"><span class="header-section-number">13.1</span> 4. Correlation and scatter plots</h2>
-<p><strong>One plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.</strong></p>
-<p><strong>Then why it exists: what breaks, or what is unbearably tedious, without it.</strong></p>
-<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — something the reader already understands">
+<h1 data-number="13"><span class="header-section-number">13</span> Part D — Many columns at once</h1>
+<section id="sec-s08-topic-7" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="sec-s08-topic-7"><span class="header-section-number">13.1</span> 7. Pivot tables</h2>
+<p><strong>A pivot table summarises one numeric column across two categorical columns</strong> — one down the rows, one across the columns. It is the same operation as a <code>groupby</code>, arranged into a grid that a person can read.</p>
+<section id="demo-10-the-same-data-as-a-groupby-and-as-a-pivot" class="level3" data-number="13.1.1">
+<h3 data-number="13.1.1" class="anchored" data-anchor-id="demo-10-the-same-data-as-a-groupby-and-as-a-pivot"><span class="header-section-number">13.1.1</span> Demo 10 — the same data as a groupby and as a pivot</h3>
+<div id="3f21ddbb" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"As a groupby — correct, but hard to scan:"</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(homes.groupby([<span class="st">"city"</span>, <span class="st">"bedrooms"</span>])[<span class="st">"price"</span>].mean().<span class="bu">round</span>(<span class="op">-</span><span class="dv">3</span>).head(<span class="dv">8</span>))</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">As a pivot table — the same numbers, laid out to compare:"</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>pivot <span class="op">=</span> homes.pivot_table(index<span class="op">=</span><span class="st">"city"</span>, columns<span class="op">=</span><span class="st">"bedrooms"</span>, values<span class="op">=</span><span class="st">"price"</span>,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>                          aggfunc<span class="op">=</span><span class="st">"mean"</span>).<span class="bu">round</span>(<span class="op">-</span><span class="dv">3</span>)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pivot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>As a groupby — correct, but hard to scan:
+city    bedrooms
+Mumbai  1            2448000.0
+        2            5275000.0
+        3            7751000.0
+        4           10353000.0
+Nagpur  1             538000.0
+        2            1101000.0
+        3            1639000.0
+        4            2577000.0
+Name: price, dtype: float64
+
+As a pivot table — the same numbers, laid out to compare:
+bedrooms          1          2          3           4
+city                                                 
+Mumbai    2448000.0  5275000.0  7751000.0  10353000.0
+Nagpur     538000.0  1101000.0  1639000.0   2577000.0
+Pune       973000.0  2048000.0  3449000.0   4898000.0</code></pre>
+</div>
+</div>
+<p>Now the comparison is easy in <strong>both</strong> directions: read across a row to see what an extra bedroom is worth in that city; read down a column to see what the same house costs in different cities.</p>
+</section>
+<section id="demo-11-pivot-tables-answer-harder-questions" class="level3" data-number="13.1.2">
+<h3 data-number="13.1.2" class="anchored" data-anchor-id="demo-11-pivot-tables-answer-harder-questions"><span class="header-section-number">13.1.2</span> Demo 11 — pivot tables answer harder questions</h3>
+<div id="72890126" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"How many houses in each combination? (check before trusting an average)"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(homes.pivot_table(index<span class="op">=</span><span class="st">"city"</span>, columns<span class="op">=</span><span class="st">"bedrooms"</span>, values<span class="op">=</span><span class="st">"price"</span>,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                        aggfunc<span class="op">=</span><span class="st">"count"</span>, fill_value<span class="op">=</span><span class="dv">0</span>))</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Median price per square foot, by city and age band:"</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>homes[<span class="st">"age_band"</span>] <span class="op">=</span> pd.cut(homes[<span class="st">"age_years"</span>], [<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">40</span>],</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>                           labels<span class="op">=</span>[<span class="st">"new"</span>, <span class="st">"middle"</span>, <span class="st">"old"</span>], include_lowest<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>homes[<span class="st">"price_per_sqft"</span>] <span class="op">=</span> homes[<span class="st">"price"</span>] <span class="op">/</span> homes[<span class="st">"area_sqft"</span>]</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(homes.pivot_table(index<span class="op">=</span><span class="st">"city"</span>, columns<span class="op">=</span><span class="st">"age_band"</span>, values<span class="op">=</span><span class="st">"price_per_sqft"</span>,</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>                        aggfunc<span class="op">=</span><span class="st">"median"</span>, observed<span class="op">=</span><span class="va">True</span>).<span class="bu">round</span>(<span class="dv">0</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>How many houses in each combination? (check before trusting an average)
+bedrooms   1   2    3   4
+city                     
+Mumbai    11  66  110  20
+Nagpur     9  37   56  19
+Pune      10  65   78  19
+
+Median price per square foot, by city and age band:
+age_band     new  middle     old
+city                            
+Mumbai    6410.0  5971.0  5218.0
+Nagpur    1817.0  1207.0   698.0
+Pune      3249.0  2703.0  1932.0</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Always check the counts behind an average">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>🧠 Analogy — something the reader already understands
+<span class="screen-reader-only">Warning</span>⚠️ Always check the counts behind an average
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>The everyday thing.</strong></p>
-<p><strong>The mapping:</strong> this part is the data, this part is the model, this part is the error.</p>
-<p><strong>Where it breaks down:</strong> every analogy is wrong somewhere, and the reader will walk into that place unaided.</p>
-</div>
-</div>
-<section id="how-it-works-3" class="level3" data-number="13.1.1">
-<h3 data-number="13.1.1" class="anchored" data-anchor-id="how-it-works-3"><span class="header-section-number">13.1.1</span> How it works</h3>
-<p><strong>The mechanism, in plain words first.</strong></p>
-</section>
-<section id="examples-3" class="level3" data-number="13.1.2">
-<h3 data-number="13.1.2" class="anchored" data-anchor-id="examples-3"><span class="header-section-number">13.1.2</span> 📘 Examples</h3>
-<p><strong>Example 1 — the smallest thing that works</strong></p>
-<div id="19b8d286" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># placeholder</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="scenarios-3" class="level3" data-number="13.1.3">
-<h3 data-number="13.1.3" class="anchored" data-anchor-id="scenarios-3"><span class="header-section-number">13.1.3</span> 🌍 Scenarios</h3>
-<p><strong>Scenario 1 — the same idea in a situation the reader recognises</strong></p>
-<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ The trap, and its consequence">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>⚠️ The trap, and its consequence
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><em>“It will not error — it will be quietly wrong.”</em></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Tasks">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Tasks
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Do exactly what was just shown, on different data.</li>
-<li>Break it deliberately and report the exact error message.</li>
-</ol>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-20" class="callout-20-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="b8b74950" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solutions</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
+<p>The count table above exists for a reason. An average computed from <strong>two houses</strong> sits in the grid looking exactly as authoritative as one computed from two hundred. <strong>Print the counts next to any pivot of means, or you will act on a cell backed by nothing.</strong></p>
 </div>
 </div>
 </section>
-<section id="mcqs-3" class="level3" data-number="13.1.4">
-<h3 data-number="13.1.4" class="anchored" data-anchor-id="mcqs-3"><span class="header-section-number">13.1.4</span> ❓ MCQs</h3>
-<p><strong>Q1.</strong> The question…</p>
+<section id="demo-12-the-pair-plot-everything-against-everything" class="level3" data-number="13.1.3">
+<h3 data-number="13.1.3" class="anchored" data-anchor-id="demo-12-the-pair-plot-everything-against-everything"><span class="header-section-number">13.1.3</span> Demo 12 — the pair plot: everything against everything</h3>
+<div id="cell-fig-s08-pairplot" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>sample <span class="op">=</span> homes[[<span class="st">"area_sqft"</span>, <span class="st">"age_years"</span>, <span class="st">"price"</span>, <span class="st">"city"</span>]].dropna().sample(<span class="dv">200</span>, random_state<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.pairplot(sample, hue<span class="op">=</span><span class="st">"city"</span>, height<span class="op">=</span><span class="fl">1.9</span>, plot_kws<span class="op">=</span>{<span class="st">"s"</span>: <span class="dv">14</span>, <span class="st">"alpha"</span>: <span class="fl">.6</span>})</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>g.figure.suptitle(<span class="st">"Everything against everything"</span>, y<span class="op">=</span><span class="fl">1.02</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s08-pairplot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s08-pairplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-08-exploratory-data-analytics-eda-and-visualization_files/figure-html/fig-s08-pairplot-output-1.png" width="742" height="647" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s08-pairplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13.1: Every numeric column against every other. The diagonal shows each column’s own distribution.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>This one chart runs the whole of Part C at once.</strong> It is usually the first thing to draw on a new dataset with fewer than about ten numeric columns — and the last thing to draw on one with fifty, where it becomes unreadable.</p>
+</section>
+<section id="demo-13-the-full-first-pass-as-a-function" class="level3" data-number="13.1.4">
+<h3 data-number="13.1.4" class="anchored" data-anchor-id="demo-13-the-full-first-pass-as-a-function"><span class="header-section-number">13.1.4</span> Demo 13 — the full first pass, as a function</h3>
+<div id="26a4c443" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> first_look(df, target<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""The five EDA questions, answered in order."""</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"1. SIZE      </span><span class="sc">{</span>df<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">:,}</span><span class="ss"> rows × </span><span class="sc">{</span>df<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss"> columns"</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    num <span class="op">=</span> df.select_dtypes(<span class="st">"number"</span>).columns.tolist()</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    cat <span class="op">=</span> df.select_dtypes(exclude<span class="op">=</span><span class="st">"number"</span>).columns.tolist()</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"   numeric   </span><span class="sc">{</span>num<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"   other     </span><span class="sc">{</span>cat<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    miss <span class="op">=</span> df.isna().<span class="bu">sum</span>()</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    miss <span class="op">=</span> miss[miss <span class="op">&gt;</span> <span class="dv">0</span>]</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">2. MISSING   </span><span class="sc">{</span><span class="st">'none'</span> <span class="cf">if</span> miss<span class="sc">.</span>empty <span class="cf">else</span> miss<span class="sc">.</span>to_dict()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">3. SHAPE OF EACH NUMERIC COLUMN"</span>)</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> c <span class="kw">in</span> num:</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>        s <span class="op">=</span> df[c].dropna()</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>        lean <span class="op">=</span> <span class="st">"right"</span> <span class="cf">if</span> s.skew() <span class="op">&gt;</span> <span class="fl">.5</span> <span class="cf">else</span> <span class="st">"left"</span> <span class="cf">if</span> s.skew() <span class="op">&lt;</span> <span class="op">-</span><span class="fl">.5</span> <span class="cf">else</span> <span class="st">"symmetric"</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"   </span><span class="sc">{</span>c<span class="sc">:&lt;16}</span><span class="ss"> median </span><span class="sc">{</span>s<span class="sc">.</span>median()<span class="sc">:&gt;12,.0f}</span><span class="ss">   skew </span><span class="sc">{</span>s<span class="sc">.</span>skew()<span class="sc">:&gt;6.2f}</span><span class="ss"> (</span><span class="sc">{</span>lean<span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">4. CATEGORY COUNTS"</span>)</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> c <span class="kw">in</span> cat:</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"   </span><span class="sc">{</span>c<span class="sc">:&lt;16}</span><span class="ss"> </span><span class="sc">{</span>df[c]<span class="sc">.</span>value_counts()<span class="sc">.</span>to_dict()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> target:</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">5. WHAT MOVES WITH </span><span class="sc">{</span>target<span class="sc">.</span>upper()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(df[num].corr()[target].drop(target).sort_values(key<span class="op">=</span><span class="bu">abs</span>, ascending<span class="op">=</span><span class="va">False</span>).<span class="bu">round</span>(<span class="dv">3</span>).to_string())</span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>first_look(homes[[<span class="st">"area_sqft"</span>, <span class="st">"age_years"</span>, <span class="st">"bedrooms"</span>, <span class="st">"price"</span>, <span class="st">"city"</span>]], target<span class="op">=</span><span class="st">"price"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1. SIZE      500 rows × 5 columns
+   numeric   ['area_sqft', 'age_years', 'bedrooms', 'price']
+   other     ['city']
+
+2. MISSING   {'area_sqft': 25}
+
+3. SHAPE OF EACH NUMERIC COLUMN
+   area_sqft        median        1,209   skew  -0.18 (symmetric)
+   age_years        median           19   skew   0.07 (symmetric)
+   bedrooms         median            3   skew  -0.17 (symmetric)
+   price            median    3,582,500   skew   0.59 (right)
+
+4. CATEGORY COUNTS
+   city             {'Mumbai': 207, 'Pune': 172, 'Nagpur': 121}
+
+5. WHAT MOVES WITH PRICE
+area_sqft    0.488
+bedrooms     0.432
+age_years   -0.229</code></pre>
+</div>
+</div>
+</section>
+<section id="check-yourself" class="level3" data-number="13.1.5">
+<h3 data-number="13.1.5" class="anchored" data-anchor-id="check-yourself"><span class="header-section-number">13.1.5</span> ❓ Check yourself</h3>
+<p><strong>Q1.</strong> You want to know whether house prices differ between three cities. Which chart?</p>
 <ul>
 <li><ol type="a">
-<li>Wrong</li>
+<li>A scatter plot.</li>
 </ol></li>
 <li><ol start="2" type="a">
-<li><strong>Right, in bold</strong></li>
+<li><strong>A box plot of price grouped by city.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>A pie chart of cities.</li>
+</ol></li>
+</ul>
+<p><strong>Q2.</strong> Two columns have a Pearson correlation of 0.02, but the scatter plot shows a clear U shape. What does that mean?</p>
+<ul>
+<li><ol type="a">
+<li>The correlation was computed wrongly.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>They are strongly related, but not in a straight line — Pearson cannot see it.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>They are unrelated.</li>
+</ol></li>
+</ul>
+<p><strong>Q3.</strong> <code>area_sqft</code> and <code>bedrooms</code> correlate at 0.93. What should you do?</p>
+<ul>
+<li><ol type="a">
+<li>Nothing; strong correlations are good.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Note that they carry nearly the same information, and consider keeping only one.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Delete both.</li>
+</ol></li>
+</ul>
+<p><strong>Q4.</strong> A pivot table cell shows an average price of ₹4.2 crore. What must you check before quoting it?</p>
+<ul>
+<li><ol type="a">
+<li>That the currency is correct.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>How many rows that average is computed from.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Whether the column is numeric.</li>
 </ol></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -838,27 +1292,77 @@ Note
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>A1 — (b).</strong> The right answer restated, <strong>why the nearest wrong option is wrong</strong>.</p>
+<p><strong>A1 — (b).</strong> One numeric column split by one categorical column — the box-plot-by-group row of the chart chooser.</p>
+<p><strong>A2 — (b).</strong> Demo 5’s third panel: near-zero correlation, near-perfect relationship.</p>
+<p><strong>A3 — (b).</strong> In this dataset bedrooms were <em>derived</em> from area, so they genuinely are one fact. Session 6’s feature selection is the tool.</p>
+<p><strong>A4 — (b).</strong> Demo 11’s warning. An average of two houses looks identical to an average of two hundred.</p>
 </div>
 </div>
 </div>
-<p><strong>A bridge sentence pointing at the question the next topic answers.</strong></p>
 </section>
 </section>
 </section>
-<section id="sec-s08-demo" class="level1" data-number="14">
-<h1 data-number="14"><span class="header-section-number">14</span> Part Demo — Applied Walkthrough</h1>
-<p><strong>Generating a dynamic visual report that includes a seaborn correlation heatmap and scatter plots to instantly identify which variables are most heavily correlated.</strong></p>
-<div id="e8f5b3ff" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># demo placeholder</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="sec-s08-tasks" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> 🎯 Tasks</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-</section>
-<section id="sec-s08-tasks" class="level1" data-number="15">
-<h1 data-number="15"><span class="header-section-number">15</span> 🎯 Session 8 — Tasks</h1>
-<p><strong>Complete these tasks in order to solidify your understanding.</strong></p>
-<p><strong>Task 1 — Apply concepts.</strong> Practice the concepts learned in this session.</p>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Practise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Task 1 — Match the chart.</strong> Which chart for each: the spread of exam marks; how many students per department; whether study hours relate to marks; how marks differ between departments; how enrolment changed over ten years.</p>
+<p><strong>Task 2 — Find the confounder.</strong> In Demo 9, change the temperature range in the final filter to 20–23°C. <strong>Report the correlation.</strong> Then explain in one sentence what holding temperature constant does.</p>
+<p><strong>Task 3 — Read the heatmap.</strong> From Demo 8, list the columns you would give a price-prediction model, and name any pair you would not include together.</p>
+<p><strong>Task 4 — Pivot with counts.</strong> Build a pivot table of median <code>price_per_sqft</code> by city and <code>age_band</code>, <strong>and print the matching count table beside it.</strong> Identify any cell you would refuse to quote.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="7e2a55d2" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 1"</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  spread of exam marks           → histogram (shape) or box plot (summary)"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  students per department        → bar chart"</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  study hours vs marks           → scatter plot"</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  marks by department            → box plot grouped by department"</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  enrolment over ten years       → line chart"</span>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 3"</span>)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  Give the model: area_sqft, age_years, and city (one-hot encoded)."</span>)</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  Do NOT include area_sqft and bedrooms together — they correlate at 0.93"</span>)</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  because bedrooms was derived from area. Keep area_sqft; it is finer-grained."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Task 1
+  spread of exam marks           → histogram (shape) or box plot (summary)
+  students per department        → bar chart
+  study hours vs marks           → scatter plot
+  marks by department            → box plot grouped by department
+  enrolment over ten years       → line chart
+
+Task 3
+  Give the model: area_sqft, age_years, and city (one-hot encoded).
+  Do NOT include area_sqft and bedrooms together — they correlate at 0.93
+  because bedrooms was derived from area. Keep area_sqft; it is finer-grained.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="callout callout-style-default callout-tip callout-titled" title="✅ Before you move on">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -870,8 +1374,12 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <ul class="task-list">
-<li><label><input type="checkbox">Ensure you can explain Basic plots using Matplotlib in plain English</label></li>
-<li><label><input type="checkbox"><strong>The one thing from this chapter that is easiest to forget</strong></label></li>
+<li><label><input type="checkbox">Every chart I draw has a question as its title</label></li>
+<li><label><input type="checkbox">I can pick the chart from the question and the column types</label></li>
+<li><label><input type="checkbox">I know Pearson only sees straight lines, and when to reach for Spearman</label></li>
+<li><label><input type="checkbox">I check the counts behind any average in a pivot table</label></li>
+<li><label><input type="checkbox">I can give a concrete example of a confounder</label></li>
+<li><label><input type="checkbox"><strong>Easiest thing to forget:</strong> colour a scatter plot by a category. It regularly turns one vague cloud into three clear relationships.</label></li>
 </ul>
 </div>
 </div>

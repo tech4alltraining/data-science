@@ -1,175 +1,593 @@
 ---
 title: "Session 3 — Data Cleaning"
-subtitle: "Missing Values · Noisy Data · Outliers"
+subtitle: "Duplicates · Impossible values · Missing values · Noise · Outliers · Inconsistent text"
 ---
 
 {{< include ../includes/_setup.qmd >}}
 
 ::: {.callout-note}
-**This chapter covers the technical process of transforming messy raw data into a clean, usable dataset.**
+**This chapter turns the messy table from Session 2 into a table you can compute with.**
 
-**Assumed knowledge:** Concepts from Session 2 (Pandas basics and Data Collection).
+**Assumed knowledge:** Session 2 — loading a DataFrame, `.info()`, `.describe()`,
+filtering, `groupby`.
+
+**The one idea to take away:** cleaning is a **sequence**, and the sequence matters.
+Deal with duplicates, then impossible values, then blanks, then extremes. Change that
+order and you will fix one problem by hiding another.
 :::
 
 ## 🎯 Learning outcomes {#sec-s03-outcomes}
 
 By the end of this chapter you can:
 
-1. Identify and programmatically fill missing values (`NaN`) in a dataset.
-2. Explain techniques for smoothing noisy, fluctuating data.
-3. Detect and remove extreme mathematical outliers using visualizations.
+1. Find and remove duplicate rows, and choose which copy to keep.
+2. Tell an *impossible* value from an *extreme* one, and handle each correctly.
+3. Fill missing values four different ways and justify which you chose.
+4. Explain what noise is and smooth it without erasing the signal.
+5. Detect outliers with the IQR rule and the z-score rule.
+6. Repair inconsistent text and wrong data types.
+7. Produce a cleaning report saying what you found and what you did about it.
 
 ## How this chapter is organised {#sec-s03-organisation}
 
-| Part | Question it answers | Source |
-|---|---|---|
-| [A — Missing Values and Noise](#sec-s03-a) | *How do we fix blank cells and chaotic fluctuations?* | `concepts` |
-| [B — Detecting Outliers](#sec-s03-b) | *How do we identify data points that lie?* | `concepts` |
-| [Demo — The Cleaning Pipeline](#sec-s03-demo) | *What does this look like in Pandas?* | `cleaning_demo.py` |
+| Part | Question it answers |
+|---|---|
+| [A — The order of operations](#sec-s03-a) | *Which problem do I fix first, and why does it matter?* |
+| [B — The six cleaning jobs](#sec-s03-b) | *How do I actually fix each one?* |
+| [C — The full pass](#sec-s03-c) | *What does it look like done properly, end to end?* |
 
-# Part A — Missing Values and Noise {#sec-s03-a}
+Part A is short and is the most important part of the chapter.
 
-**Data rarely arrives complete and perfect.**
+# Part A — The order of operations {#sec-s03-a}
 
-## 1. Filling missing values {#sec-s03-topic-1}
+## 1. Why order matters {#sec-s03-topic-1}
 
-**Filling missing values (imputation) is the process of intelligently replacing blank data points with estimated numbers.**
+**Data cleaning is six jobs done in a fixed order.**
 
-It exists because most machine learning algorithms will crash immediately if they encounter a missing value (`NaN`). You cannot train a model on "blank".
-
-::: {.callout-tip title="🧠 Analogy — The Missing Puzzle Piece"}
-**The everyday thing:** Doing a jigsaw puzzle with a missing piece.
-
-**The mapping:** 
-- The **puzzle** is your dataset.
-- The **missing piece** is the `NaN` value.
-- **Imputation** is painting a piece of cardboard to match the surrounding colors so the picture looks complete from a distance.
-
-**Where it breaks down:** An imputed value is just a good guess. In data science, guessing wrong can ruin your model's accuracy.
-:::
-
-### How it works
-
-When faced with a missing value, you have three main choices:
-1. **Drop the row:** If only 1% of rows are missing data, just delete them.
-2. **Fill with Mean/Median:** If a user's age is missing, fill it with the average age of all users.
-3. **Forward Fill (Time Series):** If Monday's stock price is missing, just copy Sunday's price.
-
-### 📘 Examples
-
-**Example 1 — Filling NaN with the mean in Pandas**
-
-```{python}
-import pandas as pd
-import numpy as np
-
-df = pd.DataFrame({"Age": [25, 30, np.nan, 40, 20]})
-print("Before:\n", df)
-
-# Calculate the mean (average)
-mean_age = df["Age"].mean()
-
-# Fill the NaN with the mean
-df["Age"] = df["Age"].fillna(mean_age)
-print("\nAfter:\n", df)
+```{mermaid}
+flowchart LR
+    A["1 Duplicates"] --> B["2 Impossible<br/>values"] --> C["3 Missing<br/>values"]
+    C --> D["4 Noise"] --> E["5 Outliers"] --> F["6 Text and<br/>types"]
 ```
 
-### ❓ MCQs
+Here is why the order is not a matter of taste.
 
-**Q1.** Why is deleting rows with missing values not always the best strategy?
+Suppose one customer's age was typed as `225`. That is **impossible** — nobody is 225.
 
-- (a) Because it takes too much processing power.
-- (b) **Because if 40% of your data has missing values, deleting those rows destroys almost half of your valuable information.**
-- (c) Because Pandas does not have a function to delete rows.
+- **Do it in the right order.** Step 2 turns `225` into "missing". Step 3 then replaces
+  it with a sensible age, say 34. The mistake is gone.
+- **Do steps 2 and 3 the other way round.** Step 3 looks for blanks, finds none — `225`
+  is a number, not a blank — and does nothing. `225` survives into your model and drags
+  every average upward.
 
-::: {.callout-note collapse="true" title="Answers"}
-**A1 — (b).** Deleting is easy, but it destroys data. Imputation (filling) preserves the row so you can still learn from its other valid columns.
+::: {.callout-important title="🔓 Impossible is not the same as extreme"}
+**Impossible** = it cannot be true. An age of 225. A negative price. A blood pressure of
+0. → **It is an error. Turn it into missing, then impute it.**
+
+**Extreme** = unusual but real. A customer who spent ₹4,00,000. A 61-year-old marathon
+runner. → **It is data. Think hard before touching it.**
+
+The dataset cannot tell you which is which. **Only knowledge of the subject can.**
 :::
 
-## 2. Smoothing noisy data {#sec-s03-topic-2}
-
-**Smoothing is the mathematical process of removing random, short-term fluctuations to reveal the true underlying trend.**
-
-It exists because sensors glitch, human input varies, and daily variance can obscure the bigger picture.
-
-### How it works
-The most common technique is the **Moving Average**. Instead of looking at daily sales, you look at the 7-day rolling average. This flattens out the weekend dips and shows if the business is generally growing or shrinking.
-
-::: {.callout-warning title="⚠️ The trap of over-smoothing"}
-If you smooth the data too much (e.g., using a 365-day moving average on stock prices), you erase the very trends you are trying to study. The data becomes a flat line.
-:::
-
-# Part B — Detecting Outliers {#sec-s03-b}
-
-**Outliers are extreme data points that do not follow the pattern of the rest of the data.**
-
-## 3. Detecting and removing outliers {#sec-s03-topic-3}
-
-**Outlier removal is the process of identifying mathematically impossible or highly improbable numbers and deleting them.**
-
-It exists because a single extreme outlier can pull the mathematical average so far in one direction that the model becomes useless. If you put Elon Musk in a room with 99 teachers, the "average" income of that room is suddenly $2 billion. That average does not represent the teachers.
-
-### How it works
-
-We detect outliers visually using a **Boxplot**. A boxplot draws a box around where 50% of your data lives. Anything that falls far outside the "whiskers" of that box is mathematically flagged as an outlier.
-
-### ❓ MCQs
-
-**Q2.** How does an extreme outlier affect a dataset's average (mean)?
-
-- (a) It has no effect.
-- (b) **It skews the average heavily toward the outlier, misrepresenting the majority of the data.**
-- (c) It causes the average to equal zero.
-
-::: {.callout-note collapse="true" title="Answers"}
-**A2 — (b).** This is why the Median is often used instead of the Mean when dealing with income or housing prices, as the Median is resistant to outliers.
-:::
-
-# Part Demo — The Cleaning Pipeline {#sec-s03-demo}
-
-**Let's build a mini-pipeline that replaces missing values and visually removes outliers.**
+### Demo 1 — the same data, cleaned in two different orders
 
 ```{python}
-#| label: fig-cleaning-demo
-#| fig-cap: "Using boxplots to detect and remove outliers."
 import pandas as pd
 import numpy as np
+
+ages = pd.Series([25, 31, np.nan, 35, 22, 225, 29, 33])
+print("Raw ages:", ages.tolist())
+
+# --- WRONG ORDER: fill the blanks first, then look for impossible values ---
+wrong = ages.fillna(ages.mean())                 # the mean is already poisoned by 225
+wrong = wrong.where(wrong <= 120, np.nan)        # now remove the impossible one
+print(f"\nWrong order → mean used for filling was {ages.mean():.1f} (inflated by the 225)")
+print("             result:", [round(v,1) if pd.notna(v) else None for v in wrong])
+
+# --- RIGHT ORDER: remove impossible values first, then fill the blanks ---
+right = ages.where(ages <= 120, np.nan)          # 225 becomes missing
+right = right.fillna(right.mean())               # now the mean is honest
+print(f"\nRight order → mean used for filling was {ages.where(ages<=120).mean():.1f}")
+print("             result:", [round(v,1) for v in right])
+```
+
+In the wrong order the blank was filled with **50.0**, a value no customer has, because
+the impossible `225` was still inside the average. In the right order it was filled with
+**29.3**. Same data, same functions, different order — and one answer is nonsense.
+
+# Part B — The six cleaning jobs {#sec-s03-b}
+
+Everything below runs on one deliberately awful dataset, so you can see each fix land.
+
+```{python}
+import pandas as pd
+import numpy as np
+
+raw = pd.DataFrame({
+    "customer_id": [1, 2, 3, 4, 5, 6, 7, 8, 3, 9],
+    "name":        ["Asha ", "Brij", "Chan", "Devi", "Esha", "Faiz", "Gita", "Hari", "Chan", "Isha"],
+    "age":         [25, 31, 28, np.nan, 22, 225, 29, 33, 28, -4],
+    "city":        ["Mumbai", "mumbai", "Delhi", "Bombay", "Delhi", "MUM", "delhi", "Pune", "Delhi", "Pune"],
+    "income":      [50000, 62000, np.nan, 58000, 45000, 71000, 900000, 55000, np.nan, 61000],
+    "joined":      ["2024-01-05", "05/02/2024", "2024-03-11", "2024-04-02", "2024-05-19",
+                    "2024-06-30", "2024-07-08", "2024-08-15", "2024-03-11", "2024-09-01"],
+})
+print(raw)
+print(f"\nStarting point: {len(raw)} rows, {raw.isna().sum().sum()} blank cells")
+```
+
+## 2. Duplicates {#sec-s03-topic-2}
+
+**A duplicate is the same real-world thing recorded twice.** They arrive when somebody
+double-clicks *Submit*, when two systems are merged, or when an export is run twice.
+
+They matter because **every duplicate silently increases that row's influence.** One
+customer counted twice votes twice.
+
+### Demo 2 — finding and removing duplicates
+
+```{python}
+print("Rows that are exact copies of an earlier row:")
+print(raw[raw.duplicated()])
+
+print(f"\nDuplicated customer_ids: {raw['customer_id'].duplicated().sum()}")
+
+deduped = raw.drop_duplicates()
+print(f"\nBefore: {len(raw)} rows   After: {len(deduped)} rows")
+```
+
+`drop_duplicates()` keeps the **first** copy by default. When rows differ slightly — the
+same customer with an updated address — you usually want the **latest** instead:
+
+```{python}
+# Keep the last recorded version of each customer, not the first:
+latest = raw.drop_duplicates(subset="customer_id", keep="last")
+print(f"One row per customer, keeping the most recent: {len(latest)} rows")
+```
+
+::: {.callout-warning title="⚠️ `duplicated()` only catches *exact* copies"}
+`"Chan"` and `"chan "` are different strings, so a row containing one is not a duplicate
+of a row containing the other. **Clean your text first (job 6), then check duplicates
+again** — the second pass usually finds more.
+:::
+
+## 3. Impossible values {#sec-s03-topic-3}
+
+**An impossible value violates a rule you know about the world.** Finding them needs no
+statistics — only a list of rules.
+
+| Column | The rule | Impossible |
+|---|---|---|
+| age | between 0 and 120 | 225, −4 |
+| price | at least 0 | −50 |
+| percentage | 0 to 100 | 130 |
+| date joined | not in the future | 2031 |
+
+### Demo 3 — apply the rules, and convert violations to missing
+
+```{python}
+df = deduped.copy()
+
+impossible = (df["age"] < 0) | (df["age"] > 120)
+print(f"Impossible ages found: {impossible.sum()}")
+print(df.loc[impossible, ["customer_id", "name", "age"]])
+
+df.loc[impossible, "age"] = np.nan     # not deleted — marked as unknown
+print(f"\nAges now missing (was {deduped['age'].isna().sum()}, now {df['age'].isna().sum()})")
+```
+
+**Notice we did not delete the rows.** The customer is real; only their age is unknown.
+Deleting the row would throw away their income and city too. Job 4 fills the gap.
+
+## 4. Missing values {#sec-s03-topic-4}
+
+**A missing value is a cell where nothing was recorded.** Pandas shows it as `NaN`.
+Most algorithms refuse to run with any `NaN` present, so every one has to go — either by
+removing the row or by putting an estimate in.
+
+Putting an estimate in is called **imputation**.
+
+::: {.callout-tip title="🧠 Analogy — the missing jigsaw piece"}
+A jigsaw with one piece missing. You can throw the puzzle away (drop the row), or you
+can look at the surrounding pieces and cut a replacement (impute).
+
+**Where it breaks down:** a cut piece is *visibly* a substitute. An imputed number looks
+exactly like a measured one. Later readers cannot tell them apart — which is why we add
+a column recording that we guessed.
+:::
+
+### First, why is it missing?
+
+| Type | Means | Example | Safe to impute? |
+|---|---|---|---|
+| **Missing at random** | the gap has no pattern | a sensor glitched | usually yes |
+| **Missing for a reason** | the gap depends on something else | older people skip the income question | be careful |
+| **Missing *because* of the value** | the gap depends on the answer itself | the highest earners refuse to say | **imputing hides the pattern** |
+
+### Demo 4 — four ways to fill a gap
+
+```{python}
+income = df["income"]
+print(f"Missing incomes: {income.isna().sum()} of {len(income)}\n")
+
+print(f"1. Mean   → fill with {income.mean():>10,.0f}   (pulled up by the 900,000 earner)")
+print(f"2. Median → fill with {income.median():>10,.0f}   (the middle value, ignores extremes)")
+print(f"3. Mode   → fill with {income.mode()[0]:>10,.0f}   (the most common value)")
+print( "4. Group  → fill with the median for that person's own city\n")
+
+by_city = df.groupby("city")["income"].transform("median")
+print("Filled by city median:")
+print(pd.DataFrame({
+    "city": df["city"],
+    "income_raw": df["income"],
+    "filled_by_city": df["income"].fillna(by_city),
+}))
+```
+
+**Which to choose:**
+
+| Situation | Use |
+|---|---|
+| numbers, roughly symmetric | **mean** |
+| numbers, skewed or with extremes — income, prices, house sizes | **median** |
+| text or categories | **mode** (the most common value) |
+| groups that genuinely differ — salary by city, weight by species | **group median** |
+| more than about 40% of the column is missing | **drop the column** |
+
+### Demo 5 — always record that you guessed
+
+```{python}
+df["income_was_missing"] = df["income"].isna()          # remember, before filling
+df["income"] = df["income"].fillna(df["income"].median())
+df["age"] = df["age"].fillna(df["age"].median())
+
+print(df[["customer_id", "age", "income", "income_was_missing"]])
+print(f"\nBlank cells remaining: {df.isna().sum().sum()}")
+```
+
+That extra `True`/`False` column costs nothing and answers the question every later
+reader asks: *"is this number measured or invented?"*
+
+::: {.callout-warning title="⚠️ Imputation always shrinks the spread"}
+Filling twenty gaps with the same median puts twenty identical values into the column.
+The average barely moves, but the data now looks **more consistent than it really is**,
+and any measure of spread is understated. That is the price, and it is worth paying —
+as long as you know you paid it.
+:::
+
+## 5. Noisy data {#sec-s03-topic-5}
+
+**Noise is small random error on top of a real pattern.** A thermometer that reads
+30.1°C, then 29.8°C, then 30.3°C, when the room is a steady 30°C.
+
+Noise is not wrong data — nothing needs correcting. It is *distraction*: it hides the
+trend you are looking for. **Smoothing** averages nearby points to bring the trend back.
+
+| Method | How it works | Best for |
+|---|---|---|
+| **Rolling mean** | average each point with its neighbours | time series |
+| **Binning** | group values into bins, replace each with its bin's average | any ordered column |
+| **Regression** | fit a line and read values off it | when you know the shape |
+
+### Demo 6 — three windows on the same noisy signal
+
+```{python}
+#| label: fig-s03-smoothing
+#| fig-cap: "The same sensor reading, smoothed three ways. More smoothing means less noise and more lag."
+import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 
-# 1. Create a messy dataset
-data = {
-    "Customer_Age": [22, 25, 24, np.nan, 23, 26, 22, 29, 150, 24, 25] # Notice NaN and 150
-}
-df = pd.DataFrame(data)
+np.random.seed(3)
+hours = np.arange(120)
+truth = 30 + 4 * np.sin(hours / 12)              # the real temperature cycle
+reading = truth + np.random.normal(0, 1.6, 120)  # what the sensor reports
 
-# 2. Fill the missing value (NaN) with the median age
-median_age = df["Customer_Age"].median()
-df["Customer_Age"] = df["Customer_Age"].fillna(median_age)
-
-# 3. Visualize BEFORE removing the outlier
-plt.figure(figsize=(10, 4))
-plt.subplot(1, 2, 1)
-plt.boxplot(df["Customer_Age"])
-plt.title("Before: With Outlier")
-
-# 4. Remove the outlier (Keep only ages under 100)
-df_clean = df[df["Customer_Age"] < 100]
-
-# 5. Visualize AFTER removing the outlier
-plt.subplot(1, 2, 2)
-plt.boxplot(df_clean["Customer_Age"])
-plt.title("After: Outlier Removed")
-
-plt.tight_layout()
+s = pd.Series(reading)
+plt.plot(hours, reading, alpha=.35, label="raw sensor reading")
+plt.plot(hours, truth, "k--", lw=1.5, label="the real temperature")
+plt.plot(hours, s.rolling(5).mean(),  lw=2, label="rolling mean, window 5")
+plt.plot(hours, s.rolling(25).mean(), lw=2, label="rolling mean, window 25")
+plt.xlabel("Hour"); plt.ylabel("°C"); plt.legend(fontsize=8)
 plt.show()
+
+for w in (5, 25):
+    err = (s.rolling(w).mean() - truth).abs().mean()
+    print(f"window {w:>2}: average distance from the real temperature = {err:.2f} °C")
+print(f"no smoothing: average distance from the real temperature = {np.abs(reading-truth).mean():.2f} °C")
 ```
 
-# 🎯 Session 3 — Tasks {#sec-s03-tasks}
+::: {.callout-warning title="⚠️ Over-smoothing erases the thing you were looking for"}
+Look at the window-25 line: it is beautifully smooth and it **arrives late at every
+peak**, because it is averaging in temperatures from twelve hours ago. Smooth enough and
+a real spike — a fraud burst, a machine failure — vanishes entirely. **The window is a
+choice between noise and lag, and there is no setting that avoids both.**
+:::
 
-**Task 1 — Moving Averages.** 
-Create a Pandas DataFrame with 10 days of random sales data. Look up the Pandas `.rolling()` function and use it to calculate a 3-day moving average. **Report the difference between the raw daily sales and the moving average.**
+## 6. Outliers {#sec-s03-topic-6}
+
+**An outlier is a value far away from the rest.** Unlike an impossible value it might be
+completely genuine.
+
+You need two numbers from Session 7 to find them. Here they are in one paragraph.
+
+::: {.callout-important title="🔓 Two ideas borrowed from Session 7"}
+**Quartiles.** Sort the values. **Q1** is the value a quarter of the way up, **Q3** is
+three quarters of the way up. The gap between them, **IQR = Q3 − Q1**, is the range the
+middle half of your data occupies.
+
+**Standard deviation.** Roughly, the average distance of a value from the mean. A
+**z-score** says how many standard deviations from the mean a particular value is.
+
+Session 7 does both properly. Here we only need them to draw a boundary.
+:::
+
+| Rule | Flags a value if | Use when |
+|---|---|---|
+| **IQR rule** | below Q1 − 1.5×IQR, or above Q3 + 1.5×IQR | almost always — it ignores the extremes while measuring |
+| **Z-score rule** | more than 3 standard deviations from the mean | the data is roughly bell-shaped |
+
+### Demo 7 — the two rules, and why they disagree
+
+```{python}
+income = df["income"]
+
+# --- IQR rule ---
+q1, q3 = income.quantile(0.25), income.quantile(0.75)
+iqr = q3 - q1
+low, high = q1 - 1.5*iqr, q3 + 1.5*iqr
+print(f"IQR rule    → Q1={q1:,.0f}  Q3={q3:,.0f}  IQR={iqr:,.0f}")
+print(f"              acceptable range: {low:,.0f} to {high:,.0f}")
+print(f"              flagged: {income[(income < low) | (income > high)].tolist()}")
+
+# --- Z-score rule ---
+z = (income - income.mean()) / income.std()
+print(f"\nZ-score rule → flagged: {income[z.abs() > 3].tolist()}")
+print(f"              largest z-score present: {z.abs().max():.2f}")
+```
+
+**The two rules disagree, and the reason is important.** The z-score rule uses the mean
+and the standard deviation — and the ₹9,00,000 earner has inflated *both*, so it makes
+itself look normal. The IQR rule uses quartiles, which the extreme value cannot shift.
+**Prefer the IQR rule whenever you suspect outliers**, which is exactly when you are
+looking for them.
+
+### Demo 8 — seeing them, and deciding what to do
+
+```{python}
+#| label: fig-s03-outliers
+#| fig-cap: "A box plot draws the IQR rule. The dot beyond the whisker is the flagged value."
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(1, 2, figsize=(9, 3.4))
+ax[0].boxplot(income, orientation="horizontal"); ax[0].set_title("With the high earner")
+ax[1].boxplot(income[income < high], orientation="horizontal"); ax[1].set_title("With it removed")
+for a in ax: a.set_xlabel("Income (₹)")
+plt.tight_layout(); plt.show()
+
+print(f"Mean income including it : ₹{income.mean():,.0f}")
+print(f"Mean income excluding it : ₹{income[income < high].mean():,.0f}")
+print(f"Median (either way)      : ₹{income.median():,.0f}")
+```
+
+You have four options, and **deleting is the last of them**:
+
+| Option | When |
+|---|---|
+| **Keep it** | it is genuine and it matters — fraud, a top customer, a failure |
+| **Cap it** | it is genuine but distorting; replace with the boundary value |
+| **Transform** | the whole column is skewed; a log transform tames it (Session 5) |
+| **Delete** | you can show it is an error, and you say so in the report |
+
+::: {.callout-warning title="⚠️ In fraud data, the outliers *are* the answer"}
+Every fraudulent transaction is an outlier. A pipeline that removes outliers by rule
+deletes every case you were hired to find — and reports excellent accuracy on what is
+left. **Never remove outliers automatically. Look at them first.**
+:::
+
+## 7. Inconsistent text and wrong types {#sec-s03-topic-7}
+
+**The same thing written four ways is four different things to a computer.** `Mumbai`,
+`mumbai`, `MUM` and `Bombay` become four separate categories, splitting one city's data
+into four thin slices.
+
+### Demo 9 — repairing a text column
+
+```{python}
+print("Before:")
+print(df["city"].value_counts())
+
+city = df["city"].str.strip().str.lower()        # trim spaces, lower the case
+city = city.replace({"mum": "mumbai", "bombay": "mumbai"})   # map known aliases
+df["city"] = city.str.title()
+
+print("\nAfter:")
+print(df["city"].value_counts())
+```
+
+Four spellings became two real cities. Note the order: `strip` and `lower` first, so that
+`" MUM "` and `"mum"` both reach the alias map.
+
+### Demo 10 — dates stored as text
+
+```{python}
+print("The 'joined' column is stored as:", df["joined"].dtype, "— that is text, not a date")
+print("Sorting text gives:", sorted(df['joined'].tolist())[:3])
+
+df["joined"] = pd.to_datetime(df["joined"], format="mixed", dayfirst=False)
+print("\nAfter conversion:", df["joined"].dtype)
+print("Now we can do date arithmetic:")
+print(f"  earliest join date : {df['joined'].min().date()}")
+print(f"  latest join date   : {df['joined'].max().date()}")
+df["join_month"] = df["joined"].dt.month_name()
+print(f"  months present     : {df['join_month'].unique().tolist()}")
+```
+
+While `joined` was text, `"05/02/2024"` sorted between `"2024-..."` strings by
+character, not by date, and no arithmetic was possible at all. **Converting types is
+part of cleaning, not a formality.**
+
+::: {.callout-warning title="⚠️ `05/02/2024` is ambiguous"}
+Is that 5 February or 2 May? Pandas has to guess unless you tell it with `dayfirst=`.
+Getting this wrong shifts dates by months and produces no error at all. **Always state
+the format when you know it.**
+:::
+
+# Part C — The full pass {#sec-s03-c}
+
+## 8. Cleaning as one function, with a report {#sec-s03-topic-8}
+
+**A cleaning pass should be repeatable and should report what it did.** If it is a
+scattering of cells run in an order you no longer remember, nobody — including you next
+month — can reproduce the result.
+
+### Demo 11 — the whole sequence, with a report
+
+```{python}
+import pandas as pd
+import numpy as np
+
+def clean(data):
+    """Run the six cleaning jobs in order and return the result plus a report."""
+    report = {}
+    d = data.copy()
+    report["rows_in"] = len(d)
+
+    # 1 — duplicates
+    d = d.drop_duplicates()
+    report["duplicates_removed"] = report["rows_in"] - len(d)
+
+    # 2 — impossible values
+    bad_age = (d["age"] < 0) | (d["age"] > 120)
+    report["impossible_ages"] = int(bad_age.sum())
+    d.loc[bad_age, "age"] = np.nan
+
+    # 3 — missing values (median, because income is skewed)
+    report["blanks_filled"] = int(d[["age", "income"]].isna().sum().sum())
+    d["income_was_missing"] = d["income"].isna()
+    d["age"] = d["age"].fillna(d["age"].median())
+    d["income"] = d["income"].fillna(d["income"].median())
+
+    # 5 — outliers: flag, do not delete
+    q1, q3 = d["income"].quantile([0.25, 0.75])
+    hi = q3 + 1.5 * (q3 - q1)
+    d["income_is_outlier"] = d["income"] > hi
+    report["outliers_flagged"] = int(d["income_is_outlier"].sum())
+
+    # 6 — text and types
+    d["city"] = (d["city"].str.strip().str.lower()
+                   .replace({"mum": "mumbai", "bombay": "mumbai"}).str.title())
+    d["joined"] = pd.to_datetime(d["joined"], format="mixed")
+    report["cities_after_merge"] = d["city"].nunique()
+
+    report["rows_out"] = len(d)
+    return d, report
+
+
+clean_df, report = clean(raw)
+
+print("CLEANING REPORT")
+print("-" * 34)
+for k, v in report.items():
+    print(f"{k.replace('_', ' '):<24} {v}")
+print("-" * 34)
+print(f"{'blank cells remaining':<24} {clean_df.isna().sum().sum()}")
+print("\n", clean_df[["customer_id", "name", "age", "city", "income", "income_is_outlier"]])
+```
+
+**Notice what the report does not say.** It does not say "the data is now clean". It
+says exactly what was found and what was done, so a reader can disagree with a decision
+— which is the point.
+
+### ❓ Check yourself
+
+**Q1.** Why is deleting every row with a missing value usually a bad idea?
+
+- (a) Deleting rows is slow.
+- (b) **A row with one blank still contains good values in its other columns, and if
+  blanks are not random you also bias what remains.**
+- (c) Pandas does not allow it.
+
+**Q2.** A column of house prices is strongly skewed by a few mansions. Which value
+should fill the blanks?
+
+- (a) The mean.
+- (b) **The median.**
+- (c) Zero.
+
+**Q3.** Your fraud dataset has 400 transactions flagged as outliers by the IQR rule. What
+should you do?
+
+- (a) Delete them; outliers harm models.
+- (b) **Look at them — in fraud data the outliers are probably the fraud.**
+- (c) Replace them with the mean.
+
+**Q4.** Which pair is in the correct order?
+
+- (a) Fill missing values, then remove impossible values.
+- (b) **Remove impossible values, then fill missing values.**
+- (c) It makes no difference.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** Dropping rows throws away every other column in that row. And if the blanks
+follow a pattern — say, high earners declining to answer — dropping them removes those
+people from your analysis entirely.
+
+**A2 — (b).** The median ignores the mansions. The mean would place every filled value
+above what a typical house costs.
+
+**A3 — (b).** Demo 8's warning. The rule found the thing you were hired to find.
+
+**A4 — (b).** Demo 1 showed exactly what the other order costs.
+:::
+
+# 🎯 Tasks {#sec-s03-tasks}
+
+::: {.callout-note title="✏️ Practise"}
+**Task 1 — Clean by hand first.** Take the `raw` table at the top of Part B. On paper,
+without code, list every problem you can see. Then compare with the report from Demo 11.
+**Anything you spotted that the code did not is a rule the code is missing.**
+
+**Task 2 — Change the imputation.** In Demo 11, change `median()` to `mean()` for
+income. Re-run. **Report the filled value both ways and say which is more honest.**
+
+**Task 3 — Add a rule.** Add a check to `clean()` for impossible incomes (negative
+values). Test it by setting one income to `-5000` first.
+
+**Task 4 — Pick the window.** In Demo 6, try rolling windows of 3, 10 and 50. **Report
+which gives the smallest average distance from the true temperature**, and explain why
+the largest window is not the best.
+:::
+
+:::: {.callout-note collapse="true" title="Solutions"}
+```{python}
+import pandas as pd, numpy as np
+
+# Task 2 — mean vs median for a skewed column
+inc = pd.Series([50000, 62000, np.nan, 58000, 45000, 71000, 900000, 55000, 61000])
+print(f"Task 2 — mean fill  : ₹{inc.mean():,.0f}")
+print(f"Task 2 — median fill: ₹{inc.median():,.0f}")
+print("The median is more honest: only one of the nine people earns anything near")
+print("the mean, so filling with the mean invents a person who does not exist.\n")
+
+# Task 4 — which smoothing window is closest to the truth
+np.random.seed(3)
+hours = np.arange(120)
+truth = 30 + 4*np.sin(hours/12)
+reading = pd.Series(truth + np.random.normal(0, 1.6, 120))
+for w in (3, 5, 10, 25, 50):
+    print(f"Task 4 — window {w:>2}: average error {(reading.rolling(w).mean()-truth).abs().mean():.2f} °C")
+print("The largest window is worst: it averages over half a cycle, so it flattens")
+print("the real peaks it was supposed to reveal.")
+```
+::::
 
 ::: {.callout-tip title="✅ Before you move on"}
-- [ ] Understand the difference between dropping a row and imputing a value.
-- [ ] **The one thing from this chapter that is easiest to forget:** Always visualize your data with a boxplot or histogram before you start modeling. You will almost always find an outlier you didn't expect.
+- [ ] I can say why impossible values must be handled before missing ones
+- [ ] I can choose between mean, median, mode and group imputation, with a reason
+- [ ] I know why the IQR rule beats the z-score rule when outliers are present
+- [ ] I record that a value was imputed, rather than hiding it
+- [ ] **Easiest thing to forget:** an outlier is not automatically an error. In fraud,
+      failure and medical data the outliers are the whole point.
 :::

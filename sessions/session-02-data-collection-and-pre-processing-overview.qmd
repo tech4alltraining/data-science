@@ -1,224 +1,519 @@
 ---
 title: "Session 2 — Data Collection and Pre-Processing Overview"
-subtitle: "Collection Strategies · Pre-Processing · Pandas DataFrames"
+subtitle: "Where data comes from · Sampling · The preprocessing map · Pandas: load, look, select, group"
 ---
 
 {{< include ../includes/_setup.qmd >}}
 
 ::: {.callout-note}
-**This chapter introduces how we gather raw data and prepare it for analysis using Python.**
+**This chapter is about getting data into Python and having a first look at it.**
 
-**Assumed knowledge:** Concepts from Session 1 (Roles and Definitions).
+**Assumed knowledge:** Session 1 — what data science is, and the three kinds of data.
+No Python experience is assumed. Every function is explained the first time it appears.
+
+**The one idea to take away:** `pandas` gives you a table you can command. Learn four
+verbs — **load, look, select, group** — and you can answer most questions about most
+datasets.
 :::
 
 ## 🎯 Learning outcomes {#sec-s02-outcomes}
 
 By the end of this chapter you can:
 
-1. Identify three common strategies for collecting raw data.
-2. Explain why data pre-processing is mandatory before any analysis can begin.
-3. Load a dataset into a Pandas DataFrame and inspect its structure.
+1. Name five ways data is collected and pick the right one for a situation.
+2. Explain how a badly chosen sample produces a confidently wrong answer.
+3. List the preprocessing steps in the order this course performs them.
+4. Load data from a CSV file, a JSON document and a SQL database.
+5. Inspect an unfamiliar dataset with `.head()`, `.info()`, `.describe()` and
+   `.value_counts()`.
+6. Select rows and columns with `[]`, `.loc` and `.iloc`, and filter with a condition.
+7. Answer a question about a dataset using `groupby`.
 
 ## How this chapter is organised {#sec-s02-organisation}
 
-| Part | Question it answers | Source |
+| Part | Question it answers |
+|---|---|
+| [A — Getting data](#sec-s02-a) | *Where does data come from, and what can go wrong before you even see it?* |
+| [B — The preprocessing map](#sec-s02-b) | *Why is raw data never usable, and in what order do we fix it?* |
+| [C — Pandas](#sec-s02-c) | *How do I actually hold a table in Python and ask it questions?* |
+
+Part A is concepts. Part B is the plan for Sessions 3–6. Part C is where you start
+typing.
+
+# Part A — Getting data {#sec-s02-a}
+
+## 1. Where data comes from {#sec-s02-topic-1}
+
+**Data collection is gathering the raw facts you will need to answer a question. It
+comes before everything else, and a mistake here cannot be fixed later.**
+
+Five routes cover almost every project:
+
+| Route | What it means | Use it when | Watch out for |
+|---|---|---|---|
+| **Internal databases** | data your organisation already stores | the facts are about your own customers or operations | you need access permission, and the schema is rarely documented |
+| **Files handed to you** | CSV, Excel, exports | somebody else already extracted it | no one can tell you how it was extracted |
+| **APIs** | asking another service for data, programmatically | the data belongs to someone who is happy to share it | rate limits, and the format changing without warning |
+| **Web scraping** | reading a public web page with code | there is no API and the data is public | terms of service, and the page layout changing |
+| **Sensors and surveys** | collecting new data yourself | it does not exist yet | it is slow and expensive |
+
+::: {.callout-warning title="⚠️ Collect legally"}
+Before scraping anything, check the site's `robots.txt` and its terms of service.
+Personal data has legal protections in most countries regardless of whether it was
+technically reachable. **"It was on the internet" is not a defence.**
+:::
+
+### Demo 1 — reading a CSV, a JSON document and a SQL database
+
+Three sources, three functions, one table each. `io.StringIO` lets us pretend a string
+is a file, so this cell runs without downloading anything.
+
+```{python}
+import pandas as pd
+import io, json, sqlite3
+
+# --- SOURCE 1: a CSV file -------------------------------------------------
+csv_text = """order_id,customer,city,amount
+1,Alice,Mumbai,250
+2,Bob,Delhi,90
+3,Chan,Mumbai,410"""
+
+from_csv = pd.read_csv(io.StringIO(csv_text))
+print("From CSV:")
+print(from_csv)
+
+# --- SOURCE 2: a JSON response, the shape an API returns ------------------
+api_response = '[{"order_id": 4, "customer": "Devi", "city": "Pune", "amount": 175}]'
+from_json = pd.DataFrame(json.loads(api_response))
+print("\nFrom a JSON API response:")
+print(from_json)
+
+# --- SOURCE 3: a SQL database (sqlite3 is built into Python) --------------
+conn = sqlite3.connect(":memory:")            # a database that lives in memory
+from_csv.to_sql("orders", conn, index=False)  # put our table into it
+
+from_sql = pd.read_sql("SELECT customer, amount FROM orders WHERE amount > 100", conn)
+print("\nFrom SQL, with the filtering done by the database:")
+print(from_sql)
+conn.close()
+```
+
+Notice the last one. **The database did the filtering before Python saw the data.**
+When a table has ten million rows and you need three hundred, that difference decides
+whether your laptop copes.
+
+::: {.callout-tip title="🧠 Analogy — three ways to get groceries"}
+- **Reading a CSV** is having a box delivered: everything arrives, you sort it out.
+- **Calling an API** is ordering from a menu: you ask for specific items and get those.
+- **Querying SQL** is sending someone into the shop with a list: the selecting happens
+  in the shop, and only what you asked for comes home.
+:::
+
+## 2. Sampling, and how a sample lies {#sec-s02-topic-2}
+
+**A sample is a subset of the data you actually analyse. You almost always work with
+one — and if the subset is not representative, every later step is wasted.**
+
+| Sampling method | How it picks | Risk |
 |---|---|---|
-| [A — Collection and Pre-Processing](#sec-s02-a) | *Where does data come from, and why is it always messy?* | `concepts` |
-| [B — Working with Pandas](#sec-s02-b) | *How do we actually look at this data in Python?* | `pandas_basics.ipynb` |
-| [Demo — Inspecting Messy Data](#sec-s02-demo) | *What does a real-world messy dataset look like when loaded?* | `pandas_demo.py` |
+| **Random** | every row has an equal chance | needs the full list to pick from |
+| **Stratified** | picks proportionally from each group | you have to know the groups |
+| **Systematic** | every *n*th row | fails if the data has a repeating pattern |
+| **Convenience** | whatever was easy to get | **usually biased, and usually invisible** |
 
-# Part A — Collection and Pre-Processing {#sec-s02-a}
+### Demo 2 — the same population, two samples, two different answers
 
-**Before we can analyze data, we have to find it and clean it up.**
+A town where income genuinely differs by neighbourhood. We survey it twice: once at
+random, once by standing outside one office building.
 
-## 1. Data Collection Strategies {#sec-s02-topic-1}
+```{python}
+import numpy as np
+import pandas as pd
 
-**Data collection is the process of gathering raw information from various sources to answer a specific business question.**
+rng = np.random.default_rng(7)
 
-It exists because algorithms cannot learn from nothing. You must feed them historical examples (data) so they can find patterns. 
+town = pd.DataFrame({
+    "area":   ["north"]*600 + ["south"]*400,
+    "income": np.concatenate([rng.normal(30_000, 5_000, 600),
+                              rng.normal(85_000, 9_000, 400)]),
+})
 
-::: {.callout-tip title="🧠 Analogy — Mining for Gold"}
-**The everyday thing:** A gold mining operation.
+random_sample     = town.sample(100, random_state=1)          # fair
+convenience_sample = town[town["area"] == "south"].sample(100, random_state=1)  # easy
 
-**The mapping:** 
-- The **mountain** is the internet or your company's user base.
-- The **excavator** is your data collection strategy (APIs, web scraping).
-- The **chunks of raw rock** you pull out are the raw data.
+print(f"True average income of the whole town : ₹{town['income'].mean():,.0f}")
+print(f"Estimate from the random sample       : ₹{random_sample['income'].mean():,.0f}")
+print(f"Estimate from the convenient sample   : ₹{convenience_sample['income'].mean():,.0f}")
+```
 
-**Where it breaks down:** Mining removes gold from the mountain permanently, but collecting data from a website doesn't delete the data from the website.
+The convenient sample is not *noisy* — it is **wrong in a consistent direction**, and no
+amount of extra data collected the same way will correct it. This is called **sampling
+bias**, and it is the failure that no later technique can repair.
+
+::: {.callout-warning title="⚠️ More data does not fix a biased sample"}
+Doubling a biased sample gives you a more confident wrong answer. **Only changing how
+you collect fixes bias.** Always ask "who could not have appeared in this data?" before
+you trust it.
 :::
 
-### How it works
+### ❓ Check yourself
 
-There are three primary ways modern teams collect data:
-1. **Internal Databases:** Pulling data your company already owns (e.g., customer purchase history from a SQL database).
-2. **APIs (Application Programming Interfaces):** Requesting data programmatically from third-party services (e.g., getting live weather data from the OpenWeather API).
-3. **Web Scraping:** Writing scripts to automatically read and extract information from public websites when an API is not available.
+**Q1.** You need competitor pricing from a website with no API. Which route?
 
-### ❓ MCQs
+- (a) Query your internal database.
+- (b) **Web scraping.**
+- (c) A customer survey.
 
-**Q1.** If you need to gather public pricing information from a competitor's website that does not offer an API, which strategy must you use?
+**Q2.** A phone survey run between 10am and 4pm on weekdays finds that 78% of people
+are satisfied with local bus services. What is the main problem?
 
-- (a) Querying your internal SQL database.
-- (b) **Web Scraping.**
-- (c) Guessing the prices based on market trends.
-- (d) Waiting for the competitor to email you their data.
+- (a) The sample is too small.
+- (b) **People who commute by bus are at work during those hours and cannot answer.**
+- (c) Phone surveys are illegal.
 
 ::: {.callout-note collapse="true" title="Answers"}
-**A1 — (b).** Web scraping allows you to programmatically extract information directly from the HTML of a webpage when no official API is provided.
+**A1 — (b).** No API means scraping — after checking the terms of service.
+
+**A2 — (b).** The people most affected by bus services are systematically excluded. The
+result is biased, not merely imprecise, and a bigger sample would not help.
 :::
 
-**Once you collect the data, you will immediately notice a problem: it is never ready to use.**
+# Part B — The preprocessing map {#sec-s02-b}
 
-## 2. Data Pre-Processing Overview {#sec-s02-topic-2}
+## 3. Why raw data is never usable {#sec-s02-topic-3}
 
-**Data pre-processing is the act of cleaning and formatting raw data into a pristine table that a machine learning algorithm can understand.**
+**Preprocessing is turning raw data into a table an algorithm can read. It is most of
+the work in most projects.**
 
-It exists because raw data is incredibly messy. Users make typos, sensors fail and record blank values, and different systems use different formats (e.g., `10/05/2024` vs `2024-10-05`). If you feed messy data into a model, the model will produce garbage predictions.
+Raw data is messy because it is produced by people and by imperfect machines:
 
-::: {.callout-warning title="⚠️ The trap of skipping the cleaning phase"}
-*"I just want to get to the fun machine learning part!"*
+- somebody typed their age as `225`
+- a sensor dropped offline and recorded nothing for four hours
+- one system writes dates as `10/05/2024`, another as `2024-05-10`
+- a customer pressed *Submit* twice
+- the "city" column contains `Mumbai`, `mumbai`, `Bombay` and `MUM`
 
-**Garbage in, garbage out.** If you don't pre-process your data, your highly advanced neural network will confidently give you the wrong answer because it learned from typos and missing values. Data Scientists spend 80% of their time pre-processing.
-:::
+An algorithm cannot see that these are problems. It will treat `225` as a real age and
+happily conclude that older customers spend more.
 
-### How it works
-
-Pre-processing generally involves:
-- **Handling Missing Values:** What do we do if a user didn't enter their age? (Delete the row, or guess the average?)
-- **Formatting:** Ensuring all text is lowercase, or all dates follow the same format.
-- **Removing Duplicates:** Ensuring a user who clicked "Submit" twice isn't counted as two separate purchases.
-
-### ❓ MCQs
-
-**Q2.** Why do Data Scientists spend so much time pre-processing data?
-
-- (a) Because Python is very slow at reading files.
-- (b) **Because raw data contains errors, missing values, and inconsistencies that ruin analysis.**
-- (c) Because pre-processing is the only way to generate charts.
-- (d) Because it is required by international privacy laws.
-
-::: {.callout-note collapse="true" title="Answers"}
-**A2 — (b).** Real-world data is generated by humans and imperfect systems, leading to errors that must be fixed before an algorithm can find accurate patterns.
-:::
-
-**We know we need to collect and clean data, but what tool do we use to actually do this in Python?**
-
-# Part B — Working with Pandas {#sec-s02-b}
-
-**Pandas is the industry-standard tool for looking at and manipulating tabular data in Python.**
-
-## 3. Working with Pandas data frames {#sec-s02-topic-3}
-
-**A Pandas DataFrame is essentially a programmatic Excel spreadsheet inside Python.**
-
-It exists because standard Python lists and dictionaries are too slow and cumbersome for doing math on millions of rows of tabular data. Pandas gives us a fast, intuitive way to filter, group, and calculate statistics on large datasets.
-
-### How it works
-
-You import the library (`import pandas as pd`), load a file (like a CSV) into a DataFrame object, and then use built-in methods to inspect it. 
-
-### 📘 Examples
-
-**Example 1 — Creating a simple DataFrame from scratch**
+### Demo 3 — watch one bad value ruin a summary
 
 ```{python}
 import pandas as pd
 
-# Creating data manually using a dictionary
-data = {
-    "Name": ["Alice", "Bob", "Charlie"],
-    "Age": [25, 30, 35],
-    "City": ["New York", "London", "Paris"]
-}
+ages = pd.Series([25, 31, 28, 35, 22, 29, 33, 27])
+print(f"Average age, clean data     : {ages.mean():.1f} years")
 
-# Converting it into a Pandas DataFrame
-df = pd.DataFrame(data)
-
-# Displaying the DataFrame
-df
+ages_with_typo = pd.Series([25, 31, 28, 35, 22, 29, 33, 225])   # 27 typed as 225
+print(f"Average age, one typo       : {ages_with_typo.mean():.1f} years")
+print(f"Median age, the same typo   : {ages_with_typo.median():.1f} years  <- barely moved")
 ```
 
-**Example 2 — Inspecting the data**
+**One wrong value out of eight moved the average by nearly 25 years.** The median barely
+noticed. Session 7 explains why; Session 3 fixes the typo. For now, the point is only
+that raw data cannot be trusted.
 
-```{python}
-#| label: tbl-s02-example
-#| tbl-cap: "Using .head() to look at just the top rows of a large dataset."
+## 4. The order we clean in {#sec-s02-topic-4}
 
-# .head(2) shows only the first 2 rows. Useful when you have millions of rows!
-df.head(2)
-```
+**The steps have to happen in a specific order.** Running them in a different order
+produces numbers that look fine and are wrong.
 
-### 🌍 Scenarios
+| # | Step | Chapter |
+|---|---|---|
+| 1 | **Load** the data | this chapter |
+| 2 | **Explore** it — what is here? | this chapter, and Sessions 7–8 |
+| 3 | **Duplicates** — remove repeated rows | Session 3 |
+| 4 | **Impossible values** — an age of 225 is an error, not an extreme | Session 3 |
+| 5 | **Missing values** — decide what to do about blanks | Session 3 |
+| 6 | **Outliers** — decide about genuine extremes | Session 3 |
+| 7 | **Combine** other tables you need | Session 4 |
+| 8 | **Encode and scale** — turn text into numbers, put columns on one scale | Session 5 |
+| 9 | **Reduce** — drop or compress columns you do not need | Session 6 |
 
-**Scenario 1 — You have a massive file with 500,000 rows.**
-You cannot print it to the screen. You must use `df.head()` to just peek at the first 5 rows to understand what the columns are.
+::: {.callout-important title="🔓 Two orderings that are not negotiable"}
+**Impossible values before missing values (step 4 before step 5).** An age of 225 is a
+mistake. Turn it into "missing" *first*, then let step 5 deal with it. Do it the other
+way round and the mistake survives untouched into your model.
 
-::: {.callout-note title="✏️ Tasks"}
-1. Create a dictionary with columns `Product`, `Price`, and `Stock`.
-2. Convert it to a Pandas DataFrame.
-3. Print just the first row using `.head(1)`.
+**Scaling comes last, and only after the data is split for testing.** Session 5 explains
+why, and shows the wrong answer you get otherwise.
 :::
 
-::: {.callout-note collapse="true" title="Solutions"}
+# Part C — Pandas {#sec-s02-c}
+
+## 5. The Series and the DataFrame {#sec-s02-topic-5}
+
+**`pandas` is the library that gives Python a table. A `DataFrame` is a whole table; a
+`Series` is a single column of one.**
+
+Plain Python can hold data in lists and dictionaries, but doing arithmetic across
+millions of rows that way is slow and awkward. Pandas does it in one expression.
+
+::: {.callout-tip title="🧠 Analogy — a spreadsheet that takes orders"}
+A DataFrame is a spreadsheet you talk to instead of click on. Instead of dragging to
+select rows 4–19, you say *"give me the rows where city is Mumbai"* — and it works the
+same whether there are 20 rows or 20 million.
+:::
+
+### Demo 4 — building a table, and the column inside it
+
 ```{python}
 import pandas as pd
 
-inventory = {
-    "Product": ["Laptop", "Mouse", "Keyboard"],
-    "Price": [999.99, 25.50, 45.00],
-    "Stock": [50, 200, 150]
-}
-df_inventory = pd.DataFrame(inventory)
-df_inventory.head(1)
+sales = pd.DataFrame({
+    "product":  ["Laptop", "Mouse", "Keyboard", "Monitor", "Mouse", "Laptop"],
+    "city":     ["Mumbai", "Delhi", "Mumbai", "Pune", "Mumbai", "Delhi"],
+    "units":    [3, 20, 12, 5, 15, 2],
+    "price":    [55000, 500, 1500, 12000, 500, 55000],
+})
+sales["revenue"] = sales["units"] * sales["price"]   # a new column, computed for every row at once
+print(sales)
+
+print("\nOne column on its own is a Series:")
+print(sales["revenue"])
+print(f"\ntype of the table  : {type(sales).__name__}")
+print(f"type of one column : {type(sales['revenue']).__name__}")
 ```
-:::
 
-# Part Demo — Inspecting Messy Data {#sec-s02-demo}
+The line `sales["units"] * sales["price"]` multiplied six pairs of numbers without a
+loop. That is the whole reason pandas exists.
 
-**Loading a raw, messy dataset to inspect its structure using Pandas.**
+## 6. Looking at an unfamiliar dataset {#sec-s02-topic-6}
 
-Let's simulate loading a messy CSV file that a Data Engineer just handed to us. We will use three critical Pandas commands to figure out what is wrong with it:
-- `.head()` to look at the raw rows.
-- `.info()` to see data types and count missing values.
-- `.describe()` to see mathematical summaries.
+**Five commands tell you almost everything about a table you have never seen.**
+
+| Command | Answers |
+|---|---|
+| `.shape` | how big is it? |
+| `.head()` | what do the rows look like? |
+| `.info()` | what type is each column, and how many values are missing? |
+| `.describe()` | what are the numeric columns like? |
+| `.value_counts()` | what values does this text column contain, and how often? |
+
+### Demo 5 — the five-command first look
+
+We load a deliberately messy dataset — the kind a colleague actually sends you.
 
 ```{python}
-#| label: fig-pandas-demo
 import pandas as pd
 import numpy as np
 
-# Simulating a messy dataset being loaded from a CSV
-messy_data = {
-    "CustomerID": [101, 102, 103, 104, 105],
-    "Age": [25, np.nan, 22, 150, 30], # Note the missing value (NaN) and the impossible age (150)
-    "Income": [50000, 60000, np.nan, 120000, 45000],
-    "Subscribed": ["Yes", "Y", "No", "N", "Yes"] # Inconsistent formatting
-}
+messy = pd.DataFrame({
+    "customer_id": [101, 102, 103, 104, 105, 106, 103],
+    "age":         [25, np.nan, 22, 225, 30, 41, 22],
+    "income":      [50000, 60000, np.nan, 120000, 45000, 58000, np.nan],
+    "city":        ["Mumbai", "mumbai", "Delhi", "Bombay", "Delhi", "MUM", "Delhi"],
+    "subscribed":  ["Yes", "Y", "No", "N", "Yes", "yes", "No"],
+})
 
-df_messy = pd.DataFrame(messy_data)
+print(f"1. SHAPE — {messy.shape[0]} rows, {messy.shape[1]} columns\n")
 
-print("--- USING .head() ---")
-# See the inconsistencies visually
-display(df_messy.head())
+print("2. HEAD — the first few rows")
+print(messy.head(3))
 
-print("\n--- USING .info() ---")
-# See that Age and Income are missing some non-null values
-df_messy.info()
+print("\n3. INFO — types and how many values are actually present")
+messy.info()
 
-print("\n--- USING .describe() ---")
-# Notice that the max Age is 150! A clear error we need to fix later.
-display(df_messy.describe())
+print("\n4. DESCRIBE — the numeric columns")
+print(messy.describe().round(1))
+
+print("\n5. VALUE_COUNTS — what is in the text columns")
+print(messy["city"].value_counts())
 ```
 
-# 🎯 Session 2 — Tasks {#sec-s02-tasks}
+Read the output and you have already found four problems, **before writing a single
+line of cleaning code**:
 
-**Complete these tasks in order to solidify your understanding.**
+- `.info()` shows `age` has 6 values, not 7 — one is missing. `income` has 5.
+- `.describe()` shows `max` age is **225** — impossible.
+- `.value_counts()` shows `Mumbai`, `mumbai`, `Bombay` and `MUM` — one city, four
+  spellings.
+- The first column repeats `103` — a duplicate row.
 
-**Task 1 — The Data Detective.** 
-Look closely at the output of `.describe()` in the demo above. Write down the `mean` (average) income of the customers. **Report what happens to the mean if we were to incorrectly type a customer's income as $1,000,000 instead of $100,000.** (Hint: Averages are highly sensitive to extreme outliers).
+::: {.callout-warning title="⚠️ `.describe()` only sees numbers"}
+It silently ignores every text column. A dataset can look perfectly healthy in
+`.describe()` while its text columns are chaos. **Always run `.value_counts()` on the
+text columns too.**
+:::
+
+## 7. Selecting and filtering {#sec-s02-topic-7}
+
+**Selecting is choosing which rows and columns you want. There are three tools, and
+they are easy to confuse.**
+
+| Tool | Selects by | Example |
+|---|---|---|
+| `df["col"]` | column name | `sales["price"]` |
+| `df.loc[rows, cols]` | **label** — the name of the row or column | `sales.loc[2, "price"]` |
+| `df.iloc[rows, cols]` | **position** — the number, counting from 0 | `sales.iloc[2, 3]` |
+
+### Demo 6 — the three selectors, side by side
+
+```{python}
+print("Whole column:")
+print(sales["product"].tolist())
+
+print("\n.loc — by label: row 2, column named 'price'")
+print(sales.loc[2, "price"])
+
+print("\n.iloc — by position: row 2, the 4th column (counting from 0)")
+print(sales.iloc[2, 3])
+
+print("\n.loc with a range — rows 1 to 3, two named columns:")
+print(sales.loc[1:3, ["product", "revenue"]])
+
+print("\n.iloc with a range — the first 2 rows, the first 2 columns:")
+print(sales.iloc[0:2, 0:2])
+```
+
+::: {.callout-warning title="⚠️ `.loc` includes the last item, `.iloc` does not"}
+`sales.loc[1:3]` returns rows 1, 2 **and 3** — three rows. `sales.iloc[1:3]` returns
+rows 1 and 2 — two rows. This catches everybody at least once. `.loc` follows label
+logic ("from this one to that one"); `.iloc` follows Python slicing ("stop before").
+:::
+
+### Demo 7 — filtering with a condition
+
+Filtering is the single most-used operation in pandas. You write a condition; pandas
+gives you back only the rows where it is true.
+
+```{python}
+# The condition on its own produces True/False for every row:
+print("Is revenue over 50,000?")
+print((sales["revenue"] > 50_000).tolist())
+
+# Put it in square brackets to keep only the True rows:
+print("\nOnly the big-revenue rows:")
+print(sales[sales["revenue"] > 50_000])
+
+# Two conditions: & means "and", | means "or". Each condition needs its own brackets.
+print("\nMumbai rows with more than 10 units:")
+print(sales[(sales["city"] == "Mumbai") & (sales["units"] > 10)])
+```
+
+::: {.callout-warning title="⚠️ Use `&` and `|`, not `and` and `or`"}
+`sales[(a) and (b)]` raises an error. Pandas compares whole columns at a time, so it
+needs `&` and `|`, and **each condition must be in its own brackets** — without them,
+Python's order of operations gives you a confusing error.
+:::
+
+## 8. Grouping: answering real questions {#sec-s02-topic-8}
+
+**`groupby` splits the table into groups, applies a calculation to each, and puts the
+answers back together.** It is how you turn a table of transactions into a summary
+somebody wants to read.
+
+### Demo 8 — from raw rows to an answer
+
+```{python}
+print("Total revenue per city:")
+print(sales.groupby("city")["revenue"].sum().sort_values(ascending=False))
+
+print("\nUnits sold per product, and the average price:")
+print(sales.groupby("product").agg(
+    total_units=("units", "sum"),
+    avg_price=("price", "mean"),
+    times_sold=("units", "count"),
+))
+
+print("\nRevenue by city and product together:")
+print(sales.groupby(["city", "product"])["revenue"].sum())
+```
+
+Three lines answered three business questions. `groupby` is the verb that turns a table
+into a report.
+
+### Demo 9 — writing the answer back out
+
+```{python}
+summary = sales.groupby("city")["revenue"].sum().reset_index()
+print(summary.to_csv(index=False))    # what would be written to a file
+```
+
+In a real project the last line is `summary.to_csv("revenue_by_city.csv", index=False)`.
+`index=False` stops pandas adding an unnamed extra column of row numbers — a small
+detail that causes a lot of confusion when the file is opened in Excel.
+
+### ❓ Check yourself
+
+**Q3.** `.info()` reports 1,000 entries but the `income` column has 940 non-null values.
+What does that mean?
+
+- (a) 940 customers earn money.
+- (b) **60 income values are missing.**
+- (c) The file is corrupt.
+
+**Q4.** Which returns the *second* row of a DataFrame?
+
+- (a) `df.loc[2]`
+- (b) **`df.iloc[1]`**
+- (c) `df["2"]`
+
+::: {.callout-note collapse="true" title="Answers"}
+**A3 — (b).** 1,000 − 940 = 60 blanks. Session 3 covers what to do about them.
+
+**A4 — (b).** `.iloc` counts positions from 0, so position 1 is the second row.
+`df.loc[2]` looks for a row *labelled* 2, which is usually the third row.
+:::
+
+# 🎯 Tasks {#sec-s02-tasks}
+
+::: {.callout-note title="✏️ Practise before Session 3"}
+**Task 1 — Build and inspect.** Create a DataFrame of five products with columns
+`product`, `price` and `stock`. Print its shape, then its `.describe()`.
+
+**Task 2 — Filter.** From the `sales` table in this chapter, select every row where the
+city is Delhi *or* the units sold are above 10.
+
+**Task 3 — Group.** Find the average revenue per product, sorted from highest to lowest.
+
+**Task 4 — Spot the trouble.** Run `.value_counts()` on `messy["subscribed"]` from Demo
+5. **How many distinct values does it contain, and how many should it contain?**
+:::
+
+:::: {.callout-note collapse="true" title="Solutions"}
+```{python}
+import pandas as pd
+import numpy as np
+
+# Task 1
+products = pd.DataFrame({
+    "product": ["Pen", "Notebook", "Bag", "Bottle", "Lamp"],
+    "price":   [20, 60, 950, 350, 1200],
+    "stock":   [500, 220, 40, 90, 15],
+})
+print("Task 1 — shape:", products.shape)
+print(products.describe().round(1))
+
+# Task 2
+sales = pd.DataFrame({
+    "product": ["Laptop", "Mouse", "Keyboard", "Monitor", "Mouse", "Laptop"],
+    "city":    ["Mumbai", "Delhi", "Mumbai", "Pune", "Mumbai", "Delhi"],
+    "units":   [3, 20, 12, 5, 15, 2],
+    "price":   [55000, 500, 1500, 12000, 500, 55000],
+})
+sales["revenue"] = sales["units"] * sales["price"]
+print("\nTask 2:")
+print(sales[(sales["city"] == "Delhi") | (sales["units"] > 10)])
+
+# Task 3
+print("\nTask 3:")
+print(sales.groupby("product")["revenue"].mean().sort_values(ascending=False))
+
+# Task 4
+subscribed = pd.Series(["Yes", "Y", "No", "N", "Yes", "yes", "No"])
+print("\nTask 4:")
+print(subscribed.value_counts())
+print(f"Distinct values found: {subscribed.nunique()} — there should be 2 (yes and no).")
+```
+::::
 
 ::: {.callout-tip title="✅ Before you move on"}
-- [ ] Ensure you understand the difference between `.head()` (looking at rows) and `.info()` (looking at column data types).
-- [ ] **The one thing from this chapter that is easiest to forget:** The `np.nan` stands for "Not a Number" and is how Pandas represents missing or blank data.
+- [ ] I can load data from a CSV, a JSON document and a SQL query
+- [ ] I can explain sampling bias and why more data does not fix it
+- [ ] I know the difference between `.loc` and `.iloc`
+- [ ] I can filter with two conditions using `&` and `|`
+- [ ] I can answer a business question with `groupby`
+- [ ] **Easiest thing to forget:** `.describe()` ignores text columns entirely. Run
+      `.value_counts()` on them or you will miss half the mess.
 :::

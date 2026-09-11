@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; Session 3 — Data Cleaning – Data Science Course</title>
+<title>4&nbsp; Session 3 — Data Cleaning – Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -77,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-99913b7803b80b0c1d2b970a25816663.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-7202036dd3638cbfcbeb4151d116aa42.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -105,11 +105,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-sidebar floating quarto-light">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -118,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-03-data-cleaning.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Session 3 — Data Cleaning</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-03-data-cleaning.html">Part B — Making data fit to use</a></li><li class="breadcrumb-item"><a href="../sessions/session-03-data-cleaning.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Session 3 — Data Cleaning</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -130,10 +134,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Data Science Course</a> 
+      <a href="../">Data Science</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -146,105 +150,160 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science Course</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part A — Getting hold of data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-01-introduction-to-data-science.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Session 1 — Introduction to Data Science</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-02-data-collection-and-pre-processing-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 2 — Data Collection and Pre-Processing Overview</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part B — Making data fit to use</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-03-data-cleaning.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Session 3 — Data Cleaning</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-04-data-integration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Session 4 — Data Integration</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-05-data-transformation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Session 5 — Data Transformation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-06-data-reduction-and-discretization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Session 6 — Data Reduction and Discretization</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part C — Understanding data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-07-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Session 7 — Descriptive Statistics</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-08-exploratory-data-analytics-eda-and-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analytics (EDA) and Visualization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analysis and Visualization</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part D — Learning from data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-09-supervised-learning-techniques.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Session 9 — Supervised Learning Techniques</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-10-unsupervised-learning-techniques-clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning Techniques &amp; Clustering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning and Clustering</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-11-data-model-evaluation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 11 — Data Model Evaluation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 11 — Model Evaluation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-12-model-saving-and-deployment.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Session 12 — Model Saving and Deployment</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part E — Data at scale</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-13-big-data-analytics-fundamentals.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Session 13 — Big Data Analytics Fundamentals</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-14-distributed-data-processing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Session 14 — Distributed Data Processing</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-15-nosql-databases-and-scaled-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Scaled Visualization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Visualization at Scale</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-16-open-ended-module-implementation-and-capstone.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Open Ended Module (Implementation and Capstone)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Capstone: The End-to-End Project</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -257,39 +316,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#sec-s03-outcomes" id="toc-sec-s03-outcomes" class="nav-link active" data-scroll-target="#sec-s03-outcomes"><span class="header-section-number">4.1</span> 🎯 Learning outcomes</a></li>
   <li><a href="#sec-s03-organisation" id="toc-sec-s03-organisation" class="nav-link" data-scroll-target="#sec-s03-organisation"><span class="header-section-number">4.2</span> How this chapter is organised</a></li>
-  <li><a href="#sec-s03-a" id="toc-sec-s03-a" class="nav-link" data-scroll-target="#sec-s03-a"><span class="header-section-number">5</span> Part A — Missing Values and Noise</a>
+  <li><a href="#sec-s03-a" id="toc-sec-s03-a" class="nav-link" data-scroll-target="#sec-s03-a"><span class="header-section-number">5</span> Part A — The order of operations</a>
   <ul class="collapse">
-  <li><a href="#sec-s03-topic-1" id="toc-sec-s03-topic-1" class="nav-link" data-scroll-target="#sec-s03-topic-1"><span class="header-section-number">5.1</span> 1. Filling missing values</a>
+  <li><a href="#sec-s03-topic-1" id="toc-sec-s03-topic-1" class="nav-link" data-scroll-target="#sec-s03-topic-1"><span class="header-section-number">5.1</span> 1. Why order matters</a>
   <ul class="collapse">
-  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works"><span class="header-section-number">5.1.1</span> How it works</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">5.1.2</span> 📘 Examples</a></li>
-  <li><a href="#mcqs" id="toc-mcqs" class="nav-link" data-scroll-target="#mcqs"><span class="header-section-number">5.1.3</span> ❓ MCQs</a></li>
-  </ul></li>
-  <li><a href="#sec-s03-topic-2" id="toc-sec-s03-topic-2" class="nav-link" data-scroll-target="#sec-s03-topic-2"><span class="header-section-number">5.2</span> 2. Smoothing noisy data</a>
-  <ul class="collapse">
-  <li><a href="#how-it-works-1" id="toc-how-it-works-1" class="nav-link" data-scroll-target="#how-it-works-1"><span class="header-section-number">5.2.1</span> How it works</a></li>
+  <li><a href="#demo-1-the-same-data-cleaned-in-two-different-orders" id="toc-demo-1-the-same-data-cleaned-in-two-different-orders" class="nav-link" data-scroll-target="#demo-1-the-same-data-cleaned-in-two-different-orders"><span class="header-section-number">5.1.1</span> Demo 1 — the same data, cleaned in two different orders</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s03-b" id="toc-sec-s03-b" class="nav-link" data-scroll-target="#sec-s03-b"><span class="header-section-number">6</span> Part B — Detecting Outliers</a>
+  <li><a href="#sec-s03-b" id="toc-sec-s03-b" class="nav-link" data-scroll-target="#sec-s03-b"><span class="header-section-number">6</span> Part B — The six cleaning jobs</a>
   <ul class="collapse">
-  <li><a href="#sec-s03-topic-3" id="toc-sec-s03-topic-3" class="nav-link" data-scroll-target="#sec-s03-topic-3"><span class="header-section-number">6.1</span> 3. Detecting and removing outliers</a>
+  <li><a href="#sec-s03-topic-2" id="toc-sec-s03-topic-2" class="nav-link" data-scroll-target="#sec-s03-topic-2"><span class="header-section-number">6.1</span> 2. Duplicates</a>
   <ul class="collapse">
-  <li><a href="#how-it-works-2" id="toc-how-it-works-2" class="nav-link" data-scroll-target="#how-it-works-2"><span class="header-section-number">6.1.1</span> How it works</a></li>
-  <li><a href="#mcqs-1" id="toc-mcqs-1" class="nav-link" data-scroll-target="#mcqs-1"><span class="header-section-number">6.1.2</span> ❓ MCQs</a></li>
+  <li><a href="#demo-2-finding-and-removing-duplicates" id="toc-demo-2-finding-and-removing-duplicates" class="nav-link" data-scroll-target="#demo-2-finding-and-removing-duplicates"><span class="header-section-number">6.1.1</span> Demo 2 — finding and removing duplicates</a></li>
+  </ul></li>
+  <li><a href="#sec-s03-topic-3" id="toc-sec-s03-topic-3" class="nav-link" data-scroll-target="#sec-s03-topic-3"><span class="header-section-number">6.2</span> 3. Impossible values</a>
+  <ul class="collapse">
+  <li><a href="#demo-3-apply-the-rules-and-convert-violations-to-missing" id="toc-demo-3-apply-the-rules-and-convert-violations-to-missing" class="nav-link" data-scroll-target="#demo-3-apply-the-rules-and-convert-violations-to-missing"><span class="header-section-number">6.2.1</span> Demo 3 — apply the rules, and convert violations to missing</a></li>
+  </ul></li>
+  <li><a href="#sec-s03-topic-4" id="toc-sec-s03-topic-4" class="nav-link" data-scroll-target="#sec-s03-topic-4"><span class="header-section-number">6.3</span> 4. Missing values</a>
+  <ul class="collapse">
+  <li><a href="#first-why-is-it-missing" id="toc-first-why-is-it-missing" class="nav-link" data-scroll-target="#first-why-is-it-missing"><span class="header-section-number">6.3.1</span> First, why is it missing?</a></li>
+  <li><a href="#demo-4-four-ways-to-fill-a-gap" id="toc-demo-4-four-ways-to-fill-a-gap" class="nav-link" data-scroll-target="#demo-4-four-ways-to-fill-a-gap"><span class="header-section-number">6.3.2</span> Demo 4 — four ways to fill a gap</a></li>
+  <li><a href="#demo-5-always-record-that-you-guessed" id="toc-demo-5-always-record-that-you-guessed" class="nav-link" data-scroll-target="#demo-5-always-record-that-you-guessed"><span class="header-section-number">6.3.3</span> Demo 5 — always record that you guessed</a></li>
+  </ul></li>
+  <li><a href="#sec-s03-topic-5" id="toc-sec-s03-topic-5" class="nav-link" data-scroll-target="#sec-s03-topic-5"><span class="header-section-number">6.4</span> 5. Noisy data</a>
+  <ul class="collapse">
+  <li><a href="#demo-6-three-windows-on-the-same-noisy-signal" id="toc-demo-6-three-windows-on-the-same-noisy-signal" class="nav-link" data-scroll-target="#demo-6-three-windows-on-the-same-noisy-signal"><span class="header-section-number">6.4.1</span> Demo 6 — three windows on the same noisy signal</a></li>
+  </ul></li>
+  <li><a href="#sec-s03-topic-6" id="toc-sec-s03-topic-6" class="nav-link" data-scroll-target="#sec-s03-topic-6"><span class="header-section-number">6.5</span> 6. Outliers</a>
+  <ul class="collapse">
+  <li><a href="#demo-7-the-two-rules-and-why-they-disagree" id="toc-demo-7-the-two-rules-and-why-they-disagree" class="nav-link" data-scroll-target="#demo-7-the-two-rules-and-why-they-disagree"><span class="header-section-number">6.5.1</span> Demo 7 — the two rules, and why they disagree</a></li>
+  <li><a href="#demo-8-seeing-them-and-deciding-what-to-do" id="toc-demo-8-seeing-them-and-deciding-what-to-do" class="nav-link" data-scroll-target="#demo-8-seeing-them-and-deciding-what-to-do"><span class="header-section-number">6.5.2</span> Demo 8 — seeing them, and deciding what to do</a></li>
+  </ul></li>
+  <li><a href="#sec-s03-topic-7" id="toc-sec-s03-topic-7" class="nav-link" data-scroll-target="#sec-s03-topic-7"><span class="header-section-number">6.6</span> 7. Inconsistent text and wrong types</a>
+  <ul class="collapse">
+  <li><a href="#demo-9-repairing-a-text-column" id="toc-demo-9-repairing-a-text-column" class="nav-link" data-scroll-target="#demo-9-repairing-a-text-column"><span class="header-section-number">6.6.1</span> Demo 9 — repairing a text column</a></li>
+  <li><a href="#demo-10-dates-stored-as-text" id="toc-demo-10-dates-stored-as-text" class="nav-link" data-scroll-target="#demo-10-dates-stored-as-text"><span class="header-section-number">6.6.2</span> Demo 10 — dates stored as text</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s03-demo" id="toc-sec-s03-demo" class="nav-link" data-scroll-target="#sec-s03-demo"><span class="header-section-number">7</span> Part Demo — The Cleaning Pipeline</a></li>
-  <li><a href="#sec-s03-tasks" id="toc-sec-s03-tasks" class="nav-link" data-scroll-target="#sec-s03-tasks"><span class="header-section-number">8</span> 🎯 Session 3 — Tasks</a></li>
+  <li><a href="#sec-s03-c" id="toc-sec-s03-c" class="nav-link" data-scroll-target="#sec-s03-c"><span class="header-section-number">7</span> Part C — The full pass</a>
+  <ul class="collapse">
+  <li><a href="#sec-s03-topic-8" id="toc-sec-s03-topic-8" class="nav-link" data-scroll-target="#sec-s03-topic-8"><span class="header-section-number">7.1</span> 8. Cleaning as one function, with a report</a>
+  <ul class="collapse">
+  <li><a href="#demo-11-the-whole-sequence-with-a-report" id="toc-demo-11-the-whole-sequence-with-a-report" class="nav-link" data-scroll-target="#demo-11-the-whole-sequence-with-a-report"><span class="header-section-number">7.1.1</span> Demo 11 — the whole sequence, with a report</a></li>
+  <li><a href="#check-yourself" id="toc-check-yourself" class="nav-link" data-scroll-target="#check-yourself"><span class="header-section-number">7.1.2</span> ❓ Check yourself</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s03-tasks" id="toc-sec-s03-tasks" class="nav-link" data-scroll-target="#sec-s03-tasks"><span class="header-section-number">8</span> 🎯 Tasks</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-03-data-cleaning.html">Part B — Making data fit to use</a></li><li class="breadcrumb-item"><a href="../sessions/session-03-data-cleaning.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Session 3 — Data Cleaning</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Session 3 — Data Cleaning</span></h1>
-<p class="subtitle lead">Missing Values · Noisy Data · Outliers</p>
+<p class="subtitle lead">Duplicates · Impossible values · Missing values · Noise · Outliers · Inconsistent text</p>
 </div>
 
 
@@ -306,11 +389,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<!-- Setup code for the book -->
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -321,17 +399,22 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>This chapter covers the technical process of transforming messy raw data into a clean, usable dataset.</strong></p>
-<p><strong>Assumed knowledge:</strong> Concepts from Session 2 (Pandas basics and Data Collection).</p>
+<p><strong>This chapter turns the messy table from Session 2 into a table you can compute with.</strong></p>
+<p><strong>Assumed knowledge:</strong> Session 2 — loading a DataFrame, <code>.info()</code>, <code>.describe()</code>, filtering, <code>groupby</code>.</p>
+<p><strong>The one idea to take away:</strong> cleaning is a <strong>sequence</strong>, and the sequence matters. Deal with duplicates, then impossible values, then blanks, then extremes. Change that order and you will fix one problem by hiding another.</p>
 </div>
 </div>
 <section id="sec-s03-outcomes" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="sec-s03-outcomes"><span class="header-section-number">4.1</span> 🎯 Learning outcomes</h2>
 <p>By the end of this chapter you can:</p>
 <ol type="1">
-<li>Identify and programmatically fill missing values (<code>NaN</code>) in a dataset.</li>
-<li>Explain techniques for smoothing noisy, fluctuating data.</li>
-<li>Detect and remove extreme mathematical outliers using visualizations.</li>
+<li>Find and remove duplicate rows, and choose which copy to keep.</li>
+<li>Tell an <em>impossible</em> value from an <em>extreme</em> one, and handle each correctly.</li>
+<li>Fill missing values four different ways and justify which you chose.</li>
+<li>Explain what noise is and smooth it without erasing the signal.</li>
+<li>Detect outliers with the IQR rule and the z-score rule.</li>
+<li>Repair inconsistent text and wrong data types.</li>
+<li>Produce a cleaning report saying what you found and what you did about it.</li>
 </ol>
 </section>
 <section id="sec-s03-organisation" class="level2" data-number="4.2">
@@ -341,171 +424,867 @@ Note
 <tr class="header">
 <th>Part</th>
 <th>Question it answers</th>
-<th>Source</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#sec-s03-a">A — Missing Values and Noise</a></td>
-<td><em>How do we fix blank cells and chaotic fluctuations?</em></td>
-<td><code>concepts</code></td>
+<td><a href="#sec-s03-a">A — The order of operations</a></td>
+<td><em>Which problem do I fix first, and why does it matter?</em></td>
 </tr>
 <tr class="even">
-<td><a href="#sec-s03-b">B — Detecting Outliers</a></td>
-<td><em>How do we identify data points that lie?</em></td>
-<td><code>concepts</code></td>
+<td><a href="#sec-s03-b">B — The six cleaning jobs</a></td>
+<td><em>How do I actually fix each one?</em></td>
 </tr>
 <tr class="odd">
-<td><a href="#sec-s03-demo">Demo — The Cleaning Pipeline</a></td>
-<td><em>What does this look like in Pandas?</em></td>
-<td><code>cleaning_demo.py</code></td>
+<td><a href="#sec-s03-c">C — The full pass</a></td>
+<td><em>What does it look like done properly, end to end?</em></td>
 </tr>
 </tbody>
 </table>
+<p>Part A is short and is the most important part of the chapter.</p>
 </section>
 <section id="sec-s03-a" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Part A — Missing Values and Noise</h1>
-<p><strong>Data rarely arrives complete and perfect.</strong></p>
+<h1 data-number="5"><span class="header-section-number">5</span> Part A — The order of operations</h1>
 <section id="sec-s03-topic-1" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="sec-s03-topic-1"><span class="header-section-number">5.1</span> 1. Filling missing values</h2>
-<p><strong>Filling missing values (imputation) is the process of intelligently replacing blank data points with estimated numbers.</strong></p>
-<p>It exists because most machine learning algorithms will crash immediately if they encounter a missing value (<code>NaN</code>). You cannot train a model on “blank”.</p>
-<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — The Missing Puzzle Piece">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<h2 data-number="5.1" class="anchored" data-anchor-id="sec-s03-topic-1"><span class="header-section-number">5.1</span> 1. Why order matters</h2>
+<p><strong>Data cleaning is six jobs done in a fixed order.</strong></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    A["1 Duplicates"] --&gt; B["2 Impossible&lt;br/&gt;values"] --&gt; C["3 Missing&lt;br/&gt;values"]
+    C --&gt; D["4 Noise"] --&gt; E["5 Outliers"] --&gt; F["6 Text and&lt;br/&gt;types"]
+</pre>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>🧠 Analogy — The Missing Puzzle Piece
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>The everyday thing:</strong> Doing a jigsaw puzzle with a missing piece.</p>
-<p><strong>The mapping:</strong> - The <strong>puzzle</strong> is your dataset. - The <strong>missing piece</strong> is the <code>NaN</code> value. - <strong>Imputation</strong> is painting a piece of cardboard to match the surrounding colors so the picture looks complete from a distance.</p>
-<p><strong>Where it breaks down:</strong> An imputed value is just a good guess. In data science, guessing wrong can ruin your model’s accuracy.</p>
+<p></p></figure><p></p>
 </div>
 </div>
-<section id="how-it-works" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="how-it-works"><span class="header-section-number">5.1.1</span> How it works</h3>
-<p>When faced with a missing value, you have three main choices: 1. <strong>Drop the row:</strong> If only 1% of rows are missing data, just delete them. 2. <strong>Fill with Mean/Median:</strong> If a user’s age is missing, fill it with the average age of all users. 3. <strong>Forward Fill (Time Series):</strong> If Monday’s stock price is missing, just copy Sunday’s price.</p>
-</section>
-<section id="examples" class="level3" data-number="5.1.2">
-<h3 data-number="5.1.2" class="anchored" data-anchor-id="examples"><span class="header-section-number">5.1.2</span> 📘 Examples</h3>
-<p><strong>Example 1 — Filling NaN with the mean in Pandas</strong></p>
-<div id="bc8eb0d1" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">"Age"</span>: [<span class="dv">25</span>, <span class="dv">30</span>, np.nan, <span class="dv">40</span>, <span class="dv">20</span>]})</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Before:</span><span class="ch">\n</span><span class="st">"</span>, df)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the mean (average)</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>mean_age <span class="op">=</span> df[<span class="st">"Age"</span>].mean()</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill the NaN with the mean</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"Age"</span>] <span class="op">=</span> df[<span class="st">"Age"</span>].fillna(mean_age)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">After:</span><span class="ch">\n</span><span class="st">"</span>, df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Before:
-     Age
-0  25.0
-1  30.0
-2   NaN
-3  40.0
-4  20.0
-
-After:
-      Age
-0  25.00
-1  30.00
-2  28.75
-3  40.00
-4  20.00</code></pre>
 </div>
-</div>
-</section>
-<section id="mcqs" class="level3" data-number="5.1.3">
-<h3 data-number="5.1.3" class="anchored" data-anchor-id="mcqs"><span class="header-section-number">5.1.3</span> ❓ MCQs</h3>
-<p><strong>Q1.</strong> Why is deleting rows with missing values not always the best strategy?</p>
+<p>Here is why the order is not a matter of taste.</p>
+<p>Suppose one customer’s age was typed as <code>225</code>. That is <strong>impossible</strong> — nobody is 225.</p>
 <ul>
-<li><ol type="a">
-<li>Because it takes too much processing power.</li>
-</ol></li>
-<li><ol start="2" type="a">
-<li><strong>Because if 40% of your data has missing values, deleting those rows destroys almost half of your valuable information.</strong></li>
-</ol></li>
-<li><ol start="3" type="a">
-<li>Because Pandas does not have a function to delete rows.</li>
-</ol></li>
+<li><strong>Do it in the right order.</strong> Step 2 turns <code>225</code> into “missing”. Step 3 then replaces it with a sensible age, say 34. The mistake is gone.</li>
+<li><strong>Do steps 2 and 3 the other way round.</strong> Step 3 looks for blanks, finds none — <code>225</code> is a number, not a blank — and does nothing. <code>225</code> survives into your model and drags every average upward.</li>
 </ul>
-<div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Answers
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>A1 — (b).</strong> Deleting is easy, but it destroys data. Imputation (filling) preserves the row so you can still learn from its other valid columns.</p>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="sec-s03-topic-2" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="sec-s03-topic-2"><span class="header-section-number">5.2</span> 2. Smoothing noisy data</h2>
-<p><strong>Smoothing is the mathematical process of removing random, short-term fluctuations to reveal the true underlying trend.</strong></p>
-<p>It exists because sensors glitch, human input varies, and daily variance can obscure the bigger picture.</p>
-<section id="how-it-works-1" class="level3" data-number="5.2.1">
-<h3 data-number="5.2.1" class="anchored" data-anchor-id="how-it-works-1"><span class="header-section-number">5.2.1</span> How it works</h3>
-<p>The most common technique is the <strong>Moving Average</strong>. Instead of looking at daily sales, you look at the 7-day rolling average. This flattens out the weekend dips and shows if the business is generally growing or shrinking.</p>
-<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ The trap of over-smoothing">
+<div class="callout callout-style-default callout-important callout-titled" title="🔓 Impossible is not the same as extreme">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>⚠️ The trap of over-smoothing
+<span class="screen-reader-only">Important</span>🔓 Impossible is not the same as extreme
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If you smooth the data too much (e.g., using a 365-day moving average on stock prices), you erase the very trends you are trying to study. The data becomes a flat line.</p>
+<p><strong>Impossible</strong> = it cannot be true. An age of 225. A negative price. A blood pressure of 0. → <strong>It is an error. Turn it into missing, then impute it.</strong></p>
+<p><strong>Extreme</strong> = unusual but real. A customer who spent ₹4,00,000. A 61-year-old marathon runner. → <strong>It is data. Think hard before touching it.</strong></p>
+<p>The dataset cannot tell you which is which. <strong>Only knowledge of the subject can.</strong></p>
 </div>
 </div>
+<section id="demo-1-the-same-data-cleaned-in-two-different-orders" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="demo-1-the-same-data-cleaned-in-two-different-orders"><span class="header-section-number">5.1.1</span> Demo 1 — the same data, cleaned in two different orders</h3>
+<div id="3c29cd76" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ages <span class="op">=</span> pd.Series([<span class="dv">25</span>, <span class="dv">31</span>, np.nan, <span class="dv">35</span>, <span class="dv">22</span>, <span class="dv">225</span>, <span class="dv">29</span>, <span class="dv">33</span>])</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Raw ages:"</span>, ages.tolist())</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># --- WRONG ORDER: fill the blanks first, then look for impossible values ---</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>wrong <span class="op">=</span> ages.fillna(ages.mean())                 <span class="co"># the mean is already poisoned by 225</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>wrong <span class="op">=</span> wrong.where(wrong <span class="op">&lt;=</span> <span class="dv">120</span>, np.nan)        <span class="co"># now remove the impossible one</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Wrong order → mean used for filling was </span><span class="sc">{</span>ages<span class="sc">.</span>mean()<span class="sc">:.1f}</span><span class="ss"> (inflated by the 225)"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"             result:"</span>, [<span class="bu">round</span>(v,<span class="dv">1</span>) <span class="cf">if</span> pd.notna(v) <span class="cf">else</span> <span class="va">None</span> <span class="cf">for</span> v <span class="kw">in</span> wrong])</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># --- RIGHT ORDER: remove impossible values first, then fill the blanks ---</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>right <span class="op">=</span> ages.where(ages <span class="op">&lt;=</span> <span class="dv">120</span>, np.nan)          <span class="co"># 225 becomes missing</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>right <span class="op">=</span> right.fillna(right.mean())               <span class="co"># now the mean is honest</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Right order → mean used for filling was </span><span class="sc">{</span>ages<span class="sc">.</span>where(ages<span class="op">&lt;=</span><span class="dv">120</span>)<span class="sc">.</span>mean()<span class="sc">:.1f}</span><span class="ss">"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"             result:"</span>, [<span class="bu">round</span>(v,<span class="dv">1</span>) <span class="cf">for</span> v <span class="kw">in</span> right])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Raw ages: [25.0, 31.0, nan, 35.0, 22.0, 225.0, 29.0, 33.0]
+
+Wrong order → mean used for filling was 57.1 (inflated by the 225)
+             result: [25.0, 31.0, 57.1, 35.0, 22.0, None, 29.0, 33.0]
+
+Right order → mean used for filling was 29.2
+             result: [25.0, 31.0, 29.2, 35.0, 22.0, 29.2, 29.0, 33.0]</code></pre>
+</div>
+</div>
+<p>In the wrong order the blank was filled with <strong>50.0</strong>, a value no customer has, because the impossible <code>225</code> was still inside the average. In the right order it was filled with <strong>29.3</strong>. Same data, same functions, different order — and one answer is nonsense.</p>
 </section>
 </section>
 </section>
 <section id="sec-s03-b" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Part B — Detecting Outliers</h1>
-<p><strong>Outliers are extreme data points that do not follow the pattern of the rest of the data.</strong></p>
-<section id="sec-s03-topic-3" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="sec-s03-topic-3"><span class="header-section-number">6.1</span> 3. Detecting and removing outliers</h2>
-<p><strong>Outlier removal is the process of identifying mathematically impossible or highly improbable numbers and deleting them.</strong></p>
-<p>It exists because a single extreme outlier can pull the mathematical average so far in one direction that the model becomes useless. If you put Elon Musk in a room with 99 teachers, the “average” income of that room is suddenly $2 billion. That average does not represent the teachers.</p>
-<section id="how-it-works-2" class="level3" data-number="6.1.1">
-<h3 data-number="6.1.1" class="anchored" data-anchor-id="how-it-works-2"><span class="header-section-number">6.1.1</span> How it works</h3>
-<p>We detect outliers visually using a <strong>Boxplot</strong>. A boxplot draws a box around where 50% of your data lives. Anything that falls far outside the “whiskers” of that box is mathematically flagged as an outlier.</p>
+<h1 data-number="6"><span class="header-section-number">6</span> Part B — The six cleaning jobs</h1>
+<p>Everything below runs on one deliberately awful dataset, so you can see each fix land.</p>
+<div id="841ad592" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>raw <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"customer_id"</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">3</span>, <span class="dv">9</span>],</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"name"</span>:        [<span class="st">"Asha "</span>, <span class="st">"Brij"</span>, <span class="st">"Chan"</span>, <span class="st">"Devi"</span>, <span class="st">"Esha"</span>, <span class="st">"Faiz"</span>, <span class="st">"Gita"</span>, <span class="st">"Hari"</span>, <span class="st">"Chan"</span>, <span class="st">"Isha"</span>],</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"age"</span>:         [<span class="dv">25</span>, <span class="dv">31</span>, <span class="dv">28</span>, np.nan, <span class="dv">22</span>, <span class="dv">225</span>, <span class="dv">29</span>, <span class="dv">33</span>, <span class="dv">28</span>, <span class="op">-</span><span class="dv">4</span>],</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"city"</span>:        [<span class="st">"Mumbai"</span>, <span class="st">"mumbai"</span>, <span class="st">"Delhi"</span>, <span class="st">"Bombay"</span>, <span class="st">"Delhi"</span>, <span class="st">"MUM"</span>, <span class="st">"delhi"</span>, <span class="st">"Pune"</span>, <span class="st">"Delhi"</span>, <span class="st">"Pune"</span>],</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"income"</span>:      [<span class="dv">50000</span>, <span class="dv">62000</span>, np.nan, <span class="dv">58000</span>, <span class="dv">45000</span>, <span class="dv">71000</span>, <span class="dv">900000</span>, <span class="dv">55000</span>, np.nan, <span class="dv">61000</span>],</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"joined"</span>:      [<span class="st">"2024-01-05"</span>, <span class="st">"05/02/2024"</span>, <span class="st">"2024-03-11"</span>, <span class="st">"2024-04-02"</span>, <span class="st">"2024-05-19"</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"2024-06-30"</span>, <span class="st">"2024-07-08"</span>, <span class="st">"2024-08-15"</span>, <span class="st">"2024-03-11"</span>, <span class="st">"2024-09-01"</span>],</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(raw)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Starting point: </span><span class="sc">{</span><span class="bu">len</span>(raw)<span class="sc">}</span><span class="ss"> rows, </span><span class="sc">{</span>raw<span class="sc">.</span>isna()<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss"> blank cells"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   customer_id   name    age    city    income      joined
+0            1  Asha    25.0  Mumbai   50000.0  2024-01-05
+1            2   Brij   31.0  mumbai   62000.0  05/02/2024
+2            3   Chan   28.0   Delhi       NaN  2024-03-11
+3            4   Devi    NaN  Bombay   58000.0  2024-04-02
+4            5   Esha   22.0   Delhi   45000.0  2024-05-19
+5            6   Faiz  225.0     MUM   71000.0  2024-06-30
+6            7   Gita   29.0   delhi  900000.0  2024-07-08
+7            8   Hari   33.0    Pune   55000.0  2024-08-15
+8            3   Chan   28.0   Delhi       NaN  2024-03-11
+9            9   Isha   -4.0    Pune   61000.0  2024-09-01
+
+Starting point: 10 rows, 3 blank cells</code></pre>
+</div>
+</div>
+<section id="sec-s03-topic-2" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="sec-s03-topic-2"><span class="header-section-number">6.1</span> 2. Duplicates</h2>
+<p><strong>A duplicate is the same real-world thing recorded twice.</strong> They arrive when somebody double-clicks <em>Submit</em>, when two systems are merged, or when an export is run twice.</p>
+<p>They matter because <strong>every duplicate silently increases that row’s influence.</strong> One customer counted twice votes twice.</p>
+<section id="demo-2-finding-and-removing-duplicates" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="demo-2-finding-and-removing-duplicates"><span class="header-section-number">6.1.1</span> Demo 2 — finding and removing duplicates</h3>
+<div id="16c3fdcf" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Rows that are exact copies of an earlier row:"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(raw[raw.duplicated()])</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Duplicated customer_ids: </span><span class="sc">{</span>raw[<span class="st">'customer_id'</span>]<span class="sc">.</span>duplicated()<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>deduped <span class="op">=</span> raw.drop_duplicates()</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Before: </span><span class="sc">{</span><span class="bu">len</span>(raw)<span class="sc">}</span><span class="ss"> rows   After: </span><span class="sc">{</span><span class="bu">len</span>(deduped)<span class="sc">}</span><span class="ss"> rows"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows that are exact copies of an earlier row:
+   customer_id  name   age   city  income      joined
+8            3  Chan  28.0  Delhi     NaN  2024-03-11
+
+Duplicated customer_ids: 1
+
+Before: 10 rows   After: 9 rows</code></pre>
+</div>
+</div>
+<p><code>drop_duplicates()</code> keeps the <strong>first</strong> copy by default. When rows differ slightly — the same customer with an updated address — you usually want the <strong>latest</strong> instead:</p>
+<div id="089dd2ae" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep the last recorded version of each customer, not the first:</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>latest <span class="op">=</span> raw.drop_duplicates(subset<span class="op">=</span><span class="st">"customer_id"</span>, keep<span class="op">=</span><span class="st">"last"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"One row per customer, keeping the most recent: </span><span class="sc">{</span><span class="bu">len</span>(latest)<span class="sc">}</span><span class="ss"> rows"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>One row per customer, keeping the most recent: 9 rows</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ `duplicated()` only catches *exact* copies">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ <code>duplicated()</code> only catches <em>exact</em> copies
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>"Chan"</code> and <code>"chan "</code> are different strings, so a row containing one is not a duplicate of a row containing the other. <strong>Clean your text first (job 6), then check duplicates again</strong> — the second pass usually finds more.</p>
+</div>
+</div>
 </section>
-<section id="mcqs-1" class="level3" data-number="6.1.2">
-<h3 data-number="6.1.2" class="anchored" data-anchor-id="mcqs-1"><span class="header-section-number">6.1.2</span> ❓ MCQs</h3>
-<p><strong>Q2.</strong> How does an extreme outlier affect a dataset’s average (mean)?</p>
+</section>
+<section id="sec-s03-topic-3" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="sec-s03-topic-3"><span class="header-section-number">6.2</span> 3. Impossible values</h2>
+<p><strong>An impossible value violates a rule you know about the world.</strong> Finding them needs no statistics — only a list of rules.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Column</th>
+<th>The rule</th>
+<th>Impossible</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>age</td>
+<td>between 0 and 120</td>
+<td>225, −4</td>
+</tr>
+<tr class="even">
+<td>price</td>
+<td>at least 0</td>
+<td>−50</td>
+</tr>
+<tr class="odd">
+<td>percentage</td>
+<td>0 to 100</td>
+<td>130</td>
+</tr>
+<tr class="even">
+<td>date joined</td>
+<td>not in the future</td>
+<td>2031</td>
+</tr>
+</tbody>
+</table>
+<section id="demo-3-apply-the-rules-and-convert-violations-to-missing" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="demo-3-apply-the-rules-and-convert-violations-to-missing"><span class="header-section-number">6.2.1</span> Demo 3 — apply the rules, and convert violations to missing</h3>
+<div id="71fc6937" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> deduped.copy()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>impossible <span class="op">=</span> (df[<span class="st">"age"</span>] <span class="op">&lt;</span> <span class="dv">0</span>) <span class="op">|</span> (df[<span class="st">"age"</span>] <span class="op">&gt;</span> <span class="dv">120</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Impossible ages found: </span><span class="sc">{</span>impossible<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.loc[impossible, [<span class="st">"customer_id"</span>, <span class="st">"name"</span>, <span class="st">"age"</span>]])</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>df.loc[impossible, <span class="st">"age"</span>] <span class="op">=</span> np.nan     <span class="co"># not deleted — marked as unknown</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Ages now missing (was </span><span class="sc">{</span>deduped[<span class="st">'age'</span>]<span class="sc">.</span>isna()<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">, now </span><span class="sc">{</span>df[<span class="st">'age'</span>]<span class="sc">.</span>isna()<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Impossible ages found: 2
+   customer_id  name    age
+5            6  Faiz  225.0
+9            9  Isha   -4.0
+
+Ages now missing (was 1, now 3)</code></pre>
+</div>
+</div>
+<p><strong>Notice we did not delete the rows.</strong> The customer is real; only their age is unknown. Deleting the row would throw away their income and city too. Job 4 fills the gap.</p>
+</section>
+</section>
+<section id="sec-s03-topic-4" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="sec-s03-topic-4"><span class="header-section-number">6.3</span> 4. Missing values</h2>
+<p><strong>A missing value is a cell where nothing was recorded.</strong> Pandas shows it as <code>NaN</code>. Most algorithms refuse to run with any <code>NaN</code> present, so every one has to go — either by removing the row or by putting an estimate in.</p>
+<p>Putting an estimate in is called <strong>imputation</strong>.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — the missing jigsaw piece">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>🧠 Analogy — the missing jigsaw piece
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A jigsaw with one piece missing. You can throw the puzzle away (drop the row), or you can look at the surrounding pieces and cut a replacement (impute).</p>
+<p><strong>Where it breaks down:</strong> a cut piece is <em>visibly</em> a substitute. An imputed number looks exactly like a measured one. Later readers cannot tell them apart — which is why we add a column recording that we guessed.</p>
+</div>
+</div>
+<section id="first-why-is-it-missing" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="first-why-is-it-missing"><span class="header-section-number">6.3.1</span> First, why is it missing?</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Means</th>
+<th>Example</th>
+<th>Safe to impute?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Missing at random</strong></td>
+<td>the gap has no pattern</td>
+<td>a sensor glitched</td>
+<td>usually yes</td>
+</tr>
+<tr class="even">
+<td><strong>Missing for a reason</strong></td>
+<td>the gap depends on something else</td>
+<td>older people skip the income question</td>
+<td>be careful</td>
+</tr>
+<tr class="odd">
+<td><strong>Missing <em>because</em> of the value</strong></td>
+<td>the gap depends on the answer itself</td>
+<td>the highest earners refuse to say</td>
+<td><strong>imputing hides the pattern</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="demo-4-four-ways-to-fill-a-gap" class="level3" data-number="6.3.2">
+<h3 data-number="6.3.2" class="anchored" data-anchor-id="demo-4-four-ways-to-fill-a-gap"><span class="header-section-number">6.3.2</span> Demo 4 — four ways to fill a gap</h3>
+<div id="11455d15" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>income <span class="op">=</span> df[<span class="st">"income"</span>]</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Missing incomes: </span><span class="sc">{</span>income<span class="sc">.</span>isna()<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss"> of </span><span class="sc">{</span><span class="bu">len</span>(income)<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"1. Mean   → fill with </span><span class="sc">{</span>income<span class="sc">.</span>mean()<span class="sc">:&gt;10,.0f}</span><span class="ss">   (pulled up by the 900,000 earner)"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"2. Median → fill with </span><span class="sc">{</span>income<span class="sc">.</span>median()<span class="sc">:&gt;10,.0f}</span><span class="ss">   (the middle value, ignores extremes)"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"3. Mode   → fill with </span><span class="sc">{</span>income<span class="sc">.</span>mode()[<span class="dv">0</span>]<span class="sc">:&gt;10,.0f}</span><span class="ss">   (the most common value)"</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>( <span class="st">"4. Group  → fill with the median for that person's own city</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>by_city <span class="op">=</span> df.groupby(<span class="st">"city"</span>)[<span class="st">"income"</span>].transform(<span class="st">"median"</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Filled by city median:"</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.DataFrame({</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"city"</span>: df[<span class="st">"city"</span>],</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"income_raw"</span>: df[<span class="st">"income"</span>],</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"filled_by_city"</span>: df[<span class="st">"income"</span>].fillna(by_city),</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>}))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Missing incomes: 1 of 9
+
+1. Mean   → fill with    162,750   (pulled up by the 900,000 earner)
+2. Median → fill with     59,500   (the middle value, ignores extremes)
+3. Mode   → fill with     45,000   (the most common value)
+4. Group  → fill with the median for that person's own city
+
+Filled by city median:
+     city  income_raw  filled_by_city
+0  Mumbai     50000.0         50000.0
+1  mumbai     62000.0         62000.0
+2   Delhi         NaN         45000.0
+3  Bombay     58000.0         58000.0
+4   Delhi     45000.0         45000.0
+5     MUM     71000.0         71000.0
+6   delhi    900000.0        900000.0
+7    Pune     55000.0         55000.0
+9    Pune     61000.0         61000.0</code></pre>
+</div>
+</div>
+<p><strong>Which to choose:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Situation</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>numbers, roughly symmetric</td>
+<td><strong>mean</strong></td>
+</tr>
+<tr class="even">
+<td>numbers, skewed or with extremes — income, prices, house sizes</td>
+<td><strong>median</strong></td>
+</tr>
+<tr class="odd">
+<td>text or categories</td>
+<td><strong>mode</strong> (the most common value)</td>
+</tr>
+<tr class="even">
+<td>groups that genuinely differ — salary by city, weight by species</td>
+<td><strong>group median</strong></td>
+</tr>
+<tr class="odd">
+<td>more than about 40% of the column is missing</td>
+<td><strong>drop the column</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="demo-5-always-record-that-you-guessed" class="level3" data-number="6.3.3">
+<h3 data-number="6.3.3" class="anchored" data-anchor-id="demo-5-always-record-that-you-guessed"><span class="header-section-number">6.3.3</span> Demo 5 — always record that you guessed</h3>
+<div id="96938968" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"income_was_missing"</span>] <span class="op">=</span> df[<span class="st">"income"</span>].isna()          <span class="co"># remember, before filling</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"income"</span>] <span class="op">=</span> df[<span class="st">"income"</span>].fillna(df[<span class="st">"income"</span>].median())</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"age"</span>] <span class="op">=</span> df[<span class="st">"age"</span>].fillna(df[<span class="st">"age"</span>].median())</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[[<span class="st">"customer_id"</span>, <span class="st">"age"</span>, <span class="st">"income"</span>, <span class="st">"income_was_missing"</span>]])</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Blank cells remaining: </span><span class="sc">{</span>df<span class="sc">.</span>isna()<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   customer_id   age    income  income_was_missing
+0            1  25.0   50000.0               False
+1            2  31.0   62000.0               False
+2            3  28.0   59500.0                True
+3            4  28.5   58000.0               False
+4            5  22.0   45000.0               False
+5            6  28.5   71000.0               False
+6            7  29.0  900000.0               False
+7            8  33.0   55000.0               False
+9            9  28.5   61000.0               False
+
+Blank cells remaining: 0</code></pre>
+</div>
+</div>
+<p>That extra <code>True</code>/<code>False</code> column costs nothing and answers the question every later reader asks: <em>“is this number measured or invented?”</em></p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Imputation always shrinks the spread">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Imputation always shrinks the spread
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Filling twenty gaps with the same median puts twenty identical values into the column. The average barely moves, but the data now looks <strong>more consistent than it really is</strong>, and any measure of spread is understated. That is the price, and it is worth paying — as long as you know you paid it.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s03-topic-5" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="sec-s03-topic-5"><span class="header-section-number">6.4</span> 5. Noisy data</h2>
+<p><strong>Noise is small random error on top of a real pattern.</strong> A thermometer that reads 30.1°C, then 29.8°C, then 30.3°C, when the room is a steady 30°C.</p>
+<p>Noise is not wrong data — nothing needs correcting. It is <em>distraction</em>: it hides the trend you are looking for. <strong>Smoothing</strong> averages nearby points to bring the trend back.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>How it works</th>
+<th>Best for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Rolling mean</strong></td>
+<td>average each point with its neighbours</td>
+<td>time series</td>
+</tr>
+<tr class="even">
+<td><strong>Binning</strong></td>
+<td>group values into bins, replace each with its bin’s average</td>
+<td>any ordered column</td>
+</tr>
+<tr class="odd">
+<td><strong>Regression</strong></td>
+<td>fit a line and read values off it</td>
+<td>when you know the shape</td>
+</tr>
+</tbody>
+</table>
+<section id="demo-6-three-windows-on-the-same-noisy-signal" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="demo-6-three-windows-on-the-same-noisy-signal"><span class="header-section-number">6.4.1</span> Demo 6 — three windows on the same noisy signal</h3>
+<div id="cell-fig-s03-smoothing" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">3</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>hours <span class="op">=</span> np.arange(<span class="dv">120</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>truth <span class="op">=</span> <span class="dv">30</span> <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> np.sin(hours <span class="op">/</span> <span class="dv">12</span>)              <span class="co"># the real temperature cycle</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>reading <span class="op">=</span> truth <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="fl">1.6</span>, <span class="dv">120</span>)  <span class="co"># what the sensor reports</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> pd.Series(reading)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>plt.plot(hours, reading, alpha<span class="op">=</span><span class="fl">.35</span>, label<span class="op">=</span><span class="st">"raw sensor reading"</span>)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>plt.plot(hours, truth, <span class="st">"k--"</span>, lw<span class="op">=</span><span class="fl">1.5</span>, label<span class="op">=</span><span class="st">"the real temperature"</span>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>plt.plot(hours, s.rolling(<span class="dv">5</span>).mean(),  lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"rolling mean, window 5"</span>)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>plt.plot(hours, s.rolling(<span class="dv">25</span>).mean(), lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"rolling mean, window 25"</span>)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Hour"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"°C"</span>)<span class="op">;</span> plt.legend(fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> w <span class="kw">in</span> (<span class="dv">5</span>, <span class="dv">25</span>):</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    err <span class="op">=</span> (s.rolling(w).mean() <span class="op">-</span> truth).<span class="bu">abs</span>().mean()</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"window </span><span class="sc">{</span>w<span class="sc">:&gt;2}</span><span class="ss">: average distance from the real temperature = </span><span class="sc">{</span>err<span class="sc">:.2f}</span><span class="ss"> °C"</span>)</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"no smoothing: average distance from the real temperature = </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">abs</span>(reading<span class="op">-</span>truth)<span class="sc">.</span>mean()<span class="sc">:.2f}</span><span class="ss"> °C"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s03-smoothing" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s03-smoothing-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-03-data-cleaning_files/figure-html/fig-s03-smoothing-output-1.png" width="670" height="408" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s03-smoothing-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.1: The same sensor reading, smoothed three ways. More smoothing means less noise and more lag.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>window  5: average distance from the real temperature = 0.68 °C
+window 25: average distance from the real temperature = 1.97 °C
+no smoothing: average distance from the real temperature = 1.34 °C</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Over-smoothing erases the thing you were looking for">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Over-smoothing erases the thing you were looking for
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Look at the window-25 line: it is beautifully smooth and it <strong>arrives late at every peak</strong>, because it is averaging in temperatures from twelve hours ago. Smooth enough and a real spike — a fraud burst, a machine failure — vanishes entirely. <strong>The window is a choice between noise and lag, and there is no setting that avoids both.</strong></p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s03-topic-6" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="sec-s03-topic-6"><span class="header-section-number">6.5</span> 6. Outliers</h2>
+<p><strong>An outlier is a value far away from the rest.</strong> Unlike an impossible value it might be completely genuine.</p>
+<p>You need two numbers from Session 7 to find them. Here they are in one paragraph.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="🔓 Two ideas borrowed from Session 7">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>🔓 Two ideas borrowed from Session 7
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Quartiles.</strong> Sort the values. <strong>Q1</strong> is the value a quarter of the way up, <strong>Q3</strong> is three quarters of the way up. The gap between them, <strong>IQR = Q3 − Q1</strong>, is the range the middle half of your data occupies.</p>
+<p><strong>Standard deviation.</strong> Roughly, the average distance of a value from the mean. A <strong>z-score</strong> says how many standard deviations from the mean a particular value is.</p>
+<p>Session 7 does both properly. Here we only need them to draw a boundary.</p>
+</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Rule</th>
+<th>Flags a value if</th>
+<th>Use when</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>IQR rule</strong></td>
+<td>below Q1 − 1.5×IQR, or above Q3 + 1.5×IQR</td>
+<td>almost always — it ignores the extremes while measuring</td>
+</tr>
+<tr class="even">
+<td><strong>Z-score rule</strong></td>
+<td>more than 3 standard deviations from the mean</td>
+<td>the data is roughly bell-shaped</td>
+</tr>
+</tbody>
+</table>
+<section id="demo-7-the-two-rules-and-why-they-disagree" class="level3" data-number="6.5.1">
+<h3 data-number="6.5.1" class="anchored" data-anchor-id="demo-7-the-two-rules-and-why-they-disagree"><span class="header-section-number">6.5.1</span> Demo 7 — the two rules, and why they disagree</h3>
+<div id="8efead3f" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>income <span class="op">=</span> df[<span class="st">"income"</span>]</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># --- IQR rule ---</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>q1, q3 <span class="op">=</span> income.quantile(<span class="fl">0.25</span>), income.quantile(<span class="fl">0.75</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>iqr <span class="op">=</span> q3 <span class="op">-</span> q1</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>low, high <span class="op">=</span> q1 <span class="op">-</span> <span class="fl">1.5</span><span class="op">*</span>iqr, q3 <span class="op">+</span> <span class="fl">1.5</span><span class="op">*</span>iqr</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"IQR rule    → Q1=</span><span class="sc">{</span>q1<span class="sc">:,.0f}</span><span class="ss">  Q3=</span><span class="sc">{</span>q3<span class="sc">:,.0f}</span><span class="ss">  IQR=</span><span class="sc">{</span>iqr<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"              acceptable range: </span><span class="sc">{</span>low<span class="sc">:,.0f}</span><span class="ss"> to </span><span class="sc">{</span>high<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"              flagged: </span><span class="sc">{</span>income[(income <span class="op">&lt;</span> low) <span class="op">|</span> (income <span class="op">&gt;</span> high)]<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Z-score rule ---</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> (income <span class="op">-</span> income.mean()) <span class="op">/</span> income.std()</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Z-score rule → flagged: </span><span class="sc">{</span>income[z.<span class="bu">abs</span>() <span class="op">&gt;</span> <span class="dv">3</span>]<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"              largest z-score present: </span><span class="sc">{</span>z<span class="sc">.</span><span class="bu">abs</span>()<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>IQR rule    → Q1=55,000  Q3=62,000  IQR=7,000
+              acceptable range: 44,500 to 72,500
+              flagged: [900000.0]
+
+Z-score rule → flagged: []
+              largest z-score present: 2.67</code></pre>
+</div>
+</div>
+<p><strong>The two rules disagree, and the reason is important.</strong> The z-score rule uses the mean and the standard deviation — and the ₹9,00,000 earner has inflated <em>both</em>, so it makes itself look normal. The IQR rule uses quartiles, which the extreme value cannot shift. <strong>Prefer the IQR rule whenever you suspect outliers</strong>, which is exactly when you are looking for them.</p>
+</section>
+<section id="demo-8-seeing-them-and-deciding-what-to-do" class="level3" data-number="6.5.2">
+<h3 data-number="6.5.2" class="anchored" data-anchor-id="demo-8-seeing-them-and-deciding-what-to-do"><span class="header-section-number">6.5.2</span> Demo 8 — seeing them, and deciding what to do</h3>
+<div id="cell-fig-s03-outliers" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="fl">3.4</span>))</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].boxplot(income, orientation<span class="op">=</span><span class="st">"horizontal"</span>)<span class="op">;</span> ax[<span class="dv">0</span>].set_title(<span class="st">"With the high earner"</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].boxplot(income[income <span class="op">&lt;</span> high], orientation<span class="op">=</span><span class="st">"horizontal"</span>)<span class="op">;</span> ax[<span class="dv">1</span>].set_title(<span class="st">"With it removed"</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> ax: a.set_xlabel(<span class="st">"Income (₹)"</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean income including it : ₹</span><span class="sc">{</span>income<span class="sc">.</span>mean()<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean income excluding it : ₹</span><span class="sc">{</span>income[income <span class="op">&lt;</span> high]<span class="sc">.</span>mean()<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Median (either way)      : ₹</span><span class="sc">{</span>income<span class="sc">.</span>median()<span class="sc">:,.0f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s03-outliers" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s03-outliers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-03-data-cleaning_files/figure-html/fig-s03-outliers-output-1.png" width="979" height="363" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s03-outliers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.2: A box plot draws the IQR rule. The dot beyond the whisker is the flagged value.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Mean income including it : ₹151,278
+Mean income excluding it : ₹57,688
+Median (either way)      : ₹59,500</code></pre>
+</div>
+</div>
+<p>You have four options, and <strong>deleting is the last of them</strong>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Option</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Keep it</strong></td>
+<td>it is genuine and it matters — fraud, a top customer, a failure</td>
+</tr>
+<tr class="even">
+<td><strong>Cap it</strong></td>
+<td>it is genuine but distorting; replace with the boundary value</td>
+</tr>
+<tr class="odd">
+<td><strong>Transform</strong></td>
+<td>the whole column is skewed; a log transform tames it (Session 5)</td>
+</tr>
+<tr class="even">
+<td><strong>Delete</strong></td>
+<td>you can show it is an error, and you say so in the report</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ In fraud data, the outliers *are* the answer">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ In fraud data, the outliers <em>are</em> the answer
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Every fraudulent transaction is an outlier. A pipeline that removes outliers by rule deletes every case you were hired to find — and reports excellent accuracy on what is left. <strong>Never remove outliers automatically. Look at them first.</strong></p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s03-topic-7" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="sec-s03-topic-7"><span class="header-section-number">6.6</span> 7. Inconsistent text and wrong types</h2>
+<p><strong>The same thing written four ways is four different things to a computer.</strong> <code>Mumbai</code>, <code>mumbai</code>, <code>MUM</code> and <code>Bombay</code> become four separate categories, splitting one city’s data into four thin slices.</p>
+<section id="demo-9-repairing-a-text-column" class="level3" data-number="6.6.1">
+<h3 data-number="6.6.1" class="anchored" data-anchor-id="demo-9-repairing-a-text-column"><span class="header-section-number">6.6.1</span> Demo 9 — repairing a text column</h3>
+<div id="c80cf6c4" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Before:"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[<span class="st">"city"</span>].value_counts())</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>city <span class="op">=</span> df[<span class="st">"city"</span>].<span class="bu">str</span>.strip().<span class="bu">str</span>.lower()        <span class="co"># trim spaces, lower the case</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>city <span class="op">=</span> city.replace({<span class="st">"mum"</span>: <span class="st">"mumbai"</span>, <span class="st">"bombay"</span>: <span class="st">"mumbai"</span>})   <span class="co"># map known aliases</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"city"</span>] <span class="op">=</span> city.<span class="bu">str</span>.title()</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">After:"</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[<span class="st">"city"</span>].value_counts())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Before:
+city
+Delhi     2
+Pune      2
+Mumbai    1
+mumbai    1
+Bombay    1
+MUM       1
+delhi     1
+Name: count, dtype: int64
+
+After:
+city
+Mumbai    4
+Delhi     3
+Pune      2
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<p>Four spellings became two real cities. Note the order: <code>strip</code> and <code>lower</code> first, so that <code>" MUM "</code> and <code>"mum"</code> both reach the alias map.</p>
+</section>
+<section id="demo-10-dates-stored-as-text" class="level3" data-number="6.6.2">
+<h3 data-number="6.6.2" class="anchored" data-anchor-id="demo-10-dates-stored-as-text"><span class="header-section-number">6.6.2</span> Demo 10 — dates stored as text</h3>
+<div id="62fcb50f" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The 'joined' column is stored as:"</span>, df[<span class="st">"joined"</span>].dtype, <span class="st">"— that is text, not a date"</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sorting text gives:"</span>, <span class="bu">sorted</span>(df[<span class="st">'joined'</span>].tolist())[:<span class="dv">3</span>])</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"joined"</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">"joined"</span>], <span class="bu">format</span><span class="op">=</span><span class="st">"mixed"</span>, dayfirst<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">After conversion:"</span>, df[<span class="st">"joined"</span>].dtype)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Now we can do date arithmetic:"</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  earliest join date : </span><span class="sc">{</span>df[<span class="st">'joined'</span>]<span class="sc">.</span><span class="bu">min</span>()<span class="sc">.</span>date()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  latest join date   : </span><span class="sc">{</span>df[<span class="st">'joined'</span>]<span class="sc">.</span><span class="bu">max</span>()<span class="sc">.</span>date()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"join_month"</span>] <span class="op">=</span> df[<span class="st">"joined"</span>].dt.month_name()</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  months present     : </span><span class="sc">{</span>df[<span class="st">'join_month'</span>]<span class="sc">.</span>unique()<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The 'joined' column is stored as: str — that is text, not a date
+Sorting text gives: ['05/02/2024', '2024-01-05', '2024-03-11']
+
+After conversion: datetime64[us]
+Now we can do date arithmetic:
+  earliest join date : 2024-01-05
+  latest join date   : 2024-09-01
+  months present     : ['January', 'May', 'March', 'April', 'June', 'July', 'August', 'September']</code></pre>
+</div>
+</div>
+<p>While <code>joined</code> was text, <code>"05/02/2024"</code> sorted between <code>"2024-..."</code> strings by character, not by date, and no arithmetic was possible at all. <strong>Converting types is part of cleaning, not a formality.</strong></p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ `05/02/2024` is ambiguous">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ <code>05/02/2024</code> is ambiguous
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Is that 5 February or 2 May? Pandas has to guess unless you tell it with <code>dayfirst=</code>. Getting this wrong shifts dates by months and produces no error at all. <strong>Always state the format when you know it.</strong></p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="sec-s03-c" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Part C — The full pass</h1>
+<section id="sec-s03-topic-8" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="sec-s03-topic-8"><span class="header-section-number">7.1</span> 8. Cleaning as one function, with a report</h2>
+<p><strong>A cleaning pass should be repeatable and should report what it did.</strong> If it is a scattering of cells run in an order you no longer remember, nobody — including you next month — can reproduce the result.</p>
+<section id="demo-11-the-whole-sequence-with-a-report" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="demo-11-the-whole-sequence-with-a-report"><span class="header-section-number">7.1.1</span> Demo 11 — the whole sequence, with a report</h3>
+<div id="a1b1597f" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> clean(data):</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Run the six cleaning jobs in order and return the result plus a report."""</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    report <span class="op">=</span> {}</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> data.copy()</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    report[<span class="st">"rows_in"</span>] <span class="op">=</span> <span class="bu">len</span>(d)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1 — duplicates</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> d.drop_duplicates()</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    report[<span class="st">"duplicates_removed"</span>] <span class="op">=</span> report[<span class="st">"rows_in"</span>] <span class="op">-</span> <span class="bu">len</span>(d)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2 — impossible values</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    bad_age <span class="op">=</span> (d[<span class="st">"age"</span>] <span class="op">&lt;</span> <span class="dv">0</span>) <span class="op">|</span> (d[<span class="st">"age"</span>] <span class="op">&gt;</span> <span class="dv">120</span>)</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>    report[<span class="st">"impossible_ages"</span>] <span class="op">=</span> <span class="bu">int</span>(bad_age.<span class="bu">sum</span>())</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>    d.loc[bad_age, <span class="st">"age"</span>] <span class="op">=</span> np.nan</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3 — missing values (median, because income is skewed)</span></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>    report[<span class="st">"blanks_filled"</span>] <span class="op">=</span> <span class="bu">int</span>(d[[<span class="st">"age"</span>, <span class="st">"income"</span>]].isna().<span class="bu">sum</span>().<span class="bu">sum</span>())</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>    d[<span class="st">"income_was_missing"</span>] <span class="op">=</span> d[<span class="st">"income"</span>].isna()</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>    d[<span class="st">"age"</span>] <span class="op">=</span> d[<span class="st">"age"</span>].fillna(d[<span class="st">"age"</span>].median())</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>    d[<span class="st">"income"</span>] <span class="op">=</span> d[<span class="st">"income"</span>].fillna(d[<span class="st">"income"</span>].median())</span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 5 — outliers: flag, do not delete</span></span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>    q1, q3 <span class="op">=</span> d[<span class="st">"income"</span>].quantile([<span class="fl">0.25</span>, <span class="fl">0.75</span>])</span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>    hi <span class="op">=</span> q3 <span class="op">+</span> <span class="fl">1.5</span> <span class="op">*</span> (q3 <span class="op">-</span> q1)</span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>    d[<span class="st">"income_is_outlier"</span>] <span class="op">=</span> d[<span class="st">"income"</span>] <span class="op">&gt;</span> hi</span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>    report[<span class="st">"outliers_flagged"</span>] <span class="op">=</span> <span class="bu">int</span>(d[<span class="st">"income_is_outlier"</span>].<span class="bu">sum</span>())</span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 6 — text and types</span></span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a>    d[<span class="st">"city"</span>] <span class="op">=</span> (d[<span class="st">"city"</span>].<span class="bu">str</span>.strip().<span class="bu">str</span>.lower()</span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a>                   .replace({<span class="st">"mum"</span>: <span class="st">"mumbai"</span>, <span class="st">"bombay"</span>: <span class="st">"mumbai"</span>}).<span class="bu">str</span>.title())</span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a>    d[<span class="st">"joined"</span>] <span class="op">=</span> pd.to_datetime(d[<span class="st">"joined"</span>], <span class="bu">format</span><span class="op">=</span><span class="st">"mixed"</span>)</span>
+<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a>    report[<span class="st">"cities_after_merge"</span>] <span class="op">=</span> d[<span class="st">"city"</span>].nunique()</span>
+<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a>    report[<span class="st">"rows_out"</span>] <span class="op">=</span> <span class="bu">len</span>(d)</span>
+<span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> d, report</span>
+<span id="cb25-39"><a href="#cb25-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-40"><a href="#cb25-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-41"><a href="#cb25-41" aria-hidden="true" tabindex="-1"></a>clean_df, report <span class="op">=</span> clean(raw)</span>
+<span id="cb25-42"><a href="#cb25-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-43"><a href="#cb25-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CLEANING REPORT"</span>)</span>
+<span id="cb25-44"><a href="#cb25-44" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">34</span>)</span>
+<span id="cb25-45"><a href="#cb25-45" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, v <span class="kw">in</span> report.items():</span>
+<span id="cb25-46"><a href="#cb25-46" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>k<span class="sc">.</span>replace(<span class="st">'_'</span>, <span class="st">' '</span>)<span class="sc">:&lt;24}</span><span class="ss"> </span><span class="sc">{</span>v<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb25-47"><a href="#cb25-47" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">34</span>)</span>
+<span id="cb25-48"><a href="#cb25-48" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'blank cells remaining'</span><span class="sc">:&lt;24}</span><span class="ss"> </span><span class="sc">{</span>clean_df<span class="sc">.</span>isna()<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb25-49"><a href="#cb25-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, clean_df[[<span class="st">"customer_id"</span>, <span class="st">"name"</span>, <span class="st">"age"</span>, <span class="st">"city"</span>, <span class="st">"income"</span>, <span class="st">"income_is_outlier"</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CLEANING REPORT
+----------------------------------
+rows in                  10
+duplicates removed       1
+impossible ages          2
+blanks filled            4
+outliers flagged         1
+cities after merge       3
+rows out                 9
+----------------------------------
+blank cells remaining    0
+
+    customer_id   name   age    city    income  income_is_outlier
+0            1  Asha   25.0  Mumbai   50000.0              False
+1            2   Brij  31.0  Mumbai   62000.0              False
+2            3   Chan  28.0   Delhi   59500.0              False
+3            4   Devi  28.5  Mumbai   58000.0              False
+4            5   Esha  22.0   Delhi   45000.0              False
+5            6   Faiz  28.5  Mumbai   71000.0              False
+6            7   Gita  29.0   Delhi  900000.0               True
+7            8   Hari  33.0    Pune   55000.0              False
+9            9   Isha  28.5    Pune   61000.0              False</code></pre>
+</div>
+</div>
+<p><strong>Notice what the report does not say.</strong> It does not say “the data is now clean”. It says exactly what was found and what was done, so a reader can disagree with a decision — which is the point.</p>
+</section>
+<section id="check-yourself" class="level3" data-number="7.1.2">
+<h3 data-number="7.1.2" class="anchored" data-anchor-id="check-yourself"><span class="header-section-number">7.1.2</span> ❓ Check yourself</h3>
+<p><strong>Q1.</strong> Why is deleting every row with a missing value usually a bad idea?</p>
 <ul>
 <li><ol type="a">
-<li>It has no effect.</li>
+<li>Deleting rows is slow.</li>
 </ol></li>
 <li><ol start="2" type="a">
-<li><strong>It skews the average heavily toward the outlier, misrepresenting the majority of the data.</strong></li>
+<li><strong>A row with one blank still contains good values in its other columns, and if blanks are not random you also bias what remains.</strong></li>
 </ol></li>
 <li><ol start="3" type="a">
-<li>It causes the average to equal zero.</li>
+<li>Pandas does not allow it.</li>
+</ol></li>
+</ul>
+<p><strong>Q2.</strong> A column of house prices is strongly skewed by a few mansions. Which value should fill the blanks?</p>
+<ul>
+<li><ol type="a">
+<li>The mean.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>The median.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Zero.</li>
+</ol></li>
+</ul>
+<p><strong>Q3.</strong> Your fraud dataset has 400 transactions flagged as outliers by the IQR rule. What should you do?</p>
+<ul>
+<li><ol type="a">
+<li>Delete them; outliers harm models.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Look at them — in fraud data the outliers are probably the fraud.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Replace them with the mean.</li>
+</ol></li>
+</ul>
+<p><strong>Q4.</strong> Which pair is in the correct order?</p>
+<ul>
+<li><ol type="a">
+<li>Fill missing values, then remove impossible values.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Remove impossible values, then fill missing values.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>It makes no difference.</li>
 </ol></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -514,66 +1293,85 @@ After:
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>A2 — (b).</strong> This is why the Median is often used instead of the Mean when dealing with income or housing prices, as the Median is resistant to outliers.</p>
+<p><strong>A1 — (b).</strong> Dropping rows throws away every other column in that row. And if the blanks follow a pattern — say, high earners declining to answer — dropping them removes those people from your analysis entirely.</p>
+<p><strong>A2 — (b).</strong> The median ignores the mansions. The mean would place every filled value above what a typical house costs.</p>
+<p><strong>A3 — (b).</strong> Demo 8’s warning. The rule found the thing you were hired to find.</p>
+<p><strong>A4 — (b).</strong> Demo 1 showed exactly what the other order costs.</p>
 </div>
 </div>
 </div>
 </section>
 </section>
-</section>
-<section id="sec-s03-demo" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Part Demo — The Cleaning Pipeline</h1>
-<p><strong>Let’s build a mini-pipeline that replaces missing values and visually removes outliers.</strong></p>
-<div id="cell-fig-cleaning-demo" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Create a messy dataset</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Customer_Age"</span>: [<span class="dv">22</span>, <span class="dv">25</span>, <span class="dv">24</span>, np.nan, <span class="dv">23</span>, <span class="dv">26</span>, <span class="dv">22</span>, <span class="dv">29</span>, <span class="dv">150</span>, <span class="dv">24</span>, <span class="dv">25</span>] <span class="co"># Notice NaN and 150</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(data)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Fill the missing value (NaN) with the median age</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>median_age <span class="op">=</span> df[<span class="st">"Customer_Age"</span>].median()</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"Customer_Age"</span>] <span class="op">=</span> df[<span class="st">"Customer_Age"</span>].fillna(median_age)</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Visualize BEFORE removing the outlier</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>plt.boxplot(df[<span class="st">"Customer_Age"</span>])</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Before: With Outlier"</span>)</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Remove the outlier (Keep only ages under 100)</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>df_clean <span class="op">=</span> df[df[<span class="st">"Customer_Age"</span>] <span class="op">&lt;</span> <span class="dv">100</span>]</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Visualize AFTER removing the outlier</span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>plt.boxplot(df_clean[<span class="st">"Customer_Age"</span>])</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"After: Outlier Removed"</span>)</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div id="fig-cleaning-demo" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-cleaning-demo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="session-03-data-cleaning_files/figure-html/fig-cleaning-demo-output-1.png" width="952" height="374" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cleaning-demo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.1: Using boxplots to detect and remove outliers.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
 </section>
 <section id="sec-s03-tasks" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> 🎯 Session 3 — Tasks</h1>
-<p><strong>Task 1 — Moving Averages.</strong> Create a Pandas DataFrame with 10 days of random sales data. Look up the Pandas <code>.rolling()</code> function and use it to calculate a 3-day moving average. <strong>Report the difference between the raw daily sales and the moving average.</strong></p>
+<h1 data-number="8"><span class="header-section-number">8</span> 🎯 Tasks</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Practise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Task 1 — Clean by hand first.</strong> Take the <code>raw</code> table at the top of Part B. On paper, without code, list every problem you can see. Then compare with the report from Demo 11. <strong>Anything you spotted that the code did not is a rule the code is missing.</strong></p>
+<p><strong>Task 2 — Change the imputation.</strong> In Demo 11, change <code>median()</code> to <code>mean()</code> for income. Re-run. <strong>Report the filled value both ways and say which is more honest.</strong></p>
+<p><strong>Task 3 — Add a rule.</strong> Add a check to <code>clean()</code> for impossible incomes (negative values). Test it by setting one income to <code>-5000</code> first.</p>
+<p><strong>Task 4 — Pick the window.</strong> In Demo 6, try rolling windows of 3, 10 and 50. <strong>Report which gives the smallest average distance from the true temperature</strong>, and explain why the largest window is not the best.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="32ee3488" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, numpy <span class="im">as</span> np</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — mean vs median for a skewed column</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>inc <span class="op">=</span> pd.Series([<span class="dv">50000</span>, <span class="dv">62000</span>, np.nan, <span class="dv">58000</span>, <span class="dv">45000</span>, <span class="dv">71000</span>, <span class="dv">900000</span>, <span class="dv">55000</span>, <span class="dv">61000</span>])</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Task 2 — mean fill  : ₹</span><span class="sc">{</span>inc<span class="sc">.</span>mean()<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Task 2 — median fill: ₹</span><span class="sc">{</span>inc<span class="sc">.</span>median()<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The median is more honest: only one of the nine people earns anything near"</span>)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"the mean, so filling with the mean invents a person who does not exist.</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 4 — which smoothing window is closest to the truth</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">3</span>)</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>hours <span class="op">=</span> np.arange(<span class="dv">120</span>)</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>truth <span class="op">=</span> <span class="dv">30</span> <span class="op">+</span> <span class="dv">4</span><span class="op">*</span>np.sin(hours<span class="op">/</span><span class="dv">12</span>)</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>reading <span class="op">=</span> pd.Series(truth <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="fl">1.6</span>, <span class="dv">120</span>))</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> w <span class="kw">in</span> (<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">50</span>):</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Task 4 — window </span><span class="sc">{</span>w<span class="sc">:&gt;2}</span><span class="ss">: average error </span><span class="sc">{</span>(reading.rolling(w).mean()<span class="op">-</span>truth)<span class="sc">.</span><span class="bu">abs</span>()<span class="sc">.</span>mean()<span class="sc">:.2f}</span><span class="ss"> °C"</span>)</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The largest window is worst: it averages over half a cycle, so it flattens"</span>)</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"the real peaks it was supposed to reveal."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Task 2 — mean fill  : ₹162,750
+Task 2 — median fill: ₹59,500
+The median is more honest: only one of the nine people earns anything near
+the mean, so filling with the mean invents a person who does not exist.
+
+Task 4 — window  3: average error 0.79 °C
+Task 4 — window  5: average error 0.68 °C
+Task 4 — window 10: average error 0.85 °C
+Task 4 — window 25: average error 1.97 °C
+Task 4 — window 50: average error 3.03 °C
+The largest window is worst: it averages over half a cycle, so it flattens
+the real peaks it was supposed to reveal.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="callout callout-style-default callout-tip callout-titled" title="✅ Before you move on">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -585,8 +1383,11 @@ Figure&nbsp;7.1: Using boxplots to detect and remove outliers.
 </div>
 <div class="callout-body-container callout-body">
 <ul class="task-list">
-<li><label><input type="checkbox">Understand the difference between dropping a row and imputing a value.</label></li>
-<li><label><input type="checkbox"><strong>The one thing from this chapter that is easiest to forget:</strong> Always visualize your data with a boxplot or histogram before you start modeling. You will almost always find an outlier you didn’t expect.</label></li>
+<li><label><input type="checkbox">I can say why impossible values must be handled before missing ones</label></li>
+<li><label><input type="checkbox">I can choose between mean, median, mode and group imputation, with a reason</label></li>
+<li><label><input type="checkbox">I know why the IQR rule beats the z-score rule when outliers are present</label></li>
+<li><label><input type="checkbox">I record that a value was imputed, rather than hiding it</label></li>
+<li><label><input type="checkbox"><strong>Easiest thing to forget:</strong> an outlier is not automatically an error. In fraud, failure and medical data the outliers are the whole point.</label></li>
 </ul>
 </div>
 </div>

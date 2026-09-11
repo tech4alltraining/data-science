@@ -3,23 +3,53 @@ project:
   output-dir: _site
 
 book:
-  title: "Data Science Course"
+  title: "Data Science"
+  subtitle: "A 16-session course, from a raw CSV to a deployed model"
   author: "Author"
+  date: last-modified
+  search: true
+  sidebar:
+    style: docked
   chapters:
     - index.qmd
-    - sessions/session-01-introduction-to-data-science.qmd
-    - sessions/session-02-data-collection-and-pre-processing-overview.qmd
-    - sessions/session-03-data-cleaning.qmd
-    - sessions/session-04-data-integration.qmd
-    - sessions/session-05-data-transformation.qmd
-    - sessions/session-06-data-reduction-and-discretization.qmd
-    - sessions/session-07-descriptive-statistics.qmd
-    - sessions/session-08-exploratory-data-analytics-eda-and-visualization.qmd
-    - sessions/session-09-supervised-learning-techniques.qmd
-    - sessions/session-10-unsupervised-learning-techniques-clustering.qmd
-    - sessions/session-11-data-model-evaluation.qmd
-    - sessions/session-12-model-saving-and-deployment.qmd
-    - sessions/session-13-big-data-analytics-fundamentals.qmd
-    - sessions/session-14-distributed-data-processing.qmd
-    - sessions/session-15-nosql-databases-and-scaled-visualization.qmd
-    - sessions/session-16-open-ended-module-implementation-and-capstone.qmd
+    - part: "Part A — Getting hold of data"
+      chapters:
+        - sessions/session-01-introduction-to-data-science.qmd
+        - sessions/session-02-data-collection-and-pre-processing-overview.qmd
+    - part: "Part B — Making data fit to use"
+      chapters:
+        - sessions/session-03-data-cleaning.qmd
+        - sessions/session-04-data-integration.qmd
+        - sessions/session-05-data-transformation.qmd
+        - sessions/session-06-data-reduction-and-discretization.qmd
+    - part: "Part C — Understanding data"
+      chapters:
+        - sessions/session-07-descriptive-statistics.qmd
+        - sessions/session-08-exploratory-data-analytics-eda-and-visualization.qmd
+    - part: "Part D — Learning from data"
+      chapters:
+        - sessions/session-09-supervised-learning-techniques.qmd
+        - sessions/session-10-unsupervised-learning-techniques-clustering.qmd
+        - sessions/session-11-data-model-evaluation.qmd
+        - sessions/session-12-model-saving-and-deployment.qmd
+    - part: "Part E — Data at scale"
+      chapters:
+        - sessions/session-13-big-data-analytics-fundamentals.qmd
+        - sessions/session-14-distributed-data-processing.qmd
+        - sessions/session-15-nosql-databases-and-scaled-visualization.qmd
+        - sessions/session-16-open-ended-module-implementation-and-capstone.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    code-fold: false
+    code-copy: true
+    fig-align: center
+    df-print: kable
+
+execute:
+  freeze: auto
+  warning: false

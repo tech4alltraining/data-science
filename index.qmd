@@ -1,5 +1,102 @@
 ---
-title: "Data Science Course"
+title: "Data Science"
+subtitle: "A 16-session course, from a raw CSV to a deployed model"
 ---
 
-Welcome to the Data Science Course.
+::: {.callout-note}
+**This is a book you read alone.** Every idea is explained from the beginning, every term
+is defined the first time it appears, and **every piece of code on these pages actually
+ran** when the book was built. The numbers you see are the numbers the code produced.
+:::
+
+## Who this is for
+
+Anyone who wants to work with data and has **no prior background** in statistics, machine
+learning, or Python. Session 1 assumes you can use a computer. Nothing else.
+
+## How the course is built
+
+Sixteen sessions in five parts. Each part exists because the one before it is not enough
+on its own.
+
+| Part | Sessions | The question it answers |
+|---|---|---|
+| **A — Getting hold of data** | 1–2 | What is this field, and how do I load a dataset? |
+| **B — Making data fit to use** | 3–6 | It is messy, scattered and too wide. Now what? |
+| **C — Understanding data** | 7–8 | What is actually in here? |
+| **D — Learning from data** | 9–12 | What can be predicted, is it real, and how do others use it? |
+| **E — Data at scale** | 13–16 | What changes when it no longer fits on one machine? |
+
+## The sessions
+
+| # | Session | You will be able to |
+|---|---|---|
+| 1 | [Introduction to Data Science](sessions/session-01-introduction-to-data-science.qmd) | Name the seven lifecycle stages and place AI, ML and GenAI correctly |
+| 2 | [Data Collection and Pre-Processing](sessions/session-02-data-collection-and-pre-processing-overview.qmd) | Load from CSV, JSON and SQL; select, filter and group |
+| 3 | [Data Cleaning](sessions/session-03-data-cleaning.qmd) | Run the six cleaning jobs in the order that does not hide errors |
+| 4 | [Data Integration](sessions/session-04-data-integration.qmd) | Join tables and detect a join that lost or multiplied rows |
+| 5 | [Data Transformation](sessions/session-05-data-transformation.qmd) | Split before you scale, encode text, and avoid leakage |
+| 6 | [Data Reduction and Discretization](sessions/session-06-data-reduction-and-discretization.qmd) | Cut columns without cutting the signal |
+| 7 | [Descriptive Statistics](sessions/session-07-descriptive-statistics.qmd) | Report centre, spread and shape honestly |
+| 8 | [EDA and Visualization](sessions/session-08-exploratory-data-analytics-eda-and-visualization.qmd) | Pick the chart that answers the question you asked |
+| 9 | [Supervised Learning](sessions/session-09-supervised-learning-techniques.qmd) | Fit a regression, interpret it, and beat a baseline |
+| 10 | [Unsupervised Learning and Clustering](sessions/session-10-unsupervised-learning-techniques-clustering.qmd) | Choose *k* and defend it |
+| 11 | [Model Evaluation](sessions/session-11-data-model-evaluation.qmd) | Cross-validate, diagnose, and tune without cheating |
+| 12 | [Model Saving and Deployment](sessions/session-12-model-saving-and-deployment.qmd) | Ship a working prediction app |
+| 13 | [Big Data Fundamentals](sessions/session-13-big-data-analytics-fundamentals.qmd) | Measure where your own machine stops coping |
+| 14 | [Distributed Data Processing](sessions/session-14-distributed-data-processing.qmd) | Trace map, shuffle and reduce, and read PySpark |
+| 15 | [NoSQL and Visualization at Scale](sessions/session-15-nosql-databases-and-scaled-visualization.qmd) | Write an aggregation pipeline and plot ten million rows |
+| 16 | [Capstone](sessions/session-16-open-ended-module-implementation-and-capstone.qmd) | Deliver and defend a complete project |
+
+## How each session is written
+
+Every session follows the same shape, so once you have read two you can predict the third.
+
+| Element | What it is |
+|---|---|
+| **Demo** | runnable code that demonstrates one idea. Most sessions have eight to fifteen. |
+| 🧠 **Analogy** | an everyday comparison — used only where a concept genuinely needs one |
+| ⚠️ **Trap** | a mistake that produces a wrong answer **without raising an error** |
+| 🔓 **Key idea** | something you must carry into later sessions |
+| ❓ **Check yourself** | short questions with worked answers, folded away |
+| ✏️ **Tasks** | things to do, with solutions folded away |
+| ✅ **Before you move on** | the checklist for that session |
+
+::: {.callout-tip title="🧠 What makes this course different"}
+**Nothing here is asserted without being measured.** Where a demonstration contradicted
+the lesson it was written for, the lesson was changed and the number kept. You will
+find, among other things:
+
+- 80% accuracy manufactured from **coin flips**, by one careless line
+- a model saved without its scaler, valuing a flat at **₹1.69 billion** instead of ₹5 million
+- a polynomial that fits its training data best and scores **−187** on new data
+- a "best" model chosen by peeking, reported at +0.08 and worth **−0.20** in truth
+- K-Means confidently finding three clusters in **pure random noise**
+
+Those are the passages that teach the most, because they are what you will actually meet.
+:::
+
+## Setting up
+
+All code runs in one conda environment. Create it once:
+
+```bash
+conda create -n ds python=3.11 -y
+conda activate ds
+pip install -r requirements.txt
+```
+
+Then build the book with `quarto render`, or open any session and run the cells in
+Jupyter. **Every session is self-contained** — variables do not carry from one to the
+next, so you can start anywhere, though the order is designed to be read straight
+through.
+
+## A note on the order
+
+Sessions 3–6 prepare data; Sessions 7–8 describe it. If you have met this material
+before you may expect statistics to come first — it is the more common arrangement.
+
+Session 3 borrows the two ideas it needs (quartiles and standard deviation) in a marked
+box, so nothing is used before it is explained, and Session 7 then covers them properly.
+**If you prefer, read Sessions 7 and 8 before Session 3.** Nothing in them depends on
+Sessions 3–6.

@@ -1,130 +1,712 @@
 ---
-title: "Session 15 — NoSQL Databases and Scaled Visualization"
-subtitle: "MongoDB · Cassandra · Aggregate Queries"
+title: "Session 15 — NoSQL Databases and Visualization at Scale"
+subtitle: "Why NoSQL · Document and wide-column stores · MongoDB aggregation · Cassandra · Plotting ten million points"
 ---
 
 {{< include ../includes/_setup.qmd >}}
 
 ::: {.callout-note}
-**This chapter breaks away from traditional SQL tables and explores databases designed for immense scale and flexibility.**
+**This chapter covers databases that do not use tables, and charts that survive large
+data.**
 
-**Assumed knowledge:** Distributed processing (Session 14).
+**Assumed knowledge:** Session 2 — `groupby` and reading JSON. Session 8 — choosing a
+chart. Session 13 — why scale changes things.
+
+**The one idea to take away:** a relational database makes you decide the shape of your
+data **before** you store it. NoSQL databases let you decide later — and charge you for
+that flexibility somewhere else.
+
+**A note on running this chapter:** the MongoDB and Cassandra blocks need a running
+database server, so they are shown for reference. The executable cells implement the same
+query model in plain Python, and every visualization cell runs.
 :::
 
 ## 🎯 Learning outcomes {#sec-s15-outcomes}
 
 By the end of this chapter you can:
 
-1. Explain the structural difference between a relational SQL database and a NoSQL document database.
-2. Identify when to use MongoDB vs Apache Cassandra.
-3. Query a MongoDB database using Python (`pymongo`) for downstream visualization.
+1. Say why a fixed table schema becomes a problem at scale.
+2. Name the four NoSQL families and give a use case for each.
+3. Explain the CAP theorem in plain language.
+4. Read and write a MongoDB aggregation pipeline.
+5. Design a Cassandra table starting from the query.
+6. Draw an honest chart from ten million rows.
 
 ## How this chapter is organised {#sec-s15-organisation}
 
-| Part | Question it answers | Source |
+| Part | Question it answers |
+|---|---|
+| [A — Why NoSQL exists](#sec-s15-a) | *What is wrong with tables?* |
+| [B — Document stores](#sec-s15-b) | *How does MongoDB work?* |
+| [C — Wide-column stores](#sec-s15-c) | *How is Cassandra different?* |
+| [D — Charts at scale](#sec-s15-d) | *How do I plot ten million points honestly?* |
+
+# Part A — Why NoSQL exists {#sec-s15-a}
+
+## 1. What a fixed schema costs {#sec-s15-topic-1}
+
+**A relational database requires every row in a table to have the same columns.** That
+rule is a feature — it is what makes SQL reliable — until two things happen: the records
+genuinely differ, and there are billions of them.
+
+| | Relational (SQL) | NoSQL |
 |---|---|---|
-| [A — NoSQL Databases](#sec-s15-a) | *Why break the rules of SQL?* | `concepts` |
-| [Demo — PyMongo Queries](#sec-s15-demo) | *How do we query JSON data?* | `mongo_demo.py` |
+| Shape decided | **before** you store anything | **as you store** |
+| Every record | has the same columns | can differ |
+| Adding a field | changes the table, for every row | affects only new records |
+| Scales by | buying a **bigger machine** | adding **more machines** |
+| Guarantees | strong consistency | usually eventual consistency |
+| Best for | money, bookings, anything that must balance | logs, profiles, catalogues, sensors |
 
-# Part A — NoSQL Databases {#sec-s15-a}
+::: {.callout-tip title="🧠 Analogy — the filing cabinet and the folders"}
+A **filing cabinet** has labelled drawers of identical forms. Everything is findable and
+tidy — but a document that does not fit the form cannot go in without redesigning the
+form and refiling everything.
 
-**Sometimes, enforcing a strict schema does more harm than good.**
+A **folder system** lets each folder hold whatever that case needed. Nothing is rejected.
+The cost is that you can no longer assume any two folders contain the same things.
 
-## 1. Apache Cassandra and MongoDB {#sec-s15-topic-1}
-
-**NoSQL databases store data in flexible formats like JSON documents, Key-Value pairs, or Wide Columns, abandoning the strict rows-and-columns of traditional SQL.**
-
-They exist to handle high velocity (thousands of writes per second) and high variety (data shapes that change constantly). In a traditional SQL database, if you want to add a "Middle Name" column to a 10-billion-row user table, the database locks up for hours altering the table structure. In a NoSQL Document database, you just start writing the middle name to new documents. The database doesn't care.
-
-::: {.callout-tip title="🧠 Analogy — The Filing Cabinet vs The Shoebox"}
-**The everyday thing:** Storing receipts.
-
-**The mapping:** 
-- **SQL (The Filing Cabinet):** Every receipt must be perfectly formatted, flattened, and placed in exactly the right alphabetical folder. It's perfectly organized, but takes forever to file a new receipt.
-- **NoSQL (The Shoebox):** You just throw the receipt in the box as fast as possible. It can be crumpled, a different size, or have notes scribbled on it. You can store things instantly, but finding things later requires a bit more searching effort.
+**Neither is better. They fail differently, and you choose which failure you can live
+with.**
 :::
 
-### How it works
-
-- **MongoDB (Document Store):** Stores data as JSON-like documents. Perfect for changing web data, user profiles, and catalogs.
-- **Apache Cassandra (Wide Column):** Designed by Facebook to handle absolutely massive amounts of data distributed across multiple data centers with zero downtime. Used by Netflix and Apple. Extremely fast at writing data.
-
-### ❓ MCQs
-
-**Q1.** You are building an internet-of-things (IoT) network where 10,000 temperature sensors blast readings to your server every second. Which database architecture is best suited for this extreme write-velocity?
-
-- (a) A highly structured SQL Server.
-- (b) **A NoSQL database like Cassandra.**
-- (c) An Excel Spreadsheet.
-
-::: {.callout-note collapse="true" title="Answers"}
-**A1 — (b).** NoSQL architectures are explicitly designed to handle horizontal scale and extreme write-speeds without locking the database.
-:::
-
-# Part Demo — PyMongo Queries {#sec-s15-demo}
-
-**Connecting Python to MongoDB to extract JSON data for visualization.**
-
-In Python, the `pymongo` library allows us to connect to a Mongo database, run an aggregation pipeline, and pull the results straight into a Pandas DataFrame.
+### Demo 1 — records that genuinely do not fit one table
 
 ```{python}
-#| eval: false
-import pandas as pd
-import matplotlib.pyplot as plt
-from pymongo import MongoClient
+import pandas as pd, json
 
-# 1. Connect to the local MongoDB instance
-# (Assuming MongoDB is running on the default localhost port)
-client = MongoClient("mongodb://localhost:27017/")
-
-# Access the 'store_db' database and the 'sales' collection
-db = client["store_db"]
-collection = db["sales"]
-
-# 2. Insert some flexible JSON documents
-# Notice that user 2 has a 'loyalty_points' field, but user 1 doesn't! 
-# NoSQL handles this perfectly.
-mock_data = [
-    {"user": "Alice", "item": "Laptop", "price": 1000},
-    {"user": "Bob", "item": "Mouse", "price": 25, "loyalty_points": 50},
-    {"user": "Charlie", "item": "Laptop", "price": 1000}
+# A product catalogue. A book, a shirt and a laptop share almost no attributes.
+products = [
+    {"sku": "B-1", "name": "Data Science Handbook", "price": 899,
+     "author": "R. Iyer", "pages": 412, "isbn": "978-1"},
+    {"sku": "S-7", "name": "Cotton Shirt", "price": 1299,
+     "size": "M", "colour": "blue", "material": "cotton"},
+    {"sku": "L-9", "name": "UltraBook 14", "price": 74999,
+     "ram_gb": 16, "cpu": "i7", "warranty_months": 24, "ports": ["USB-C", "HDMI"]},
 ]
-collection.insert_many(mock_data)
 
-# 3. Run an Aggregate Query
-# "Find the total revenue grouped by item"
-pipeline = [
-    {"$group": {"_id": "$item", "total_revenue": {"$sum": "$price"}}}
-]
-results = list(collection.aggregate(pipeline))
+print("As documents — each keeps exactly the fields it needs:")
+print(json.dumps(products, indent=1)[:420], "...\n")
 
-# 4. Pull into Pandas for Visualization
-df = pd.DataFrame(results)
-# Rename the MongoDB '_id' field to 'Item'
-df.rename(columns={"_id": "Item"}, inplace=True)
-
-display(df)
-
-# 5. Visualize!
-plt.bar(df["Item"], df["total_revenue"], color=['blue', 'green'])
-plt.title("Revenue by Product (MongoDB Source)")
-plt.ylabel("Total Revenue ($)")
-plt.show()
-
-# Cleanup
-collection.drop()
+print("Forced into one table:")
+table = pd.DataFrame(products)
+print(table.to_string(index=False))
+print(f"\n{table.shape[1]} columns, and {table.isna().sum().sum()} of "
+      f"{table.size} cells are empty ({table.isna().sum().sum()/table.size:.0%}).")
+print("Add a fourth product type and the table grows more columns and more blanks.")
 ```
 
-::: {.callout-warning title="⚠️ The trap of eventual consistency"}
-Because NoSQL databases like Cassandra are distributed across many servers, they often use "Eventual Consistency". If you update a user's password on Server A, and immediately query Server B, Server B might still give you the old password for a few milliseconds until the servers sync up. 
+**That blank ratio is the argument.** In a relational design you would build separate
+tables and join them — correct, and considerably more work when new product types arrive
+weekly.
+
+## 2. The four families {#sec-s15-topic-2}
+
+| Family | Stores | Best at | Examples |
+|---|---|---|---|
+| **Document** | JSON-like records | flexible records with nesting | MongoDB, CouchDB |
+| **Wide-column** | rows with millions of possible columns | huge volume, known queries | Cassandra, HBase |
+| **Key–value** | one value per key | caching, sessions | Redis, DynamoDB |
+| **Graph** | nodes and relationships | networks, recommendations | Neo4j |
+
+## 3. The CAP theorem {#sec-s15-topic-3}
+
+**When a distributed database's machines cannot talk to each other, you must choose
+between giving a possibly stale answer and giving no answer.** You cannot have both.
+
+| Letter | Means |
+|---|---|
+| **C — Consistency** | every read gets the most recent write |
+| **A — Availability** | every request gets an answer |
+| **P — Partition tolerance** | the system keeps working when the network splits |
+
+Networks fail, so **P is not optional.** The real choice is C or A.
+
+### Demo 2 — the trade-off, made concrete
+
+```{python}
+class Node:
+    def __init__(self, name, balance=1000):
+        self.name, self.balance, self.reachable = name, balance, True
+
+primary, replica = Node("primary"), Node("replica")
+
+def write(amount):
+    primary.balance += amount
+    if replica.reachable:
+        replica.balance = primary.balance
+        return "written and replicated"
+    return "written to primary only — replica is now stale"
+
+def read(node, mode):
+    if not node.reachable:
+        return "ERROR: cannot reach this node"
+    if mode == "consistency" and node.balance != primary.balance:
+        return "REFUSED: this node may be stale (chose Consistency)"
+    return f"₹{node.balance}"
+
+print("Network is healthy:")
+print(" ", write(500), "→ replica reads", read(replica, "availability"))
+
+print("\nNetwork splits — the replica can no longer hear the primary:")
+replica.reachable = False
+print(" ", write(300))
+replica.reachable = True                    # reachable by clients, but stale
+
+print("\nA client now reads from the replica:")
+print(f"  choosing AVAILABILITY : {read(replica, 'availability')}  ← an answer, possibly stale")
+print(f"  choosing CONSISTENCY  : {read(replica, 'consistency')}")
+print(f"\n  (the true balance on the primary is ₹{primary.balance})")
+```
+
+::: {.callout-warning title="⚠️ This is a business decision, not a technical one"}
+For a **bank balance**, a stale answer is unacceptable — choose consistency and refuse to
+answer.
+
+For a **product page view count**, refusing to load the page is far worse than showing a
+count that is thirty seconds old — choose availability.
+
+**The engineer does not get to decide this alone.** It is a question about what the
+business can tolerate.
 :::
 
-# 🎯 Session 15 — Tasks {#sec-s15-tasks}
+# Part B — Document stores {#sec-s15-b}
 
-**Task 1 — JSON Structures.** 
-Look at the `mock_data` list in the code above. Write the Python dictionary for a fourth user, "Diana", who bought a "Keyboard" for 50 dollars, and include an entirely new field called `discount_code` with the value `"WELCOME20"`.
+## 4. MongoDB's model {#sec-s15-topic-4}
+
+**MongoDB stores documents — JSON-like records — inside collections.**
+
+| Relational word | MongoDB word |
+|---|---|
+| table | **collection** |
+| row | **document** |
+| column | **field** |
+| join | usually **embedding** instead |
+
+**The big design difference: MongoDB prefers to embed related data inside one document
+rather than join across collections.** An order carries its line items inside it, so
+fetching the order is one read rather than a join.
+
+### Demo 3 — a document store, implemented in plain Python
+
+To make the query model concrete, here is a miniature MongoDB. It supports `insert_many`,
+`find`, and the aggregation stages you will meet next.
+
+```{python}
+class Collection:
+    """A miniature document store — enough to show how MongoDB queries work."""
+
+    def __init__(self):
+        self.docs = []
+
+    def insert_many(self, docs):
+        self.docs.extend(docs)
+        return len(docs)
+
+    def find(self, query=None):
+        return [d for d in self.docs if self._matches(d, query or {})]
+
+    @staticmethod
+    def _matches(doc, query):
+        for field, cond in query.items():
+            value = doc.get(field)
+            if isinstance(cond, dict):                     # {"$gt": 100} style
+                for op, target in cond.items():
+                    if op == "$gt"  and not (value is not None and value >  target): return False
+                    if op == "$gte" and not (value is not None and value >= target): return False
+                    if op == "$lt"  and not (value is not None and value <  target): return False
+                    if op == "$in"  and value not in target: return False
+                    if op == "$exists" and (value is not None) != target: return False
+            elif value != cond:
+                return False
+        return True
+
+
+sales = Collection()
+sales.insert_many([
+    {"item": "laptop", "city": "Mumbai", "qty": 1, "price": 74999, "channel": "online"},
+    {"item": "mouse",  "city": "Mumbai", "qty": 4, "price": 499,   "channel": "store"},
+    {"item": "laptop", "city": "Delhi",  "qty": 2, "price": 74999, "channel": "online",
+     "loyalty_points": 300},                                  # a field the others lack
+    {"item": "keyboard", "city": "Delhi", "qty": 3, "price": 1499, "channel": "store"},
+    {"item": "mouse",  "city": "Pune",   "qty": 10, "price": 499,  "channel": "online"},
+])
+
+print("All Mumbai sales:")
+for d in sales.find({"city": "Mumbai"}): print("  ", d)
+
+print("\nSales over ₹1,000 per unit:")
+for d in sales.find({"price": {"$gt": 1000}}): print("  ", d)
+
+print("\nDocuments that HAVE a loyalty_points field (others simply lack it):")
+for d in sales.find({"loyalty_points": {"$exists": True}}): print("  ", d)
+```
+
+**The last query is the point.** In a relational table, `loyalty_points` would exist as a
+`NULL` on every other row. Here, the field is genuinely absent, and asking for its
+presence is a meaningful question.
+
+## 5. The aggregation pipeline {#sec-s15-topic-5}
+
+**MongoDB's aggregation pipeline is a list of stages, each feeding the next.** It is
+`groupby` written as a sequence.
+
+| Stage | Does | pandas equivalent |
+|---|---|---|
+| `$match` | keep matching documents | `df[df.x > 1]` |
+| `$group` | group and aggregate | `df.groupby(...).agg(...)` |
+| `$sort` | order the results | `df.sort_values(...)` |
+| `$project` | choose or compute fields | `df[["a","b"]]` |
+| `$limit` | keep the first n | `df.head(n)` |
+
+### Demo 4 — running an aggregation pipeline
+
+```{python}
+from collections import defaultdict
+
+def aggregate(collection, pipeline):
+    """Execute a MongoDB-style aggregation pipeline."""
+    docs = list(collection.docs)
+    for stage in pipeline:
+        (op, spec), = stage.items()
+
+        if op == "$match":
+            docs = [d for d in docs if Collection._matches(d, spec)]
+
+        elif op == "$group":
+            groups = defaultdict(list)
+            key_field = spec["_id"].lstrip("$")
+            for d in docs:
+                groups[d.get(key_field)].append(d)
+            out = []
+            for key, members in groups.items():
+                row = {"_id": key}
+                for name, rule in spec.items():
+                    if name == "_id":
+                        continue
+                    (fn, field), = rule.items()
+                    field = field.lstrip("$") if isinstance(field, str) else field
+                    vals = [m.get(field, 0) for m in members] if isinstance(field, str) else []
+                    row[name] = {"$sum": sum(vals) if vals else len(members),
+                                 "$avg": (sum(vals)/len(vals)) if vals else 0,
+                                 "$max": max(vals) if vals else 0}[fn]
+                out.append(row)
+            docs = out
+
+        elif op == "$sort":
+            (field, direction), = spec.items()
+            docs = sorted(docs, key=lambda d: d.get(field, 0), reverse=direction == -1)
+
+        elif op == "$project":
+            docs = [{k: d.get(k) for k in spec if spec[k]} for d in docs]
+
+        elif op == "$limit":
+            docs = docs[:spec]
+    return docs
+
+
+print("Total revenue per item, biggest first:")
+for row in aggregate(sales, [
+    {"$group": {"_id": "$item", "revenue": {"$sum": "$price"}, "units": {"$sum": "$qty"}}},
+    {"$sort": {"revenue": -1}},
+]):
+    print(f"  {row['_id']:<10} revenue ₹{row['revenue']:>8,}  units {row['units']:>3}")
+
+print("\nOnline sales only, grouped by city:")
+for row in aggregate(sales, [
+    {"$match": {"channel": "online"}},
+    {"$group": {"_id": "$city", "revenue": {"$sum": "$price"}}},
+    {"$sort": {"revenue": -1}},
+]):
+    print(f"  {row['_id']:<10} ₹{row['revenue']:>8,}")
+```
+
+### Demo 5 — the same thing in pandas, for comparison
+
+```{python}
+import pandas as pd
+
+df = pd.DataFrame(sales.docs)
+print("pandas equivalent of the first pipeline:")
+print(df.groupby("item").agg(revenue=("price", "sum"), units=("qty", "sum"))
+        .sort_values("revenue", ascending=False))
+print("\nSame answer. The difference is WHERE it runs: the pipeline executes inside")
+print("the database, so only the small summary crosses the network.")
+```
+
+## 6. Real pymongo {#sec-s15-topic-6}
+
+**Against a real MongoDB server, the code is almost identical to Demo 4** — the pipeline
+is the same list of dictionaries. This block needs a running MongoDB, so it is shown
+rather than executed.
+
+```python
+from pymongo import MongoClient
+import pandas as pd
+
+client = MongoClient("mongodb://localhost:27017/")
+db = client["store_db"]
+sales = db["sales"]
+
+# INSERT — documents need not share a shape
+sales.insert_many([
+    {"item": "laptop", "city": "Mumbai", "qty": 1, "price": 74999, "channel": "online"},
+    {"item": "laptop", "city": "Delhi",  "qty": 2, "price": 74999, "channel": "online",
+     "loyalty_points": 300},
+])
+
+# INDEX — without this, every query scans every document
+sales.create_index([("city", 1), ("item", 1)])
+
+# FIND
+for doc in sales.find({"price": {"$gt": 1000}}).limit(5):
+    print(doc)
+
+# AGGREGATE — the same pipeline as Demo 4, run inside the database
+pipeline = [
+    {"$match": {"channel": "online"}},
+    {"$group": {"_id": "$city", "revenue": {"$sum": "$price"}, "orders": {"$sum": 1}}},
+    {"$sort": {"revenue": -1}},
+]
+summary = pd.DataFrame(list(sales.aggregate(pipeline))).rename(columns={"_id": "city"})
+
+client.close()
+```
+
+::: {.callout-warning title="⚠️ Aggregate in the database, not in Python"}
+It is tempting to write `pd.DataFrame(list(sales.find({})))` and use pandas. On a
+collection of fifty million documents that pulls every document across the network into
+memory, and will simply fail.
+
+**Push `$match`, `$group` and `$limit` into the database.** Bring back the summary, not
+the data.
+:::
+
+# Part C — Wide-column stores {#sec-s15-c}
+
+## 7. Cassandra, and query-first design {#sec-s15-topic-7}
+
+**Cassandra is built for enormous write volumes and predictable reads. In exchange, you
+must know your queries before you design your tables.**
+
+This is the **opposite** of relational design. In SQL you normalise the data and write
+whatever query you like afterwards. In Cassandra:
+
+1. Write down the exact questions the application will ask
+2. Design one table per question
+3. **Duplicate data across those tables without embarrassment**
+
+Two ideas control everything:
+
+| Key part | Decides |
+|---|---|
+| **Partition key** | which machine the row lives on. **Every query must supply it.** |
+| **Clustering key** | how rows are sorted within that partition |
+
+```sql
+-- Question: "show me one user's recent orders, newest first"
+CREATE TABLE orders_by_user (
+    user_id     uuid,          -- partition key: picks the machine
+    order_date  timestamp,     -- clustering key: sorts within the partition
+    order_id    uuid,
+    total       decimal,
+    PRIMARY KEY (user_id, order_date)
+) WITH CLUSTERING ORDER BY (order_date DESC);
+
+-- This is fast: it supplies the partition key.
+SELECT * FROM orders_by_user WHERE user_id = ? LIMIT 20;
+
+-- This is NOT possible efficiently — no partition key given.
+-- Cassandra will refuse it rather than scan every machine.
+SELECT * FROM orders_by_user WHERE total > 5000;
+
+-- The Cassandra answer: build a SECOND table for that question,
+-- and write every order to both.
+CREATE TABLE orders_by_day (
+    day         date,
+    total       decimal,
+    order_id    uuid,
+    user_id     uuid,
+    PRIMARY KEY (day, total, order_id)
+) WITH CLUSTERING ORDER BY (total DESC);
+```
+
+### Demo 6 — why the partition key decides everything
+
+```{python}
+import hashlib
+
+def which_machine(partition_key, n_machines=6):
+    h = hashlib.md5(str(partition_key).encode()).hexdigest()
+    return int(h, 16) % n_machines
+
+users = [f"user_{i}" for i in range(1, 13)]
+print("Where each user's rows live:")
+for u in users[:6]:
+    print(f"  {u:<8} → machine {which_machine(u)}")
+
+print("\nQuery WITH the partition key  → one machine answers")
+print("Query WITHOUT it               → all 6 machines must be asked and merged")
+print("  ...which is why Cassandra refuses such queries by default.")
+
+from collections import Counter
+spread = Counter(which_machine(u) for u in [f"user_{i}" for i in range(2_000)])
+print(f"\nRows per machine across 2,000 users: {sorted(spread.values())}")
+print("Evenly spread — a good partition key. A key like 'country' would put")
+print("half your data on one machine and melt it.")
+```
+
+### Demo 7 — choosing between the three
+
+```{python}
+rows = [
+    ("data shape",        "documents, flexible",  "wide rows, fixed queries", "rows and columns"),
+    ("query flexibility", "high",                 "low — plan queries first", "highest (SQL)"),
+    ("write throughput",  "high",                 "very high",                "moderate"),
+    ("joins",             "avoided; embed",       "not supported",            "core feature"),
+    ("consistency",       "tunable",              "tunable, usually eventual","strong"),
+    ("good for",          "catalogues, profiles", "time series, IoT, logs",   "money, bookings"),
+]
+print(f"{'':<19}{'MongoDB':<24}{'Cassandra':<27}{'SQL'}")
+print("-" * 92)
+for r in rows:
+    print(f"{r[0]:<19}{r[1]:<24}{r[2]:<27}{r[3]}")
+```
+
+# Part D — Charts at scale {#sec-s15-d}
+
+## 8. Why a scatter plot of ten million points is useless {#sec-s15-topic-8}
+
+**Draw ten million dots and you get a solid rectangle.** The dots overlap — a phenomenon
+called **overplotting** — and where one dot sits, a thousand look identical.
+
+### Demo 8 — overplotting, and three fixes
+
+```{python}
+#| label: fig-s15-overplot
+#| fig-cap: "Two million points. Raw scatter shows a blob; sampling, hexbin and a 2-D histogram each recover the structure."
+import numpy as np, matplotlib.pyplot as plt
+
+rng = np.random.default_rng(91)
+n = 2_000_000
+x = np.concatenate([rng.normal(30, 6, n//2), rng.normal(60, 9, n//2)])
+y = np.concatenate([rng.normal(50, 9, n//2), rng.normal(75, 11, n//2)])
+
+fig, ax = plt.subplots(1, 4, figsize=(14, 3.1))
+
+ax[0].scatter(x[:200_000], y[:200_000], s=1, alpha=.5)
+ax[0].set_title("raw scatter\n(a blob)", fontsize=9)
+
+idx = rng.choice(n*1, 4_000, replace=False)
+ax[1].scatter(x[idx], y[idx], s=4, alpha=.5)
+ax[1].set_title("random sample\nof 4,000", fontsize=9)
+
+ax[2].hexbin(x, y, gridsize=45, cmap="viridis")
+ax[2].set_title("hexbin\n(count per cell)", fontsize=9)
+
+ax[3].hist2d(x, y, bins=90, cmap="viridis")
+ax[3].set_title("2-D histogram", fontsize=9)
+
+for a in ax: a.set_xticks([]); a.set_yticks([])
+plt.tight_layout(); plt.show()
+
+print(f"{n*1:,} points plotted four ways.")
+print("The raw scatter hides that there are TWO groups. The other three show it.")
+```
+
+## 9. Aggregate before you plot {#sec-s15-topic-9}
+
+**The most effective technique is to never send the raw rows to the chart at all.**
+Summarise in the database, plot the summary.
+
+### Demo 9 — the size of what crosses the network
+
+```{python}
+import numpy as np, pandas as pd
+
+rng = np.random.default_rng(92)
+n = 3_000_000
+logs = pd.DataFrame({
+    "hour":   rng.integers(0, 24, n),
+    "status": rng.choice([200, 404, 500], n, p=[.93, .05, .02]),
+    "ms":     rng.gamma(2, 40, n),
+})
+
+raw_mb = logs.memory_usage(deep=True).sum() / 1e6
+summary = logs.groupby(["hour", "status"]).agg(
+    requests=("ms", "size"), avg_ms=("ms", "mean")).reset_index()
+summary_kb = summary.memory_usage(deep=True).sum() / 1e3
+
+print(f"raw data      : {len(logs):>10,} rows   {raw_mb:>8.1f} MB")
+print(f"the summary   : {len(summary):>10,} rows   {summary_kb:>8.1f} KB")
+print(f"reduction     : {raw_mb*1000/summary_kb:>10,.0f}× smaller\n")
+print(summary.head(6).to_string(index=False))
+```
+
+```{python}
+#| label: fig-s15-aggregated
+#| fig-cap: "A chart of three million rows, drawn from a 72-row summary."
+import matplotlib.pyplot as plt
+
+pivot = summary.pivot(index="hour", columns="status", values="requests")
+fig, ax = plt.subplots(1, 2, figsize=(11, 3.2))
+pivot.plot(ax=ax[0]); ax[0].set_title("Requests per hour by status"); ax[0].set_ylabel("requests")
+summary.groupby("hour")["avg_ms"].mean().plot(ax=ax[1], marker="o")
+ax[1].set_title("Average response time by hour"); ax[1].set_ylabel("ms")
+plt.tight_layout(); plt.show()
+```
+
+## 10. Sampling honestly {#sec-s15-topic-10}
+
+**A sampled chart is an estimate, and it must be labelled as one.**
+
+### Demo 10 — how wrong a sample can be, and how to say so
+
+```{python}
+import numpy as np
+
+rng = np.random.default_rng(93)
+population = rng.gamma(2, 40, 3_000_000)
+truth = population.mean()
+
+print(f"true mean over all {len(population):,} values: {truth:.3f}\n")
+print(f"{'sample size':>12} {'estimate':>10} {'95% margin':>12} {'covers truth?':>15}")
+print("-" * 54)
+for size in [100, 1_000, 10_000, 100_000]:
+    s = rng.choice(population, size, replace=False)
+    margin = 1.96 * s.std() / np.sqrt(size)
+    covers = abs(s.mean() - truth) <= margin
+    print(f"{size:>12,} {s.mean():>10.3f} {margin:>11.3f}  {'yes' if covers else 'no':>14}")
+
+print("\nA sample of 10,000 estimates the mean of 3 million to within a fraction of")
+print("a percent. Sampling is not a compromise — it is usually the right answer.")
+```
+
+::: {.callout-warning title="⚠️ Label every sampled chart"}
+A chart built from a 1% sample looks exactly like one built from all the data. **Put the
+sample size and the margin in the caption**, or somebody will read a difference off it
+that is smaller than the sampling error.
+
+And remember Session 2: **a sample must be random.** `df.head(10000)` is not a sample —
+it is whatever was written first, which is usually ordered by time or by ID.
+:::
+
+```{python}
+import numpy as np, pandas as pd
+
+rng = np.random.default_rng(94)
+# Data ordered by signup date, with average spend rising over time.
+customers = pd.DataFrame({
+    "signup_order": np.arange(200_000),
+    "spend": np.linspace(200, 900, 200_000) + rng.normal(0, 40, 200_000),
+})
+
+print(f"true mean spend        : ₹{customers['spend'].mean():>7.0f}")
+print(f"df.head(5000)          : ₹{customers['spend'].head(5000).mean():>7.0f}   ← earliest customers only")
+print(f"df.sample(5000)        : ₹{customers['spend'].sample(5000, random_state=1).mean():>7.0f}   ← correct")
+```
+
+### ❓ Check yourself
+
+**Q1.** Your product catalogue has 40 product types with almost no shared attributes.
+Which storage?
+
+- (a) One wide SQL table.
+- (b) **A document store such as MongoDB.**
+- (c) A key–value store.
+
+**Q2.** The network splits and a replica may be stale. A banking system should:
+
+- (a) Serve the possibly-stale balance.
+- (b) **Refuse to answer — choose consistency.**
+- (c) Serve a cached value.
+
+**Q3.** In Cassandra, why must a query supply the partition key?
+
+- (a) For security.
+- (b) **It determines which machine holds the row; without it every machine must be
+  asked.**
+- (c) It is the primary key.
+
+**Q4.** You must chart ten million points. What do you do first?
+
+- (a) Plot them all and reduce the marker size.
+- (b) **Aggregate or bin them, and plot the summary.**
+- (c) Plot the first 10,000 rows.
+
+**Q5.** `df.head(10_000)` on a table ordered by signup date is:
+
+- (a) A valid random sample.
+- (b) **A biased sample — it contains only the earliest records.**
+- (c) Fine if the table is large.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** Demo 1 measured the blank ratio a single table produces.
+
+**A2 — (b).** Demo 2's warning: this is a business decision, and for money the answer is
+consistency.
+
+**A3 — (b).** Demo 6 showed rows spread by a hash of the partition key.
+
+**A4 — (b).** Demo 9 reduced 3 million rows to 72 and lost nothing the chart needed.
+
+**A5 — (b).** The final demo measured ₹209 from `head()` against a true mean of ₹550.
+:::
+
+# 🎯 Tasks {#sec-s15-tasks}
+
+::: {.callout-note title="✏️ Practise"}
+**Task 1 — Write a pipeline.** Using `aggregate` from Demo 4, find the average price per
+city for store sales only, sorted highest first.
+
+**Task 2 — Design for Cassandra.** An app must answer "show a user's last 20 orders" and
+"show the 10 largest orders today". **Write the two `CREATE TABLE` statements** and say
+what has to be duplicated.
+
+**Task 3 — Fix a chart.** Generate 5 million points in three clusters and produce one
+chart that shows all three groups clearly. **Say which technique you used and why.**
+
+**Task 4 — Quantify a sample.** For the population in Demo 10, find the smallest sample
+size whose 95% margin is under 1% of the true mean.
+:::
+
+:::: {.callout-note collapse="true" title="Solutions"}
+```{python}
+import numpy as np
+
+print("Task 2 — two tables, because Cassandra plans tables around queries:")
+print("""
+  CREATE TABLE orders_by_user (
+      user_id uuid, order_date timestamp, order_id uuid, total decimal,
+      PRIMARY KEY (user_id, order_date)
+  ) WITH CLUSTERING ORDER BY (order_date DESC);
+
+  CREATE TABLE orders_by_day (
+      day date, total decimal, order_id uuid, user_id uuid,
+      PRIMARY KEY (day, total, order_id)
+  ) WITH CLUSTERING ORDER BY (total DESC);
+""")
+print("  Every order is written to BOTH tables. That duplication is deliberate:")
+print("  storage is cheap, and it is what makes both queries fast.\n")
+
+# Task 4 — smallest sample whose margin is under 1% of the mean
+rng = np.random.default_rng(93)
+population = rng.gamma(2, 40, 3_000_000)
+truth = population.mean()
+for size in [100, 300, 1_000, 3_000, 10_000, 30_000]:
+    s = rng.choice(population, size, replace=False)
+    margin = 1.96 * s.std() / np.sqrt(size)
+    print(f"Task 4 — n={size:>6,}: margin ±{margin:.3f} = {margin/truth:.2%} of the mean"
+          f"{'   ← first under 1%' if margin/truth < 0.01 and size >= 1000 else ''}")
+```
+::::
 
 ::: {.callout-tip title="✅ Before you move on"}
-- [ ] Understand why dropping the strict schema of SQL allows for faster data ingestion.
-- [ ] **The one thing from this chapter that is easiest to forget:** NoSQL is not inherently "better" than SQL. If your data is highly structured, relational (like accounting/banking), and rarely changes shape, traditional SQL is vastly superior.
+- [ ] I can say what a fixed schema costs and when that cost is worth paying
+- [ ] I can name the four NoSQL families with a use case each
+- [ ] I can explain CAP as a business choice, not a technical one
+- [ ] I can write a `$match` → `$group` → `$sort` pipeline
+- [ ] I design Cassandra tables from the query, and accept duplication
+- [ ] **Easiest thing to forget:** aggregate inside the database. Pulling fifty million
+      documents into pandas does not work, and the failure is slow and confusing.
 :::

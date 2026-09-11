@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Author">
+<meta name="dcterms.date" content="2026-09-10">
 
-<title>Data Science Course</title>
+<title>Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -42,7 +78,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-99913b7803b80b0c1d2b970a25816663.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7202036dd3638cbfcbeb4151d116aa42.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -72,9 +108,10 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-sidebar floating fullcontent quarto-light">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -83,7 +120,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science Course</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -95,10 +132,10 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Data Science Course</a> 
+      <a href="./">Data Science</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -111,117 +148,186 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science Course</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part A — Getting hold of data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sessions/session-01-introduction-to-data-science.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Session 1 — Introduction to Data Science</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sessions/session-02-data-collection-and-pre-processing-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 2 — Data Collection and Pre-Processing Overview</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part B — Making data fit to use</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sessions/session-03-data-cleaning.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Session 3 — Data Cleaning</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sessions/session-04-data-integration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Session 4 — Data Integration</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sessions/session-05-data-transformation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Session 5 — Data Transformation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sessions/session-06-data-reduction-and-discretization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Session 6 — Data Reduction and Discretization</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part C — Understanding data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sessions/session-07-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Session 7 — Descriptive Statistics</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sessions/session-08-exploratory-data-analytics-eda-and-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analytics (EDA) and Visualization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analysis and Visualization</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part D — Learning from data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sessions/session-09-supervised-learning-techniques.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Session 9 — Supervised Learning Techniques</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sessions/session-10-unsupervised-learning-techniques-clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning Techniques &amp; Clustering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning and Clustering</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sessions/session-11-data-model-evaluation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 11 — Data Model Evaluation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 11 — Model Evaluation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sessions/session-12-model-saving-and-deployment.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Session 12 — Model Saving and Deployment</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part E — Data at scale</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sessions/session-13-big-data-analytics-fundamentals.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Session 13 — Big Data Analytics Fundamentals</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sessions/session-14-distributed-data-processing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Session 14 — Distributed Data Processing</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sessions/session-15-nosql-databases-and-scaled-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Scaled Visualization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Visualization at Scale</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sessions/session-16-open-ended-module-implementation-and-capstone.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Open Ended Module (Implementation and Capstone)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Capstone: The End-to-End Project</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#who-this-is-for" id="toc-who-this-is-for" class="nav-link active" data-scroll-target="#who-this-is-for"><span class="header-section-number">0.1</span> Who this is for</a></li>
+  <li><a href="#how-the-course-is-built" id="toc-how-the-course-is-built" class="nav-link" data-scroll-target="#how-the-course-is-built"><span class="header-section-number">0.2</span> How the course is built</a></li>
+  <li><a href="#the-sessions" id="toc-the-sessions" class="nav-link" data-scroll-target="#the-sessions"><span class="header-section-number">0.3</span> The sessions</a></li>
+  <li><a href="#how-each-session-is-written" id="toc-how-each-session-is-written" class="nav-link" data-scroll-target="#how-each-session-is-written"><span class="header-section-number">0.4</span> How each session is written</a></li>
+  <li><a href="#setting-up" id="toc-setting-up" class="nav-link" data-scroll-target="#setting-up"><span class="header-section-number">0.5</span> Setting up</a></li>
+  <li><a href="#a-note-on-the-order" id="toc-a-note-on-the-order" class="nav-link" data-scroll-target="#a-note-on-the-order"><span class="header-section-number">0.6</span> A note on the order</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Data Science Course</h1>
+<h1 class="title">Data Science</h1>
+<p class="subtitle lead">A 16-session course, from a raw CSV to a deployed model</p>
 </div>
 
 
@@ -235,6 +341,12 @@ ul.task-list li input[type="checkbox"] {
           </div>
   </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 10, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -244,9 +356,244 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Welcome to the Data Science Course.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>This is a book you read alone.</strong> Every idea is explained from the beginning, every term is defined the first time it appears, and <strong>every piece of code on these pages actually ran</strong> when the book was built. The numbers you see are the numbers the code produced.</p>
+</div>
+</div>
+<section id="who-this-is-for" class="level2" data-number="0.1">
+<h2 data-number="0.1" class="anchored" data-anchor-id="who-this-is-for"><span class="header-section-number">0.1</span> Who this is for</h2>
+<p>Anyone who wants to work with data and has <strong>no prior background</strong> in statistics, machine learning, or Python. Session 1 assumes you can use a computer. Nothing else.</p>
+</section>
+<section id="how-the-course-is-built" class="level2" data-number="0.2">
+<h2 data-number="0.2" class="anchored" data-anchor-id="how-the-course-is-built"><span class="header-section-number">0.2</span> How the course is built</h2>
+<p>Sixteen sessions in five parts. Each part exists because the one before it is not enough on its own.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Part</th>
+<th>Sessions</th>
+<th>The question it answers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>A — Getting hold of data</strong></td>
+<td>1–2</td>
+<td>What is this field, and how do I load a dataset?</td>
+</tr>
+<tr class="even">
+<td><strong>B — Making data fit to use</strong></td>
+<td>3–6</td>
+<td>It is messy, scattered and too wide. Now what?</td>
+</tr>
+<tr class="odd">
+<td><strong>C — Understanding data</strong></td>
+<td>7–8</td>
+<td>What is actually in here?</td>
+</tr>
+<tr class="even">
+<td><strong>D — Learning from data</strong></td>
+<td>9–12</td>
+<td>What can be predicted, is it real, and how do others use it?</td>
+</tr>
+<tr class="odd">
+<td><strong>E — Data at scale</strong></td>
+<td>13–16</td>
+<td>What changes when it no longer fits on one machine?</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="the-sessions" class="level2" data-number="0.3">
+<h2 data-number="0.3" class="anchored" data-anchor-id="the-sessions"><span class="header-section-number">0.3</span> The sessions</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Session</th>
+<th>You will be able to</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><a href="./sessions/session-01-introduction-to-data-science.html">Introduction to Data Science</a></td>
+<td>Name the seven lifecycle stages and place AI, ML and GenAI correctly</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><a href="./sessions/session-02-data-collection-and-pre-processing-overview.html">Data Collection and Pre-Processing</a></td>
+<td>Load from CSV, JSON and SQL; select, filter and group</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><a href="./sessions/session-03-data-cleaning.html">Data Cleaning</a></td>
+<td>Run the six cleaning jobs in the order that does not hide errors</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><a href="./sessions/session-04-data-integration.html">Data Integration</a></td>
+<td>Join tables and detect a join that lost or multiplied rows</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><a href="./sessions/session-05-data-transformation.html">Data Transformation</a></td>
+<td>Split before you scale, encode text, and avoid leakage</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><a href="./sessions/session-06-data-reduction-and-discretization.html">Data Reduction and Discretization</a></td>
+<td>Cut columns without cutting the signal</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td><a href="./sessions/session-07-descriptive-statistics.html">Descriptive Statistics</a></td>
+<td>Report centre, spread and shape honestly</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td><a href="./sessions/session-08-exploratory-data-analytics-eda-and-visualization.html">EDA and Visualization</a></td>
+<td>Pick the chart that answers the question you asked</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td><a href="./sessions/session-09-supervised-learning-techniques.html">Supervised Learning</a></td>
+<td>Fit a regression, interpret it, and beat a baseline</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td><a href="./sessions/session-10-unsupervised-learning-techniques-clustering.html">Unsupervised Learning and Clustering</a></td>
+<td>Choose <em>k</em> and defend it</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td><a href="./sessions/session-11-data-model-evaluation.html">Model Evaluation</a></td>
+<td>Cross-validate, diagnose, and tune without cheating</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td><a href="./sessions/session-12-model-saving-and-deployment.html">Model Saving and Deployment</a></td>
+<td>Ship a working prediction app</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td><a href="./sessions/session-13-big-data-analytics-fundamentals.html">Big Data Fundamentals</a></td>
+<td>Measure where your own machine stops coping</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td><a href="./sessions/session-14-distributed-data-processing.html">Distributed Data Processing</a></td>
+<td>Trace map, shuffle and reduce, and read PySpark</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td><a href="./sessions/session-15-nosql-databases-and-scaled-visualization.html">NoSQL and Visualization at Scale</a></td>
+<td>Write an aggregation pipeline and plot ten million rows</td>
+</tr>
+<tr class="even">
+<td>16</td>
+<td><a href="./sessions/session-16-open-ended-module-implementation-and-capstone.html">Capstone</a></td>
+<td>Deliver and defend a complete project</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="how-each-session-is-written" class="level2" data-number="0.4">
+<h2 data-number="0.4" class="anchored" data-anchor-id="how-each-session-is-written"><span class="header-section-number">0.4</span> How each session is written</h2>
+<p>Every session follows the same shape, so once you have read two you can predict the third.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Element</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Demo</strong></td>
+<td>runnable code that demonstrates one idea. Most sessions have eight to fifteen.</td>
+</tr>
+<tr class="even">
+<td>🧠 <strong>Analogy</strong></td>
+<td>an everyday comparison — used only where a concept genuinely needs one</td>
+</tr>
+<tr class="odd">
+<td>⚠️ <strong>Trap</strong></td>
+<td>a mistake that produces a wrong answer <strong>without raising an error</strong></td>
+</tr>
+<tr class="even">
+<td>🔓 <strong>Key idea</strong></td>
+<td>something you must carry into later sessions</td>
+</tr>
+<tr class="odd">
+<td>❓ <strong>Check yourself</strong></td>
+<td>short questions with worked answers, folded away</td>
+</tr>
+<tr class="even">
+<td>✏️ <strong>Tasks</strong></td>
+<td>things to do, with solutions folded away</td>
+</tr>
+<tr class="odd">
+<td>✅ <strong>Before you move on</strong></td>
+<td>the checklist for that session</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip callout-titled" title="🧠 What makes this course different">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>🧠 What makes this course different
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Nothing here is asserted without being measured.</strong> Where a demonstration contradicted the lesson it was written for, the lesson was changed and the number kept. You will find, among other things:</p>
+<ul>
+<li>80% accuracy manufactured from <strong>coin flips</strong>, by one careless line</li>
+<li>a model saved without its scaler, valuing a flat at <strong>₹1.69 billion</strong> instead of ₹5 million</li>
+<li>a polynomial that fits its training data best and scores <strong>−187</strong> on new data</li>
+<li>a “best” model chosen by peeking, reported at +0.08 and worth <strong>−0.20</strong> in truth</li>
+<li>K-Means confidently finding three clusters in <strong>pure random noise</strong></li>
+</ul>
+<p>Those are the passages that teach the most, because they are what you will actually meet.</p>
+</div>
+</div>
+</section>
+<section id="setting-up" class="level2" data-number="0.5">
+<h2 data-number="0.5" class="anchored" data-anchor-id="setting-up"><span class="header-section-number">0.5</span> Setting up</h2>
+<p>All code runs in one conda environment. Create it once:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> ds python=3.11 <span class="at">-y</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate ds</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then build the book with <code>quarto render</code>, or open any session and run the cells in Jupyter. <strong>Every session is self-contained</strong> — variables do not carry from one to the next, so you can start anywhere, though the order is designed to be read straight through.</p>
+</section>
+<section id="a-note-on-the-order" class="level2" data-number="0.6">
+<h2 data-number="0.6" class="anchored" data-anchor-id="a-note-on-the-order"><span class="header-section-number">0.6</span> A note on the order</h2>
+<p>Sessions 3–6 prepare data; Sessions 7–8 describe it. If you have met this material before you may expect statistics to come first — it is the more common arrangement.</p>
+<p>Session 3 borrows the two ideas it needs (quartiles and standard deviation) in a marked box, so nothing is used before it is explained, and Session 7 then covers them properly. <strong>If you prefer, read Sessions 7 and 8 before Session 3.</strong> Nothing in them depends on Sessions 3–6.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

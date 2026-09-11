@@ -1,138 +1,554 @@
 ---
 title: "Session 7 — Descriptive Statistics"
-subtitle: "Central Tendency · Dispersion · Skewness · Kurtosis"
+subtitle: "Mean, median, mode · Spread · Quartiles · Skewness · Kurtosis · Frequency distributions"
 ---
 
 {{< include ../includes/_setup.qmd >}}
 
 ::: {.callout-note}
-**This chapter covers the mathematical foundation of summarizing data.**
+**This chapter is about summarising a column of numbers into a few honest numbers.**
 
-**Assumed knowledge:** Data Cleaning (Session 3).
+**Assumed knowledge:** Sessions 2–3 — DataFrames, and the IQR idea borrowed in Session 3
+for outlier detection. This chapter is where that idea is done properly.
+
+**The one idea to take away:** **one number is never enough.** A centre without a spread,
+or a spread without a shape, will mislead you — and this chapter shows exactly how.
 :::
 
 ## 🎯 Learning outcomes {#sec-s07-outcomes}
 
 By the end of this chapter you can:
 
-1. Differentiate between mean, median, and mode (Central Tendency).
-2. Measure the spread of data using Standard Deviation and Variance (Dispersion).
-3. Identify asymmetry in a distribution using Skewness and Kurtosis.
+1. Compute mean, median and mode, and choose between them with a reason.
+2. Measure spread with range, variance, standard deviation and IQR.
+3. Read a five-number summary and the box plot that draws it.
+4. Convert a value to a z-score and say what it means.
+5. Describe a distribution's shape using skewness and kurtosis.
+6. Build a frequency distribution and choose a sensible bin width.
+7. Explain what the normal distribution assumes and check whether your data fits it.
 
 ## How this chapter is organised {#sec-s07-organisation}
 
-| Part | Question it answers | Source |
+| Part | Question it answers |
+|---|---|
+| [A — Where is the centre](#sec-s07-a) | *What is a typical value?* |
+| [B — How spread out](#sec-s07-b) | *How much do values vary around it?* |
+| [C — What shape](#sec-s07-c) | *Is it symmetric? Are extremes common?* |
+| [D — Frequency distributions](#sec-s07-d) | *How do I see the whole picture at once?* |
+
+Each part exists because the previous one is not enough on its own.
+
+# Part A — Where is the centre {#sec-s07-a}
+
+## 1. Mean, median and mode {#sec-s07-topic-1}
+
+**A measure of central tendency is a single number standing in for a whole column.**
+There are three, and they answer slightly different questions.
+
+| Measure | What it is | Answers |
 |---|---|---|
-| [A — Central Tendency & Dispersion](#sec-s07-a) | *Where is the middle of the data, and how spread out is it?* | `concepts` |
-| [B — Shape of the Distribution](#sec-s07-b) | *Is the data leaning to one side?* | `concepts` |
-| [Demo — Summary Statistics](#sec-s07-demo) | *How do we calculate and visualize this in Python?* | `stats_demo.py` |
+| **Mean** | add everything, divide by the count | *"if it were shared equally, how much each?"* |
+| **Median** | sort, take the middle value | *"what does the person in the middle have?"* |
+| **Mode** | the most frequently occurring value | *"what is most common?"* |
 
-# Part A — Central Tendency & Dispersion {#sec-s07-a}
-
-**You cannot analyze a million rows of data by reading them one by one. You must summarize them into single numbers.**
-
-## 1. Central Tendencies and Dispersion {#sec-s07-topic-1}
-
-**Measures of Central Tendency (Mean, Median, Mode) tell you where the "center" of your data is. Measures of Dispersion (Standard Deviation, Variance) tell you how far the data stretches away from that center.**
-
-It exists because stating the "average salary" is dangerously misleading if you do not also state how spread out the salaries are.
-
-::: {.callout-tip title="🧠 Analogy — The Target Practice"}
-**The everyday thing:** Two archers shooting arrows at a target.
-
-**The mapping:** 
-- Archer A's arrows hit exactly on the bullseye, very tightly clustered. (Mean is bullseye, **Standard Deviation is low**).
-- Archer B shoots wildly. One hits the ceiling, one hits the floor, one hits the left wall, one hits the right. 
-- Mathematically, the *average* location of Archer B's arrows is also exactly in the bullseye! But because the **Standard Deviation is incredibly high**, we know Archer B is a terrible shot.
-:::
-
-### How it works
-
-- **Mean:** The mathematical average. (Sum of all / Count). Highly sensitive to outliers.
-- **Median:** The exact middle number when sorted. Ignores outliers.
-- **Standard Deviation:** On average, how far does each data point deviate from the Mean? A low standard deviation means the data is tightly clustered.
-
-### ❓ MCQs
-
-**Q1.** You are evaluating housing prices in a neighborhood where 99 houses cost $100,000, and 1 mansion costs $50,000,000. Which metric provides the most accurate reflection of a "typical" house price?
-
-- (a) The Mean.
-- (b) **The Median.**
-- (c) The Standard Deviation.
-
-::: {.callout-note collapse="true" title="Answers"}
-**A1 — (b).** The Mean would be skewed massively upwards by the $50M mansion. The Median would simply pick the middle value, securely landing on $100,000.
-:::
-
-# Part B — Shape of the Distribution {#sec-s07-b}
-
-**Data is rarely perfectly symmetrical.**
-
-## 2. Skewness and Kurtosis {#sec-s07-topic-2}
-
-**Skewness measures if the data is leaning to the left or right. Kurtosis measures how "fat" the extreme tails are (outlier likelihood).**
-
-### How it works
-
-- **Right Skew (Positive Skew):** The bulk of the data is on the left (low numbers), with a long "tail" stretching to the right (high numbers). *Income data is always right-skewed because there is a hard floor at $0, but no ceiling on billionaires.*
-- **Left Skew (Negative Skew):** The tail stretches to the left. *Exam scores are often left-skewed, as most students pass (high numbers), but a few get very low scores (the tail).*
-- **High Kurtosis:** The data has fat tails, meaning extreme outliers are very common.
-
-# Part Demo — Summary Statistics {#sec-s07-demo}
-
-**Calculating summary stats and plotting a histogram with a normal curve.**
+### Demo 1 — computed by hand, then by pandas
 
 ```{python}
-#| label: fig-stats-demo
-#| fig-cap: "A right-skewed distribution of income."
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.stats import norm
 
-# 1. Generate right-skewed data (like Income)
-np.random.seed(42)
-incomes = np.random.exponential(scale=50000, size=1000) 
-df = pd.DataFrame({"Income": incomes})
+marks = pd.Series([52, 61, 48, 61, 70, 55, 61, 39])
+values = sorted(marks)
+print("Sorted marks:", values)
 
-# 2. Calculate Statistics
-mean = df["Income"].mean()
-median = df["Income"].median()
-std_dev = df["Income"].std()
-skewness = df["Income"].skew()
+# By hand
+total = sum(values)
+print(f"\nMEAN   = {total} ÷ {len(values)} = {total/len(values):.2f}")
+middle = (values[3] + values[4]) / 2          # 8 values, so average the two middle ones
+print(f"MEDIAN = middle of {values[3]} and {values[4]} = {middle}")
+print(f"MODE   = 61, which appears {values.count(61)} times")
 
-print(f"Mean:   ${mean:,.2f}")
-print(f"Median: ${median:,.2f}  <-- Notice how much lower the median is!")
-print(f"StdDev: ${std_dev:,.2f}")
-print(f"Skew:   {skewness:.2f} (Positive = Right Skewed)")
-
-# 3. Visualize the Distribution
-plt.figure(figsize=(8, 5))
-
-# Plot the histogram
-plt.hist(df["Income"], bins=50, density=True, alpha=0.6, color='b')
-
-# Plot the Mean and Median lines
-plt.axvline(mean, color='r', linestyle='dashed', linewidth=2, label='Mean')
-plt.axvline(median, color='g', linestyle='dashed', linewidth=2, label='Median')
-
-plt.title("Income Distribution (Right Skewed)")
-plt.xlabel("Income ($)")
-plt.ylabel("Frequency")
-plt.legend()
-plt.show()
+# By pandas — the same answers
+print(f"\npandas: mean {marks.mean():.2f}   median {marks.median()}   mode {marks.mode()[0]}")
 ```
 
-::: {.callout-warning title="⚠️ The trap of assuming a Bell Curve"}
-Many classical statistical tests assume your data is perfectly symmetrical (a Normal Distribution / Bell Curve). As seen above, real world data like income is heavily skewed. Running standard linear regression on heavily skewed data will often produce terrible results unless you transform the data first.
+## 2. Why the choice matters {#sec-s07-topic-2}
+
+**The mean is pulled towards extreme values. The median is not.** With symmetric data
+they agree and the choice is irrelevant. With skewed data they can tell opposite stories.
+
+::: {.callout-tip title="🧠 Analogy — the pub and the billionaire"}
+Ten people are in a pub. Their average wealth is ₹5 lakh.
+
+A billionaire walks in. The **average** wealth in the pub is now over ₹90 crore. The
+**median** wealth has barely changed.
+
+Which number describes "how rich are the people in this pub"? The median. The mean is
+not wrong — it is answering *"if everyone shared equally"*, which is not the question
+anyone asked.
 :::
 
-# 🎯 Session 7 — Tasks {#sec-s07-tasks}
+### Demo 2 — the same data, two honest-looking answers
 
-**Task 1 — Interpret Skew.** 
-Look at the histogram generated in the demo. If you were a politician, would you quote the Mean or the Median to make the "average citizen" look wealthier? **Report your reasoning.**
+```{python}
+import pandas as pd
+
+salaries = pd.Series([28_000, 31_000, 33_000, 35_000, 36_000,
+                      38_000, 40_000, 42_000, 45_000, 950_000])
+
+print(f"Mean salary   : ₹{salaries.mean():>10,.0f}")
+print(f"Median salary : ₹{salaries.median():>10,.0f}")
+print(f"\nPeople earning above the mean: {(salaries > salaries.mean()).sum()} out of {len(salaries)}")
+print("A company could truthfully advertise the mean — and 9 of 10 staff earn less.")
+```
+
+### Demo 3 — how much one value can move each measure
+
+```{python}
+import pandas as pd
+
+base = pd.Series([28_000, 31_000, 33_000, 35_000, 36_000, 38_000, 40_000, 42_000, 45_000])
+print(f"{'top earner':>12} | {'mean':>10} | {'median':>8}")
+print("-" * 36)
+for top in [46_000, 100_000, 500_000, 5_000_000]:
+    s = pd.concat([base, pd.Series([top])])
+    print(f"{top:>12,} | {s.mean():>10,.0f} | {s.median():>8,.0f}")
+```
+
+**The mean moved by nearly ₹5 lakh. The median moved by ₹1,000.** This is the whole
+argument for the median, and it is why Session 3 imputes skewed columns with it.
+
+### Which to use
+
+| Situation | Use | Because |
+|---|---|---|
+| roughly symmetric data — heights, exam marks | **mean** | it uses every value |
+| skewed data — income, house prices, waiting times | **median** | extremes cannot drag it |
+| text or categories — most popular product | **mode** | the others do not apply |
+| you are about to impute a skewed column | **median** | Session 3, Demo 4 |
+
+# Part B — How spread out {#sec-s07-b}
+
+## 3. Why a centre alone is useless {#sec-s07-topic-3}
+
+**Two datasets can have identical means and be nothing alike.**
+
+### Demo 4 — same mean, different worlds
+
+```{python}
+import pandas as pd
+
+steady   = pd.Series([48, 49, 50, 50, 51, 52])       # a reliable supplier
+erratic  = pd.Series([10, 25, 50, 55, 85, 75])       # an unreliable one
+
+for name, s in [("Steady supplier", steady), ("Erratic supplier", erratic)]:
+    print(f"{name:<18} mean {s.mean():.1f}   min {s.min():>3}   max {s.max():>3}")
+print("\nIdentical averages. You would not choose between them on the average.")
+```
+
+::: {.callout-tip title="🧠 Analogy — two archers"}
+Both archers average dead centre. One puts every arrow within a coin's width of the
+bullseye. The other lands half in the top-left corner and half in the bottom-right.
+
+**Their averages are identical. Only one of them can hit a target.** Spread is the
+measure that tells them apart.
+:::
+
+## 4. The four measures of spread {#sec-s07-topic-4}
+
+| Measure | How it is computed | Sensitive to outliers? |
+|---|---|---|
+| **Range** | max − min | **extremely** — it *is* the two extremes |
+| **Variance** | average of the squared distances from the mean | yes |
+| **Standard deviation** | the square root of the variance | yes |
+| **IQR** | Q3 − Q1, the range of the middle half | **no** |
+
+**Standard deviation is the one you will report**, because it is in the same units as the
+data. Variance is in *squared* units — "squared rupees" means nothing to anybody — but it
+is what the maths works with internally.
+
+### Demo 5 — standard deviation computed step by step
+
+```{python}
+import pandas as pd, numpy as np
+
+s = pd.Series([48, 49, 50, 50, 51, 52])
+mean = s.mean()
+
+steps = pd.DataFrame({"value": s})
+steps["distance from mean"] = steps["value"] - mean
+steps["squared"] = steps["distance from mean"] ** 2
+print(steps.to_string(index=False))
+
+variance = steps["squared"].sum() / (len(s) - 1)     # divide by n-1 for a sample
+print(f"\nvariance           = {steps['squared'].sum():.2f} ÷ {len(s)-1} = {variance:.3f}")
+print(f"standard deviation = √{variance:.3f} = {np.sqrt(variance):.3f}")
+print(f"pandas agrees      : {s.std():.3f}")
+```
+
+Why squared? Because plain distances from the mean always sum to zero — the positives
+cancel the negatives. Squaring makes everything positive; the square root at the end puts
+the answer back into the original units.
+
+```{python}
+print(f"Sum of raw distances from the mean: {(s - s.mean()).sum():.10f}  ← always zero")
+```
+
+### Demo 6 — all four measures, and which one the outlier fools
+
+```{python}
+import pandas as pd
+
+clean   = pd.Series([48, 49, 50, 50, 51, 52])
+with_out = pd.concat([clean, pd.Series([300])])
+
+for name, d in [("without outlier", clean), ("with outlier", with_out)]:
+    q1, q3 = d.quantile(0.25), d.quantile(0.75)
+    print(f"{name:<16} range {d.max()-d.min():>5.0f}   "
+          f"std {d.std():>6.1f}   IQR {q3-q1:>5.1f}")
+print("\nRange and standard deviation exploded. The IQR barely moved —")
+print("which is why Session 3 uses the IQR to find outliers, not the standard deviation.")
+```
+
+## 5. Quartiles and the five-number summary {#sec-s07-topic-5}
+
+**Sort the data and cut it into four equal parts. The three cut points are the
+quartiles.**
+
+| | Meaning |
+|---|---|
+| **Q1** (25th percentile) | a quarter of values are below this |
+| **Q2** (50th percentile) | the median — half below |
+| **Q3** (75th percentile) | three quarters below |
+| **IQR** | Q3 − Q1: the range the middle half occupies |
+
+The **five-number summary** is minimum, Q1, median, Q3, maximum. It describes a
+distribution more honestly than a mean and a standard deviation, and it is exactly what a
+box plot draws.
+
+### Demo 7 — the five-number summary, and the box plot that is a picture of it
+
+```{python}
+#| label: fig-s07-box
+#| fig-cap: "A box plot is a drawn five-number summary. The box is the middle half; the dots are IQR-rule outliers."
+import pandas as pd, numpy as np, matplotlib.pyplot as plt
+
+rng = np.random.default_rng(11)
+income = pd.Series(np.concatenate([rng.normal(45_000, 9_000, 190),
+                                   rng.normal(280_000, 40_000, 10)]))
+
+q1, med, q3 = income.quantile([0.25, 0.5, 0.75])
+print(f"minimum : ₹{income.min():>10,.0f}")
+print(f"Q1      : ₹{q1:>10,.0f}")
+print(f"median  : ₹{med:>10,.0f}")
+print(f"Q3      : ₹{q3:>10,.0f}")
+print(f"maximum : ₹{income.max():>10,.0f}")
+print(f"\nIQR = {q3:,.0f} - {q1:,.0f} = ₹{q3-q1:,.0f}")
+print(f"The middle 50% of people earn between ₹{q1:,.0f} and ₹{q3:,.0f}")
+
+plt.boxplot(income, orientation="horizontal")
+plt.xlabel("Income (₹)"); plt.title("Five-number summary, drawn")
+plt.show()
+
+print(f"\n.describe() gives the whole summary at once:")
+print(income.describe().round(0))
+```
+
+## 6. Z-scores: comparing across different units {#sec-s07-topic-6}
+
+**A z-score says how many standard deviations a value sits from the mean.** It lets you
+compare things measured on completely different scales.
+
+$$z = \frac{\text{value} - \text{mean}}{\text{standard deviation}}$$
+
+### Demo 8 — which result was more impressive?
+
+```{python}
+import pandas as pd
+
+# A student scored 78 in maths and 65 in physics. Which was the better performance?
+maths   = pd.Series([55, 62, 71, 78, 45, 59, 66, 70, 52, 68])
+physics = pd.Series([40, 45, 38, 65, 42, 39, 44, 41, 43, 46])
+
+for subject, marks, mine in [("Maths", maths, 78), ("Physics", physics, 65)]:
+    z = (mine - marks.mean()) / marks.std()
+    print(f"{subject:<8} scored {mine}   class mean {marks.mean():5.1f}   "
+          f"std {marks.std():5.2f}   z = {z:+.2f}")
+
+print("\nThe higher raw mark was maths. The better performance was physics:")
+print("65 in physics is further above its class than 78 is above its class.")
+```
+
+**This is the same arithmetic as `StandardScaler` in Session 5.** Standardizing a column
+is just converting every value to its z-score.
+
+# Part C — What shape {#sec-s07-c}
+
+## 7. Skewness {#sec-s07-topic-7}
+
+**Skewness measures which way a distribution leans.**
+
+| Skewness | Shape | Mean vs median | Examples |
+|---|---|---|---|
+| **≈ 0** | symmetric | equal | heights, measurement errors |
+| **positive** (right-skewed) | a long tail to the **right** | **mean > median** | income, house prices, waiting times |
+| **negative** (left-skewed) | a long tail to the **left** | **mean < median** | exam marks on an easy test, age at death |
+
+**A quick check needing no calculation: compare the mean and the median.** If the mean is
+noticeably higher, the data is right-skewed.
+
+### Demo 9 — three shapes, and the mean–median gap in each
+
+```{python}
+#| label: fig-s07-skew
+#| fig-cap: "Right-skewed, symmetric and left-skewed. The dashed line is the mean, the solid line the median."
+import numpy as np, pandas as pd, matplotlib.pyplot as plt
+
+rng = np.random.default_rng(12)
+shapes = {
+    "Right-skewed (income)": rng.gamma(2, 20_000, 3_000),
+    "Symmetric (height)":    rng.normal(165, 8, 3_000),
+    "Left-skewed (easy exam)": 100 - rng.gamma(2, 6, 3_000),
+}
+
+fig, axes = plt.subplots(1, 3, figsize=(12, 3.2))
+for ax, (name, data) in zip(axes, shapes.items()):
+    s = pd.Series(data)
+    ax.hist(s, bins=45, alpha=.75)
+    ax.axvline(s.mean(), color="red", ls="--", lw=2)
+    ax.axvline(s.median(), color="black", lw=2)
+    ax.set_title(f"{name}\nskew = {s.skew():.2f}", fontsize=9)
+    ax.set_yticks([])
+plt.tight_layout(); plt.show()
+
+for name, data in shapes.items():
+    s = pd.Series(data)
+    gap = s.mean() - s.median()
+    print(f"{name:<24} skew {s.skew():+6.2f}   mean − median = {gap:+10.1f}")
+```
+
+Read the signs together: **positive skew and a positive mean−median gap always travel
+together.** Either one tells you the same thing.
+
+## 8. Kurtosis {#sec-s07-topic-8}
+
+**Kurtosis measures how often extreme values occur** — how heavy the tails are.
+
+Pandas reports **excess kurtosis**, measured against the normal distribution:
+
+| Excess kurtosis | Means | Consequence |
+|---|---|---|
+| **≈ 0** | tails like a normal distribution | the usual rules apply |
+| **> 0** (heavy-tailed) | extremes **more** common than normal | outliers are routine; expect shocks |
+| **< 0** (light-tailed) | extremes **less** common | values cluster; few surprises |
+
+### Demo 10 — same mean, same standard deviation, very different risk
+
+```{python}
+import numpy as np, pandas as pd
+
+rng = np.random.default_rng(13)
+normal_returns = rng.normal(0, 1, 20_000)
+heavy_returns  = rng.standard_t(df=3, size=20_000)
+heavy_returns  = heavy_returns / heavy_returns.std()      # force the same spread
+
+for name, r in [("Normal tails", normal_returns), ("Heavy tails", heavy_returns)]:
+    s = pd.Series(r)
+    beyond3 = (s.abs() > 3).mean()
+    print(f"{name:<14} mean {s.mean():+.3f}  std {s.std():.3f}  "
+          f"kurtosis {s.kurtosis():6.2f}  |  days beyond 3 std: {beyond3:.2%}")
+
+print("\nSame mean, same standard deviation. The heavy-tailed one has several times")
+print("more extreme days — and a risk model assuming normal tails would miss them.")
+```
+
+::: {.callout-warning title="⚠️ Most real data is not normally distributed"}
+The bell curve is the default assumption in a great deal of statistics, and financial,
+biological and web-traffic data routinely break it — usually by being right-skewed and
+heavy-tailed.
+
+**Check before you assume.** Plot a histogram. Compare the mean and the median. Look at
+the kurtosis. Session 5's log transform is the usual repair for skew.
+:::
+
+# Part D — Frequency distributions {#sec-s07-d}
+
+## 9. Counting values into bins {#sec-s07-topic-9}
+
+**A frequency distribution counts how many values fall into each bin.** A histogram is
+its picture. It is the fastest way to see everything at once — centre, spread, shape,
+gaps and outliers, in one glance.
+
+### Demo 11 — building a frequency table by hand
+
+```{python}
+import pandas as pd, numpy as np
+
+rng = np.random.default_rng(14)
+ages = pd.Series(rng.integers(18, 71, 200))
+
+bins = range(15, 76, 10)
+table = pd.DataFrame({"count": pd.cut(ages, bins=bins).value_counts().sort_index()})
+table["relative %"]  = (table["count"] / table["count"].sum() * 100).round(1)
+table["cumulative %"] = table["relative %"].cumsum().round(1)
+print(table)
+print(f"\nTotal: {table['count'].sum()} people")
+```
+
+The **cumulative** column answers "what share are under 45?" without any further work.
+
+### Demo 12 — bin width changes the story
+
+```{python}
+#| label: fig-s07-bins
+#| fig-cap: "The same 2,000 values at four bin widths. Too few bins hides the two groups; too many shows only noise."
+import numpy as np, matplotlib.pyplot as plt
+
+rng = np.random.default_rng(15)
+# Data that is genuinely two groups: a younger cohort and an older one.
+data = np.concatenate([rng.normal(28, 4, 1_000), rng.normal(52, 5, 1_000)])
+
+fig, axes = plt.subplots(1, 4, figsize=(13, 2.9))
+for ax, b in zip(axes, [3, 12, 45, 300]):
+    ax.hist(data, bins=b)
+    ax.set_title(f"{b} bins", fontsize=10); ax.set_yticks([])
+plt.tight_layout(); plt.show()
+
+print("3 bins   : one lump — the two groups are invisible")
+print("12 bins  : two peaks appear — this is the real structure")
+print("45 bins  : still two peaks, a little rougher")
+print("300 bins : noise; every bin holds a handful of values")
+```
+
+::: {.callout-warning title="⚠️ Bin width is a choice you are making about the reader"}
+Three bins hid the fact that this is **two different populations**. Anyone shown that
+first histogram would report a single average age of 40 — a value almost nobody in the
+data is anywhere near.
+
+**Always look at more than one bin width before believing a histogram.**
+:::
+
+### Demo 13 — the full description, in one function
+
+```{python}
+import pandas as pd, numpy as np
+
+def describe_column(s, name="column"):
+    """Everything this chapter covers, for one numeric column."""
+    q1, q3 = s.quantile([0.25, 0.75])
+    print(f"── {name} ──  ({len(s):,} values)")
+    repeats = s.value_counts().iloc[0] > 1
+    mode_txt = f"mode {s.mode().iloc[0]:>10,.1f}" if repeats else "mode  (no value repeats)"
+    print(f"  centre  : mean {s.mean():>12,.1f}   median {s.median():>12,.1f}   {mode_txt}")
+    print(f"  spread  : std  {s.std():>12,.1f}   IQR    {q3-q1:>12,.1f}   "
+          f"range {s.max()-s.min():>9,.1f}")
+    print(f"  shape   : skew {s.skew():>12.2f}   kurtosis {s.kurtosis():>10.2f}")
+    lean = "right" if s.skew() > 0.5 else "left" if s.skew() < -0.5 else "roughly symmetric"
+    tails = "heavy" if s.kurtosis() > 1 else "light" if s.kurtosis() < -1 else "normal-ish"
+    print(f"  verdict : leans {lean}; tails are {tails}")
+    print(f"            report the {'median' if abs(s.skew()) > 0.5 else 'mean'}\n")
+
+rng = np.random.default_rng(16)
+describe_column(pd.Series(rng.gamma(2, 20_000, 2_000)), "Income")
+describe_column(pd.Series(rng.normal(165, 8, 2_000)), "Height (cm)")
+```
+
+### ❓ Check yourself
+
+**Q1.** In a neighbourhood, 99 houses cost ₹1 crore and one costs ₹500 crore. Which
+figure best describes a typical house?
+
+- (a) The mean.
+- (b) **The median.**
+- (c) The range.
+
+**Q2.** Two factories both average 50 defects per week. Factory A's standard deviation is
+2; Factory B's is 30. What does that tell you?
+
+- (a) Factory B produces more.
+- (b) **Factory B is far less predictable — some weeks will be very bad.**
+- (c) Nothing; the averages are the same.
+
+**Q3.** A column has mean 82,000 and median 47,000. What shape is it?
+
+- (a) Symmetric.
+- (b) **Right-skewed — a tail of large values pulling the mean up.**
+- (c) Left-skewed.
+
+**Q4.** Why does Session 3 use the IQR rather than the standard deviation to find
+outliers?
+
+- (a) The IQR is easier to compute.
+- (b) **Outliers inflate the standard deviation, so they hide themselves. They cannot
+  move the quartiles.**
+- (c) The IQR works on text columns too.
+
+**Q5.** Excess kurtosis of +5 means:
+
+- (a) The data leans right.
+- (b) **Extreme values happen much more often than a normal distribution predicts.**
+- (c) The mean is unreliable.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** The mean would be about ₹6 crore — a price no house in the area has.
+
+**A2 — (b).** Same centre, very different spread. Demo 4's two archers.
+
+**A3 — (b).** Mean above median means a right tail. Demo 9 showed the sign always
+matching.
+
+**A4 — (b).** Demo 6 measured this: adding one outlier barely moved the IQR and changed
+the standard deviation completely.
+
+**A5 — (b).** Demo 10 — the heavy-tailed series had several times as many extreme days at
+identical mean and standard deviation.
+:::
+
+# 🎯 Tasks {#sec-s07-tasks}
+
+::: {.callout-note title="✏️ Practise"}
+**Task 1 — Predict the gap.** For each, say whether the mean will be above, below or
+equal to the median: house prices in a city; heights of adult women; number of days
+patients stay in hospital; marks on a test where most students scored above 90.
+
+**Task 2 — Compare fairly.** A runner finishes a 5 km race in 22 minutes (field mean 25,
+std 4) and a 10 km race in 50 minutes (field mean 55, std 8). **Which was the better
+run?**
+
+**Task 3 — Choose the bin width.** Run Demo 12 with 6, 20 and 100 bins on data made of
+*three* groups instead of two. **Report the smallest number of bins at which all three
+groups are visible.**
+
+**Task 4 — Describe a column.** Use `describe_column` from Demo 13 on the `income` series
+from Demo 7. **Report which measure of centre you would publish and why.**
+:::
+
+:::: {.callout-note collapse="true" title="Solutions"}
+```{python}
+import pandas as pd, numpy as np
+
+# Task 1
+print("Task 1")
+print("  house prices           → mean ABOVE median (right-skewed)")
+print("  heights of adult women → mean EQUAL to median (symmetric)")
+print("  hospital stay length   → mean ABOVE median (a few very long stays)")
+print("  marks on an easy test  → mean BELOW median (left-skewed)")
+
+# Task 2 — compare with z-scores. Lower time is better, so a NEGATIVE z is good.
+print("\nTask 2  (a faster time is better, so the more negative z wins)")
+for race, time, mean, std in [("5 km", 22, 25, 4), ("10 km", 50, 55, 8)]:
+    print(f"  {race:<6} z = ({time} - {mean}) / {std} = {(time-mean)/std:+.2f}")
+print("  The 5 km run wins: -0.75 is further below its field average than -0.62.")
+print("  In raw minutes the 10 km looks like the bigger gap (5 minutes vs 3), but")
+print("  that field is more spread out, so 5 minutes buys less there.")
+```
+::::
 
 ::: {.callout-tip title="✅ Before you move on"}
-- [ ] Understand why Median is safer than Mean for skewed data.
-- [ ] **The one thing from this chapter that is easiest to forget:** The "tail" dictates the name of the skew. If the tail points to the right (positive numbers), it is Right Skewed, even though the bulk of the data is on the left!
+- [ ] I can choose between mean, median and mode with a stated reason
+- [ ] I know why variance is squared and why we take the square root
+- [ ] I can read a box plot as a five-number summary
+- [ ] I can compare two values measured on different scales using z-scores
+- [ ] I check the mean against the median as a quick skewness test
+- [ ] **Easiest thing to forget:** a centre without a spread is not a summary. Always
+      report both, and look at the histogram before you trust either.
 :::

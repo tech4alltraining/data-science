@@ -1,252 +1,538 @@
 ---
 title: "Session 1 — Introduction to Data Science"
-subtitle: "Definition · Evolution · Roles · Applications"
+subtitle: "Definition · What data looks like · Evolution · AI vs ML · Roles · The lifecycle · Applications"
 ---
 
 {{< include ../includes/_setup.qmd >}}
 
 ::: {.callout-note}
-**This chapter introduces the fundamental concepts of Data Science.**
+**This chapter answers one question: what is data science, and what does a data
+scientist actually do all day?**
 
-**Assumed knowledge:** None. This is the starting point for your journey into data.
+**Assumed knowledge:** none. This is the first chapter. You do not need Python yet —
+read the code in this chapter for the shape of it, not the detail. Every line is
+explained properly later.
 
-**By the end of this course, you will be building predictive models and deploying them as interactive web applications.**
+**The one idea to take away:** data science is a *sequence of steps*, not a single
+clever trick. This chapter walks the whole sequence once, quickly, so that the other
+fifteen chapters have somewhere to fit.
 :::
 
 ## 🎯 Learning outcomes {#sec-s01-outcomes}
 
 By the end of this chapter you can:
 
-1. Define Data Science in plain English without relying on industry jargon.
-2. Trace the evolution of Data Science from classical statistics to modern machine learning.
-3. Identify the core responsibilities of the three primary Data Science roles.
-4. List three real-world applications where Data Science directly impacts decision-making.
+1. Define data science in plain English, without jargon.
+2. Tell structured, semi-structured and unstructured data apart, and give an example
+   of each.
+3. Explain how the field grew from hand calculation to machine learning.
+4. Place AI, machine learning, deep learning and generative AI inside one another
+   correctly.
+5. Name the three main data jobs and say who you would hire for a given problem.
+6. List the seven stages of the data science lifecycle in order.
+7. Name four things you use every day that are built with data science.
 
 ## How this chapter is organised {#sec-s01-organisation}
 
-| Part | Question it answers | Source |
+| Part | Question it answers |
+|---|---|
+| [A — What data science is](#sec-s01-a) | *What is it, and what is the raw material?* |
+| [B — Where it came from](#sec-s01-b) | *Why now? And how does AI fit in?* |
+| [C — Who does it, and how](#sec-s01-c) | *Which job, which steps, which problems?* |
+
+Parts A and B are ideas. Part C is the map you will follow for the rest of the course.
+
+# Part A — What data science is {#sec-s01-a}
+
+## 1. Data science, defined {#sec-s01-topic-1}
+
+**Data science is the practice of turning recorded facts into decisions.**
+
+You start with facts somebody wrote down — sales, clicks, temperatures, photographs.
+You end with a decision somebody makes because of them — restock this item, block this
+payment, call this patient in early.
+
+Three things have to come together for that to work:
+
+| Ingredient | What it gives you | Without it |
 |---|---|---|
-| [A — Definition and Evolution](#sec-s01-a) | *What exactly is Data Science, and where did it come from?* | `concepts` |
-| [B — Roles and Applications](#sec-s01-b) | *Who does this work, and what problems do they solve?* | `concepts` |
-| [Demo — The End Goal](#sec-s01-demo) | *What does a finished data product look like?* | `stock_predictor.py` |
+| **Programming** | the ability to handle more rows than you could ever read | you are stuck with what fits on one screen |
+| **Mathematics** | a way to tell a real pattern from a coincidence | you find patterns in noise |
+| **Domain knowledge** | knowing what the numbers *mean* | you produce a correct answer to the wrong question |
 
-# Part A — Definition and Evolution {#sec-s01-a}
+Data science exists because human judgement stops working at scale. You can eyeball a
+hundred rows. Nobody can eyeball ten million.
 
-**An overview of what Data Science actually means and how the field arrived at its current state.**
+::: {.callout-tip title="🧠 Analogy — the master chef"}
+**The everyday thing:** a chef in a busy kitchen.
 
-## 1. Introduction to Data Science - Definition {#sec-s01-topic-1}
+**The mapping:**
 
-**Data Science is the practice of extracting actionable insights from raw information using mathematics, programming, and domain expertise.**
+- The **raw ingredients** delivered at the back door are your raw data.
+- The **knives and ovens** are your programming tools.
+- The **recipes** are your mathematical methods.
+- The **plated dish** is the decision somebody acts on.
 
-It exists because human intuition fails when faced with millions of rows of information. Without Data Science, companies guess what their customers want; with it, they know.
-
-::: {.callout-tip title="🧠 Analogy — The Master Chef"}
-**The everyday thing:** Imagine you are a master chef in a massive kitchen.
-
-**The mapping:** 
-- The **raw ingredients** arriving at the back door are the raw data.
-- The **kitchen equipment (blenders, ovens)** are your programming languages (Python, SQL).
-- The **recipes and culinary techniques** are your mathematical algorithms.
-- The **final plated dish** is the actionable business insight.
-
-**Where it breaks down:** A chef eventually runs out of physical ingredients, whereas data can be reused and combined infinitely without being consumed.
+**Where it breaks down:** a chef uses ingredients up. Data can be used a thousand
+times and is still there afterwards.
 :::
 
-### How it works
+### Demo 1 — data science in seven lines
 
-At its core, Data Science involves a simple pipeline:
-1. **Collect:** Gather raw numbers, text, or images.
-2. **Clean:** Remove errors, duplicates, and missing values.
-3. **Analyze:** Find patterns and trends.
-4. **Predict/Model:** Use past patterns to guess future outcomes.
-5. **Report:** Present the findings to decision-makers.
-
-### ❓ MCQs
-
-**Q1.** Which of the following is the most accurate definition of Data Science?
-
-- (a) Writing complex software applications for web browsers.
-- (b) **Extracting actionable insights from raw data using math and programming.**
-- (c) Manually reading through customer emails to find complaints.
-- (d) Installing computer hardware and maintaining servers.
-
-::: {.callout-note collapse="true" title="Answers"}
-**A1 — (b).** Data Science focuses on finding insights from data. (a) is software engineering, (c) is manual review, and (d) is IT administration.
-:::
-
-**This definition explains *what* we do, but to understand *why*, we must look at how the field grew.**
-
-## 2. Evolution of Data Science {#sec-s01-topic-2}
-
-**Data Science evolved from simple pen-and-paper statistics into complex, automated machine learning driven by massive computing power.**
-
-It exists in its current form because the sheer volume of data generated today (the "Big Data" boom) made classical statistical methods too slow and manual to be useful on their own.
-
-### How it works
-
-The evolution can be broken down into three eras:
-1. **The Statistical Era (Pre-2000s):** Data was small. Statisticians used formulas and calculators to find averages and probabilities on carefully collected samples.
-2. **The Big Data Era (2000s-2010s):** The internet exploded. Suddenly, companies had terabytes of click data. The challenge was simply storing and querying this massive volume of information.
-3. **The AI/Machine Learning Era (2010s-Present):** Storage became cheap, and computing became incredibly fast. Instead of humans querying data, we now train algorithms to find the patterns for us autonomously.
-
-::: {.callout-warning title="⚠️ The trap of chasing the shiny new thing"}
-*"Do not ignore classical statistics just because machine learning is newer."*
-
-A simple average (from the 1900s) often solves a business problem faster and more reliably than a massive neural network (from 2024). Start simple.
-:::
-
-### ❓ MCQs
-
-**Q2.** What primary factor drove the transition from classical statistics to modern Data Science?
-
-- (a) The invention of the Python programming language.
-- (b) The desire to make mathematics look cooler.
-- (c) **The explosion of internet data and the availability of cheap, fast computing.**
-- (d) The decline in the number of trained statisticians.
-
-::: {.callout-note collapse="true" title="Answers"}
-**A2 — (c).** Massive data volumes required new approaches because manual statistical sampling could no longer keep up with the scale of information.
-:::
-
-**Understanding the history gives us context, but who actually does the work today?**
-
-# Part B — Roles and Applications {#sec-s01-b}
-
-**Defining the people who work with data and the real-world problems they solve.**
-
-## 3. Data Science Roles {#sec-s01-topic-3}
-
-**The modern data team is divided into three main roles: Data Engineers, Data Analysts, and Data Scientists.**
-
-This division of labor exists because building a database, interpreting a chart, and training a predictive algorithm require entirely different skill sets. Expecting one person to do all three usually results in mediocre work across the board.
-
-### How it works
-
-| Role | Core Responsibility | Primary Tool | Output |
-|---|---|---|---|
-| **Data Engineer** | Moves and stores data reliably. | SQL, Python, Cloud | A clean, fast database. |
-| **Data Analyst** | Explains what happened in the past. | SQL, Excel, Tableau | Dashboards and reports. |
-| **Data Scientist** | Predicts what will happen in the future. | Python, Scikit-Learn | Predictive models. |
-
-::: {.callout-tip title="🧠 Analogy — The Factory"}
-**The everyday thing:** A car manufacturing plant.
-
-**The mapping:** 
-- The **Data Engineer** builds the assembly line and makes sure the metal and plastic arrive safely.
-- The **Data Analyst** inspects the cars coming off the line, counting defects and tracking production speed.
-- The **Data Scientist** analyzes the aerodynamics to design next year's faster, more efficient car model.
-:::
-
-### 🌍 Scenarios
-
-**Scenario 1 — A marketing team wants to know why sales dropped last month.**
-They need a **Data Analyst** to look at historical data and create a chart showing where the drop occurred.
-
-**Scenario 2 — A bank wants a system that automatically blocks fraudulent credit card swipes in real-time.**
-They need a **Data Scientist** to build a predictive model that flags suspicious behavior instantly.
-
-### ❓ MCQs
-
-**Q3.** Your company has terabytes of messy log files scattered across ten different servers. Who should you hire to organize this into a clean, centralized database?
-
-- (a) Data Scientist
-- (b) **Data Engineer**
-- (c) Data Analyst
-- (d) Software Developer
-
-::: {.callout-note collapse="true" title="Answers"}
-**A3 — (b).** A Data Engineer specializes in the infrastructure, movement, and storage of data. A Data Scientist or Analyst would struggle to do their jobs without the Engineer's foundational work.
-:::
-
-**Now that we know the roles, what exactly are they building?**
-
-## 4. Application of Data Sciences {#sec-s01-topic-4}
-
-**Data Science is applied to optimize logistics, personalize recommendations, detect fraud, and automate decision-making across every major industry.**
-
-It is used universally because any process that relies on human guesswork can be made faster and more accurate by finding historical patterns in data.
-
-### How it works
-
-Here are four major applications you interact with daily:
-- **Recommendation Systems (Netflix/Amazon):** Analyzes millions of users to predict which movie or product you will like next based on your past behavior.
-- **Dynamic Pricing (Uber/Airlines):** Adjusts prices in real-time based on current demand, weather, and historical traffic patterns.
-- **Fraud Detection (Banking):** Identifies anomalies—if your card is used in New York at 1:00 PM and in London at 1:05 PM, the system flags it instantly.
-- **Healthcare Diagnostics:** Image recognition models scan X-rays for tumors with higher accuracy than human radiologists.
-
-### ❓ MCQs
-
-**Q4.** Which of the following is NOT a typical application of Data Science?
-
-- (a) Predicting which customers are likely to cancel their subscriptions.
-- (b) **Manually calling customers to ask for their feedback on a new product.**
-- (c) Adjusting the price of a flight based on remaining seats and historical demand.
-- (d) Suggesting the next song you should listen to on Spotify.
-
-::: {.callout-note collapse="true" title="Answers"}
-**A4 — (b).** Manually calling customers is a traditional qualitative research method, not a data science application. Data science relies on analyzing large datasets programmatically.
-:::
-
-# Part Demo — The End Goal {#sec-s01-demo}
-
-To give you a sense of what you will be able to build by the end of this course, let's look at a live Data Science application. This code generates an interactive dashboard predicting a simple trend (like stock prices or weather temperatures). 
-
-*Don't worry if the code looks confusing right now—you will understand every line of this by Session 12.*
-
-### 📘 Examples
-
-**Example 1 — A predictive dashboard**
+Here is the entire field, small enough to fit on a screen. Ten shops, their advertising
+spend, and what they sold. The question: **if I spend ₹45,000 on advertising, what
+should I expect to sell?**
 
 ```{python}
-#| label: fig-stock-demo
-#| fig-cap: "A mock predictive model showing historical data and future predictions."
+#| label: fig-s01-tiny
+#| fig-cap: "Ten shops. A line through them. One prediction."
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 
-# 1. Generate some mock historical 'stock' data
+advertising = np.array([10, 15, 20, 25, 30, 35, 40, 50, 55, 60])   # ₹ thousands
+sales       = np.array([32, 41, 46, 59, 61, 72, 79, 94, 99, 108])  # ₹ thousands
+
+slope, intercept = np.polyfit(advertising, sales, 1)   # find the best straight line
+predicted = slope * 45 + intercept                     # use it to answer the question
+
+plt.scatter(advertising, sales, label="shops we have data for")
+plt.plot(advertising, slope * advertising + intercept, color="red", label="the pattern")
+plt.scatter([45], [predicted], color="green", s=140, zorder=5, label="our prediction")
+plt.xlabel("Advertising spend (₹ thousands)")
+plt.ylabel("Sales (₹ thousands)")
+plt.legend()
+plt.show()
+
+print(f"Spend ₹45,000 and expect sales of about ₹{predicted*1000:,.0f}")
+```
+
+That is the whole shape of it: **data in, pattern found, question answered.**
+Everything else in this course is doing that more carefully, on messier data.
+
+### ❓ Check yourself
+
+**Q1.** Which is the most accurate description of data science?
+
+- (a) Writing software applications for web browsers.
+- (b) **Turning recorded facts into decisions, using programming, mathematics and
+  knowledge of the subject.**
+- (c) Reading customer emails to find complaints.
+- (d) Installing and maintaining servers.
+
+**Q2.** A model correctly predicts which patients will be readmitted to hospital, but
+the team did not realise the "discharge code" column is only filled in *after* a
+readmission is scheduled. Which ingredient was missing?
+
+- (a) Programming.
+- (b) Mathematics.
+- (c) **Domain knowledge.**
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** (a) is software engineering, (c) is manual research, (d) is IT
+administration.
+
+**A2 — (c).** The code ran and the maths was sound. Only somebody who knew the
+hospital's process would spot that the column contains the answer.
+:::
+
+**We have said "data" a dozen times. It is worth being precise about what that word
+covers, because it is wider than a spreadsheet.**
+
+## 2. The three kinds of data {#sec-s01-topic-2}
+
+**Data comes in three shapes, and the shape decides how much work you have to do
+before you can analyse it.**
+
+| Kind | What it looks like | Examples | Effort to analyse |
+|---|---|---|---|
+| **Structured** | rows and columns, every row the same shape | spreadsheets, CSV files, SQL tables | low |
+| **Semi-structured** | has labels, but rows can differ | JSON, XML, log files | medium |
+| **Unstructured** | no rows or labels at all | text, photographs, audio, video | high |
+
+Most of this course works with structured data, because that is where the ideas are
+clearest. The techniques for the other two are the same ideas with more preparation in
+front of them.
+
+### Demo 2 — the same fact in three shapes
+
+One customer's order, written three ways.
+
+```{python}
+import pandas as pd
+import json
+
+# STRUCTURED — a table. Every row has exactly the same columns.
+structured = pd.DataFrame({
+    "order_id": [1, 2],
+    "customer": ["Alice", "Bob"],
+    "amount":   [250.0, 90.0],
+})
+print("STRUCTURED — always the same columns")
+print(structured)
+
+# SEMI-STRUCTURED — labelled, but the second record has a field the first does not.
+semi = [
+    {"order_id": 1, "customer": "Alice", "amount": 250.0},
+    {"order_id": 2, "customer": "Bob",   "amount": 90.0, "gift_wrap": True},
+]
+print("\nSEMI-STRUCTURED — labelled, but the shape varies")
+print(json.dumps(semi, indent=2))
+
+# UNSTRUCTURED — a human sentence. No labels at all.
+unstructured = "Alice ordered two books on Tuesday and paid 250 rupees."
+print("\nUNSTRUCTURED — the same facts, but nothing is labelled")
+print(unstructured)
+```
+
+Look at what changes. In the table, "what did Alice pay?" is one lookup. In the JSON it
+is still easy, but your code must cope with `gift_wrap` existing on some records and
+not others. In the sentence, the number `250` is just characters — a program has to be
+taught that it is money before it can add it up.
+
+::: {.callout-warning title="⚠️ Semi-structured data breaks code that assumes a fixed shape"}
+Loading the JSON above into a table gives Alice a `gift_wrap` value of `NaN` — "not
+recorded". Code that assumes every record has every field will crash or, worse, quietly
+skip records. **Check the shape of every record, not just the first one.**
+:::
+
+```{python}
+# What happens when you force semi-structured data into a table:
+print(pd.DataFrame(semi))
+```
+
+# Part B — Where it came from {#sec-s01-b}
+
+## 3. How the field grew {#sec-s01-topic-3}
+
+**Data science did not appear suddenly. It is statistics, plus two things statistics
+never had: enormous amounts of data, and cheap computing.**
+
+| Era | Data available | The hard part | Typical method |
+|---|---|---|---|
+| **Statistics** (before ~2000) | small, carefully collected samples | collecting data at all | averages, hypothesis tests, done by hand |
+| **Big data** (~2000–2010) | huge, collected automatically | *storing and querying* it | databases, Hadoop, SQL |
+| **Machine learning** (~2010–now) | huge, and cheap to process | choosing what to learn | algorithms that find the pattern themselves |
+| **Generative AI** (~2020–now) | the whole internet | steering the output | very large models that produce text and images |
+
+The shift that matters: **early on, a human proposed the pattern and used data to test
+it. Now the machine proposes the pattern and the human tests it.**
+
+::: {.callout-warning title="⚠️ Newer is not better"}
+An average — a technique from the 1800s — solves a great many business problems faster
+and more reliably than a neural network. **Always try the simple method first**, and
+keep it as the score your complicated method has to beat. A model that cannot beat an
+average has not worked.
+:::
+
+### Demo 3 — the simple method is hard to beat
+
+Two ways to predict tomorrow's demand. The plain one: **the average of every past day.**
+The reactive one: **whatever happened yesterday.** Judge them over sixty days, not one —
+on a single day either can win by luck.
+
+```{python}
+import numpy as np
+
+np.random.seed(0)
+demand = 100 + np.random.normal(0, 12, size=400)   # wobbles randomly around 100
+
+avg_errors, yest_errors = [], []
+for day in range(60, len(demand)):
+    history = demand[:day]
+    avg_errors.append(abs(demand[day] - history.mean()))    # predict the running average
+    yest_errors.append(abs(demand[day] - demand[day - 1]))  # predict yesterday's value
+
+print(f"Predicting with the running average : average error {np.mean(avg_errors):5.2f}")
+print(f"Predicting with yesterday's value   : average error {np.mean(yest_errors):5.2f}")
+print(f"\nThe average was better on {np.mean(np.array(avg_errors) < np.array(yest_errors)):.0%} of days.")
+```
+
+When data wobbles randomly around a stable level, **the plain average wins**, because
+yesterday's wobble carries no information about today. Notice that it does *not* win
+every day — it wins on average, which is the only sense in which one method beats
+another. **This is why a single comparison proves nothing, and why Session 11 exists.**
+
+## 4. AI, machine learning, deep learning, generative AI {#sec-s01-topic-4}
+
+**These four words are used interchangeably in the news. They are not the same thing.
+They sit inside one another.**
+
+```{mermaid}
+flowchart TB
+    AI["<b>Artificial Intelligence</b><br/>any machine doing something that<br/>would need human intelligence"]
+    ML["<b>Machine Learning</b><br/>the machine learns the rules from data<br/>instead of being given them"]
+    DL["<b>Deep Learning</b><br/>machine learning using neural networks<br/>with many layers"]
+    GEN["<b>Generative AI</b><br/>deep learning that produces new<br/>text, images, audio or code"]
+    AI --> ML --> DL --> GEN
+```
+
+The useful distinction is **who writes the rule**:
+
+| | Who writes the rule | Example |
+|---|---|---|
+| Ordinary programming | you do | *"if amount > 10000, flag it"* |
+| Machine learning | the machine, from examples | show it 50,000 past frauds; it works out what fraud looks like |
+
+**Data science is the wider job.** It includes machine learning, but it also includes
+collecting the data, cleaning it, exploring it, and explaining the result to somebody
+who has to act on it. In most real projects the machine learning is the *smallest* part.
+
+### ❓ Check yourself
+
+**Q3.** A shop's till software prints a discount when the total is over ₹5,000. Is this
+machine learning?
+
+- (a) Yes, because a computer decided.
+- (b) **No — a human wrote the rule. The machine learned nothing.**
+- (c) Yes, because it uses customer data.
+
+**Q4.** Which statement is true?
+
+- (a) Machine learning includes artificial intelligence.
+- (b) **Deep learning is one kind of machine learning.**
+- (c) Generative AI and data science are the same thing.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A3 — (b).** The rule was written by a person and never changes. Machine learning
+would be the till working out *for itself*, from past receipts, which customers respond
+to a discount.
+
+**A4 — (b).** AI is the widest circle; machine learning sits inside it; deep learning
+sits inside machine learning; generative AI sits inside deep learning.
+:::
+
+# Part C — Who does it, and how {#sec-s01-c}
+
+## 5. The three data jobs {#sec-s01-topic-5}
+
+**Building the pipes, reading the past, and predicting the future are three different
+jobs.** Most teams split them because the skills barely overlap.
+
+| Role | Owns | Main tools | Delivers |
+|---|---|---|---|
+| **Data engineer** | getting data in, reliably | SQL, Python, cloud services | a clean, fast, trustworthy table |
+| **Data analyst** | explaining what happened | SQL, spreadsheets, dashboards | a report somebody reads |
+| **Data scientist** | predicting what will happen | Python, scikit-learn | a model somebody uses |
+
+::: {.callout-tip title="🧠 Analogy — the car factory"}
+- The **data engineer** builds the assembly line and makes sure steel arrives on time.
+- The **data analyst** counts the cars coming off it and reports how many had defects.
+- The **data scientist** works out which factory settings *cause* defects, so next
+  month's run has fewer.
+:::
+
+Two more titles you will meet: the **machine learning engineer**, who takes a working
+model and makes it survive real traffic, and the **BI developer**, who builds the
+dashboards an analyst designs.
+
+### ❓ Check yourself
+
+**Q5.** Terabytes of messy log files sit on ten different servers, and nobody can query
+them. Who do you hire first?
+
+- (a) Data scientist.
+- (b) **Data engineer.**
+- (c) Data analyst.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A5 — (b).** Until the data is somewhere queryable, the other two have nothing to work
+with. This is the most common sequencing mistake real teams make.
+:::
+
+## 6. The data science lifecycle {#sec-s01-topic-6}
+
+**Every data science project runs through the same seven stages, in the same order.
+This course is those seven stages, one at a time.**
+
+| # | Stage | The question | Covered in |
+|---|---|---|---|
+| 1 | **Problem definition** | What decision will this change? | this chapter, and Session 16 |
+| 2 | **Data collection** | Where do the facts live? | Session 2 |
+| 3 | **Cleaning and preparation** | What is wrong with them? | Sessions 3–6 |
+| 4 | **Exploration** | What is actually in here? | Sessions 7–8 |
+| 5 | **Modelling** | What pattern can be learned? | Sessions 9–10 |
+| 6 | **Evaluation** | Is the pattern real? | Session 11 |
+| 7 | **Deployment** | How does somebody use it? | Session 12 |
+
+::: {.callout-warning title="⚠️ Stage 3 is most of the work"}
+Beginners expect modelling to take the longest. In practice, **collecting and cleaning
+the data takes most of a project**, and modelling is often an afternoon. This is why
+Sessions 2 to 8 — seven of sixteen — are about data rather than about algorithms.
+:::
+
+### Demo 4 — all seven stages in one cell
+
+This is the entire lifecycle, on tiny data, so you can see the whole shape before we
+slow down and do each stage properly. **You are not expected to follow the detail yet.**
+
+```{python}
+import pandas as pd
+import numpy as np
+from sklearn.linear_model import LinearRegression
+
+# STAGE 1 — PROBLEM: predict a flat's monthly rent from its size and its age.
+
+# STAGE 2 — COLLECT
+flats = pd.DataFrame({
+    "sqft":     [500, 750, 1000, 1200, 1500, 900, 1100, np.nan, 1300, 600],
+    "age_yrs":  [10,  5,   2,    8,    1,    15,  3,    6,      4,    20],
+    "rent":     [9000, 14000, 20000, 21000, 28000, 15000, 21000, 16000, 25000, 10000],
+})
+print(f"Stage 2 — collected {len(flats)} flats")
+
+# STAGE 3 — CLEAN: one flat has no recorded size. Fill it with the middle value.
+flats["sqft"] = flats["sqft"].fillna(flats["sqft"].median())
+print(f"Stage 3 — cleaned; missing sizes remaining: {flats['sqft'].isna().sum()}")
+
+# STAGE 4 — EXPLORE: which column moves with rent?
+print("\nStage 4 — how strongly each column tracks rent:")
+print(flats.corr()["rent"].drop("rent").round(2))
+
+# STAGE 5 — MODEL
+X = flats[["sqft", "age_yrs"]]
+y = flats["rent"]
+model = LinearRegression().fit(X, y)
+print(f"\nStage 5 — model trained. Rent rises about "
+      f"₹{model.coef_[0]:.0f} for each extra square foot.")
+
+# STAGE 6 — EVALUATE: how close are its answers on flats it has seen?
+print(f"Stage 6 — it explains {model.score(X, y):.1%} of the variation in rent")
+
+# STAGE 7 — DEPLOY: wrap it so somebody else can ask it a question.
+def estimate_rent(sqft, age_yrs):
+    row = pd.DataFrame({"sqft": [sqft], "age_yrs": [age_yrs]})
+    return model.predict(row)[0]
+
+print(f"\nStage 7 — a 1000 sqft, 5-year-old flat: ₹{estimate_rent(1000, 5):,.0f} per month")
+```
+
+Every stage above is one line here and one *chapter* later. Session 3 spends a whole
+chapter on that single `fillna`, because there are six ways to do it and choosing
+wrongly changes the answer.
+
+## 7. What it is used for {#sec-s01-topic-7}
+
+**Any process that currently relies on somebody guessing can usually be improved by
+finding the pattern in what happened before.**
+
+| Application | What it predicts | You meet it in |
+|---|---|---|
+| **Recommendations** | what you will watch or buy next | Netflix, Amazon, Spotify |
+| **Dynamic pricing** | what you will pay | airlines, ride-hailing, hotels |
+| **Fraud detection** | whether this payment is genuine | your bank, every card swipe |
+| **Medical diagnostics** | whether this scan shows disease | radiology departments |
+| **Demand forecasting** | how much stock to order | every large retailer |
+| **Predictive maintenance** | which machine fails next | factories, airlines, railways |
+| **Route optimisation** | how long the journey takes | maps, delivery firms |
+| **Credit scoring** | whether a loan is repaid | lenders — and Sessions 9 and 12 |
+
+### Demo 5 — a recommendation, from scratch
+
+Recommendation engines sound complicated. The simplest useful one is a single idea:
+**find the person most like you, and suggest what they liked that you have not seen.**
+
+```{python}
+import pandas as pd
+
+# Rows are viewers, columns are films, values are ratings out of 5 (0 = not watched).
+ratings = pd.DataFrame(
+    [[5, 4, 0, 5, 1],
+     [4, 5, 1, 4, 1],
+     [1, 0, 5, 1, 4],
+     [5, 4, 1, 0, 2]],
+    index=["Asha", "Brij", "Chan", "You"],
+    columns=["Action1", "Action2", "Romance1", "Action3", "Romance2"],
+)
+print(ratings)
+
+# How similar is each viewer to you? Count agreement across the films you have both seen.
+you = ratings.loc["You"]
+others = ratings.drop("You")
+similarity = others.apply(lambda person: (person * you).sum(), axis=1)
+
+print("\nSimilarity to you:")
+print(similarity.sort_values(ascending=False))
+
+closest = similarity.idxmax()
+unseen = ratings.columns[you == 0]
+print(f"\nYour closest match is {closest}.")
+for film in unseen:
+    print(f"  {closest} rated {film}: {ratings.loc[closest, film]}/5  → recommended")
+```
+
+Real systems do this across millions of users with far better similarity measures, but
+the idea on screen is the idea they use.
+
+### Demo 6 — what you will be able to build
+
+By Session 12 you will train a model and put it behind a web page. Here is the kind of
+output that page will show: history, a prediction, and an honest band around it.
+
+```{python}
+#| label: fig-s01-forecast
+#| fig-cap: "History in blue, prediction in red, uncertainty shaded. The shaded band is the honest part."
+import numpy as np
+import matplotlib.pyplot as plt
+
 np.random.seed(42)
 days = np.arange(1, 101)
-# Create a noisy upward trend
-prices = 50 + (days * 0.5) + np.random.normal(0, 5, size=100)
+price = 50 + days * 0.5 + np.random.normal(0, 5, size=100)
 
-df = pd.DataFrame({'Day': days, 'Price': prices})
+future = np.arange(101, 121)
+slope, intercept = np.polyfit(days, price, 1)
+forecast = slope * future + intercept
+spread = price.std()
 
-# 2. 'Predict' the next 20 days using a simple linear trend
-future_days = np.arange(101, 121)
-# The true trend without noise
-future_predictions = 50 + (future_days * 0.5)
-
-# 3. Visualize the result
-plt.figure(figsize=(10, 5))
-plt.plot(df['Day'], df['Price'], label='Historical Data', color='blue', alpha=0.6)
-plt.plot(future_days, future_predictions, label='AI Prediction', color='red', linestyle='dashed', linewidth=2)
-
-plt.title("Mock Stock Price Predictor")
+plt.plot(days, price, label="What happened", alpha=0.75)
+plt.plot(future, forecast, "r--", lw=2, label="What we predict")
+plt.fill_between(future, forecast - 2*spread, forecast + 2*spread,
+                 color="red", alpha=0.15, label="Range we are fairly sure about")
 plt.xlabel("Day")
-plt.ylabel("Price ($)")
+plt.ylabel("Price")
 plt.legend()
-plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-::: {.callout-note title="✏️ Tasks"}
-1. Run the cell above to see the output.
-2. In the code above, try changing the noise level from `np.random.normal(0, 5, size=100)` to `np.random.normal(0, 20, size=100)`. Run the cell again. What happens to the historical data plot?
+::: {.callout-warning title="⚠️ A prediction without a range is a guess in a suit"}
+The dashed red line looks authoritative. The shaded band is the honest part — it says
+how wrong the line could reasonably be. **A number reported without its uncertainty
+invites a decision it cannot support.** Session 11 is about measuring that band.
+:::
+
+# 🎯 Tasks {#sec-s01-tasks}
+
+::: {.callout-note title="✏️ Do these before Session 2"}
+**Task 1 — Classify some data.** For each of these, say whether it is structured,
+semi-structured or unstructured: a supermarket receipt photographed on your phone; the
+same receipt typed into a spreadsheet; your phone's location history export; a podcast
+episode; a weather API response.
+
+**Task 2 — Pick the role.** For a company you know well, write one specific project for
+a data engineer, one for a data analyst, and one for a data scientist.
+
+**Task 3 — Change a prediction.** In Demo 1, change the advertising figure from `45` to
+`80` and run the cell. The prediction goes up. Now look at the data: the largest shop
+we actually observed spent 60. **Write one sentence on why the prediction for 80 should
+be trusted less than the prediction for 45.**
 :::
 
 ::: {.callout-note collapse="true" title="Solutions"}
-**2.** When you increase the standard deviation from `5` to `20`, the historical data becomes much more scattered and "noisy." The blue line will jump up and down drastically, simulating a highly volatile stock market.
+**Task 1.** Photographed receipt — unstructured (an image). Typed into a spreadsheet —
+structured. Location history export — semi-structured (usually JSON). Podcast —
+unstructured (audio). Weather API response — semi-structured (JSON).
+
+**Task 3.** 45 sits inside the range we observed (10 to 60), so the line is supported by
+nearby real shops. 80 is beyond every shop in the data — the line has been *extended*
+into territory where we have no evidence the relationship still holds. Predicting
+outside the observed range is called **extrapolation**, and it is where models fail
+most confidently.
 :::
 
-# 🎯 Session 1 — Tasks {#sec-s01-tasks}
-
-**Complete these tasks in order to solidify your understanding.**
-
-**Task 1 — Role Identification.** 
-Look at your current company (or a company you admire, like Spotify). Write down one specific project for a Data Engineer, one for a Data Analyst, and one for a Data Scientist at that company. **Report your three projects.**
-
 ::: {.callout-tip title="✅ Before you move on"}
-- [ ] Ensure you can explain the difference between a Data Analyst and a Data Scientist in plain English.
-- [ ] **The one thing from this chapter that is easiest to forget:** The sheer importance of the Data Engineer. Without clean data, the most advanced predictive model is entirely useless.
+- [ ] I can define data science in one sentence without using the word "data science"
+- [ ] I can give an example of structured, semi-structured and unstructured data
+- [ ] I can draw AI, machine learning, deep learning and generative AI as nested circles
+- [ ] I can name the seven lifecycle stages in order
+- [ ] **Easiest thing to forget:** stages 2 and 3 — collecting and cleaning — take most
+      of a real project. The modelling is usually the quick part.
 :::

@@ -1,5 +1,16 @@
-<!-- Setup code for the book -->
-```{{python}}
+```{python}
 #| echo: false
-import sys
+#| warning: false
+# Shared setup: imports and display settings used by every chapter.
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+pd.set_option("display.max_rows", 12)
+pd.set_option("display.width", 100)
+plt.rcParams["figure.figsize"] = (7, 4)
+plt.rcParams["figure.dpi"] = 110
+plt.rcParams["axes.grid"] = True
+plt.rcParams["grid.alpha"] = 0.3
+np.random.seed(42)
 ```

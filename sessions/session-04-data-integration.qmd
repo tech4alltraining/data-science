@@ -1,116 +1,457 @@
 ---
 title: "Session 4 — Data Integration"
-subtitle: "Virtual vs Physical · Merging Dataframes"
+subtitle: "Five ways to combine sources · concat · merge · the four join types · what goes wrong"
 ---
 
 {{< include ../includes/_setup.qmd >}}
 
 ::: {.callout-note}
-**This chapter focuses on combining disparate datasets into a single, unified view.**
+**This chapter is about combining data that arrives in more than one piece.**
 
-**Assumed knowledge:** Pandas DataFrames and Data Cleaning (Session 3).
+**Assumed knowledge:** Sessions 2 and 3 — loading a DataFrame, filtering, and cleaning
+text columns. The text-cleaning part matters here: **you cannot join on a key you have
+not cleaned.**
+
+**The one idea to take away:** every join can silently lose rows or silently multiply
+them. **Print the row count before and after. Every time.**
 :::
 
 ## 🎯 Learning outcomes {#sec-s04-outcomes}
 
 By the end of this chapter you can:
 
-1. Differentiate between physical and virtual data integration.
-2. Combine multiple Pandas DataFrames using `.merge()` and `.join()`.
+1. Describe the five approaches to data integration and pick one for a situation.
+2. Stack tables with `concat` and link tables with `merge`.
+3. Use all four join types and predict how many rows each returns.
+4. Detect a join that lost rows and a join that multiplied them.
+5. Fix the three things that break a join: mismatched keys, different names for the
+   same thing, and duplicate keys.
 
 ## How this chapter is organised {#sec-s04-organisation}
 
-| Part | Question it answers | Source |
-|---|---|---|
-| [A — Integration Concepts](#sec-s04-a) | *Why doesn't all data live in one place?* | `concepts` |
-| [Demo — Merging Data](#sec-s04-demo) | *How do we link tables in Python?* | `pandas_merge.py` |
+| Part | Question it answers |
+|---|---|
+| [A — Five ways to integrate](#sec-s04-a) | *Why is data split up, and what are the options for putting it together?* |
+| [B — Doing it in pandas](#sec-s04-b) | *How do I actually link two tables?* |
+| [C — What goes wrong](#sec-s04-c) | *Why did my row count change, and which of my rows disappeared?* |
 
-# Part A — Integration Concepts {#sec-s04-a}
+# Part A — Five ways to integrate {#sec-s04-a}
 
-**Data is rarely stored in a single massive table. It is split across different systems for efficiency.**
+## 1. Why data is never in one place {#sec-s04-topic-1}
 
-## 1. Types of Data Integration {#sec-s04-topic-1}
+**Data integration is combining data from several sources into one view you can
+analyse.**
 
-**Data Integration is the process of bringing together data from different sources to provide a unified view.**
+It exists because organisations do not store data for the convenience of analysts. Sales
+sit in the sales system, support tickets in the helpdesk, web visits in the analytics
+tool. Each was built for its own job. **The question "do customers who contact support
+buy less?" touches all three, and no single system can answer it.**
 
-It exists because a company's marketing data lives in Facebook Ads, their sales data lives in Salesforce, and their website data lives in Google Analytics. To calculate "marketing return on investment," you must integrate all three.
+::: {.callout-tip title="🧠 Analogy — the wedding guest list"}
+One partner keeps family names in a notebook; the other keeps friends in a spreadsheet.
+Neither list is wrong. But you cannot count chairs, order food or print place cards
+until they are one list.
 
-::: {.callout-tip title="🧠 Analogy — The Wedding Guest List"}
-**The everyday thing:** Organizing a wedding.
-
-**The mapping:** 
-- Partner A has their family list in a notebook. Partner B has their friends list in an Excel file.
-- **Integration** is the painful process of combining these two completely different formats into a single master guest list so you can send out the invitations.
+**The painful part is not the copying — it is that "R. Sharma" and "Raj Sharma" might be
+the same person, or might be two people.** That question is the whole of data
+integration.
 :::
 
-### How it works
+## 2. The five approaches {#sec-s04-topic-2}
 
-There are several ways to tackle this:
-- **Physical Integration (Data Warehousing):** You literally copy all the data from Salesforce, Facebook, and Google, and paste it into a massive centralized database (a Data Warehouse). 
-- **Virtual Integration:** You don't move the data. Instead, you create a software layer that queries Salesforce and Google on-the-fly only when a user asks a question.
-- **Manual Integration:** A human exports CSVs from different systems and manually pastes them together in Excel (highly prone to error).
+**There are five ways to combine sources. They differ in one thing: how much data you
+copy, and who does the translating.**
 
-### ❓ MCQs
+| Approach | What happens | Data is copied? | Good | Bad |
+|---|---|---|---|---|
+| **Physical** (data warehouse) | copy everything into one central database on a schedule | **yes** | fast queries; one place to look | data is as old as the last copy; expensive |
+| **Virtual** (federation) | leave data where it is; a layer queries each source live when asked | **no** | always current; nothing to store | slow; breaks when any source is down |
+| **Application-based** | each application translates and pushes its own data to the others | partly | no central system needed | every app must know about every other; *n* apps means many links |
+| **Middleware** | one translation layer sits between sources and converts formats | partly | apps stay simple; one place to fix | the middleware becomes a single point of failure |
+| **Manual** | a person exports CSVs and combines them by hand | yes | needs nothing; works today | slow, unrepeatable, **and error-prone** |
 
-**Q1.** What is the main advantage of Physical Data Integration (a Data Warehouse) over Virtual Integration?
+### How to choose
 
-- (a) It requires less hard drive space.
-- (b) **Because the data is copied to one location, analytical queries run much faster than fetching data over the network on-the-fly.**
-- (c) It prevents the original data from being deleted.
+```{mermaid}
+flowchart TD
+    Q1{"Does the answer have to be<br/>up to the second?"}
+    Q1 -- yes --> V["<b>Virtual</b><br/>query the sources live"]
+    Q1 -- no --> Q2{"Will the same question<br/>be asked repeatedly?"}
+    Q2 -- no --> M["<b>Manual</b><br/>a one-off export is fine"]
+    Q2 -- yes --> Q3{"Many systems that must<br/>talk to each other?"}
+    Q3 -- yes --> MW["<b>Middleware</b><br/>one translation layer"]
+    Q3 -- no --> P["<b>Physical</b><br/>copy into a warehouse"]
+```
+
+::: {.callout-warning title="⚠️ Manual integration is where most reporting errors come from"}
+Copying and pasting between spreadsheets leaves no record of what was done, cannot be
+repeated identically, and fails silently when a column shifts by one. **If a manual
+integration is going to happen more than twice, write the code instead.**
+:::
+
+### ❓ Check yourself
+
+**Q1.** A dashboard must show live warehouse stock, and stock changes every few seconds.
+Which approach?
+
+- (a) Physical integration into a nightly warehouse.
+- (b) **Virtual integration, querying the stock system directly.**
+- (c) Manual integration.
+
+**Q2.** Twelve internal systems each need data from the other eleven, and every team is
+writing its own converter. Which approach fixes this?
+
+- (a) Manual integration.
+- (b) Virtual integration.
+- (c) **Middleware — one translation layer instead of many pairwise converters.**
 
 ::: {.callout-note collapse="true" title="Answers"}
-**A1 — (b).** Virtual integration is slow because it has to wait for external systems to respond. Physical integration puts all the data right next to the analytical engine.
+**A1 — (b).** A nightly copy would show yesterday's stock, which for this question is
+worse than useless. Virtual integration trades speed for freshness, and freshness is
+what this dashboard is for.
+
+**A2 — (c).** With 12 systems talking directly, you can end up maintaining dozens of
+converters. Middleware means each system talks to one thing.
 :::
 
-# Part Demo — Merging Data {#sec-s04-demo}
+# Part B — Doing it in pandas {#sec-s04-b}
 
-**Using Pandas `.merge()` to combine tables based on a common key.**
+## 3. Stacking versus linking {#sec-s04-topic-3}
 
-In the real world, you might have a "Users" table and a "Purchases" table. You link them together using a common identifier, like `User_ID`.
+**There are two different operations, and mixing them up is the most common beginner
+error.**
 
-### 📘 Examples
+| Operation | Question it answers | Function |
+|---|---|---|
+| **Stacking** | "here are more rows of the same thing" | `pd.concat` |
+| **Linking** | "here is extra information about the same things" | `pd.merge` |
 
-**Example 1 — The Pandas Merge**
+Two months of sales → **stack**. Customers and their orders → **link**.
+
+```{mermaid}
+flowchart LR
+    subgraph S["concat — stacking"]
+        A1["Jan sales<br/>100 rows"] --> C1["200 rows<br/>same columns"]
+        A2["Feb sales<br/>100 rows"] --> C1
+    end
+    subgraph M["merge — linking"]
+        B1["customers<br/>name, city"] --> C2["one row per match<br/>more columns"]
+        B2["orders<br/>amount, date"] --> C2
+    end
+```
+
+### Demo 1 — stacking with concat
 
 ```{python}
 import pandas as pd
 
-# Table 1: Customer Information
-customers = pd.DataFrame({
-    "User_ID": [1, 2, 3],
-    "Name": ["Alice", "Bob", "Charlie"],
-    "City": ["New York", "London", "Paris"]
-})
+jan = pd.DataFrame({"date": ["2024-01-05", "2024-01-19"], "amount": [250, 90]})
+feb = pd.DataFrame({"date": ["2024-02-02", "2024-02-27"], "amount": [410, 130]})
 
-# Table 2: Purchase History
-purchases = pd.DataFrame({
-    "Purchase_ID": [101, 102, 103],
-    "User_ID": [1, 1, 3], # Notice Alice bought two things, Bob bought nothing.
-    "Amount": [50.00, 120.00, 75.50]
-})
-
-print("--- Customers Table ---")
-display(customers)
-
-print("\n--- Purchases Table ---")
-display(purchases)
-
-print("\n--- INTEGRATED DATA (Inner Merge) ---")
-# Merge them! We tell pandas to link them where User_ID matches.
-integrated_data = pd.merge(customers, purchases, on="User_ID", how="inner")
-display(integrated_data)
+stacked = pd.concat([jan, feb], ignore_index=True)
+print(stacked)
+print(f"\n{len(jan)} + {len(feb)} = {len(stacked)} rows. Columns unchanged: {list(stacked.columns)}")
 ```
 
-::: {.callout-warning title="⚠️ The trap of the missing key"}
-Notice that **Bob disappeared** from the integrated data! Because we used an `inner` merge, Pandas only keeps users who exist in *both* tables. Since Bob had no purchases, he was deleted. If you wanted to keep Bob, you would use `how="left"`.
+`ignore_index=True` renumbers the rows. Without it you get row labels 0, 1, 0, 1 — two
+rows labelled 0, which causes confusing errors later.
+
+::: {.callout-warning title="⚠️ concat lines columns up by *name*"}
+If one month's file calls the column `amount` and the other calls it `Amount`, `concat`
+does not complain. It creates **both** columns and fills each with blanks where the other
+was used. **Check `.columns` on both tables before stacking.**
 :::
 
-# 🎯 Session 4 — Tasks {#sec-s04-tasks}
+```{python}
+mismatched = pd.DataFrame({"date": ["2024-03-01"], "Amount": [500]})   # capital A
+oops = pd.concat([jan, mismatched], ignore_index=True)
+print(oops)
+print("\nTwo amount columns, both half empty — and no error was raised.")
+```
 
-**Task 1 — The Left Merge.** 
-Copy the code block above. Change `how="inner"` to `how="left"`. Run the code again. **Report what happens to Bob's row and what his "Amount" value becomes.**
+## 4. Linking tables with merge {#sec-s04-topic-4}
+
+**`merge` joins two tables using a shared column called the key.** The key is usually an
+ID.
+
+### Demo 2 — a first merge
+
+```{python}
+import pandas as pd
+
+customers = pd.DataFrame({
+    "user_id": [1, 2, 3, 4],
+    "name":    ["Alice", "Bob", "Chan", "Devi"],
+    "city":    ["Mumbai", "Delhi", "Mumbai", "Pune"],
+})
+
+purchases = pd.DataFrame({
+    "purchase_id": [101, 102, 103, 104],
+    "user_id":     [1, 1, 3, 5],       # Alice bought twice; user 5 is not in customers
+    "amount":      [250.0, 120.0, 75.5, 300.0],
+})
+
+print("customers:"); print(customers)
+print("\npurchases:"); print(purchases)
+
+joined = pd.merge(customers, purchases, on="user_id", how="inner")
+print("\nInner join:"); print(joined)
+print(f"\ncustomers {len(customers)} rows + purchases {len(purchases)} rows → {len(joined)} rows")
+```
+
+Read that row count carefully. **Four and four made three.** Bob and Devi vanished
+(no purchases), user 5 vanished (not a known customer), and Alice appears twice (two
+purchases). This is normal, and it is why you check.
+
+## 5. The four join types {#sec-s04-topic-5}
+
+**The join type answers one question: which rows do you keep when there is no match?**
+
+| Type | Keeps | Use when |
+|---|---|---|
+| `inner` | only rows matching in **both** | you need complete records |
+| `left` | **all** left rows; blanks where no match | the left table is your population |
+| `right` | **all** right rows | rare — usually a `left` with the tables swapped |
+| `outer` | **everything** from both | you are looking for what does not match |
+
+### Demo 3 — all four, on the same two tables
+
+```{python}
+for how in ["inner", "left", "right", "outer"]:
+    result = pd.merge(customers, purchases, on="user_id", how=how)
+    names = result["name"].fillna("(unknown)").tolist()
+    print(f"{how:>6}: {len(result)} rows — {names}")
+```
+
+Now read what each one is *for*:
+
+```{python}
+print("LEFT — every customer, whether or not they bought anything:")
+left = pd.merge(customers, purchases, on="user_id", how="left")
+print(left[["name", "city", "amount"]])
+
+print("\nWho has never bought anything? The rows where amount is blank:")
+print(left[left["amount"].isna()]["name"].tolist())
+
+print("\nOUTER — everything, including the purchase by an unknown user 5:")
+outer = pd.merge(customers, purchases, on="user_id", how="outer")
+print(outer[outer["name"].isna()][["user_id", "purchase_id", "amount"]])
+```
+
+**The `left` join answered a business question the `inner` join could not**: which
+customers have never purchased. An inner join deletes exactly those people.
+
+::: {.callout-tip title="🧠 Analogy — the class register"}
+`inner` — students who are on the register **and** sat the exam.
+`left` — the whole register; those who missed the exam show a blank mark.
+`outer` — the register plus any exam papers from people who are not on it.
+
+**The blanks are not a nuisance. They are usually the finding.**
+:::
+
+## 6. Aggregate, then join {#sec-s04-topic-6}
+
+**When one side has many rows per key, joining directly multiplies rows. Usually you
+want a summary instead.**
+
+### Demo 4 — one row per customer
+
+```{python}
+# Wrong for most purposes: Alice appears twice, so any count of customers is now wrong.
+naive = pd.merge(customers, purchases, on="user_id", how="left")
+print(f"Naive join: {len(naive)} rows for {len(customers)} customers")
+
+# Right: summarise the many side first, then join one-to-one.
+per_customer = purchases.groupby("user_id").agg(
+    n_purchases=("purchase_id", "count"),
+    total_spent=("amount", "sum"),
+).reset_index()
+
+summary = pd.merge(customers, per_customer, on="user_id", how="left")
+summary["n_purchases"] = summary["n_purchases"].fillna(0).astype(int)
+summary["total_spent"] = summary["total_spent"].fillna(0)
+
+print(f"\nAggregate-then-join: {len(summary)} rows for {len(customers)} customers")
+print(summary)
+```
+
+**One row per customer, every customer present, spending totalled.** This
+aggregate-then-join pattern is the one you will use most often in real work.
+
+# Part C — What goes wrong {#sec-s04-c}
+
+## 7. The three failures {#sec-s04-topic-7}
+
+### Failure 1 — the key does not match
+
+**The most common cause of "the join returned nothing".** The keys look identical to a
+human and differ to a computer.
+
+```{python}
+left_tbl  = pd.DataFrame({"email": ["ASHA@mail.com", "brij@mail.com "], "plan": ["gold", "silver"]})
+right_tbl = pd.DataFrame({"email": ["asha@mail.com", "brij@mail.com"],  "spend": [900, 400]})
+
+print("Joining as-is:")
+print(pd.merge(left_tbl, right_tbl, on="email", how="inner"))
+print("→ 0 rows. One key has capitals, the other has a trailing space.\n")
+
+for t in (left_tbl, right_tbl):
+    t["email"] = t["email"].str.strip().str.lower()
+
+print("After cleaning the key:")
+print(pd.merge(left_tbl, right_tbl, on="email", how="inner"))
+```
+
+**Clean the key before you join.** Trim spaces, fix the case, standardise the format.
+This is why Session 3 comes before this chapter.
+
+### Failure 2 — the same thing, different column names
+
+```{python}
+orders = pd.DataFrame({"cust_ref": [1, 2], "total": [500, 250]})   # different key name
+
+merged = pd.merge(customers, orders, left_on="user_id", right_on="cust_ref", how="inner")
+print(merged[["user_id", "name", "cust_ref", "total"]])
+print("\n`left_on` and `right_on` join columns that mean the same thing but are named differently.")
+```
+
+### Failure 3 — duplicate keys multiply rows
+
+**This is the dangerous one, because nothing fails.** The code runs, the model trains,
+the numbers look plausible, and they are wrong.
+
+```{python}
+# A dirty reference table: 'Mumbai' listed twice by mistake.
+regions = pd.DataFrame({
+    "city":   ["Mumbai", "Delhi", "Pune", "Mumbai"],
+    "region": ["West", "North", "West", "West"],
+})
+
+blown_up = pd.merge(customers, regions, on="city", how="left")
+print(f"customers: {len(customers)} rows  →  after joining regions: {len(blown_up)} rows")
+print(blown_up[["user_id", "name", "city", "region"]])
+print("\nAlice and Chan each appear twice. Every total computed from this table is now")
+print("double-counted for Mumbai — and nothing raised an error.")
+
+# The fix: make sure the lookup table has one row per key before joining.
+regions_clean = regions.drop_duplicates(subset="city")
+fixed = pd.merge(customers, regions_clean, on="city", how="left")
+print(f"\nAfter de-duplicating the lookup table: {len(fixed)} rows")
+```
+
+## 8. The check that catches all three {#sec-s04-topic-8}
+
+**One helper function, used after every join, catches every failure in this chapter.**
+
+```{python}
+def check_join(left, right, result, name="join"):
+    """Report what a join did to the row count, and whether keys went unmatched."""
+    print(f"{name}: left {len(left)} × right {len(right)} → result {len(result)}")
+    if len(result) > len(left):
+        print(f"  ⚠ GREW by {len(result)-len(left)} rows — the right table has duplicate keys")
+    elif len(result) < len(left):
+        print(f"  ⚠ SHRANK by {len(left)-len(result)} rows — some left keys had no match")
+    else:
+        print("  ✓ one row in, one row out")
+    blanks = result.isna().sum()
+    if blanks.any():
+        print(f"  unmatched values appear as blanks in: {blanks[blanks>0].to_dict()}")
+
+check_join(customers, regions, blown_up, "customers + dirty regions")
+print()
+check_join(customers, regions_clean, fixed, "customers + clean regions")
+print()
+check_join(customers, purchases, pd.merge(customers, purchases, on="user_id"), "customers + purchases (inner)")
+```
+
+::: {.callout-warning title="⚠️ A join that changes the row count is a claim, not an accident"}
+A shrinking join says *"these records had no match"*. A growing join says *"one of these
+keys is not unique"*. Both may be fine — but **you should be able to say which, and
+why**, before you use the result.
+:::
+
+### ❓ Check yourself
+
+**Q3.** You have 1,000 customers and join a `city → region` lookup. You get 1,043 rows.
+What happened?
+
+- (a) 43 customers were added.
+- (b) **The lookup table has duplicate city entries, so some customers matched twice.**
+- (c) The join type was wrong.
+
+**Q4.** You want every product listed in a sales report, including those that sold
+nothing this month. Which join?
+
+- (a) `inner`, from sales to products.
+- (b) **`left`, from products to sales.**
+- (c) `right`, from products to sales.
+
+**Q5.** A merge on `email` returns 0 rows even though both tables clearly contain the
+same people. Most likely cause?
+
+- (a) Pandas is broken.
+- (b) **The keys differ in case or whitespace.**
+- (c) The tables are too large.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A3 — (b).** Demo in Failure 3. Every total computed afterwards is inflated for the
+duplicated cities.
+
+**A4 — (b).** Start from the table whose rows you want to keep all of. Products with no
+sales come through with blank sales figures — which is exactly the answer you wanted.
+
+**A5 — (b).** Failure 1. `"ASHA@mail.com"` and `"asha@mail.com"` are different strings.
+:::
+
+# 🎯 Tasks {#sec-s04-tasks}
+
+::: {.callout-note title="✏️ Practise"}
+**Task 1 — Predict, then check.** Before running anything, write down how many rows each
+of the four join types will return for `customers` and `purchases`. Then run Demo 3.
+**Report which you got wrong and why.**
+
+**Task 2 — Find the silent customers.** Using a left join, list every customer who has
+never made a purchase.
+
+**Task 3 — Break it, then fix it.** Add a second `"Delhi"` row to the `regions` table.
+Join, and use `check_join` to detect the damage. Then fix it.
+
+**Task 4 — Aggregate then join.** Produce a table with one row per **city** showing the
+number of customers and the total amount spent by customers in that city.
+:::
+
+:::: {.callout-note collapse="true" title="Solutions"}
+```{python}
+import pandas as pd
+
+customers = pd.DataFrame({"user_id": [1,2,3,4], "name": ["Alice","Bob","Chan","Devi"],
+                          "city": ["Mumbai","Delhi","Mumbai","Pune"]})
+purchases = pd.DataFrame({"purchase_id": [101,102,103,104], "user_id": [1,1,3,5],
+                          "amount": [250.0,120.0,75.5,300.0]})
+
+# Task 1 — inner 3, left 5, right 4, outer 6
+for how in ["inner","left","right","outer"]:
+    print(f"Task 1 — {how:>6}: {len(pd.merge(customers, purchases, on='user_id', how=how))} rows")
+
+# Task 2
+left = pd.merge(customers, purchases, on="user_id", how="left")
+print("\nTask 2 — never purchased:", left[left["amount"].isna()]["name"].tolist())
+
+# Task 4 — aggregate the many side, then join, then group by city
+per_cust = purchases.groupby("user_id")["amount"].sum().reset_index(name="spent")
+by_city = (pd.merge(customers, per_cust, on="user_id", how="left")
+             .assign(spent=lambda d: d["spent"].fillna(0))
+             .groupby("city")
+             .agg(customers=("user_id","count"), total_spent=("spent","sum")))
+print("\nTask 4:"); print(by_city)
+```
+::::
 
 ::: {.callout-tip title="✅ Before you move on"}
-- [ ] Understand the concept of a "Primary Key" or "Common ID" used to link datasets.
-- [ ] **The one thing from this chapter that is easiest to forget:** Merging data often results in rows multiplying (if one user has many purchases) or disappearing (if using an inner join). Always check your row counts before and after a merge!
+- [ ] I can name all five integration approaches and choose between them
+- [ ] I know when to `concat` and when to `merge`
+- [ ] I can predict the row count of an inner, left, right and outer join
+- [ ] I clean the key column before joining on it
+- [ ] **Easiest thing to forget:** check the row count after every join. A join that
+      quietly doubles rows produces totals that are wrong and never raises an error.
 :::

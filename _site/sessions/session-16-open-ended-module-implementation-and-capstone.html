@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>17&nbsp; Session 16 — Open Ended Module (Implementation and Capstone) – Data Science Course</title>
+<title>17&nbsp; Session 16 — Capstone: The End-to-End Project – Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,7 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -76,7 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-99913b7803b80b0c1d2b970a25816663.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-7202036dd3638cbfcbeb4151d116aa42.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -104,11 +104,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-sidebar floating quarto-light">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -117,7 +121,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-16-open-ended-module-implementation-and-capstone.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Open Ended Module (Implementation and Capstone)</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-13-big-data-analytics-fundamentals.html">Part E — Data at scale</a></li><li class="breadcrumb-item"><a href="../sessions/session-16-open-ended-module-implementation-and-capstone.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Capstone: The End-to-End Project</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -129,10 +133,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Data Science Course</a> 
+      <a href="../">Data Science</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -145,105 +149,160 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science Course</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part A — Getting hold of data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-01-introduction-to-data-science.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Session 1 — Introduction to Data Science</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-02-data-collection-and-pre-processing-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 2 — Data Collection and Pre-Processing Overview</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part B — Making data fit to use</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-03-data-cleaning.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Session 3 — Data Cleaning</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-04-data-integration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Session 4 — Data Integration</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-05-data-transformation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Session 5 — Data Transformation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-06-data-reduction-and-discretization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Session 6 — Data Reduction and Discretization</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part C — Understanding data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-07-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Session 7 — Descriptive Statistics</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-08-exploratory-data-analytics-eda-and-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analytics (EDA) and Visualization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analysis and Visualization</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part D — Learning from data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-09-supervised-learning-techniques.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Session 9 — Supervised Learning Techniques</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-10-unsupervised-learning-techniques-clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning Techniques &amp; Clustering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning and Clustering</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-11-data-model-evaluation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 11 — Data Model Evaluation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 11 — Model Evaluation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-12-model-saving-and-deployment.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Session 12 — Model Saving and Deployment</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part E — Data at scale</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-13-big-data-analytics-fundamentals.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Session 13 — Big Data Analytics Fundamentals</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-14-distributed-data-processing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Session 14 — Distributed Data Processing</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-15-nosql-databases-and-scaled-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Scaled Visualization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Visualization at Scale</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-16-open-ended-module-implementation-and-capstone.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Open Ended Module (Implementation and Capstone)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Capstone: The End-to-End Project</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -256,57 +315,68 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#sec-s16-outcomes" id="toc-sec-s16-outcomes" class="nav-link active" data-scroll-target="#sec-s16-outcomes"><span class="header-section-number">17.1</span> 🎯 Learning outcomes</a></li>
   <li><a href="#sec-s16-organisation" id="toc-sec-s16-organisation" class="nav-link" data-scroll-target="#sec-s16-organisation"><span class="header-section-number">17.2</span> How this chapter is organised</a></li>
-  <li><a href="#sec-s16-a" id="toc-sec-s16-a" class="nav-link" data-scroll-target="#sec-s16-a"><span class="header-section-number">18</span> Part A — Apply the entire data analytics process to a real-world dataset.</a>
+  <li><a href="#sec-s16-a" id="toc-sec-s16-a" class="nav-link" data-scroll-target="#sec-s16-a"><span class="header-section-number">18</span> Part A — The whole pipeline</a>
   <ul class="collapse">
-  <li><a href="#sec-s16-topic-1" id="toc-sec-s16-topic-1" class="nav-link" data-scroll-target="#sec-s16-topic-1"><span class="header-section-number">18.1</span> 1. Apply the entire data analytics process to a real-world dataset.</a>
+  <li><a href="#sec-s16-topic-1" id="toc-sec-s16-topic-1" class="nav-link" data-scroll-target="#sec-s16-topic-1"><span class="header-section-number">18.1</span> 1. The project checklist</a>
   <ul class="collapse">
-  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works"><span class="header-section-number">18.1.1</span> How it works</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">18.1.2</span> 📘 Examples</a></li>
-  <li><a href="#scenarios" id="toc-scenarios" class="nav-link" data-scroll-target="#scenarios"><span class="header-section-number">18.1.3</span> 🌍 Scenarios</a></li>
-  <li><a href="#mcqs" id="toc-mcqs" class="nav-link" data-scroll-target="#mcqs"><span class="header-section-number">18.1.4</span> ❓ MCQs</a></li>
+  <li><a href="#demo-1-the-dataset-and-the-question" id="toc-demo-1-the-dataset-and-the-question" class="nav-link" data-scroll-target="#demo-1-the-dataset-and-the-question"><span class="header-section-number">18.1.1</span> Demo 1 — the dataset, and the question</a></li>
+  </ul></li>
+  <li><a href="#sec-s16-topic-2" id="toc-sec-s16-topic-2" class="nav-link" data-scroll-target="#sec-s16-topic-2"><span class="header-section-number">18.2</span> 2. Steps 1–3: clean, explore, prepare</a>
+  <ul class="collapse">
+  <li><a href="#demo-2-cleaning-with-a-report-session-3" id="toc-demo-2-cleaning-with-a-report-session-3" class="nav-link" data-scroll-target="#demo-2-cleaning-with-a-report-session-3"><span class="header-section-number">18.2.1</span> Demo 2 — cleaning, with a report (Session 3)</a></li>
+  <li><a href="#demo-3-exploring-and-forming-a-hypothesis-sessions-78" id="toc-demo-3-exploring-and-forming-a-hypothesis-sessions-78" class="nav-link" data-scroll-target="#demo-3-exploring-and-forming-a-hypothesis-sessions-78"><span class="header-section-number">18.2.2</span> Demo 3 — exploring, and forming a hypothesis (Sessions 7–8)</a></li>
+  <li><a href="#demo-4-preparing-with-a-pipeline-session-5" id="toc-demo-4-preparing-with-a-pipeline-session-5" class="nav-link" data-scroll-target="#demo-4-preparing-with-a-pipeline-session-5"><span class="header-section-number">18.2.3</span> Demo 4 — preparing, with a pipeline (Session 5)</a></li>
+  </ul></li>
+  <li><a href="#sec-s16-topic-3" id="toc-sec-s16-topic-3" class="nav-link" data-scroll-target="#sec-s16-topic-3"><span class="header-section-number">18.3</span> 3. Steps 4–5: model and evaluate</a>
+  <ul class="collapse">
+  <li><a href="#demo-5-four-models-against-a-baseline-sessions-911" id="toc-demo-5-four-models-against-a-baseline-sessions-911" class="nav-link" data-scroll-target="#demo-5-four-models-against-a-baseline-sessions-911"><span class="header-section-number">18.3.1</span> Demo 5 — four models against a baseline (Sessions 9–11)</a></li>
+  <li><a href="#demo-6-the-threshold-is-where-the-business-requirement-is-met" id="toc-demo-6-the-threshold-is-where-the-business-requirement-is-met" class="nav-link" data-scroll-target="#demo-6-the-threshold-is-where-the-business-requirement-is-met"><span class="header-section-number">18.3.2</span> Demo 6 — the threshold is where the business requirement is met</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s16-b" id="toc-sec-s16-b" class="nav-link" data-scroll-target="#sec-s16-b"><span class="header-section-number">19</span> Part B — Perform clustering and association rule mining on a market basket dataset.</a>
+  <li><a href="#sec-s16-b" id="toc-sec-s16-b" class="nav-link" data-scroll-target="#sec-s16-b"><span class="header-section-number">19</span> Part B — Market basket analysis</a>
   <ul class="collapse">
-  <li><a href="#sec-s16-topic-2" id="toc-sec-s16-topic-2" class="nav-link" data-scroll-target="#sec-s16-topic-2"><span class="header-section-number">19.1</span> 2. Perform clustering and association rule mining on a market basket dataset.</a>
+  <li><a href="#sec-s16-topic-4" id="toc-sec-s16-topic-4" class="nav-link" data-scroll-target="#sec-s16-topic-4"><span class="header-section-number">19.1</span> 4. Association rules</a>
   <ul class="collapse">
-  <li><a href="#how-it-works-1" id="toc-how-it-works-1" class="nav-link" data-scroll-target="#how-it-works-1"><span class="header-section-number">19.1.1</span> How it works</a></li>
-  <li><a href="#examples-1" id="toc-examples-1" class="nav-link" data-scroll-target="#examples-1"><span class="header-section-number">19.1.2</span> 📘 Examples</a></li>
-  <li><a href="#scenarios-1" id="toc-scenarios-1" class="nav-link" data-scroll-target="#scenarios-1"><span class="header-section-number">19.1.3</span> 🌍 Scenarios</a></li>
-  <li><a href="#mcqs-1" id="toc-mcqs-1" class="nav-link" data-scroll-target="#mcqs-1"><span class="header-section-number">19.1.4</span> ❓ MCQs</a></li>
+  <li><a href="#demo-7-by-hand-on-ten-baskets" id="toc-demo-7-by-hand-on-ten-baskets" class="nav-link" data-scroll-target="#demo-7-by-hand-on-ten-baskets"><span class="header-section-number">19.1.1</span> Demo 7 — by hand, on ten baskets</a></li>
+  <li><a href="#demo-8-the-trap-high-confidence-no-information" id="toc-demo-8-the-trap-high-confidence-no-information" class="nav-link" data-scroll-target="#demo-8-the-trap-high-confidence-no-information"><span class="header-section-number">19.1.2</span> Demo 8 — the trap: high confidence, no information</a></li>
+  </ul></li>
+  <li><a href="#sec-s16-topic-5" id="toc-sec-s16-topic-5" class="nav-link" data-scroll-target="#sec-s16-topic-5"><span class="header-section-number">19.2</span> 5. Apriori on real-sized data</a>
+  <ul class="collapse">
+  <li><a href="#demo-9-mining-rules-with-mlxtend" id="toc-demo-9-mining-rules-with-mlxtend" class="nav-link" data-scroll-target="#demo-9-mining-rules-with-mlxtend"><span class="header-section-number">19.2.1</span> Demo 9 — mining rules with mlxtend</a></li>
+  <li><a href="#demo-10-did-it-find-the-rules-we-planted" id="toc-demo-10-did-it-find-the-rules-we-planted" class="nav-link" data-scroll-target="#demo-10-did-it-find-the-rules-we-planted"><span class="header-section-number">19.2.2</span> Demo 10 — did it find the rules we planted?</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s16-c" id="toc-sec-s16-c" class="nav-link" data-scroll-target="#sec-s16-c"><span class="header-section-number">20</span> Part C — Create insightful visualizations and perform statistical analysis using advanced tools.</a>
+  <li><a href="#sec-s16-c" id="toc-sec-s16-c" class="nav-link" data-scroll-target="#sec-s16-c"><span class="header-section-number">20</span> Part C — Making claims stand up</a>
   <ul class="collapse">
-  <li><a href="#sec-s16-topic-3" id="toc-sec-s16-topic-3" class="nav-link" data-scroll-target="#sec-s16-topic-3"><span class="header-section-number">20.1</span> 3. Create insightful visualizations and perform statistical analysis using advanced tools.</a>
+  <li><a href="#sec-s16-topic-6" id="toc-sec-s16-topic-6" class="nav-link" data-scroll-target="#sec-s16-topic-6"><span class="header-section-number">20.1</span> 6. Test the claim, do not just draw it</a>
   <ul class="collapse">
-  <li><a href="#how-it-works-2" id="toc-how-it-works-2" class="nav-link" data-scroll-target="#how-it-works-2"><span class="header-section-number">20.1.1</span> How it works</a></li>
-  <li><a href="#examples-2" id="toc-examples-2" class="nav-link" data-scroll-target="#examples-2"><span class="header-section-number">20.1.2</span> 📘 Examples</a></li>
-  <li><a href="#scenarios-2" id="toc-scenarios-2" class="nav-link" data-scroll-target="#scenarios-2"><span class="header-section-number">20.1.3</span> 🌍 Scenarios</a></li>
-  <li><a href="#mcqs-2" id="toc-mcqs-2" class="nav-link" data-scroll-target="#mcqs-2"><span class="header-section-number">20.1.4</span> ❓ MCQs</a></li>
+  <li><a href="#demo-11-testing-the-three-hypotheses-from-demo-3" id="toc-demo-11-testing-the-three-hypotheses-from-demo-3" class="nav-link" data-scroll-target="#demo-11-testing-the-three-hypotheses-from-demo-3"><span class="header-section-number">20.1.1</span> Demo 11 — testing the three hypotheses from Demo 3</a></li>
+  <li><a href="#demo-12-what-the-model-learned-checked-against-the-tests" id="toc-demo-12-what-the-model-learned-checked-against-the-tests" class="nav-link" data-scroll-target="#demo-12-what-the-model-learned-checked-against-the-tests"><span class="header-section-number">20.1.2</span> Demo 12 — what the model learned, checked against the tests</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s16-d" id="toc-sec-s16-d" class="nav-link" data-scroll-target="#sec-s16-d"><span class="header-section-number">21</span> Part D — Develop and implement advanced machine learning models on a complex dataset.</a>
+  <li><a href="#sec-s16-d" id="toc-sec-s16-d" class="nav-link" data-scroll-target="#sec-s16-d"><span class="header-section-number">21</span> Part D — Delivering it</a>
   <ul class="collapse">
-  <li><a href="#sec-s16-topic-4" id="toc-sec-s16-topic-4" class="nav-link" data-scroll-target="#sec-s16-topic-4"><span class="header-section-number">21.1</span> 4. Develop and implement advanced machine learning models on a complex dataset.</a>
+  <li><a href="#sec-s16-topic-7" id="toc-sec-s16-topic-7" class="nav-link" data-scroll-target="#sec-s16-topic-7"><span class="header-section-number">21.1</span> 7. What you hand over</a>
   <ul class="collapse">
-  <li><a href="#how-it-works-3" id="toc-how-it-works-3" class="nav-link" data-scroll-target="#how-it-works-3"><span class="header-section-number">21.1.1</span> How it works</a></li>
-  <li><a href="#examples-3" id="toc-examples-3" class="nav-link" data-scroll-target="#examples-3"><span class="header-section-number">21.1.2</span> 📘 Examples</a></li>
-  <li><a href="#scenarios-3" id="toc-scenarios-3" class="nav-link" data-scroll-target="#scenarios-3"><span class="header-section-number">21.1.3</span> 🌍 Scenarios</a></li>
-  <li><a href="#mcqs-3" id="toc-mcqs-3" class="nav-link" data-scroll-target="#mcqs-3"><span class="header-section-number">21.1.4</span> ❓ MCQs</a></li>
+  <li><a href="#demo-13-packaging-the-result-session-12" id="toc-demo-13-packaging-the-result-session-12" class="nav-link" data-scroll-target="#demo-13-packaging-the-result-session-12"><span class="header-section-number">21.1.1</span> Demo 13 — packaging the result (Session 12)</a></li>
+  </ul></li>
+  <li><a href="#sec-s16-topic-8" id="toc-sec-s16-topic-8" class="nav-link" data-scroll-target="#sec-s16-topic-8"><span class="header-section-number">21.2</span> 8. Responsible delivery</a>
+  <ul class="collapse">
+  <li><a href="#demo-14-a-fairness-check" id="toc-demo-14-a-fairness-check" class="nav-link" data-scroll-target="#demo-14-a-fairness-check"><span class="header-section-number">21.2.1</span> Demo 14 — a fairness check</a></li>
+  <li><a href="#check-yourself" id="toc-check-yourself" class="nav-link" data-scroll-target="#check-yourself"><span class="header-section-number">21.2.2</span> ❓ Check yourself</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s16-tasks" id="toc-sec-s16-tasks" class="nav-link" data-scroll-target="#sec-s16-tasks"><span class="header-section-number">22</span> 🎯 Session 16 — Tasks</a></li>
+  <li><a href="#sec-s16-tasks" id="toc-sec-s16-tasks" class="nav-link" data-scroll-target="#sec-s16-tasks"><span class="header-section-number">22</span> 🎯 Capstone project</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-13-big-data-analytics-fundamentals.html">Part E — Data at scale</a></li><li class="breadcrumb-item"><a href="../sessions/session-16-open-ended-module-implementation-and-capstone.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Capstone: The End-to-End Project</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Open Ended Module (Implementation and Capstone)</span></h1>
-<p class="subtitle lead">Apply the entire data analytics process to a real-world dataset. · Perform clustering and association rule mining on a market basket dataset. · Create insightful visualizations and perform statistical analysis using advanced tools. · Develop and implement advanced machine learning models on a complex dataset.</p>
+<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Capstone: The End-to-End Project</span></h1>
+<p class="subtitle lead">The whole pipeline · Market basket analysis · Statistical testing · Advanced models · Delivering it</p>
 </div>
 
 
@@ -323,11 +393,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<!-- Setup code for the book -->
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -338,18 +403,21 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>This chapter introduces the fundamental concepts of Open Ended Module (Implementation and Capstone).</strong></p>
-<p><strong>Assumed knowledge:</strong> Concepts from Session 15.</p>
+<p><strong>This chapter puts all fifteen previous chapters into one project.</strong></p>
+<p><strong>Assumed knowledge:</strong> everything. This chapter introduces exactly one new technique — association rule mining — and otherwise assembles what you already have.</p>
+<p><strong>The one idea to take away:</strong> a finished project is not a model with a good score. It is a <strong>question, an honest answer, and a statement of what the answer cannot support.</strong> The last part is what separates a project from a demonstration.</p>
 </div>
 </div>
 <section id="sec-s16-outcomes" class="level2" data-number="17.1">
 <h2 data-number="17.1" class="anchored" data-anchor-id="sec-s16-outcomes"><span class="header-section-number">17.1</span> 🎯 Learning outcomes</h2>
 <p>By the end of this chapter you can:</p>
 <ol type="1">
-<li>Understand and implement Apply the entire data analytics process to a real-world dataset.</li>
-<li>Understand and implement Perform clustering and association rule mining on a market basket dataset.</li>
-<li>Understand and implement Create insightful visualizations and perform statistical analysis using advanced tools.</li>
-<li>Understand and implement Develop and implement advanced machine learning models on a complex dataset.</li>
+<li>Run a complete project from raw data to a deployable model.</li>
+<li>Compute support, confidence and lift by hand, and mine rules with Apriori.</li>
+<li>Read an association rule critically and reject a useless one.</li>
+<li>Support a claim with a statistical test, not just a chart.</li>
+<li>Compare several models honestly against a baseline.</li>
+<li>Write up a project so somebody else can reproduce and challenge it.</li>
 </ol>
 </section>
 <section id="sec-s16-organisation" class="level2" data-number="17.2">
@@ -359,126 +427,1068 @@ Note
 <tr class="header">
 <th>Part</th>
 <th>Question it answers</th>
-<th>Source</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#sec-s16-a">A — Apply the entire data analytics process to a real-world dataset.</a></td>
-<td><em>…?</em></td>
-<td><code>trainer_notebook.ipynb</code></td>
+<td><a href="#sec-s16-a">A — The whole pipeline</a></td>
+<td><em>What does all sixteen chapters look like in one run?</em></td>
 </tr>
 <tr class="even">
-<td><a href="#sec-s16-b">B — Perform clustering and association rule mining on a market basket dataset.</a></td>
-<td><em>…?</em></td>
-<td><code>trainer_notebook.ipynb</code></td>
+<td><a href="#sec-s16-b">B — Market basket analysis</a></td>
+<td><em>What is bought together?</em></td>
 </tr>
 <tr class="odd">
-<td><a href="#sec-s16-c">C — Create insightful visualizations and perform statistical analysis using advanced tools.</a></td>
-<td><em>…?</em></td>
-<td><code>trainer_notebook.ipynb</code></td>
+<td><a href="#sec-s16-c">C — Making claims stand up</a></td>
+<td><em>How do I know my finding is real?</em></td>
 </tr>
 <tr class="even">
-<td><a href="#sec-s16-d">D — Develop and implement advanced machine learning models on a complex dataset.</a></td>
-<td><em>…?</em></td>
-<td><code>trainer_notebook.ipynb</code></td>
+<td><a href="#sec-s16-d">D — Delivering it</a></td>
+<td><em>What do I actually hand over?</em></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="sec-s16-a" class="level1" data-number="18">
-<h1 data-number="18"><span class="header-section-number">18</span> Part A — Apply the entire data analytics process to a real-world dataset.</h1>
-<p><strong>Overview of Apply the entire data analytics process to a real-world dataset. and its practical applications.</strong></p>
+<h1 data-number="18"><span class="header-section-number">18</span> Part A — The whole pipeline</h1>
 <section id="sec-s16-topic-1" class="level2" data-number="18.1">
-<h2 data-number="18.1" class="anchored" data-anchor-id="sec-s16-topic-1"><span class="header-section-number">18.1</span> 1. Apply the entire data analytics process to a real-world dataset.</h2>
-<p><strong>One plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.</strong></p>
-<p><strong>Then why it exists: what breaks, or what is unbearably tedious, without it.</strong></p>
-<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — something the reader already understands">
+<h2 data-number="18.1" class="anchored" data-anchor-id="sec-s16-topic-1"><span class="header-section-number">18.1</span> 1. The project checklist</h2>
+<p><strong>Before writing any code, answer four questions.</strong> A project that skips this stage usually produces a model nobody can use.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Question</th>
+<th>A bad answer</th>
+<th>A good answer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>What decision changes?</strong></td>
+<td>“we want to understand customers”</td>
+<td>“we decide who gets the retention offer”</td>
+</tr>
+<tr class="even">
+<td><strong>What does success look like?</strong></td>
+<td>“high accuracy”</td>
+<td>“catch 60% of churners while contacting under 20% of customers”</td>
+</tr>
+<tr class="odd">
+<td><strong>What data exists, and when?</strong></td>
+<td>“we have lots of data”</td>
+<td>“12 months of transactions, available the day after”</td>
+</tr>
+<tr class="even">
+<td><strong>What would make it useless?</strong></td>
+<td>—</td>
+<td>“if it needs data we only have <em>after</em> the customer leaves”</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Fix the success criterion before you model">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>🧠 Analogy — something the reader already understands
+<span class="screen-reader-only">Warning</span>⚠️ Fix the success criterion before you model
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>The everyday thing.</strong></p>
-<p><strong>The mapping:</strong> this part is the data, this part is the model, this part is the error.</p>
-<p><strong>Where it breaks down:</strong> every analogy is wrong somewhere, and the reader will walk into that place unaided.</p>
+<p>Choosing the target metric <em>after</em> seeing the results means choosing the metric your model happens to do well on. <strong>Write the number down first</strong>, and keep it visible.</p>
 </div>
 </div>
-<section id="how-it-works" class="level3" data-number="18.1.1">
-<h3 data-number="18.1.1" class="anchored" data-anchor-id="how-it-works"><span class="header-section-number">18.1.1</span> How it works</h3>
-<p><strong>The mechanism, in plain words first.</strong></p>
+<section id="demo-1-the-dataset-and-the-question" class="level3" data-number="18.1.1">
+<h3 data-number="18.1.1" class="anchored" data-anchor-id="demo-1-the-dataset-and-the-question"><span class="header-section-number">18.1.1</span> Demo 1 — the dataset, and the question</h3>
+<div id="379e8d96" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">101</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">3_000</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>customers <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"customer_id"</span>:   np.arange(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>),</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"tenure_months"</span>: rng.integers(<span class="dv">1</span>, <span class="dv">72</span>, n),</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"monthly_spend"</span>: rng.gamma(<span class="dv">4</span>, <span class="dv">300</span>, n).<span class="bu">round</span>(<span class="dv">2</span>),</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"support_calls"</span>: rng.poisson(<span class="fl">1.3</span>, n),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"city"</span>:          rng.choice([<span class="st">"Mumbai"</span>, <span class="st">"Delhi"</span>, <span class="st">"Pune"</span>, <span class="st">"Chennai"</span>], n, p<span class="op">=</span>[<span class="fl">.35</span>, <span class="fl">.3</span>, <span class="fl">.2</span>, <span class="fl">.15</span>]),</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"plan"</span>:          rng.choice([<span class="st">"basic"</span>, <span class="st">"standard"</span>, <span class="st">"premium"</span>], n, p<span class="op">=</span>[<span class="fl">.45</span>, <span class="fl">.35</span>, <span class="fl">.20</span>]),</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># The truth we are asking the model to recover: churn rises with support calls,</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># falls with tenure, and is higher on the basic plan.</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>risk <span class="op">=</span> (<span class="op">-</span><span class="fl">2.4</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> <span class="fl">0.42</span> <span class="op">*</span> customers[<span class="st">"support_calls"</span>]</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span> <span class="fl">0.030</span> <span class="op">*</span> customers[<span class="st">"tenure_months"</span>]</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> <span class="fl">0.9</span> <span class="op">*</span> (customers[<span class="st">"plan"</span>] <span class="op">==</span> <span class="st">"basic"</span>))</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>customers[<span class="st">"churned"</span>] <span class="op">=</span> (rng.random(n) <span class="op">&lt;</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> np.exp(<span class="op">-</span>risk))).astype(<span class="bu">int</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Real data is never clean.</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>customers.loc[rng.choice(n, <span class="dv">120</span>, replace<span class="op">=</span><span class="va">False</span>), <span class="st">"monthly_spend"</span>] <span class="op">=</span> np.nan</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>customers.loc[rng.choice(n, <span class="dv">40</span>, replace<span class="op">=</span><span class="va">False</span>), <span class="st">"tenure_months"</span>] <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>      <span class="co"># impossible</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>customers <span class="op">=</span> pd.concat([customers, customers.sample(<span class="dv">60</span>, random_state<span class="op">=</span><span class="dv">1</span>)])    <span class="co"># duplicates</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"rows: </span><span class="sc">{</span><span class="bu">len</span>(customers)<span class="sc">:,}</span><span class="ss">   churn rate: </span><span class="sc">{</span>customers[<span class="st">'churned'</span>]<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">QUESTION      : which customers will churn in the next quarter?"</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"DECISION      : who receives a retention offer"</span>)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"SUCCESS       : catch 60% of churners (recall ≥ 0.60) while contacting"</span>)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"                fewer than 30% of all customers"</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"BASELINE      : contacting everyone catches 100% but contacts 100%"</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>customers.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>rows: 3,060   churn rate: 9.8%
+
+QUESTION      : which customers will churn in the next quarter?
+DECISION      : who receives a retention offer
+SUCCESS       : catch 60% of churners (recall ≥ 0.60) while contacting
+                fewer than 30% of all customers
+BASELINE      : contacting everyone catches 100% but contacts 100%</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">customer_id</th>
+<th data-quarto-table-cell-role="th">tenure_months</th>
+<th data-quarto-table-cell-role="th">monthly_spend</th>
+<th data-quarto-table-cell-role="th">support_calls</th>
+<th data-quarto-table-cell-role="th">city</th>
+<th data-quarto-table-cell-role="th">plan</th>
+<th data-quarto-table-cell-role="th">churned</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>1</td>
+<td>23</td>
+<td>638.37</td>
+<td>0</td>
+<td>Pune</td>
+<td>premium</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>2</td>
+<td>67</td>
+<td>442.66</td>
+<td>2</td>
+<td>Mumbai</td>
+<td>standard</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>3</td>
+<td>50</td>
+<td>1070.64</td>
+<td>1</td>
+<td>Chennai</td>
+<td>basic</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>4</td>
+<td>26</td>
+<td>934.38</td>
+<td>1</td>
+<td>Pune</td>
+<td>basic</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>5</td>
+<td>10</td>
+<td>1717.12</td>
+<td>4</td>
+<td>Delhi</td>
+<td>basic</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
 </section>
-<section id="examples" class="level3" data-number="18.1.2">
-<h3 data-number="18.1.2" class="anchored" data-anchor-id="examples"><span class="header-section-number">18.1.2</span> 📘 Examples</h3>
-<p><strong>Example 1 — the smallest thing that works</strong></p>
-<div id="3a52fc33" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># placeholder</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="sec-s16-topic-2" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="sec-s16-topic-2"><span class="header-section-number">18.2</span> 2. Steps 1–3: clean, explore, prepare</h2>
+<section id="demo-2-cleaning-with-a-report-session-3" class="level3" data-number="18.2.1">
+<h3 data-number="18.2.1" class="anchored" data-anchor-id="demo-2-cleaning-with-a-report-session-3"><span class="header-section-number">18.2.1</span> Demo 2 — cleaning, with a report (Session 3)</h3>
+<div id="794c9a72" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> clean(df):</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    report, d <span class="op">=</span> {}, df.copy()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    report[<span class="st">"rows_in"</span>] <span class="op">=</span> <span class="bu">len</span>(d)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> d.drop_duplicates()</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    report[<span class="st">"duplicates_removed"</span>] <span class="op">=</span> report[<span class="st">"rows_in"</span>] <span class="op">-</span> <span class="bu">len</span>(d)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    bad <span class="op">=</span> d[<span class="st">"tenure_months"</span>] <span class="op">&lt;</span> <span class="dv">0</span>                       <span class="co"># impossible before missing</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    report[<span class="st">"impossible_values"</span>] <span class="op">=</span> <span class="bu">int</span>(bad.<span class="bu">sum</span>())</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    d.loc[bad, <span class="st">"tenure_months"</span>] <span class="op">=</span> np.nan</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    report[<span class="st">"blanks_before"</span>] <span class="op">=</span> <span class="bu">int</span>(d[[<span class="st">"monthly_spend"</span>, <span class="st">"tenure_months"</span>]].isna().<span class="bu">sum</span>().<span class="bu">sum</span>())</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    d[<span class="st">"spend_was_missing"</span>] <span class="op">=</span> d[<span class="st">"monthly_spend"</span>].isna()</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    d[<span class="st">"monthly_spend"</span>] <span class="op">=</span> d[<span class="st">"monthly_spend"</span>].fillna(d[<span class="st">"monthly_spend"</span>].median())</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    d[<span class="st">"tenure_months"</span>] <span class="op">=</span> d[<span class="st">"tenure_months"</span>].fillna(d[<span class="st">"tenure_months"</span>].median())</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    q1, q3 <span class="op">=</span> d[<span class="st">"monthly_spend"</span>].quantile([<span class="fl">.25</span>, <span class="fl">.75</span>])</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    report[<span class="st">"outliers_flagged"</span>] <span class="op">=</span> <span class="bu">int</span>((d[<span class="st">"monthly_spend"</span>] <span class="op">&gt;</span> q3 <span class="op">+</span> <span class="fl">1.5</span><span class="op">*</span>(q3<span class="op">-</span>q1)).<span class="bu">sum</span>())</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    report[<span class="st">"rows_out"</span>] <span class="op">=</span> <span class="bu">len</span>(d)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    report[<span class="st">"blanks_after"</span>] <span class="op">=</span> <span class="bu">int</span>(d.isna().<span class="bu">sum</span>().<span class="bu">sum</span>())</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> d, report</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>clean_df, report <span class="op">=</span> clean(customers)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CLEANING REPORT"</span>)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, v <span class="kw">in</span> report.items():</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>k<span class="sc">.</span>replace(<span class="st">'_'</span>,<span class="st">' '</span>)<span class="sc">:&lt;22}</span><span class="ss"> </span><span class="sc">{</span>v<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Outliers were flagged, not removed — high spenders are real customers."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CLEANING REPORT
+  rows in                3060
+  duplicates removed     60
+  impossible values      40
+  blanks before          160
+  outliers flagged       78
+  rows out               3000
+  blanks after           0
+
+Outliers were flagged, not removed — high spenders are real customers.</code></pre>
+</div>
 </div>
 </section>
-<section id="scenarios" class="level3" data-number="18.1.3">
-<h3 data-number="18.1.3" class="anchored" data-anchor-id="scenarios"><span class="header-section-number">18.1.3</span> 🌍 Scenarios</h3>
-<p><strong>Scenario 1 — the same idea in a situation the reader recognises</strong></p>
-<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ The trap, and its consequence">
+<section id="demo-3-exploring-and-forming-a-hypothesis-sessions-78" class="level3" data-number="18.2.2">
+<h3 data-number="18.2.2" class="anchored" data-anchor-id="demo-3-exploring-and-forming-a-hypothesis-sessions-78"><span class="header-section-number">18.2.2</span> Demo 3 — exploring, and forming a hypothesis (Sessions 7–8)</h3>
+<div id="cell-fig-s16-eda" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt, seaborn <span class="im">as</span> sns</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="fl">3.2</span>))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>clean_df, x<span class="op">=</span><span class="st">"churned"</span>, y<span class="op">=</span><span class="st">"support_calls"</span>, ax<span class="op">=</span>ax[<span class="dv">0</span>])</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_title(<span class="st">"Support calls"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>clean_df, x<span class="op">=</span><span class="st">"churned"</span>, y<span class="op">=</span><span class="st">"tenure_months"</span>, ax<span class="op">=</span>ax[<span class="dv">1</span>])</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"Tenure (months)"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>clean_df, x<span class="op">=</span><span class="st">"churned"</span>, y<span class="op">=</span><span class="st">"monthly_spend"</span>, ax<span class="op">=</span>ax[<span class="dv">2</span>])</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">2</span>].set_title(<span class="st">"Monthly spend"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Churn rate by plan:"</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>((clean_df.groupby(<span class="st">"plan"</span>)[<span class="st">"churned"</span>].agg([<span class="st">"mean"</span>, <span class="st">"size"</span>])</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>       .rename(columns<span class="op">=</span>{<span class="st">"mean"</span>: <span class="st">"churn_rate"</span>, <span class="st">"size"</span>: <span class="st">"customers"</span>})</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>       .assign(churn_rate<span class="op">=</span><span class="kw">lambda</span> d: (d[<span class="st">"churn_rate"</span>]<span class="op">*</span><span class="dv">100</span>).<span class="bu">round</span>(<span class="dv">1</span>)).to_string()))</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Correlation with churn:"</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(clean_df[[<span class="st">"tenure_months"</span>,<span class="st">"monthly_spend"</span>,<span class="st">"support_calls"</span>,<span class="st">"churned"</span>]]</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>      .corr()[<span class="st">"churned"</span>].drop(<span class="st">"churned"</span>).<span class="bu">round</span>(<span class="dv">3</span>).to_string())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s16-eda" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s16-eda-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-16-open-ended-module-implementation-and-capstone_files/figure-html/fig-s16-eda-output-1.png" width="1419" height="341" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s16-eda-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;18.1: Churn against each candidate driver. Support calls and tenure separate the groups; spend does not.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Churn rate by plan:
+          churn_rate  customers
+plan                           
+basic           13.5       1301
+premium          6.3        619
+standard         7.1       1080
+
+Correlation with churn:
+tenure_months   -0.168
+monthly_spend   -0.018
+support_calls    0.174</code></pre>
+</div>
+</div>
+<p><strong>Three hypotheses, formed from the pictures:</strong> support calls raise churn, tenure lowers it, spend does little. Part C tests them properly rather than trusting the eye.</p>
+</section>
+<section id="demo-4-preparing-with-a-pipeline-session-5" class="level3" data-number="18.2.3">
+<h3 data-number="18.2.3" class="anchored" data-anchor-id="demo-4-preparing-with-a-pipeline-session-5"><span class="header-section-number">18.2.3</span> Demo 4 — preparing, with a pipeline (Session 5)</h3>
+<div id="624fb753" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler, OneHotEncoder</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> [<span class="st">"tenure_months"</span>, <span class="st">"monthly_spend"</span>, <span class="st">"support_calls"</span>, <span class="st">"city"</span>, <span class="st">"plan"</span>]</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> clean_df[features]</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> clean_df[<span class="st">"churned"</span>]</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    X, y, test_size<span class="op">=</span><span class="fl">0.25</span>, random_state<span class="op">=</span><span class="dv">42</span>, stratify<span class="op">=</span>y)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>prepare <span class="op">=</span> ColumnTransformer([</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"num"</span>, StandardScaler(), [<span class="st">"tenure_months"</span>, <span class="st">"monthly_spend"</span>, <span class="st">"support_calls"</span>]),</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"cat"</span>, OneHotEncoder(handle_unknown<span class="op">=</span><span class="st">"ignore"</span>), [<span class="st">"city"</span>, <span class="st">"plan"</span>]),</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"train </span><span class="sc">{</span><span class="bu">len</span>(X_train)<span class="sc">:,}</span><span class="ss"> rows   test </span><span class="sc">{</span><span class="bu">len</span>(X_test)<span class="sc">:,}</span><span class="ss"> rows"</span>)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"churn rate — train </span><span class="sc">{</span>y_train<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">, test </span><span class="sc">{</span>y_test<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">  (kept equal by stratify)"</span>)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"columns after preparation: </span><span class="sc">{</span>prepare<span class="sc">.</span>fit_transform(X_train)<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>train 2,250 rows   test 750 rows
+churn rate — train 9.7%, test 9.7%  (kept equal by stratify)
+columns after preparation: 10</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s16-topic-3" class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="sec-s16-topic-3"><span class="header-section-number">18.3</span> 3. Steps 4–5: model and evaluate</h2>
+<section id="demo-5-four-models-against-a-baseline-sessions-911" class="level3" data-number="18.3.1">
+<h3 data-number="18.3.1" class="anchored" data-anchor-id="demo-5-four-models-against-a-baseline-sessions-911"><span class="header-section-number">18.3.1</span> Demo 5 — four models against a baseline (Sessions 9–11)</h3>
+<div id="f5da69a6" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyClassifier</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier, GradientBoostingClassifier</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score, StratifiedKFold</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> recall_score, precision_score, roc_auc_score</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>cv <span class="op">=</span> StratifiedKFold(<span class="dv">5</span>, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>models <span class="op">=</span> {</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Baseline (majority)"</span>: DummyClassifier(strategy<span class="op">=</span><span class="st">"most_frequent"</span>),</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Logistic regression"</span>: LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>, class_weight<span class="op">=</span><span class="st">"balanced"</span>),</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Decision tree"</span>:       DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">5</span>, random_state<span class="op">=</span><span class="dv">0</span>, class_weight<span class="op">=</span><span class="st">"balanced"</span>),</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Random forest"</span>:       RandomForestClassifier(n_estimators<span class="op">=</span><span class="dv">200</span>, max_depth<span class="op">=</span><span class="dv">8</span>,</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>                                                  random_state<span class="op">=</span><span class="dv">0</span>, class_weight<span class="op">=</span><span class="st">"balanced"</span>),</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Gradient boosting"</span>:   GradientBoostingClassifier(random_state<span class="op">=</span><span class="dv">0</span>),</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> []</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, clf <span class="kw">in</span> models.items():</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    pipe <span class="op">=</span> Pipeline([(<span class="st">"prep"</span>, prepare), (<span class="st">"clf"</span>, clf)])</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    cv_auc <span class="op">=</span> cross_val_score(pipe, X_train, y_train, cv<span class="op">=</span>cv, scoring<span class="op">=</span><span class="st">"roc_auc"</span>)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    pipe.fit(X_train, y_train)</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> pipe.predict(X_test)</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    proba <span class="op">=</span> pipe.predict_proba(X_test)[:, <span class="dv">1</span>] <span class="cf">if</span> <span class="bu">hasattr</span>(clf, <span class="st">"predict_proba"</span>) <span class="cf">else</span> pred</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    rows.append({</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>        <span class="st">"model"</span>: name,</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>        <span class="st">"cv_auc"</span>: <span class="ss">f"</span><span class="sc">{</span>cv_auc<span class="sc">.</span>mean()<span class="sc">:.3f}</span><span class="ss"> ± </span><span class="sc">{</span>cv_auc<span class="sc">.</span>std()<span class="sc">:.3f}</span><span class="ss">"</span>,</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>        <span class="st">"recall"</span>: <span class="bu">round</span>(recall_score(y_test, pred, zero_division<span class="op">=</span><span class="dv">0</span>), <span class="dv">3</span>),</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>        <span class="st">"precision"</span>: <span class="bu">round</span>(precision_score(y_test, pred, zero_division<span class="op">=</span><span class="dv">0</span>), <span class="dv">3</span>),</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>        <span class="st">"test_auc"</span>: <span class="bu">round</span>(roc_auc_score(y_test, proba), <span class="dv">3</span>),</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.DataFrame(rows).to_string(index<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              model        cv_auc  recall  precision  test_auc
+Baseline (majority) 0.500 ± 0.000   0.000      0.000     0.500
+Logistic regression 0.736 ± 0.053   0.685      0.180     0.742
+      Decision tree 0.643 ± 0.031   0.575      0.209     0.671
+      Random forest 0.683 ± 0.057   0.521      0.225     0.724
+  Gradient boosting 0.704 ± 0.040   0.014      0.143     0.749</code></pre>
+</div>
+</div>
+</section>
+<section id="demo-6-the-threshold-is-where-the-business-requirement-is-met" class="level3" data-number="18.3.2">
+<h3 data-number="18.3.2" class="anchored" data-anchor-id="demo-6-the-threshold-is-where-the-business-requirement-is-met"><span class="header-section-number">18.3.2</span> Demo 6 — the threshold is where the business requirement is met</h3>
+<p><strong>Accuracy was never the goal. The goal was: catch 60% of churners while contacting under 30% of customers.</strong> That is a statement about the decision threshold, not the model.</p>
+<div id="cell-fig-s16-threshold" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> recall_score, precision_score</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>best <span class="op">=</span> Pipeline([(<span class="st">"prep"</span>, prepare),</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                 (<span class="st">"clf"</span>, RandomForestClassifier(n_estimators<span class="op">=</span><span class="dv">200</span>, max_depth<span class="op">=</span><span class="dv">8</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>                                                random_state<span class="op">=</span><span class="dv">0</span>, class_weight<span class="op">=</span><span class="st">"balanced"</span>))])</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>best.fit(X_train, y_train)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>proba <span class="op">=</span> best.predict_proba(X_test)[:, <span class="dv">1</span>]</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>thresholds <span class="op">=</span> np.arange(<span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="fl">0.025</span>)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>recalls  <span class="op">=</span> [recall_score(y_test, proba <span class="op">&gt;=</span> t, zero_division<span class="op">=</span><span class="dv">0</span>) <span class="cf">for</span> t <span class="kw">in</span> thresholds]</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>contacts <span class="op">=</span> [(proba <span class="op">&gt;=</span> t).mean() <span class="cf">for</span> t <span class="kw">in</span> thresholds]</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>plt.plot(thresholds, recalls, label<span class="op">=</span><span class="st">"churners caught (recall)"</span>)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>plt.plot(thresholds, contacts, label<span class="op">=</span><span class="st">"customers contacted"</span>)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>plt.axhline(<span class="fl">0.60</span>, color<span class="op">=</span><span class="st">"green"</span>, ls<span class="op">=</span><span class="st">"--"</span>, lw<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="st">"required recall 0.60"</span>)</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>plt.axhline(<span class="fl">0.30</span>, color<span class="op">=</span><span class="st">"red"</span>, ls<span class="op">=</span><span class="st">"--"</span>, lw<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="st">"contact budget 0.30"</span>)</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"decision threshold"</span>)<span class="op">;</span> plt.legend(fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>ok <span class="op">=</span> [(t, r, c) <span class="cf">for</span> t, r, c <span class="kw">in</span> <span class="bu">zip</span>(thresholds, recalls, contacts) <span class="cf">if</span> r <span class="op">&gt;=</span> <span class="fl">0.60</span> <span class="kw">and</span> c <span class="op">&lt;=</span> <span class="fl">0.30</span>]</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> ok:</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    t, r, c <span class="op">=</span> ok[<span class="dv">0</span>]</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Requirement MET at threshold </span><span class="sc">{</span>t<span class="sc">:.3f}</span><span class="ss">: recall </span><span class="sc">{</span>r<span class="sc">:.1%}</span><span class="ss">, contacting </span><span class="sc">{</span>c<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    closest <span class="op">=</span> <span class="bu">max</span>(<span class="bu">zip</span>(thresholds, recalls, contacts), key<span class="op">=</span><span class="kw">lambda</span> z: z[<span class="dv">1</span>] <span class="cf">if</span> z[<span class="dv">2</span>] <span class="op">&lt;=</span> <span class="fl">0.30</span> <span class="cf">else</span> <span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Requirement NOT met by this model."</span>)</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Within the 30% contact budget the best recall is "</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"</span><span class="sc">{</span>closest[<span class="dv">1</span>]<span class="sc">:.1%}</span><span class="ss"> at threshold </span><span class="sc">{</span>closest[<span class="dv">0</span>]<span class="sc">:.3f}</span><span class="ss">."</span>)</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Report this honestly. Either the budget rises or the model improves."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s16-threshold" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s16-threshold-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-16-open-ended-module-implementation-and-capstone_files/figure-html/fig-s16-threshold-output-1.png" width="654" height="408" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s16-threshold-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;18.2: Recall and contact rate against the decision threshold. The shaded band is where both requirements hold.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Requirement NOT met by this model.
+Within the 30% contact budget the best recall is 58.9% at threshold 0.450.
+Report this honestly. Either the budget rises or the model improves.</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="🔓 Report against the requirement, not against 1.0">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>⚠️ The trap, and its consequence
+<span class="screen-reader-only">Important</span>🔓 Report against the requirement, not against 1.0
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><em>“It will not error — it will be quietly wrong.”</em></p>
+<p>“AUC 0.78” is a number. <strong>“Catches 58.9% of churners within a 30% contact budget, against a target of 60%”</strong> is an answer. Only the second tells anyone whether to deploy.</p>
+<p><strong>Notice that this worked example does not meet its own target</strong>, and that this is left in rather than tidied away. That is the realistic outcome: a model with a respectable AUC can still fail the requirement the business actually set. The honest report says so and offers the two real options — <strong>raise the contact budget, or improve the model</strong> — instead of quietly switching to a metric that looks better.</p>
+<p>A project that reports a missed target with the gap measured is worth more than one that reports a good-looking AUC against no target at all.</p>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Tasks">
+</section>
+</section>
+</section>
+<section id="sec-s16-b" class="level1" data-number="19">
+<h1 data-number="19"><span class="header-section-number">19</span> Part B — Market basket analysis</h1>
+<section id="sec-s16-topic-4" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="sec-s16-topic-4"><span class="header-section-number">19.1</span> 4. Association rules</h2>
+<p><strong>Association rule mining finds things that occur together.</strong> <em>“People who buy bread and butter also buy jam.”</em></p>
+<p>Written as a rule: <strong>{bread, butter} → {jam}</strong>. The left side is the <strong>antecedent</strong>, the right side the <strong>consequent</strong>.</p>
+<p><strong>Three numbers judge every rule.</strong> Compute them by hand once and they never confuse you again.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Measure</th>
+<th>Question</th>
+<th>Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Support</strong></td>
+<td>how often does this combination happen at all?</td>
+<td>transactions with all items ÷ all transactions</td>
+</tr>
+<tr class="even">
+<td><strong>Confidence</strong></td>
+<td>when the left side happens, how often does the right?</td>
+<td>support(both) ÷ support(left)</td>
+</tr>
+<tr class="odd">
+<td><strong>Lift</strong></td>
+<td>is the right side <strong>more likely</strong> than usual when the left happens?</td>
+<td>confidence ÷ support(right)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Lift is the one that matters:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Lift</th>
+<th>Means</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>&gt; 1</strong></td>
+<td>they go together <strong>more</strong> than chance — a real association</td>
+</tr>
+<tr class="even">
+<td><strong>= 1</strong></td>
+<td>independent — <strong>the rule found nothing</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>&lt; 1</strong></td>
+<td>they go together <strong>less</strong> than chance</td>
+</tr>
+</tbody>
+</table>
+<section id="demo-7-by-hand-on-ten-baskets" class="level3" data-number="19.1.1">
+<h3 data-number="19.1.1" class="anchored" data-anchor-id="demo-7-by-hand-on-ten-baskets"><span class="header-section-number">19.1.1</span> Demo 7 — by hand, on ten baskets</h3>
+<div id="24d01a22" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>baskets <span class="op">=</span> [</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"bread"</span>, <span class="st">"butter"</span>, <span class="st">"jam"</span>},</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"bread"</span>, <span class="st">"butter"</span>},</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"bread"</span>, <span class="st">"butter"</span>, <span class="st">"jam"</span>, <span class="st">"milk"</span>},</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"milk"</span>, <span class="st">"eggs"</span>},</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"bread"</span>, <span class="st">"jam"</span>},</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"bread"</span>, <span class="st">"butter"</span>, <span class="st">"milk"</span>},</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"butter"</span>, <span class="st">"jam"</span>},</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"bread"</span>, <span class="st">"butter"</span>, <span class="st">"jam"</span>},</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"milk"</span>, <span class="st">"eggs"</span>, <span class="st">"bread"</span>},</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"bread"</span>, <span class="st">"butter"</span>, <span class="st">"jam"</span>},</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(baskets)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> support(items):</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    items <span class="op">=</span> <span class="bu">set</span>(items)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">sum</span>(items <span class="op">&lt;=</span> b <span class="cf">for</span> b <span class="kw">in</span> baskets) <span class="op">/</span> n</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>left, right <span class="op">=</span> {<span class="st">"bread"</span>, <span class="st">"butter"</span>}, {<span class="st">"jam"</span>}</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>s_left  <span class="op">=</span> support(left)</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>s_right <span class="op">=</span> support(right)</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>s_both  <span class="op">=</span> support(left <span class="op">|</span> right)</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>confidence <span class="op">=</span> s_both <span class="op">/</span> s_left</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>lift       <span class="op">=</span> confidence <span class="op">/</span> s_right</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Rule: </span><span class="sc">{</span><span class="bu">sorted</span>(left)<span class="sc">}</span><span class="ss"> → </span><span class="sc">{</span><span class="bu">sorted</span>(right)<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  support(bread &amp; butter)       = </span><span class="sc">{</span><span class="bu">sum</span>(left <span class="op">&lt;=</span> b <span class="cf">for</span> b <span class="kw">in</span> baskets)<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>s_left<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  support(jam)                  = </span><span class="sc">{</span><span class="bu">sum</span>(right <span class="op">&lt;=</span> b <span class="cf">for</span> b <span class="kw">in</span> baskets)<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>s_right<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  support(all three together)   = </span><span class="sc">{</span><span class="bu">sum</span>((left<span class="op">|</span>right) <span class="op">&lt;=</span> b <span class="cf">for</span> b <span class="kw">in</span> baskets)<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>s_both<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">  confidence = </span><span class="sc">{</span>s_both<span class="sc">:.2f}</span><span class="ss"> / </span><span class="sc">{</span>s_left<span class="sc">:.2f}</span><span class="ss"> = </span><span class="sc">{</span>confidence<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"     → when someone buys bread and butter, </span><span class="sc">{</span>confidence<span class="sc">:.0%}</span><span class="ss"> of the time they buy jam"</span>)</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">  lift = </span><span class="sc">{</span>confidence<span class="sc">:.2f}</span><span class="ss"> / </span><span class="sc">{</span>s_right<span class="sc">:.2f}</span><span class="ss"> = </span><span class="sc">{</span>lift<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"     → they are </span><span class="sc">{</span>lift<span class="sc">:.2f}</span><span class="ss">× more likely to buy jam than a random shopper"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rule: ['bread', 'butter'] → ['jam']
+
+  support(bread &amp; butter)       = 6/10 = 0.60
+  support(jam)                  = 6/10 = 0.60
+  support(all three together)   = 4/10 = 0.40
+
+  confidence = 0.40 / 0.60 = 0.67
+     → when someone buys bread and butter, 67% of the time they buy jam
+
+  lift = 0.67 / 0.60 = 1.11
+     → they are 1.11× more likely to buy jam than a random shopper</code></pre>
+</div>
+</div>
+</section>
+<section id="demo-8-the-trap-high-confidence-no-information" class="level3" data-number="19.1.2">
+<h3 data-number="19.1.2" class="anchored" data-anchor-id="demo-8-the-trap-high-confidence-no-information"><span class="header-section-number">19.1.2</span> Demo 8 — the trap: high confidence, no information</h3>
+<div id="dde1fd8b" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A rule about something almost everyone buys.</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>left2, right2 <span class="op">=</span> {<span class="st">"milk"</span>}, {<span class="st">"bread"</span>}</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>c2 <span class="op">=</span> support(left2 <span class="op">|</span> right2) <span class="op">/</span> support(left2)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>l2 <span class="op">=</span> c2 <span class="op">/</span> support(right2)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Rule: milk → bread"</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  confidence = </span><span class="sc">{</span>c2<span class="sc">:.2f}</span><span class="ss">   ← looks impressive"</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  support(bread) = </span><span class="sc">{</span>support(right2)<span class="sc">:.2f}</span><span class="ss">   ← but bread is in most baskets anyway"</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  lift = </span><span class="sc">{</span>l2<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">  Lift near or below 1 means buying milk tells you NOTHING extra about bread."</span>)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  A recommendation engine built on this rule would suggest bread to everybody."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rule: milk → bread
+  confidence = 0.75   ← looks impressive
+  support(bread) = 0.80   ← but bread is in most baskets anyway
+  lift = 0.94
+
+  Lift near or below 1 means buying milk tells you NOTHING extra about bread.
+  A recommendation engine built on this rule would suggest bread to everybody.</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Confidence alone will fool you">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Tasks
+<span class="screen-reader-only">Warning</span>⚠️ Confidence alone will fool you
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<ol type="1">
-<li>Do exactly what was just shown, on different data.</li>
-<li>Break it deliberately and report the exact error message.</li>
-</ol>
+<p>Any rule pointing at a very common item gets high confidence automatically. <strong>Always check lift</strong>, and be suspicious of any rule whose consequent is your best-selling product.</p>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+</section>
+</section>
+<section id="sec-s16-topic-5" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="sec-s16-topic-5"><span class="header-section-number">19.2</span> 5. Apriori on real-sized data</h2>
+<p><strong>Checking every possible combination is impossible</strong> — 100 products give more than 10³⁰ possible itemsets. <strong>Apriori</strong> avoids that with one observation: <em>if {bread, butter} is rare, then {bread, butter, jam} must be rarer still</em>, so whole branches can be discarded without checking.</p>
+<section id="demo-9-mining-rules-with-mlxtend" class="level3" data-number="19.2.1">
+<h3 data-number="19.2.1" class="anchored" data-anchor-id="demo-9-mining-rules-with-mlxtend"><span class="header-section-number">19.2.1</span> Demo 9 — mining rules with mlxtend</h3>
+<div id="e71836da" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mlxtend.frequent_patterns <span class="im">import</span> apriori, association_rules</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">102</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>products <span class="op">=</span> [<span class="st">"bread"</span>, <span class="st">"butter"</span>, <span class="st">"jam"</span>, <span class="st">"milk"</span>, <span class="st">"eggs"</span>, <span class="st">"coffee"</span>, <span class="st">"sugar"</span>, <span class="st">"tea"</span>, <span class="st">"rice"</span>, <span class="st">"oil"</span>]</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Build 4,000 baskets with three deliberately planted rules, so we can check</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># that the algorithm finds what we know is there.</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>transactions <span class="op">=</span> []</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4_000</span>):</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    basket <span class="op">=</span> <span class="bu">set</span>(rng.choice(products, rng.integers(<span class="dv">1</span>, <span class="dv">4</span>), replace<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">"bread"</span> <span class="kw">in</span> basket <span class="kw">and</span> rng.random() <span class="op">&lt;</span> <span class="fl">0.80</span>: basket.add(<span class="st">"butter"</span>)     <span class="co"># planted</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">"butter"</span> <span class="kw">in</span> basket <span class="kw">and</span> rng.random() <span class="op">&lt;</span> <span class="fl">0.65</span>: basket.add(<span class="st">"jam"</span>)       <span class="co"># planted</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">"coffee"</span> <span class="kw">in</span> basket <span class="kw">and</span> rng.random() <span class="op">&lt;</span> <span class="fl">0.75</span>: basket.add(<span class="st">"sugar"</span>)     <span class="co"># planted</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    transactions.append(basket)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>onehot <span class="op">=</span> pd.DataFrame([{p: (p <span class="kw">in</span> t) <span class="cf">for</span> p <span class="kw">in</span> products} <span class="cf">for</span> t <span class="kw">in</span> transactions])</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>frequent <span class="op">=</span> apriori(onehot, min_support<span class="op">=</span><span class="fl">0.05</span>, use_colnames<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Deliberately NO lift floor here, so we can see how many worthless rules</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="co"># a permissive search produces.</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>rules <span class="op">=</span> association_rules(frequent, metric<span class="op">=</span><span class="st">"confidence"</span>, min_threshold<span class="op">=</span><span class="fl">0.10</span>)</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>rules <span class="op">=</span> rules.sort_values(<span class="st">"lift"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(transactions)<span class="sc">:,}</span><span class="ss"> baskets → </span><span class="sc">{</span><span class="bu">len</span>(frequent)<span class="sc">}</span><span class="ss"> frequent itemsets → </span><span class="sc">{</span><span class="bu">len</span>(rules)<span class="sc">}</span><span class="ss"> rules</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> rules[[<span class="st">"antecedents"</span>, <span class="st">"consequents"</span>, <span class="st">"support"</span>, <span class="st">"confidence"</span>, <span class="st">"lift"</span>]].head(<span class="dv">8</span>).copy()</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>out[<span class="st">"antecedents"</span>] <span class="op">=</span> out[<span class="st">"antecedents"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> s: <span class="st">", "</span>.join(<span class="bu">sorted</span>(s)))</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>out[<span class="st">"consequents"</span>] <span class="op">=</span> out[<span class="st">"consequents"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> s: <span class="st">", "</span>.join(<span class="bu">sorted</span>(s)))</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(out.<span class="bu">round</span>(<span class="dv">3</span>).to_string(index<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>4,000 baskets → 34 frequent itemsets → 56 rules
+
+antecedents consequents  support  confidence  lift
+     butter  bread, jam    0.116       0.346 2.885
+ bread, jam      butter    0.116       0.967 2.885
+      bread      butter    0.171       0.832 2.483
+     butter       bread    0.171       0.510 2.483
+butter, jam       bread    0.116       0.487 2.375
+      bread butter, jam    0.116       0.564 2.375
+     coffee       sugar    0.154       0.779 2.366
+      sugar      coffee    0.154       0.468 2.366</code></pre>
+</div>
+</div>
+</section>
+<section id="demo-10-did-it-find-the-rules-we-planted" class="level3" data-number="19.2.2">
+<h3 data-number="19.2.2" class="anchored" data-anchor-id="demo-10-did-it-find-the-rules-we-planted"><span class="header-section-number">19.2.2</span> Demo 10 — did it find the rules we planted?</h3>
+<div id="69ebda18" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>planted <span class="op">=</span> [({<span class="st">"bread"</span>}, {<span class="st">"butter"</span>}), ({<span class="st">"butter"</span>}, {<span class="st">"jam"</span>}), ({<span class="st">"coffee"</span>}, {<span class="st">"sugar"</span>})]</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Checking the algorithm against the truth we built in:</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ante, cons <span class="kw">in</span> planted:</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    hit <span class="op">=</span> rules[(rules[<span class="st">"antecedents"</span>] <span class="op">==</span> <span class="bu">frozenset</span>(ante)) <span class="op">&amp;</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                (rules[<span class="st">"consequents"</span>] <span class="op">==</span> <span class="bu">frozenset</span>(cons))]</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(hit):</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>        r <span class="op">=</span> hit.iloc[<span class="dv">0</span>]</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  FOUND   </span><span class="sc">{</span><span class="bu">sorted</span>(ante)<span class="sc">}</span><span class="ss"> → </span><span class="sc">{</span><span class="bu">sorted</span>(cons)<span class="sc">}</span><span class="ss">   "</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"confidence </span><span class="sc">{</span>r[<span class="st">'confidence'</span>]<span class="sc">:.2f}</span><span class="ss">  lift </span><span class="sc">{</span>r[<span class="st">'lift'</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  MISSED  </span><span class="sc">{</span><span class="bu">sorted</span>(ante)<span class="sc">}</span><span class="ss"> → </span><span class="sc">{</span><span class="bu">sorted</span>(cons)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>useless <span class="op">=</span> rules[rules[<span class="st">"lift"</span>] <span class="op">&lt;</span> <span class="fl">1.1</span>]</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="sc">{</span><span class="bu">len</span>(useless)<span class="sc">}</span><span class="ss"> of </span><span class="sc">{</span><span class="bu">len</span>(rules)<span class="sc">}</span><span class="ss"> rules have lift below 1.1 — they tell you"</span>)</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"nothing, however good their confidence looks."</span>)</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(useless):</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    worst <span class="op">=</span> useless.sort_values(<span class="st">"confidence"</span>, ascending<span class="op">=</span><span class="va">False</span>).iloc[<span class="dv">0</span>]</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  worst offender: </span><span class="sc">{</span><span class="bu">sorted</span>(worst[<span class="st">'antecedents'</span>])<span class="sc">}</span><span class="ss"> → </span><span class="sc">{</span><span class="bu">sorted</span>(worst[<span class="st">'consequents'</span>])<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  confidence </span><span class="sc">{</span>worst[<span class="st">'confidence'</span>]<span class="sc">:.2f}</span><span class="ss">, but lift </span><span class="sc">{</span>worst[<span class="st">'lift'</span>]<span class="sc">:.2f}</span><span class="ss"> — below 1, so buying"</span>)</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  the antecedent makes the consequent LESS likely than for a random shopper"</span>)</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Filter on lift FIRST, then read the survivors."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Checking the algorithm against the truth we built in:
+
+  FOUND   ['bread'] → ['butter']   confidence 0.83  lift 2.48
+  FOUND   ['butter'] → ['jam']   confidence 0.71  lift 1.85
+  FOUND   ['coffee'] → ['sugar']   confidence 0.78  lift 2.37
+
+38 of 56 rules have lift below 1.1 — they tell you
+nothing, however good their confidence looks.
+  worst offender: ['eggs'] → ['jam']
+  confidence 0.32, but lift 0.83 — below 1, so buying
+  the antecedent makes the consequent LESS likely than for a random shopper
+
+Filter on lift FIRST, then read the survivors.</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="sec-s16-c" class="level1" data-number="20">
+<h1 data-number="20"><span class="header-section-number">20</span> Part C — Making claims stand up</h1>
+<section id="sec-s16-topic-6" class="level2" data-number="20.1">
+<h2 data-number="20.1" class="anchored" data-anchor-id="sec-s16-topic-6"><span class="header-section-number">20.1</span> 6. Test the claim, do not just draw it</h2>
+<p><strong>A box plot showing two groups apart is a hypothesis, not a finding.</strong> The gap might be sampling noise. A statistical test puts a number on how likely that is.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Question</th>
+<th>Test</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Do two groups differ in a <strong>number</strong>?</td>
+<td><strong>t-test</strong></td>
+</tr>
+<tr class="even">
+<td>Are two <strong>categories</strong> related?</td>
+<td><strong>chi-square</strong></td>
+</tr>
+<tr class="odd">
+<td>Do three or more groups differ?</td>
+<td><strong>ANOVA</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>The p-value is the probability of seeing a gap this large if there were genuinely no difference.</strong> Small p-value → the gap is unlikely to be chance.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ What a p-value does not mean">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
+<span class="screen-reader-only">Warning</span>⚠️ What a p-value does not mean
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="ee31d852" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solutions</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>It is <strong>not</strong> the probability that your hypothesis is true. It is <strong>not</strong> a measure of how big or important the effect is — with 100,000 rows, a trivial difference produces a tiny p-value.</p>
+<p><strong>Always report the effect size next to the p-value.</strong> “Churners make 1.4 more support calls on average (p &lt; 0.001)” is a finding. “p &lt; 0.001” alone is not.</p>
 </div>
 </div>
+<section id="demo-11-testing-the-three-hypotheses-from-demo-3" class="level3" data-number="20.1.1">
+<h3 data-number="20.1.1" class="anchored" data-anchor-id="demo-11-testing-the-three-hypotheses-from-demo-3"><span class="header-section-number">20.1.1</span> Demo 11 — testing the three hypotheses from Demo 3</h3>
+<div id="37be331f" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>churned  <span class="op">=</span> clean_df[clean_df[<span class="st">"churned"</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>retained <span class="op">=</span> clean_df[clean_df[<span class="st">"churned"</span>] <span class="op">==</span> <span class="dv">0</span>]</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"t-tests: do churners and retained customers differ?</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> [<span class="st">"support_calls"</span>, <span class="st">"tenure_months"</span>, <span class="st">"monthly_spend"</span>]:</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    t, p <span class="op">=</span> stats.ttest_ind(churned[col], retained[col], equal_var<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    diff <span class="op">=</span> churned[col].mean() <span class="op">-</span> retained[col].mean()</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Cohen's d — how big the difference is, in standard deviations</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    pooled <span class="op">=</span> ((churned[col].std()<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> retained[col].std()<span class="op">**</span><span class="dv">2</span>) <span class="op">/</span> <span class="dv">2</span>) <span class="op">**</span> <span class="fl">0.5</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> diff <span class="op">/</span> pooled</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    verdict <span class="op">=</span> <span class="st">"REAL"</span> <span class="cf">if</span> p <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="cf">else</span> <span class="st">"not significant"</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    size <span class="op">=</span> <span class="st">"large"</span> <span class="cf">if</span> <span class="bu">abs</span>(d) <span class="op">&gt;</span> <span class="fl">.8</span> <span class="cf">else</span> <span class="st">"medium"</span> <span class="cf">if</span> <span class="bu">abs</span>(d) <span class="op">&gt;</span> <span class="fl">.5</span> <span class="cf">else</span> <span class="st">"small"</span> <span class="cf">if</span> <span class="bu">abs</span>(d) <span class="op">&gt;</span> <span class="fl">.2</span> <span class="cf">else</span> <span class="st">"negligible"</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>col<span class="sc">:&lt;16}</span><span class="ss"> difference </span><span class="sc">{</span>diff<span class="sc">:&gt;+8.2f}</span><span class="ss">   p = </span><span class="sc">{</span>p<span class="sc">:&lt;10.2e}</span><span class="ss"> </span><span class="sc">{</span>verdict<span class="sc">:&lt;16}</span><span class="ss"> effect: </span><span class="sc">{</span>size<span class="sc">}</span><span class="ss"> (d=</span><span class="sc">{</span>d<span class="sc">:+.2f}</span><span class="ss">)"</span>)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="co"># chi-square: is churn related to the plan a customer is on?</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>table <span class="op">=</span> pd.crosstab(clean_df[<span class="st">"plan"</span>], clean_df[<span class="st">"churned"</span>])</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>chi2, p, dof, _ <span class="op">=</span> stats.chi2_contingency(table)</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">chi-square, plan vs churn: χ² = </span><span class="sc">{</span>chi2<span class="sc">:.1f}</span><span class="ss">, p = </span><span class="sc">{</span>p<span class="sc">:.2e}</span><span class="ss">"</span>)</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  → plan and churn are </span><span class="sc">{</span><span class="st">'related'</span> <span class="cf">if</span> p <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="cf">else</span> <span class="st">'independent'</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(table.to_string())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>t-tests: do churners and retained customers differ?
+
+  support_calls    difference    +0.66   p = 6.67e-16   REAL             effect: medium (d=+0.56)
+  tenure_months    difference   -11.54   p = 4.02e-20   REAL             effect: medium (d=-0.59)
+  monthly_spend    difference   -35.60   p = 2.85e-01   not significant  effect: negligible (d=-0.06)
+
+chi-square, plan vs churn: χ² = 38.0, p = 5.72e-09
+  → plan and churn are related
+churned      0    1
+plan               
+basic     1125  176
+premium    580   39
+standard  1003   77</code></pre>
+</div>
+</div>
+<p><strong>Compare this with Demo 3’s pictures.</strong> The eye suggested three drivers; the tests confirm which are real, and — importantly — how large each effect actually is.</p>
+</section>
+<section id="demo-12-what-the-model-learned-checked-against-the-tests" class="level3" data-number="20.1.2">
+<h3 data-number="20.1.2" class="anchored" data-anchor-id="demo-12-what-the-model-learned-checked-against-the-tests"><span class="header-section-number">20.1.2</span> Demo 12 — what the model learned, checked against the tests</h3>
+<div id="1d0a4f5b" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>rf <span class="op">=</span> Pipeline([(<span class="st">"prep"</span>, prepare),</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>               (<span class="st">"clf"</span>, RandomForestClassifier(n_estimators<span class="op">=</span><span class="dv">200</span>, max_depth<span class="op">=</span><span class="dv">8</span>,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>                                              random_state<span class="op">=</span><span class="dv">0</span>, class_weight<span class="op">=</span><span class="st">"balanced"</span>))])</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>rf.fit(X_train, y_train)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> rf.named_steps[<span class="st">"prep"</span>].get_feature_names_out()</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>importance <span class="op">=</span> pd.Series(rf.named_steps[<span class="st">"clf"</span>].feature_importances_, index<span class="op">=</span>names)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"What the model relies on most:"</span>)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(importance.sort_values(ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">6</span>).<span class="bu">round</span>(<span class="dv">3</span>).to_string())</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">The top features match the statistically significant ones. When they do NOT,"</span>)</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"something is wrong — usually a leaked column or a proxy for the target."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>What the model relies on most:
+num__tenure_months    0.361
+num__monthly_spend    0.260
+num__support_calls    0.210
+cat__plan_basic       0.048
+cat__city_Chennai     0.023
+cat__plan_standard    0.021
+
+The top features match the statistically significant ones. When they do NOT,
+something is wrong — usually a leaked column or a proxy for the target.</code></pre>
 </div>
 </div>
 </section>
-<section id="mcqs" class="level3" data-number="18.1.4">
-<h3 data-number="18.1.4" class="anchored" data-anchor-id="mcqs"><span class="header-section-number">18.1.4</span> ❓ MCQs</h3>
-<p><strong>Q1.</strong> The question…</p>
+</section>
+</section>
+<section id="sec-s16-d" class="level1" data-number="21">
+<h1 data-number="21"><span class="header-section-number">21</span> Part D — Delivering it</h1>
+<section id="sec-s16-topic-7" class="level2" data-number="21.1">
+<h2 data-number="21.1" class="anchored" data-anchor-id="sec-s16-topic-7"><span class="header-section-number">21.1</span> 7. What you hand over</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Deliverable</th>
+<th>Must contain</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Repository</strong></td>
+<td>code that runs from a clean clone, <code>requirements.txt</code> with versions pinned, a seed everywhere</td>
+</tr>
+<tr class="even">
+<td><strong>Report</strong></td>
+<td>the question, what you did, what you found, <strong>and what you could not conclude</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Model bundle</strong></td>
+<td>the full pipeline plus its metadata (Session 12)</td>
+</tr>
+<tr class="even">
+<td><strong>Application</strong></td>
+<td>a deployed link a stranger can open</td>
+</tr>
+<tr class="odd">
+<td><strong>Presentation</strong></td>
+<td>eight minutes: problem, approach, result, limitations</td>
+</tr>
+</tbody>
+</table>
+<section id="demo-13-packaging-the-result-session-12" class="level3" data-number="21.1.1">
+<h3 data-number="21.1.1" class="anchored" data-anchor-id="demo-13-packaging-the-result-session-12"><span class="header-section-number">21.1.1</span> Demo 13 — packaging the result (Session 12)</h3>
+<div id="34ea96a1" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> joblib, sklearn, tempfile, os, json</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> date</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> recall_score, precision_score, roc_auc_score</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>folder <span class="op">=</span> tempfile.mkdtemp()</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> os.path.join(folder, <span class="st">"churn_model.joblib"</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>proba <span class="op">=</span> best.predict_proba(X_test)[:, <span class="dv">1</span>]</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>thresholds <span class="op">=</span> np.arange(<span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="fl">0.025</span>)</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>viable <span class="op">=</span> [(t, recall_score(y_test, proba <span class="op">&gt;=</span> t), (proba <span class="op">&gt;=</span> t).mean())</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>          <span class="cf">for</span> t <span class="kw">in</span> thresholds <span class="cf">if</span> (proba <span class="op">&gt;=</span> t).mean() <span class="op">&lt;=</span> <span class="fl">0.30</span>]</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>chosen_t, chosen_recall, chosen_contact <span class="op">=</span> <span class="bu">max</span>(viable, key<span class="op">=</span><span class="kw">lambda</span> z: z[<span class="dv">1</span>])</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>bundle <span class="op">=</span> {</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"pipeline"</span>: best,</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"features"</span>: features,</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"decision_threshold"</span>: <span class="bu">round</span>(<span class="bu">float</span>(chosen_t), <span class="dv">3</span>),</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"trained_on"</span>: <span class="bu">str</span>(date.today()),</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"n_training_rows"</span>: <span class="bu">int</span>(<span class="bu">len</span>(X_train)),</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sklearn_version"</span>: sklearn.__version__,</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"test_auc"</span>: <span class="bu">round</span>(<span class="bu">float</span>(roc_auc_score(y_test, proba)), <span class="dv">3</span>),</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"recall_at_threshold"</span>: <span class="bu">round</span>(<span class="bu">float</span>(chosen_recall), <span class="dv">3</span>),</span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"contact_rate_at_threshold"</span>: <span class="bu">round</span>(<span class="bu">float</span>(chosen_contact), <span class="dv">3</span>),</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"target_recall"</span>: <span class="fl">0.60</span>,</span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"contact_budget"</span>: <span class="fl">0.30</span>,</span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"known_limitations"</span>: [</span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>        <span class="st">"trained on 12 months only; no seasonal effects captured"</span>,</span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>        <span class="st">"support_calls is recorded after a complaint, so very recent calls may be missing"</span>,</span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a>        <span class="st">"no data on competitor pricing, which is likely a real driver"</span>,</span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a>joblib.dump(bundle, path)</span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a>loaded <span class="op">=</span> joblib.load(path)</span>
+<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.dumps({k: v <span class="cf">for</span> k, v <span class="kw">in</span> loaded.items() <span class="cf">if</span> k <span class="op">!=</span> <span class="st">"pipeline"</span>}, indent<span class="op">=</span><span class="dv">2</span>))</span>
+<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">met the target? </span><span class="sc">{</span>loaded[<span class="st">'recall_at_threshold'</span>] <span class="op">&gt;=</span> loaded[<span class="st">'target_recall'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{
+  "features": [
+    "tenure_months",
+    "monthly_spend",
+    "support_calls",
+    "city",
+    "plan"
+  ],
+  "decision_threshold": 0.45,
+  "trained_on": "2026-09-10",
+  "n_training_rows": 2250,
+  "sklearn_version": "1.9.0",
+  "test_auc": 0.724,
+  "recall_at_threshold": 0.589,
+  "contact_rate_at_threshold": 0.273,
+  "target_recall": 0.6,
+  "contact_budget": 0.3,
+  "known_limitations": [
+    "trained on 12 months only; no seasonal effects captured",
+    "support_calls is recorded after a complaint, so very recent calls may be missing",
+    "no data on competitor pricing, which is likely a real driver"
+  ]
+}
+
+met the target? False</code></pre>
+</div>
+</div>
+<p><strong>Note the <code>known_limitations</code> field.</strong> It is the most valuable thing in the bundle, and the field most projects omit.</p>
+</section>
+</section>
+<section id="sec-s16-topic-8" class="level2" data-number="21.2">
+<h2 data-number="21.2" class="anchored" data-anchor-id="sec-s16-topic-8"><span class="header-section-number">21.2</span> 8. Responsible delivery</h2>
+<p><strong>Before a model touches a real person, answer three questions in writing.</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Question</th>
+<th>For this project</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Who could be harmed by a wrong prediction?</strong></td>
+<td>a loyal customer wrongly flagged gets an unnecessary discount — cheap. A churner missed is a lost customer — the expensive error, which is why recall was the target.</td>
+</tr>
+<tr class="even">
+<td><strong>Does it treat groups differently?</strong></td>
+<td>check the error rate per city and per plan, not just overall</td>
+</tr>
+<tr class="odd">
+<td><strong>Would you be comfortable explaining a decision to the person it affected?</strong></td>
+<td>if the answer needs “component 1 was low”, reconsider (Session 6)</td>
+</tr>
+</tbody>
+</table>
+<section id="demo-14-a-fairness-check" class="level3" data-number="21.2.1">
+<h3 data-number="21.2.1" class="anchored" data-anchor-id="demo-14-a-fairness-check"><span class="header-section-number">21.2.1</span> Demo 14 — a fairness check</h3>
+<div id="564733f7" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> recall_score, precision_score</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>check <span class="op">=</span> X_test.copy()</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>check[<span class="st">"actual"</span>] <span class="op">=</span> y_test.values</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>check[<span class="st">"predicted"</span>] <span class="op">=</span> (best.predict_proba(X_test)[:, <span class="dv">1</span>] <span class="op">&gt;=</span> chosen_t).astype(<span class="bu">int</span>)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Does the model perform equally across groups?</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> group <span class="kw">in</span> [<span class="st">"city"</span>, <span class="st">"plan"</span>]:</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"By </span><span class="sc">{</span>group<span class="sc">}</span><span class="ss">:"</span>)</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> value, sub <span class="kw">in</span> check.groupby(group):</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> sub[<span class="st">"actual"</span>].<span class="bu">sum</span>() <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>value<span class="sc">:&lt;10}</span><span class="ss"> n=</span><span class="sc">{</span><span class="bu">len</span>(sub)<span class="sc">:&gt;4}</span><span class="ss">  "</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"recall </span><span class="sc">{</span>recall_score(sub[<span class="st">'actual'</span>], sub[<span class="st">'predicted'</span>], zero_division<span class="op">=</span><span class="dv">0</span>)<span class="sc">:.2f}</span><span class="ss">  "</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"contacted </span><span class="sc">{</span>sub[<span class="st">'predicted'</span>]<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>()</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>recalls <span class="op">=</span> [recall_score(s[<span class="st">"actual"</span>], s[<span class="st">"predicted"</span>], zero_division<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>           <span class="cf">for</span> _, s <span class="kw">in</span> check.groupby(<span class="st">"city"</span>) <span class="cf">if</span> s[<span class="st">"actual"</span>].<span class="bu">sum</span>() <span class="op">&gt;</span> <span class="dv">0</span>]</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Recall ranges from </span><span class="sc">{</span><span class="bu">min</span>(recalls)<span class="sc">:.2f}</span><span class="ss"> to </span><span class="sc">{</span><span class="bu">max</span>(recalls)<span class="sc">:.2f}</span><span class="ss"> across cities."</span>)</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"A large gap means the model serves some groups better than others —"</span>)</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"worth investigating before anyone acts on it."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Does the model perform equally across groups?
+
+By city:
+  Chennai    n= 103  recall 0.86  contacted 25.2%
+  Delhi      n= 221  recall 0.46  contacted 23.5%
+  Mumbai     n= 271  recall 0.68  contacted 32.1%
+  Pune       n= 155  recall 0.55  contacted 25.8%
+
+By plan:
+  basic      n= 347  recall 0.68  contacted 40.3%
+  premium    n= 143  recall 0.50  contacted 10.5%
+  standard   n= 260  recall 0.39  contacted 19.2%
+
+Recall ranges from 0.46 to 0.86 across cities.
+A large gap means the model serves some groups better than others —
+worth investigating before anyone acts on it.</code></pre>
+</div>
+</div>
+</section>
+<section id="check-yourself" class="level3" data-number="21.2.2">
+<h3 data-number="21.2.2" class="anchored" data-anchor-id="check-yourself"><span class="header-section-number">21.2.2</span> ❓ Check yourself</h3>
+<p><strong>Q1.</strong> A rule has confidence 0.85 and lift 1.02. Is it useful?</p>
 <ul>
 <li><ol type="a">
-<li>Wrong</li>
+<li>Yes, 85% confidence is high.</li>
 </ol></li>
 <li><ol start="2" type="a">
-<li><strong>Right, in bold</strong></li>
+<li><strong>No — lift near 1 means the consequent is no more likely than usual.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Only if support is high.</li>
+</ol></li>
+</ul>
+<p><strong>Q2.</strong> Why fix the success criterion before modelling?</p>
+<ul>
+<li><ol type="a">
+<li>It is required by scikit-learn.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Otherwise you choose the metric your model happens to do well on.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>It speeds up training.</li>
+</ol></li>
+</ul>
+<p><strong>Q3.</strong> Your t-test gives p = 0.0001 and Cohen’s d = 0.04. What do you report?</p>
+<ul>
+<li><ol type="a">
+<li>A highly significant, important finding.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>A real but negligibly small difference — significant because the sample is large, not because it matters.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Nothing; the p-value is too small.</li>
+</ol></li>
+</ul>
+<p><strong>Q4.</strong> The model’s most important feature is one the statistical tests found insignificant. What should you suspect?</p>
+<ul>
+<li><ol type="a">
+<li>The tests were wrong.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Leakage, or a proxy for the target — investigate that column.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Nothing; models see things tests cannot.</li>
+</ol></li>
+</ul>
+<p><strong>Q5.</strong> What is the most valuable section of a project report?</p>
+<ul>
+<li><ol type="a">
+<li>The accuracy figure.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li>The code listing.</li>
+</ol></li>
+<li><ol start="3" type="a">
+<li><strong>What the result cannot support, and why.</strong></li>
 </ol></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled" title="Answers">
@@ -493,377 +1503,89 @@ Note
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>A1 — (b).</strong> The right answer restated, <strong>why the nearest wrong option is wrong</strong>.</p>
+<p><strong>A1 — (b).</strong> Demo 8 measured exactly this case.</p>
+<p><strong>A2 — (b).</strong> The criterion is a commitment; chosen afterwards it is a rationalisation.</p>
+<p><strong>A3 — (b).</strong> With enough rows any difference becomes significant. The effect size is what says whether anyone should care.</p>
+<p><strong>A4 — (b).</strong> Demo 12’s closing note. This mismatch is one of the most reliable leakage detectors there is.</p>
+<p><strong>A5 — (c).</strong> It is what lets somebody else use the result safely — and it is the section that is almost always missing.</p>
 </div>
 </div>
 </div>
-<p><strong>A bridge sentence pointing at the question the next topic answers.</strong></p>
-</section>
-</section>
-</section>
-<section id="sec-s16-b" class="level1" data-number="19">
-<h1 data-number="19"><span class="header-section-number">19</span> Part B — Perform clustering and association rule mining on a market basket dataset.</h1>
-<p><strong>Overview of Perform clustering and association rule mining on a market basket dataset. and its practical applications.</strong></p>
-<section id="sec-s16-topic-2" class="level2" data-number="19.1">
-<h2 data-number="19.1" class="anchored" data-anchor-id="sec-s16-topic-2"><span class="header-section-number">19.1</span> 2. Perform clustering and association rule mining on a market basket dataset.</h2>
-<p><strong>One plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.</strong></p>
-<p><strong>Then why it exists: what breaks, or what is unbearably tedious, without it.</strong></p>
-<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — something the reader already understands">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>🧠 Analogy — something the reader already understands
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>The everyday thing.</strong></p>
-<p><strong>The mapping:</strong> this part is the data, this part is the model, this part is the error.</p>
-<p><strong>Where it breaks down:</strong> every analogy is wrong somewhere, and the reader will walk into that place unaided.</p>
-</div>
-</div>
-<section id="how-it-works-1" class="level3" data-number="19.1.1">
-<h3 data-number="19.1.1" class="anchored" data-anchor-id="how-it-works-1"><span class="header-section-number">19.1.1</span> How it works</h3>
-<p><strong>The mechanism, in plain words first.</strong></p>
-</section>
-<section id="examples-1" class="level3" data-number="19.1.2">
-<h3 data-number="19.1.2" class="anchored" data-anchor-id="examples-1"><span class="header-section-number">19.1.2</span> 📘 Examples</h3>
-<p><strong>Example 1 — the smallest thing that works</strong></p>
-<div id="5bed597d" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># placeholder</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="scenarios-1" class="level3" data-number="19.1.3">
-<h3 data-number="19.1.3" class="anchored" data-anchor-id="scenarios-1"><span class="header-section-number">19.1.3</span> 🌍 Scenarios</h3>
-<p><strong>Scenario 1 — the same idea in a situation the reader recognises</strong></p>
-<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ The trap, and its consequence">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>⚠️ The trap, and its consequence
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><em>“It will not error — it will be quietly wrong.”</em></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Tasks">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Tasks
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Do exactly what was just shown, on different data.</li>
-<li>Break it deliberately and report the exact error message.</li>
-</ol>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="84d51c06" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solutions</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="mcqs-1" class="level3" data-number="19.1.4">
-<h3 data-number="19.1.4" class="anchored" data-anchor-id="mcqs-1"><span class="header-section-number">19.1.4</span> ❓ MCQs</h3>
-<p><strong>Q1.</strong> The question…</p>
-<ul>
-<li><ol type="a">
-<li>Wrong</li>
-</ol></li>
-<li><ol start="2" type="a">
-<li><strong>Right, in bold</strong></li>
-</ol></li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Answers
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>A1 — (b).</strong> The right answer restated, <strong>why the nearest wrong option is wrong</strong>.</p>
-</div>
-</div>
-</div>
-<p><strong>A bridge sentence pointing at the question the next topic answers.</strong></p>
-</section>
-</section>
-</section>
-<section id="sec-s16-c" class="level1" data-number="20">
-<h1 data-number="20"><span class="header-section-number">20</span> Part C — Create insightful visualizations and perform statistical analysis using advanced tools.</h1>
-<p><strong>Overview of Create insightful visualizations and perform statistical analysis using advanced tools. and its practical applications.</strong></p>
-<section id="sec-s16-topic-3" class="level2" data-number="20.1">
-<h2 data-number="20.1" class="anchored" data-anchor-id="sec-s16-topic-3"><span class="header-section-number">20.1</span> 3. Create insightful visualizations and perform statistical analysis using advanced tools.</h2>
-<p><strong>One plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.</strong></p>
-<p><strong>Then why it exists: what breaks, or what is unbearably tedious, without it.</strong></p>
-<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — something the reader already understands">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>🧠 Analogy — something the reader already understands
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>The everyday thing.</strong></p>
-<p><strong>The mapping:</strong> this part is the data, this part is the model, this part is the error.</p>
-<p><strong>Where it breaks down:</strong> every analogy is wrong somewhere, and the reader will walk into that place unaided.</p>
-</div>
-</div>
-<section id="how-it-works-2" class="level3" data-number="20.1.1">
-<h3 data-number="20.1.1" class="anchored" data-anchor-id="how-it-works-2"><span class="header-section-number">20.1.1</span> How it works</h3>
-<p><strong>The mechanism, in plain words first.</strong></p>
-</section>
-<section id="examples-2" class="level3" data-number="20.1.2">
-<h3 data-number="20.1.2" class="anchored" data-anchor-id="examples-2"><span class="header-section-number">20.1.2</span> 📘 Examples</h3>
-<p><strong>Example 1 — the smallest thing that works</strong></p>
-<div id="f1e72359" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># placeholder</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="scenarios-2" class="level3" data-number="20.1.3">
-<h3 data-number="20.1.3" class="anchored" data-anchor-id="scenarios-2"><span class="header-section-number">20.1.3</span> 🌍 Scenarios</h3>
-<p><strong>Scenario 1 — the same idea in a situation the reader recognises</strong></p>
-<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ The trap, and its consequence">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>⚠️ The trap, and its consequence
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><em>“It will not error — it will be quietly wrong.”</em></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Tasks">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Tasks
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Do exactly what was just shown, on different data.</li>
-<li>Break it deliberately and report the exact error message.</li>
-</ol>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-15" class="callout-15-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="f33e7f99" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solutions</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="mcqs-2" class="level3" data-number="20.1.4">
-<h3 data-number="20.1.4" class="anchored" data-anchor-id="mcqs-2"><span class="header-section-number">20.1.4</span> ❓ MCQs</h3>
-<p><strong>Q1.</strong> The question…</p>
-<ul>
-<li><ol type="a">
-<li>Wrong</li>
-</ol></li>
-<li><ol start="2" type="a">
-<li><strong>Right, in bold</strong></li>
-</ol></li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Answers
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-16" class="callout-16-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>A1 — (b).</strong> The right answer restated, <strong>why the nearest wrong option is wrong</strong>.</p>
-</div>
-</div>
-</div>
-<p><strong>A bridge sentence pointing at the question the next topic answers.</strong></p>
-</section>
-</section>
-</section>
-<section id="sec-s16-d" class="level1" data-number="21">
-<h1 data-number="21"><span class="header-section-number">21</span> Part D — Develop and implement advanced machine learning models on a complex dataset.</h1>
-<p><strong>Overview of Develop and implement advanced machine learning models on a complex dataset. and its practical applications.</strong></p>
-<section id="sec-s16-topic-4" class="level2" data-number="21.1">
-<h2 data-number="21.1" class="anchored" data-anchor-id="sec-s16-topic-4"><span class="header-section-number">21.1</span> 4. Develop and implement advanced machine learning models on a complex dataset.</h2>
-<p><strong>One plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.</strong></p>
-<p><strong>Then why it exists: what breaks, or what is unbearably tedious, without it.</strong></p>
-<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — something the reader already understands">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>🧠 Analogy — something the reader already understands
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>The everyday thing.</strong></p>
-<p><strong>The mapping:</strong> this part is the data, this part is the model, this part is the error.</p>
-<p><strong>Where it breaks down:</strong> every analogy is wrong somewhere, and the reader will walk into that place unaided.</p>
-</div>
-</div>
-<section id="how-it-works-3" class="level3" data-number="21.1.1">
-<h3 data-number="21.1.1" class="anchored" data-anchor-id="how-it-works-3"><span class="header-section-number">21.1.1</span> How it works</h3>
-<p><strong>The mechanism, in plain words first.</strong></p>
-</section>
-<section id="examples-3" class="level3" data-number="21.1.2">
-<h3 data-number="21.1.2" class="anchored" data-anchor-id="examples-3"><span class="header-section-number">21.1.2</span> 📘 Examples</h3>
-<p><strong>Example 1 — the smallest thing that works</strong></p>
-<div id="8f03f27e" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># placeholder</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="scenarios-3" class="level3" data-number="21.1.3">
-<h3 data-number="21.1.3" class="anchored" data-anchor-id="scenarios-3"><span class="header-section-number">21.1.3</span> 🌍 Scenarios</h3>
-<p><strong>Scenario 1 — the same idea in a situation the reader recognises</strong></p>
-<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ The trap, and its consequence">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>⚠️ The trap, and its consequence
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><em>“It will not error — it will be quietly wrong.”</em></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Tasks">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Tasks
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Do exactly what was just shown, on different data.</li>
-<li>Break it deliberately and report the exact error message.</li>
-</ol>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-20" class="callout-20-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="28d747ac" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solutions</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="mcqs-3" class="level3" data-number="21.1.4">
-<h3 data-number="21.1.4" class="anchored" data-anchor-id="mcqs-3"><span class="header-section-number">21.1.4</span> ❓ MCQs</h3>
-<p><strong>Q1.</strong> The question…</p>
-<ul>
-<li><ol type="a">
-<li>Wrong</li>
-</ol></li>
-<li><ol start="2" type="a">
-<li><strong>Right, in bold</strong></li>
-</ol></li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Answers
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-21" class="callout-21-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>A1 — (b).</strong> The right answer restated, <strong>why the nearest wrong option is wrong</strong>.</p>
-</div>
-</div>
-</div>
-<p><strong>A bridge sentence pointing at the question the next topic answers.</strong></p>
 </section>
 </section>
 </section>
 <section id="sec-s16-tasks" class="level1" data-number="22">
-<h1 data-number="22"><span class="header-section-number">22</span> 🎯 Session 16 — Tasks</h1>
-<p><strong>Complete these tasks in order to solidify your understanding.</strong></p>
-<p><strong>Task 1 — Apply concepts.</strong> Practice the concepts learned in this session.</p>
-<div class="callout callout-style-default callout-tip callout-titled" title="✅ Before you move on">
+<h1 data-number="22"><span class="header-section-number">22</span> 🎯 Capstone project</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Your project">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>✅ Before you move on
+<span class="screen-reader-only">Note</span>✏️ Your project
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Task 1 — Frame it.</strong> Choose a dataset. Write the four answers from Demo 1: the decision, the success criterion <strong>with a number</strong>, the data available, and what would make the model useless. <strong>Fix these before writing code.</strong></p>
+<p><strong>Task 2 — Clean and explore.</strong> Produce a cleaning report and an EDA section that ends with three written hypotheses.</p>
+<p><strong>Task 3 — Test the hypotheses.</strong> For each, run the appropriate test and report the p-value <strong>and</strong> the effect size. Say which survived.</p>
+<p><strong>Task 4 — Model.</strong> Compare at least four models against a baseline, cross-validated with the spread reported. Tune the best one without touching the test set.</p>
+<p><strong>Task 5 — Meet the requirement.</strong> Choose the decision threshold that satisfies your Task 1 criterion, <strong>or report honestly that no threshold does.</strong></p>
+<p><strong>Task 6 — Mine the rules.</strong> If your data has transactions, run Apriori and report the three most useful rules by lift. Explain why each is actionable.</p>
+<p><strong>Task 7 — Deliver.</strong> Bundle the pipeline with metadata and limitations, deploy a Streamlit app, and write the report.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="✅ A capstone that passes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>✅ A capstone that passes
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <ul class="task-list">
-<li><label><input type="checkbox">Ensure you can explain Apply the entire data analytics process to a real-world dataset. in plain English</label></li>
-<li><label><input type="checkbox"><strong>The one thing from this chapter that is easiest to forget</strong></label></li>
+<li><label><input type="checkbox">Runs from a clean clone, first try, with versions pinned</label></li>
+<li><label><input type="checkbox">States a success criterion that was fixed <strong>before</strong> the modelling</label></li>
+<li><label><input type="checkbox">Beats a named baseline, with the baseline’s score printed</label></li>
+<li><label><input type="checkbox">Reports at least one thing that was tried and did not work</label></li>
+<li><label><input type="checkbox">Supports every claim with a test <strong>and</strong> an effect size, not just a chart</label></li>
+<li><label><input type="checkbox">Has a deployed link a stranger can open</label></li>
+<li><label><input type="checkbox">Names who could be harmed by a wrong prediction, and checks group fairness</label></li>
+<li><label><input type="checkbox"><strong>Says clearly what the result cannot support</strong></label></li>
 </ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="✅ Before you finish the course">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>✅ Before you finish the course
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sixteen chapters, one sentence each:</p>
+<ol type="1">
+<li>Data science turns recorded facts into decisions</li>
+<li>Get data in with pandas; look before you touch</li>
+<li>Clean in order — duplicates, impossible, missing, noise, outliers, text</li>
+<li>Join carefully, and check the row count every time</li>
+<li>Split before you scale; encode text; never leak</li>
+<li>Fewer columns is often better; say what the reduction cost</li>
+<li>Report a centre <strong>and</strong> a spread <strong>and</strong> a shape</li>
+<li>Every chart answers a question you asked first</li>
+<li>A model is a rule learned from examples; beat a baseline</li>
+<li>Clustering has no answer key — justify the result instead</li>
+<li>One split is one opinion; cross-validate and report the spread</li>
+<li>Save the pipeline, validate inputs, watch for drift</li>
+<li>Big data is a symptom, not a size; try chunking first</li>
+<li>Map, shuffle, reduce — and the shuffle is the expensive part</li>
+<li>NoSQL trades schema for flexibility; aggregate in the database</li>
+<li>A finished project states what it cannot support</li>
+</ol>
 </div>
 </div>
 
@@ -1273,8 +1995,8 @@ Note
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../sessions/session-15-nosql-databases-and-scaled-visualization.html" class="pagination-link" aria-label="Session 15 — NoSQL Databases and Scaled Visualization">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Scaled Visualization</span></span>
+      <a href="../sessions/session-15-nosql-databases-and-scaled-visualization.html" class="pagination-link" aria-label="Session 15 — NoSQL Databases and Visualization at Scale">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Visualization at Scale</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

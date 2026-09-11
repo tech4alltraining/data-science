@@ -1,134 +1,575 @@
 ---
-title: "Session 8 — Exploratory Data Analytics (EDA) and Visualization"
-subtitle: "Matplotlib · Seaborn · Correlation · Scatter Plots"
+title: "Session 8 — Exploratory Data Analysis and Visualization"
+subtitle: "Matplotlib · Seaborn · Choosing the chart · Box plots · Pivot tables · Correlation"
 ---
 
 {{< include ../includes/_setup.qmd >}}
 
 ::: {.callout-note}
-**This chapter focuses on visually exploring datasets to find hidden relationships before building predictive models.**
+**This chapter is about looking at data before you model it — and drawing charts that
+answer a question rather than decorate a page.**
 
-**Assumed knowledge:** Descriptive Statistics (Session 7).
+**Assumed knowledge:** Session 7 — mean, median, spread, quartiles, skewness. A box plot
+is a drawn five-number summary, so that chapter has to come first.
+
+**The one idea to take away:** **every chart must have a question attached.** A chart
+drawn without one will show you a pattern, because the eye finds patterns in anything.
 :::
 
 ## 🎯 Learning outcomes {#sec-s08-outcomes}
 
 By the end of this chapter you can:
 
-1. Generate basic plots (scatter, line, bar) using Matplotlib.
-2. Summarize multidimensional data using Pivot Tables.
-3. Calculate and visualize the mathematical Correlation between variables using Seaborn.
+1. Run a structured first pass over an unfamiliar dataset.
+2. Choose the right chart for a question using a lookup table.
+3. Draw histograms, box plots, bar charts, scatter plots and heatmaps.
+4. Build a pivot table and read it.
+5. Compute and interpret Pearson and Spearman correlation.
+6. Explain why a strong correlation does not establish a cause, with an example.
 
 ## How this chapter is organised {#sec-s08-organisation}
 
-| Part | Question it answers | Source |
+| Part | Question it answers |
+|---|---|
+| [A — What EDA is](#sec-s08-a) | *What am I looking for, and in what order?* |
+| [B — One column at a time](#sec-s08-b) | *What is inside this single column?* |
+| [C — Two columns together](#sec-s08-c) | *Do these two move together?* |
+| [D — Many columns at once](#sec-s08-d) | *What is the overall structure?* |
+
+# Part A — What EDA is {#sec-s08-a}
+
+## 1. The first pass {#sec-s08-topic-1}
+
+**Exploratory Data Analysis is the deliberate look at a dataset before modelling
+it** — to understand what is there, to find problems, and to form the questions worth
+asking.
+
+::: {.callout-tip title="🧠 Analogy — the doctor's examination"}
+A doctor does not begin with surgery. They take a pulse, listen to the chest, ask
+questions. Most of it finds nothing — and that is the point. **The examination rules
+things out**, and occasionally finds something that changes the plan entirely.
+
+Skipping EDA is operating without examining. It works right up until it does not.
+:::
+
+**Five questions, asked in this order, on every new dataset:**
+
+| # | Question | Tool |
 |---|---|---|
-| [A — Visual Exploration](#sec-s08-a) | *Why do we need to draw pictures of data?* | `concepts` |
-| [B — Correlation](#sec-s08-b) | *How do we prove two things move together?* | `concepts` |
-| [Demo — The EDA Dashboard](#sec-s08-demo) | *How do we build a correlation heatmap?* | `eda_demo.py` |
+| 1 | How big is it, and what type is each column? | `.shape`, `.info()` |
+| 2 | What does each column look like on its own? | histogram, box plot, `.value_counts()` |
+| 3 | What is missing or impossible? | `.isna().sum()`, `.describe()` |
+| 4 | Which columns move together? | scatter plot, correlation |
+| 5 | What differs between groups? | `groupby`, pivot table |
 
-# Part A — Visual Exploration {#sec-s08-a}
-
-**Data tables are meant for computers. Charts are meant for humans.**
-
-## 1. Basic plots and Pivot Tables {#sec-s08-topic-1}
-
-**Exploratory Data Analysis (EDA) is the phase where you play detective, graphing columns against each other to see if any obvious patterns exist.**
-
-It exists because humans are exceptional at spotting visual patterns but terrible at reading matrices of numbers. Anscombe's Quartet famously proved that four datasets can have the exact same Mean, Variance, and Correlation, but look completely different when graphed (e.g., one is a straight line, one is a parabolic curve).
-
-### How it works
-
-We use Python libraries like **Matplotlib** (the foundational plotting tool) and **Seaborn** (a beautiful wrapper over Matplotlib) to draw:
-- **Scatter Plots:** Good for seeing the relationship between two continuous numbers (e.g., Age vs Income).
-- **Box Plots:** Good for finding outliers (as seen in Session 3).
-- **Pivot Tables:** Similar to Excel, used to group categorical data (e.g., Average Income grouped by City and Education Level).
-
-### ❓ MCQs
-
-**Q1.** Why is visual EDA considered a mandatory step before training a machine learning model?
-
-- (a) Because models require charts as input data.
-- (b) **Because statistical summaries (like Mean and Variance) can hide extreme non-linear patterns that are instantly obvious on a scatter plot.**
-- (c) It is not mandatory, it is just for aesthetic presentations.
-
-::: {.callout-note collapse="true" title="Answers"}
-**A1 — (b).** A parabolic curve and a random cloud of points can share the same basic statistical averages. If you don't plot it, you won't know the true shape of your data.
-:::
-
-# Part B — Correlation {#sec-s08-b}
-
-**Noticing a pattern visually is good. Proving it mathematically is better.**
-
-## 2. Correlation Statistics {#sec-s08-topic-2}
-
-**Correlation is a metric from -1.0 to +1.0 that measures how strongly two variables move together.**
-
-It exists so we can quantify relationships. If a variable is highly correlated with your target (e.g., "Hours Studied" is highly correlated with "Test Score"), you know that feature will be incredibly useful for your predictive model later.
-
-::: {.callout-tip title="🧠 Analogy — The Dancers"}
-**The everyday thing:** Two dancers on a stage.
-
-**The mapping:** 
-- **Positive Correlation (+1.0):** They hold hands and step forward at the exact same time. (As X goes up, Y goes up).
-- **Negative Correlation (-1.0):** They face each other. When dancer A steps forward, dancer B steps backward. (As X goes up, Y goes down).
-- **Zero Correlation (0.0):** They are wearing blindfolds and moving randomly. Knowing where dancer A is tells you nothing about where dancer B is.
-:::
-
-::: {.callout-warning title="⚠️ The trap of Correlation vs Causation"}
-Just because two things are highly correlated does not mean one causes the other. Ice cream sales and shark attacks are highly positively correlated. Why? Because they both happen in the summer. Summer is the unseen "confounding variable."
-:::
-
-# Part Demo — The EDA Dashboard {#sec-s08-demo}
-
-**Generating a visual report with a Seaborn correlation heatmap.**
-
-A heatmap is the fastest way to look at the correlation of every single column in a dataset simultaneously.
+### The dataset for this chapter
 
 ```{python}
-#| label: fig-eda-demo
-#| fig-cap: "A scatter plot and correlation heatmap."
-import pandas as pd
-import numpy as np
+import numpy as np, pandas as pd
+
+rng = np.random.default_rng(21)
+n = 500
+
+area = rng.normal(1_200, 350, n).clip(350, 3_000)
+age  = rng.integers(0, 40, n)
+city = rng.choice(["Mumbai", "Pune", "Nagpur"], n, p=[.45, .35, .20])
+city_premium = pd.Series(city).map({"Mumbai": 1.9, "Pune": 1.0, "Nagpur": 0.6}).values
+
+price = (area * 3_500 * city_premium - age * 60_000
+         + rng.normal(0, 300_000, n)).clip(500_000, None)
+
+homes = pd.DataFrame({
+    "area_sqft": area.round(0),
+    "age_years": age,
+    "city": city,
+    "bedrooms": np.clip((area / 450).round(), 1, 6).astype(int),
+    "price": price.round(-3),
+})
+homes.loc[rng.choice(n, 25, replace=False), "area_sqft"] = np.nan   # some gaps
+
+print(f"1. SHAPE — {homes.shape[0]} rows, {homes.shape[1]} columns\n")
+homes.info()
+print("\n3. MISSING VALUES per column:")
+print(homes.isna().sum())
+```
+
+# Part B — One column at a time {#sec-s08-b}
+
+## 2. Matplotlib in one page {#sec-s08-topic-2}
+
+**Matplotlib is Python's base plotting library.** Almost every chart follows the same
+four steps.
+
+| Step | Code |
+|---|---|
+| 1. Make a figure and axes | `fig, ax = plt.subplots()` |
+| 2. Draw something on the axes | `ax.hist(...)`, `ax.scatter(...)` |
+| 3. Label it | `ax.set_xlabel(...)`, `ax.set_title(...)` |
+| 4. Show it | `plt.show()` |
+
+### Demo 1 — the four steps
+
+```{python}
+#| label: fig-s08-first
+#| fig-cap: "A histogram of house prices. Steps: create, draw, label, show."
 import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(figsize=(7, 3.2))          # 1. create
+ax.hist(homes["price"] / 1e6, bins=40)            # 2. draw
+ax.set_xlabel("Price (₹ millions)")               # 3. label
+ax.set_ylabel("Number of houses")
+ax.set_title("How much do these houses cost?")
+plt.show()                                        # 4. show
+```
+
+**Note the title.** It is a question, not a label. `"Price distribution"` tells the
+reader nothing they could not see; `"How much do these houses cost?"` tells them what to
+look for.
+
+## 3. Choosing the chart {#sec-s08-topic-3}
+
+**The chart follows from the question and the column types — it is not a matter of
+taste.**
+
+| Your question | Column types | Chart |
+|---|---|---|
+| How is one number spread out? | 1 numeric | **histogram** |
+| What is its centre, spread and outliers? | 1 numeric | **box plot** |
+| How many of each category? | 1 categorical | **bar chart** |
+| Do these two numbers move together? | 2 numeric | **scatter plot** |
+| Does this number differ by group? | 1 numeric + 1 categorical | **box plot by group** |
+| How do all my numeric columns relate? | many numeric | **heatmap** |
+| How does something change over time? | time + numeric | **line chart** |
+
+::: {.callout-warning title="⚠️ The pie chart is almost always the wrong answer"}
+People compare angles badly. Any pie chart with more than three slices is harder to read
+than the bar chart of the same data — and a bar chart can be sorted, which a pie cannot.
+**Use a bar chart.**
+:::
+
+### Demo 2 — histogram versus box plot: what each one hides
+
+```{python}
+#| label: fig-s08-hist-box
+#| fig-cap: "Same column, two views. The histogram shows the shape; the box plot shows the summary and flags outliers."
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(1, 2, figsize=(10, 3.2))
+ax[0].hist(homes["price"] / 1e6, bins=40)
+ax[0].set_title("Histogram — shows the shape"); ax[0].set_xlabel("₹ millions")
+ax[1].boxplot(homes["price"] / 1e6, orientation="horizontal")
+ax[1].set_title("Box plot — shows the summary"); ax[1].set_xlabel("₹ millions")
+plt.tight_layout(); plt.show()
+
+q1, med, q3 = homes["price"].quantile([.25, .5, .75])
+iqr = q3 - q1
+flagged = ((homes["price"] < q1 - 1.5*iqr) | (homes["price"] > q3 + 1.5*iqr)).sum()
+print(f"skewness {homes['price'].skew():.2f}  →  the histogram shows a right lean")
+print(f"the box plot flags {flagged} houses as outliers by the IQR rule")
+print("The histogram cannot tell you that count; the box plot cannot show you the shape.")
+```
+
+### Demo 3 — bar charts for categories
+
+```{python}
+#| label: fig-s08-bar
+#| fig-cap: "Counts, and the average price per city. Two different questions, two different bars."
+import matplotlib.pyplot as plt
+
+counts = homes["city"].value_counts()
+means  = homes.groupby("city")["price"].mean().sort_values(ascending=False) / 1e6
+
+fig, ax = plt.subplots(1, 2, figsize=(10, 3.2))
+ax[0].bar(counts.index, counts.values)
+ax[0].set_title("How many houses per city?"); ax[0].set_ylabel("count")
+ax[1].bar(means.index, means.values, color="darkorange")
+ax[1].set_title("What does a house cost per city?"); ax[1].set_ylabel("₹ millions")
+plt.tight_layout(); plt.show()
+
+print(counts.to_string())
+```
+
+**Two bar charts of the same column that answer completely different questions.** The
+left one is about how the data was collected; the right one is about houses.
+
+## 4. Seaborn: statistical charts in one line {#sec-s08-topic-4}
+
+**Seaborn sits on top of matplotlib and knows about DataFrames.** What takes six lines
+in matplotlib usually takes one in seaborn.
+
+### Demo 4 — grouped box plots, which is where seaborn earns its place
+
+```{python}
+#| label: fig-s08-seaborn
+#| fig-cap: "Price by city, and by number of bedrooms. One line each."
 import seaborn as sns
+import matplotlib.pyplot as plt
 
-# 1. Generate some mock housing data
-np.random.seed(42)
-sq_ft = np.random.normal(1500, 500, 200)
-# Price is positively correlated with Sq_Ft
-price = (sq_ft * 150) + np.random.normal(0, 50000, 200) 
-# Age is negatively correlated with Price
-age = np.random.normal(30, 10, 200)
-price = price - (age * 1000)
+fig, ax = plt.subplots(1, 2, figsize=(11, 3.4))
+sns.boxplot(data=homes, x="city", y="price", ax=ax[0])
+ax[0].set_title("Does price differ by city?")
+sns.violinplot(data=homes, x="bedrooms", y="price", ax=ax[1])
+ax[1].set_title("Does price differ by bedroom count?")
+for a in ax: a.set_ylabel("Price (₹)")
+plt.tight_layout(); plt.show()
 
-df = pd.DataFrame({"Square_Feet": sq_ft, "House_Age": age, "Price": price})
+print(homes.groupby("city")["price"].agg(["count", "median"]).round(0))
+```
 
-# 2. Set up the plotting area (1 row, 2 columns)
-fig, ax = plt.subplots(1, 2, figsize=(14, 5))
+**A violin plot is a box plot with the distribution's shape drawn on it.** Use it when
+the shape matters — for instance when a group is secretly two groups.
 
-# 3. Scatter Plot (Relationship between SqFt and Price)
-sns.scatterplot(x="Square_Feet", y="Price", data=df, ax=ax[0], alpha=0.7)
-ax[0].set_title("Scatter Plot: Sq_Ft vs Price")
+# Part C — Two columns together {#sec-s08-c}
 
-# 4. Correlation Heatmap
-# Calculate the mathematical correlation matrix
-corr_matrix = df.corr()
+## 5. Scatter plots {#sec-s08-topic-5}
 
-# Plot the heatmap
-sns.heatmap(corr_matrix, annot=True, cmap="coolwarm", fmt=".2f", ax=ax[1], vmin=-1, vmax=1)
-ax[1].set_title("Correlation Heatmap")
+**A scatter plot puts one column on each axis and one dot per row.** It is the fastest
+way to see whether two numbers are related, and what *kind* of relationship it is.
 
-plt.tight_layout()
+### Demo 5 — four relationships, four shapes
+
+```{python}
+#| label: fig-s08-scatter4
+#| fig-cap: "Strong positive, weak, curved, and none. Only the first is safe for a straight-line model."
+import numpy as np, matplotlib.pyplot as plt
+
+rng = np.random.default_rng(22)
+x = rng.uniform(0, 10, 250)
+pairs = {
+    "Strong positive": 3*x + rng.normal(0, 1.5, 250),
+    "Weak positive":   3*x + rng.normal(0, 14, 250),
+    "Curved":          (x - 5)**2 + rng.normal(0, 1.5, 250),
+    "No relationship":  rng.normal(15, 5, 250),
+}
+
+fig, axes = plt.subplots(1, 4, figsize=(13, 3))
+for ax, (name, y) in zip(axes, pairs.items()):
+    ax.scatter(x, y, s=8, alpha=.6)
+    ax.set_title(f"{name}\nPearson r = {np.corrcoef(x, y)[0,1]:.2f}", fontsize=9)
+plt.tight_layout(); plt.show()
+```
+
+**Look at the curved one.** Its correlation is near zero, and yet `x` predicts `y`
+almost perfectly — just not with a straight line. **Correlation only measures straight-
+line relationships**, which is the single most important limitation to remember.
+
+### Demo 6 — the real data
+
+```{python}
+#| label: fig-s08-real-scatter
+#| fig-cap: "Area against price, coloured by city. The colour reveals three separate relationships."
+import seaborn as sns, matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(1, 2, figsize=(11, 3.6))
+ax[0].scatter(homes["area_sqft"], homes["price"]/1e6, s=10, alpha=.5)
+ax[0].set_xlabel("Area (sqft)"); ax[0].set_ylabel("₹ millions")
+ax[0].set_title("Ignoring city — one cloud")
+
+sns.scatterplot(data=homes, x="area_sqft", y=homes["price"]/1e6,
+                hue="city", s=18, alpha=.75, ax=ax[1])
+ax[1].set_xlabel("Area (sqft)"); ax[1].set_ylabel("₹ millions")
+ax[1].set_title("Coloured by city — three lines")
+plt.tight_layout(); plt.show()
+
+for c in ["Mumbai", "Pune", "Nagpur"]:
+    sub = homes[homes["city"] == c].dropna()
+    r = sub["area_sqft"].corr(sub["price"])
+    print(f"{c:<8} {len(sub):>3} houses, area–price correlation {r:.2f}")
+```
+
+**Adding one colour changed the finding.** The left chart says "bigger houses cost more,
+roughly". The right chart says "bigger houses cost more *at a different rate in each
+city*" — which is a far more useful statement, and a modelling instruction.
+
+## 6. Correlation {#sec-s08-topic-6}
+
+**Correlation puts a number on how strongly two columns move together.** It runs from
+−1 to +1.
+
+| Value | Meaning |
+|---|---|
+| **+1** | perfect: when one rises, the other rises exactly in step |
+| **+0.7** | strong positive |
+| **0** | no straight-line relationship |
+| **−0.7** | strong negative: one rises as the other falls |
+| **−1** | perfect negative |
+
+Two kinds, and they answer different questions:
+
+| Kind | Measures | Use when |
+|---|---|---|
+| **Pearson** | straight-line relationship | the relationship looks linear |
+| **Spearman** | whether they rise together **in rank order** | the relationship is curved but consistently increasing |
+
+### Demo 7 — when Pearson and Spearman disagree
+
+```{python}
+import numpy as np, pandas as pd
+
+x = pd.Series(np.arange(1, 51))
+y = x ** 3                                     # perfectly related, but strongly curved
+
+print(f"Pearson  r = {x.corr(y, method='pearson'):.3f}   (straight-line strength)")
+print(f"Spearman r = {x.corr(y, method='spearman'):.3f}   (rank agreement)")
+print("\nSpearman is exactly 1.0: every time x goes up, y goes up. Always.")
+print("Pearson is below 1.0 because the relationship is a curve, not a line.")
+```
+
+::: {.callout-tip title="🧠 Analogy — two dancers"}
+**Pearson** asks: *do they move in step, by the same amount, at the same time?*
+
+**Spearman** asks only: *when one steps forward, does the other step forward too?* It
+does not care by how much.
+
+A pair who always move together but with very different stride lengths score perfectly
+on Spearman and poorly on Pearson.
+:::
+
+### Demo 8 — the correlation heatmap
+
+```{python}
+#| label: fig-s08-heatmap
+#| fig-cap: "Every numeric pair at once. Read the row for your target column first."
+import seaborn as sns, matplotlib.pyplot as plt
+
+numeric = homes.select_dtypes("number")
+corr = numeric.corr()
+
+fig, ax = plt.subplots(figsize=(5.5, 4))
+sns.heatmap(corr, annot=True, fmt=".2f", cmap="RdBu_r", center=0,
+            vmin=-1, vmax=1, square=True, ax=ax)
+ax.set_title("What moves with what?")
+plt.tight_layout(); plt.show()
+
+print("Correlation with price, strongest first:")
+print(corr["price"].drop("price").sort_values(key=abs, ascending=False).round(3))
+```
+
+**Read the `price` row first** — it ranks your predictors. Then look for very high
+correlations *between* predictors: `area_sqft` and `bedrooms` are nearly the same
+column, because bedrooms were derived from area. Keeping both tells a model the same
+fact twice.
+
+::: {.callout-warning title="⚠️ Correlation is not causation"}
+Ice cream sales correlate strongly with drowning deaths. Ice cream does not cause
+drowning: **hot weather causes both.** A third variable driving two others is called a
+**confounder**, and it produces most of the spurious correlations you will meet.
+
+Three things a correlation can mean:
+
+1. A causes B
+2. B causes A
+3. **C causes both** — usually this one
+
+**A correlation is a question worth investigating, never an answer.**
+:::
+
+### Demo 9 — a confounder, manufactured so you can see it
+
+```{python}
+import numpy as np, pandas as pd
+
+rng = np.random.default_rng(23)
+temperature = rng.uniform(15, 42, 400)                      # the real cause
+ice_cream   = temperature * 120 + rng.normal(0, 300, 400)   # caused by heat
+drownings   = temperature * 0.4 + rng.normal(0, 2, 400)     # also caused by heat
+
+df = pd.DataFrame({"temperature": temperature, "ice_cream": ice_cream, "drownings": drownings})
+print(f"ice cream vs drownings : r = {df['ice_cream'].corr(df['drownings']):.3f}  ← strong!")
+print(f"temperature vs ice cream: r = {df['temperature'].corr(df['ice_cream']):.3f}")
+print(f"temperature vs drownings: r = {df['temperature'].corr(df['drownings']):.3f}")
+
+# Hold temperature roughly constant and the relationship disappears.
+hot_days = df[(df["temperature"] > 30) & (df["temperature"] < 33)]
+print(f"\nAmong days between 30-33°C only ({len(hot_days)} days):")
+print(f"ice cream vs drownings : r = {hot_days['ice_cream'].corr(hot_days['drownings']):.3f}  ← collapsed")
+```
+
+**The relationship collapsed when temperature was held still** — from 0.79 to a value
+close to zero. That collapse is the signature of a confounder. In the code above we *know* the truth because we wrote it. With real data
+you cannot see the arrows — you can only test them.
+
+# Part D — Many columns at once {#sec-s08-d}
+
+## 7. Pivot tables {#sec-s08-topic-7}
+
+**A pivot table summarises one numeric column across two categorical columns** — one
+down the rows, one across the columns. It is the same operation as a `groupby`, arranged
+into a grid that a person can read.
+
+### Demo 10 — the same data as a groupby and as a pivot
+
+```{python}
+import pandas as pd
+
+print("As a groupby — correct, but hard to scan:")
+print(homes.groupby(["city", "bedrooms"])["price"].mean().round(-3).head(8))
+
+print("\nAs a pivot table — the same numbers, laid out to compare:")
+pivot = homes.pivot_table(index="city", columns="bedrooms", values="price",
+                          aggfunc="mean").round(-3)
+print(pivot)
+```
+
+Now the comparison is easy in **both** directions: read across a row to see what an extra
+bedroom is worth in that city; read down a column to see what the same house costs in
+different cities.
+
+### Demo 11 — pivot tables answer harder questions
+
+```{python}
+print("How many houses in each combination? (check before trusting an average)")
+print(homes.pivot_table(index="city", columns="bedrooms", values="price",
+                        aggfunc="count", fill_value=0))
+
+print("\nMedian price per square foot, by city and age band:")
+homes["age_band"] = pd.cut(homes["age_years"], [0, 10, 20, 40],
+                           labels=["new", "middle", "old"], include_lowest=True)
+homes["price_per_sqft"] = homes["price"] / homes["area_sqft"]
+print(homes.pivot_table(index="city", columns="age_band", values="price_per_sqft",
+                        aggfunc="median", observed=True).round(0))
+```
+
+::: {.callout-warning title="⚠️ Always check the counts behind an average"}
+The count table above exists for a reason. An average computed from **two houses** sits
+in the grid looking exactly as authoritative as one computed from two hundred.
+**Print the counts next to any pivot of means, or you will act on a cell backed by
+nothing.**
+:::
+
+### Demo 12 — the pair plot: everything against everything
+
+```{python}
+#| label: fig-s08-pairplot
+#| fig-cap: "Every numeric column against every other. The diagonal shows each column's own distribution."
+import seaborn as sns, matplotlib.pyplot as plt
+
+sample = homes[["area_sqft", "age_years", "price", "city"]].dropna().sample(200, random_state=1)
+g = sns.pairplot(sample, hue="city", height=1.9, plot_kws={"s": 14, "alpha": .6})
+g.figure.suptitle("Everything against everything", y=1.02, fontsize=11)
 plt.show()
 ```
 
-# 🎯 Session 8 — Tasks {#sec-s08-tasks}
+**This one chart runs the whole of Part C at once.** It is usually the first thing to
+draw on a new dataset with fewer than about ten numeric columns — and the last thing to
+draw on one with fifty, where it becomes unreadable.
 
-**Task 1 — Read the Heatmap.** 
-Look at the heatmap generated in the demo. What is the mathematical correlation score between `House_Age` and `Price`? Is it a positive or negative relationship? **Report the number and what it implies in the real world.**
+### Demo 13 — the full first pass, as a function
+
+```{python}
+import pandas as pd
+
+def first_look(df, target=None):
+    """The five EDA questions, answered in order."""
+    print(f"1. SIZE      {df.shape[0]:,} rows × {df.shape[1]} columns")
+    num = df.select_dtypes("number").columns.tolist()
+    cat = df.select_dtypes(exclude="number").columns.tolist()
+    print(f"   numeric   {num}")
+    print(f"   other     {cat}")
+
+    miss = df.isna().sum()
+    miss = miss[miss > 0]
+    print(f"\n2. MISSING   {'none' if miss.empty else miss.to_dict()}")
+
+    print("\n3. SHAPE OF EACH NUMERIC COLUMN")
+    for c in num:
+        s = df[c].dropna()
+        lean = "right" if s.skew() > .5 else "left" if s.skew() < -.5 else "symmetric"
+        print(f"   {c:<16} median {s.median():>12,.0f}   skew {s.skew():>6.2f} ({lean})")
+
+    print("\n4. CATEGORY COUNTS")
+    for c in cat:
+        print(f"   {c:<16} {df[c].value_counts().to_dict()}")
+
+    if target:
+        print(f"\n5. WHAT MOVES WITH {target.upper()}")
+        print(df[num].corr()[target].drop(target).sort_values(key=abs, ascending=False).round(3).to_string())
+
+first_look(homes[["area_sqft", "age_years", "bedrooms", "price", "city"]], target="price")
+```
+
+### ❓ Check yourself
+
+**Q1.** You want to know whether house prices differ between three cities. Which chart?
+
+- (a) A scatter plot.
+- (b) **A box plot of price grouped by city.**
+- (c) A pie chart of cities.
+
+**Q2.** Two columns have a Pearson correlation of 0.02, but the scatter plot shows a
+clear U shape. What does that mean?
+
+- (a) The correlation was computed wrongly.
+- (b) **They are strongly related, but not in a straight line — Pearson cannot see it.**
+- (c) They are unrelated.
+
+**Q3.** `area_sqft` and `bedrooms` correlate at 0.93. What should you do?
+
+- (a) Nothing; strong correlations are good.
+- (b) **Note that they carry nearly the same information, and consider keeping only one.**
+- (c) Delete both.
+
+**Q4.** A pivot table cell shows an average price of ₹4.2 crore. What must you check
+before quoting it?
+
+- (a) That the currency is correct.
+- (b) **How many rows that average is computed from.**
+- (c) Whether the column is numeric.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** One numeric column split by one categorical column — the box-plot-by-group
+row of the chart chooser.
+
+**A2 — (b).** Demo 5's third panel: near-zero correlation, near-perfect relationship.
+
+**A3 — (b).** In this dataset bedrooms were *derived* from area, so they genuinely are
+one fact. Session 6's feature selection is the tool.
+
+**A4 — (b).** Demo 11's warning. An average of two houses looks identical to an average
+of two hundred.
+:::
+
+# 🎯 Tasks {#sec-s08-tasks}
+
+::: {.callout-note title="✏️ Practise"}
+**Task 1 — Match the chart.** Which chart for each: the spread of exam marks; how many
+students per department; whether study hours relate to marks; how marks differ between
+departments; how enrolment changed over ten years.
+
+**Task 2 — Find the confounder.** In Demo 9, change the temperature range in the final
+filter to 20–23°C. **Report the correlation.** Then explain in one sentence what holding
+temperature constant does.
+
+**Task 3 — Read the heatmap.** From Demo 8, list the columns you would give a
+price-prediction model, and name any pair you would not include together.
+
+**Task 4 — Pivot with counts.** Build a pivot table of median `price_per_sqft` by city
+and `age_band`, **and print the matching count table beside it.** Identify any cell you
+would refuse to quote.
+:::
+
+:::: {.callout-note collapse="true" title="Solutions"}
+```{python}
+print("Task 1")
+print("  spread of exam marks           → histogram (shape) or box plot (summary)")
+print("  students per department        → bar chart")
+print("  study hours vs marks           → scatter plot")
+print("  marks by department            → box plot grouped by department")
+print("  enrolment over ten years       → line chart")
+print()
+print("Task 3")
+print("  Give the model: area_sqft, age_years, and city (one-hot encoded).")
+print("  Do NOT include area_sqft and bedrooms together — they correlate at 0.93")
+print("  because bedrooms was derived from area. Keep area_sqft; it is finer-grained.")
+```
+::::
 
 ::: {.callout-tip title="✅ Before you move on"}
-- [ ] Ensure you can interpret the colors on a correlation heatmap. (Usually deep red = strong positive, deep blue = strong negative).
-- [ ] **The one thing from this chapter that is easiest to forget:** Correlation only measures *linear* relationships. A perfect U-shaped curve might have a correlation of exactly 0.0, even though a clear pattern exists!
+- [ ] Every chart I draw has a question as its title
+- [ ] I can pick the chart from the question and the column types
+- [ ] I know Pearson only sees straight lines, and when to reach for Spearman
+- [ ] I check the counts behind any average in a pivot table
+- [ ] I can give a concrete example of a confounder
+- [ ] **Easiest thing to forget:** colour a scatter plot by a category. It regularly turns
+      one vague cloud into three clear relationships.
 :::

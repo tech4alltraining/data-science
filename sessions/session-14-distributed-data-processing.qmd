@@ -1,128 +1,624 @@
 ---
 title: "Session 14 — Distributed Data Processing"
-subtitle: "MapReduce · Apache Hadoop · Apache Spark"
+subtitle: "MapReduce by hand · Shuffle and reduce · Hadoop vs Spark · Lazy evaluation · PySpark"
 ---
 
 {{< include ../includes/_setup.qmd >}}
 
 ::: {.callout-note}
-**This chapter covers how we actually do math on datasets that are scattered across 1,000 computers.**
+**This chapter is about splitting one calculation across many machines.**
 
-**Assumed knowledge:** Big Data Fundamentals (Session 13).
+**Assumed knowledge:** Session 13 — the five Vs, HDFS, and why one machine eventually
+stops being enough. Session 2 — `groupby`, which turns out to be MapReduce in disguise.
+
+**The one idea to take away:** MapReduce is three steps — **map, shuffle, reduce** — and
+you can write all three in plain Python in twenty lines. Every distributed engine, Spark
+included, is an efficient implementation of that idea.
+
+**A note on running this chapter:** real Spark needs Java and a cluster. Every executable
+cell here is **plain Python** that implements the same mechanism, so you can see exactly
+what happens. The PySpark blocks are marked and shown for reference — they are the code
+you would run on a real cluster.
 :::
 
 ## 🎯 Learning outcomes {#sec-s14-outcomes}
 
 By the end of this chapter you can:
 
-1. Explain the MapReduce paradigm conceptually.
-2. Differentiate between Apache Hadoop and Apache Spark.
-3. Understand PySpark code and how it differs from Pandas.
+1. Trace a MapReduce word count by hand.
+2. Implement map, shuffle and reduce in plain Python.
+3. Explain why the shuffle is the expensive step.
+4. Say why Spark replaced MapReduce.
+5. Explain lazy evaluation, transformations and actions.
+6. Read and write PySpark DataFrame code.
+7. Say when a distributed engine is the wrong tool.
 
 ## How this chapter is organised {#sec-s14-organisation}
 
-| Part | Question it answers | Source |
+| Part | Question it answers |
+|---|---|
+| [A — MapReduce](#sec-s14-a) | *How do you split a calculation across machines?* |
+| [B — Building it](#sec-s14-b) | *What do the three steps actually do?* |
+| [C — Spark](#sec-s14-c) | *Why did something replace it, and what changed?* |
+| [D — PySpark](#sec-s14-d) | *What does the code look like in practice?* |
+
+# Part A — MapReduce {#sec-s14-a}
+
+## 1. The idea {#sec-s14-topic-1}
+
+**MapReduce splits a calculation into pieces that can run independently, then combines
+the pieces.**
+
+It works because a great many useful calculations have a particular shape: **you can do
+most of the work on each chunk separately, and only a small amount of combining at the
+end.**
+
+::: {.callout-tip title="🧠 Analogy — counting votes"}
+One person counting a million ballots takes weeks.
+
+Instead: **map** — a hundred counters each take a box and tally their own box.
+**Shuffle** — all the tallies for "Party A" are gathered together, all for "Party B"
+together. **Reduce** — one person adds up the tallies for each party.
+
+The counting was split a hundred ways. The adding-up at the end is tiny, because it works
+on tallies, not ballots.
+
+**Where it breaks down:** *"which ballot was cast at exactly 3pm?"* does not split like
+this. Not every question fits the shape.
+:::
+
+**The three steps:**
+
+| Step | Input | Output | Runs |
+|---|---|---|---|
+| **Map** | one chunk of data | many `(key, value)` pairs | in parallel, everywhere |
+| **Shuffle** | all pairs | pairs grouped by key | across the network — **the expensive part** |
+| **Reduce** | all values for one key | one result per key | in parallel, everywhere |
+
+## 2. Word count, by hand {#sec-s14-topic-2}
+
+**Word count is the "hello world" of MapReduce.** Trace it on three sentences before
+looking at any code.
+
+Input, split across three machines:
+
+| Machine | Line |
+|---|---|
+| 1 | `the cat sat` |
+| 2 | `the cat ran` |
+| 3 | `the dog ran` |
+
+**MAP** — each machine emits `(word, 1)` for every word it sees, knowing nothing about
+the others:
+
+| Machine 1 | Machine 2 | Machine 3 |
 |---|---|---|
-| [A — MapReduce and Hadoop](#sec-s14-a) | *How do we process distributed data?* | `concepts` |
-| [B — Apache Spark](#sec-s14-b) | *Why is Spark 100x faster than Hadoop?* | `concepts` |
-| [Demo — PySpark vs Pandas](#sec-s14-demo) | *What does Spark code look like?* | `spark_demo.py` |
+| `(the,1) (cat,1) (sat,1)` | `(the,1) (cat,1) (ran,1)` | `(the,1) (dog,1) (ran,1)` |
 
-# Part A — MapReduce and Hadoop {#sec-s14-a}
+**SHUFFLE** — every pair with the same key is moved to the same machine:
 
-**You cannot move 10 Terabytes of data to the calculator. You must move the calculator to the data.**
+| Key | Values gathered |
+|---|---|
+| `the` | `[1, 1, 1]` |
+| `cat` | `[1, 1]` |
+| `sat` | `[1]` |
+| `ran` | `[1, 1]` |
+| `dog` | `[1]` |
 
-## 1. Big Data Analytics using Map Reduce {#sec-s14-topic-1}
+**REDUCE** — add up each list: `the=3, cat=2, sat=1, ran=2, dog=1`.
 
-**MapReduce is a programming paradigm that splits a massive calculation into two distinct phases: Map (filtering/sorting across many machines) and Reduce (aggregating the final results).**
-
-It exists because traditional databases try to drag all the data into the central processor to sum it up. Over a network, moving 10 Terabytes of data takes hours. MapReduce solves this by sending a tiny 1-kilobyte script to the 100 computers where the data *already lives*, having them do the math locally, and only sending the tiny final answer back over the network.
-
-::: {.callout-tip title="🧠 Analogy — The Ballot Counters"}
-**The everyday thing:** Counting 10 million votes in a national election.
-
-**The mapping:** 
-- **Traditional:** You bring all 10 million paper ballots to one guy in the capital city. He counts them one by one. It takes a year.
-- **Map Phase:** Every individual polling station (the distributed computers) counts their own 10,000 ballots locally.
-- **Reduce Phase:** Each station phones in their final tally (just two numbers: Candidate A: 6000, Candidate B: 4000) to the capital. The capital just adds those small numbers together. The election is decided in an hour.
-:::
-
-### How it works
-
-- **Map:** Extracts the relevant data. (e.g., "Look at this server's logs, and count every time you see 'Error 404'").
-- **Shuffle:** Groups similar data together.
-- **Reduce:** Sums it all up. (e.g., "Add up all the 404 counts from all 100 servers into one grand total").
-
-### ❓ MCQs
-
-**Q1.** What is the primary bottleneck that MapReduce avoids by processing data locally where it sits on the hard drive?
-
-- (a) CPU processing speed.
-- (b) **Network transfer speed (Moving massive data across wires is slow).**
-- (c) Monitor refresh rates.
-
-::: {.callout-note collapse="true" title="Answers"}
-**A1 — (b).** It is always faster to send a small Python script to a server than it is to send 500GB of data from that server to your laptop.
-:::
-
-# Part B — Apache Spark {#sec-s14-b}
-
-**Hadoop wrote everything to disk. Spark keeps it all in RAM.**
-
-## 2. Apache Hadoop vs Apache Spark {#sec-s14-topic-2}
-
-**Apache Spark is the modern, lightning-fast successor to Hadoop's MapReduce engine.**
-
-It exists because Hadoop was slow. Between the Map phase and the Reduce phase, Hadoop wrote all intermediate results to physical hard drives to prevent data loss if a server crashed. Reading and writing from physical hard drives is slow. Spark, instead, keeps all intermediate data purely in RAM (memory).
-
-### How it works
-
-Spark operates using **RDDs (Resilient Distributed Datasets)** or **DataFrames**. If a server crashes while holding data in RAM, Spark just looks at the history of how that data was made (the "lineage") and instantly recalculates it on another server.
-
-Because RAM is 100x faster than hard drives, Spark runs 100x faster than Hadoop for many machine learning tasks.
-
-# Part Demo — PySpark vs Pandas {#sec-s14-demo}
-
-**Running a PySpark DataFrame script.**
-
-Pandas syntax and PySpark syntax look similar, but under the hood, Spark is orchestrating 100 machines.
+### Demo 1 — the same thing in plain Python
 
 ```{python}
-#| eval: false
-# Note: You need a Spark Cluster to run this.
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, count
+from collections import defaultdict
 
-# 1. Initialize the Spark Cluster connection
-spark = SparkSession.builder.appName("LogAnalyzer").getOrCreate()
+lines = ["the cat sat", "the cat ran", "the dog ran"]
 
-# 2. Read a massive 500GB distributed file
-# Spark doesn't actually read it yet! It uses "Lazy Evaluation". It just remembers the command.
-df_logs = spark.read.csv("hdfs://user/logs/massive_logs.csv", header=True)
+# --- MAP: runs independently on each line. No machine knows about any other. ---
+def map_step(line):
+    return [(word, 1) for word in line.split()]
 
-# 3. Perform a Map and Reduce operation
-# We filter for errors, group by the server IP, and count them.
-error_counts = (df_logs
-    .filter(col("status_code") == 404)     # Map Phase
-    .groupBy("server_ip")                  # Shuffle Phase
-    .agg(count("*").alias("error_count"))  # Reduce Phase
-)
+mapped = [map_step(line) for line in lines]
+for i, pairs in enumerate(mapped, 1):
+    print(f"machine {i} emitted: {pairs}")
 
-# 4. Trigger the computation!
-# Up until this point, Spark did zero math. The .show() command forces it to execute 
-# the massive distributed plan and fetch the top 5 results.
-error_counts.orderBy(col("error_count").desc()).show(5)
+# --- SHUFFLE: gather every value that shares a key ---------------------------
+shuffled = defaultdict(list)
+for pairs in mapped:
+    for key, value in pairs:
+        shuffled[key].append(value)
+print(f"\nafter shuffle: {dict(shuffled)}")
+
+# --- REDUCE: one machine per key, combining its list -------------------------
+def reduce_step(key, values):
+    return key, sum(values)
+
+result = dict(reduce_step(k, v) for k, v in shuffled.items())
+print(f"\nfinal counts: {result}")
 ```
 
-::: {.callout-warning title="⚠️ The trap of Lazy Evaluation"}
-In Pandas, when you write `df.filter()`, it happens instantly. In Spark, it does *nothing* until you call an "Action" like `.show()` or `.collect()`. If you write a 50-line script and make a typo on line 2, Spark won't tell you there's an error until line 51 when you finally ask to see the result!
+**That is MapReduce.** Twenty lines, no cluster. Hadoop's contribution is not the idea —
+it is doing this across a thousand machines while some of them fail.
+
+# Part B — Building it {#sec-s14-b}
+
+## 3. A general MapReduce engine {#sec-s14-topic-3}
+
+**The same three steps solve any problem of that shape.** Write the engine once and pass
+in different map and reduce functions.
+
+### Demo 2 — one engine, three different jobs
+
+```{python}
+from collections import defaultdict
+
+def mapreduce(chunks, mapper, reducer, verbose=False):
+    """A single-machine MapReduce. The real thing does this across a cluster."""
+    # MAP — independent per chunk, so this is where parallelism happens
+    mapped = []
+    for chunk in chunks:
+        mapped.extend(mapper(chunk))
+
+    # SHUFFLE — group by key. This is the step that crosses the network.
+    grouped = defaultdict(list)
+    for k, v in mapped:
+        grouped[k].append(v)
+    if verbose:
+        print(f"  map emitted {len(mapped)} pairs → shuffled into {len(grouped)} keys")
+
+    # REDUCE — independent per key, so this is parallel too
+    return {k: reducer(k, v) for k, v in grouped.items()}
+
+
+sales_chunks = [
+    [("Mumbai", 250), ("Delhi", 100), ("Mumbai", 300)],
+    [("Pune", 80),    ("Delhi", 150), ("Mumbai", 120)],
+    [("Pune", 200),   ("Pune", 60),   ("Delhi", 90)],
+]
+
+print("JOB 1 — total sales per city")
+print(" ", mapreduce(sales_chunks, lambda c: c, lambda k, v: sum(v), verbose=True))
+
+print("\nJOB 2 — average sale per city")
+print(" ", mapreduce(sales_chunks, lambda c: c, lambda k, v: round(sum(v)/len(v), 1)))
+
+print("\nJOB 3 — largest single sale per city")
+print(" ", mapreduce(sales_chunks, lambda c: c, lambda k, v: max(v)))
+```
+
+**Only the reducer changed.** The map step and the shuffle were identical, which is
+exactly why the model is worth having.
+
+## 4. Why the shuffle is the expensive step {#sec-s14-topic-4}
+
+**Map and reduce run locally. The shuffle moves data between machines** — over a network
+hundreds of times slower than memory.
+
+**The fix is the combiner: reduce locally before sending anything.**
+
+### Demo 3 — a combiner, and how much traffic it saves
+
+```{python}
+from collections import defaultdict
+
+# 3 machines, each holding many rows for the same few cities.
+chunks = [
+    [("Mumbai", 1)] * 4_000 + [("Delhi", 1)] * 3_000,
+    [("Mumbai", 1)] * 5_000 + [("Pune", 1)] * 2_000,
+    [("Delhi", 1)] * 6_000 + [("Pune", 1)] * 1_000,
+]
+
+# WITHOUT a combiner: every single pair crosses the network
+pairs_sent = sum(len(c) for c in chunks)
+
+# WITH a combiner: each machine sums its own rows first, then sends the totals
+combined = []
+for c in chunks:
+    local = defaultdict(int)
+    for k, v in c:
+        local[k] += v
+    combined.append(list(local.items()))
+combined_sent = sum(len(c) for c in combined)
+
+print(f"without a combiner: {pairs_sent:>7,} pairs cross the network")
+print(f"with a combiner   : {combined_sent:>7,} pairs cross the network")
+print(f"reduction         : {1 - combined_sent/pairs_sent:.4%}")
+
+# Both give the same answer:
+final = defaultdict(int)
+for c in combined:
+    for k, v in c:
+        final[k] += v
+print(f"\nsame result either way: {dict(final)}")
+```
+
+**Traffic fell by more than 99.9%** and the answer is identical. This is the single most
+important optimisation in distributed processing, and Spark applies it automatically for
+operations like `reduceByKey`.
+
+:::: {.callout-warning title="⚠️ Not every reducer can be combined"}
+A combiner is only safe when the reduce operation gives the same answer regardless of how
+you group the work. `sum`, `min`, `max` and `count` are fine.
+
+**`average` is not.** The average of the averages of unequal groups is not the overall
+average:
+
+```{python}
+groups = [[10, 20, 30, 40, 50, 60, 70, 80, 90], [100]]
+naive = sum(sum(g)/len(g) for g in groups) / len(groups)
+true  = sum(sum(g) for g in groups) / sum(len(g) for g in groups)
+print(f"average of the averages : {naive:.2f}   ← wrong")
+print(f"true overall average    : {true:.2f}")
+```
+
+**The fix:** have the combiner emit `(sum, count)` pairs rather than an average, and let
+the reducer divide at the very end.
+::::
+
+```{python}
+# The correct combinable average: carry (sum, count) through the shuffle.
+partials = [(sum(g), len(g)) for g in groups]
+total_sum = sum(s for s, _ in partials)
+total_n   = sum(n for _, n in partials)
+print(f"combinable average: {total_sum}/{total_n} = {total_sum/total_n:.2f}  ✓ correct")
+```
+
+## 5. `groupby` is MapReduce {#sec-s14-topic-5}
+
+**You have been writing MapReduce jobs since Session 2.** `df.groupby("city")["amount"].sum()`
+is a map (pick out city and amount), a shuffle (gather by city), and a reduce (sum).
+
+### Demo 4 — the same answer, both ways
+
+```{python}
+import pandas as pd
+
+rows = [r for chunk in sales_chunks for r in chunk]
+df = pd.DataFrame(rows, columns=["city", "amount"])
+
+print("pandas groupby:")
+print(df.groupby("city")["amount"].sum().to_dict())
+
+print("\nour MapReduce engine:")
+print(mapreduce(sales_chunks, lambda c: c, lambda k, v: sum(v)))
+```
+
+**The difference is only where the work happens.** Pandas does all three steps in one
+process on one machine. A cluster does the map and reduce on many machines and moves data
+between them for the shuffle.
+
+# Part C — Spark {#sec-s14-c}
+
+## 6. Why Spark replaced MapReduce {#sec-s14-topic-6}
+
+**Hadoop MapReduce writes to disk between every stage.** For a single pass that is fine.
+For an algorithm that passes over the data twenty times — which is what training a model
+means — it is ruinous.
+
+| | Hadoop MapReduce | Apache Spark |
+|---|---|---|
+| Between stages | **writes to disk** | **keeps data in memory** |
+| Multi-pass work | very slow | fast |
+| Programming model | map and reduce only | many operations, plus SQL |
+| Interactive queries | no | yes |
+| Written in | Java | Scala, with Python, R and SQL front ends |
+
+### Demo 5 — the cost of writing to disk between passes
+
+```{python}
+DISK_ROUND_TRIP_S = 12       # writing and re-reading a large intermediate result
+MEMORY_S = 0.4               # keeping it in memory instead
+COMPUTE_PER_PASS_S = 5
+
+print(f"{'passes over the data':>21} {'MapReduce':>12} {'Spark':>10} {'speed-up':>10}")
+print("-" * 56)
+for passes in [1, 3, 10, 30]:
+    mr    = passes * COMPUTE_PER_PASS_S + (passes - 1) * DISK_ROUND_TRIP_S
+    spark = passes * COMPUTE_PER_PASS_S + (passes - 1) * MEMORY_S
+    print(f"{passes:>21} {mr:>10.1f} s {spark:>8.1f} s {mr/spark:>9.1f}×")
+
+print("\nOne pass: barely any difference — this is why MapReduce was fine for reports.")
+print("Thirty passes, which is what training a model looks like: Spark wins outright.")
+```
+
+## 7. Lazy evaluation {#sec-s14-topic-7}
+
+**Spark does not run your code when you write it. It builds a plan, and only runs when
+you ask for a result.**
+
+| Kind | Examples | Runs immediately? |
+|---|---|---|
+| **Transformation** | `filter`, `select`, `groupBy`, `join`, `withColumn` | **no** — it is recorded in the plan |
+| **Action** | `show`, `count`, `collect`, `write` | **yes** — the whole plan executes |
+
+**Why this is a feature:** with the whole plan in hand before running anything, Spark can
+rearrange it. If you filter after selecting two columns, it can push the filter earlier
+and read far less data.
+
+### Demo 6 — lazy evaluation, built in plain Python
+
+```{python}
+class LazyFrame:
+    """A miniature of Spark's laziness: record operations, run only on an action."""
+
+    def __init__(self, rows, plan=None):
+        self._rows = rows
+        self._plan = plan or []
+
+    # --- transformations: recorded, not executed ---------------------------
+    def filter(self, fn, label):
+        print(f"  recorded: filter({label})   ← nothing has run")
+        return LazyFrame(self._rows, self._plan + [("filter", fn, label)])
+
+    def select(self, keys):
+        print(f"  recorded: select({keys})    ← nothing has run")
+        return LazyFrame(self._rows, self._plan + [("select", keys, str(keys))])
+
+    # --- actions: the whole plan finally executes --------------------------
+    def collect(self):
+        print(f"  ACTION — executing {len(self._plan)} recorded steps now")
+        rows = self._rows
+        for kind, arg, _ in self._plan:
+            rows = [r for r in rows if arg(r)] if kind == "filter" \
+                   else [{k: r[k] for k in arg} for r in rows]
+        return rows
+
+
+data = [{"city": "Mumbai", "amount": 250, "cashier": "A"},
+        {"city": "Delhi",  "amount": 100, "cashier": "B"},
+        {"city": "Mumbai", "amount": 900, "cashier": "C"},
+        {"city": "Pune",   "amount": 80,  "cashier": "D"}]
+
+print("Building the plan:")
+query = (LazyFrame(data)
+         .filter(lambda r: r["city"] == "Mumbai", "city == Mumbai")
+         .filter(lambda r: r["amount"] > 200, "amount > 200")
+         .select(["city", "amount"]))
+
+print("\nNothing has been computed yet. Now we ask for the answer:")
+print(" ", query.collect())
+```
+
+::: {.callout-warning title="⚠️ Lazy evaluation moves your errors"}
+A typo in a column name inside a transformation may not surface until an action runs —
+possibly many lines later, in code that looks unrelated. Worse, a long chain that appears
+instant is doing nothing at all, and then one `.show()` takes twenty minutes.
+
+**When timing Spark code, time the action.** The transformations are free because they
+have not happened.
 :::
 
-# 🎯 Session 14 — Tasks {#sec-s14-tasks}
+# Part D — PySpark {#sec-s14-d}
 
-**Task 1 — The Pandas Translation.** 
-Look at the Spark filtering command `df_logs.filter(col("status_code") == 404)`. If `df_logs` was a standard Pandas DataFrame, write the Pandas equivalent to filter for rows where the status code is 404.
+## 8. The PySpark DataFrame API {#sec-s14-topic-8}
+
+**PySpark's DataFrame API is deliberately close to pandas**, so most of what you learned
+in Session 2 transfers.
+
+| Task | pandas | PySpark |
+|---|---|---|
+| read a file | `pd.read_csv(path)` | `spark.read.csv(path, header=True)` |
+| first rows | `df.head()` | `df.show(5)` |
+| filter | `df[df.amount > 100]` | `df.filter(df.amount > 100)` |
+| new column | `df["x"] = ...` | `df.withColumn("x", ...)` |
+| group and total | `df.groupby("city")["amount"].sum()` | `df.groupBy("city").sum("amount")` |
+| row count | `len(df)` | `df.count()` |
+| to pandas | — | `df.toPandas()` |
+
+The code below is real PySpark. **It is shown rather than run, because Spark requires a
+Java runtime that this book's environment does not have.** On a machine with
+`pip install pyspark` and Java 17, it runs as written.
+
+```python
+from pyspark.sql import SparkSession
+from pyspark.sql import functions as F
+
+spark = SparkSession.builder.appName("log-analysis").master("local[*]").getOrCreate()
+
+# TRANSFORMATION — nothing is read yet, Spark only records the plan
+logs = spark.read.csv("hdfs:///user/data/logs/clicks.csv", header=True, inferSchema=True)
+
+errors_by_server = (
+    logs
+    .filter(F.col("status") >= 500)              # transformation
+    .groupBy("server_ip")                        # transformation
+    .agg(F.count("*").alias("error_count"),
+         F.avg("response_ms").alias("avg_ms"))   # transformation
+    .orderBy(F.desc("error_count"))              # transformation
+)
+
+# ACTION — only now does Spark read the file and execute the whole plan
+errors_by_server.show(5)
+
+# Bring a small result back into pandas for plotting
+summary = errors_by_server.limit(20).toPandas()
+
+spark.stop()
+```
+
+**`master("local[*]")` runs Spark on your own machine using every core**, which is how you
+develop and test. Moving to a real cluster changes that one string and nothing else.
+
+### Demo 7 — the same job, in the plain-Python engine
+
+So you can see the answer this produces, here is the identical calculation with our own
+MapReduce.
+
+```{python}
+import numpy as np
+from collections import defaultdict
+
+rng = np.random.default_rng(81)
+n = 60_000
+servers = [f"10.0.0.{i}" for i in range(1, 7)]
+weights = [.10, .10, .10, .10, .10, .50]        # one server is much busier
+
+log = [{"server": rng.choice(servers, p=weights),
+        "status": int(rng.choice([200, 404, 500, 503], p=[.90, .05, .03, .02])),
+        "ms": float(rng.gamma(2, 40))}
+       for _ in range(n)]
+
+# filter → group → aggregate, exactly as the PySpark plan above
+errors = [r for r in log if r["status"] >= 500]
+
+grouped = defaultdict(list)
+for r in errors:
+    grouped[r["server"]].append(r["ms"])
+
+summary = sorted(((s, len(v), sum(v)/len(v)) for s, v in grouped.items()),
+                 key=lambda t: -t[1])
+
+print(f"{n:,} log rows → {len(errors):,} errors ({len(errors)/n:.1%})\n")
+print(f"{'server':<12} {'errors':>8} {'avg ms':>9}")
+for s, c, avg in summary:
+    print(f"{s:<12} {c:>8,} {avg:>9.1f}")
+```
+
+## 9. When not to use Spark {#sec-s14-topic-9}
+
+### Demo 8 — the crossover, modelled
+
+```{python}
+import numpy as np, pandas as pd, time
+
+rng = np.random.default_rng(82)
+SPARK_STARTUP_S = 6.0
+SPARK_CORES = 8
+SHUFFLE_OVERHEAD_S = 0.9
+
+print(f"{'rows':>13} {'pandas':>11} {'Spark (modelled)':>18}   winner")
+print("-" * 58)
+for n in [50_000, 500_000, 5_000_000]:
+    df = pd.DataFrame({"k": rng.integers(0, 200, n), "v": rng.normal(size=n)})
+    t = time.perf_counter(); df.groupby("k")["v"].agg(["sum", "mean"]); pandas_s = time.perf_counter() - t
+    spark_s = SPARK_STARTUP_S + SHUFFLE_OVERHEAD_S + pandas_s * 4 / SPARK_CORES
+    print(f"{n:>13,} {pandas_s*1000:>9.1f} ms {spark_s:>15.2f} s   "
+          f"{'pandas' if pandas_s < spark_s else 'Spark'}")
+
+break_even = SPARK_STARTUP_S + SHUFFLE_OVERHEAD_S
+print(f"\nSpark pays about {break_even:.1f} s before it does any work at all.")
+print("It only wins once the job would take substantially longer than that in pandas —")
+print("which, on a modern laptop, means tens of gigabytes.")
+```
+
+::: {.callout-warning title="⚠️ Use Spark when the data does not fit, not when it feels large"}
+Spark earns its overhead when:
+
+- the data genuinely does not fit in one machine's memory, **or**
+- the job would take hours on one machine, **or**
+- it is already where your data lives and the cluster is already running
+
+It does **not** earn it for a 200 MB CSV, however important that CSV is.
+:::
+
+### ❓ Check yourself
+
+**Q1.** Which MapReduce step moves data between machines?
+
+- (a) Map.
+- (b) **Shuffle.**
+- (c) Reduce.
+
+**Q2.** A combiner sums values locally before the shuffle. For which reducer is this
+unsafe?
+
+- (a) `sum`.
+- (b) **`average`.**
+- (c) `max`.
+
+**Q3.** Why is Spark faster than Hadoop MapReduce for training a model?
+
+- (a) It is written in a faster language.
+- (b) **It keeps intermediate results in memory instead of writing them to disk between
+  every pass.**
+- (c) It uses more machines.
+
+**Q4.** You chain six PySpark transformations and it returns instantly. What happened?
+
+- (a) Spark is very fast.
+- (b) **Nothing ran. Transformations are lazy; the work happens on an action.**
+- (c) The data was cached.
+
+**Q5.** A 300 MB CSV takes pandas 4 seconds to summarise. Should you move it to Spark?
+
+- (a) Yes, Spark is built for data.
+- (b) **No — Spark's startup alone costs more than the whole job.**
+- (c) Only if you have a cluster.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** Which is why the combiner in Demo 3 matters so much.
+
+**A2 — (b).** Demo 3's warning measured the wrong answer it produces.
+
+**A3 — (b).** Demo 5 modelled the gap widening with each extra pass.
+
+**A4 — (b).** And the next action will take as long as all six put together.
+
+**A5 — (b).** Demo 8. A 4-second job cannot repay a 7-second overhead.
+:::
+
+# 🎯 Tasks {#sec-s14-tasks}
+
+::: {.callout-note title="✏️ Practise"}
+**Task 1 — Trace it by hand.** Before running anything, work out the map output, the
+shuffle groups and the reduce output for `["a b a", "b c", "a c c"]`. Then check with
+Demo 1.
+
+**Task 2 — Write a new job.** Using the `mapreduce` engine from Demo 2, count how many
+**distinct** cashiers served each city. **Say whether your reducer is combinable.**
+
+**Task 3 — Build a combinable average.** Write a mapper that emits `(city, (amount, 1))`
+and a reducer that returns the correct average, so a combiner would be safe.
+
+**Task 4 — Find the crossover.** Run Demo 8 at 10, 20 and 50 million rows. **Report the
+row count at which the modelled Spark time beats pandas on your machine.**
+:::
+
+:::: {.callout-note collapse="true" title="Solutions"}
+```{python}
+from collections import defaultdict
+
+def mapreduce(chunks, mapper, reducer):
+    mapped = []
+    for c in chunks:
+        mapped.extend(mapper(c))
+    grouped = defaultdict(list)
+    for k, v in mapped:
+        grouped[k].append(v)
+    return {k: reducer(k, v) for k, v in grouped.items()}
+
+# Task 1
+lines = ["a b a", "b c", "a c c"]
+print("Task 1 — map:    ", [[(w, 1) for w in l.split()] for l in lines])
+print("Task 1 — reduce: ", mapreduce([l.split() for l in lines],
+                                     lambda c: [(w, 1) for w in c],
+                                     lambda k, v: sum(v)))
+
+# Task 2 — distinct cashiers per city
+records = [[("Mumbai", "A"), ("Delhi", "B")],
+           [("Mumbai", "A"), ("Mumbai", "C")],
+           [("Delhi", "B"),  ("Pune", "D")]]
+print("\nTask 2 —", mapreduce(records, lambda c: c, lambda k, v: len(set(v))))
+print("  NOT combinable as a count: local counts would double-count a cashier who")
+print("  appears on two machines. Combinable if each machine sends the SET of names.")
+
+# Task 3 — combinable average
+sales = [[("Mumbai", 250), ("Delhi", 100)],
+         [("Mumbai", 300), ("Pune", 80)],
+         [("Mumbai", 120), ("Delhi", 150)]]
+sums = mapreduce(sales, lambda c: [(k, (v, 1)) for k, v in c],
+                 lambda k, pairs: (sum(s for s, _ in pairs), sum(n for _, n in pairs)))
+print("\nTask 3 —", {k: round(s/n, 1) for k, (s, n) in sums.items()})
+print("  Carrying (sum, count) through the shuffle makes the average combinable.")
+```
+::::
 
 ::: {.callout-tip title="✅ Before you move on"}
-- [ ] Understand why Spark is drastically faster than traditional Hadoop MapReduce.
-- [ ] **The one thing from this chapter that is easiest to forget:** Spark uses Lazy Evaluation. It builds an execution plan and waits for an action before crunching the numbers.
+- [ ] I can trace map, shuffle and reduce on three short lines
+- [ ] I know the shuffle is the expensive step and what a combiner does about it
+- [ ] I know why `average` is not directly combinable, and the `(sum, count)` fix
+- [ ] I can explain lazy evaluation and tell a transformation from an action
+- [ ] I can read PySpark DataFrame code
+- [ ] **Easiest thing to forget:** `groupby` in pandas is the same three steps. Spark did
+      not invent the idea — it distributed it.
 :::

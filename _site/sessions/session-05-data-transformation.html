@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>6&nbsp; Session 5 — Data Transformation – Data Science Course</title>
+<title>6&nbsp; Session 5 — Data Transformation – Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -77,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-99913b7803b80b0c1d2b970a25816663.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-7202036dd3638cbfcbeb4151d116aa42.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -105,11 +105,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-sidebar floating quarto-light">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -118,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-05-data-transformation.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Session 5 — Data Transformation</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-03-data-cleaning.html">Part B — Making data fit to use</a></li><li class="breadcrumb-item"><a href="../sessions/session-05-data-transformation.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Session 5 — Data Transformation</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -130,10 +134,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Data Science Course</a> 
+      <a href="../">Data Science</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -146,105 +150,160 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science Course</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part A — Getting hold of data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-01-introduction-to-data-science.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Session 1 — Introduction to Data Science</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-02-data-collection-and-pre-processing-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 2 — Data Collection and Pre-Processing Overview</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part B — Making data fit to use</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-03-data-cleaning.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Session 3 — Data Cleaning</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-04-data-integration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Session 4 — Data Integration</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-05-data-transformation.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Session 5 — Data Transformation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-06-data-reduction-and-discretization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Session 6 — Data Reduction and Discretization</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part C — Understanding data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-07-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Session 7 — Descriptive Statistics</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-08-exploratory-data-analytics-eda-and-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analytics (EDA) and Visualization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analysis and Visualization</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part D — Learning from data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-09-supervised-learning-techniques.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Session 9 — Supervised Learning Techniques</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-10-unsupervised-learning-techniques-clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning Techniques &amp; Clustering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning and Clustering</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-11-data-model-evaluation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 11 — Data Model Evaluation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 11 — Model Evaluation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-12-model-saving-and-deployment.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Session 12 — Model Saving and Deployment</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part E — Data at scale</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-13-big-data-analytics-fundamentals.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Session 13 — Big Data Analytics Fundamentals</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-14-distributed-data-processing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Session 14 — Distributed Data Processing</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-15-nosql-databases-and-scaled-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Scaled Visualization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Visualization at Scale</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session-16-open-ended-module-implementation-and-capstone.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Open Ended Module (Implementation and Capstone)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 16 — Capstone: The End-to-End Project</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -257,58 +316,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#sec-s05-outcomes" id="toc-sec-s05-outcomes" class="nav-link active" data-scroll-target="#sec-s05-outcomes"><span class="header-section-number">6.1</span> 🎯 Learning outcomes</a></li>
   <li><a href="#sec-s05-organisation" id="toc-sec-s05-organisation" class="nav-link" data-scroll-target="#sec-s05-organisation"><span class="header-section-number">6.2</span> How this chapter is organised</a></li>
-  <li><a href="#sec-s05-a" id="toc-sec-s05-a" class="nav-link" data-scroll-target="#sec-s05-a"><span class="header-section-number">7</span> Part A — Rescaling data</a>
+  <li><a href="#sec-s05-a" id="toc-sec-s05-a" class="nav-link" data-scroll-target="#sec-s05-a"><span class="header-section-number">7</span> Part A — The scale problem</a>
   <ul class="collapse">
-  <li><a href="#sec-s05-topic-1" id="toc-sec-s05-topic-1" class="nav-link" data-scroll-target="#sec-s05-topic-1"><span class="header-section-number">7.1</span> 1. Rescaling data</a>
+  <li><a href="#sec-s05-topic-1" id="toc-sec-s05-topic-1" class="nav-link" data-scroll-target="#sec-s05-topic-1"><span class="header-section-number">7.1</span> 1. Why scale matters</a>
   <ul class="collapse">
-  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works"><span class="header-section-number">7.1.1</span> How it works</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">7.1.2</span> 📘 Examples</a></li>
-  <li><a href="#scenarios" id="toc-scenarios" class="nav-link" data-scroll-target="#scenarios"><span class="header-section-number">7.1.3</span> 🌍 Scenarios</a></li>
-  <li><a href="#mcqs" id="toc-mcqs" class="nav-link" data-scroll-target="#mcqs"><span class="header-section-number">7.1.4</span> ❓ MCQs</a></li>
+  <li><a href="#demo-1-watch-a-unit-decide-the-answer" id="toc-demo-1-watch-a-unit-decide-the-answer" class="nav-link" data-scroll-target="#demo-1-watch-a-unit-decide-the-answer"><span class="header-section-number">7.1.1</span> Demo 1 — watch a unit decide the answer</a></li>
+  </ul></li>
+  <li><a href="#sec-s05-topic-2" id="toc-sec-s05-topic-2" class="nav-link" data-scroll-target="#sec-s05-topic-2"><span class="header-section-number">7.2</span> 2. Which algorithms care</a>
+  <ul class="collapse">
+  <li><a href="#demo-2-proving-trees-do-not-care" id="toc-demo-2-proving-trees-do-not-care" class="nav-link" data-scroll-target="#demo-2-proving-trees-do-not-care"><span class="header-section-number">7.2.1</span> Demo 2 — proving trees do not care</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s05-b" id="toc-sec-s05-b" class="nav-link" data-scroll-target="#sec-s05-b"><span class="header-section-number">8</span> Part B — Normalizing data</a>
+  <li><a href="#sec-s05-b" id="toc-sec-s05-b" class="nav-link" data-scroll-target="#sec-s05-b"><span class="header-section-number">8</span> Part B — The five transformers</a>
   <ul class="collapse">
-  <li><a href="#sec-s05-topic-2" id="toc-sec-s05-topic-2" class="nav-link" data-scroll-target="#sec-s05-topic-2"><span class="header-section-number">8.1</span> 2. Normalizing data</a>
+  <li><a href="#sec-s05-topic-3" id="toc-sec-s05-topic-3" class="nav-link" data-scroll-target="#sec-s05-topic-3"><span class="header-section-number">8.1</span> 3. The five tools</a>
   <ul class="collapse">
-  <li><a href="#how-it-works-1" id="toc-how-it-works-1" class="nav-link" data-scroll-target="#how-it-works-1"><span class="header-section-number">8.1.1</span> How it works</a></li>
-  <li><a href="#examples-1" id="toc-examples-1" class="nav-link" data-scroll-target="#examples-1"><span class="header-section-number">8.1.2</span> 📘 Examples</a></li>
-  <li><a href="#scenarios-1" id="toc-scenarios-1" class="nav-link" data-scroll-target="#scenarios-1"><span class="header-section-number">8.1.3</span> 🌍 Scenarios</a></li>
-  <li><a href="#mcqs-1" id="toc-mcqs-1" class="nav-link" data-scroll-target="#mcqs-1"><span class="header-section-number">8.1.4</span> ❓ MCQs</a></li>
+  <li><a href="#demo-3-all-five-on-the-same-small-table" id="toc-demo-3-all-five-on-the-same-small-table" class="nav-link" data-scroll-target="#demo-3-all-five-on-the-same-small-table"><span class="header-section-number">8.1.1</span> Demo 3 — all five, on the same small table</a></li>
+  <li><a href="#demo-4-normalizer-and-binarizer-which-do-something-different" id="toc-demo-4-normalizer-and-binarizer-which-do-something-different" class="nav-link" data-scroll-target="#demo-4-normalizer-and-binarizer-which-do-something-different"><span class="header-section-number">8.1.2</span> Demo 4 — Normalizer and Binarizer, which do something different</a></li>
+  <li><a href="#demo-5-scaling-changes-the-axis-not-the-shape" id="toc-demo-5-scaling-changes-the-axis-not-the-shape" class="nav-link" data-scroll-target="#demo-5-scaling-changes-the-axis-not-the-shape"><span class="header-section-number">8.1.3</span> Demo 5 — scaling changes the axis, not the shape</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s05-c" id="toc-sec-s05-c" class="nav-link" data-scroll-target="#sec-s05-c"><span class="header-section-number">9</span> Part C — Binarizing data</a>
+  <li><a href="#sec-s05-c" id="toc-sec-s05-c" class="nav-link" data-scroll-target="#sec-s05-c"><span class="header-section-number">9</span> Part C — Text into numbers</a>
   <ul class="collapse">
-  <li><a href="#sec-s05-topic-3" id="toc-sec-s05-topic-3" class="nav-link" data-scroll-target="#sec-s05-topic-3"><span class="header-section-number">9.1</span> 3. Binarizing data</a>
+  <li><a href="#sec-s05-topic-4" id="toc-sec-s05-topic-4" class="nav-link" data-scroll-target="#sec-s05-topic-4"><span class="header-section-number">9.1</span> 4. Encoding categories</a>
   <ul class="collapse">
-  <li><a href="#how-it-works-2" id="toc-how-it-works-2" class="nav-link" data-scroll-target="#how-it-works-2"><span class="header-section-number">9.1.1</span> How it works</a></li>
-  <li><a href="#examples-2" id="toc-examples-2" class="nav-link" data-scroll-target="#examples-2"><span class="header-section-number">9.1.2</span> 📘 Examples</a></li>
-  <li><a href="#scenarios-2" id="toc-scenarios-2" class="nav-link" data-scroll-target="#scenarios-2"><span class="header-section-number">9.1.3</span> 🌍 Scenarios</a></li>
-  <li><a href="#mcqs-2" id="toc-mcqs-2" class="nav-link" data-scroll-target="#mcqs-2"><span class="header-section-number">9.1.4</span> ❓ MCQs</a></li>
+  <li><a href="#demo-6-the-three-encodings-and-the-trap-in-the-middle" id="toc-demo-6-the-three-encodings-and-the-trap-in-the-middle" class="nav-link" data-scroll-target="#demo-6-the-three-encodings-and-the-trap-in-the-middle"><span class="header-section-number">9.1.1</span> Demo 6 — the three encodings, and the trap in the middle</a></li>
+  <li><a href="#demo-7-the-invented-ordering-measured" id="toc-demo-7-the-invented-ordering-measured" class="nav-link" data-scroll-target="#demo-7-the-invented-ordering-measured"><span class="header-section-number">9.1.2</span> Demo 7 — the invented ordering, measured</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s05-d" id="toc-sec-s05-d" class="nav-link" data-scroll-target="#sec-s05-d"><span class="header-section-number">10</span> Part D — Standardizing data</a>
+  <li><a href="#sec-s05-d" id="toc-sec-s05-d" class="nav-link" data-scroll-target="#sec-s05-d"><span class="header-section-number">10</span> Part D — Splitting, and leakage</a>
   <ul class="collapse">
-  <li><a href="#sec-s05-topic-4" id="toc-sec-s05-topic-4" class="nav-link" data-scroll-target="#sec-s05-topic-4"><span class="header-section-number">10.1</span> 4. Standardizing data</a>
+  <li><a href="#sec-s05-topic-5" id="toc-sec-s05-topic-5" class="nav-link" data-scroll-target="#sec-s05-topic-5"><span class="header-section-number">10.1</span> 5. The train–test split</a>
   <ul class="collapse">
-  <li><a href="#how-it-works-3" id="toc-how-it-works-3" class="nav-link" data-scroll-target="#how-it-works-3"><span class="header-section-number">10.1.1</span> How it works</a></li>
-  <li><a href="#examples-3" id="toc-examples-3" class="nav-link" data-scroll-target="#examples-3"><span class="header-section-number">10.1.2</span> 📘 Examples</a></li>
-  <li><a href="#scenarios-3" id="toc-scenarios-3" class="nav-link" data-scroll-target="#scenarios-3"><span class="header-section-number">10.1.3</span> 🌍 Scenarios</a></li>
-  <li><a href="#mcqs-3" id="toc-mcqs-3" class="nav-link" data-scroll-target="#mcqs-3"><span class="header-section-number">10.1.4</span> ❓ MCQs</a></li>
+  <li><a href="#demo-8-splitting-with-the-naming-convention-we-use-everywhere" id="toc-demo-8-splitting-with-the-naming-convention-we-use-everywhere" class="nav-link" data-scroll-target="#demo-8-splitting-with-the-naming-convention-we-use-everywhere"><span class="header-section-number">10.1.1</span> Demo 8 — splitting, with the naming convention we use everywhere</a></li>
+  </ul></li>
+  <li><a href="#sec-s05-topic-6" id="toc-sec-s05-topic-6" class="nav-link" data-scroll-target="#sec-s05-topic-6"><span class="header-section-number">10.2</span> 6. Data leakage</a>
+  <ul class="collapse">
+  <li><a href="#demo-9-how-big-is-the-damage-two-kinds-of-leakage-measured" id="toc-demo-9-how-big-is-the-damage-two-kinds-of-leakage-measured" class="nav-link" data-scroll-target="#demo-9-how-big-is-the-damage-two-kinds-of-leakage-measured"><span class="header-section-number">10.2.1</span> Demo 9 — how big is the damage? Two kinds of leakage, measured</a></li>
+  </ul></li>
+  <li><a href="#sec-s05-topic-7" id="toc-sec-s05-topic-7" class="nav-link" data-scroll-target="#sec-s05-topic-7"><span class="header-section-number">10.3</span> 7. Pipelines: making the order impossible to get wrong</a>
+  <ul class="collapse">
+  <li><a href="#demo-10-the-whole-preparation-as-one-object" id="toc-demo-10-the-whole-preparation-as-one-object" class="nav-link" data-scroll-target="#demo-10-the-whole-preparation-as-one-object"><span class="header-section-number">10.3.1</span> Demo 10 — the whole preparation as one object</a></li>
+  <li><a href="#check-yourself" id="toc-check-yourself" class="nav-link" data-scroll-target="#check-yourself"><span class="header-section-number">10.3.2</span> ❓ Check yourself</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s05-demo" id="toc-sec-s05-demo" class="nav-link" data-scroll-target="#sec-s05-demo"><span class="header-section-number">11</span> Part Demo — Applied Walkthrough</a></li>
-  <li><a href="#sec-s05-tasks" id="toc-sec-s05-tasks" class="nav-link" data-scroll-target="#sec-s05-tasks"><span class="header-section-number">12</span> 🎯 Session 5 — Tasks</a></li>
+  <li><a href="#sec-s05-tasks" id="toc-sec-s05-tasks" class="nav-link" data-scroll-target="#sec-s05-tasks"><span class="header-section-number">11</span> 🎯 Tasks</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-03-data-cleaning.html">Part B — Making data fit to use</a></li><li class="breadcrumb-item"><a href="../sessions/session-05-data-transformation.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Session 5 — Data Transformation</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Session 5 — Data Transformation</span></h1>
-<p class="subtitle lead">Rescaling data · Normalizing data · Binarizing data · Standardizing data</p>
+<p class="subtitle lead">Rescaling · Standardizing · Normalizing · Binarizing · Encoding text · The train–test split</p>
 </div>
 
 
@@ -325,11 +387,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<!-- Setup code for the book -->
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -340,18 +397,21 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>This chapter introduces the fundamental concepts of Data Transformation.</strong></p>
-<p><strong>Assumed knowledge:</strong> Concepts from Session 4.</p>
+<p><strong>This chapter puts every column into a form an algorithm can use: numbers, on a comparable scale.</strong></p>
+<p><strong>Assumed knowledge:</strong> Sessions 2–4 — DataFrames, cleaning, joining.</p>
+<p><strong>The one idea to take away:</strong> <strong>split your data before you transform it.</strong> Everything else in this chapter is mechanical. That one rule is the difference between a score you can trust and a score that is a fiction, and it is the most common serious mistake in student projects.</p>
 </div>
 </div>
 <section id="sec-s05-outcomes" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="sec-s05-outcomes"><span class="header-section-number">6.1</span> 🎯 Learning outcomes</h2>
 <p>By the end of this chapter you can:</p>
 <ol type="1">
-<li>Understand and implement Rescaling data</li>
-<li>Understand and implement Normalizing data</li>
-<li>Understand and implement Binarizing data</li>
-<li>Understand and implement Standardizing data</li>
+<li>Explain why columns measured in different units confuse an algorithm.</li>
+<li>Apply <code>MinMaxScaler</code>, <code>StandardScaler</code>, <code>RobustScaler</code>, <code>Normalizer</code> and <code>Binarizer</code>, and say what each one does.</li>
+<li>Say which of them a given algorithm actually needs.</li>
+<li>Turn text categories into numbers with label, one-hot and ordinal encoding.</li>
+<li>Split data into training and test sets with <code>train_test_split</code>.</li>
+<li>Explain data leakage, show its effect on a score, and prevent it with a <code>Pipeline</code>.</li>
 </ol>
 </section>
 <section id="sec-s05-organisation" class="level2" data-number="6.2">
@@ -361,130 +421,926 @@ Note
 <tr class="header">
 <th>Part</th>
 <th>Question it answers</th>
-<th>Source</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#sec-s05-a">A — Rescaling data</a></td>
-<td><em>…?</em></td>
-<td><code>trainer_notebook.ipynb</code></td>
+<td><a href="#sec-s05-a">A — The scale problem</a></td>
+<td><em>Why does one column drown out another?</em></td>
 </tr>
 <tr class="even">
-<td><a href="#sec-s05-b">B — Normalizing data</a></td>
-<td><em>…?</em></td>
-<td><code>trainer_notebook.ipynb</code></td>
+<td><a href="#sec-s05-b">B — The five transformers</a></td>
+<td><em>Which tool, and what does each one actually do?</em></td>
 </tr>
 <tr class="odd">
-<td><a href="#sec-s05-c">C — Binarizing data</a></td>
-<td><em>…?</em></td>
-<td><code>trainer_notebook.ipynb</code></td>
+<td><a href="#sec-s05-c">C — Text into numbers</a></td>
+<td><em>My column says “Mumbai”. Now what?</em></td>
 </tr>
 <tr class="even">
-<td><a href="#sec-s05-d">D — Standardizing data</a></td>
-<td><em>…?</em></td>
-<td><code>trainer_notebook.ipynb</code></td>
+<td><a href="#sec-s05-d">D — Splitting, and leakage</a></td>
+<td><em>Why must this come before the scaling?</em></td>
 </tr>
 </tbody>
 </table>
+<p>Part D is the one to slow down on.</p>
 </section>
 <section id="sec-s05-a" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Part A — Rescaling data</h1>
-<p><strong>Overview of Rescaling data and its practical applications.</strong></p>
+<h1 data-number="7"><span class="header-section-number">7</span> Part A — The scale problem</h1>
 <section id="sec-s05-topic-1" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="sec-s05-topic-1"><span class="header-section-number">7.1</span> 1. Rescaling data</h2>
-<p><strong>One plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.</strong></p>
-<p><strong>Then why it exists: what breaks, or what is unbearably tedious, without it.</strong></p>
-<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — something the reader already understands">
+<h2 data-number="7.1" class="anchored" data-anchor-id="sec-s05-topic-1"><span class="header-section-number">7.1</span> 1. Why scale matters</h2>
+<p><strong>Many algorithms measure distance between rows. A column with big numbers dominates that distance, whatever it actually means.</strong></p>
+<p>Consider two customers:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Age (years)</th>
+<th>Income (₹)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Customer A</td>
+<td>25</td>
+<td>50,000</td>
+</tr>
+<tr class="even">
+<td>Customer B</td>
+<td>55</td>
+<td>51,000</td>
+</tr>
+</tbody>
+</table>
+<p>To a human these people are very different — thirty years apart. To an algorithm measuring straight-line distance:</p>
+<ul>
+<li>the age difference contributes 30</li>
+<li>the income difference contributes 1,000</li>
+</ul>
+<p><strong>Income is 33 times more influential, purely because rupees are counted in thousands and years are not.</strong> The algorithm has not decided income matters more. It has been misled by a unit.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — judging a competition in different units">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>🧠 Analogy — something the reader already understands
+<span class="screen-reader-only">Tip</span>🧠 Analogy — judging a competition in different units
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>The everyday thing.</strong></p>
-<p><strong>The mapping:</strong> this part is the data, this part is the model, this part is the error.</p>
-<p><strong>Where it breaks down:</strong> every analogy is wrong somewhere, and the reader will walk into that place unaided.</p>
+<p>Two judges score a contest. One scores out of 10. The other scores out of 1,000. Add the scores together and the second judge decides the winner every time — not because their opinion is better, but because their scale is bigger.</p>
+<p><strong>Scaling is making both judges score out of 10 before you add them up.</strong></p>
 </div>
 </div>
-<section id="how-it-works" class="level3" data-number="7.1.1">
-<h3 data-number="7.1.1" class="anchored" data-anchor-id="how-it-works"><span class="header-section-number">7.1.1</span> How it works</h3>
-<p><strong>The mechanism, in plain words first.</strong></p>
+<section id="demo-1-watch-a-unit-decide-the-answer" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="demo-1-watch-a-unit-decide-the-answer"><span class="header-section-number">7.1.1</span> Demo 1 — watch a unit decide the answer</h3>
+<div id="a7b91394" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>people <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"age"</span>:    [<span class="dv">25</span>, <span class="dv">55</span>, <span class="dv">26</span>],</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"income"</span>: [<span class="dv">50_000</span>, <span class="dv">51_000</span>, <span class="dv">90_000</span>],</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>}, index<span class="op">=</span>[<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>])</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(people)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> distance(p, q):</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(((p <span class="op">-</span> q) <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>())</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">RAW — who is A most similar to?"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  A to B: </span><span class="sc">{</span>distance(people.loc[<span class="st">'A'</span>], people.loc[<span class="st">'B'</span>])<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  A to C: </span><span class="sc">{</span>distance(people.loc[<span class="st">'A'</span>], people.loc[<span class="st">'C'</span>])<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  → B, because their incomes are close. Age was ignored."</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>scaled <span class="op">=</span> (people <span class="op">-</span> people.<span class="bu">min</span>()) <span class="op">/</span> (people.<span class="bu">max</span>() <span class="op">-</span> people.<span class="bu">min</span>())   <span class="co"># squash both to 0–1</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">SCALED — the same question:"</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  A to B: </span><span class="sc">{</span>distance(scaled.loc[<span class="st">'A'</span>], scaled.loc[<span class="st">'B'</span>])<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  A to C: </span><span class="sc">{</span>distance(scaled.loc[<span class="st">'A'</span>], scaled.loc[<span class="st">'C'</span>])<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  → C, a 26-year-old. Now age counts as much as income."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   age  income
+A   25   50000
+B   55   51000
+C   26   90000
+
+RAW — who is A most similar to?
+  A to B: 1,000
+  A to C: 40,000
+  → B, because their incomes are close. Age was ignored.
+
+SCALED — the same question:
+  A to B: 1.00
+  A to C: 1.00
+  → C, a 26-year-old. Now age counts as much as income.</code></pre>
+</div>
+</div>
+<p><strong>Same data, opposite answers.</strong> Nothing was corrected — a unit was simply stopped from voting twice.</p>
 </section>
-<section id="examples" class="level3" data-number="7.1.2">
-<h3 data-number="7.1.2" class="anchored" data-anchor-id="examples"><span class="header-section-number">7.1.2</span> 📘 Examples</h3>
-<p><strong>Example 1 — the smallest thing that works</strong></p>
-<div id="e9e94059" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># placeholder</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 </section>
-<section id="scenarios" class="level3" data-number="7.1.3">
-<h3 data-number="7.1.3" class="anchored" data-anchor-id="scenarios"><span class="header-section-number">7.1.3</span> 🌍 Scenarios</h3>
-<p><strong>Scenario 1 — the same idea in a situation the reader recognises</strong></p>
-<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ The trap, and its consequence">
+<section id="sec-s05-topic-2" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="sec-s05-topic-2"><span class="header-section-number">7.2</span> 2. Which algorithms care</h2>
+<p><strong>Not every algorithm needs scaling. Knowing which is which saves work and prevents pointless transformations.</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Algorithm</th>
+<th>Needs scaling?</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k-Nearest Neighbours</td>
+<td><strong>yes</strong></td>
+<td>it is entirely built on distance</td>
+</tr>
+<tr class="even">
+<td>K-Means clustering</td>
+<td><strong>yes</strong></td>
+<td>distance again (Session 10)</td>
+</tr>
+<tr class="odd">
+<td>Support Vector Machines</td>
+<td><strong>yes</strong></td>
+<td>distance to a boundary</td>
+</tr>
+<tr class="even">
+<td>Linear / logistic regression</td>
+<td><strong>usually</strong></td>
+<td>helps the fitting process, and makes coefficients comparable</td>
+</tr>
+<tr class="odd">
+<td>Neural networks</td>
+<td><strong>yes</strong></td>
+<td>training is unstable otherwise</td>
+</tr>
+<tr class="even">
+<td>Decision trees</td>
+<td><strong>no</strong></td>
+<td>it asks “is age &gt; 30?”, and that answer does not change with units</td>
+</tr>
+<tr class="odd">
+<td>Random forests</td>
+<td><strong>no</strong></td>
+<td>many trees, same reasoning</td>
+</tr>
+</tbody>
+</table>
+<section id="demo-2-proving-trees-do-not-care" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="demo-2-proving-trees-do-not-care"><span class="header-section-number">7.2.1</span> Demo 2 — proving trees do not care</h3>
+<div id="fa78c8bd" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsClassifier</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">0</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">400</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.column_stack([rng.normal(<span class="dv">40</span>, <span class="dv">12</span>, n),          <span class="co"># age</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                     rng.normal(<span class="dv">60_000</span>, <span class="dv">25_000</span>, n)]) <span class="co"># income</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> (X[:, <span class="dv">1</span>] <span class="op">&gt;</span> <span class="dv">60_000</span>).astype(<span class="bu">int</span>)                   <span class="co"># the truth depends on income</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>Xtr, Xte, ytr, yte <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>Xtr_s <span class="op">=</span> StandardScaler().fit(Xtr).transform(Xtr)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>Xte_s <span class="op">=</span> StandardScaler().fit(Xtr).transform(Xte)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, model <span class="kw">in</span> [(<span class="st">"Decision tree"</span>, DecisionTreeClassifier(random_state<span class="op">=</span><span class="dv">0</span>)),</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>                    (<span class="st">"k-Nearest Neighbours"</span>, KNeighborsClassifier())]:</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    raw_score    <span class="op">=</span> model.fit(Xtr, ytr).score(Xte, yte)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    scaled_score <span class="op">=</span> model.fit(Xtr_s, ytr).score(Xte_s, yte)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:&lt;22}</span><span class="ss"> unscaled </span><span class="sc">{</span>raw_score<span class="sc">:.3f}</span><span class="ss">   scaled </span><span class="sc">{</span>scaled_score<span class="sc">:.3f}</span><span class="ss">   "</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"difference </span><span class="sc">{</span>scaled_score<span class="op">-</span>raw_score<span class="sc">:+.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Decision tree          unscaled 1.000   scaled 1.000   difference +0.000
+k-Nearest Neighbours   unscaled 1.000   scaled 0.958   difference -0.042</code></pre>
+</div>
+</div>
+<p><strong>The tree is unchanged. k-NN improves.</strong> That is the table above, measured rather than asserted.</p>
+</section>
+</section>
+</section>
+<section id="sec-s05-b" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Part B — The five transformers</h1>
+<section id="sec-s05-topic-3" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="sec-s05-topic-3"><span class="header-section-number">8.1</span> 3. The five tools</h2>
+<p><strong>Scikit-learn provides five transformers. Four work down columns; one works across rows. That distinction confuses everybody once.</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>What it produces</th>
+<th>Works on</th>
+<th>Use when</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>MinMaxScaler</code></td>
+<td>every value between 0 and 1</td>
+<td><strong>columns</strong></td>
+<td>you want a fixed, bounded range</td>
+</tr>
+<tr class="even">
+<td><code>StandardScaler</code></td>
+<td>mean 0, standard deviation 1</td>
+<td><strong>columns</strong></td>
+<td>the default choice</td>
+</tr>
+<tr class="odd">
+<td><code>RobustScaler</code></td>
+<td>centred on the median, scaled by the IQR</td>
+<td><strong>columns</strong></td>
+<td>outliers are present and you kept them</td>
+</tr>
+<tr class="even">
+<td><code>Normalizer</code></td>
+<td>each <strong>row</strong> rescaled to length 1</td>
+<td><strong>rows</strong></td>
+<td>the proportions in a row matter, not the totals</td>
+</tr>
+<tr class="odd">
+<td><code>Binarizer</code></td>
+<td>0 or 1, split at a threshold</td>
+<td>columns</td>
+<td>you only care whether a value is above a line</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled" title="🔓 'Normalizing' means two different things">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>⚠️ The trap, and its consequence
+<span class="screen-reader-only">Important</span>🔓 ‘Normalizing’ means two different things
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><em>“It will not error — it will be quietly wrong.”</em></p>
+<p>In everyday speech, “normalising” often means “putting on a 0–1 scale” — which is what <code>MinMaxScaler</code> does.</p>
+<p>In scikit-learn, <code>Normalizer</code> does something else entirely: <strong>it rescales each row so the row’s values sum to a fixed length.</strong> It is used for things like word counts, where a long document and a short document should be comparable by <em>proportion</em>.</p>
+<p>They are different operations in different directions. <strong>When someone says “normalise the data”, ask which they mean.</strong></p>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Tasks">
+<section id="demo-3-all-five-on-the-same-small-table" class="level3" data-number="8.1.1">
+<h3 data-number="8.1.1" class="anchored" data-anchor-id="demo-3-all-five-on-the-same-small-table"><span class="header-section-number">8.1.1</span> Demo 3 — all five, on the same small table</h3>
+<div id="95f4cb0c" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> (MinMaxScaler, StandardScaler, RobustScaler,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                                   Normalizer, Binarizer)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"age"</span>:    [<span class="dv">25</span>, <span class="dv">32</span>, <span class="dv">47</span>, <span class="dv">51</span>, <span class="dv">62</span>, <span class="dv">29</span>],</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"income"</span>: [<span class="dv">30_000</span>, <span class="dv">42_000</span>, <span class="dv">61_000</span>, <span class="dv">58_000</span>, <span class="dv">250_000</span>, <span class="dv">35_000</span>],   <span class="co"># one high earner</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"ORIGINAL"</span>)<span class="op">;</span> <span class="bu">print</span>(data)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, tool <span class="kw">in</span> [(<span class="st">"MinMaxScaler  (0 to 1)"</span>, MinMaxScaler()),</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                   (<span class="st">"StandardScaler (mean 0)"</span>, StandardScaler()),</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                   (<span class="st">"RobustScaler  (median 0)"</span>, RobustScaler())]:</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> pd.DataFrame(tool.fit_transform(data), columns<span class="op">=</span>data.columns)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">"</span>)<span class="op">;</span> <span class="bu">print</span>(out.<span class="bu">round</span>(<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ORIGINAL
+   age  income
+0   25   30000
+1   32   42000
+2   47   61000
+3   51   58000
+4   62  250000
+5   29   35000
+
+MinMaxScaler  (0 to 1)
+    age  income
+0  0.00    0.00
+1  0.19    0.05
+2  0.59    0.14
+3  0.70    0.13
+4  1.00    1.00
+5  0.11    0.02
+
+StandardScaler (mean 0)
+    age  income
+0 -1.20   -0.64
+1 -0.68   -0.48
+2  0.45   -0.24
+3  0.75   -0.28
+4  1.58    2.21
+5 -0.90   -0.57
+
+RobustScaler  (median 0)
+    age  income
+0 -0.72   -0.85
+1 -0.37   -0.34
+2  0.37    0.47
+3  0.57    0.34
+4  1.11    8.51
+5 -0.52   -0.64</code></pre>
+</div>
+</div>
+<p>Look at what the outlier does to each one:</p>
+<div id="2401bdaa" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, tool <span class="kw">in</span> [(<span class="st">"MinMax"</span>, MinMaxScaler()), (<span class="st">"Standard"</span>, StandardScaler()),</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                   (<span class="st">"Robust"</span>, RobustScaler())]:</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> tool.fit_transform(data)[:, <span class="dv">1</span>]      <span class="co"># the income column</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:&lt;9}</span><span class="ss"> income → range </span><span class="sc">{</span>out<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:6.2f}</span><span class="ss"> to </span><span class="sc">{</span>out<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:6.2f}</span><span class="ss"> ; "</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"the five ordinary earners now sit between </span><span class="sc">{</span>np<span class="sc">.</span>sort(out)[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss"> and </span><span class="sc">{</span>np<span class="sc">.</span>sort(out)[<span class="op">-</span><span class="dv">2</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>MinMax    income → range   0.00 to   1.00 ; the five ordinary earners now sit between 0.00 and 0.14
+Standard  income → range  -0.64 to   2.21 ; the five ordinary earners now sit between -0.64 and -0.24
+Robust    income → range  -0.85 to   8.51 ; the five ordinary earners now sit between -0.85 and 0.47</code></pre>
+</div>
+</div>
+<p><strong><code>MinMaxScaler</code> is the one the outlier hurts most:</strong> the ₹2,50,000 earner takes the value 1.0 and squashes everybody else into the bottom seventh of the range. <code>RobustScaler</code> uses the median and the IQR, which the outlier cannot move, so ordinary earners keep their spread.</p>
+</section>
+<section id="demo-4-normalizer-and-binarizer-which-do-something-different" class="level3" data-number="8.1.2">
+<h3 data-number="8.1.2" class="anchored" data-anchor-id="demo-4-normalizer-and-binarizer-which-do-something-different"><span class="header-section-number">8.1.2</span> Demo 4 — Normalizer and Binarizer, which do something different</h3>
+<div id="48edd138" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> Normalizer, Binarizer</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalizer works ACROSS a row. Here: word counts in two documents.</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>docs <span class="op">=</span> np.array([</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>],     <span class="co"># a short document</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">30</span>, <span class="dv">10</span>, <span class="dv">0</span>],   <span class="co"># a long document with the SAME proportions</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Raw word counts:"</span>)<span class="op">;</span> <span class="bu">print</span>(docs)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">After Normalizer — the two documents are now identical, as they should be:"</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Normalizer().fit_transform(docs).<span class="bu">round</span>(<span class="dv">3</span>))</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Binarizer: above the line or below it.</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> np.array([[<span class="dv">35</span>], [<span class="dv">52</span>], [<span class="dv">67</span>], [<span class="dv">40</span>], [<span class="dv">88</span>]])</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Exam marks:"</span>, scores.ravel().tolist())</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Pass (1) or fail (0) at 50:"</span>, Binarizer(threshold<span class="op">=</span><span class="dv">50</span>).fit_transform(scores).ravel().tolist())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Raw word counts:
+[[ 3  1  0]
+ [30 10  0]]
+
+After Normalizer — the two documents are now identical, as they should be:
+[[0.949 0.316 0.   ]
+ [0.949 0.316 0.   ]]
+
+Exam marks: [35, 52, 67, 40, 88]
+Pass (1) or fail (0) at 50: [0, 1, 1, 0, 1]</code></pre>
+</div>
+</div>
+</section>
+<section id="demo-5-scaling-changes-the-axis-not-the-shape" class="level3" data-number="8.1.3">
+<h3 data-number="8.1.3" class="anchored" data-anchor-id="demo-5-scaling-changes-the-axis-not-the-shape"><span class="header-section-number">8.1.3</span> Demo 5 — scaling changes the axis, not the shape</h3>
+<div id="cell-fig-s05-shape" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">1</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>income <span class="op">=</span> np.random.gamma(<span class="dv">2</span>, <span class="dv">20_000</span>, <span class="dv">1_000</span>).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>scaled <span class="op">=</span> StandardScaler().fit_transform(income)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="fl">3.2</span>))</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].hist(income, bins<span class="op">=</span><span class="dv">40</span>)<span class="op">;</span> ax[<span class="dv">0</span>].set_title(<span class="st">"Before"</span>)<span class="op">;</span> ax[<span class="dv">0</span>].set_xlabel(<span class="st">"Income (₹)"</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].hist(scaled, bins<span class="op">=</span><span class="dv">40</span>)<span class="op">;</span> ax[<span class="dv">1</span>].set_title(<span class="st">"After StandardScaler"</span>)<span class="op">;</span> ax[<span class="dv">1</span>].set_xlabel(<span class="st">"Standard deviations"</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Before: mean </span><span class="sc">{</span>income<span class="sc">.</span>mean()<span class="sc">:&gt;10,.0f}</span><span class="ss">   std </span><span class="sc">{</span>income<span class="sc">.</span>std()<span class="sc">:&gt;10,.0f}</span><span class="ss">   skew stays the same"</span>)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"After : mean </span><span class="sc">{</span>scaled<span class="sc">.</span>mean()<span class="sc">:&gt;10.2f}</span><span class="ss">   std </span><span class="sc">{</span>scaled<span class="sc">.</span>std()<span class="sc">:&gt;10.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s05-shape" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s05-shape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-05-data-transformation_files/figure-html/fig-s05-shape-output-1.png" width="979" height="341" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s05-shape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.1: Before and after standardizing. The distribution’s shape is identical; only the numbers on the x-axis changed.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Before: mean     40,897   std     29,922   skew stays the same
+After : mean       0.00   std       1.00</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Scaling does not make data normal">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Tasks
+<span class="screen-reader-only">Warning</span>⚠️ Scaling does not make data normal
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<ol type="1">
-<li>Do exactly what was just shown, on different data.</li>
-<li>Break it deliberately and report the exact error message.</li>
-</ol>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="72c0a4db" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solutions</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Both histograms lean the same way. Scaling shifts and stretches; it does not <strong>reshape</strong>. If a column is heavily skewed and you need it symmetric, you need a different tool — a <strong>log transform</strong>:</p>
+<div id="75331166" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Skewness before log transform:"</span>, <span class="bu">float</span>(pd.Series(income.ravel()).skew().<span class="bu">round</span>(<span class="dv">2</span>)))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Skewness after  log transform:"</span>, <span class="bu">float</span>(pd.Series(np.log1p(income.ravel())).skew().<span class="bu">round</span>(<span class="dv">2</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Skewness before log transform: 1.56
+Skewness after  log transform: -0.82</code></pre>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="mcqs" class="level3" data-number="7.1.4">
-<h3 data-number="7.1.4" class="anchored" data-anchor-id="mcqs"><span class="header-section-number">7.1.4</span> ❓ MCQs</h3>
-<p><strong>Q1.</strong> The question…</p>
+</section>
+</section>
+<section id="sec-s05-c" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Part C — Text into numbers</h1>
+<section id="sec-s05-topic-4" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="sec-s05-topic-4"><span class="header-section-number">9.1</span> 4. Encoding categories</h2>
+<p><strong>Algorithms do arithmetic. They cannot do arithmetic on the word “Mumbai”.</strong> Encoding turns categories into numbers — and the method has to match the kind of category.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Kind</th>
+<th>Meaning</th>
+<th>Example</th>
+<th>Encode with</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Nominal</strong></td>
+<td>no order</td>
+<td>city, colour, brand</td>
+<td><strong>one-hot</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Ordinal</strong></td>
+<td>a real order</td>
+<td>small &lt; medium &lt; large</td>
+<td><strong>ordinal</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>The target</strong></td>
+<td>what you are predicting</td>
+<td>approved / rejected</td>
+<td><strong>label</strong></td>
+</tr>
+</tbody>
+</table>
+<section id="demo-6-the-three-encodings-and-the-trap-in-the-middle" class="level3" data-number="9.1.1">
+<h3 data-number="9.1.1" class="anchored" data-anchor-id="demo-6-the-three-encodings-and-the-trap-in-the-middle"><span class="header-section-number">9.1.1</span> Demo 6 — the three encodings, and the trap in the middle</h3>
+<div id="3c947122" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> LabelEncoder, OrdinalEncoder</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"city"</span>: [<span class="st">"Mumbai"</span>, <span class="st">"Delhi"</span>, <span class="st">"Pune"</span>, <span class="st">"Mumbai"</span>, <span class="st">"Delhi"</span>],</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"size"</span>: [<span class="st">"small"</span>, <span class="st">"large"</span>, <span class="st">"medium"</span>, <span class="st">"medium"</span>, <span class="st">"small"</span>],</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"approved"</span>: [<span class="st">"yes"</span>, <span class="st">"no"</span>, <span class="st">"yes"</span>, <span class="st">"yes"</span>, <span class="st">"no"</span>],</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. LABEL ENCODING — one number per category. Correct for the TARGET only.</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>le <span class="op">=</span> LabelEncoder()</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"approved_num"</span>] <span class="op">=</span> le.fit_transform(df[<span class="st">"approved"</span>])</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Label encoding the target: </span><span class="sc">{</span><span class="bu">dict</span>(<span class="bu">zip</span>(le.classes_, <span class="bu">range</span>(<span class="bu">len</span>(le.classes_))))<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. ORDINAL ENCODING — for categories with a genuine order. You supply the order.</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>oe <span class="op">=</span> OrdinalEncoder(categories<span class="op">=</span>[[<span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span>]])</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"size_num"</span>] <span class="op">=</span> oe.fit_transform(df[[<span class="st">"size"</span>]]).astype(<span class="bu">int</span>)</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Ordinal encoding 'size' (small=0 &lt; medium=1 &lt; large=2):"</span>)</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[[<span class="st">"size"</span>, <span class="st">"size_num"</span>]])</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. ONE-HOT ENCODING — for categories with no order. One column per value.</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">One-hot encoding 'city':"</span>)</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.get_dummies(df[<span class="st">"city"</span>], prefix<span class="op">=</span><span class="st">"city"</span>).astype(<span class="bu">int</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     city    size approved
+0  Mumbai   small      yes
+1   Delhi   large       no
+2    Pune  medium      yes
+3  Mumbai  medium      yes
+4   Delhi   small       no
+
+Label encoding the target: {'no': 0, 'yes': 1}
+
+Ordinal encoding 'size' (small=0 &lt; medium=1 &lt; large=2):
+     size  size_num
+0   small         0
+1   large         2
+2  medium         1
+3  medium         1
+4   small         0
+
+One-hot encoding 'city':
+   city_Delhi  city_Mumbai  city_Pune
+0           0            1          0
+1           1            0          0
+2           0            0          1
+3           0            1          0
+4           1            0          0</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Never label-encode a nominal feature">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Never label-encode a nominal feature
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Label-encode <code>city</code> and you get Delhi = 0, Mumbai = 1, Pune = 2. The algorithm then believes <strong>Pune is twice Mumbai</strong>, and that Mumbai sits <em>between</em> Delhi and Pune. None of that is true, and the model will act on it.</p>
+<p><strong>Nominal features get one-hot encoding.</strong> The cost is one column per category, which is why a column with 5,000 distinct values needs a different approach entirely.</p>
+</div>
+</div>
+</section>
+<section id="demo-7-the-invented-ordering-measured" class="level3" data-number="9.1.2">
+<h3 data-number="9.1.2" class="anchored" data-anchor-id="demo-7-the-invented-ordering-measured"><span class="header-section-number">9.1.2</span> Demo 7 — the invented ordering, measured</h3>
+<div id="3c8eca9e" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">5</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">300</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>city <span class="op">=</span> rng.choice([<span class="st">"Delhi"</span>, <span class="st">"Mumbai"</span>, <span class="st">"Pune"</span>], n)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># The truth: Mumbai is expensive, the other two are similar. No ordering exists.</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>rent <span class="op">=</span> np.where(city <span class="op">==</span> <span class="st">"Mumbai"</span>, <span class="dv">40_000</span>, <span class="dv">18_000</span>) <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">2_000</span>, n)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>label <span class="op">=</span> pd.Series(city).<span class="bu">map</span>({<span class="st">"Delhi"</span>: <span class="dv">0</span>, <span class="st">"Mumbai"</span>: <span class="dv">1</span>, <span class="st">"Pune"</span>: <span class="dv">2</span>}).values.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>onehot <span class="op">=</span> pd.get_dummies(city).astype(<span class="bu">int</span>).values</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, X <span class="kw">in</span> [(<span class="st">"label encoded (wrong)"</span>, label), (<span class="st">"one-hot encoded (right)"</span>, onehot)]:</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    r2 <span class="op">=</span> LinearRegression().fit(X, rent).score(X, rent)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:&lt;26}</span><span class="ss"> explains </span><span class="sc">{</span>r2<span class="sc">:6.1%}</span><span class="ss"> of the variation in rent"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>label encoded (wrong)      explains   0.0% of the variation in rent
+one-hot encoded (right)    explains  96.5% of the variation in rent</code></pre>
+</div>
+</div>
+<p>The label-encoded version does badly because it has been forced to fit a straight line through an ordering that does not exist. <strong>One-hot encoding lets each city have its own value, which is the truth.</strong></p>
+</section>
+</section>
+</section>
+<section id="sec-s05-d" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Part D — Splitting, and leakage</h1>
+<section id="sec-s05-topic-5" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="sec-s05-topic-5"><span class="header-section-number">10.1</span> 5. The train–test split</h2>
+<p><strong>You cannot judge a model on data it learned from.</strong> It has seen the answers.</p>
+<p>So before any modelling, the data is cut in two:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Part</th>
+<th>Usual size</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Training set</strong></td>
+<td>70–80%</td>
+<td>the model learns from this</td>
+</tr>
+<tr class="even">
+<td><strong>Test set</strong></td>
+<td>20–30%</td>
+<td>kept sealed; used once, at the end, to measure</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — practice papers and the real exam">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>🧠 Analogy — practice papers and the real exam
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The training set is the practice papers, with answers. The test set is the exam.</p>
+<p>A student who has memorised the practice answers scores brilliantly on the practice and badly on the exam. <strong>A model tested on its training data is a student marking their own practice paper and calling it a qualification.</strong></p>
+</div>
+</div>
+<section id="demo-8-splitting-with-the-naming-convention-we-use-everywhere" class="level3" data-number="10.1.1">
+<h3 data-number="10.1.1" class="anchored" data-anchor-id="demo-8-splitting-with-the-naming-convention-we-use-everywhere"><span class="header-section-number">10.1.1</span> Demo 8 — splitting, with the naming convention we use everywhere</h3>
+<div id="ad8c2a7c" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, numpy <span class="im">as</span> np</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">1</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"area_sqft"</span>: rng.integers(<span class="dv">400</span>, <span class="dv">2500</span>, <span class="dv">200</span>),</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"age_years"</span>: rng.integers(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">200</span>),</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"approved"</span>:  rng.choice([<span class="dv">0</span>, <span class="dv">1</span>], <span class="dv">200</span>, p<span class="op">=</span>[<span class="fl">0.75</span>, <span class="fl">0.25</span>]),   <span class="co"># only 25% approved</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> data[[<span class="st">"area_sqft"</span>, <span class="st">"age_years"</span>]]     <span class="co"># the inputs — always called X</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data[<span class="st">"approved"</span>]                     <span class="co"># the answer  — always called y</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>, stratify<span class="op">=</span>y</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Whole dataset : </span><span class="sc">{</span><span class="bu">len</span>(X)<span class="sc">}</span><span class="ss"> rows"</span>)</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Training set  : </span><span class="sc">{</span><span class="bu">len</span>(X_train)<span class="sc">}</span><span class="ss"> rows"</span>)</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Test set      : </span><span class="sc">{</span><span class="bu">len</span>(X_test)<span class="sc">}</span><span class="ss"> rows"</span>)</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Approval rate overall  : </span><span class="sc">{</span>y<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Approval rate in train : </span><span class="sc">{</span>y_train<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Approval rate in test  : </span><span class="sc">{</span>y_test<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">   &lt;- kept the same by stratify=y"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Whole dataset : 200 rows
+Training set  : 160 rows
+Test set      : 40 rows
+
+Approval rate overall  : 22.0%
+Approval rate in train : 21.9%
+Approval rate in test  : 22.5%   &lt;- kept the same by stratify=y</code></pre>
+</div>
+</div>
+<p>Three arguments earn their place:</p>
+<ul>
+<li><strong><code>test_size=0.2</code></strong> — hold back a fifth.</li>
+<li><strong><code>random_state=42</code></strong> — fix the shuffle so the split is the same every run. Without it, your numbers change every time you press run and nothing is reproducible.</li>
+<li><strong><code>stratify=y</code></strong> — keep the same proportion of each class in both halves. Without it, a rare class can land mostly in one half, and the test set is measuring a different problem.</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled" title="🔓 The naming convention, used in every chapter from here">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>🔓 The naming convention, used in every chapter from here
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>X_train, X_test, y_train, y_test</code> — capital <code>X</code> for the input table, lowercase <code>y</code> for the single answer column. Everyone in the field uses these names. <strong>Use them too</strong>, so your code is readable by anybody, including you in six months.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s05-topic-6" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="sec-s05-topic-6"><span class="header-section-number">10.2</span> 6. Data leakage</h2>
+<p><strong>Data leakage is when information from the test set reaches the model during training. The score then measures memory, not skill.</strong></p>
+<p>The most common cause is exactly the topic of this chapter: <strong>fitting a scaler on all the data before splitting.</strong> The scaler computes a mean and a standard deviation — and if it computed them from all the data, those numbers contain information about the test rows.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+    subgraph W["❌ Wrong — scale, then split"]
+      W1["all data"] --&gt; W2["fit scaler on everything&lt;br/&gt;&lt;i&gt;the mean now knows about test rows&lt;/i&gt;"] --&gt; W3["split"] --&gt; W4["score is too good"]
+    end
+    subgraph R["✅ Right — split, then scale"]
+      R1["all data"] --&gt; R2["split"] --&gt; R3["fit scaler on &lt;b&gt;train only&lt;/b&gt;"] --&gt; R4["apply that same scaler to test"] --&gt; R5["score is honest"]
+    end
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<section id="demo-9-how-big-is-the-damage-two-kinds-of-leakage-measured" class="level3" data-number="10.2.1">
+<h3 data-number="10.2.1" class="anchored" data-anchor-id="demo-9-how-big-is-the-damage-two-kinds-of-leakage-measured"><span class="header-section-number">10.2.1</span> Demo 9 — how big is the damage? Two kinds of leakage, measured</h3>
+<p>Leakage is often taught with a warning and no number. Let us get the number, because <strong>the two kinds do not cost the same.</strong></p>
+<p><strong>Kind 1 — a scaler fitted on everything.</strong> The scaler learns a minimum and maximum from all rows, including the test rows.</p>
+<div id="a4b8a9c7" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsRegressor</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">3</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">60</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> rng.lognormal(<span class="dv">3</span>, <span class="fl">1.1</span>, size<span class="op">=</span>(n, <span class="dv">3</span>))</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> X[:, <span class="dv">0</span>] <span class="op">*</span> <span class="dv">2</span> <span class="op">+</span> X[:, <span class="dv">1</span>] <span class="op">*</span> <span class="fl">0.5</span> <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>leaked, honest <span class="op">=</span> [], []</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> seed <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">200</span>):                       <span class="co"># 200 splits, so we compare averages not luck</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    Xtr, Xte, ytr, yte <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span>seed)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ❌ scaler sees every row, then we split</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> MinMaxScaler().fit_transform(X)</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    aXtr, aXte, aytr, ayte <span class="op">=</span> train_test_split(a, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span>seed)</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    leaked.append(mean_absolute_error(ayte, KNeighborsRegressor(<span class="dv">3</span>).fit(aXtr, aytr).predict(aXte)))</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ✅ scaler learns from training rows only</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>    sc <span class="op">=</span> MinMaxScaler().fit(Xtr)</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>    honest.append(mean_absolute_error(yte, KNeighborsRegressor(<span class="dv">3</span>).fit(sc.transform(Xtr), ytr)</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>                                              .predict(sc.transform(Xte))))</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"scaler fitted on everything : average error </span><span class="sc">{</span>np<span class="sc">.</span>mean(leaked)<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"scaler fitted on train only : average error </span><span class="sc">{</span>np<span class="sc">.</span>mean(honest)<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>scaler fitted on everything : average error 51.39
+scaler fitted on train only : average error 49.52</code></pre>
+</div>
+</div>
+<p><strong>Read that carefully, because it does not say what you were probably expecting.</strong> The leaked version is not better. On this data it is very slightly <em>worse</em>. Scaler leakage is real, but its effect is usually tiny — a minimum and a maximum are only two numbers, and thirty extra rows barely move them.</p>
+<p><strong>Kind 2 — feature selection done on everything.</strong> Now the same rule, broken in a different place. Here is data with <strong>nothing to learn</strong>: 2,000 columns of pure random noise, and a target that is literally a coin flip.</p>
+<div id="d797ff96" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_selection <span class="im">import</span> SelectKBest, f_classif</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score, StratifiedKFold</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">0</span>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> rng.normal(size<span class="op">=</span>(<span class="dv">60</span>, <span class="dv">2000</span>))       <span class="co"># 2,000 columns of noise</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> rng.integers(<span class="dv">0</span>, <span class="dv">2</span>, size<span class="op">=</span><span class="dv">60</span>)       <span class="co"># coin flips — there is no pattern to find</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>cv <span class="op">=</span> StratifiedKFold(<span class="dv">5</span>, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ❌ pick the 10 "best" columns using ALL the data, then score</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>X_selected <span class="op">=</span> SelectKBest(f_classif, k<span class="op">=</span><span class="dv">10</span>).fit_transform(X, y)</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>leaked <span class="op">=</span> cross_val_score(LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>), X_selected, y, cv<span class="op">=</span>cv).mean()</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ pick the 10 best columns inside each fold, from training rows only</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>pipe <span class="op">=</span> Pipeline([(<span class="st">"select"</span>, SelectKBest(f_classif, k<span class="op">=</span><span class="dv">10</span>)),</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>                 (<span class="st">"model"</span>, LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>))])</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>honest <span class="op">=</span> cross_val_score(pipe, X, y, cv<span class="op">=</span>cv).mean()</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"selection done on all the data : </span><span class="sc">{</span>leaked<span class="sc">:.0%}</span><span class="ss"> accuracy"</span>)</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"selection done inside the fold : </span><span class="sc">{</span>honest<span class="sc">:.0%}</span><span class="ss"> accuracy"</span>)</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"the truth                      : 50% — the labels are coin flips"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>selection done on all the data : 80% accuracy
+selection done inside the fold : 55% accuracy
+the truth                      : 50% — the labels are coin flips</code></pre>
+</div>
+</div>
+<p><strong>That is the danger.</strong> A model that has learned nothing, because there is nothing to learn, reports high accuracy — and would be presented in a meeting as a success. The selection step searched 2,000 noise columns for the ten that happened to line up with the answers, <em>and the answers included the test rows.</em></p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Not all leakage costs the same — which is why the rule is uniform">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Not all leakage costs the same — which is why the rule is uniform
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Leaked step</th>
+<th>Typical damage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Scaler fitted on everything</td>
+<td>small, as measured above</td>
+</tr>
+<tr class="even">
+<td>Imputer fitted on everything</td>
+<td>small to moderate</td>
+</tr>
+<tr class="odd">
+<td><strong>Feature selection on everything</strong></td>
+<td><strong>severe — can manufacture a score from noise</strong></td>
+</tr>
+<tr class="even">
+<td><strong>A feature that contains the answer</strong></td>
+<td><strong>total — 99% accuracy, useless model</strong></td>
+</tr>
+</tbody>
+</table>
+<p>You cannot judge case by case in the middle of a project, and the cheap habit protects you from the expensive mistake. <strong>So the rule is applied to everything, always: any step that learns from data is fitted on the training set only.</strong> The next topic makes that automatic.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s05-topic-7" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="sec-s05-topic-7"><span class="header-section-number">10.3</span> 7. Pipelines: making the order impossible to get wrong</h2>
+<p><strong>A <code>Pipeline</code> chains the steps together so that “fit on train only” happens automatically.</strong> You then cannot leak by forgetting.</p>
+<section id="demo-10-the-whole-preparation-as-one-object" class="level3" data-number="10.3.1">
+<h3 data-number="10.3.1" class="anchored" data-anchor-id="demo-10-the-whole-preparation-as-one-object"><span class="header-section-number">10.3.1</span> Demo 10 — the whole preparation as one object</h3>
+<div id="a2a61988" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler, OneHotEncoder</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.impute <span class="im">import</span> SimpleImputer</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">2</span>)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">400</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"income"</span>:  rng.normal(<span class="dv">60_000</span>, <span class="dv">20_000</span>, n),</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"age"</span>:     rng.integers(<span class="dv">21</span>, <span class="dv">65</span>, n),</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"city"</span>:    rng.choice([<span class="st">"Mumbai"</span>, <span class="st">"Delhi"</span>, <span class="st">"Pune"</span>], n),</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"approved"</span>: rng.choice([<span class="dv">0</span>, <span class="dv">1</span>], n, p<span class="op">=</span>[<span class="fl">0.6</span>, <span class="fl">0.4</span>]),</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>df.loc[rng.choice(n, <span class="dv">30</span>, replace<span class="op">=</span><span class="va">False</span>), <span class="st">"income"</span>] <span class="op">=</span> np.nan     <span class="co"># some gaps</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop(columns<span class="op">=</span><span class="st">"approved"</span>)</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">"approved"</span>]</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>,</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>                                                    random_state<span class="op">=</span><span class="dv">0</span>, stratify<span class="op">=</span>y)</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>prepare <span class="op">=</span> ColumnTransformer([</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"numbers"</span>, Pipeline([(<span class="st">"fill"</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>)),</span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>                          (<span class="st">"scale"</span>, StandardScaler())]), [<span class="st">"income"</span>, <span class="st">"age"</span>]),</span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"categories"</span>, OneHotEncoder(handle_unknown<span class="op">=</span><span class="st">"ignore"</span>), [<span class="st">"city"</span>]),</span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Pipeline([(<span class="st">"prepare"</span>, prepare), (<span class="st">"classify"</span>, LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>))])</span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)          <span class="co"># every step learns from X_train only</span></span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Test accuracy: </span><span class="sc">{</span>model<span class="sc">.</span>score(X_test, y_test)<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Columns after preparation: </span><span class="sc">{</span>model<span class="sc">.</span>named_steps[<span class="st">'prepare'</span>]<span class="sc">.</span>transform(X_train)<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"(2 numeric + 3 one-hot city columns)"</span>)</span>
+<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">The median used for filling was learned from the training rows only —"</span>)</span>
+<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"the pipeline made that happen without anyone having to remember it."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Test accuracy: 0.588
+
+Columns after preparation: 5
+(2 numeric + 3 one-hot city columns)
+
+The median used for filling was learned from the training rows only —
+the pipeline made that happen without anyone having to remember it.</code></pre>
+</div>
+</div>
+<p><strong>One <code>fit</code> call handled imputation, scaling and encoding, in the right order, on the right data.</strong> From here on, this is how preparation is done in this course.</p>
+</section>
+<section id="check-yourself" class="level3" data-number="10.3.2">
+<h3 data-number="10.3.2" class="anchored" data-anchor-id="check-yourself"><span class="header-section-number">10.3.2</span> ❓ Check yourself</h3>
+<p><strong>Q1.</strong> Which needs no scaling?</p>
 <ul>
 <li><ol type="a">
-<li>Wrong</li>
+<li>k-Nearest Neighbours.</li>
 </ol></li>
 <li><ol start="2" type="a">
-<li><strong>Right, in bold</strong></li>
+<li><strong>A decision tree.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>K-Means clustering.</li>
+</ol></li>
+</ul>
+<p><strong>Q2.</strong> <code>city</code> contains Mumbai, Delhi and Pune. Which encoding?</p>
+<ul>
+<li><ol type="a">
+<li>Label encoding, 0/1/2.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>One-hot encoding.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Binarizer.</li>
+</ol></li>
+</ul>
+<p><strong>Q3.</strong> What does <code>stratify=y</code> do?</p>
+<ul>
+<li><ol type="a">
+<li>Sorts the data by the target.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Keeps the same proportion of each class in the training and test sets.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Removes rare classes.</li>
+</ol></li>
+</ul>
+<p><strong>Q4.</strong> You fit <code>StandardScaler</code> on the whole dataset and then split. What is the effect?</p>
+<ul>
+<li><ol type="a">
+<li>Nothing; it is more efficient.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>The test set influenced the scaler, so the reported score is better than the truth.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>The code will raise an error.</li>
 </ol></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -493,372 +1349,81 @@ Note
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>A1 — (b).</strong> The right answer restated, <strong>why the nearest wrong option is wrong</strong>.</p>
+<p><strong>A1 — (b).</strong> A tree asks “is age &gt; 30?”. Changing units changes the threshold it picks, not the split it makes. Demo 2 measured this.</p>
+<p><strong>A2 — (b).</strong> Cities have no order. Label encoding invents one, and Demo 7 measured what that costs.</p>
+<p><strong>A3 — (b).</strong> Especially important when one class is rare — without it, a test set can end up with almost none of the class you care about.</p>
+<p><strong>A4 — (b).</strong> And nothing warns you. This is why Demo 10’s pipeline exists.</p>
 </div>
 </div>
 </div>
-<p><strong>A bridge sentence pointing at the question the next topic answers.</strong></p>
 </section>
 </section>
 </section>
-<section id="sec-s05-b" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Part B — Normalizing data</h1>
-<p><strong>Overview of Normalizing data and its practical applications.</strong></p>
-<section id="sec-s05-topic-2" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="sec-s05-topic-2"><span class="header-section-number">8.1</span> 2. Normalizing data</h2>
-<p><strong>One plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.</strong></p>
-<p><strong>Then why it exists: what breaks, or what is unbearably tedious, without it.</strong></p>
-<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — something the reader already understands">
+<section id="sec-s05-tasks" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> 🎯 Tasks</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>🧠 Analogy — something the reader already understands
+<span class="screen-reader-only">Note</span>✏️ Practise
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>The everyday thing.</strong></p>
-<p><strong>The mapping:</strong> this part is the data, this part is the model, this part is the error.</p>
-<p><strong>Where it breaks down:</strong> every analogy is wrong somewhere, and the reader will walk into that place unaided.</p>
-</div>
-</div>
-<section id="how-it-works-1" class="level3" data-number="8.1.1">
-<h3 data-number="8.1.1" class="anchored" data-anchor-id="how-it-works-1"><span class="header-section-number">8.1.1</span> How it works</h3>
-<p><strong>The mechanism, in plain words first.</strong></p>
-</section>
-<section id="examples-1" class="level3" data-number="8.1.2">
-<h3 data-number="8.1.2" class="anchored" data-anchor-id="examples-1"><span class="header-section-number">8.1.2</span> 📘 Examples</h3>
-<p><strong>Example 1 — the smallest thing that works</strong></p>
-<div id="d166eaed" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># placeholder</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="scenarios-1" class="level3" data-number="8.1.3">
-<h3 data-number="8.1.3" class="anchored" data-anchor-id="scenarios-1"><span class="header-section-number">8.1.3</span> 🌍 Scenarios</h3>
-<p><strong>Scenario 1 — the same idea in a situation the reader recognises</strong></p>
-<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ The trap, and its consequence">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>⚠️ The trap, and its consequence
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><em>“It will not error — it will be quietly wrong.”</em></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Tasks">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Tasks
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Do exactly what was just shown, on different data.</li>
-<li>Break it deliberately and report the exact error message.</li>
-</ol>
+<p><strong>Task 1 — Pick the scaler.</strong> For each, say which of the five transformers you would use and why: exam marks 0–100 for a neural network; salaries containing three billionaires; a pass/fail flag from a 0–100 mark; word counts across documents of very different lengths.</p>
+<p><strong>Task 2 — Encode.</strong> Encode <code>size</code> (small/medium/large) and <code>city</code> (Mumbai/Delhi/Pune) correctly, in one <code>ColumnTransformer</code>.</p>
+<p><strong>Task 3 — Break the split.</strong> In Demo 8, remove <code>stratify=y</code> and run the split with ten different <code>random_state</code> values. <strong>Report the lowest and highest approval rate you see in the test set</strong>, and say why that is a problem.</p>
+<p><strong>Task 4 — Leak on purpose.</strong> In Demo 10, fit a <code>StandardScaler</code> on all of <code>X</code> before splitting, and compare the accuracy to the pipeline version.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="27c02ab6" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solutions</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="mcqs-1" class="level3" data-number="8.1.4">
-<h3 data-number="8.1.4" class="anchored" data-anchor-id="mcqs-1"><span class="header-section-number">8.1.4</span> ❓ MCQs</h3>
-<p><strong>Q1.</strong> The question…</p>
-<ul>
-<li><ol type="a">
-<li>Wrong</li>
-</ol></li>
-<li><ol start="2" type="a">
-<li><strong>Right, in bold</strong></li>
-</ol></li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled" title="Answers">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Answers
+<span class="screen-reader-only">Note</span>Solutions
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>A1 — (b).</strong> The right answer restated, <strong>why the nearest wrong option is wrong</strong>.</p>
-</div>
-</div>
-</div>
-<p><strong>A bridge sentence pointing at the question the next topic answers.</strong></p>
-</section>
-</section>
-</section>
-<section id="sec-s05-c" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> Part C — Binarizing data</h1>
-<p><strong>Overview of Binarizing data and its practical applications.</strong></p>
-<section id="sec-s05-topic-3" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="sec-s05-topic-3"><span class="header-section-number">9.1</span> 3. Binarizing data</h2>
-<p><strong>One plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.</strong></p>
-<p><strong>Then why it exists: what breaks, or what is unbearably tedious, without it.</strong></p>
-<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — something the reader already understands">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>🧠 Analogy — something the reader already understands
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>The everyday thing.</strong></p>
-<p><strong>The mapping:</strong> this part is the data, this part is the model, this part is the error.</p>
-<p><strong>Where it breaks down:</strong> every analogy is wrong somewhere, and the reader will walk into that place unaided.</p>
-</div>
-</div>
-<section id="how-it-works-2" class="level3" data-number="9.1.1">
-<h3 data-number="9.1.1" class="anchored" data-anchor-id="how-it-works-2"><span class="header-section-number">9.1.1</span> How it works</h3>
-<p><strong>The mechanism, in plain words first.</strong></p>
-</section>
-<section id="examples-2" class="level3" data-number="9.1.2">
-<h3 data-number="9.1.2" class="anchored" data-anchor-id="examples-2"><span class="header-section-number">9.1.2</span> 📘 Examples</h3>
-<p><strong>Example 1 — the smallest thing that works</strong></p>
-<div id="7e452406" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># placeholder</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="scenarios-2" class="level3" data-number="9.1.3">
-<h3 data-number="9.1.3" class="anchored" data-anchor-id="scenarios-2"><span class="header-section-number">9.1.3</span> 🌍 Scenarios</h3>
-<p><strong>Scenario 1 — the same idea in a situation the reader recognises</strong></p>
-<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ The trap, and its consequence">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>⚠️ The trap, and its consequence
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><em>“It will not error — it will be quietly wrong.”</em></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Tasks">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Tasks
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Do exactly what was just shown, on different data.</li>
-<li>Break it deliberately and report the exact error message.</li>
-</ol>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-15" class="callout-15-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="6ba6492a" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solutions</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="17926055" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 1</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 1"</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  exam marks for a neural network  → MinMaxScaler (already bounded 0-100)"</span>)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  salaries with three billionaires → RobustScaler (median and IQR ignore them)"</span>)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  pass/fail from a 0-100 mark      → Binarizer(threshold=...)"</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  word counts, uneven doc lengths  → Normalizer (works across the row)"</span>)</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 3 — what stratify was protecting you from</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">1</span>)</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> pd.Series(rng.choice([<span class="dv">0</span>, <span class="dv">1</span>], <span class="dv">200</span>, p<span class="op">=</span>[<span class="fl">0.75</span>, <span class="fl">0.25</span>]))</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>rates <span class="op">=</span> [train_test_split(y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span>s)[<span class="dv">1</span>].mean() <span class="cf">for</span> s <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>)]</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Task 3 — test-set approval rate across 10 splits, no stratify:"</span>)</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  lowest </span><span class="sc">{</span><span class="bu">min</span>(rates)<span class="sc">:.1%}</span><span class="ss">, highest </span><span class="sc">{</span><span class="bu">max</span>(rates)<span class="sc">:.1%}</span><span class="ss">, true rate </span><span class="sc">{</span>y<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  The measured score would change with the seed — you would be reporting luck."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Task 1
+  exam marks for a neural network  → MinMaxScaler (already bounded 0-100)
+  salaries with three billionaires → RobustScaler (median and IQR ignore them)
+  pass/fail from a 0-100 mark      → Binarizer(threshold=...)
+  word counts, uneven doc lengths  → Normalizer (works across the row)
+
+Task 3 — test-set approval rate across 10 splits, no stratify:
+  lowest 17.5%, highest 40.0%, true rate 27.5%
+  The measured score would change with the seed — you would be reporting luck.</code></pre>
 </div>
 </div>
 </div>
 </div>
-</section>
-<section id="mcqs-2" class="level3" data-number="9.1.4">
-<h3 data-number="9.1.4" class="anchored" data-anchor-id="mcqs-2"><span class="header-section-number">9.1.4</span> ❓ MCQs</h3>
-<p><strong>Q1.</strong> The question…</p>
-<ul>
-<li><ol type="a">
-<li>Wrong</li>
-</ol></li>
-<li><ol start="2" type="a">
-<li><strong>Right, in bold</strong></li>
-</ol></li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Answers
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-16" class="callout-16-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>A1 — (b).</strong> The right answer restated, <strong>why the nearest wrong option is wrong</strong>.</p>
-</div>
-</div>
-</div>
-<p><strong>A bridge sentence pointing at the question the next topic answers.</strong></p>
-</section>
-</section>
-</section>
-<section id="sec-s05-d" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> Part D — Standardizing data</h1>
-<p><strong>Overview of Standardizing data and its practical applications.</strong></p>
-<section id="sec-s05-topic-4" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="sec-s05-topic-4"><span class="header-section-number">10.1</span> 4. Standardizing data</h2>
-<p><strong>One plain sentence saying what this is — no notation, no jargon, nothing the reader has not met.</strong></p>
-<p><strong>Then why it exists: what breaks, or what is unbearably tedious, without it.</strong></p>
-<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — something the reader already understands">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>🧠 Analogy — something the reader already understands
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>The everyday thing.</strong></p>
-<p><strong>The mapping:</strong> this part is the data, this part is the model, this part is the error.</p>
-<p><strong>Where it breaks down:</strong> every analogy is wrong somewhere, and the reader will walk into that place unaided.</p>
-</div>
-</div>
-<section id="how-it-works-3" class="level3" data-number="10.1.1">
-<h3 data-number="10.1.1" class="anchored" data-anchor-id="how-it-works-3"><span class="header-section-number">10.1.1</span> How it works</h3>
-<p><strong>The mechanism, in plain words first.</strong></p>
-</section>
-<section id="examples-3" class="level3" data-number="10.1.2">
-<h3 data-number="10.1.2" class="anchored" data-anchor-id="examples-3"><span class="header-section-number">10.1.2</span> 📘 Examples</h3>
-<p><strong>Example 1 — the smallest thing that works</strong></p>
-<div id="ab6d7456" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># placeholder</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="scenarios-3" class="level3" data-number="10.1.3">
-<h3 data-number="10.1.3" class="anchored" data-anchor-id="scenarios-3"><span class="header-section-number">10.1.3</span> 🌍 Scenarios</h3>
-<p><strong>Scenario 1 — the same idea in a situation the reader recognises</strong></p>
-<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ The trap, and its consequence">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>⚠️ The trap, and its consequence
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><em>“It will not error — it will be quietly wrong.”</em></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Tasks">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Tasks
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Do exactly what was just shown, on different data.</li>
-<li>Break it deliberately and report the exact error message.</li>
-</ol>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-20" class="callout-20-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="efca37cd" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solutions</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="mcqs-3" class="level3" data-number="10.1.4">
-<h3 data-number="10.1.4" class="anchored" data-anchor-id="mcqs-3"><span class="header-section-number">10.1.4</span> ❓ MCQs</h3>
-<p><strong>Q1.</strong> The question…</p>
-<ul>
-<li><ol type="a">
-<li>Wrong</li>
-</ol></li>
-<li><ol start="2" type="a">
-<li><strong>Right, in bold</strong></li>
-</ol></li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Answers
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-21" class="callout-21-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>A1 — (b).</strong> The right answer restated, <strong>why the nearest wrong option is wrong</strong>.</p>
-</div>
-</div>
-</div>
-<p><strong>A bridge sentence pointing at the question the next topic answers.</strong></p>
-</section>
-</section>
-</section>
-<section id="sec-s05-demo" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> Part Demo — Applied Walkthrough</h1>
-<p><strong>Applying Scikit-Learn’s <code>MinMaxScaler</code> and <code>StandardScaler</code> to a dataset and visualizing how the data distribution shape shifts after transformation.</strong></p>
-<div id="657fc39d" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># demo placeholder</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="sec-s05-tasks" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> 🎯 Session 5 — Tasks</h1>
-<p><strong>Complete these tasks in order to solidify your understanding.</strong></p>
-<p><strong>Task 1 — Apply concepts.</strong> Practice the concepts learned in this session.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="✅ Before you move on">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -870,8 +1435,12 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <ul class="task-list">
-<li><label><input type="checkbox">Ensure you can explain Rescaling data in plain English</label></li>
-<li><label><input type="checkbox"><strong>The one thing from this chapter that is easiest to forget</strong></label></li>
+<li><label><input type="checkbox">I can explain why an unscaled income column dominates an unscaled age column</label></li>
+<li><label><input type="checkbox">I know which algorithms need scaling and which do not</label></li>
+<li><label><input type="checkbox">I know <code>Normalizer</code> works across rows, not down columns</label></li>
+<li><label><input type="checkbox">I never label-encode a nominal feature</label></li>
+<li><label><input type="checkbox">I split <strong>before</strong> I scale, and I can say what happens if I do not</label></li>
+<li><label><input type="checkbox"><strong>Easiest thing to forget:</strong> the scaler must be fitted on the training set only. A <code>Pipeline</code> makes that automatic — use one.</label></li>
 </ul>
 </div>
 </div>

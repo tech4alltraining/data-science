@@ -1,127 +1,658 @@
 ---
 title: "Session 5 — Data Transformation"
-subtitle: "Rescaling · Normalizing · Standardizing"
+subtitle: "Rescaling · Standardizing · Normalizing · Binarizing · Encoding text · The train–test split"
 ---
 
 {{< include ../includes/_setup.qmd >}}
 
 ::: {.callout-note}
-**This chapter covers how to change the mathematical scale of our data without losing the underlying patterns.**
+**This chapter puts every column into a form an algorithm can use: numbers, on a
+comparable scale.**
 
-**Assumed knowledge:** Data Cleaning (Session 3).
+**Assumed knowledge:** Sessions 2–4 — DataFrames, cleaning, joining.
+
+**The one idea to take away:** **split your data before you transform it.** Everything
+else in this chapter is mechanical. That one rule is the difference between a score you
+can trust and a score that is a fiction, and it is the most common serious mistake in
+student projects.
 :::
 
 ## 🎯 Learning outcomes {#sec-s05-outcomes}
 
 By the end of this chapter you can:
 
-1. Explain why mathematical algorithms struggle when features are on different scales.
-2. Apply `MinMaxScaler` and `StandardScaler` to real datasets using Scikit-Learn.
-3. Understand when to Binarize data.
+1. Explain why columns measured in different units confuse an algorithm.
+2. Apply `MinMaxScaler`, `StandardScaler`, `RobustScaler`, `Normalizer` and `Binarizer`,
+   and say what each one does.
+3. Say which of them a given algorithm actually needs.
+4. Turn text categories into numbers with label, one-hot and ordinal encoding.
+5. Split data into training and test sets with `train_test_split`.
+6. Explain data leakage, show its effect on a score, and prevent it with a `Pipeline`.
 
 ## How this chapter is organised {#sec-s05-organisation}
 
-| Part | Question it answers | Source |
+| Part | Question it answers |
+|---|---|
+| [A — The scale problem](#sec-s05-a) | *Why does one column drown out another?* |
+| [B — The five transformers](#sec-s05-b) | *Which tool, and what does each one actually do?* |
+| [C — Text into numbers](#sec-s05-c) | *My column says "Mumbai". Now what?* |
+| [D — Splitting, and leakage](#sec-s05-d) | *Why must this come before the scaling?* |
+
+Part D is the one to slow down on.
+
+# Part A — The scale problem {#sec-s05-a}
+
+## 1. Why scale matters {#sec-s05-topic-1}
+
+**Many algorithms measure distance between rows. A column with big numbers dominates
+that distance, whatever it actually means.**
+
+Consider two customers:
+
+| | Age (years) | Income (₹) |
 |---|---|---|
-| [A — The Scale Problem](#sec-s05-a) | *Why do we need to transform numbers?* | `concepts` |
-| [Demo — Scikit-Learn Scalers](#sec-s05-demo) | *How do we scale data in Python?* | `scaler_demo.py` |
+| Customer A | 25 | 50,000 |
+| Customer B | 55 | 51,000 |
 
-# Part A — The Scale Problem {#sec-s05-a}
+To a human these people are very different — thirty years apart. To an algorithm
+measuring straight-line distance:
 
-**Machine learning algorithms are easily confused by large numbers.**
+- the age difference contributes 30
+- the income difference contributes 1,000
 
-## 1. Rescaling and Standardizing data {#sec-s05-topic-1}
+**Income is 33 times more influential, purely because rupees are counted in thousands
+and years are not.** The algorithm has not decided income matters more. It has been
+misled by a unit.
 
-**Transformation is the process of squashing all numbers into a tiny, uniform range (usually 0 to 1, or -3 to +3) while keeping their proportional relationships intact.**
+::: {.callout-tip title="🧠 Analogy — judging a competition in different units"}
+Two judges score a contest. One scores out of 10. The other scores out of 1,000. Add the
+scores together and the second judge decides the winner every time — not because their
+opinion is better, but because their scale is bigger.
 
-It exists because algorithms calculate distance. If you are predicting house prices based on **Number of Bedrooms** (range: 1 to 5) and **Square Footage** (range: 500 to 5000), the algorithm will look at "5000" and think Square Footage is 1,000 times more important than the Number of Bedrooms, simply because the number is physically larger. Transformation levels the playing field.
-
-::: {.callout-tip title="🧠 Analogy — The Weightlifting Competition"}
-**The everyday thing:** Comparing the strength of an ant and an elephant.
-
-**The mapping:** 
-- The elephant lifts 300 kg. The ant lifts 0.5 grams. In raw numbers, the elephant is infinitely stronger.
-- **Transformation (Scaling)** changes the metric from "total weight lifted" to "weight lifted as a percentage of body weight." 
-- Suddenly, the ant (lifting 50x its body weight) is revealed to be the true champion. The scale was normalized.
+**Scaling is making both judges score out of 10 before you add them up.**
 :::
 
-### How it works
-
-- **Normalization (MinMax Scaling):** Squashes all data to be exactly between 0 and 1. The smallest number becomes 0, the largest becomes 1.
-- **Standardization (Z-score):** Shifts the data so the average (mean) is 0, and the standard deviation is 1. Better for data with extreme outliers.
-- **Binarization:** Converts continuous numbers into simple 1s and 0s. (e.g., Any temperature above 0 becomes 1 for "Hot", anything below becomes 0 for "Cold").
-
-### ❓ MCQs
-
-**Q1.** Why is scaling crucial before training a machine learning model?
-
-- (a) It makes the data take up less space on the hard drive.
-- (b) **It prevents features with naturally large numbers from overpowering features with naturally small numbers.**
-- (c) It automatically deletes outliers.
-
-::: {.callout-note collapse="true" title="Answers"}
-**A1 — (b).** Scaling ensures that the algorithm treats all columns fairly, regardless of their original unit of measurement (e.g., miles vs millimeters).
-:::
-
-# Part Demo — Scikit-Learn Scalers {#sec-s05-demo}
-
-**Applying Scikit-Learn's `MinMaxScaler` and `StandardScaler` to a dataset.**
-
-Scikit-Learn (`sklearn`) is the premier machine learning library in Python. It provides built-in tools for data transformation.
+### Demo 1 — watch a unit decide the answer
 
 ```{python}
-#| label: fig-scaling-demo
-#| fig-cap: "Visualizing data before and after scaling."
+import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
-# 1. Create a dataset with vastly different scales
-df = pd.DataFrame({
-    "Bedrooms": [1, 2, 3, 4, 5],
-    "SquareFeet": [500, 1000, 1500, 2000, 5000] # Notice 5000 is much larger
-})
+people = pd.DataFrame({
+    "age":    [25, 55, 26],
+    "income": [50_000, 51_000, 90_000],
+}, index=["A", "B", "C"])
+print(people)
 
-# 2. Apply MinMaxScaler (Squashes to 0 - 1)
-min_max_scaler = MinMaxScaler()
-df["MinMax_SqFt"] = min_max_scaler.fit_transform(df[["SquareFeet"]])
+def distance(p, q):
+    return np.sqrt(((p - q) ** 2).sum())
 
-# 3. Apply StandardScaler (Mean=0, Variance=1)
-std_scaler = StandardScaler()
-df["Standard_SqFt"] = std_scaler.fit_transform(df[["SquareFeet"]])
+print("\nRAW — who is A most similar to?")
+print(f"  A to B: {distance(people.loc['A'], people.loc['B']):,.0f}")
+print(f"  A to C: {distance(people.loc['A'], people.loc['C']):,.0f}")
+print("  → B, because their incomes are close. Age was ignored.")
 
-print("--- TRANSFORMED DATA ---")
-display(df)
-
-# Visualize the shape! The shape remains identical, only the Y-axis changes.
-plt.figure(figsize=(12, 4))
-
-plt.subplot(1, 3, 1)
-plt.plot(df["Bedrooms"], df["SquareFeet"], marker='o')
-plt.title("Original Scale (0 to 5000)")
-
-plt.subplot(1, 3, 2)
-plt.plot(df["Bedrooms"], df["MinMax_SqFt"], marker='o', color='green')
-plt.title("MinMax Scaled (0 to 1)")
-
-plt.subplot(1, 3, 3)
-plt.plot(df["Bedrooms"], df["Standard_SqFt"], marker='o', color='red')
-plt.title("Standard Scaled (Centered at 0)")
-
-plt.tight_layout()
-plt.show()
+scaled = (people - people.min()) / (people.max() - people.min())   # squash both to 0–1
+print("\nSCALED — the same question:")
+print(f"  A to B: {distance(scaled.loc['A'], scaled.loc['B']):.2f}")
+print(f"  A to C: {distance(scaled.loc['A'], scaled.loc['C']):.2f}")
+print("  → C, a 26-year-old. Now age counts as much as income.")
 ```
 
-::: {.callout-warning title="⚠️ The trap of shape distortion"}
-Look closely at the three charts above. The physical shape of the line **did not change**. If your scaling technique changes the shape of the data distribution, you have corrupted the data. Scaling only changes the axis labels, never the underlying relationship.
+**Same data, opposite answers.** Nothing was corrected — a unit was simply stopped from
+voting twice.
+
+## 2. Which algorithms care {#sec-s05-topic-2}
+
+**Not every algorithm needs scaling. Knowing which is which saves work and prevents
+pointless transformations.**
+
+| Algorithm | Needs scaling? | Why |
+|---|---|---|
+| k-Nearest Neighbours | **yes** | it is entirely built on distance |
+| K-Means clustering | **yes** | distance again (Session 10) |
+| Support Vector Machines | **yes** | distance to a boundary |
+| Linear / logistic regression | **usually** | helps the fitting process, and makes coefficients comparable |
+| Neural networks | **yes** | training is unstable otherwise |
+| Decision trees | **no** | it asks "is age > 30?", and that answer does not change with units |
+| Random forests | **no** | many trees, same reasoning |
+
+### Demo 2 — proving trees do not care
+
+```{python}
+import numpy as np
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
+
+rng = np.random.default_rng(0)
+n = 400
+X = np.column_stack([rng.normal(40, 12, n),          # age
+                     rng.normal(60_000, 25_000, n)]) # income
+y = (X[:, 1] > 60_000).astype(int)                   # the truth depends on income
+
+Xtr, Xte, ytr, yte = train_test_split(X, y, test_size=0.3, random_state=0)
+Xtr_s = StandardScaler().fit(Xtr).transform(Xtr)
+Xte_s = StandardScaler().fit(Xtr).transform(Xte)
+
+for name, model in [("Decision tree", DecisionTreeClassifier(random_state=0)),
+                    ("k-Nearest Neighbours", KNeighborsClassifier())]:
+    raw_score    = model.fit(Xtr, ytr).score(Xte, yte)
+    scaled_score = model.fit(Xtr_s, ytr).score(Xte_s, yte)
+    print(f"{name:<22} unscaled {raw_score:.3f}   scaled {scaled_score:.3f}   "
+          f"difference {scaled_score-raw_score:+.3f}")
+```
+
+**The tree is unchanged. k-NN improves.** That is the table above, measured rather than
+asserted.
+
+# Part B — The five transformers {#sec-s05-b}
+
+## 3. The five tools {#sec-s05-topic-3}
+
+**Scikit-learn provides five transformers. Four work down columns; one works across
+rows. That distinction confuses everybody once.**
+
+| Tool | What it produces | Works on | Use when |
+|---|---|---|---|
+| `MinMaxScaler` | every value between 0 and 1 | **columns** | you want a fixed, bounded range |
+| `StandardScaler` | mean 0, standard deviation 1 | **columns** | the default choice |
+| `RobustScaler` | centred on the median, scaled by the IQR | **columns** | outliers are present and you kept them |
+| `Normalizer` | each **row** rescaled to length 1 | **rows** | the proportions in a row matter, not the totals |
+| `Binarizer` | 0 or 1, split at a threshold | columns | you only care whether a value is above a line |
+
+::: {.callout-important title="🔓 'Normalizing' means two different things"}
+In everyday speech, "normalising" often means "putting on a 0–1 scale" — which is what
+`MinMaxScaler` does.
+
+In scikit-learn, `Normalizer` does something else entirely: **it rescales each row so the
+row's values sum to a fixed length.** It is used for things like word counts, where a
+long document and a short document should be comparable by *proportion*.
+
+They are different operations in different directions. **When someone says "normalise
+the data", ask which they mean.**
 :::
 
-# 🎯 Session 5 — Tasks {#sec-s05-tasks}
+### Demo 3 — all five, on the same small table
 
-**Task 1 — Binarization.** 
-Use the Pandas `.apply()` function or a simple list comprehension to create a new column in the DataFrame above called `Is_Large_Home`. Make the value `1` if the SquareFeet is strictly greater than 1500, and `0` otherwise. **Report your code.**
+```{python}
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import (MinMaxScaler, StandardScaler, RobustScaler,
+                                   Normalizer, Binarizer)
+
+data = pd.DataFrame({
+    "age":    [25, 32, 47, 51, 62, 29],
+    "income": [30_000, 42_000, 61_000, 58_000, 250_000, 35_000],   # one high earner
+})
+print("ORIGINAL"); print(data)
+
+for name, tool in [("MinMaxScaler  (0 to 1)", MinMaxScaler()),
+                   ("StandardScaler (mean 0)", StandardScaler()),
+                   ("RobustScaler  (median 0)", RobustScaler())]:
+    out = pd.DataFrame(tool.fit_transform(data), columns=data.columns)
+    print(f"\n{name}"); print(out.round(2))
+```
+
+Look at what the outlier does to each one:
+
+```{python}
+for name, tool in [("MinMax", MinMaxScaler()), ("Standard", StandardScaler()),
+                   ("Robust", RobustScaler())]:
+    out = tool.fit_transform(data)[:, 1]      # the income column
+    print(f"{name:<9} income → range {out.min():6.2f} to {out.max():6.2f} ; "
+          f"the five ordinary earners now sit between {np.sort(out)[0]:.2f} and {np.sort(out)[-2]:.2f}")
+```
+
+**`MinMaxScaler` is the one the outlier hurts most:** the ₹2,50,000 earner takes the
+value 1.0 and squashes everybody else into the bottom seventh of the range. `RobustScaler`
+uses the median and the IQR, which the outlier cannot move, so ordinary earners keep
+their spread.
+
+### Demo 4 — Normalizer and Binarizer, which do something different
+
+```{python}
+import numpy as np
+from sklearn.preprocessing import Normalizer, Binarizer
+
+# Normalizer works ACROSS a row. Here: word counts in two documents.
+docs = np.array([
+    [3, 1, 0],     # a short document
+    [30, 10, 0],   # a long document with the SAME proportions
+])
+print("Raw word counts:"); print(docs)
+print("\nAfter Normalizer — the two documents are now identical, as they should be:")
+print(Normalizer().fit_transform(docs).round(3))
+
+# Binarizer: above the line or below it.
+scores = np.array([[35], [52], [67], [40], [88]])
+print("\nExam marks:", scores.ravel().tolist())
+print("Pass (1) or fail (0) at 50:", Binarizer(threshold=50).fit_transform(scores).ravel().tolist())
+```
+
+### Demo 5 — scaling changes the axis, not the shape
+
+```{python}
+#| label: fig-s05-shape
+#| fig-cap: "Before and after standardizing. The distribution's shape is identical; only the numbers on the x-axis changed."
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
+
+np.random.seed(1)
+income = np.random.gamma(2, 20_000, 1_000).reshape(-1, 1)
+scaled = StandardScaler().fit_transform(income)
+
+fig, ax = plt.subplots(1, 2, figsize=(9, 3.2))
+ax[0].hist(income, bins=40); ax[0].set_title("Before"); ax[0].set_xlabel("Income (₹)")
+ax[1].hist(scaled, bins=40); ax[1].set_title("After StandardScaler"); ax[1].set_xlabel("Standard deviations")
+plt.tight_layout(); plt.show()
+
+print(f"Before: mean {income.mean():>10,.0f}   std {income.std():>10,.0f}   skew stays the same")
+print(f"After : mean {scaled.mean():>10.2f}   std {scaled.std():>10.2f}")
+```
+
+:::: {.callout-warning title="⚠️ Scaling does not make data normal"}
+Both histograms lean the same way. Scaling shifts and stretches; it does not
+**reshape**. If a column is heavily skewed and you need it symmetric, you need a
+different tool — a **log transform**:
+
+```{python}
+print("Skewness before log transform:", float(pd.Series(income.ravel()).skew().round(2)))
+print("Skewness after  log transform:", float(pd.Series(np.log1p(income.ravel())).skew().round(2)))
+```
+::::
+
+# Part C — Text into numbers {#sec-s05-c}
+
+## 4. Encoding categories {#sec-s05-topic-4}
+
+**Algorithms do arithmetic. They cannot do arithmetic on the word "Mumbai".** Encoding
+turns categories into numbers — and the method has to match the kind of category.
+
+| Kind | Meaning | Example | Encode with |
+|---|---|---|---|
+| **Nominal** | no order | city, colour, brand | **one-hot** |
+| **Ordinal** | a real order | small < medium < large | **ordinal** |
+| **The target** | what you are predicting | approved / rejected | **label** |
+
+### Demo 6 — the three encodings, and the trap in the middle
+
+```{python}
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder, OrdinalEncoder
+
+df = pd.DataFrame({
+    "city": ["Mumbai", "Delhi", "Pune", "Mumbai", "Delhi"],
+    "size": ["small", "large", "medium", "medium", "small"],
+    "approved": ["yes", "no", "yes", "yes", "no"],
+})
+print(df)
+
+# 1. LABEL ENCODING — one number per category. Correct for the TARGET only.
+le = LabelEncoder()
+df["approved_num"] = le.fit_transform(df["approved"])
+print(f"\nLabel encoding the target: {dict(zip(le.classes_, range(len(le.classes_))))}")
+
+# 2. ORDINAL ENCODING — for categories with a genuine order. You supply the order.
+oe = OrdinalEncoder(categories=[["small", "medium", "large"]])
+df["size_num"] = oe.fit_transform(df[["size"]]).astype(int)
+print("\nOrdinal encoding 'size' (small=0 < medium=1 < large=2):")
+print(df[["size", "size_num"]])
+
+# 3. ONE-HOT ENCODING — for categories with no order. One column per value.
+print("\nOne-hot encoding 'city':")
+print(pd.get_dummies(df["city"], prefix="city").astype(int))
+```
+
+::: {.callout-warning title="⚠️ Never label-encode a nominal feature"}
+Label-encode `city` and you get Delhi = 0, Mumbai = 1, Pune = 2. The algorithm then
+believes **Pune is twice Mumbai**, and that Mumbai sits *between* Delhi and Pune. None
+of that is true, and the model will act on it.
+
+**Nominal features get one-hot encoding.** The cost is one column per category, which is
+why a column with 5,000 distinct values needs a different approach entirely.
+:::
+
+### Demo 7 — the invented ordering, measured
+
+```{python}
+import numpy as np, pandas as pd
+from sklearn.linear_model import LinearRegression
+
+rng = np.random.default_rng(5)
+n = 300
+city = rng.choice(["Delhi", "Mumbai", "Pune"], n)
+# The truth: Mumbai is expensive, the other two are similar. No ordering exists.
+rent = np.where(city == "Mumbai", 40_000, 18_000) + rng.normal(0, 2_000, n)
+
+label = pd.Series(city).map({"Delhi": 0, "Mumbai": 1, "Pune": 2}).values.reshape(-1, 1)
+onehot = pd.get_dummies(city).astype(int).values
+
+for name, X in [("label encoded (wrong)", label), ("one-hot encoded (right)", onehot)]:
+    r2 = LinearRegression().fit(X, rent).score(X, rent)
+    print(f"{name:<26} explains {r2:6.1%} of the variation in rent")
+```
+
+The label-encoded version does badly because it has been forced to fit a straight line
+through an ordering that does not exist. **One-hot encoding lets each city have its own
+value, which is the truth.**
+
+# Part D — Splitting, and leakage {#sec-s05-d}
+
+## 5. The train–test split {#sec-s05-topic-5}
+
+**You cannot judge a model on data it learned from.** It has seen the answers.
+
+So before any modelling, the data is cut in two:
+
+| Part | Usual size | Purpose |
+|---|---|---|
+| **Training set** | 70–80% | the model learns from this |
+| **Test set** | 20–30% | kept sealed; used once, at the end, to measure |
+
+::: {.callout-tip title="🧠 Analogy — practice papers and the real exam"}
+The training set is the practice papers, with answers. The test set is the exam.
+
+A student who has memorised the practice answers scores brilliantly on the practice and
+badly on the exam. **A model tested on its training data is a student marking their own
+practice paper and calling it a qualification.**
+:::
+
+### Demo 8 — splitting, with the naming convention we use everywhere
+
+```{python}
+import pandas as pd, numpy as np
+from sklearn.model_selection import train_test_split
+
+rng = np.random.default_rng(1)
+data = pd.DataFrame({
+    "area_sqft": rng.integers(400, 2500, 200),
+    "age_years": rng.integers(0, 30, 200),
+    "approved":  rng.choice([0, 1], 200, p=[0.75, 0.25]),   # only 25% approved
+})
+
+X = data[["area_sqft", "age_years"]]     # the inputs — always called X
+y = data["approved"]                     # the answer  — always called y
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+print(f"Whole dataset : {len(X)} rows")
+print(f"Training set  : {len(X_train)} rows")
+print(f"Test set      : {len(X_test)} rows")
+print(f"\nApproval rate overall  : {y.mean():.1%}")
+print(f"Approval rate in train : {y_train.mean():.1%}")
+print(f"Approval rate in test  : {y_test.mean():.1%}   <- kept the same by stratify=y")
+```
+
+Three arguments earn their place:
+
+- **`test_size=0.2`** — hold back a fifth.
+- **`random_state=42`** — fix the shuffle so the split is the same every run. Without
+  it, your numbers change every time you press run and nothing is reproducible.
+- **`stratify=y`** — keep the same proportion of each class in both halves. Without it,
+  a rare class can land mostly in one half, and the test set is measuring a different
+  problem.
+
+::: {.callout-important title="🔓 The naming convention, used in every chapter from here"}
+`X_train, X_test, y_train, y_test` — capital `X` for the input table, lowercase `y` for
+the single answer column. Everyone in the field uses these names. **Use them too**, so
+your code is readable by anybody, including you in six months.
+:::
+
+## 6. Data leakage {#sec-s05-topic-6}
+
+**Data leakage is when information from the test set reaches the model during training.
+The score then measures memory, not skill.**
+
+The most common cause is exactly the topic of this chapter: **fitting a scaler on all
+the data before splitting.** The scaler computes a mean and a standard deviation — and
+if it computed them from all the data, those numbers contain information about the test
+rows.
+
+```{mermaid}
+flowchart TB
+    subgraph W["❌ Wrong — scale, then split"]
+      W1["all data"] --> W2["fit scaler on everything<br/><i>the mean now knows about test rows</i>"] --> W3["split"] --> W4["score is too good"]
+    end
+    subgraph R["✅ Right — split, then scale"]
+      R1["all data"] --> R2["split"] --> R3["fit scaler on <b>train only</b>"] --> R4["apply that same scaler to test"] --> R5["score is honest"]
+    end
+```
+
+### Demo 9 — how big is the damage? Two kinds of leakage, measured
+
+Leakage is often taught with a warning and no number. Let us get the number, because
+**the two kinds do not cost the same.**
+
+**Kind 1 — a scaler fitted on everything.** The scaler learns a minimum and maximum
+from all rows, including the test rows.
+
+```{python}
+import numpy as np
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_absolute_error
+
+rng = np.random.default_rng(3)
+n = 60
+X = rng.lognormal(3, 1.1, size=(n, 3))
+y = X[:, 0] * 2 + X[:, 1] * 0.5 + rng.normal(0, 1, n)
+
+leaked, honest = [], []
+for seed in range(200):                       # 200 splits, so we compare averages not luck
+    Xtr, Xte, ytr, yte = train_test_split(X, y, test_size=0.3, random_state=seed)
+
+    # ❌ scaler sees every row, then we split
+    a = MinMaxScaler().fit_transform(X)
+    aXtr, aXte, aytr, ayte = train_test_split(a, y, test_size=0.3, random_state=seed)
+    leaked.append(mean_absolute_error(ayte, KNeighborsRegressor(3).fit(aXtr, aytr).predict(aXte)))
+
+    # ✅ scaler learns from training rows only
+    sc = MinMaxScaler().fit(Xtr)
+    honest.append(mean_absolute_error(yte, KNeighborsRegressor(3).fit(sc.transform(Xtr), ytr)
+                                              .predict(sc.transform(Xte))))
+
+print(f"scaler fitted on everything : average error {np.mean(leaked):.2f}")
+print(f"scaler fitted on train only : average error {np.mean(honest):.2f}")
+```
+
+**Read that carefully, because it does not say what you were probably expecting.** The
+leaked version is not better. On this data it is very slightly *worse*. Scaler leakage is
+real, but its effect is usually tiny — a minimum and a maximum are only two numbers, and
+thirty extra rows barely move them.
+
+**Kind 2 — feature selection done on everything.** Now the same rule, broken in a
+different place. Here is data with **nothing to learn**: 2,000 columns of pure random
+noise, and a target that is literally a coin flip.
+
+```{python}
+import numpy as np
+from sklearn.feature_selection import SelectKBest, f_classif
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import cross_val_score, StratifiedKFold
+from sklearn.pipeline import Pipeline
+
+rng = np.random.default_rng(0)
+X = rng.normal(size=(60, 2000))       # 2,000 columns of noise
+y = rng.integers(0, 2, size=60)       # coin flips — there is no pattern to find
+
+cv = StratifiedKFold(5, shuffle=True, random_state=0)
+
+# ❌ pick the 10 "best" columns using ALL the data, then score
+X_selected = SelectKBest(f_classif, k=10).fit_transform(X, y)
+leaked = cross_val_score(LogisticRegression(max_iter=1000), X_selected, y, cv=cv).mean()
+
+# ✅ pick the 10 best columns inside each fold, from training rows only
+pipe = Pipeline([("select", SelectKBest(f_classif, k=10)),
+                 ("model", LogisticRegression(max_iter=1000))])
+honest = cross_val_score(pipe, X, y, cv=cv).mean()
+
+print(f"selection done on all the data : {leaked:.0%} accuracy")
+print(f"selection done inside the fold : {honest:.0%} accuracy")
+print(f"the truth                      : 50% — the labels are coin flips")
+```
+
+**That is the danger.** A model that has learned nothing, because there is nothing to
+learn, reports high accuracy — and would be presented in a meeting as a success. The
+selection step searched 2,000 noise columns for the ten that happened to line up with
+the answers, *and the answers included the test rows.*
+
+::: {.callout-warning title="⚠️ Not all leakage costs the same — which is why the rule is uniform"}
+| Leaked step | Typical damage |
+|---|---|
+| Scaler fitted on everything | small, as measured above |
+| Imputer fitted on everything | small to moderate |
+| **Feature selection on everything** | **severe — can manufacture a score from noise** |
+| **A feature that contains the answer** | **total — 99% accuracy, useless model** |
+
+You cannot judge case by case in the middle of a project, and the cheap habit protects
+you from the expensive mistake. **So the rule is applied to everything, always: any step
+that learns from data is fitted on the training set only.** The next topic makes that
+automatic.
+:::
+
+## 7. Pipelines: making the order impossible to get wrong {#sec-s05-topic-7}
+
+**A `Pipeline` chains the steps together so that "fit on train only" happens
+automatically.** You then cannot leak by forgetting.
+
+### Demo 10 — the whole preparation as one object
+
+```{python}
+import numpy as np, pandas as pd
+from sklearn.pipeline import Pipeline
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.impute import SimpleImputer
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+
+rng = np.random.default_rng(2)
+n = 400
+df = pd.DataFrame({
+    "income":  rng.normal(60_000, 20_000, n),
+    "age":     rng.integers(21, 65, n),
+    "city":    rng.choice(["Mumbai", "Delhi", "Pune"], n),
+    "approved": rng.choice([0, 1], n, p=[0.6, 0.4]),
+})
+df.loc[rng.choice(n, 30, replace=False), "income"] = np.nan     # some gaps
+
+X = df.drop(columns="approved")
+y = df["approved"]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2,
+                                                    random_state=0, stratify=y)
+
+prepare = ColumnTransformer([
+    ("numbers", Pipeline([("fill", SimpleImputer(strategy="median")),
+                          ("scale", StandardScaler())]), ["income", "age"]),
+    ("categories", OneHotEncoder(handle_unknown="ignore"), ["city"]),
+])
+
+model = Pipeline([("prepare", prepare), ("classify", LogisticRegression(max_iter=1000))])
+
+model.fit(X_train, y_train)          # every step learns from X_train only
+print(f"Test accuracy: {model.score(X_test, y_test):.3f}")
+print(f"\nColumns after preparation: {model.named_steps['prepare'].transform(X_train).shape[1]}")
+print("(2 numeric + 3 one-hot city columns)")
+print("\nThe median used for filling was learned from the training rows only —")
+print("the pipeline made that happen without anyone having to remember it.")
+```
+
+**One `fit` call handled imputation, scaling and encoding, in the right order, on the
+right data.** From here on, this is how preparation is done in this course.
+
+### ❓ Check yourself
+
+**Q1.** Which needs no scaling?
+
+- (a) k-Nearest Neighbours.
+- (b) **A decision tree.**
+- (c) K-Means clustering.
+
+**Q2.** `city` contains Mumbai, Delhi and Pune. Which encoding?
+
+- (a) Label encoding, 0/1/2.
+- (b) **One-hot encoding.**
+- (c) Binarizer.
+
+**Q3.** What does `stratify=y` do?
+
+- (a) Sorts the data by the target.
+- (b) **Keeps the same proportion of each class in the training and test sets.**
+- (c) Removes rare classes.
+
+**Q4.** You fit `StandardScaler` on the whole dataset and then split. What is the effect?
+
+- (a) Nothing; it is more efficient.
+- (b) **The test set influenced the scaler, so the reported score is better than the
+  truth.**
+- (c) The code will raise an error.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** A tree asks "is age > 30?". Changing units changes the threshold it picks,
+not the split it makes. Demo 2 measured this.
+
+**A2 — (b).** Cities have no order. Label encoding invents one, and Demo 7 measured what
+that costs.
+
+**A3 — (b).** Especially important when one class is rare — without it, a test set can
+end up with almost none of the class you care about.
+
+**A4 — (b).** And nothing warns you. This is why Demo 10's pipeline exists.
+:::
+
+# 🎯 Tasks {#sec-s05-tasks}
+
+::: {.callout-note title="✏️ Practise"}
+**Task 1 — Pick the scaler.** For each, say which of the five transformers you would
+use and why: exam marks 0–100 for a neural network; salaries containing three
+billionaires; a pass/fail flag from a 0–100 mark; word counts across documents of very
+different lengths.
+
+**Task 2 — Encode.** Encode `size` (small/medium/large) and `city` (Mumbai/Delhi/Pune)
+correctly, in one `ColumnTransformer`.
+
+**Task 3 — Break the split.** In Demo 8, remove `stratify=y` and run the split with ten
+different `random_state` values. **Report the lowest and highest approval rate you see in
+the test set**, and say why that is a problem.
+
+**Task 4 — Leak on purpose.** In Demo 10, fit a `StandardScaler` on all of `X` before
+splitting, and compare the accuracy to the pipeline version.
+:::
+
+:::: {.callout-note collapse="true" title="Solutions"}
+```{python}
+import numpy as np, pandas as pd
+from sklearn.model_selection import train_test_split
+
+# Task 1
+print("Task 1")
+print("  exam marks for a neural network  → MinMaxScaler (already bounded 0-100)")
+print("  salaries with three billionaires → RobustScaler (median and IQR ignore them)")
+print("  pass/fail from a 0-100 mark      → Binarizer(threshold=...)")
+print("  word counts, uneven doc lengths  → Normalizer (works across the row)")
+
+# Task 3 — what stratify was protecting you from
+rng = np.random.default_rng(1)
+y = pd.Series(rng.choice([0, 1], 200, p=[0.75, 0.25]))
+rates = [train_test_split(y, test_size=0.2, random_state=s)[1].mean() for s in range(10)]
+print(f"\nTask 3 — test-set approval rate across 10 splits, no stratify:")
+print(f"  lowest {min(rates):.1%}, highest {max(rates):.1%}, true rate {y.mean():.1%}")
+print("  The measured score would change with the seed — you would be reporting luck.")
+```
+::::
 
 ::: {.callout-tip title="✅ Before you move on"}
-- [ ] Verify you have `scikit-learn` installed in your environment.
-- [ ] **The one thing from this chapter that is easiest to forget:** You must fit your scaler ONLY on your training data, not your testing data. (We will cover this deeply in the supervised learning sessions).
+- [ ] I can explain why an unscaled income column dominates an unscaled age column
+- [ ] I know which algorithms need scaling and which do not
+- [ ] I know `Normalizer` works across rows, not down columns
+- [ ] I never label-encode a nominal feature
+- [ ] I split **before** I scale, and I can say what happens if I do not
+- [ ] **Easiest thing to forget:** the scaler must be fitted on the training set only.
+      A `Pipeline` makes that automatic — use one.
 :::

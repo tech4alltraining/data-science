@@ -1,120 +1,571 @@
 ---
 title: "Session 13 — Big Data Analytics Fundamentals"
-subtitle: "Big Data Working · Types · Hadoop · Technologies"
+subtitle: "The five Vs · Four types of analytics · When one machine stops being enough · HDFS · The toolkit"
 ---
 
 {{< include ../includes/_setup.qmd >}}
 
 ::: {.callout-note}
-**This chapter introduces what happens when your data is simply too large to fit on a single computer.**
+**This chapter is about what changes when the data no longer fits on your laptop.**
 
-**Assumed knowledge:** Data Processing concepts (Session 2 & 3).
+**Assumed knowledge:** Sessions 2–3 — pandas, loading and cleaning. Nothing else.
+
+**The one idea to take away:** "big data" is not a size, it is a **symptom**. It begins at
+the point where one machine stops being enough — and that point arrives far later than
+most people think. Every demo in this chapter runs on your laptop.
 :::
 
 ## 🎯 Learning outcomes {#sec-s13-outcomes}
 
 By the end of this chapter you can:
 
-1. Define the 3 V's of Big Data (Volume, Velocity, Variety).
-2. Differentiate between Descriptive, Predictive, and Prescriptive analytics.
-3. Understand how the Hadoop Distributed File System (HDFS) stores massive files.
+1. Explain the five Vs and say which one actually causes trouble in a given project.
+2. Measure the point at which pandas starts to struggle on your own machine.
+3. Process a file larger than memory using chunks.
+4. Name the four types of analytics and give an example of each.
+5. Explain how HDFS stores a file across many machines and survives a failure.
+6. Place the main big-data tools on a map and say what each is for.
+7. Say when **not** to use big-data tools.
 
 ## How this chapter is organised {#sec-s13-organisation}
 
-| Part | Question it answers | Source |
+| Part | Question it answers |
+|---|---|
+| [A — What makes data big](#sec-s13-a) | *When does normal stop working?* |
+| [B — Four types of analytics](#sec-s13-b) | *What questions can you ask of it?* |
+| [C — Distributed storage](#sec-s13-c) | *How do you keep a file too big for one disk?* |
+| [D — The toolkit](#sec-s13-d) | *What are all these names, and which do I need?* |
+
+# Part A — What makes data big {#sec-s13-a}
+
+## 1. The five Vs {#sec-s13-topic-1}
+
+**Big data is usually described with five words beginning with V.** They are useful as a
+checklist, provided you remember that **only one of them is usually your actual problem.**
+
+| V | Means | The problem it creates |
 |---|---|---|
-| [A — The Big Data Problem](#sec-s13-a) | *Why can't I just use Pandas?* | `concepts` |
-| [B — Types of Analytics](#sec-s13-b) | *What do we do with all this data?* | `concepts` |
-| [Demo — Distributed Storage](#sec-s13-demo) | *How are large files stored?* | `hdfs_demo.sh` |
+| **Volume** | how much there is | it does not fit in memory or on one disk |
+| **Velocity** | how fast it arrives | you cannot store it before the next batch arrives |
+| **Variety** | how many shapes it comes in | text, images, JSON and tables need different handling |
+| **Veracity** | how much you can trust it | sensors fail, users lie, systems disagree |
+| **Value** | whether it is worth anything | most of it is never used |
 
-# Part A — The Big Data Problem {#sec-s13-a}
+::: {.callout-tip title="🧠 Analogy — the library"}
+**Volume** — the library has ten million books, and no room for shelves.
+**Velocity** — twelve thousand new books arrive every hour.
+**Variety** — some are books, some are scrolls, some are audio recordings.
+**Veracity** — some are unreliable, and some are simply wrong.
+**Value** — nine million of them will never be opened.
 
-**Pandas is fast, but it requires all data to fit into the RAM of a single computer.**
-
-## 1. Working of Big Data Analytics {#sec-s13-topic-1}
-
-**Big Data refers to datasets that are so massive, so fast-moving, or so unstructured that traditional single-computer databases simply crash when trying to read them.**
-
-It exists because of the modern internet. Every click on Amazon, every swipe on Tinder, and every frame of a YouTube video is logged. A single day of global Twitter data cannot fit on the most expensive MacBook Pro in the world. 
-
-::: {.callout-tip title="🧠 Analogy — The Library Book"}
-**The everyday thing:** Reading a 10,000-page book.
-
-**The mapping:** 
-- **Traditional Data (Pandas):** You (one computer) sit down and read the book cover to cover. It takes you a month, but you can do it.
-- **Big Data:** The book is now 10 million pages long. You will die before finishing it.
-- **The Big Data Solution:** You tear the book into 10,000 pieces and hand them to 10,000 friends. You all read your piece at the exact same time, and shout your summaries back to the leader in 5 minutes. This is Distributed Computing.
+**A library with a volume problem needs a bigger building. One with a velocity problem
+needs a faster door.** They are different problems with different solutions, and calling
+both "big data" hides that.
 :::
 
-### How it works
+## 2. Where one machine stops being enough {#sec-s13-topic-2}
 
-The core concept is **Scale-Out vs Scale-Up**:
-- **Scale-Up (Vertical):** Buying a single, massively expensive supercomputer with 2 Terabytes of RAM. (There is a physical limit to how big one computer can get).
-- **Scale-Out (Horizontal):** Buying 1,000 cheap, standard Dell laptops and connecting them together to act as one giant brain. (Infinite limit).
+**The honest threshold is not a number of rows. It is the point where the work no longer
+fits in memory.**
 
-### ❓ MCQs
+A rough guide: pandas comfortably handles data up to about **one fifth of your RAM**,
+because operations make copies. Beyond that your machine starts swapping to disk and
+everything slows by orders of magnitude.
 
-**Q1.** What is the defining physical limitation that forces a company to switch from standard Pandas to Big Data technologies?
+### Demo 1 — measure it on your own machine
 
-- (a) Pandas cannot do mathematics.
-- (b) **The dataset is larger than the total Random Access Memory (RAM) of a single server.**
-- (c) Big Data technologies look better on a resume.
+```{python}
+import numpy as np, pandas as pd, time
 
-::: {.callout-note collapse="true" title="Answers"}
-**A1 — (b).** Pandas loads the entire dataset into memory. If your dataset is 50GB and you only have 16GB of RAM, the program will crash instantly with an "Out of Memory" error.
-:::
+def timed(f):
+    t = time.perf_counter(); out = f(); return out, time.perf_counter() - t
 
-# Part B — Types of Analytics {#sec-s13-b}
+rng = np.random.default_rng(71)
+print(f"{'rows':>12} {'memory':>12} {'groupby time':>14} {'per M rows':>12}")
+print("-" * 54)
+for n in [10_000, 100_000, 1_000_000, 4_000_000]:
+    df = pd.DataFrame({
+        "shop":   rng.integers(0, 50, n),
+        "amount": rng.normal(500, 120, n),
+    })
+    mem = df.memory_usage(deep=True).sum() / 1e6
+    _, secs = timed(lambda: df.groupby("shop")["amount"].mean())
+    print(f"{n:>12,} {mem:>10.1f} MB {secs*1000:>12.1f} ms {secs/(n/1e6)*1000:>10.1f} ms")
 
-**Data maturity happens in stages.**
-
-## 2. Types of Big Data Analytics {#sec-s13-topic-2}
-
-**Data Analytics is categorized into four escalating stages of business value and technical complexity.**
-
-1. **Descriptive Analytics:** What happened? *(e.g., Sales dropped by 10% last month).*
-2. **Diagnostic Analytics:** Why did it happen? *(e.g., Sales dropped because our website crashed in Europe).*
-3. **Predictive Analytics:** What will happen? *(e.g., Based on current traffic, sales will drop by 5% next month).*
-4. **Prescriptive Analytics:** What should we do about it? *(e.g., Automatically order 500 more servers in Europe to prevent the crash).*
-
-# Part Demo — Distributed Storage {#sec-s13-demo}
-
-**Exploring the Hadoop Distributed File System (HDFS).**
-
-HDFS is the foundational technology of Big Data. It takes a massive 1 Terabyte CSV file, cuts it into 128 Megabyte "blocks," and scatters those blocks across 100 different computers.
-
-If you were sitting at a terminal connected to a Hadoop cluster, the commands look remarkably like standard Linux commands, but they execute across the entire cluster.
-
-```{bash}
-#| eval: false
-# 1. List the files in the distributed cluster
-hdfs dfs -ls /user/data/logs/
-
-# Output:
-# Found 1 items
-# -rw-r--r--   3 hadoop supergroup 1099511627776 2024-01-01 12:00 /user/data/logs/global_clicks.csv
-
-# Notice the '3' in the output above! 
-# That means every block of this file is replicated 3 times across different servers.
-# If one server catches on fire, the data is not lost!
-
-# 2. Upload a local file into the massive cluster
-hdfs dfs -put local_small_file.csv /user/data/
-
-# 3. Read the first few lines of a 1 Terabyte file instantly
-hdfs dfs -cat /user/data/logs/global_clicks.csv | head -n 5
+print("\nThe cost per million rows stays roughly flat — pandas is not struggling yet.")
+print("It struggles when the data plus its working copies stop fitting in RAM.")
 ```
 
-::: {.callout-warning title="⚠️ The trap of small files"}
-HDFS is designed to hold massive files (Gigabytes or Terabytes). If you try to store 10 million tiny 1-kilobyte text files in HDFS, the central "NameNode" that tracks where everything lives will run out of memory and the entire cluster will crash. Big Data tools are terrible at Small Data tasks.
+### Demo 2 — how much memory a realistic table needs
+
+```{python}
+import numpy as np, pandas as pd
+
+rng = np.random.default_rng(72)
+n = 200_000
+df = pd.DataFrame({
+    "id":       np.arange(n),
+    "city":     rng.choice(["Mumbai", "Delhi", "Pune", "Chennai"], n),
+    "amount":   rng.normal(500, 120, n),
+    "ts":       pd.date_range("2024-01-01", periods=n, freq="min"),
+})
+
+per_row = df.memory_usage(deep=True).sum() / n
+print(f"this table: {df.memory_usage(deep=True).sum()/1e6:.1f} MB for {n:,} rows "
+      f"({per_row:.0f} bytes per row)\n")
+
+print(f"{'rows':>16} {'estimated size':>16} {'fits in 16 GB RAM?'}")
+for rows in [1e6, 1e7, 1e8, 1e9]:
+    gb = rows * per_row / 1e9
+    verdict = "yes, comfortably" if gb < 3 else "tight — use chunks" if gb < 16 else "NO — needs a cluster"
+    print(f"{rows:>16,.0f} {gb:>13.1f} GB   {verdict}")
+```
+
+### Demo 3 — two ways to survive a file bigger than memory
+
+**Before reaching for a cluster, two techniques solve most "too big" problems on one
+machine.**
+
+```{python}
+import numpy as np, pandas as pd, tempfile, os
+
+folder = tempfile.mkdtemp()
+path = os.path.join(folder, "transactions.csv")
+
+rng = np.random.default_rng(73)
+n = 300_000
+pd.DataFrame({
+    "shop":   rng.integers(0, 50, n),
+    "city":   rng.choice(["Mumbai", "Delhi", "Pune"], n),
+    "amount": rng.normal(500, 120, n).round(2),
+}).to_csv(path, index=False)
+print(f"file on disk: {os.path.getsize(path)/1e6:.1f} MB, {n:,} rows\n")
+
+# --- TECHNIQUE 1: chunking. Never hold the whole file at once. -------------
+running_total, running_count = 0.0, 0
+per_city = {}
+for chunk in pd.read_csv(path, chunksize=50_000):        # 50,000 rows at a time
+    running_total += chunk["amount"].sum()
+    running_count += len(chunk)
+    for city, total in chunk.groupby("city")["amount"].sum().items():
+        per_city[city] = per_city.get(city, 0) + total
+
+print(f"CHUNKED: mean amount {running_total/running_count:.2f} over {running_count:,} rows")
+print(f"         totals per city: { {k: round(v) for k, v in per_city.items()} }")
+print(f"         peak memory held: one chunk of 50,000 rows, not {n:,}")
+
+# --- TECHNIQUE 2: read only what you need ---------------------------------
+narrow = pd.read_csv(path, usecols=["city", "amount"])
+wide   = pd.read_csv(path)
+print(f"\nCOLUMN SELECTION: all columns {wide.memory_usage(deep=True).sum()/1e6:.1f} MB")
+print(f"                  two columns  {narrow.memory_usage(deep=True).sum()/1e6:.1f} MB")
+
+# --- BONUS: the right dtype often halves the memory -----------------------
+compact = wide.copy()
+compact["city"] = compact["city"].astype("category")
+compact["shop"] = compact["shop"].astype("int8")
+print(f"\nDTYPES:  before {wide.memory_usage(deep=True).sum()/1e6:.1f} MB"
+      f"  →  after {compact.memory_usage(deep=True).sum()/1e6:.1f} MB")
+```
+
+::: {.callout-warning title="⚠️ Try these before you build a cluster"}
+Chunking, selecting columns and fixing dtypes routinely turn a "we need Spark" problem
+back into a laptop problem. **A distributed cluster costs money, expertise and
+debugging time.** Spend a day on the three techniques above first — most of the time,
+that is the whole solution.
 :::
 
-# 🎯 Session 13 — Tasks {#sec-s13-tasks}
+# Part B — Four types of analytics {#sec-s13-b}
 
-**Task 1 — Define the Analytics.** 
-Your GPS maps app routing you around a traffic jam is an example of which of the 4 types of analytics? **Report the type and why.**
+## 3. The four questions {#sec-s13-topic-3}
+
+**Every analysis is one of four kinds, in increasing order of difficulty and value.**
+
+| Type | Question | Example | Covered in |
+|---|---|---|---|
+| **Descriptive** | *What happened?* | sales fell 12% last quarter | Sessions 7–8 |
+| **Diagnostic** | *Why did it happen?* | the fall was entirely in one region | Session 8 |
+| **Predictive** | *What will happen?* | next quarter will fall another 5% | Sessions 9–11 |
+| **Prescriptive** | *What should we do?* | move stock to the region that is growing | Session 16 |
+
+```{mermaid}
+flowchart LR
+    D["<b>Descriptive</b><br/>what happened?"] --> G["<b>Diagnostic</b><br/>why?"]
+    G --> P["<b>Predictive</b><br/>what next?"]
+    P --> X["<b>Prescriptive</b><br/>what should we do?"]
+```
+
+### Demo 4 — all four on one dataset
+
+```{python}
+import numpy as np, pandas as pd
+
+rng = np.random.default_rng(74)
+months = pd.date_range("2024-01-01", periods=12, freq="MS")
+regions = ["North", "South", "West"]
+
+rows = []
+for i, m in enumerate(months):
+    for r in regions:
+        trend = {"North": -900, "South": 400, "West": 500}[r] * i
+        base  = {"North": 50_000, "South": 40_000, "West": 30_000}[r]
+        rows.append({"month": m, "region": r,
+                     "sales": base + trend + rng.normal(0, 800)})
+sales = pd.DataFrame(rows)
+
+# 1. DESCRIPTIVE — what happened?
+by_month = sales.groupby("month")["sales"].sum()
+change = (by_month.iloc[-1] - by_month.iloc[0]) / by_month.iloc[0]
+print(f"DESCRIPTIVE : total sales moved {change:+.1%} across the year")
+
+# 2. DIAGNOSTIC — why?
+by_region = sales.groupby("region").apply(
+    lambda g: (g.sort_values("month")["sales"].iloc[-1] -
+               g.sort_values("month")["sales"].iloc[0]), include_groups=False)
+print("DIAGNOSTIC  : change by region over the year")
+for r, v in by_region.items():
+    print(f"                {r:<6} {v:>+10,.0f}")
+print(f"              → the decline is entirely {by_region.idxmin()}; the others grew")
+
+# 3. PREDICTIVE — what next?
+from sklearn.linear_model import LinearRegression
+x = np.arange(len(by_month)).reshape(-1, 1)
+trend_model = LinearRegression().fit(x, by_month.values)
+next3 = trend_model.predict([[12], [13], [14]])
+print(f"PREDICTIVE  : next three months ≈ {', '.join(f'{v:,.0f}' for v in next3)}")
+
+# 4. PRESCRIPTIVE — what should we do?
+growing = by_region[by_region > 0].index.tolist()
+print(f"PRESCRIPTIVE: shift investment from {by_region.idxmin()} to {', '.join(growing)};")
+print(f"              re-examine {by_region.idxmin()} before writing it off")
+```
+
+**Notice the increasing difficulty.** Descriptive is a `groupby`. Prescriptive needs a
+prediction *and* a judgement about what to do with it — which is why the last one is
+never fully automatic.
+
+# Part C — Distributed storage {#sec-s13-c}
+
+## 4. How HDFS works {#sec-s13-topic-4}
+
+**HDFS — the Hadoop Distributed File System — stores one enormous file across many
+ordinary machines, and keeps working when some of them fail.**
+
+Three ideas do all the work:
+
+| Idea | What it means |
+|---|---|
+| **Blocks** | the file is cut into fixed-size pieces, typically 128 MB |
+| **Replication** | every block is stored on **three** different machines |
+| **Write once** | files are appended to, never edited in the middle |
+
+```{mermaid}
+flowchart TB
+    F["one 400 MB file"] --> B1["block 1<br/>128 MB"]
+    F --> B2["block 2<br/>128 MB"]
+    F --> B3["block 3<br/>128 MB"]
+    F --> B4["block 4<br/>16 MB"]
+    B1 --> N["<b>NameNode</b><br/>remembers which block<br/>is on which machine"]
+    B2 --> N
+    B3 --> N
+    B4 --> N
+    N --> D1["DataNode 1"]
+    N --> D2["DataNode 2"]
+    N --> D3["DataNode 3"]
+```
+
+The **NameNode** holds the index — which blocks make up which file, and where each copy
+lives. The **DataNodes** hold the actual blocks. **The NameNode never touches the data
+itself**, which is why one modest machine can index petabytes.
+
+### Demo 5 — block splitting and replication, simulated
+
+```{python}
+import math
+
+def plan_storage(file_gb, block_mb=128, replication=3, datanodes=6):
+    blocks = math.ceil(file_gb * 1024 / block_mb)
+    copies = blocks * replication
+    print(f"file size        : {file_gb} GB")
+    print(f"block size       : {block_mb} MB")
+    print(f"blocks           : {blocks:,}")
+    print(f"copies stored    : {blocks:,} × {replication} = {copies:,}")
+    print(f"disk used        : {file_gb * replication} GB "
+          f"({replication}× the file, the price of surviving failures)")
+    print(f"blocks per node  : about {copies // datanodes:,} across {datanodes} machines")
+    print(f"machines that can fail without data loss: {replication - 1}")
+
+plan_storage(400)
+```
+
+### Demo 6 — why replication is worth 3× the disk
+
+```{python}
+import numpy as np
+
+rng = np.random.default_rng(75)
+n_nodes, annual_failure_rate, trials = 200, 0.04, 20_000
+
+for replication in [1, 2, 3]:
+    lost = 0
+    for _ in range(trials):
+        failed = rng.random(n_nodes) < annual_failure_rate
+        # a block is lost only if every machine holding a copy fails
+        holders = rng.choice(n_nodes, replication, replace=False)
+        if failed[holders].all():
+            lost += 1
+    print(f"replication {replication}: chance a given block is lost in a year "
+          f"= {lost/trials:.4%}")
+
+print(f"\n(with {n_nodes} machines and a {annual_failure_rate:.0%} annual failure rate)")
+print("Three copies turns near-certain annual data loss into a negligible risk.")
+```
+
+## 5. Talking to HDFS {#sec-s13-topic-5}
+
+**HDFS commands look deliberately like ordinary shell commands.** These need a running
+Hadoop cluster, so they are shown rather than executed here.
+
+```bash
+# List a directory in the cluster
+hdfs dfs -ls /user/data/logs
+# Found 1 items
+# -rw-r--r--   3 hadoop supergroup  1099511627776 2024-01-01 12:00 /user/data/logs/clicks.csv
+#              ↑
+#        this 3 is the replication factor: every block exists on three machines
+
+# Copy a local file INTO the cluster
+hdfs dfs -put ./local_logs.csv /user/data/logs/
+
+# Copy a file back OUT of the cluster
+hdfs dfs -get /user/data/logs/clicks.csv ./downloaded.csv
+
+# Peek at the first lines of a 1 TB file, without downloading it
+hdfs dfs -cat /user/data/logs/clicks.csv | head -20
+
+# How is this file actually laid out across the cluster?
+hdfs fsck /user/data/logs/clicks.csv -files -blocks -locations
+```
+
+::: {.callout-important title="🔓 Running this yourself"}
+You do not need a cluster to complete this course. Three options, easiest first:
+
+| Option | What you get | Effort |
+|---|---|---|
+| **PySpark local mode** | everything in Session 14 except the `hdfs dfs` commands | `pip install pyspark`, needs Java 17 |
+| **Docker** | a real single-node Hadoop, so `hdfs dfs` commands work | one `docker run` |
+| **A hosted sandbox** | a full cluster in a browser | sign-up only |
+
+**Every executable cell in this chapter and the next runs in local mode.** The `bash`
+blocks above are reference — they are the commands you would type against a real
+cluster.
+:::
+
+::: {.callout-warning title="⚠️ HDFS is terrible at small files"}
+One 128 MB file uses one block and one entry in the NameNode's index. **A million 128-byte
+files use a million entries** — and the NameNode keeps its index in memory. Small files
+exhaust the cluster's index long before they exhaust its disks.
+
+**The fix is always the same: combine small files into large ones before storing them.**
+:::
+
+```{python}
+def namenode_pressure(total_gb, avg_file_mb):
+    files = total_gb * 1024 / avg_file_mb
+    # roughly 150 bytes of NameNode memory per file plus per block
+    mem_gb = files * 150 * 2 / 1e9
+    print(f"{total_gb:>6} GB as {avg_file_mb:>6.2f} MB files → {files:>12,.0f} files, "
+          f"NameNode index ≈ {mem_gb:>7.2f} GB")
+
+print("Same amount of data, different file sizes:")
+for size in [256, 64, 1, 0.1]:
+    namenode_pressure(10_000, size)
+```
+
+# Part D — The toolkit {#sec-s13-d}
+
+## 6. What all the names are {#sec-s13-topic-6}
+
+**The big-data ecosystem is a pile of names. Sorted by what they do, it is short.**
+
+```{mermaid}
+flowchart TB
+    subgraph ING["Getting data in"]
+        K["<b>Kafka</b><br/>streams of events"]
+        S["<b>Sqoop / Flume</b><br/>bulk import"]
+    end
+    subgraph ST["Storing it"]
+        H["<b>HDFS</b><br/>files across machines"]
+        HB["<b>HBase / Cassandra</b><br/>fast lookups"]
+    end
+    subgraph PR["Processing it"]
+        MR["<b>MapReduce</b><br/>the original, disk-based"]
+        SP["<b>Spark</b><br/>the successor, in memory"]
+    end
+    subgraph QU["Querying it"]
+        HV["<b>Hive</b><br/>SQL over big files"]
+        SS["<b>Spark SQL</b>"]
+    end
+    ING --> ST --> PR --> QU
+```
+
+| Tool | One sentence | Session |
+|---|---|---|
+| **HDFS** | stores files across many machines | this one |
+| **YARN** | decides which machine runs which job | this one |
+| **MapReduce** | the original processing model — simple, and slow | 14 |
+| **Spark** | the successor — same idea, kept in memory, far faster | 14 |
+| **Hive** | lets you write SQL against files in HDFS | 14 |
+| **Kafka** | carries continuous streams of events | mentioned only |
+| **HBase / Cassandra** | databases for fast lookups at scale | 15 |
+| **MongoDB** | a document database for flexible records | 15 |
+
+## 7. When not to use any of this {#sec-s13-topic-7}
+
+**Distributed tools have a fixed overhead. Below a certain size they are slower than
+pandas, not faster.**
+
+### Demo 7 — the overhead, quantified
+
+```{python}
+import numpy as np, pandas as pd, time
+
+rng = np.random.default_rng(76)
+CLUSTER_STARTUP_S = 8.0        # a real Spark session takes seconds to start
+PER_TASK_OVERHEAD = 0.15       # scheduling, serialising, shuffling
+
+print(f"{'rows':>12} {'pandas':>10} {'distributed (modelled)':>24}   winner")
+print("-" * 62)
+for n in [10_000, 100_000, 1_000_000, 5_000_000]:
+    df = pd.DataFrame({"k": rng.integers(0, 100, n), "v": rng.normal(size=n)})
+
+    t = time.perf_counter()
+    df.groupby("k")["v"].mean()
+    pandas_s = time.perf_counter() - t
+
+    # A cluster splits the work but pays startup and coordination costs.
+    partitions = max(4, n // 250_000)
+    dist_s = CLUSTER_STARTUP_S + PER_TASK_OVERHEAD * partitions + (pandas_s / 8)
+
+    winner = "pandas" if pandas_s < dist_s else "distributed"
+    print(f"{n:>12,} {pandas_s*1000:>8.1f} ms {dist_s*1000:>21,.0f} ms   {winner}")
+
+print("\nThe modelled cluster never wins here, because none of these datasets is")
+print("large enough to repay an 8-second startup. That crossover is the number")
+print("you must find for yourself — Session 14 measures it with real Spark.")
+```
+
+::: {.callout-warning title="⚠️ 'Big data' is a claim that needs evidence"}
+Before adopting distributed tooling, answer three questions with numbers:
+
+1. **How large is the data actually?** — in GB, measured, not estimated
+2. **Have I tried chunking, column selection and dtypes?** — Demo 3
+3. **How long does the job take now, and how long is acceptable?**
+
+If the answer to 3 is "four minutes, and ten would be fine", **you do not have a big-data
+problem.** You have a four-minute job.
+:::
+
+### ❓ Check yourself
+
+**Q1.** A hospital receives 50,000 sensor readings per second and must react within a
+second. Which V is the problem?
+
+- (a) Volume.
+- (b) **Velocity.**
+- (c) Value.
+
+**Q2.** A 40 GB CSV must be summarised on a laptop with 16 GB of RAM. What do you try
+first?
+
+- (a) Buy a cluster.
+- (b) **Read it in chunks and select only the needed columns.**
+- (c) Sample 1% and hope.
+
+**Q3.** "Sales fell because the North region lost its two largest customers." Which type?
+
+- (a) Descriptive.
+- (b) **Diagnostic.**
+- (c) Prescriptive.
+
+**Q4.** HDFS replicates every block three times. What does that cost and buy?
+
+- (a) Costs nothing, buys speed.
+- (b) **Costs 3× the disk, buys survival when up to two machines holding a block fail.**
+- (c) Costs 3× the time, buys accuracy.
+
+**Q5.** Your cluster has plenty of disk free but the NameNode is out of memory. Likely
+cause?
+
+- (a) A single enormous file.
+- (b) **Millions of tiny files, each needing an index entry.**
+- (c) Replication set too low.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** The total volume may be modest; the difficulty is the rate and the deadline.
+
+**A2 — (b).** Demo 3. Chunking plus column selection solves most of these.
+
+**A3 — (b).** It explains *why*, which is the diagnostic question.
+
+**A4 — (b).** Demo 6 measured the failure probabilities.
+
+**A5 — (b).** The small-files problem — the NameNode's index lives in memory.
+:::
+
+# 🎯 Tasks {#sec-s13-tasks}
+
+::: {.callout-note title="✏️ Practise"}
+**Task 1 — Find your own limit.** Extend Demo 1 to 10 and 20 million rows. **Report the
+row count at which the time per million rows starts to rise**, and how much RAM your
+machine has.
+
+**Task 2 — Chunk a real job.** Using the chunking pattern from Demo 3, compute the
+**median** amount per city. **Explain why this is harder than the mean** and what you did
+about it.
+
+**Task 3 — Classify the questions.** Which of the four types: "which products are most
+often returned?"; "will this customer return this item?"; "why did returns rise in
+March?"; "which items should we stop stocking?"
+
+**Task 4 — Size a cluster.** You have 8 TB of logs, a 128 MB block size and replication
+3. **Report the number of blocks, the total disk needed, and how many 4 TB machines you
+would buy.**
+:::
+
+:::: {.callout-note collapse="true" title="Solutions"}
+```{python}
+import math, numpy as np, pandas as pd
+
+print("Task 2 — the mean can be computed from running totals, so chunks combine")
+print("  trivially. The median cannot: you need all the values for a city at once,")
+print("  or an approximation. Two workable approaches:")
+print("    a) collect just the one column per city across chunks, then take the median")
+print("    b) use an approximate quantile from a histogram built chunk by chunk")
+
+print("\nTask 3")
+for q, kind in [("which products are most often returned?", "DESCRIPTIVE"),
+                ("will this customer return this item?",    "PREDICTIVE"),
+                ("why did returns rise in March?",          "DIAGNOSTIC"),
+                ("which items should we stop stocking?",    "PRESCRIPTIVE")]:
+    print(f"  {q:<44} {kind}")
+
+# Task 4
+tb, block_mb, rep, disk_per_node_tb = 8, 128, 3, 4
+blocks = math.ceil(tb * 1024 * 1024 / block_mb)
+total_tb = tb * rep
+print(f"\nTask 4 — {blocks:,} blocks; {total_tb} TB of disk needed;")
+print(f"         {math.ceil(total_tb / disk_per_node_tb)} machines at {disk_per_node_tb} TB each,")
+print(f"         and in practice more, since you never fill a cluster to 100%.")
+```
+::::
 
 ::: {.callout-tip title="✅ Before you move on"}
-- [ ] Understand why "Scaling Out" (many cheap computers) won the Big Data war against "Scaling Up" (one giant supercomputer).
-- [ ] **The one thing from this chapter that is easiest to forget:** Big data infrastructure is highly expensive and complex to maintain. If your data fits in Pandas (under ~10GB), do not use Hadoop. Keep it simple.
+- [ ] I can name the five Vs and say which one a given project actually suffers from
+- [ ] I have measured where pandas starts to struggle on my own machine
+- [ ] I can process a file larger than memory using chunks
+- [ ] I can explain blocks, replication and the NameNode
+- [ ] I know why HDFS hates small files
+- [ ] **Easiest thing to forget:** try chunking, column selection and dtypes before
+      reaching for a cluster. They usually turn the problem back into a laptop problem.
 :::
