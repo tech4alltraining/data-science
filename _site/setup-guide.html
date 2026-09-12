@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Author">
-<meta name="dcterms.date" content="2026-09-12">
 
-<title>Data Science</title>
+<title>2&nbsp; Environment Setup Guide – Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -67,7 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./setup-guide.html" rel="next">
+<link href="./sessions/session-01-introduction-to-data-science.html" rel="next">
+<link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -120,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./setup-guide.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Environment Setup Guide</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -147,13 +146,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./setup-guide.html" class="sidebar-item-text sidebar-link">
+  <a href="./setup-guide.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Environment Setup Guide</span></span></a>
   </div>
 </li>
@@ -318,13 +317,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#who-this-is-for" id="toc-who-this-is-for" class="nav-link active" data-scroll-target="#who-this-is-for"><span class="header-section-number">0.1</span> Who this is for</a></li>
-  <li><a href="#how-the-course-is-built" id="toc-how-the-course-is-built" class="nav-link" data-scroll-target="#how-the-course-is-built"><span class="header-section-number">0.2</span> How the course is built</a></li>
-  <li><a href="#the-sessions" id="toc-the-sessions" class="nav-link" data-scroll-target="#the-sessions"><span class="header-section-number">0.3</span> The sessions</a></li>
-  <li><a href="#how-each-session-is-written" id="toc-how-each-session-is-written" class="nav-link" data-scroll-target="#how-each-session-is-written"><span class="header-section-number">0.4</span> How each session is written</a></li>
-  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data"><span class="header-section-number">0.5</span> The data</a></li>
-  <li><a href="#setting-up" id="toc-setting-up" class="nav-link" data-scroll-target="#setting-up"><span class="header-section-number">0.6</span> Setting up</a></li>
-  <li><a href="#a-note-on-the-order" id="toc-a-note-on-the-order" class="nav-link" data-scroll-target="#a-note-on-the-order"><span class="header-section-number">0.7</span> A note on the order</a></li>
+  <li><a href="#installing-miniconda" id="toc-installing-miniconda" class="nav-link active" data-scroll-target="#installing-miniconda"><span class="header-section-number">2.1</span> 1. Installing Miniconda</a>
+  <ul class="collapse">
+  <li><a href="#windows" id="toc-windows" class="nav-link" data-scroll-target="#windows"><span class="header-section-number">2.1.1</span> Windows</a></li>
+  <li><a href="#macos" id="toc-macos" class="nav-link" data-scroll-target="#macos"><span class="header-section-number">2.1.2</span> macOS</a></li>
+  <li><a href="#ubuntu-linux" id="toc-ubuntu-linux" class="nav-link" data-scroll-target="#ubuntu-linux"><span class="header-section-number">2.1.3</span> Ubuntu / Linux</a></li>
+  </ul></li>
+  <li><a href="#verifying-the-installation" id="toc-verifying-the-installation" class="nav-link" data-scroll-target="#verifying-the-installation"><span class="header-section-number">2.2</span> 2. Verifying the Installation</a></li>
+  <li><a href="#creating-a-conda-environment" id="toc-creating-a-conda-environment" class="nav-link" data-scroll-target="#creating-a-conda-environment"><span class="header-section-number">2.3</span> 3. Creating a Conda Environment</a></li>
+  <li><a href="#deactivating-the-environment" id="toc-deactivating-the-environment" class="nav-link" data-scroll-target="#deactivating-the-environment"><span class="header-section-number">2.4</span> 4. Deactivating the Environment</a></li>
   </ul>
 </nav>
     </div>
@@ -333,27 +334,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Data Science</h1>
-<p class="subtitle lead">A 16-session course, from a raw CSV to a deployed model</p>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Environment Setup Guide</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Author </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">September 12, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -363,264 +351,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>This is a book you read alone.</strong> Every idea is explained from the beginning, every term is defined the first time it appears, and <strong>every piece of code on these pages actually ran</strong> when the book was built. The numbers you see are the numbers the code produced.</p>
-<p><strong>Every demonstration loads a real file.</strong> Nothing is typed into the program as a Python list, because that is not how data arrives. The files live in <a href="https://github.com/"><code>datasets/</code></a> and are read the way a real project reads them:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"datasets/messy_customers.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-<section id="who-this-is-for" class="level2" data-number="0.1">
-<h2 data-number="0.1" class="anchored" data-anchor-id="who-this-is-for"><span class="header-section-number">0.1</span> Who this is for</h2>
-<p>Anyone who wants to work with data and has <strong>no prior background</strong> in statistics, machine learning, or Python. Session 1 assumes you can use a computer. Nothing else.</p>
+<p>This guide will walk you through setting up a Python data science environment using Miniconda. We will cover the installation of Miniconda and the creation of a Conda environment across Ubuntu, Windows, and macOS.</p>
+<section id="installing-miniconda" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="installing-miniconda"><span class="header-section-number">2.1</span> 1. Installing Miniconda</h2>
+<p>Miniconda is a free minimal installer for conda. It is a small, bootstrap version of Anaconda that includes only conda, Python, the packages they depend on, and a small number of other useful packages.</p>
+<section id="windows" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="windows"><span class="header-section-number">2.1.1</span> Windows</h3>
+<ol type="1">
+<li>Download the latest Windows Miniconda installer from the <a href="https://docs.conda.io/en/latest/miniconda.html#windows-installers">official Miniconda website</a>.</li>
+<li>Double-click the downloaded <code>.exe</code> file.</li>
+<li>Follow the instructions on the screen. If you are unsure about any setting, accept the defaults. You can change them later.</li>
+<li>When installation is finished, from the Start menu, open the <strong>Anaconda Prompt</strong>.</li>
+</ol>
 </section>
-<section id="how-the-course-is-built" class="level2" data-number="0.2">
-<h2 data-number="0.2" class="anchored" data-anchor-id="how-the-course-is-built"><span class="header-section-number">0.2</span> How the course is built</h2>
-<p>Sixteen sessions in five parts. Each part exists because the one before it is not enough on its own.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Part</th>
-<th>Sessions</th>
-<th>The question it answers</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>A — Getting hold of data</strong></td>
-<td>1–2</td>
-<td>What is this field, and how do I load a dataset?</td>
-</tr>
-<tr class="even">
-<td><strong>B — Making data fit to use</strong></td>
-<td>3–6</td>
-<td>It is messy, scattered and too wide. Now what?</td>
-</tr>
-<tr class="odd">
-<td><strong>C — Understanding data</strong></td>
-<td>7–8</td>
-<td>What is actually in here?</td>
-</tr>
-<tr class="even">
-<td><strong>D — Learning from data</strong></td>
-<td>9–12</td>
-<td>What can be predicted, is it real, and how do others use it?</td>
-</tr>
-<tr class="odd">
-<td><strong>E — Data at scale</strong></td>
-<td>13–16</td>
-<td>What changes when it no longer fits on one machine?</td>
-</tr>
-</tbody>
-</table>
+<section id="macos" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="macos"><span class="header-section-number">2.1.2</span> macOS</h3>
+<ol type="1">
+<li>Download the latest macOS Miniconda installer from the <a href="https://docs.conda.io/en/latest/miniconda.html#macos-installers">official Miniconda website</a>. Choose the <code>pkg</code> or <code>bash</code> installer for your architecture (Apple M1/M2/ARM64 or Intel/x86_64).</li>
+<li>For the <code>.pkg</code> file, double-click and follow the graphical instructions. For the <code>.sh</code> file, run <code>bash Miniconda3-latest-MacOSX-*.sh</code> in your terminal.</li>
+<li>Open a new Terminal window to verify the installation.</li>
+</ol>
 </section>
-<section id="the-sessions" class="level2" data-number="0.3">
-<h2 data-number="0.3" class="anchored" data-anchor-id="the-sessions"><span class="header-section-number">0.3</span> The sessions</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>#</th>
-<th>Session</th>
-<th>You will be able to</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td><a href="./sessions/session-01-introduction-to-data-science.html">Introduction to Data Science</a></td>
-<td>Name the seven lifecycle stages and place AI, ML and GenAI correctly</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td><a href="./sessions/session-02-data-collection-and-pre-processing-overview.html">Data Collection and Pre-Processing</a></td>
-<td>Load from CSV, JSON and SQL; select, filter and group</td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td><a href="./sessions/session-03-data-cleaning.html">Data Cleaning</a></td>
-<td>Run the six cleaning jobs in the order that does not hide errors</td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td><a href="./sessions/session-04-data-integration.html">Data Integration</a></td>
-<td>Join tables and detect a join that lost or multiplied rows</td>
-</tr>
-<tr class="odd">
-<td>5</td>
-<td><a href="./sessions/session-05-data-transformation.html">Data Transformation</a></td>
-<td>Split before you scale, encode text, and avoid leakage</td>
-</tr>
-<tr class="even">
-<td>6</td>
-<td><a href="./sessions/session-06-data-reduction-and-discretization.html">Data Reduction and Discretization</a></td>
-<td>Cut columns without cutting the signal</td>
-</tr>
-<tr class="odd">
-<td>7</td>
-<td><a href="./sessions/session-07-descriptive-statistics.html">Descriptive Statistics</a></td>
-<td>Report centre, spread and shape honestly</td>
-</tr>
-<tr class="even">
-<td>8</td>
-<td><a href="./sessions/session-08-exploratory-data-analytics-eda-and-visualization.html">EDA and Visualization</a></td>
-<td>Pick the chart that answers the question you asked</td>
-</tr>
-<tr class="odd">
-<td>9</td>
-<td><a href="./sessions/session-09-supervised-learning-techniques.html">Supervised Learning</a></td>
-<td>Fit a regression, interpret it, and beat a baseline</td>
-</tr>
-<tr class="even">
-<td>10</td>
-<td><a href="./sessions/session-10-unsupervised-learning-techniques-clustering.html">Unsupervised Learning and Clustering</a></td>
-<td>Choose <em>k</em> and defend it</td>
-</tr>
-<tr class="odd">
-<td>11</td>
-<td><a href="./sessions/session-11-data-model-evaluation.html">Model Evaluation</a></td>
-<td>Cross-validate, diagnose, and tune without cheating</td>
-</tr>
-<tr class="even">
-<td>12</td>
-<td><a href="./sessions/session-12-model-saving-and-deployment.html">Model Saving and Deployment</a></td>
-<td>Ship a working prediction app</td>
-</tr>
-<tr class="odd">
-<td>13</td>
-<td><a href="./sessions/session-13-big-data-analytics-fundamentals.html">Big Data Fundamentals</a></td>
-<td>Measure where your own machine stops coping</td>
-</tr>
-<tr class="even">
-<td>14</td>
-<td><a href="./sessions/session-14-distributed-data-processing.html">Distributed Data Processing</a></td>
-<td>Trace map, shuffle and reduce, and read PySpark</td>
-</tr>
-<tr class="odd">
-<td>15</td>
-<td><a href="./sessions/session-15-nosql-databases-and-scaled-visualization.html">NoSQL and Visualization at Scale</a></td>
-<td>Write an aggregation pipeline and plot ten million rows</td>
-</tr>
-<tr class="even">
-<td>16</td>
-<td><a href="./sessions/session-16-open-ended-module-implementation-and-capstone.html">Capstone</a></td>
-<td>Deliver and defend a complete project</td>
-</tr>
-</tbody>
-</table>
+<section id="ubuntu-linux" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="ubuntu-linux"><span class="header-section-number">2.1.3</span> Ubuntu / Linux</h3>
+<ol type="1">
+<li><p>Open a terminal.</p></li>
+<li><p>Download the installer script using <code>wget</code> (or <code>curl</code>):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Run the installer script:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> Miniconda3-latest-Linux-x86_64.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Follow the prompts on the installer screens. When asked if you wish the installer to initialize Miniconda3 by running <code>conda init</code>, we recommend answering <code>yes</code>.</p></li>
+<li><p>Close and re-open your terminal window for the changes to take effect.</p></li>
+</ol>
 </section>
-<section id="how-each-session-is-written" class="level2" data-number="0.4">
-<h2 data-number="0.4" class="anchored" data-anchor-id="how-each-session-is-written"><span class="header-section-number">0.4</span> How each session is written</h2>
-<p>Every session follows the same shape, so once you have read two you can predict the third.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Element</th>
-<th>What it is</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Demo</strong></td>
-<td>runnable code that demonstrates one idea. Most sessions have eight to fifteen.</td>
-</tr>
-<tr class="even">
-<td>🧠 <strong>Analogy</strong></td>
-<td>an everyday comparison — used only where a concept genuinely needs one</td>
-</tr>
-<tr class="odd">
-<td>⚠️ <strong>Trap</strong></td>
-<td>a mistake that produces a wrong answer <strong>without raising an error</strong></td>
-</tr>
-<tr class="even">
-<td>🔓 <strong>Key idea</strong></td>
-<td>something you must carry into later sessions</td>
-</tr>
-<tr class="odd">
-<td>❓ <strong>Check yourself</strong></td>
-<td>short questions with worked answers, folded away</td>
-</tr>
-<tr class="even">
-<td>✏️ <strong>Tasks</strong></td>
-<td>things to do, with solutions folded away</td>
-</tr>
-<tr class="odd">
-<td>✅ <strong>Before you move on</strong></td>
-<td>the checklist for that session</td>
-</tr>
-</tbody>
-</table>
-<div class="callout callout-style-default callout-tip callout-titled" title="🧠 What makes this course different">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>🧠 What makes this course different
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Nothing here is asserted without being measured.</strong> Where a demonstration contradicted the lesson it was written for, the lesson was changed and the number kept. You will find, among other things:</p>
-<ul>
-<li>80% accuracy manufactured from <strong>coin flips</strong>, by one careless line</li>
-<li>a model saved without its scaler, valuing a flat at <strong>₹1.69 billion</strong> instead of ₹5 million</li>
-<li>a polynomial that fits its training data best and scores <strong>−187</strong> on new data</li>
-<li>a “best” model chosen by peeking, reported at +0.08 and worth <strong>−0.20</strong> in truth</li>
-<li>K-Means confidently finding three clusters in <strong>pure random noise</strong></li>
-</ul>
-<p>Those are the passages that teach the most, because they are what you will actually meet.</p>
-</div>
-</div>
 </section>
-<section id="the-data" class="level2" data-number="0.5">
-<h2 data-number="0.5" class="anchored" data-anchor-id="the-data"><span class="header-section-number">0.5</span> The data</h2>
-<p>Eight of the datasets are <strong>real published files</strong> — a car marketplace, a loan book, mall customers, heart-failure patients. The rest are <strong>generated by a seeded script</strong> in the <code>datasets/</code> folder, and only where a chapter needs a property no real file has: a known cluster structure, a planted association rule, a deliberate leak.</p>
-<table class="caption-top table">
-<tbody>
-<tr class="odd">
-<td>Rebuild every generated file</td>
-<td><code>python datasets/make_all.py</code></td>
-</tr>
-<tr class="even">
-<td>Re-download the real ones</td>
-<td><code>python datasets/download_real.py</code></td>
-</tr>
-<tr class="odd">
-<td>What each file is for</td>
-<td><a href="datasets/README.md"><code>datasets/README.md</code></a></td>
-</tr>
-</tbody>
-</table>
-<p>The formats vary on purpose — CSV, JSON, plain text, Excel, SQL, and one table split across several files — because real data does not arrive in one shape.</p>
+<section id="verifying-the-installation" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="verifying-the-installation"><span class="header-section-number">2.2</span> 2. Verifying the Installation</h2>
+<p>To verify your installation, open a terminal (or Anaconda Prompt on Windows) and run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This should display the installed conda version.</p>
 </section>
-<section id="setting-up" class="level2" data-number="0.6">
-<h2 data-number="0.6" class="anchored" data-anchor-id="setting-up"><span class="header-section-number">0.6</span> Setting up</h2>
-<p>All code runs in one conda environment. Create it once:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> ds python=3.11 <span class="at">-y</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate ds</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Then build the book with <code>quarto render</code>, or open any session and run the cells in Jupyter. <strong>Every session is self-contained</strong> — variables do not carry from one to the next, so you can start anywhere, though the order is designed to be read straight through.</p>
+<section id="creating-a-conda-environment" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="creating-a-conda-environment"><span class="header-section-number">2.3</span> 3. Creating a Conda Environment</h2>
+<p>It’s a best practice to create a separate environment for each project. This avoids conflicts between dependencies. Let’s create an environment for this course.</p>
+<ol type="1">
+<li><p><strong>Create the environment:</strong> We will create an environment named <code>ds-env</code> with Python 3.10.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">--name</span> ds-env python=3.10</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>When prompted to proceed (<code>Proceed ([y]/n)?</code>), press <code>y</code> and <code>Enter</code>.</p></li>
+<li><p><strong>Activate the environment:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate ds-env</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Note: You must activate the environment every time you open a new terminal window to work on this project.</em></p></li>
+<li><p><strong>Install essential Data Science packages:</strong> With your environment activated, install the required packages (like Jupyter, Pandas, NumPy, Scikit-learn, etc.):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install jupyterlab pandas numpy matplotlib seaborn scikit-learn</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Alternatively, if you have a <code>requirements.txt</code> file, you can use <code>pip</code> within your conda environment to install dependencies:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
 </section>
-<section id="a-note-on-the-order" class="level2" data-number="0.7">
-<h2 data-number="0.7" class="anchored" data-anchor-id="a-note-on-the-order"><span class="header-section-number">0.7</span> A note on the order</h2>
-<p>Sessions 3–6 prepare data; Sessions 7–8 describe it. If you have met this material before you may expect statistics to come first — it is the more common arrangement.</p>
-<p>Session 3 borrows the two ideas it needs (quartiles and standard deviation) in a marked box, so nothing is used before it is explained, and Session 7 then covers them properly. <strong>If you prefer, read Sessions 7 and 8 before Session 3.</strong> Nothing in them depends on Sessions 3–6.</p>
+<section id="deactivating-the-environment" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="deactivating-the-environment"><span class="header-section-number">2.4</span> 4. Deactivating the Environment</h2>
+<p>When you are done working, you can deactivate the current environment and return to the base environment:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>
@@ -1028,10 +818,13 @@ Note
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Data Science">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./setup-guide.html" class="pagination-link" aria-label="Environment Setup Guide">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Environment Setup Guide</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./sessions/session-01-introduction-to-data-science.html" class="pagination-link" aria-label="Session 1 — Introduction to Data Science">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 1 — Introduction to Data Science</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

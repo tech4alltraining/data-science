@@ -15,6 +15,7 @@ book:
     style: docked
   chapters:
     - index.qmd
+    - setup-guide.qmd
     - part: "Part A — Getting hold of data"
       chapters:
         - sessions/session-01-introduction-to-data-science.qmd
