@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>14&nbsp; Session 12 — Model Saving and Deployment – Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../sessions/session-13-big-data-analytics-fundamentals.html" rel="next">
+<link href="../sessions/session-11-data-model-evaluation.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-7202036dd3638cbfcbeb4151d116aa42.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-09-supervised-learning-techniques.html">Part D — Learning from data</a></li><li class="breadcrumb-item"><a href="../sessions/session-12-model-saving-and-deployment.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Session 12 — Model Saving and Deployment</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Data Science</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup-guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Environment Setup Guide</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part A — Getting hold of data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-01-introduction-to-data-science.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 1 — Introduction to Data Science</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-02-data-collection-and-pre-processing-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Session 2 — Data Collection and Pre-Processing Overview</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part B — Making data fit to use</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-03-data-cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Session 3 — Data Cleaning</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-04-data-integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Session 4 — Data Integration</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-05-data-transformation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Session 5 — Data Transformation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-06-data-reduction-and-discretization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Session 6 — Data Reduction and Discretization</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part C — Understanding data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-07-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 7 — Descriptive Statistics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-08-exploratory-data-analytics-eda-and-visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analysis and Visualization</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part D — Learning from data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-09-supervised-learning-techniques.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 9 — Supervised Learning Techniques</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-10-unsupervised-learning-techniques-clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning and Clustering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-11-data-model-evaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Session 11 — Model Evaluation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-12-model-saving-and-deployment.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Session 12 — Model Saving and Deployment</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part E — Data at scale</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-13-big-data-analytics-fundamentals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Session 13 — Big Data Analytics Fundamentals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-14-distributed-data-processing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 14 — Distributed Data Processing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-15-nosql-databases-and-scaled-visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Visualization at Scale</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-16-open-ended-module-implementation-and-capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Session 16 — Capstone: The End-to-End Project</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-s12-outcomes" id="toc-sec-s12-outcomes" class="nav-link active" data-scroll-target="#sec-s12-outcomes"><span class="header-section-number">14.1</span> 🎯 Learning outcomes</a></li>
+  <li><a href="#sec-s12-organisation" id="toc-sec-s12-organisation" class="nav-link" data-scroll-target="#sec-s12-organisation"><span class="header-section-number">14.2</span> How this chapter is organised</a></li>
+  <li><a href="#sec-s12-a" id="toc-sec-s12-a" class="nav-link" data-scroll-target="#sec-s12-a"><span class="header-section-number">15</span> Part A — Saving</a>
+  <ul class="collapse">
+  <li><a href="#sec-s12-topic-1" id="toc-sec-s12-topic-1" class="nav-link" data-scroll-target="#sec-s12-topic-1"><span class="header-section-number">15.1</span> 1. Why a trained model has to be saved</a></li>
+  <li><a href="#sec-s12-topic-2" id="toc-sec-s12-topic-2" class="nav-link" data-scroll-target="#sec-s12-topic-2"><span class="header-section-number">15.2</span> 2. Save the pipeline, not the model</a>
+  <ul class="collapse">
+  <li><a href="#demo-1-the-silent-failure-measured" id="toc-demo-1-the-silent-failure-measured" class="nav-link" data-scroll-target="#demo-1-the-silent-failure-measured"><span class="header-section-number">15.2.1</span> Demo 1 — the silent failure, measured</a></li>
+  <li><a href="#demo-2-the-fix-one-object-that-carries-everything" id="toc-demo-2-the-fix-one-object-that-carries-everything" class="nav-link" data-scroll-target="#demo-2-the-fix-one-object-that-carries-everything"><span class="header-section-number">15.2.2</span> Demo 2 — the fix: one object that carries everything</a></li>
+  </ul></li>
+  <li><a href="#sec-s12-topic-3" id="toc-sec-s12-topic-3" class="nav-link" data-scroll-target="#sec-s12-topic-3"><span class="header-section-number">15.3</span> 3. Saving and loading</a>
+  <ul class="collapse">
+  <li><a href="#demo-3-a-full-save-and-reload-round-trip" id="toc-demo-3-a-full-save-and-reload-round-trip" class="nav-link" data-scroll-target="#demo-3-a-full-save-and-reload-round-trip"><span class="header-section-number">15.3.1</span> Demo 3 — a full save-and-reload round trip</a></li>
+  <li><a href="#demo-4-save-everything-needed-to-reproduce-the-model" id="toc-demo-4-save-everything-needed-to-reproduce-the-model" class="nav-link" data-scroll-target="#demo-4-save-everything-needed-to-reproduce-the-model"><span class="header-section-number">15.3.2</span> Demo 4 — save everything needed to reproduce the model</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s12-b" id="toc-sec-s12-b" class="nav-link" data-scroll-target="#sec-s12-b"><span class="header-section-number">16</span> Part B — Serving</a>
+  <ul class="collapse">
+  <li><a href="#sec-s12-topic-4" id="toc-sec-s12-topic-4" class="nav-link" data-scroll-target="#sec-s12-topic-4"><span class="header-section-number">16.1</span> 4. One inference function</a>
+  <ul class="collapse">
+  <li><a href="#demo-5-predict_one-with-input-validation" id="toc-demo-5-predict_one-with-input-validation" class="nav-link" data-scroll-target="#demo-5-predict_one-with-input-validation"><span class="header-section-number">16.1.1</span> Demo 5 — <code>predict_one</code>, with input validation</a></li>
+  </ul></li>
+  <li><a href="#sec-s12-topic-5" id="toc-sec-s12-topic-5" class="nav-link" data-scroll-target="#sec-s12-topic-5"><span class="header-section-number">16.2</span> 5. Offline and online deployment</a>
+  <ul class="collapse">
+  <li><a href="#demo-6-offline-scoring-which-is-often-the-whole-product" id="toc-demo-6-offline-scoring-which-is-often-the-whole-product" class="nav-link" data-scroll-target="#demo-6-offline-scoring-which-is-often-the-whole-product"><span class="header-section-number">16.2.1</span> Demo 6 — offline scoring, which is often the whole product</a></li>
+  <li><a href="#demo-7-online-scoring-one-request-at-a-time" id="toc-demo-7-online-scoring-one-request-at-a-time" class="nav-link" data-scroll-target="#demo-7-online-scoring-one-request-at-a-time"><span class="header-section-number">16.2.2</span> Demo 7 — online scoring, one request at a time</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s12-c" id="toc-sec-s12-c" class="nav-link" data-scroll-target="#sec-s12-c"><span class="header-section-number">17</span> Part C — Streamlit</a>
+  <ul class="collapse">
+  <li><a href="#sec-s12-topic-6" id="toc-sec-s12-topic-6" class="nav-link" data-scroll-target="#sec-s12-topic-6"><span class="header-section-number">17.1</span> 6. What Streamlit does</a></li>
+  <li><a href="#sec-s12-topic-7" id="toc-sec-s12-topic-7" class="nav-link" data-scroll-target="#sec-s12-topic-7"><span class="header-section-number">17.2</span> 7. The app</a>
+  <ul class="collapse">
+  <li><a href="#demo-8-the-apps-logic-tested-without-a-browser" id="toc-demo-8-the-apps-logic-tested-without-a-browser" class="nav-link" data-scroll-target="#demo-8-the-apps-logic-tested-without-a-browser"><span class="header-section-number">17.2.1</span> Demo 8 — the app’s logic, tested without a browser</a></li>
+  </ul></li>
+  <li><a href="#sec-s12-topic-8" id="toc-sec-s12-topic-8" class="nav-link" data-scroll-target="#sec-s12-topic-8"><span class="header-section-number">17.3</span> 8. Publishing it</a></li>
+  </ul></li>
+  <li><a href="#sec-s12-d" id="toc-sec-s12-d" class="nav-link" data-scroll-target="#sec-s12-d"><span class="header-section-number">18</span> Part D — After launch</a>
+  <ul class="collapse">
+  <li><a href="#sec-s12-topic-9" id="toc-sec-s12-topic-9" class="nav-link" data-scroll-target="#sec-s12-topic-9"><span class="header-section-number">18.1</span> 9. What breaks</a>
+  <ul class="collapse">
+  <li><a href="#demo-10-detecting-drift-by-watching-the-inputs" id="toc-demo-10-detecting-drift-by-watching-the-inputs" class="nav-link" data-scroll-target="#demo-10-detecting-drift-by-watching-the-inputs"><span class="header-section-number">18.1.1</span> Demo 10 — detecting drift by watching the inputs</a></li>
+  <li><a href="#demo-11-the-deployment-checklist-as-code" id="toc-demo-11-the-deployment-checklist-as-code" class="nav-link" data-scroll-target="#demo-11-the-deployment-checklist-as-code"><span class="header-section-number">18.1.2</span> Demo 11 — the deployment checklist, as code</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s12-tasks" id="toc-sec-s12-tasks" class="nav-link" data-scroll-target="#sec-s12-tasks"><span class="header-section-number">19</span> 🎯 Tasks</a></li>
+  <li><a href="#sec-s12-mcqs" id="toc-sec-s12-mcqs" class="nav-link" data-scroll-target="#sec-s12-mcqs"><span class="header-section-number">20</span> ❓ MCQs</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-09-supervised-learning-techniques.html">Part D — Learning from data</a></li><li class="breadcrumb-item"><a href="../sessions/session-12-model-saving-and-deployment.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Session 12 — Model Saving and Deployment</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Session 12 — Model Saving and Deployment</span></h1>
+<p class="subtitle lead">Saving the pipeline · Inference · Offline vs online · Streamlit · What breaks after launch</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>This chapter puts a model somewhere other people can use it.</strong></p>
+<p><strong>Assumed knowledge:</strong> Session 5 — pipelines. Session 9 — training a regression. Session 11 — evaluating one honestly.</p>
+<p><strong>The one idea to take away:</strong> <strong>save the whole pipeline, never the model alone.</strong> A model saved without its scaler and encoder will accept raw input and return confident nonsense, and nothing will raise an error.</p>
+</div>
+</div>
+<section id="sec-s12-outcomes" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="sec-s12-outcomes"><span class="header-section-number">14.1</span> 🎯 Learning outcomes</h2>
+<p>By the end of this chapter you can:</p>
+<ol type="1">
+<li>Save and reload a trained pipeline with <code>joblib</code>.</li>
+<li>Explain why saving the estimator alone produces silent, wrong predictions.</li>
+<li>Write a <code>predict_one()</code> function that takes raw user input.</li>
+<li>Choose between offline (batch) and online (live) deployment.</li>
+<li>Write and run a Streamlit application around a saved model.</li>
+<li>Name three things that break a deployed model after launch.</li>
+</ol>
+</section>
+<section id="sec-s12-organisation" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="sec-s12-organisation"><span class="header-section-number">14.2</span> How this chapter is organised</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Part</th>
+<th>Question it answers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#sec-s12-a">A — Saving</a></td>
+<td><em>How do I keep a trained model?</em></td>
+</tr>
+<tr class="even">
+<td><a href="#sec-s12-b">B — Serving</a></td>
+<td><em>How does somebody else get a prediction?</em></td>
+</tr>
+<tr class="odd">
+<td><a href="#sec-s12-c">C — Streamlit</a></td>
+<td><em>How do I build the page they use?</em></td>
+</tr>
+<tr class="even">
+<td><a href="#sec-s12-d">D — After launch</a></td>
+<td><em>What goes wrong once it is live?</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sec-s12-a" class="level1" data-number="15">
+<h1 data-number="15"><span class="header-section-number">15</span> Part A — Saving</h1>
+<section id="sec-s12-topic-1" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="sec-s12-topic-1"><span class="header-section-number">15.1</span> 1. Why a trained model has to be saved</h2>
+<p><strong>Training happens once; predicting happens thousands of times.</strong> Retraining a model every time somebody asks a question would be slow, expensive, and would give slightly different answers each run.</p>
+<p>So the trained model is written to a file. That file contains the learned numbers — coefficients, tree splits, the scaler’s mean — and can be loaded in milliseconds.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — the recipe and the cooking">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>🧠 Analogy — the recipe and the cooking
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Working out a recipe takes weeks of experimenting. Cooking from it takes twenty minutes.</p>
+<p><strong>Training is developing the recipe. Saving is writing it down. Prediction is cooking.</strong> You do not redevelop the recipe every time somebody orders dinner.</p>
+</div>
+</div>
+</section>
+<section id="sec-s12-topic-2" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="sec-s12-topic-2"><span class="header-section-number">15.2</span> 2. Save the pipeline, not the model</h2>
+<p><strong>This is the mistake that costs the most and announces itself the least.</strong></p>
+<p>A trained <code>LinearRegression</code> knows its coefficients. It does <strong>not</strong> know that its inputs were scaled before training. Feed it raw, unscaled numbers and it will apply coefficients meant for scaled ones — and return a number, confidently, with no error.</p>
+<section id="demo-1-the-silent-failure-measured" class="level3" data-number="15.2.1">
+<h3 data-number="15.2.1" class="anchored" data-anchor-id="demo-1-the-silent-failure-measured"><span class="header-section-number">15.2.1</span> Demo 1 — the silent failure, measured</h3>
+<div id="2debde70" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>homes <span class="op">=</span> pd.read_csv(<span class="st">"datasets/house_prices_simple.csv"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(homes)<span class="sc">}</span><span class="ss"> houses on file: </span><span class="sc">{</span><span class="bu">list</span>(homes.columns)<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> homes[[<span class="st">"area_sqft"</span>, <span class="st">"age_years"</span>]]</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> homes[<span class="st">"price"</span>]</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">.2</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Train with scaling, as Session 5 taught.</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler().fit(X_train)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression().fit(scaler.transform(X_train), y_train)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>new_house <span class="op">=</span> pd.DataFrame([{<span class="st">"area_sqft"</span>: <span class="dv">1500</span>, <span class="st">"age_years"</span>: <span class="dv">5</span>}])</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>right <span class="op">=</span> model.predict(scaler.transform(new_house))[<span class="dv">0</span>]     <span class="co"># scaled, as trained</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>wrong <span class="op">=</span> model.predict(new_house)[<span class="dv">0</span>]                       <span class="co"># raw — the bug</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correct  (scaled input) : ₹</span><span class="sc">{</span>right<span class="sc">:&gt;15,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Bug      (raw input)    : ₹</span><span class="sc">{</span>wrong<span class="sc">:&gt;15,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">No error was raised. The wrong answer is off by ₹</span><span class="sc">{</span><span class="bu">abs</span>(right<span class="op">-</span>wrong)<span class="sc">:,.0f}</span><span class="ss">."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>500 houses on file: ['area_sqft', 'age_years', 'price']
+
+Correct  (scaled input) : ₹      4,994,176
+Bug      (raw input)    : ₹  1,694,069,949
+
+No error was raised. The wrong answer is off by ₹1,689,075,773.</code></pre>
+</div>
+</div>
+<p><strong>Both lines ran without complaint.</strong> In a web app, the second would be shown to a user as a house valuation.</p>
+</section>
+<section id="demo-2-the-fix-one-object-that-carries-everything" class="level3" data-number="15.2.2">
+<h3 data-number="15.2.2" class="anchored" data-anchor-id="demo-2-the-fix-one-object-that-carries-everything"><span class="header-section-number">15.2.2</span> Demo 2 — the fix: one object that carries everything</h3>
+<div id="8d620ee8" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>pipeline <span class="op">=</span> Pipeline([</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"scale"</span>, StandardScaler()),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>, LinearRegression()),</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>]).fit(X_train, y_train)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Pipeline on raw input   : ₹</span><span class="sc">{</span>pipeline<span class="sc">.</span>predict(new_house)[<span class="dv">0</span>]<span class="sc">:&gt;15,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correct answer from above: ₹</span><span class="sc">{</span>right<span class="sc">:&gt;15,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">The pipeline takes RAW input and scales it internally. There is no way"</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"to forget the scaler, because the scaler is inside the thing you saved."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Pipeline on raw input   : ₹      4,994,176
+Correct answer from above: ₹      4,994,176
+
+The pipeline takes RAW input and scales it internally. There is no way
+to forget the scaler, because the scaler is inside the thing you saved.</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s12-topic-3" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="sec-s12-topic-3"><span class="header-section-number">15.3</span> 3. Saving and loading</h2>
+<p><strong><code>joblib</code> writes a fitted Python object to a file and reads it back.</strong> It is preferred over <code>pickle</code> for scikit-learn because it stores large numeric arrays more efficiently.</p>
+<section id="demo-3-a-full-save-and-reload-round-trip" class="level3" data-number="15.3.1">
+<h3 data-number="15.3.1" class="anchored" data-anchor-id="demo-3-a-full-save-and-reload-round-trip"><span class="header-section-number">15.3.1</span> Demo 3 — a full save-and-reload round trip</h3>
+<div id="2be0b149" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> joblib, tempfile, os</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>folder <span class="op">=</span> tempfile.mkdtemp()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> os.path.join(folder, <span class="st">"house_price_pipeline.joblib"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>joblib.dump(pipeline, path)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"saved to </span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>basename(path)<span class="sc">}</span><span class="ss">  (</span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>getsize(path)<span class="sc">:,}</span><span class="ss"> bytes)"</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>loaded <span class="op">=</span> joblib.load(path)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"loaded back: </span><span class="sc">{</span><span class="bu">type</span>(loaded)<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss"> with steps </span><span class="sc">{</span>[n <span class="cf">for</span> n, _ <span class="kw">in</span> loaded.steps]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>before <span class="op">=</span> pipeline.predict(X_test)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>after   <span class="op">=</span> loaded.predict(X_test)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">predictions identical after reload: </span><span class="sc">{</span>np<span class="sc">.</span>allclose(before, after)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"largest difference: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">abs</span>(before <span class="op">-</span> after)<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.10f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>saved to house_price_pipeline.joblib  (1,361 bytes)
+loaded back: Pipeline with steps ['scale', 'model']
+
+predictions identical after reload: True
+largest difference: 0.0000000000</code></pre>
+</div>
+</div>
+</section>
+<section id="demo-4-save-everything-needed-to-reproduce-the-model" class="level3" data-number="15.3.2">
+<h3 data-number="15.3.2" class="anchored" data-anchor-id="demo-4-save-everything-needed-to-reproduce-the-model"><span class="header-section-number">15.3.2</span> Demo 4 — save everything needed to reproduce the model</h3>
+<div id="9330a630" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> joblib, sklearn, os, json</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> date</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error, r2_score</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>bundle <span class="op">=</span> {</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"pipeline"</span>: pipeline,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"feature_names"</span>: <span class="bu">list</span>(X.columns),           <span class="co"># so the app builds rows in the right order</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"target"</span>: <span class="st">"price"</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"trained_on"</span>: <span class="bu">str</span>(date.today()),</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"n_training_rows"</span>: <span class="bu">len</span>(X_train),</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sklearn_version"</span>: sklearn.__version__,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"test_mae"</span>: <span class="bu">float</span>(mean_absolute_error(y_test, pipeline.predict(X_test))),</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"test_r2"</span>: <span class="bu">float</span>(r2_score(y_test, pipeline.predict(X_test))),</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>bundle_path <span class="op">=</span> os.path.join(folder, <span class="st">"model_bundle.joblib"</span>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>joblib.dump(bundle, bundle_path)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>back <span class="op">=</span> joblib.load(bundle_path)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.dumps({k: v <span class="cf">for</span> k, v <span class="kw">in</span> back.items() <span class="cf">if</span> k <span class="op">!=</span> <span class="st">"pipeline"</span>}, indent<span class="op">=</span><span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{
+  "feature_names": [
+    "area_sqft",
+    "age_years"
+  ],
+  "target": "price",
+  "trained_on": "2026-09-23",
+  "n_training_rows": 400,
+  "sklearn_version": "1.9.0",
+  "test_mae": 169824.38561731137,
+  "test_r2": 0.9679916797170471
+}</code></pre>
+</div>
+</div>
+<p><strong>Everything except the pipeline itself is metadata</strong>, and every field earns its place:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Answers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>feature_names</code></td>
+<td><em>what order do the columns go in?</em></td>
+</tr>
+<tr class="even">
+<td><code>sklearn_version</code></td>
+<td><em>why does this behave differently now?</em></td>
+</tr>
+<tr class="odd">
+<td><code>test_mae</code>, <code>test_r2</code></td>
+<td><em>is the live model still as good as when we shipped it?</em></td>
+</tr>
+<tr class="even">
+<td><code>trained_on</code></td>
+<td><em>how stale is this?</em></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ A saved model is tied to its library version">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ A saved model is tied to its library version
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A pipeline saved under scikit-learn 1.3 and loaded under 1.5 may warn, may behave differently, or may refuse to load. <strong>Pin your versions in <code>requirements.txt</code></strong> and record the version in the bundle so the mismatch is diagnosable rather than mysterious.</p>
+</div>
+</div>
+<div id="1f771459" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"requirements.txt should pin exactly what trained the model, for example:"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  scikit-learn==</span><span class="sc">{</span>sklearn<span class="sc">.</span>__version__<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  pandas==</span><span class="sc">{</span>pd<span class="sc">.</span>__version__<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  numpy==</span><span class="sc">{</span>np<span class="sc">.</span>__version__<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>requirements.txt should pin exactly what trained the model, for example:
+  scikit-learn==1.9.0
+  pandas==3.0.5
+  numpy==2.4.6</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="sec-s12-b" class="level1" data-number="16">
+<h1 data-number="16"><span class="header-section-number">16</span> Part B — Serving</h1>
+<section id="sec-s12-topic-4" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="sec-s12-topic-4"><span class="header-section-number">16.1</span> 4. One inference function</h2>
+<p><strong>Write one function that turns raw user input into a prediction, and use it everywhere</strong> — the notebook, the app, the batch job, the tests. If the app builds its input rows differently from the notebook, you have two models.</p>
+<section id="demo-5-predict_one-with-input-validation" class="level3" data-number="16.1.1">
+<h3 data-number="16.1.1" class="anchored" data-anchor-id="demo-5-predict_one-with-input-validation"><span class="header-section-number">16.1.1</span> Demo 5 — <code>predict_one</code>, with input validation</h3>
+<div id="e88a1af8" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, joblib</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_model(path):</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    b <span class="op">=</span> joblib.load(path)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> b[<span class="st">"pipeline"</span>], b[<span class="st">"feature_names"</span>]</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> predict_price(area_sqft, age_years, model_path<span class="op">=</span>bundle_path):</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Turn raw user input into a price. Validates before predicting."""</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> <span class="dv">200</span> <span class="op">&lt;=</span> area_sqft <span class="op">&lt;=</span> <span class="dv">10_000</span>:</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f"area_sqft </span><span class="sc">{</span>area_sqft<span class="sc">}</span><span class="ss"> is outside the sensible range 200–10,000"</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> <span class="dv">0</span> <span class="op">&lt;=</span> age_years <span class="op">&lt;=</span> <span class="dv">120</span>:</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f"age_years </span><span class="sc">{</span>age_years<span class="sc">}</span><span class="ss"> is outside the sensible range 0–120"</span>)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    pipe, features <span class="op">=</span> load_model(model_path)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    row <span class="op">=</span> pd.DataFrame([{<span class="st">"area_sqft"</span>: area_sqft, <span class="st">"age_years"</span>: age_years}])[features]</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">float</span>(pipe.predict(row)[<span class="dv">0</span>])</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> area, age <span class="kw">in</span> [(<span class="dv">800</span>, <span class="dv">2</span>), (<span class="dv">1500</span>, <span class="dv">5</span>), (<span class="dv">2400</span>, <span class="dv">20</span>)]:</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>area<span class="sc">:&gt;5}</span><span class="ss"> sqft, </span><span class="sc">{</span>age<span class="sc">:&gt;2}</span><span class="ss"> years old → ₹</span><span class="sc">{</span>predict_price(area, age)<span class="sc">:&gt;12,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    predict_price(<span class="op">-</span><span class="dv">50</span>, <span class="dv">5</span>)</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> e:</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Rejected bad input: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  800 sqft,  2 years old → ₹   2,878,291
+ 1500 sqft,  5 years old → ₹   4,994,176
+ 2400 sqft, 20 years old → ₹   7,199,992
+
+Rejected bad input: area_sqft -50 is outside the sensible range 200–10,000</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="🔓 Validate at the door">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>🔓 Validate at the door
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A model will happily predict a price for a house of −50 square feet. <strong>The model is not where you catch nonsense — the input layer is.</strong> Every deployed model needs a range check in front of it, because users type things.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s12-topic-5" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="sec-s12-topic-5"><span class="header-section-number">16.2</span> 5. Offline and online deployment</h2>
+<p><strong>There are two ways to deliver predictions, and the choice follows from when the answer is needed.</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Offline (batch)</strong></th>
+<th><strong>Online (live)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>When it runs</td>
+<td>on a schedule — nightly, weekly</td>
+<td>the moment someone asks</td>
+</tr>
+<tr class="even">
+<td>Input</td>
+<td>a whole file of rows</td>
+<td>one row</td>
+</tr>
+<tr class="odd">
+<td>Output</td>
+<td>a table of predictions</td>
+<td>one answer</td>
+</tr>
+<tr class="even">
+<td>Delivered as</td>
+<td>a CSV, a database table, a dashboard</td>
+<td>a web app or an API</td>
+</tr>
+<tr class="odd">
+<td>Needs a server running?</td>
+<td>no — a scheduled job</td>
+<td><strong>yes, always on</strong></td>
+</tr>
+<tr class="even">
+<td>Cost</td>
+<td>low</td>
+<td>higher</td>
+</tr>
+<tr class="odd">
+<td>Good for</td>
+<td>churn scores, restock lists, risk ratings</td>
+<td>loan decisions, fraud checks, search</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Most projects should start offline.</strong> If a nightly file of predictions solves the problem, you have avoided servers, uptime and latency entirely.</p>
+<section id="demo-6-offline-scoring-which-is-often-the-whole-product" class="level3" data-number="16.2.1">
+<h3 data-number="16.2.1" class="anchored" data-anchor-id="demo-6-offline-scoring-which-is-often-the-whole-product"><span class="header-section-number">16.2.1</span> Demo 6 — offline scoring, which is often the whole product</h3>
+<div id="10d35aa3" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, joblib, os</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A batch job: read the properties awaiting valuation, score them, write the file, stop.</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>portfolio <span class="op">=</span> pd.read_csv(<span class="st">"datasets/property_portfolio.csv"</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>pipe, features <span class="op">=</span> load_model(bundle_path)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>portfolio[<span class="st">"estimated_price"</span>] <span class="op">=</span> pipe.predict(portfolio[features]).<span class="bu">round</span>(<span class="op">-</span><span class="dv">3</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>portfolio[<span class="st">"price_per_sqft"</span>] <span class="op">=</span> (portfolio[<span class="st">"estimated_price"</span>] <span class="op">/</span> portfolio[<span class="st">"area_sqft"</span>]).<span class="bu">round</span>(<span class="dv">0</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(portfolio.to_string(index<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> os.path.join(folder, <span class="st">"valuations.csv"</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>portfolio.to_csv(out, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">written to </span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>basename(out)<span class="sc">}</span><span class="ss"> — this file is the deliverable"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>property_id  area_sqft  age_years  estimated_price  price_per_sqft
+      P0001        900         12        2739000.0          3043.0
+      P0002       1250          3        4281000.0          3425.0
+      P0003       1800         25        5037000.0          2798.0
+      P0004        640         40         608000.0           950.0
+      P0005       2200          1        7433000.0          3379.0
+      P0006       1500          8        4856000.0          3237.0
+      P0007       1050         18        2945000.0          2805.0
+      P0008       3000          5        9825000.0          3275.0
+
+written to valuations.csv — this file is the deliverable</code></pre>
+</div>
+</div>
+</section>
+<section id="demo-7-online-scoring-one-request-at-a-time" class="level3" data-number="16.2.2">
+<h3 data-number="16.2.2" class="anchored" data-anchor-id="demo-7-online-scoring-one-request-at-a-time"><span class="header-section-number">16.2.2</span> Demo 7 — online scoring, one request at a time</h3>
+<div id="ac3af45a" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time, joblib</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>pipe, features <span class="op">=</span> load_model(bundle_path)          <span class="co"># load ONCE, not per request</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> handle_request(payload: <span class="bu">dict</span>) <span class="op">-&gt;</span> <span class="bu">dict</span>:</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""What a web endpoint does for a single incoming request."""</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    start <span class="op">=</span> time.perf_counter()</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    row <span class="op">=</span> pd.DataFrame([payload])[features]</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    price <span class="op">=</span> <span class="bu">float</span>(pipe.predict(row)[<span class="dv">0</span>])</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"estimated_price"</span>: <span class="bu">round</span>(price, <span class="op">-</span><span class="dv">3</span>),</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"confidence_note"</span>: <span class="st">"typical error ±₹</span><span class="sc">{:,.0f}</span><span class="st">"</span>.<span class="bu">format</span>(joblib.load(bundle_path)[<span class="st">"test_mae"</span>]),</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"latency_ms"</span>: <span class="bu">round</span>((time.perf_counter() <span class="op">-</span> start) <span class="op">*</span> <span class="dv">1000</span>, <span class="dv">2</span>),</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> payload <span class="kw">in</span> [{<span class="st">"area_sqft"</span>: <span class="dv">1500</span>, <span class="st">"age_years"</span>: <span class="dv">5</span>}, {<span class="st">"area_sqft"</span>: <span class="dv">2400</span>, <span class="st">"age_years"</span>: <span class="dv">20</span>}]:</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(payload, <span class="st">"→"</span>, handle_request(payload))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'area_sqft': 1500, 'age_years': 5} → {'estimated_price': 4994000.0, 'confidence_note': 'typical error ±₹169,824', 'latency_ms': 1.65}
+{'area_sqft': 2400, 'age_years': 20} → {'estimated_price': 7200000.0, 'confidence_note': 'typical error ±₹169,824', 'latency_ms': 1.32}</code></pre>
+</div>
+</div>
+<p><strong>Note where the model is loaded.</strong> Loading it inside the request function would reread the file on every call. Loading it once, when the process starts, is the difference between a page that responds instantly and one that does not.</p>
+</section>
+</section>
+</section>
+<section id="sec-s12-c" class="level1" data-number="17">
+<h1 data-number="17"><span class="header-section-number">17</span> Part C — Streamlit</h1>
+<section id="sec-s12-topic-6" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="sec-s12-topic-6"><span class="header-section-number">17.1</span> 6. What Streamlit does</h2>
+<p><strong>Streamlit turns a Python script into a web page.</strong> There is no HTML, no JavaScript and no web framework to learn: you write <code>st.slider(...)</code> and a slider appears.</p>
+<p>Every Streamlit app is the same four steps:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Code</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. Load the model once</td>
+<td><code>@st.cache_resource</code> + <code>joblib.load</code></td>
+</tr>
+<tr class="even">
+<td>2. Collect input from widgets</td>
+<td><code>st.slider</code>, <code>st.number_input</code>, <code>st.selectbox</code></td>
+</tr>
+<tr class="odd">
+<td>3. Predict</td>
+<td><code>pipeline.predict(row)</code></td>
+</tr>
+<tr class="even">
+<td>4. Show the answer</td>
+<td><code>st.metric</code>, <code>st.write</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sec-s12-topic-7" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="sec-s12-topic-7"><span class="header-section-number">17.2</span> 7. The app</h2>
+<p>The code below is a complete, working application. It is shown rather than run, because a Streamlit app needs a web server — the cells in this book run in a notebook kernel. <strong>Save it as <code>app.py</code> and run <code>streamlit run app.py</code>.</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># app.py — a complete house price estimator</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> joblib</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>st.set_page_config(page_title<span class="op">=</span><span class="st">"House price estimator"</span>, page_icon<span class="op">=</span><span class="st">"🏠"</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># --- STEP 1: load the model ONCE, not on every interaction -----------------</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="at">@st.cache_resource</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_bundle():</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> joblib.load(<span class="st">"model_bundle.joblib"</span>)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>bundle <span class="op">=</span> load_bundle()</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>pipeline <span class="op">=</span> bundle[<span class="st">"pipeline"</span>]</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> bundle[<span class="st">"feature_names"</span>]</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co"># --- STEP 2: collect input -------------------------------------------------</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>st.title(<span class="st">"🏠 House price estimator"</span>)</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>st.caption(<span class="ss">f"Model trained </span><span class="sc">{</span>bundle[<span class="st">'trained_on'</span>]<span class="sc">}</span><span class="ss"> on </span><span class="sc">{</span>bundle[<span class="st">'n_training_rows'</span>]<span class="sc">:,}</span><span class="ss"> properties"</span>)</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>col1, col2 <span class="op">=</span> st.columns(<span class="dv">2</span>)</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> col1:</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>    area <span class="op">=</span> st.slider(<span class="st">"Floor area (sq ft)"</span>, <span class="dv">400</span>, <span class="dv">3000</span>, <span class="dv">1200</span>, step<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> col2:</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>    age <span class="op">=</span> st.slider(<span class="st">"Age of property (years)"</span>, <span class="dv">0</span>, <span class="dv">40</span>, <span class="dv">5</span>)</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="co"># --- STEP 3: predict -------------------------------------------------------</span></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>row <span class="op">=</span> pd.DataFrame([{<span class="st">"area_sqft"</span>: area, <span class="st">"age_years"</span>: age}])[features]</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>price <span class="op">=</span> <span class="bu">float</span>(pipeline.predict(row)[<span class="dv">0</span>])</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="co"># --- STEP 4: show the answer, with its uncertainty -------------------------</span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>st.metric(<span class="st">"Estimated price"</span>, <span class="ss">f"₹</span><span class="sc">{</span>price<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>st.caption(<span class="ss">f"Typical error on unseen properties: ±₹</span><span class="sc">{</span>bundle[<span class="st">'test_mae'</span>]<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> st.expander(<span class="st">"How reliable is this?"</span>):</span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>    st.write(<span class="ss">f"""</span></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a><span class="ss">    - Test R²: **</span><span class="sc">{</span>bundle[<span class="st">'test_r2'</span>]<span class="sc">:.2f}</span><span class="ss">** — the share of price variation the model explains</span></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a><span class="ss">    - Trained on properties between 400 and 3,000 sq ft. Estimates outside that</span></span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a><span class="ss">      range are extrapolation and should not be relied on.</span></span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a><span class="ss">    - This is a statistical estimate, not a valuation.</span></span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a><span class="ss">    """</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ `@st.cache_resource` is not optional">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ <code>@st.cache_resource</code> is not optional
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Without it, Streamlit reruns the <strong>entire script</strong> every time a slider moves — including <code>joblib.load</code>. On a large model that is a visible freeze on every interaction. <code>@st.cache_resource</code> loads it once and keeps it.</p>
+</div>
+</div>
+<section id="demo-8-the-apps-logic-tested-without-a-browser" class="level3" data-number="17.2.1">
+<h3 data-number="17.2.1" class="anchored" data-anchor-id="demo-8-the-apps-logic-tested-without-a-browser"><span class="header-section-number">17.2.1</span> Demo 8 — the app’s logic, tested without a browser</h3>
+<p>You can and should test the prediction logic directly. Everything except the widgets is ordinary Python.</p>
+<div id="f5ab5b63" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, joblib</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>bundle <span class="op">=</span> joblib.load(bundle_path)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>pipe, features <span class="op">=</span> bundle[<span class="st">"pipeline"</span>], bundle[<span class="st">"feature_names"</span>]</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> app_logic(area, age):</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    row <span class="op">=</span> pd.DataFrame([{<span class="st">"area_sqft"</span>: area, <span class="st">"age_years"</span>: age}])[features]</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">float</span>(pipe.predict(row)[<span class="dv">0</span>])</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'area'</span><span class="sc">:&gt;6}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'age'</span><span class="sc">:&gt;4}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'estimate'</span><span class="sc">:&gt;16}</span><span class="ss">"</span>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> area <span class="kw">in</span> [<span class="dv">600</span>, <span class="dv">1200</span>, <span class="dv">2000</span>]:</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> age <span class="kw">in</span> [<span class="dv">0</span>, <span class="dv">20</span>]:</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>area<span class="sc">:&gt;6}</span><span class="ss"> </span><span class="sc">{</span>age<span class="sc">:&gt;4}</span><span class="ss"> ₹</span><span class="sc">{</span>app_logic(area, age)<span class="sc">:&gt;15,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Sanity checks the app should pass:"</span>)</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  bigger house costs more     : </span><span class="sc">{</span>app_logic(<span class="dv">2000</span>, <span class="dv">5</span>) <span class="op">&gt;</span> app_logic(<span class="dv">1000</span>, <span class="dv">5</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  older house costs less      : </span><span class="sc">{</span>app_logic(<span class="dv">1500</span>, <span class="dv">30</span>) <span class="op">&lt;</span> app_logic(<span class="dv">1500</span>, <span class="dv">2</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  test MAE quoted to the user : ₹</span><span class="sc">{</span>bundle[<span class="st">'test_mae'</span>]<span class="sc">:,.0f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  area  age         estimate
+   600    0 ₹      2,326,532
+   600   20 ₹      1,402,877
+  1200    0 ₹      4,258,904
+  1200   20 ₹      3,335,249
+  2000    0 ₹      6,835,400
+  2000   20 ₹      5,911,744
+
+Sanity checks the app should pass:
+  bigger house costs more     : True
+  older house costs less      : True
+  test MAE quoted to the user : ₹169,824</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s12-topic-8" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="sec-s12-topic-8"><span class="header-section-number">17.3</span> 8. Publishing it</h2>
+<p><strong>Streamlit Community Cloud hosts small apps free, straight from a GitHub repository.</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Your repository needs</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>app.py</code></td>
+<td>the application</td>
+</tr>
+<tr class="even">
+<td><code>model_bundle.joblib</code></td>
+<td>the trained pipeline, <strong>committed</strong></td>
+</tr>
+<tr class="odd">
+<td><code>requirements.txt</code></td>
+<td>with versions pinned</td>
+</tr>
+<tr class="even">
+<td><code>README.md</code></td>
+<td>what it does and what it must not be used for</td>
+</tr>
+</tbody>
+</table>
+<p>Then: push to GitHub → connect the repository at <code>share.streamlit.io</code> → choose <code>app.py</code> → deploy.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Never commit secrets">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Never commit secrets
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>API keys, database passwords and connection strings must not be in the repository, and must not be in the model bundle. Streamlit provides <code>st.secrets</code> for this. <strong>A key pushed to GitHub is compromised even if you delete it afterwards</strong> — the history keeps it.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s12-d" class="level1" data-number="18">
+<h1 data-number="18"><span class="header-section-number">18</span> Part D — After launch</h1>
+<section id="sec-s12-topic-9" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="sec-s12-topic-9"><span class="header-section-number">18.1</span> 9. What breaks</h2>
+<p><strong>A deployed model degrades even when nobody touches the code</strong>, because the world it learned from carries on changing.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Problem</th>
+<th>What happens</th>
+<th>How you notice</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Data drift</strong></td>
+<td>inputs shift — house sizes, customer ages</td>
+<td>monitor input distributions</td>
+</tr>
+<tr class="even">
+<td><strong>Concept drift</strong></td>
+<td>the <em>relationship</em> shifts — a market crash</td>
+<td>monitor live accuracy</td>
+</tr>
+<tr class="odd">
+<td><strong>Schema change</strong></td>
+<td>an upstream column is renamed or reformatted</td>
+<td>the app crashes, or worse, silently misreads</td>
+</tr>
+<tr class="even">
+<td><strong>Version drift</strong></td>
+<td>the library is upgraded under the model</td>
+<td>pin versions; record them</td>
+</tr>
+<tr class="odd">
+<td><strong>Extrapolation</strong></td>
+<td>users enter values outside the training range</td>
+<td>validate inputs</td>
+</tr>
+</tbody>
+</table>
+<section id="demo-10-detecting-drift-by-watching-the-inputs" class="level3" data-number="18.1.1">
+<h3 data-number="18.1.1" class="anchored" data-anchor-id="demo-10-detecting-drift-by-watching-the-inputs"><span class="header-section-number">18.1.1</span> Demo 10 — detecting drift by watching the inputs</h3>
+<div id="33f42ece" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>training_areas <span class="op">=</span> X_train[<span class="st">"area_sqft"</span>]</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># What the live service actually received, month by month.</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>incoming <span class="op">=</span> pd.read_csv(<span class="st">"datasets/incoming_requests.csv"</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>months <span class="op">=</span> {m: g[<span class="st">"area_sqft"</span>].values <span class="cf">for</span> m, g <span class="kw">in</span> incoming.groupby(<span class="st">"month"</span>)}</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"training data: mean </span><span class="sc">{</span>training_areas<span class="sc">.</span>mean()<span class="sc">:,.0f}</span><span class="ss">, "</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"Q1 </span><span class="sc">{</span>training_areas<span class="sc">.</span>quantile(<span class="fl">.25</span>)<span class="sc">:,.0f}</span><span class="ss">, Q3 </span><span class="sc">{</span>training_areas<span class="sc">.</span>quantile(<span class="fl">.75</span>)<span class="sc">:,.0f}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, seen <span class="kw">in</span> months.items():</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    shift <span class="op">=</span> (seen.mean() <span class="op">-</span> training_areas.mean()) <span class="op">/</span> training_areas.std()</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    outside <span class="op">=</span> ((seen <span class="op">&lt;</span> training_areas.<span class="bu">min</span>()) <span class="op">|</span> (seen <span class="op">&gt;</span> training_areas.<span class="bu">max</span>())).mean()</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    flag <span class="op">=</span> <span class="st">"  ⚠ DRIFT — retrain"</span> <span class="cf">if</span> <span class="bu">abs</span>(shift) <span class="op">&gt;</span> <span class="fl">0.5</span> <span class="cf">else</span> <span class="st">""</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">: mean </span><span class="sc">{</span>seen<span class="sc">.</span>mean()<span class="sc">:&gt;7,.0f}</span><span class="ss">   shift </span><span class="sc">{</span>shift<span class="sc">:+.2f}</span><span class="ss"> std   "</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"</span><span class="sc">{</span>outside<span class="sc">:&gt;5.1%}</span><span class="ss"> outside training range</span><span class="sc">{</span>flag<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>training data: mean 1,184, Q1 953, Q3 1,418
+
+Month 1: mean   1,189   shift +0.01 std    0.7% outside training range
+Month 4: mean   1,259   shift +0.21 std    0.7% outside training range
+Month 8: mean   1,695   shift +1.45 std    2.0% outside training range  ⚠ DRIFT — retrain</code></pre>
+</div>
+</div>
+<p><strong>No accuracy figure was needed.</strong> Watching the <em>inputs</em> catches drift before the predictions have visibly gone wrong — and long before anybody complains.</p>
+</section>
+<section id="demo-11-the-deployment-checklist-as-code" class="level3" data-number="18.1.2">
+<h3 data-number="18.1.2" class="anchored" data-anchor-id="demo-11-the-deployment-checklist-as-code"><span class="header-section-number">18.1.2</span> Demo 11 — the deployment checklist, as code</h3>
+<div id="3ac6e2e2" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> joblib, os</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> preflight(bundle_path):</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Checks to run before any model goes live."""</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    b <span class="op">=</span> joblib.load(bundle_path)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    checks <span class="op">=</span> {</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"pipeline saved (not a bare model)"</span>: <span class="bu">hasattr</span>(b[<span class="st">"pipeline"</span>], <span class="st">"steps"</span>),</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"preprocessing inside the pipeline"</span>: <span class="bu">any</span>(<span class="st">"scal"</span> <span class="kw">in</span> n <span class="kw">or</span> <span class="st">"prep"</span> <span class="kw">in</span> n <span class="kw">or</span> <span class="st">"impute"</span> <span class="kw">in</span> n</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>                                                 <span class="cf">for</span> n, _ <span class="kw">in</span> b[<span class="st">"pipeline"</span>].steps),</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"feature order recorded"</span>:            <span class="bu">bool</span>(b.get(<span class="st">"feature_names"</span>)),</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"library version recorded"</span>:          <span class="bu">bool</span>(b.get(<span class="st">"sklearn_version"</span>)),</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"test score recorded"</span>:               b.get(<span class="st">"test_r2"</span>) <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>,</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"training date recorded"</span>:            <span class="bu">bool</span>(b.get(<span class="st">"trained_on"</span>)),</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"file is loadable"</span>:                  os.path.getsize(bundle_path) <span class="op">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> name, ok <span class="kw">in</span> checks.items():</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span><span class="st">'✓'</span> <span class="cf">if</span> ok <span class="cf">else</span> <span class="st">'✗'</span><span class="sc">}</span><span class="ss">  </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">all</span>(checks.values())</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"PRE-FLIGHT CHECKS"</span>)</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">ready to deploy: </span><span class="sc">{</span>preflight(bundle_path)<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>PRE-FLIGHT CHECKS
+  ✓  pipeline saved (not a bare model)
+  ✓  preprocessing inside the pipeline
+  ✓  feature order recorded
+  ✓  library version recorded
+  ✓  test score recorded
+  ✓  training date recorded
+  ✓  file is loadable
+
+ready to deploy: True</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="sec-s12-tasks" class="level1" data-number="19">
+<h1 data-number="19"><span class="header-section-number">19</span> 🎯 Tasks</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Practise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Task 1 — Break it deliberately.</strong> Save a bare <code>LinearRegression</code> (no pipeline), reload it, and predict on raw input. <strong>Report the difference from the correct prediction.</strong></p>
+<p><strong>Task 2 — Extend the bundle.</strong> Add the minimum and maximum of each training feature to the bundle, and make <code>predict_price</code> warn when an input falls outside those bounds.</p>
+<p><strong>Task 3 — Build and run the app.</strong> Save <code>app.py</code> and <code>model_bundle.joblib</code> to a folder and run <code>streamlit run app.py</code>. <strong>Report what happens when you move a slider past the training range.</strong></p>
+<p><strong>Task 4 — Detect drift.</strong> Generate a month of input data where the <em>age</em> distribution has shifted rather than area, and extend Demo 10 to catch it.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="78188a00" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd, joblib, os, tempfile</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 1 — the bare model versus the pipeline</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> tempfile.mkdtemp()</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>bare_path <span class="op">=</span> os.path.join(d, <span class="st">"bare.joblib"</span>)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>joblib.dump(model, bare_path)                      <span class="co"># the estimator only</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>bare <span class="op">=</span> joblib.load(bare_path)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>new <span class="op">=</span> pd.DataFrame([{<span class="st">"area_sqft"</span>: <span class="dv">1500</span>, <span class="st">"age_years"</span>: <span class="dv">5</span>}])</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Task 1 — bare model on raw input : ₹</span><span class="sc">{</span>bare<span class="sc">.</span>predict(new)[<span class="dv">0</span>]<span class="sc">:&gt;14,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"         pipeline on raw input   : ₹</span><span class="sc">{</span>pipeline<span class="sc">.</span>predict(new)[<span class="dv">0</span>]<span class="sc">:&gt;14,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"         difference              : ₹</span><span class="sc">{</span><span class="bu">abs</span>(bare.predict(new)[<span class="dv">0</span>]<span class="op">-</span>pipeline.predict(new)[<span class="dv">0</span>])<span class="sc">:&gt;14,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — record the training ranges and warn on extrapolation</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>bounds <span class="op">=</span> {c: (<span class="bu">float</span>(X_train[c].<span class="bu">min</span>()), <span class="bu">float</span>(X_train[c].<span class="bu">max</span>())) <span class="cf">for</span> c <span class="kw">in</span> X_train.columns}</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Task 2 — training ranges: </span><span class="sc">{</span>bounds<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> predict_checked(area, age):</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    warnings <span class="op">=</span> [<span class="ss">f"</span><span class="sc">{</span>c<span class="sc">}</span><span class="ss">=</span><span class="sc">{</span>v<span class="sc">}</span><span class="ss"> is outside the training range </span><span class="sc">{</span>bounds[c]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> c, v <span class="kw">in</span> [(<span class="st">"area_sqft"</span>, area), (<span class="st">"age_years"</span>, age)]</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="kw">not</span> bounds[c][<span class="dv">0</span>] <span class="op">&lt;=</span> v <span class="op">&lt;=</span> bounds[c][<span class="dv">1</span>]]</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>    price <span class="op">=</span> <span class="bu">float</span>(pipeline.predict(pd.DataFrame([{<span class="st">"area_sqft"</span>: area, <span class="st">"age_years"</span>: age}]))[<span class="dv">0</span>])</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> price, warnings</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> [<span class="dv">1500</span>, <span class="dv">9000</span>]:</span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>    p, w <span class="op">=</span> predict_checked(a, <span class="dv">5</span>)</span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>a<span class="sc">:&gt;5}</span><span class="ss"> sqft → ₹</span><span class="sc">{</span>p<span class="sc">:&gt;12,.0f}</span><span class="ss">   </span><span class="sc">{</span><span class="st">'⚠ '</span> <span class="op">+</span> w[<span class="dv">0</span>] <span class="cf">if</span> w <span class="cf">else</span> <span class="st">'within range'</span><span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Task 1 — bare model on raw input : ₹ 1,694,069,949
+         pipeline on raw input   : ₹     4,994,176
+         difference              : ₹ 1,689,075,773
+
+Task 2 — training ranges: {'area_sqft': (400.0, 2376.0), 'age_years': (0.0, 39.0)}
+   1500 sqft → ₹   4,994,176   within range
+   9000 sqft → ₹  29,148,823   ⚠ area_sqft=9000 is outside the training range (400.0, 2376.0)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-s12-mcqs" class="level1" data-number="20">
+<h1 data-number="20"><span class="header-section-number">20</span> ❓ MCQs</h1>
+<p><strong>Q1.</strong> You save only the <code>LinearRegression</code> and not its scaler. What happens in production?</p>
+<ul>
+<li><ol type="a">
+<li>The app crashes on the first request.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>It returns confident, wrong predictions with no error.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Predictions are slightly less accurate.</li>
+</ol></li>
+</ul>
+<p><strong>Q2.</strong> A nightly job scores every customer for churn risk and writes a CSV. What kind of deployment?</p>
+<ul>
+<li><ol type="a">
+<li>Online.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Offline (batch).</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Neither.</li>
+</ol></li>
+</ul>
+<p><strong>Q3.</strong> Why use <code>@st.cache_resource</code> on the model loader?</p>
+<ul>
+<li><ol type="a">
+<li>It makes predictions more accurate.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Streamlit reruns the whole script on every interaction; without it the model reloads from disk each time.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>It is required by Streamlit Cloud.</li>
+</ol></li>
+</ul>
+<p><strong>Q4.</strong> Your model’s accuracy has fallen six months after launch, but the code is unchanged. Most likely cause?</p>
+<ul>
+<li><ol type="a">
+<li>The file has corrupted.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Drift — the incoming data or the underlying relationship has changed.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Streamlit updated.</li>
+</ol></li>
+</ul>
+<p><strong>Q5.</strong> A user asks the app to value a 9,000 sq ft house. The training data went up to 3,000. What should the app do?</p>
+<ul>
+<li><ol type="a">
+<li>Return the prediction.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Refuse, or return it with a prominent warning that it is outside the model’s range.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Return the maximum training price.</li>
+</ol></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" title="Answers">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Answers
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>A1 — (b).</strong> Demo 1 measured the size of the error. Silence is what makes it dangerous.</p>
+<p><strong>A2 — (b).</strong> No server, no latency requirement — the file is the product.</p>
+<p><strong>A3 — (b).</strong> Every slider move reruns the script top to bottom.</p>
+<p><strong>A4 — (b).</strong> Demo 10 shows how to catch it by watching inputs rather than waiting for complaints.</p>
+<p><strong>A5 — (b).</strong> Session 9’s extrapolation warning, now with a user attached.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="✅ Before you move on">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>✅ Before you move on
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul class="task-list">
+<li><label><input type="checkbox">I save the whole pipeline, never a bare estimator</label></li>
+<li><label><input type="checkbox">My bundle records feature order, library version and test score</label></li>
+<li><label><input type="checkbox">I have one <code>predict_one()</code> used by the notebook and the app alike</label></li>
+<li><label><input type="checkbox">I validate inputs before they reach the model</label></li>
+<li><label><input type="checkbox">I know the difference between batch and live deployment, and why batch is often enough</label></li>
+<li><label><input type="checkbox"><strong>Easiest thing to forget:</strong> a deployed model gets worse on its own. Monitor the inputs, not just the complaints.</label></li>
+</ul>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../sessions/session-11-data-model-evaluation.html" class="pagination-link" aria-label="Session 11 — Model Evaluation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Session 11 — Model Evaluation</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../sessions/session-13-big-data-analytics-fundamentals.html" class="pagination-link" aria-label="Session 13 — Big Data Analytics Fundamentals">
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Session 13 — Big Data Analytics Fundamentals</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

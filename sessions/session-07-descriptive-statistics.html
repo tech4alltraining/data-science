@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>9&nbsp; Session 7 — Descriptive Statistics – Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../sessions/session-08-exploratory-data-analytics-eda-and-visualization.html" rel="next">
+<link href="../sessions/session-06-data-reduction-and-discretization.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-7202036dd3638cbfcbeb4151d116aa42.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-07-descriptive-statistics.html">Part C — Understanding data</a></li><li class="breadcrumb-item"><a href="../sessions/session-07-descriptive-statistics.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 7 — Descriptive Statistics</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Data Science</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup-guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Environment Setup Guide</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part A — Getting hold of data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-01-introduction-to-data-science.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 1 — Introduction to Data Science</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-02-data-collection-and-pre-processing-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Session 2 — Data Collection and Pre-Processing Overview</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part B — Making data fit to use</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-03-data-cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Session 3 — Data Cleaning</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-04-data-integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Session 4 — Data Integration</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-05-data-transformation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Session 5 — Data Transformation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-06-data-reduction-and-discretization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Session 6 — Data Reduction and Discretization</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part C — Understanding data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-07-descriptive-statistics.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 7 — Descriptive Statistics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-08-exploratory-data-analytics-eda-and-visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analysis and Visualization</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part D — Learning from data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-09-supervised-learning-techniques.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 9 — Supervised Learning Techniques</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-10-unsupervised-learning-techniques-clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning and Clustering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-11-data-model-evaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Session 11 — Model Evaluation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-12-model-saving-and-deployment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Session 12 — Model Saving and Deployment</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part E — Data at scale</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-13-big-data-analytics-fundamentals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Session 13 — Big Data Analytics Fundamentals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-14-distributed-data-processing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 14 — Distributed Data Processing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-15-nosql-databases-and-scaled-visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Visualization at Scale</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-16-open-ended-module-implementation-and-capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Session 16 — Capstone: The End-to-End Project</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-s07-outcomes" id="toc-sec-s07-outcomes" class="nav-link active" data-scroll-target="#sec-s07-outcomes"><span class="header-section-number">9.1</span> 🎯 Learning outcomes</a></li>
+  <li><a href="#sec-s07-organisation" id="toc-sec-s07-organisation" class="nav-link" data-scroll-target="#sec-s07-organisation"><span class="header-section-number">9.2</span> How this chapter is organised</a></li>
+  <li><a href="#sec-s07-a" id="toc-sec-s07-a" class="nav-link" data-scroll-target="#sec-s07-a"><span class="header-section-number">10</span> Part A — Where is the centre</a>
+  <ul class="collapse">
+  <li><a href="#sec-s07-topic-1" id="toc-sec-s07-topic-1" class="nav-link" data-scroll-target="#sec-s07-topic-1"><span class="header-section-number">10.1</span> 1. Mean, median and mode</a>
+  <ul class="collapse">
+  <li><a href="#demo-1-computed-by-hand-then-by-pandas" id="toc-demo-1-computed-by-hand-then-by-pandas" class="nav-link" data-scroll-target="#demo-1-computed-by-hand-then-by-pandas"><span class="header-section-number">10.1.1</span> Demo 1 — computed by hand, then by pandas</a></li>
+  </ul></li>
+  <li><a href="#sec-s07-topic-2" id="toc-sec-s07-topic-2" class="nav-link" data-scroll-target="#sec-s07-topic-2"><span class="header-section-number">10.2</span> 2. Why the choice matters</a>
+  <ul class="collapse">
+  <li><a href="#demo-2-the-same-data-two-honest-looking-answers" id="toc-demo-2-the-same-data-two-honest-looking-answers" class="nav-link" data-scroll-target="#demo-2-the-same-data-two-honest-looking-answers"><span class="header-section-number">10.2.1</span> Demo 2 — the same data, two honest-looking answers</a></li>
+  <li><a href="#demo-3-how-much-one-value-can-move-each-measure" id="toc-demo-3-how-much-one-value-can-move-each-measure" class="nav-link" data-scroll-target="#demo-3-how-much-one-value-can-move-each-measure"><span class="header-section-number">10.2.2</span> Demo 3 — how much one value can move each measure</a></li>
+  <li><a href="#which-to-use" id="toc-which-to-use" class="nav-link" data-scroll-target="#which-to-use"><span class="header-section-number">10.2.3</span> Which to use</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s07-b" id="toc-sec-s07-b" class="nav-link" data-scroll-target="#sec-s07-b"><span class="header-section-number">11</span> Part B — How spread out</a>
+  <ul class="collapse">
+  <li><a href="#sec-s07-topic-3" id="toc-sec-s07-topic-3" class="nav-link" data-scroll-target="#sec-s07-topic-3"><span class="header-section-number">11.1</span> 3. Why a centre alone is useless</a>
+  <ul class="collapse">
+  <li><a href="#demo-4-same-mean-different-worlds" id="toc-demo-4-same-mean-different-worlds" class="nav-link" data-scroll-target="#demo-4-same-mean-different-worlds"><span class="header-section-number">11.1.1</span> Demo 4 — same mean, different worlds</a></li>
+  </ul></li>
+  <li><a href="#sec-s07-topic-4" id="toc-sec-s07-topic-4" class="nav-link" data-scroll-target="#sec-s07-topic-4"><span class="header-section-number">11.2</span> 4. The four measures of spread</a>
+  <ul class="collapse">
+  <li><a href="#demo-5-standard-deviation-computed-step-by-step" id="toc-demo-5-standard-deviation-computed-step-by-step" class="nav-link" data-scroll-target="#demo-5-standard-deviation-computed-step-by-step"><span class="header-section-number">11.2.1</span> Demo 5 — standard deviation computed step by step</a></li>
+  <li><a href="#demo-6-all-four-measures-and-which-one-the-outlier-fools" id="toc-demo-6-all-four-measures-and-which-one-the-outlier-fools" class="nav-link" data-scroll-target="#demo-6-all-four-measures-and-which-one-the-outlier-fools"><span class="header-section-number">11.2.2</span> Demo 6 — all four measures, and which one the outlier fools</a></li>
+  </ul></li>
+  <li><a href="#sec-s07-topic-5" id="toc-sec-s07-topic-5" class="nav-link" data-scroll-target="#sec-s07-topic-5"><span class="header-section-number">11.3</span> 5. Quartiles and the five-number summary</a>
+  <ul class="collapse">
+  <li><a href="#demo-7-the-five-number-summary-and-the-box-plot-that-is-a-picture-of-it" id="toc-demo-7-the-five-number-summary-and-the-box-plot-that-is-a-picture-of-it" class="nav-link" data-scroll-target="#demo-7-the-five-number-summary-and-the-box-plot-that-is-a-picture-of-it"><span class="header-section-number">11.3.1</span> Demo 7 — the five-number summary, and the box plot that is a picture of it</a></li>
+  </ul></li>
+  <li><a href="#sec-s07-topic-6" id="toc-sec-s07-topic-6" class="nav-link" data-scroll-target="#sec-s07-topic-6"><span class="header-section-number">11.4</span> 6. Z-scores: comparing across different units</a>
+  <ul class="collapse">
+  <li><a href="#demo-8-which-result-was-more-impressive" id="toc-demo-8-which-result-was-more-impressive" class="nav-link" data-scroll-target="#demo-8-which-result-was-more-impressive"><span class="header-section-number">11.4.1</span> Demo 8 — which result was more impressive?</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s07-c" id="toc-sec-s07-c" class="nav-link" data-scroll-target="#sec-s07-c"><span class="header-section-number">12</span> Part C — What shape</a>
+  <ul class="collapse">
+  <li><a href="#sec-s07-topic-7" id="toc-sec-s07-topic-7" class="nav-link" data-scroll-target="#sec-s07-topic-7"><span class="header-section-number">12.1</span> 7. Skewness</a>
+  <ul class="collapse">
+  <li><a href="#demo-9-three-shapes-and-the-meanmedian-gap-in-each" id="toc-demo-9-three-shapes-and-the-meanmedian-gap-in-each" class="nav-link" data-scroll-target="#demo-9-three-shapes-and-the-meanmedian-gap-in-each"><span class="header-section-number">12.1.1</span> Demo 9 — three shapes, and the mean–median gap in each</a></li>
+  </ul></li>
+  <li><a href="#sec-s07-topic-8" id="toc-sec-s07-topic-8" class="nav-link" data-scroll-target="#sec-s07-topic-8"><span class="header-section-number">12.2</span> 8. Kurtosis</a>
+  <ul class="collapse">
+  <li><a href="#demo-10-same-mean-same-standard-deviation-very-different-risk" id="toc-demo-10-same-mean-same-standard-deviation-very-different-risk" class="nav-link" data-scroll-target="#demo-10-same-mean-same-standard-deviation-very-different-risk"><span class="header-section-number">12.2.1</span> Demo 10 — same mean, same standard deviation, very different risk</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s07-d" id="toc-sec-s07-d" class="nav-link" data-scroll-target="#sec-s07-d"><span class="header-section-number">13</span> Part D — Frequency distributions</a>
+  <ul class="collapse">
+  <li><a href="#sec-s07-topic-9" id="toc-sec-s07-topic-9" class="nav-link" data-scroll-target="#sec-s07-topic-9"><span class="header-section-number">13.1</span> 9. Counting values into bins</a>
+  <ul class="collapse">
+  <li><a href="#demo-11-building-a-frequency-table-by-hand" id="toc-demo-11-building-a-frequency-table-by-hand" class="nav-link" data-scroll-target="#demo-11-building-a-frequency-table-by-hand"><span class="header-section-number">13.1.1</span> Demo 11 — building a frequency table by hand</a></li>
+  <li><a href="#demo-12-bin-width-changes-the-story" id="toc-demo-12-bin-width-changes-the-story" class="nav-link" data-scroll-target="#demo-12-bin-width-changes-the-story"><span class="header-section-number">13.1.2</span> Demo 12 — bin width changes the story</a></li>
+  <li><a href="#demo-13-the-full-description-in-one-function" id="toc-demo-13-the-full-description-in-one-function" class="nav-link" data-scroll-target="#demo-13-the-full-description-in-one-function"><span class="header-section-number">13.1.3</span> Demo 13 — the full description, in one function</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s07-tasks" id="toc-sec-s07-tasks" class="nav-link" data-scroll-target="#sec-s07-tasks"><span class="header-section-number">14</span> 🎯 Tasks</a></li>
+  <li><a href="#sec-s07-mcqs" id="toc-sec-s07-mcqs" class="nav-link" data-scroll-target="#sec-s07-mcqs"><span class="header-section-number">15</span> ❓ MCQs</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-07-descriptive-statistics.html">Part C — Understanding data</a></li><li class="breadcrumb-item"><a href="../sessions/session-07-descriptive-statistics.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 7 — Descriptive Statistics</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 7 — Descriptive Statistics</span></h1>
+<p class="subtitle lead">Mean, median, mode · Spread · Quartiles · Skewness · Kurtosis · Frequency distributions</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>This chapter is about summarising a column of numbers into a few honest numbers.</strong></p>
+<p><strong>Assumed knowledge:</strong> Sessions 2–3 — DataFrames, and the IQR idea borrowed in Session 3 for outlier detection. This chapter is where that idea is done properly.</p>
+<p><strong>The one idea to take away:</strong> <strong>one number is never enough.</strong> A centre without a spread, or a spread without a shape, will mislead you — and this chapter shows exactly how.</p>
+</div>
+</div>
+<section id="sec-s07-outcomes" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="sec-s07-outcomes"><span class="header-section-number">9.1</span> 🎯 Learning outcomes</h2>
+<p>By the end of this chapter you can:</p>
+<ol type="1">
+<li>Compute mean, median and mode, and choose between them with a reason.</li>
+<li>Measure spread with range, variance, standard deviation and IQR.</li>
+<li>Read a five-number summary and the box plot that draws it.</li>
+<li>Convert a value to a z-score and say what it means.</li>
+<li>Describe a distribution’s shape using skewness and kurtosis.</li>
+<li>Build a frequency distribution and choose a sensible bin width.</li>
+<li>Explain what the normal distribution assumes and check whether your data fits it.</li>
+</ol>
+</section>
+<section id="sec-s07-organisation" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="sec-s07-organisation"><span class="header-section-number">9.2</span> How this chapter is organised</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Part</th>
+<th>Question it answers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#sec-s07-a">A — Where is the centre</a></td>
+<td><em>What is a typical value?</em></td>
+</tr>
+<tr class="even">
+<td><a href="#sec-s07-b">B — How spread out</a></td>
+<td><em>How much do values vary around it?</em></td>
+</tr>
+<tr class="odd">
+<td><a href="#sec-s07-c">C — What shape</a></td>
+<td><em>Is it symmetric? Are extremes common?</em></td>
+</tr>
+<tr class="even">
+<td><a href="#sec-s07-d">D — Frequency distributions</a></td>
+<td><em>How do I see the whole picture at once?</em></td>
+</tr>
+</tbody>
+</table>
+<p>Each part exists because the previous one is not enough on its own.</p>
+</section>
+<section id="sec-s07-a" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Part A — Where is the centre</h1>
+<section id="sec-s07-topic-1" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="sec-s07-topic-1"><span class="header-section-number">10.1</span> 1. Mean, median and mode</h2>
+<p><strong>A measure of central tendency is a single number standing in for a whole column.</strong> There are three, and they answer slightly different questions.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Measure</th>
+<th>What it is</th>
+<th>Answers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Mean</strong></td>
+<td>add everything, divide by the count</td>
+<td><em>“if it were shared equally, how much each?”</em></td>
+</tr>
+<tr class="even">
+<td><strong>Median</strong></td>
+<td>sort, take the middle value</td>
+<td><em>“what does the person in the middle have?”</em></td>
+</tr>
+<tr class="odd">
+<td><strong>Mode</strong></td>
+<td>the most frequently occurring value</td>
+<td><em>“what is most common?”</em></td>
+</tr>
+</tbody>
+</table>
+<section id="demo-1-computed-by-hand-then-by-pandas" class="level3" data-number="10.1.1">
+<h3 data-number="10.1.1" class="anchored" data-anchor-id="demo-1-computed-by-hand-then-by-pandas"><span class="header-section-number">10.1.1</span> Demo 1 — computed by hand, then by pandas</h3>
+<div id="d536cb31" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>marks <span class="op">=</span> pd.read_csv(<span class="st">"datasets/class_marks.csv"</span>)[<span class="st">"mark"</span>]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>values <span class="op">=</span> <span class="bu">sorted</span>(marks)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sorted marks:"</span>, values)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># By hand</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> <span class="bu">sum</span>(values)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">MEAN   = </span><span class="sc">{</span>total<span class="sc">}</span><span class="ss"> ÷ </span><span class="sc">{</span><span class="bu">len</span>(values)<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>total<span class="op">/</span><span class="bu">len</span>(values)<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>middle <span class="op">=</span> (values[<span class="dv">3</span>] <span class="op">+</span> values[<span class="dv">4</span>]) <span class="op">/</span> <span class="dv">2</span>          <span class="co"># 8 values, so average the two middle ones</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"MEDIAN = middle of </span><span class="sc">{</span>values[<span class="dv">3</span>]<span class="sc">}</span><span class="ss"> and </span><span class="sc">{</span>values[<span class="dv">4</span>]<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>middle<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"MODE   = 61, which appears </span><span class="sc">{</span>values<span class="sc">.</span>count(<span class="dv">61</span>)<span class="sc">}</span><span class="ss"> times"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># By pandas — the same answers</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">pandas: mean </span><span class="sc">{</span>marks<span class="sc">.</span>mean()<span class="sc">:.2f}</span><span class="ss">   median </span><span class="sc">{</span>marks<span class="sc">.</span>median()<span class="sc">}</span><span class="ss">   mode </span><span class="sc">{</span>marks<span class="sc">.</span>mode()[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sorted marks: [39, 48, 52, 55, 61, 61, 61, 70]
+
+MEAN   = 447 ÷ 8 = 55.88
+MEDIAN = middle of 55 and 61 = 58.0
+MODE   = 61, which appears 3 times
+
+pandas: mean 55.88   median 58.0   mode 61</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s07-topic-2" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="sec-s07-topic-2"><span class="header-section-number">10.2</span> 2. Why the choice matters</h2>
+<p><strong>The mean is pulled towards extreme values. The median is not.</strong> With symmetric data they agree and the choice is irrelevant. With skewed data they can tell opposite stories.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — the pub and the billionaire">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>🧠 Analogy — the pub and the billionaire
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ten people are in a pub. Their average wealth is ₹5 lakh.</p>
+<p>A billionaire walks in. The <strong>average</strong> wealth in the pub is now over ₹90 crore. The <strong>median</strong> wealth has barely changed.</p>
+<p>Which number describes “how rich are the people in this pub”? The median. The mean is not wrong — it is answering <em>“if everyone shared equally”</em>, which is not the question anyone asked.</p>
+</div>
+</div>
+<section id="demo-2-the-same-data-two-honest-looking-answers" class="level3" data-number="10.2.1">
+<h3 data-number="10.2.1" class="anchored" data-anchor-id="demo-2-the-same-data-two-honest-looking-answers"><span class="header-section-number">10.2.1</span> Demo 2 — the same data, two honest-looking answers</h3>
+<div id="4fc526b4" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>salaries <span class="op">=</span> pd.read_csv(<span class="st">"datasets/team_salaries.csv"</span>)[<span class="st">"salary"</span>]</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Nine ordinary salaries and one founder:</span><span class="ch">\n</span><span class="sc">{</span>salaries<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean salary   : ₹</span><span class="sc">{</span>salaries<span class="sc">.</span>mean()<span class="sc">:&gt;10,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Median salary : ₹</span><span class="sc">{</span>salaries<span class="sc">.</span>median()<span class="sc">:&gt;10,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">People earning above the mean: </span><span class="sc">{</span>(salaries <span class="op">&gt;</span> salaries.mean())<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss"> out of </span><span class="sc">{</span><span class="bu">len</span>(salaries)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"A company could truthfully advertise the mean — and 9 of 10 staff earn less."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Nine ordinary salaries and one founder:
+[28000, 31000, 33000, 35000, 36000, 38000, 40000, 42000, 45000, 950000]
+
+Mean salary   : ₹   127,800
+Median salary : ₹    37,000
+
+People earning above the mean: 1 out of 10
+A company could truthfully advertise the mean — and 9 of 10 staff earn less.</code></pre>
+</div>
+</div>
+</section>
+<section id="demo-3-how-much-one-value-can-move-each-measure" class="level3" data-number="10.2.2">
+<h3 data-number="10.2.2" class="anchored" data-anchor-id="demo-3-how-much-one-value-can-move-each-measure"><span class="header-section-number">10.2.2</span> Demo 3 — how much one value can move each measure</h3>
+<div id="1267ef59" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> pd.read_csv(<span class="st">"datasets/team_salaries.csv"</span>)[<span class="st">"salary"</span>].head(<span class="dv">9</span>)   <span class="co"># drop the founder</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'top earner'</span><span class="sc">:&gt;12}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">'mean'</span><span class="sc">:&gt;10}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">'median'</span><span class="sc">:&gt;8}</span><span class="ss">"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">36</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> top <span class="kw">in</span> [<span class="dv">46_000</span>, <span class="dv">100_000</span>, <span class="dv">500_000</span>, <span class="dv">5_000_000</span>]:</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> pd.concat([base, pd.Series([top])])</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>top<span class="sc">:&gt;12,}</span><span class="ss"> | </span><span class="sc">{</span>s<span class="sc">.</span>mean()<span class="sc">:&gt;10,.0f}</span><span class="ss"> | </span><span class="sc">{</span>s<span class="sc">.</span>median()<span class="sc">:&gt;8,.0f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  top earner |       mean |   median
+------------------------------------
+      46,000 |     37,400 |   37,000
+     100,000 |     42,800 |   37,000
+     500,000 |     82,800 |   37,000
+   5,000,000 |    532,800 |   37,000</code></pre>
+</div>
+</div>
+<p><strong>The mean moved by nearly ₹5 lakh. The median moved by ₹1,000.</strong> This is the whole argument for the median, and it is why Session 3 imputes skewed columns with it.</p>
+</section>
+<section id="which-to-use" class="level3" data-number="10.2.3">
+<h3 data-number="10.2.3" class="anchored" data-anchor-id="which-to-use"><span class="header-section-number">10.2.3</span> Which to use</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Situation</th>
+<th>Use</th>
+<th>Because</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>roughly symmetric data — heights, exam marks</td>
+<td><strong>mean</strong></td>
+<td>it uses every value</td>
+</tr>
+<tr class="even">
+<td>skewed data — income, house prices, waiting times</td>
+<td><strong>median</strong></td>
+<td>extremes cannot drag it</td>
+</tr>
+<tr class="odd">
+<td>text or categories — most popular product</td>
+<td><strong>mode</strong></td>
+<td>the others do not apply</td>
+</tr>
+<tr class="even">
+<td>you are about to impute a skewed column</td>
+<td><strong>median</strong></td>
+<td>Session 3, Demo 4</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="sec-s07-b" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> Part B — How spread out</h1>
+<section id="sec-s07-topic-3" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="sec-s07-topic-3"><span class="header-section-number">11.1</span> 3. Why a centre alone is useless</h2>
+<p><strong>Two datasets can have identical means and be nothing alike.</strong></p>
+<section id="demo-4-same-mean-different-worlds" class="level3" data-number="11.1.1">
+<h3 data-number="11.1.1" class="anchored" data-anchor-id="demo-4-same-mean-different-worlds"><span class="header-section-number">11.1.1</span> Demo 4 — same mean, different worlds</h3>
+<div id="e5c7bcbd" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>deliveries <span class="op">=</span> pd.read_csv(<span class="st">"datasets/supplier_deliveries.csv"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>steady, erratic <span class="op">=</span> deliveries[<span class="st">"steady"</span>], deliveries[<span class="st">"erratic"</span>]</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, s <span class="kw">in</span> [(<span class="st">"Steady supplier"</span>, steady), (<span class="st">"Erratic supplier"</span>, erratic)]:</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:&lt;18}</span><span class="ss"> mean </span><span class="sc">{</span>s<span class="sc">.</span>mean()<span class="sc">:.1f}</span><span class="ss">   min </span><span class="sc">{</span>s<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:&gt;3}</span><span class="ss">   max </span><span class="sc">{</span>s<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:&gt;3}</span><span class="ss">"</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Identical averages. You would not choose between them on the average."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Steady supplier    mean 50.0   min  48   max  52
+Erratic supplier   mean 50.0   min  10   max  85
+
+Identical averages. You would not choose between them on the average.</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — two archers">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>🧠 Analogy — two archers
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Both archers average dead centre. One puts every arrow within a coin’s width of the bullseye. The other lands half in the top-left corner and half in the bottom-right.</p>
+<p><strong>Their averages are identical. Only one of them can hit a target.</strong> Spread is the measure that tells them apart.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s07-topic-4" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="sec-s07-topic-4"><span class="header-section-number">11.2</span> 4. The four measures of spread</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Measure</th>
+<th>How it is computed</th>
+<th>Sensitive to outliers?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Range</strong></td>
+<td>max − min</td>
+<td><strong>extremely</strong> — it <em>is</em> the two extremes</td>
+</tr>
+<tr class="even">
+<td><strong>Variance</strong></td>
+<td>average of the squared distances from the mean</td>
+<td>yes</td>
+</tr>
+<tr class="odd">
+<td><strong>Standard deviation</strong></td>
+<td>the square root of the variance</td>
+<td>yes</td>
+</tr>
+<tr class="even">
+<td><strong>IQR</strong></td>
+<td>Q3 − Q1, the range of the middle half</td>
+<td><strong>no</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Standard deviation is the one you will report</strong>, because it is in the same units as the data. Variance is in <em>squared</em> units — “squared rupees” means nothing to anybody — but it is what the maths works with internally.</p>
+<section id="demo-5-standard-deviation-computed-step-by-step" class="level3" data-number="11.2.1">
+<h3 data-number="11.2.1" class="anchored" data-anchor-id="demo-5-standard-deviation-computed-step-by-step"><span class="header-section-number">11.2.1</span> Demo 5 — standard deviation computed step by step</h3>
+<div id="961e9068" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, numpy <span class="im">as</span> np</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> pd.read_csv(<span class="st">"datasets/supplier_deliveries.csv"</span>)[<span class="st">"steady"</span>]</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>mean <span class="op">=</span> s.mean()</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>steps <span class="op">=</span> pd.DataFrame({<span class="st">"value"</span>: s})</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>steps[<span class="st">"distance from mean"</span>] <span class="op">=</span> steps[<span class="st">"value"</span>] <span class="op">-</span> mean</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>steps[<span class="st">"squared"</span>] <span class="op">=</span> steps[<span class="st">"distance from mean"</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(steps.to_string(index<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>variance <span class="op">=</span> steps[<span class="st">"squared"</span>].<span class="bu">sum</span>() <span class="op">/</span> (<span class="bu">len</span>(s) <span class="op">-</span> <span class="dv">1</span>)     <span class="co"># divide by n-1 for a sample</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">variance           = </span><span class="sc">{</span>steps[<span class="st">'squared'</span>]<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">:.2f}</span><span class="ss"> ÷ </span><span class="sc">{</span><span class="bu">len</span>(s)<span class="op">-</span><span class="dv">1</span><span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>variance<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"standard deviation = √</span><span class="sc">{</span>variance<span class="sc">:.3f}</span><span class="ss"> = </span><span class="sc">{</span>np<span class="sc">.</span>sqrt(variance)<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"pandas agrees      : </span><span class="sc">{</span>s<span class="sc">.</span>std()<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> value  distance from mean  squared
+    48                -2.0      4.0
+    49                -1.0      1.0
+    50                 0.0      0.0
+    50                 0.0      0.0
+    51                 1.0      1.0
+    52                 2.0      4.0
+
+variance           = 10.00 ÷ 5 = 2.000
+standard deviation = √2.000 = 1.414
+pandas agrees      : 1.414</code></pre>
+</div>
+</div>
+<p>Why squared? Because plain distances from the mean always sum to zero — the positives cancel the negatives. Squaring makes everything positive; the square root at the end puts the answer back into the original units.</p>
+<div id="418e022d" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Sum of raw distances from the mean: </span><span class="sc">{</span>(s <span class="op">-</span> s.mean())<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">:.10f}</span><span class="ss">  ← always zero"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sum of raw distances from the mean: 0.0000000000  ← always zero</code></pre>
+</div>
+</div>
+</section>
+<section id="demo-6-all-four-measures-and-which-one-the-outlier-fools" class="level3" data-number="11.2.2">
+<h3 data-number="11.2.2" class="anchored" data-anchor-id="demo-6-all-four-measures-and-which-one-the-outlier-fools"><span class="header-section-number">11.2.2</span> Demo 6 — all four measures, and which one the outlier fools</h3>
+<div id="15a32947" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>clean <span class="op">=</span> pd.read_csv(<span class="st">"datasets/supplier_deliveries.csv"</span>)[<span class="st">"steady"</span>]</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>with_out <span class="op">=</span> pd.concat([clean, pd.Series([<span class="dv">300</span>])], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, d <span class="kw">in</span> [(<span class="st">"without outlier"</span>, clean), (<span class="st">"with outlier"</span>, with_out)]:</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    q1, q3 <span class="op">=</span> d.quantile(<span class="fl">0.25</span>), d.quantile(<span class="fl">0.75</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:&lt;16}</span><span class="ss"> range </span><span class="sc">{</span>d<span class="sc">.</span><span class="bu">max</span>()<span class="op">-</span>d<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:&gt;5.0f}</span><span class="ss">   "</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"std </span><span class="sc">{</span>d<span class="sc">.</span>std()<span class="sc">:&gt;6.1f}</span><span class="ss">   IQR </span><span class="sc">{</span>q3<span class="op">-</span>q1<span class="sc">:&gt;5.1f}</span><span class="ss">"</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Range and standard deviation exploded. The IQR barely moved —"</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"which is why Session 3 uses the IQR to find outliers, not the standard deviation."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>without outlier  range     4   std    1.4   IQR   1.5
+with outlier     range   252   std   94.5   IQR   2.0
+
+Range and standard deviation exploded. The IQR barely moved —
+which is why Session 3 uses the IQR to find outliers, not the standard deviation.</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s07-topic-5" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="sec-s07-topic-5"><span class="header-section-number">11.3</span> 5. Quartiles and the five-number summary</h2>
+<p><strong>Sort the data and cut it into four equal parts. The three cut points are the quartiles.</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Q1</strong> (25th percentile)</td>
+<td>a quarter of values are below this</td>
+</tr>
+<tr class="even">
+<td><strong>Q2</strong> (50th percentile)</td>
+<td>the median — half below</td>
+</tr>
+<tr class="odd">
+<td><strong>Q3</strong> (75th percentile)</td>
+<td>three quarters below</td>
+</tr>
+<tr class="even">
+<td><strong>IQR</strong></td>
+<td>Q3 − Q1: the range the middle half occupies</td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>five-number summary</strong> is minimum, Q1, median, Q3, maximum. It describes a distribution more honestly than a mean and a standard deviation, and it is exactly what a box plot draws.</p>
+<section id="demo-7-the-five-number-summary-and-the-box-plot-that-is-a-picture-of-it" class="level3" data-number="11.3.1">
+<h3 data-number="11.3.1" class="anchored" data-anchor-id="demo-7-the-five-number-summary-and-the-box-plot-that-is-a-picture-of-it"><span class="header-section-number">11.3.1</span> Demo 7 — the five-number summary, and the box plot that is a picture of it</h3>
+<div id="cell-fig-s07-box" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>income <span class="op">=</span> pd.read_csv(<span class="st">"datasets/incomes_200.csv"</span>)[<span class="st">"income"</span>]</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>q1, med, q3 <span class="op">=</span> income.quantile([<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>])</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"minimum : ₹</span><span class="sc">{</span>income<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:&gt;10,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Q1      : ₹</span><span class="sc">{</span>q1<span class="sc">:&gt;10,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"median  : ₹</span><span class="sc">{</span>med<span class="sc">:&gt;10,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Q3      : ₹</span><span class="sc">{</span>q3<span class="sc">:&gt;10,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"maximum : ₹</span><span class="sc">{</span>income<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:&gt;10,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">IQR = </span><span class="sc">{</span>q3<span class="sc">:,.0f}</span><span class="ss"> - </span><span class="sc">{</span>q1<span class="sc">:,.0f}</span><span class="ss"> = ₹</span><span class="sc">{</span>q3<span class="op">-</span>q1<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The middle 50% of people earn between ₹</span><span class="sc">{</span>q1<span class="sc">:,.0f}</span><span class="ss"> and ₹</span><span class="sc">{</span>q3<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>plt.boxplot(income, orientation<span class="op">=</span><span class="st">"horizontal"</span>)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Income (₹)"</span>)<span class="op">;</span> plt.title(<span class="st">"Five-number summary, drawn"</span>)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">.describe() gives the whole summary at once:"</span>)</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(income.describe().<span class="bu">round</span>(<span class="dv">0</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>minimum : ₹    25,756
+Q1      : ₹    40,037
+median  : ₹    46,136
+Q3      : ₹    51,363
+maximum : ₹   351,583
+
+IQR = 51,363 - 40,037 = ₹11,326
+The middle 50% of people earn between ₹40,037 and ₹51,363</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div id="fig-s07-box" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s07-box-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-07-descriptive-statistics_files/figure-html/fig-s07-box-output-2.png" width="639" height="431" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s07-box-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11.1: A box plot is a drawn five-number summary. The box is the middle half; the dots are IQR-rule outliers.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+.describe() gives the whole summary at once:
+count       200.0
+mean      56505.0
+std       50720.0
+min       25756.0
+25%       40037.0
+50%       46136.0
+75%       51363.0
+max      351583.0
+Name: income, dtype: float64</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s07-topic-6" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="sec-s07-topic-6"><span class="header-section-number">11.4</span> 6. Z-scores: comparing across different units</h2>
+<p><strong>A z-score says how many standard deviations a value sits from the mean.</strong> It lets you compare things measured on completely different scales.</p>
+<p><span class="math display">\[z = \frac{\text{value} - \text{mean}}{\text{standard deviation}}\]</span></p>
+<section id="demo-8-which-result-was-more-impressive" class="level3" data-number="11.4.1">
+<h3 data-number="11.4.1" class="anchored" data-anchor-id="demo-8-which-result-was-more-impressive"><span class="header-section-number">11.4.1</span> Demo 8 — which result was more impressive?</h3>
+<div id="5b0ce7cb" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A student scored 78 in maths and 65 in physics. Which was the better performance?</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>subjects <span class="op">=</span> pd.read_csv(<span class="st">"datasets/subject_marks.csv"</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>maths, physics <span class="op">=</span> subjects[<span class="st">"maths"</span>], subjects[<span class="st">"physics"</span>]</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> subject, marks, mine <span class="kw">in</span> [(<span class="st">"Maths"</span>, maths, <span class="dv">78</span>), (<span class="st">"Physics"</span>, physics, <span class="dv">65</span>)]:</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> (mine <span class="op">-</span> marks.mean()) <span class="op">/</span> marks.std()</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>subject<span class="sc">:&lt;8}</span><span class="ss"> scored </span><span class="sc">{</span>mine<span class="sc">}</span><span class="ss">   class mean </span><span class="sc">{</span>marks<span class="sc">.</span>mean()<span class="sc">:5.1f}</span><span class="ss">   "</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"std </span><span class="sc">{</span>marks<span class="sc">.</span>std()<span class="sc">:5.2f}</span><span class="ss">   z = </span><span class="sc">{</span>z<span class="sc">:+.2f}</span><span class="ss">"</span>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">The higher raw mark was maths. The better performance was physics:"</span>)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"65 in physics is further above its class than 78 is above its class."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Maths    scored 78   class mean  62.6   std  9.98   z = +1.54
+Physics  scored 65   class mean  44.3   std  7.72   z = +2.68
+
+The higher raw mark was maths. The better performance was physics:
+65 in physics is further above its class than 78 is above its class.</code></pre>
+</div>
+</div>
+<p><strong>This is the same arithmetic as <code>StandardScaler</code> in Session 5.</strong> Standardizing a column is just converting every value to its z-score.</p>
+</section>
+</section>
+</section>
+<section id="sec-s07-c" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> Part C — What shape</h1>
+<section id="sec-s07-topic-7" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="sec-s07-topic-7"><span class="header-section-number">12.1</span> 7. Skewness</h2>
+<p><strong>Skewness measures which way a distribution leans.</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Skewness</th>
+<th>Shape</th>
+<th>Mean vs median</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>≈ 0</strong></td>
+<td>symmetric</td>
+<td>equal</td>
+<td>heights, measurement errors</td>
+</tr>
+<tr class="even">
+<td><strong>positive</strong> (right-skewed)</td>
+<td>a long tail to the <strong>right</strong></td>
+<td><strong>mean &gt; median</strong></td>
+<td>income, house prices, waiting times</td>
+</tr>
+<tr class="odd">
+<td><strong>negative</strong> (left-skewed)</td>
+<td>a long tail to the <strong>left</strong></td>
+<td><strong>mean &lt; median</strong></td>
+<td>exam marks on an easy test, age at death</td>
+</tr>
+</tbody>
+</table>
+<p><strong>A quick check needing no calculation: compare the mean and the median.</strong> If the mean is noticeably higher, the data is right-skewed.</p>
+<section id="demo-9-three-shapes-and-the-meanmedian-gap-in-each" class="level3" data-number="12.1.1">
+<h3 data-number="12.1.1" class="anchored" data-anchor-id="demo-9-three-shapes-and-the-meanmedian-gap-in-each"><span class="header-section-number">12.1.1</span> Demo 9 — three shapes, and the mean–median gap in each</h3>
+<div id="cell-fig-s07-skew" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>three <span class="op">=</span> pd.read_csv(<span class="st">"datasets/three_shapes.csv"</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>shapes <span class="op">=</span> {</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Right-skewed (income)"</span>:   three[<span class="st">"income_right_skewed"</span>],</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Symmetric (height)"</span>:      three[<span class="st">"height_symmetric"</span>],</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Left-skewed (easy exam)"</span>: three[<span class="st">"easy_exam_left_skewed"</span>],</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="fl">3.2</span>))</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, (name, data) <span class="kw">in</span> <span class="bu">zip</span>(axes, shapes.items()):</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> pd.Series(data)</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    ax.hist(s, bins<span class="op">=</span><span class="dv">45</span>, alpha<span class="op">=</span><span class="fl">.75</span>)</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    ax.axvline(s.mean(), color<span class="op">=</span><span class="st">"red"</span>, ls<span class="op">=</span><span class="st">"--"</span>, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    ax.axvline(s.median(), color<span class="op">=</span><span class="st">"black"</span>, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">\n</span><span class="ss">skew = </span><span class="sc">{</span>s<span class="sc">.</span>skew()<span class="sc">:.2f}</span><span class="ss">"</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    ax.set_yticks([])</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, data <span class="kw">in</span> shapes.items():</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> pd.Series(data)</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>    gap <span class="op">=</span> s.mean() <span class="op">-</span> s.median()</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:&lt;24}</span><span class="ss"> skew </span><span class="sc">{</span>s<span class="sc">.</span>skew()<span class="sc">:+6.2f}</span><span class="ss">   mean − median = </span><span class="sc">{</span>gap<span class="sc">:+10.1f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s07-skew" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s07-skew-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-07-descriptive-statistics_files/figure-html/fig-s07-skew-output-1.png" width="1307" height="340" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s07-skew-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12.1: Right-skewed, symmetric and left-skewed. The dashed line is the mean, the solid line the median.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Right-skewed (income)    skew  +1.44   mean − median =    +6725.2
+Symmetric (height)       skew  +0.03   mean − median =       +0.1
+Left-skewed (easy exam)  skew  -1.36   mean − median =       -1.8</code></pre>
+</div>
+</div>
+<p>Read the signs together: <strong>positive skew and a positive mean−median gap always travel together.</strong> Either one tells you the same thing.</p>
+</section>
+</section>
+<section id="sec-s07-topic-8" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="sec-s07-topic-8"><span class="header-section-number">12.2</span> 8. Kurtosis</h2>
+<p><strong>Kurtosis measures how often extreme values occur</strong> — how heavy the tails are.</p>
+<p>Pandas reports <strong>excess kurtosis</strong>, measured against the normal distribution:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Excess kurtosis</th>
+<th>Means</th>
+<th>Consequence</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>≈ 0</strong></td>
+<td>tails like a normal distribution</td>
+<td>the usual rules apply</td>
+</tr>
+<tr class="even">
+<td><strong>&gt; 0</strong> (heavy-tailed)</td>
+<td>extremes <strong>more</strong> common than normal</td>
+<td>outliers are routine; expect shocks</td>
+</tr>
+<tr class="odd">
+<td><strong>&lt; 0</strong> (light-tailed)</td>
+<td>extremes <strong>less</strong> common</td>
+<td>values cluster; few surprises</td>
+</tr>
+</tbody>
+</table>
+<section id="demo-10-same-mean-same-standard-deviation-very-different-risk" class="level3" data-number="12.2.1">
+<h3 data-number="12.2.1" class="anchored" data-anchor-id="demo-10-same-mean-same-standard-deviation-very-different-risk"><span class="header-section-number">12.2.1</span> Demo 10 — same mean, same standard deviation, very different risk</h3>
+<div id="b76874bd" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>returns <span class="op">=</span> pd.read_csv(<span class="st">"datasets/daily_returns.csv"</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>normal_returns <span class="op">=</span> returns[<span class="st">"normal_tails"</span>]</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>heavy_returns <span class="op">=</span> returns[<span class="st">"heavy_tails"</span>]     <span class="co"># same spread, much heavier tails</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, r <span class="kw">in</span> [(<span class="st">"Normal tails"</span>, normal_returns), (<span class="st">"Heavy tails"</span>, heavy_returns)]:</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> pd.Series(r)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    beyond3 <span class="op">=</span> (s.<span class="bu">abs</span>() <span class="op">&gt;</span> <span class="dv">3</span>).mean()</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:&lt;14}</span><span class="ss"> mean </span><span class="sc">{</span>s<span class="sc">.</span>mean()<span class="sc">:+.3f}</span><span class="ss">  std </span><span class="sc">{</span>s<span class="sc">.</span>std()<span class="sc">:.3f}</span><span class="ss">  "</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"kurtosis </span><span class="sc">{</span>s<span class="sc">.</span>kurtosis()<span class="sc">:6.2f}</span><span class="ss">  |  days beyond 3 std: </span><span class="sc">{</span>beyond3<span class="sc">:.2%}</span><span class="ss">"</span>)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Same mean, same standard deviation. The heavy-tailed one has several times"</span>)</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"more extreme days — and a risk model assuming normal tails would miss them."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Normal tails   mean +0.002  std 1.005  kurtosis  -0.02  |  days beyond 3 std: 0.28%
+Heavy tails    mean +0.006  std 1.000  kurtosis  20.10  |  days beyond 3 std: 1.57%
+
+Same mean, same standard deviation. The heavy-tailed one has several times
+more extreme days — and a risk model assuming normal tails would miss them.</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Most real data is not normally distributed">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Most real data is not normally distributed
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The bell curve is the default assumption in a great deal of statistics, and financial, biological and web-traffic data routinely break it — usually by being right-skewed and heavy-tailed.</p>
+<p><strong>Check before you assume.</strong> Plot a histogram. Compare the mean and the median. Look at the kurtosis. Session 5’s log transform is the usual repair for skew.</p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="sec-s07-d" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> Part D — Frequency distributions</h1>
+<section id="sec-s07-topic-9" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="sec-s07-topic-9"><span class="header-section-number">13.1</span> 9. Counting values into bins</h2>
+<p><strong>A frequency distribution counts how many values fall into each bin.</strong> A histogram is its picture. It is the fastest way to see everything at once — centre, spread, shape, gaps and outliers, in one glance.</p>
+<section id="demo-11-building-a-frequency-table-by-hand" class="level3" data-number="13.1.1">
+<h3 data-number="13.1.1" class="anchored" data-anchor-id="demo-11-building-a-frequency-table-by-hand"><span class="header-section-number">13.1.1</span> Demo 11 — building a frequency table by hand</h3>
+<div id="c3c25dd3" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, numpy <span class="im">as</span> np</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>ages <span class="op">=</span> pd.read_csv(<span class="st">"datasets/respondent_ages.csv"</span>)[<span class="st">"age"</span>]</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> <span class="bu">range</span>(<span class="dv">15</span>, <span class="dv">76</span>, <span class="dv">10</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>table <span class="op">=</span> pd.DataFrame({<span class="st">"count"</span>: pd.cut(ages, bins<span class="op">=</span>bins).value_counts().sort_index()})</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>table[<span class="st">"relative %"</span>]  <span class="op">=</span> (table[<span class="st">"count"</span>] <span class="op">/</span> table[<span class="st">"count"</span>].<span class="bu">sum</span>() <span class="op">*</span> <span class="dv">100</span>).<span class="bu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>table[<span class="st">"cumulative %"</span>] <span class="op">=</span> table[<span class="st">"relative %"</span>].cumsum().<span class="bu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(table)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Total: </span><span class="sc">{</span>table[<span class="st">'count'</span>]<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss"> people"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          count  relative %  cumulative %
+age                                      
+(15, 25]     31        15.5          15.5
+(25, 35]     41        20.5          36.0
+(35, 45]     32        16.0          52.0
+(45, 55]     27        13.5          65.5
+(55, 65]     47        23.5          89.0
+(65, 75]     22        11.0         100.0
+
+Total: 200 people</code></pre>
+</div>
+</div>
+<p>The <strong>cumulative</strong> column answers “what share are under 45?” without any further work.</p>
+</section>
+<section id="demo-12-bin-width-changes-the-story" class="level3" data-number="13.1.2">
+<h3 data-number="13.1.2" class="anchored" data-anchor-id="demo-12-bin-width-changes-the-story"><span class="header-section-number">13.1.2</span> Demo 12 — bin width changes the story</h3>
+<div id="cell-fig-s07-bins" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># This file is genuinely two groups: a younger cohort and an older one.</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">"datasets/two_cohorts.csv"</span>)[<span class="st">"age"</span>].values</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">4</span>, figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="fl">2.9</span>))</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, b <span class="kw">in</span> <span class="bu">zip</span>(axes, [<span class="dv">3</span>, <span class="dv">12</span>, <span class="dv">45</span>, <span class="dv">300</span>]):</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    ax.hist(data, bins<span class="op">=</span>b)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"</span><span class="sc">{</span>b<span class="sc">}</span><span class="ss"> bins"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)<span class="op">;</span> ax.set_yticks([])</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"3 bins   : one lump — the two groups are invisible"</span>)</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"12 bins  : two peaks appear — this is the real structure"</span>)</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"45 bins  : still two peaks, a little rougher"</span>)</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"300 bins : noise; every bin holds a handful of values"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s07-bins" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s07-bins-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-07-descriptive-statistics_files/figure-html/fig-s07-bins-output-1.png" width="1426" height="308" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s07-bins-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13.1: The same 2,000 values at four bin widths. Too few bins hides the two groups; too many shows only noise.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>3 bins   : one lump — the two groups are invisible
+12 bins  : two peaks appear — this is the real structure
+45 bins  : still two peaks, a little rougher
+300 bins : noise; every bin holds a handful of values</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Bin width is a choice you are making about the reader">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Bin width is a choice you are making about the reader
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Three bins hid the fact that this is <strong>two different populations</strong>. Anyone shown that first histogram would report a single average age of 40 — a value almost nobody in the data is anywhere near.</p>
+<p><strong>Always look at more than one bin width before believing a histogram.</strong></p>
+</div>
+</div>
+</section>
+<section id="demo-13-the-full-description-in-one-function" class="level3" data-number="13.1.3">
+<h3 data-number="13.1.3" class="anchored" data-anchor-id="demo-13-the-full-description-in-one-function"><span class="header-section-number">13.1.3</span> Demo 13 — the full description, in one function</h3>
+<div id="43e7acdd" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, numpy <span class="im">as</span> np</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> describe_column(s, name<span class="op">=</span><span class="st">"column"</span>):</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Everything this chapter covers, for one numeric column."""</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    q1, q3 <span class="op">=</span> s.quantile([<span class="fl">0.25</span>, <span class="fl">0.75</span>])</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"── </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> ──  (</span><span class="sc">{</span><span class="bu">len</span>(s)<span class="sc">:,}</span><span class="ss"> values)"</span>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    repeats <span class="op">=</span> s.value_counts().iloc[<span class="dv">0</span>] <span class="op">&gt;</span> <span class="dv">1</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    mode_txt <span class="op">=</span> <span class="ss">f"mode </span><span class="sc">{</span>s<span class="sc">.</span>mode()<span class="sc">.</span>iloc[<span class="dv">0</span>]<span class="sc">:&gt;10,.1f}</span><span class="ss">"</span> <span class="cf">if</span> repeats <span class="cf">else</span> <span class="st">"mode  (no value repeats)"</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  centre  : mean </span><span class="sc">{</span>s<span class="sc">.</span>mean()<span class="sc">:&gt;12,.1f}</span><span class="ss">   median </span><span class="sc">{</span>s<span class="sc">.</span>median()<span class="sc">:&gt;12,.1f}</span><span class="ss">   </span><span class="sc">{</span>mode_txt<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  spread  : std  </span><span class="sc">{</span>s<span class="sc">.</span>std()<span class="sc">:&gt;12,.1f}</span><span class="ss">   IQR    </span><span class="sc">{</span>q3<span class="op">-</span>q1<span class="sc">:&gt;12,.1f}</span><span class="ss">   "</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"range </span><span class="sc">{</span>s<span class="sc">.</span><span class="bu">max</span>()<span class="op">-</span>s<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:&gt;9,.1f}</span><span class="ss">"</span>)</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  shape   : skew </span><span class="sc">{</span>s<span class="sc">.</span>skew()<span class="sc">:&gt;12.2f}</span><span class="ss">   kurtosis </span><span class="sc">{</span>s<span class="sc">.</span>kurtosis()<span class="sc">:&gt;10.2f}</span><span class="ss">"</span>)</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    lean <span class="op">=</span> <span class="st">"right"</span> <span class="cf">if</span> s.skew() <span class="op">&gt;</span> <span class="fl">0.5</span> <span class="cf">else</span> <span class="st">"left"</span> <span class="cf">if</span> s.skew() <span class="op">&lt;</span> <span class="op">-</span><span class="fl">0.5</span> <span class="cf">else</span> <span class="st">"roughly symmetric"</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    tails <span class="op">=</span> <span class="st">"heavy"</span> <span class="cf">if</span> s.kurtosis() <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> <span class="st">"light"</span> <span class="cf">if</span> s.kurtosis() <span class="op">&lt;</span> <span class="op">-</span><span class="dv">1</span> <span class="cf">else</span> <span class="st">"normal-ish"</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  verdict : leans </span><span class="sc">{</span>lean<span class="sc">}</span><span class="ss">; tails are </span><span class="sc">{</span>tails<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"            report the </span><span class="sc">{</span><span class="st">'median'</span> <span class="cf">if</span> <span class="bu">abs</span>(s.skew()) <span class="op">&gt;</span> <span class="fl">0.5</span> <span class="cf">else</span> <span class="st">'mean'</span><span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>three <span class="op">=</span> pd.read_csv(<span class="st">"datasets/three_shapes.csv"</span>)</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>describe_column(three[<span class="st">"income_right_skewed"</span>], <span class="st">"Income"</span>)</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>describe_column(three[<span class="st">"height_symmetric"</span>], <span class="st">"Height (cm)"</span>)</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>describe_column(pd.read_csv(<span class="st">"datasets/incomes_200.csv"</span>)[<span class="st">"income"</span>], <span class="st">"Incomes (200 people)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>── Income ──  (3,000 values)
+  centre  : mean     40,597.2   median     33,871.9   mode    3,197.1
+  spread  : std      28,885.4   IQR        35,248.5   range 248,577.6
+  shape   : skew         1.44   kurtosis       3.14
+  verdict : leans right; tails are heavy
+            report the median
+
+── Height (cm) ──  (3,000 values)
+  centre  : mean        165.2   median        165.0   mode      161.6
+  spread  : std           8.2   IQR            11.0   range      54.8
+  shape   : skew         0.03   kurtosis      -0.06
+  verdict : leans roughly symmetric; tails are normal-ish
+            report the mean
+
+── Incomes (200 people) ──  (200 values)
+  centre  : mean     56,505.1   median     46,136.5   mode   40,792.0
+  spread  : std      50,719.9   IQR        11,325.5   range 325,827.0
+  shape   : skew         4.27   kurtosis      17.82
+  verdict : leans right; tails are heavy
+            report the median
+</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="sec-s07-tasks" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> 🎯 Tasks</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Practise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Task 1 — Predict the gap.</strong> For each, say whether the mean will be above, below or equal to the median: house prices in a city; heights of adult women; number of days patients stay in hospital; marks on a test where most students scored above 90.</p>
+<p><strong>Task 2 — Compare fairly.</strong> A runner finishes a 5 km race in 22 minutes (field mean 25, std 4) and a 10 km race in 50 minutes (field mean 55, std 8). <strong>Which was the better run?</strong></p>
+<p><strong>Task 3 — Choose the bin width.</strong> Run Demo 12 with 6, 20 and 100 bins on data made of <em>three</em> groups instead of two. <strong>Report the smallest number of bins at which all three groups are visible.</strong></p>
+<p><strong>Task 4 — Describe a column.</strong> Use <code>describe_column</code> from Demo 13 on the <code>income</code> series from Demo 7. <strong>Report which measure of centre you would publish and why.</strong></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="74c0930b" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, numpy <span class="im">as</span> np</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 1</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 1"</span>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  house prices           → mean ABOVE median (right-skewed)"</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  heights of adult women → mean EQUAL to median (symmetric)"</span>)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  hospital stay length   → mean ABOVE median (a few very long stays)"</span>)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  marks on an easy test  → mean BELOW median (left-skewed)"</span>)</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — compare with z-scores. Lower time is better, so a NEGATIVE z is good.</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 2  (a faster time is better, so the more negative z wins)"</span>)</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> race, time, mean, std <span class="kw">in</span> [(<span class="st">"5 km"</span>, <span class="dv">22</span>, <span class="dv">25</span>, <span class="dv">4</span>), (<span class="st">"10 km"</span>, <span class="dv">50</span>, <span class="dv">55</span>, <span class="dv">8</span>)]:</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>race<span class="sc">:&lt;6}</span><span class="ss"> z = (</span><span class="sc">{</span>time<span class="sc">}</span><span class="ss"> - </span><span class="sc">{</span>mean<span class="sc">}</span><span class="ss">) / </span><span class="sc">{</span>std<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>(time<span class="op">-</span>mean)<span class="op">/</span>std<span class="sc">:+.2f}</span><span class="ss">"</span>)</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  The 5 km run wins: -0.75 is further below its field average than -0.62."</span>)</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  In raw minutes the 10 km looks like the bigger gap (5 minutes vs 3), but"</span>)</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  that field is more spread out, so 5 minutes buys less there."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Task 1
+  house prices           → mean ABOVE median (right-skewed)
+  heights of adult women → mean EQUAL to median (symmetric)
+  hospital stay length   → mean ABOVE median (a few very long stays)
+  marks on an easy test  → mean BELOW median (left-skewed)
+
+Task 2  (a faster time is better, so the more negative z wins)
+  5 km   z = (22 - 25) / 4 = -0.75
+  10 km  z = (50 - 55) / 8 = -0.62
+  The 5 km run wins: -0.75 is further below its field average than -0.62.
+  In raw minutes the 10 km looks like the bigger gap (5 minutes vs 3), but
+  that field is more spread out, so 5 minutes buys less there.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-s07-mcqs" class="level1" data-number="15">
+<h1 data-number="15"><span class="header-section-number">15</span> ❓ MCQs</h1>
+<p><strong>Q1.</strong> In a neighbourhood, 99 houses cost ₹1 crore and one costs ₹500 crore. Which figure best describes a typical house?</p>
+<ul>
+<li><ol type="a">
+<li>The mean.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>The median.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>The range.</li>
+</ol></li>
+</ul>
+<p><strong>Q2.</strong> Two factories both average 50 defects per week. Factory A’s standard deviation is 2; Factory B’s is 30. What does that tell you?</p>
+<ul>
+<li><ol type="a">
+<li>Factory B produces more.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Factory B is far less predictable — some weeks will be very bad.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Nothing; the averages are the same.</li>
+</ol></li>
+</ul>
+<p><strong>Q3.</strong> A column has mean 82,000 and median 47,000. What shape is it?</p>
+<ul>
+<li><ol type="a">
+<li>Symmetric.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Right-skewed — a tail of large values pulling the mean up.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Left-skewed.</li>
+</ol></li>
+</ul>
+<p><strong>Q4.</strong> Why does Session 3 use the IQR rather than the standard deviation to find outliers?</p>
+<ul>
+<li><ol type="a">
+<li>The IQR is easier to compute.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Outliers inflate the standard deviation, so they hide themselves. They cannot move the quartiles.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>The IQR works on text columns too.</li>
+</ol></li>
+</ul>
+<p><strong>Q5.</strong> Excess kurtosis of +5 means:</p>
+<ul>
+<li><ol type="a">
+<li>The data leans right.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Extreme values happen much more often than a normal distribution predicts.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>The mean is unreliable.</li>
+</ol></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" title="Answers">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Answers
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>A1 — (b).</strong> The mean would be about ₹6 crore — a price no house in the area has.</p>
+<p><strong>A2 — (b).</strong> Same centre, very different spread. Demo 4’s two archers.</p>
+<p><strong>A3 — (b).</strong> Mean above median means a right tail. Demo 9 showed the sign always matching.</p>
+<p><strong>A4 — (b).</strong> Demo 6 measured this: adding one outlier barely moved the IQR and changed the standard deviation completely.</p>
+<p><strong>A5 — (b).</strong> Demo 10 — the heavy-tailed series had several times as many extreme days at identical mean and standard deviation.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="✅ Before you move on">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>✅ Before you move on
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul class="task-list">
+<li><label><input type="checkbox">I can choose between mean, median and mode with a stated reason</label></li>
+<li><label><input type="checkbox">I know why variance is squared and why we take the square root</label></li>
+<li><label><input type="checkbox">I can read a box plot as a five-number summary</label></li>
+<li><label><input type="checkbox">I can compare two values measured on different scales using z-scores</label></li>
+<li><label><input type="checkbox">I check the mean against the median as a quick skewness test</label></li>
+<li><label><input type="checkbox"><strong>Easiest thing to forget:</strong> a centre without a spread is not a summary. Always report both, and look at the histogram before you trust either.</label></li>
+</ul>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../sessions/session-06-data-reduction-and-discretization.html" class="pagination-link" aria-label="Session 6 — Data Reduction and Discretization">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Session 6 — Data Reduction and Discretization</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../sessions/session-08-exploratory-data-analytics-eda-and-visualization.html" class="pagination-link" aria-label="Session 8 — Exploratory Data Analysis and Visualization">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analysis and Visualization</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

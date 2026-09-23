@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>13&nbsp; Session 11 — Model Evaluation – Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../sessions/session-12-model-saving-and-deployment.html" rel="next">
+<link href="../sessions/session-10-unsupervised-learning-techniques-clustering.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-7202036dd3638cbfcbeb4151d116aa42.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-09-supervised-learning-techniques.html">Part D — Learning from data</a></li><li class="breadcrumb-item"><a href="../sessions/session-11-data-model-evaluation.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Session 11 — Model Evaluation</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Data Science</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup-guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Environment Setup Guide</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part A — Getting hold of data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-01-introduction-to-data-science.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 1 — Introduction to Data Science</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-02-data-collection-and-pre-processing-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Session 2 — Data Collection and Pre-Processing Overview</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part B — Making data fit to use</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-03-data-cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Session 3 — Data Cleaning</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-04-data-integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Session 4 — Data Integration</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-05-data-transformation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Session 5 — Data Transformation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-06-data-reduction-and-discretization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Session 6 — Data Reduction and Discretization</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part C — Understanding data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-07-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 7 — Descriptive Statistics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-08-exploratory-data-analytics-eda-and-visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analysis and Visualization</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part D — Learning from data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-09-supervised-learning-techniques.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 9 — Supervised Learning Techniques</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-10-unsupervised-learning-techniques-clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning and Clustering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-11-data-model-evaluation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Session 11 — Model Evaluation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-12-model-saving-and-deployment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Session 12 — Model Saving and Deployment</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part E — Data at scale</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-13-big-data-analytics-fundamentals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Session 13 — Big Data Analytics Fundamentals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-14-distributed-data-processing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 14 — Distributed Data Processing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-15-nosql-databases-and-scaled-visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Visualization at Scale</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-16-open-ended-module-implementation-and-capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Session 16 — Capstone: The End-to-End Project</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-s11-outcomes" id="toc-sec-s11-outcomes" class="nav-link active" data-scroll-target="#sec-s11-outcomes"><span class="header-section-number">13.1</span> 🎯 Learning outcomes</a></li>
+  <li><a href="#sec-s11-organisation" id="toc-sec-s11-organisation" class="nav-link" data-scroll-target="#sec-s11-organisation"><span class="header-section-number">13.2</span> How this chapter is organised</a></li>
+  <li><a href="#sec-s11-a" id="toc-sec-s11-a" class="nav-link" data-scroll-target="#sec-s11-a"><span class="header-section-number">14</span> Part A — The two failures</a>
+  <ul class="collapse">
+  <li><a href="#sec-s11-topic-1" id="toc-sec-s11-topic-1" class="nav-link" data-scroll-target="#sec-s11-topic-1"><span class="header-section-number">14.1</span> 1. Overfitting and underfitting</a>
+  <ul class="collapse">
+  <li><a href="#demo-1-watching-a-model-overfit-in-one-table" id="toc-demo-1-watching-a-model-overfit-in-one-table" class="nav-link" data-scroll-target="#demo-1-watching-a-model-overfit-in-one-table"><span class="header-section-number">14.1.1</span> Demo 1 — watching a model overfit, in one table</a></li>
+  <li><a href="#demo-2-the-same-thing-as-a-picture" id="toc-demo-2-the-same-thing-as-a-picture" class="nav-link" data-scroll-target="#demo-2-the-same-thing-as-a-picture"><span class="header-section-number">14.1.2</span> Demo 2 — the same thing as a picture</a></li>
+  </ul></li>
+  <li><a href="#sec-s11-topic-2" id="toc-sec-s11-topic-2" class="nav-link" data-scroll-target="#sec-s11-topic-2"><span class="header-section-number">14.2</span> 2. Bias and variance</a>
+  <ul class="collapse">
+  <li><a href="#demo-3-variance-made-visible" id="toc-demo-3-variance-made-visible" class="nav-link" data-scroll-target="#demo-3-variance-made-visible"><span class="header-section-number">14.2.1</span> Demo 3 — variance made visible</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s11-b" id="toc-sec-s11-b" class="nav-link" data-scroll-target="#sec-s11-b"><span class="header-section-number">15</span> Part B — Validation strategies</a>
+  <ul class="collapse">
+  <li><a href="#sec-s11-topic-3" id="toc-sec-s11-topic-3" class="nav-link" data-scroll-target="#sec-s11-topic-3"><span class="header-section-number">15.1</span> 3. Why one split is not enough</a>
+  <ul class="collapse">
+  <li><a href="#demo-4-the-same-model-twenty-different-scores" id="toc-demo-4-the-same-model-twenty-different-scores" class="nav-link" data-scroll-target="#demo-4-the-same-model-twenty-different-scores"><span class="header-section-number">15.1.1</span> Demo 4 — the same model, twenty different scores</a></li>
+  </ul></li>
+  <li><a href="#sec-s11-topic-4" id="toc-sec-s11-topic-4" class="nav-link" data-scroll-target="#sec-s11-topic-4"><span class="header-section-number">15.2</span> 4. K-fold cross-validation</a>
+  <ul class="collapse">
+  <li><a href="#demo-5-cross-validation-fold-by-fold" id="toc-demo-5-cross-validation-fold-by-fold" class="nav-link" data-scroll-target="#demo-5-cross-validation-fold-by-fold"><span class="header-section-number">15.2.1</span> Demo 5 — cross-validation, fold by fold</a></li>
+  </ul></li>
+  <li><a href="#sec-s11-topic-5" id="toc-sec-s11-topic-5" class="nav-link" data-scroll-target="#sec-s11-topic-5"><span class="header-section-number">15.3</span> 5. Choosing a validation strategy</a>
+  <ul class="collapse">
+  <li><a href="#demo-6-bootstrapping-for-a-confidence-interval" id="toc-demo-6-bootstrapping-for-a-confidence-interval" class="nav-link" data-scroll-target="#demo-6-bootstrapping-for-a-confidence-interval"><span class="header-section-number">15.3.1</span> Demo 6 — bootstrapping for a confidence interval</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s11-c" id="toc-sec-s11-c" class="nav-link" data-scroll-target="#sec-s11-c"><span class="header-section-number">16</span> Part C — Evaluating with pictures</a>
+  <ul class="collapse">
+  <li><a href="#sec-s11-topic-6" id="toc-sec-s11-topic-6" class="nav-link" data-scroll-target="#sec-s11-topic-6"><span class="header-section-number">16.1</span> 6. What a score cannot tell you</a>
+  <ul class="collapse">
+  <li><a href="#demo-7-the-residual-plot" id="toc-demo-7-the-residual-plot" class="nav-link" data-scroll-target="#demo-7-the-residual-plot"><span class="header-section-number">16.1.1</span> Demo 7 — the residual plot</a></li>
+  </ul></li>
+  <li><a href="#sec-s11-topic-7" id="toc-sec-s11-topic-7" class="nav-link" data-scroll-target="#sec-s11-topic-7"><span class="header-section-number">16.2</span> 7. The distribution of the errors</a>
+  <ul class="collapse">
+  <li><a href="#demo-8-the-error-distribution-and-what-it-reveals" id="toc-demo-8-the-error-distribution-and-what-it-reveals" class="nav-link" data-scroll-target="#demo-8-the-error-distribution-and-what-it-reveals"><span class="header-section-number">16.2.1</span> Demo 8 — the error distribution, and what it reveals</a></li>
+  <li><a href="#demo-9-predicted-versus-actual" id="toc-demo-9-predicted-versus-actual" class="nav-link" data-scroll-target="#demo-9-predicted-versus-actual"><span class="header-section-number">16.2.2</span> Demo 9 — predicted versus actual</a></li>
+  </ul></li>
+  <li><a href="#sec-s11-topic-8" id="toc-sec-s11-topic-8" class="nav-link" data-scroll-target="#sec-s11-topic-8"><span class="header-section-number">16.3</span> 8. Learning curves</a>
+  <ul class="collapse">
+  <li><a href="#demo-10-get-more-data-or-get-a-better-model" id="toc-demo-10-get-more-data-or-get-a-better-model" class="nav-link" data-scroll-target="#demo-10-get-more-data-or-get-a-better-model"><span class="header-section-number">16.3.1</span> Demo 10 — “get more data” or “get a better model”?</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s11-d" id="toc-sec-s11-d" class="nav-link" data-scroll-target="#sec-s11-d"><span class="header-section-number">17</span> Part D — Tuning</a>
+  <ul class="collapse">
+  <li><a href="#sec-s11-topic-9" id="toc-sec-s11-topic-9" class="nav-link" data-scroll-target="#sec-s11-topic-9"><span class="header-section-number">17.1</span> 9. Hyperparameters</a>
+  <ul class="collapse">
+  <li><a href="#demo-11-grid-search-done-correctly" id="toc-demo-11-grid-search-done-correctly" class="nav-link" data-scroll-target="#demo-11-grid-search-done-correctly"><span class="header-section-number">17.1.1</span> Demo 11 — grid search, done correctly</a></li>
+  <li><a href="#demo-12-what-tuning-on-the-test-set-does" id="toc-demo-12-what-tuning-on-the-test-set-does" class="nav-link" data-scroll-target="#demo-12-what-tuning-on-the-test-set-does"><span class="header-section-number">17.1.2</span> Demo 12 — what tuning on the test set does</a></li>
+  <li><a href="#demo-13-the-whole-evaluation-as-one-report" id="toc-demo-13-the-whole-evaluation-as-one-report" class="nav-link" data-scroll-target="#demo-13-the-whole-evaluation-as-one-report"><span class="header-section-number">17.1.3</span> Demo 13 — the whole evaluation, as one report</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s11-tasks" id="toc-sec-s11-tasks" class="nav-link" data-scroll-target="#sec-s11-tasks"><span class="header-section-number">18</span> 🎯 Tasks</a></li>
+  <li><a href="#sec-s11-mcqs" id="toc-sec-s11-mcqs" class="nav-link" data-scroll-target="#sec-s11-mcqs"><span class="header-section-number">19</span> ❓ MCQs</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-09-supervised-learning-techniques.html">Part D — Learning from data</a></li><li class="breadcrumb-item"><a href="../sessions/session-11-data-model-evaluation.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Session 11 — Model Evaluation</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Session 11 — Model Evaluation</span></h1>
+<p class="subtitle lead">Overfitting · Cross-validation · Residual and distribution plots · Tuning</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>This chapter answers one question: is the model’s score real, or did you get lucky?</strong></p>
+<p><strong>Assumed knowledge:</strong> Session 5 — the train–test split and leakage. Session 9 — fitting a regression and reading MAE, RMSE and R².</p>
+<p><strong>The one idea to take away:</strong> <strong>one split is one opinion.</strong> A number from a single train–test split can move by a lot when you change the random seed, and a decision based on a difference smaller than that movement has not been made — it has been guessed.</p>
+</div>
+</div>
+<section id="sec-s11-outcomes" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="sec-s11-outcomes"><span class="header-section-number">13.1</span> 🎯 Learning outcomes</h2>
+<p>By the end of this chapter you can:</p>
+<ol type="1">
+<li>Recognise overfitting and underfitting from training and test scores.</li>
+<li>Explain the bias–variance trade-off in plain words.</li>
+<li>Run k-fold cross-validation and report a score with its spread.</li>
+<li>Choose between holdout, k-fold, stratified k-fold, leave-one-out and bootstrapping.</li>
+<li>Diagnose a model from its residual plot and its error distribution.</li>
+<li>Tune hyperparameters with grid search without touching the test set.</li>
+<li>Explain why tuning on the test set invalidates the result.</li>
+</ol>
+</section>
+<section id="sec-s11-organisation" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="sec-s11-organisation"><span class="header-section-number">13.2</span> How this chapter is organised</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Part</th>
+<th>Question it answers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#sec-s11-a">A — The two failures</a></td>
+<td><em>What are the ways a model goes wrong?</em></td>
+</tr>
+<tr class="even">
+<td><a href="#sec-s11-b">B — Validation strategies</a></td>
+<td><em>How do I get a score I can trust?</em></td>
+</tr>
+<tr class="odd">
+<td><a href="#sec-s11-c">C — Evaluating with pictures</a></td>
+<td><em>What does the score not tell me?</em></td>
+</tr>
+<tr class="even">
+<td><a href="#sec-s11-d">D — Tuning</a></td>
+<td><em>How do I improve it without cheating?</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sec-s11-a" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> Part A — The two failures</h1>
+<section id="sec-s11-topic-1" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="sec-s11-topic-1"><span class="header-section-number">14.1</span> 1. Overfitting and underfitting</h2>
+<p><strong>A model can fail in two opposite directions.</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Underfitting</th>
+<th>Overfitting</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>The model is</td>
+<td>too simple</td>
+<td>too complex</td>
+</tr>
+<tr class="even">
+<td>Training score</td>
+<td><strong>poor</strong></td>
+<td><strong>excellent</strong></td>
+</tr>
+<tr class="odd">
+<td>Test score</td>
+<td><strong>poor</strong></td>
+<td><strong>poor</strong></td>
+</tr>
+<tr class="even">
+<td>It has</td>
+<td>missed the pattern</td>
+<td>memorised the noise</td>
+</tr>
+<tr class="odd">
+<td>Fix by</td>
+<td>adding features, using a richer model</td>
+<td>simplifying, adding data, regularising</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The diagnosis is the gap.</strong> Poor on both means underfitting. Excellent on training and poor on test means overfitting.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — three students revising">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>🧠 Analogy — three students revising
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>The <strong>underfitting</strong> student skimmed one page. They do badly on the practice papers and badly in the exam.</li>
+<li>The <strong>overfitting</strong> student memorised every practice paper word for word. Perfect on practice, lost in the exam when the questions are worded differently.</li>
+<li>The <strong>good</strong> student learned the method. Slightly imperfect on practice, and fine in the exam.</li>
+</ul>
+<p><strong>Only the exam tells them apart</strong> — which is why the test set must stay sealed.</p>
+</div>
+</div>
+<section id="demo-1-watching-a-model-overfit-in-one-table" class="level3" data-number="14.1.1">
+<h3 data-number="14.1.1" class="anchored" data-anchor-id="demo-1-watching-a-model-overfit-in-one-table"><span class="header-section-number">14.1.1</span> Demo 1 — watching a model overfit, in one table</h3>
+<div id="8486016f" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PolynomialFeatures, StandardScaler</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>line <span class="op">=</span> pd.read_csv(<span class="st">"datasets/noisy_line.csv"</span>)   <span class="co"># 40 points on a noisy straight line</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> line[<span class="st">"x"</span>].values, line[<span class="st">"y"</span>].values</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Xtr, Xte, ytr, yte <span class="op">=</span> train_test_split(x.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), y, test_size<span class="op">=</span><span class="fl">.35</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'model'</span><span class="sc">:&lt;14}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'train R²'</span><span class="sc">:&gt;9}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'test R²'</span><span class="sc">:&gt;11}</span><span class="ss">   verdict"</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">52</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> degree <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">12</span>, <span class="dv">16</span>]:</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># StandardScaler between the two steps keeps high powers numerically stable</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> make_pipeline(PolynomialFeatures(degree), StandardScaler(), LinearRegression()).fit(Xtr, ytr)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    tr, te <span class="op">=</span> r2_score(ytr, m.predict(Xtr)), r2_score(yte, m.predict(Xte))</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    verdict <span class="op">=</span> <span class="st">"OVERFITTING"</span> <span class="cf">if</span> tr <span class="op">-</span> te <span class="op">&gt;</span> <span class="fl">0.2</span> <span class="cf">else</span> <span class="st">"reasonable"</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"degree </span><span class="sc">{</span>degree<span class="sc">:&lt;7}</span><span class="ss"> </span><span class="sc">{</span>tr<span class="sc">:&gt;9.3f}</span><span class="ss"> </span><span class="sc">{</span>te<span class="sc">:&gt;11.3f}</span><span class="ss">   </span><span class="sc">{</span>verdict<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>model           train R²     test R²   verdict
+----------------------------------------------------
+degree 1           0.640       0.767   reasonable
+degree 2           0.643       0.746   reasonable
+degree 3           0.647       0.717   reasonable
+degree 5           0.666       0.796   reasonable
+degree 8           0.707      -2.975   OVERFITTING
+degree 12          0.722     -44.941   OVERFITTING
+degree 16          0.717    -187.128   OVERFITTING</code></pre>
+</div>
+</div>
+<p><strong>Watch the two columns separate.</strong> Training R² climbs steadily as the model is given more freedom — it can always bend closer to points it has already seen. The test score peaks around degree 5 and then falls off a cliff: <strong>−45 at degree 12, −187 at degree 16.</strong></p>
+<p>A negative R² means <em>worse than always guessing the average</em>. The degree-16 model fits its training data better than any other model in the table and is, on unseen data, far worse than useless.</p>
+</section>
+<section id="demo-2-the-same-thing-as-a-picture" class="level3" data-number="14.1.2">
+<h3 data-number="14.1.2" class="anchored" data-anchor-id="demo-2-the-same-thing-as-a-picture"><span class="header-section-number">14.1.2</span> Demo 2 — the same thing as a picture</h3>
+<div id="cell-fig-s11-overfit" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PolynomialFeatures</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">300</span>).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="fl">3.2</span>))</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, degree <span class="kw">in</span> <span class="bu">zip</span>(axes, [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">14</span>]):</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> make_pipeline(PolynomialFeatures(degree), LinearRegression()).fit(Xtr, ytr)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    ax.scatter(Xtr, ytr, s<span class="op">=</span><span class="dv">18</span>, label<span class="op">=</span><span class="st">"training"</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    ax.scatter(Xte, yte, s<span class="op">=</span><span class="dv">18</span>, color<span class="op">=</span><span class="st">"orange"</span>, label<span class="op">=</span><span class="st">"test"</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    ax.plot(grid, m.predict(grid), <span class="st">"r-"</span>, lw<span class="op">=</span><span class="fl">1.8</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    ax.set_ylim(y.<span class="bu">min</span>()<span class="op">-</span><span class="dv">6</span>, y.<span class="bu">max</span>()<span class="op">+</span><span class="dv">6</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"degree </span><span class="sc">{</span>degree<span class="sc">}</span><span class="ss">"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Degree 14 passes almost exactly through the blue training points — and swings"</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"wildly between them, which is where the orange test points live."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s11-overfit" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s11-overfit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-11-data-model-evaluation_files/figure-html/fig-s11-overfit-output-1.png" width="1309" height="341" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s11-overfit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14.1: Degree 1 misses the pattern. Degree 14 passes through every training point and is useless between them.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Degree 14 passes almost exactly through the blue training points — and swings
+wildly between them, which is where the orange test points live.</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s11-topic-2" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="sec-s11-topic-2"><span class="header-section-number">14.2</span> 2. Bias and variance</h2>
+<p><strong>These are the technical names for the two failures.</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Means</th>
+<th>Shows up as</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Bias</strong></td>
+<td>error from wrong assumptions — the model is too simple to represent the truth</td>
+<td>underfitting</td>
+</tr>
+<tr class="even">
+<td><strong>Variance</strong></td>
+<td>error from sensitivity to the particular training data</td>
+<td>overfitting</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The trade-off:</strong> making a model more flexible reduces bias and increases variance. There is a middle point, and finding it is what the rest of this chapter is for.</p>
+<section id="demo-3-variance-made-visible" class="level3" data-number="14.2.1">
+<h3 data-number="14.2.1" class="anchored" data-anchor-id="demo-3-variance-made-visible"><span class="header-section-number">14.2.1</span> Demo 3 — variance made visible</h3>
+<div id="cell-fig-s11-variance" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PolynomialFeatures</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>samples <span class="op">=</span> pd.read_csv(<span class="st">"datasets/repeated_samples.csv"</span>)   <span class="co"># six draws from the same truth</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">200</span>).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="fl">3.3</span>))</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> degree, a <span class="kw">in</span> <span class="bu">zip</span>([<span class="dv">1</span>, <span class="dv">12</span>], ax):</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> sample_id, g <span class="kw">in</span> samples.groupby(<span class="st">"sample"</span>):</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        xs, ys <span class="op">=</span> g[<span class="st">"x"</span>].values, g[<span class="st">"y"</span>].values</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> make_pipeline(PolynomialFeatures(degree), LinearRegression()).fit(xs.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>), ys)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        a.plot(grid, m.predict(grid), lw<span class="op">=</span><span class="fl">1.2</span>, alpha<span class="op">=</span><span class="fl">.8</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    a.set_ylim(<span class="op">-</span><span class="dv">10</span>, <span class="dv">30</span>)<span class="op">;</span> a.set_title(<span class="ss">f"degree </span><span class="sc">{</span>degree<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span><span class="st">'low'</span> <span class="cf">if</span> degree<span class="op">==</span><span class="dv">1</span> <span class="cf">else</span> <span class="st">'high'</span><span class="sc">}</span><span class="ss"> variance"</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Left: six nearly identical lines — low variance, the model is stable."</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Right: six wildly different curves from the same underlying truth —"</span>)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"       high variance. Which one you get depends on which rows you happened to draw."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s11-variance" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s11-variance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-11-data-model-evaluation_files/figure-html/fig-s11-variance-output-1.png" width="1089" height="352" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s11-variance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14.2: The same model fitted to six different samples from the same source. The flexible model changes shape wildly; the simple one barely moves.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Left: six nearly identical lines — low variance, the model is stable.
+Right: six wildly different curves from the same underlying truth —
+       high variance. Which one you get depends on which rows you happened to draw.</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="sec-s11-b" class="level1" data-number="15">
+<h1 data-number="15"><span class="header-section-number">15</span> Part B — Validation strategies</h1>
+<section id="sec-s11-topic-3" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="sec-s11-topic-3"><span class="header-section-number">15.1</span> 3. Why one split is not enough</h2>
+<p><strong>A single train–test split gives you one number, and that number depends on which rows happened to land in the test set.</strong></p>
+<section id="demo-4-the-same-model-twenty-different-scores" class="level3" data-number="15.1.1">
+<h3 data-number="15.1.1" class="anchored" data-anchor-id="demo-4-the-same-model-twenty-different-scores"><span class="header-section-number">15.1.1</span> Demo 4 — the same model, twenty different scores</h3>
+<div id="3ea42510" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>feats <span class="op">=</span> pd.read_csv(<span class="st">"datasets/three_features.csv"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> feats[[<span class="st">"f1"</span>, <span class="st">"f2"</span>, <span class="st">"f3"</span>]].values</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> feats[<span class="st">"target"</span>].values</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> []</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> seed <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">20</span>):</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    Xtr, Xte, ytr, yte <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">.3</span>, random_state<span class="op">=</span>seed)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    scores.append(r2_score(yte, LinearRegression().fit(Xtr, ytr).predict(Xte)))</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> np.array(scores)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"lowest  R² : </span><span class="sc">{</span>scores<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"highest R² : </span><span class="sc">{</span>scores<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"spread     : </span><span class="sc">{</span>scores<span class="sc">.</span><span class="bu">max</span>()<span class="op">-</span>scores<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"average    : </span><span class="sc">{</span>scores<span class="sc">.</span>mean()<span class="sc">:.3f}</span><span class="ss">  (± </span><span class="sc">{</span>scores<span class="sc">.</span>std()<span class="sc">:.3f}</span><span class="ss">)"</span>)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Same model, same data, same code. Only the random seed changed."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lowest  R² : 0.556
+highest R² : 0.795
+spread     : 0.239
+average    : 0.695  (± 0.063)
+
+Same model, same data, same code. Only the random seed changed.</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Report a range, not a point">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Report a range, not a point
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If your model scores 0.71 and a colleague’s scores 0.74, and single splits vary by 0.15, <strong>you have not shown that yours is worse.</strong> You have shown two draws from overlapping ranges.</p>
+<p><strong>Any comparison of two models must use the same folds and account for the spread.</strong></p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s11-topic-4" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="sec-s11-topic-4"><span class="header-section-number">15.2</span> 4. K-fold cross-validation</h2>
+<p><strong>Cross-validation splits the data into <em>k</em> parts, then trains <em>k</em> times — each time holding out a different part for testing.</strong> Every row is used for testing exactly once.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+    D["all training data, split into 5 folds"]
+    D --&gt; R1["run 1: test on fold 1, train on 2,3,4,5"]
+    D --&gt; R2["run 2: test on fold 2, train on 1,3,4,5"]
+    D --&gt; R3["run 3: test on fold 3, train on 1,2,4,5"]
+    D --&gt; R4["run 4: test on fold 4, train on 1,2,3,5"]
+    D --&gt; R5["run 5: test on fold 5, train on 1,2,3,4"]
+    R1 --&gt; A["average the 5 scores&lt;br/&gt;&lt;b&gt;and report the spread&lt;/b&gt;"]
+    R2 --&gt; A
+    R3 --&gt; A
+    R4 --&gt; A
+    R5 --&gt; A
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<section id="demo-5-cross-validation-fold-by-fold" class="level3" data-number="15.2.1">
+<h3 data-number="15.2.1" class="anchored" data-anchor-id="demo-5-cross-validation-fold-by-fold"><span class="header-section-number">15.2.1</span> Demo 5 — cross-validation, fold by fold</h3>
+<div id="2a264c07" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score, KFold</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>cv <span class="op">=</span> KFold(<span class="dv">5</span>, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>fold_scores <span class="op">=</span> cross_val_score(LinearRegression(), X, y, cv<span class="op">=</span>cv, scoring<span class="op">=</span><span class="st">"r2"</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, s <span class="kw">in</span> <span class="bu">enumerate</span>(fold_scores, <span class="dv">1</span>):</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  fold </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">: R² = </span><span class="sc">{</span>s<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">report this: R² = </span><span class="sc">{</span>fold_scores<span class="sc">.</span>mean()<span class="sc">:.3f}</span><span class="ss"> ± </span><span class="sc">{</span>fold_scores<span class="sc">.</span>std()<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"a single split could have given you anything from </span><span class="sc">{</span>fold_scores<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:.3f}</span><span class="ss"> "</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"to </span><span class="sc">{</span>fold_scores<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  fold 1: R² = 0.703
+  fold 2: R² = 0.802
+  fold 3: R² = 0.729
+  fold 4: R² = 0.732
+  fold 5: R² = 0.656
+
+report this: R² = 0.724 ± 0.047
+a single split could have given you anything from 0.656 to 0.802</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s11-topic-5" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="sec-s11-topic-5"><span class="header-section-number">15.3</span> 5. Choosing a validation strategy</h2>
+<div id="074e16b5" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'strategy'</span><span class="sc">:&lt;24}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'how it works'</span><span class="sc">:&lt;44}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'use when'</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">108</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> [</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Holdout"</span>,           <span class="st">"one split, e.g. 80/20"</span>,                      <span class="st">"data is huge; you need a quick answer"</span>),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"K-fold"</span>,            <span class="st">"k splits, every row tested once"</span>,            <span class="st">"the default"</span>),</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Stratified k-fold"</span>, <span class="st">"k-fold keeping class proportions"</span>,           <span class="st">"classification, especially imbalanced"</span>),</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Leave-one-out"</span>,     <span class="st">"k = number of rows"</span>,                         <span class="st">"very small datasets; expensive"</span>),</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Bootstrapping"</span>,     <span class="st">"sample with replacement, many times"</span>,        <span class="st">"you want a confidence interval"</span>),</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Time-series split"</span>, <span class="st">"always train on the past, test on the future"</span>,<span class="st">"the rows are ordered in time"</span>),</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> rows:</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>r[<span class="dv">0</span>]<span class="sc">:&lt;24}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="dv">1</span>]<span class="sc">:&lt;44}</span><span class="ss"> </span><span class="sc">{</span>r[<span class="dv">2</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>strategy                 how it works                                 use when
+------------------------------------------------------------------------------------------------------------
+Holdout                  one split, e.g. 80/20                        data is huge; you need a quick answer
+K-fold                   k splits, every row tested once              the default
+Stratified k-fold        k-fold keeping class proportions             classification, especially imbalanced
+Leave-one-out            k = number of rows                           very small datasets; expensive
+Bootstrapping            sample with replacement, many times          you want a confidence interval
+Time-series split        always train on the past, test on the future the rows are ordered in time</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Never shuffle time-ordered data">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Never shuffle time-ordered data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ordinary k-fold shuffles rows, so a model can be trained on <strong>next month</strong> and tested on <strong>last month</strong>. It will look excellent and be worthless, because in production the future is not available. <strong>For anything with a time order, use <code>TimeSeriesSplit</code>.</strong></p>
+</div>
+</div>
+<section id="demo-6-bootstrapping-for-a-confidence-interval" class="level3" data-number="15.3.1">
+<h3 data-number="15.3.1" class="anchored" data-anchor-id="demo-6-bootstrapping-for-a-confidence-interval"><span class="header-section-number">15.3.1</span> Demo 6 — bootstrapping for a confidence interval</h3>
+<div id="f9b2c854" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">54</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>boot_scores <span class="op">=</span> []</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">500</span>):</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    idx <span class="op">=</span> rng.integers(<span class="dv">0</span>, <span class="bu">len</span>(X), <span class="bu">len</span>(X))               <span class="co"># sample rows WITH replacement</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    oob <span class="op">=</span> np.setdiff1d(np.arange(<span class="bu">len</span>(X)), idx)          <span class="co"># rows not drawn = the test set</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(oob) <span class="op">&lt;</span> <span class="dv">5</span>:</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> LinearRegression().fit(X[idx], y[idx])</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    boot_scores.append(r2_score(y[oob], m.predict(X[oob])))</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>lo, hi <span class="op">=</span> np.percentile(boot_scores, [<span class="fl">2.5</span>, <span class="fl">97.5</span>])</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"bootstrap estimate of R²: </span><span class="sc">{</span>np<span class="sc">.</span>mean(boot_scores)<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"95% confidence interval : </span><span class="sc">{</span>lo<span class="sc">:.3f}</span><span class="ss"> to </span><span class="sc">{</span>hi<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Based on </span><span class="sc">{</span><span class="bu">len</span>(boot_scores)<span class="sc">}</span><span class="ss"> resamples. Quote the interval, not the point."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>bootstrap estimate of R²: 0.705
+95% confidence interval : 0.562 to 0.802
+
+Based on 500 resamples. Quote the interval, not the point.</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="sec-s11-c" class="level1" data-number="16">
+<h1 data-number="16"><span class="header-section-number">16</span> Part C — Evaluating with pictures</h1>
+<section id="sec-s11-topic-6" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="sec-s11-topic-6"><span class="header-section-number">16.1</span> 6. What a score cannot tell you</h2>
+<p><strong>A single number compresses every mistake into one figure, and hides where the mistakes are.</strong> Two models with identical R² can be wrong in completely different ways.</p>
+<section id="demo-7-the-residual-plot" class="level3" data-number="16.1.1">
+<h3 data-number="16.1.1" class="anchored" data-anchor-id="demo-7-the-residual-plot"><span class="header-section-number">16.1.1</span> Demo 7 — the residual plot</h3>
+<div id="cell-fig-s11-residuals" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>rc <span class="op">=</span> pd.read_csv(<span class="st">"datasets/residual_cases.csv"</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>xs <span class="op">=</span> rc[<span class="st">"x"</span>].values</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>cases <span class="op">=</span> {</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Healthy"</span>:         rc[<span class="st">"healthy"</span>].values,</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Missing a curve"</span>: rc[<span class="st">"curved"</span>].values,</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Growing error"</span>:   rc[<span class="st">"growing_error"</span>].values,</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="fl">3.2</span>))</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, (name, yy) <span class="kw">in</span> <span class="bu">zip</span>(axes, cases.items()):</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> LinearRegression().fit(xs.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>), yy)</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> m.predict(xs.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    ax.scatter(pred, yy <span class="op">-</span> pred, s<span class="op">=</span><span class="dv">9</span>, alpha<span class="op">=</span><span class="fl">.6</span>)</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>    ax.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">"red"</span>, lw<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">\n</span><span class="ss">R² = </span><span class="sc">{</span>m<span class="sc">.</span>score(xs.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>), yy)<span class="sc">:.3f}</span><span class="ss">"</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"predicted"</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">"residual"</span>)</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"All three have a respectable R². Only the first is a model you should ship."</span>)</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  curve  → the relationship is not linear; the model is systematically wrong"</span>)</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"           at both ends and systematically right in the middle"</span>)</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  fan    → the model is reliable for small predictions and unreliable for large"</span>)</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"           ones. A single R² averages those two very different situations."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s11-residuals" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s11-residuals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-11-data-model-evaluation_files/figure-html/fig-s11-residuals-output-1.png" width="1309" height="340" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s11-residuals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;16.1: Predicted versus residual. A healthy model shows a shapeless band around zero.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>All three have a respectable R². Only the first is a model you should ship.
+  curve  → the relationship is not linear; the model is systematically wrong
+           at both ends and systematically right in the middle
+  fan    → the model is reliable for small predictions and unreliable for large
+           ones. A single R² averages those two very different situations.</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s11-topic-7" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="sec-s11-topic-7"><span class="header-section-number">16.2</span> 7. The distribution of the errors</h2>
+<p><strong>Plotting the errors themselves shows whether the model is biased and how bad the worst cases are.</strong></p>
+<section id="demo-8-the-error-distribution-and-what-it-reveals" class="level3" data-number="16.2.1">
+<h3 data-number="16.2.1" class="anchored" data-anchor-id="demo-8-the-error-distribution-and-what-it-reveals"><span class="header-section-number">16.2.1</span> Demo 8 — the error distribution, and what it reveals</h3>
+<div id="cell-fig-s11-errordist" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>shapes <span class="op">=</span> pd.read_csv(<span class="st">"datasets/error_shapes.csv"</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>Xa <span class="op">=</span> shapes[[<span class="st">"f1"</span>, <span class="st">"f2"</span>]].values</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>good_y <span class="op">=</span> shapes[<span class="st">"target_normal"</span>].values</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>skew_y <span class="op">=</span> shapes[<span class="st">"target_heavy"</span>].values     <span class="co"># heavy tails: rare, very large errors</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="fl">3.2</span>))</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a, (name, yy) <span class="kw">in</span> <span class="bu">zip</span>(ax, [(<span class="st">"Healthy errors"</span>, good_y), (<span class="st">"Heavy-tailed errors"</span>, skew_y)]):</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    Xtr, Xte, ytr, yte <span class="op">=</span> train_test_split(Xa, yy, test_size<span class="op">=</span><span class="fl">.3</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    err <span class="op">=</span> yte <span class="op">-</span> LinearRegression().fit(Xtr, ytr).predict(Xte)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    a.hist(err, bins<span class="op">=</span><span class="dv">40</span>)<span class="op">;</span> a.axvline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">"red"</span>)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    a.set_title(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">\n</span><span class="ss">mean error </span><span class="sc">{</span>err<span class="sc">.</span>mean()<span class="sc">:+.2f}</span><span class="ss">, worst </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">abs</span>(err)<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.1f}</span><span class="ss">"</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    a.set_xlabel(<span class="st">"error"</span>)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Both models have a mean error near zero — they are unbiased on average."</span>)</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The right-hand one still has occasional predictions that are badly wrong."</span>)</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"If a single bad prediction is expensive, the average was never the right measure."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s11-errordist" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s11-errordist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-11-data-model-evaluation_files/figure-html/fig-s11-errordist-output-1.png" width="1089" height="340" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s11-errordist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;16.2: Left: errors centred on zero and symmetric — healthy. Right: a long tail, so a few predictions are badly wrong.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Both models have a mean error near zero — they are unbiased on average.
+The right-hand one still has occasional predictions that are badly wrong.
+If a single bad prediction is expensive, the average was never the right measure.</code></pre>
+</div>
+</div>
+</section>
+<section id="demo-9-predicted-versus-actual" class="level3" data-number="16.2.2">
+<h3 data-number="16.2.2" class="anchored" data-anchor-id="demo-9-predicted-versus-actual"><span class="header-section-number">16.2.2</span> Demo 9 — predicted versus actual</h3>
+<div id="cell-fig-s11-predvsactual" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>Xtr, Xte, ytr, yte <span class="op">=</span> train_test_split(Xa, good_y, test_size<span class="op">=</span><span class="fl">.3</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> LinearRegression().fit(Xtr, ytr).predict(Xte)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>plt.scatter(yte, pred, s<span class="op">=</span><span class="dv">12</span>, alpha<span class="op">=</span><span class="fl">.6</span>)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>lims <span class="op">=</span> [<span class="bu">min</span>(yte.<span class="bu">min</span>(), pred.<span class="bu">min</span>()), <span class="bu">max</span>(yte.<span class="bu">max</span>(), pred.<span class="bu">max</span>())]</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>plt.plot(lims, lims, <span class="st">"r--"</span>, lw<span class="op">=</span><span class="fl">1.5</span>, label<span class="op">=</span><span class="st">"perfect prediction"</span>)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"actual"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"predicted"</span>)<span class="op">;</span> plt.legend()</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Points above the line: the model predicted too high. Below: too low."</span>)</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"A systematic tilt away from the diagonal means the model is biased at one end."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s11-predvsactual" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s11-predvsactual-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-11-data-model-evaluation_files/figure-html/fig-s11-predvsactual-output-1.png" width="684" height="408" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s11-predvsactual-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;16.3: Predicted against actual. Perfect predictions lie on the diagonal.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Points above the line: the model predicted too high. Below: too low.
+A systematic tilt away from the diagonal means the model is biased at one end.</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s11-topic-8" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="sec-s11-topic-8"><span class="header-section-number">16.3</span> 8. Learning curves</h2>
+<p><strong>A learning curve shows the score as training data increases. It tells you what to do next.</strong></p>
+<section id="demo-10-get-more-data-or-get-a-better-model" class="level3" data-number="16.3.1">
+<h3 data-number="16.3.1" class="anchored" data-anchor-id="demo-10-get-more-data-or-get-a-better-model"><span class="header-section-number">16.3.1</span> Demo 10 — “get more data” or “get a better model”?</h3>
+<div id="cell-fig-s11-learning" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> learning_curve</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeRegressor</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>curved <span class="op">=</span> pd.read_csv(<span class="st">"datasets/curved_truth.csv"</span>)      <span class="co"># the truth here is a curve</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>Xb <span class="op">=</span> curved[[<span class="st">"f1"</span>, <span class="st">"f2"</span>]].values</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>yb <span class="op">=</span> curved[<span class="st">"target"</span>].values</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">3.3</span>))</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a, (name, model) <span class="kw">in</span> <span class="bu">zip</span>(ax, [(<span class="st">"Too simple (linear)"</span>, LinearRegression()),</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>                                 (<span class="st">"Flexible (deep tree)"</span>, DecisionTreeRegressor(random_state<span class="op">=</span><span class="dv">0</span>))]):</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    sizes, train_s, val_s <span class="op">=</span> learning_curve(model, Xb, yb, cv<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>                                           train_sizes<span class="op">=</span>np.linspace(<span class="fl">.1</span>, <span class="dv">1</span>, <span class="dv">8</span>), scoring<span class="op">=</span><span class="st">"r2"</span>)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    a.plot(sizes, train_s.mean(<span class="dv">1</span>), <span class="st">"o-"</span>, label<span class="op">=</span><span class="st">"training score"</span>)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    a.plot(sizes, val_s.mean(<span class="dv">1</span>), <span class="st">"o-"</span>, label<span class="op">=</span><span class="st">"validation score"</span>)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    a.set_title(name, fontsize<span class="op">=</span><span class="dv">10</span>)<span class="op">;</span> a.set_xlabel(<span class="st">"training rows"</span>)<span class="op">;</span> a.set_ylim(<span class="op">-</span><span class="fl">.1</span>, <span class="fl">1.05</span>)</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    a.legend(fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"LEFT — both curves flat and low, sitting on top of each other:"</span>)</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"       the model is too simple. More data changes nothing. Change the model."</span>)</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"RIGHT — a gap between the curves that is still narrowing:"</span>)</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"       the model is learning. More data would still help."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s11-learning" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s11-learning-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-11-data-model-evaluation_files/figure-html/fig-s11-learning-output-1.png" width="1198" height="352" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s11-learning-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;16.4: Left: the curves converge at a poor score — more data will not help. Right: a gap that is still closing — more data will help.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>LEFT — both curves flat and low, sitting on top of each other:
+       the model is too simple. More data changes nothing. Change the model.
+RIGHT — a gap between the curves that is still narrowing:
+       the model is learning. More data would still help.</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="sec-s11-d" class="level1" data-number="17">
+<h1 data-number="17"><span class="header-section-number">17</span> Part D — Tuning</h1>
+<section id="sec-s11-topic-9" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="sec-s11-topic-9"><span class="header-section-number">17.1</span> 9. Hyperparameters</h2>
+<p><strong>A hyperparameter is a setting you choose before training</strong> — the depth of a tree, the <em>k</em> in k-Nearest Neighbours, the strength of a regularisation penalty. The model learns its coefficients; it does not learn these.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>How it searches</th>
+<th>Use when</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Grid search</strong></td>
+<td>every combination you list</td>
+<td>few settings, small ranges</td>
+</tr>
+<tr class="even">
+<td><strong>Random search</strong></td>
+<td>random combinations, a fixed budget</td>
+<td>many settings — usually beats grid for the same cost</td>
+</tr>
+<tr class="odd">
+<td><strong>Bayesian optimisation</strong></td>
+<td>uses past results to choose what to try next</td>
+<td>training is expensive</td>
+</tr>
+</tbody>
+</table>
+<section id="demo-11-grid-search-done-correctly" class="level3" data-number="17.1.1">
+<h3 data-number="17.1.1" class="anchored" data-anchor-id="demo-11-grid-search-done-correctly"><span class="header-section-number">17.1.1</span> Demo 11 — grid search, done correctly</h3>
+<div id="5482103e" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeRegressor</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV, train_test_split</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>Xtr, Xte, ytr, yte <span class="op">=</span> train_test_split(Xb, yb, test_size<span class="op">=</span><span class="fl">.25</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> GridSearchCV(</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    DecisionTreeRegressor(random_state<span class="op">=</span><span class="dv">0</span>),</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    param_grid<span class="op">=</span>{<span class="st">"max_depth"</span>: [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">12</span>, <span class="va">None</span>],</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>                <span class="st">"min_samples_leaf"</span>: [<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">20</span>]},</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    cv<span class="op">=</span><span class="dv">5</span>, scoring<span class="op">=</span><span class="st">"r2"</span>,</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>grid.fit(Xtr, ytr)          <span class="co"># note: only the TRAINING data goes in here</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"combinations tried : </span><span class="sc">{</span><span class="bu">len</span>(grid.cv_results_[<span class="st">'params'</span>])<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"best settings      : </span><span class="sc">{</span>grid<span class="sc">.</span>best_params_<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"best CV score      : </span><span class="sc">{</span>grid<span class="sc">.</span>best_score_<span class="sc">:.3f}</span><span class="ss">   (measured on the training folds)"</span>)</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"score on the sealed test set: </span><span class="sc">{</span>r2_score(yte, grid.predict(Xte))<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>combinations tried : 18
+best settings      : {'max_depth': 12, 'min_samples_leaf': 1}
+best CV score      : 0.944   (measured on the training folds)
+score on the sealed test set: 0.945</code></pre>
+</div>
+</div>
+<p><strong>The test set was used exactly once, at the very end.</strong> The search compared 18 combinations using cross-validation <em>inside</em> the training data.</p>
+</section>
+<section id="demo-12-what-tuning-on-the-test-set-does" class="level3" data-number="17.1.2">
+<h3 data-number="17.1.2" class="anchored" data-anchor-id="demo-12-what-tuning-on-the-test-set-does"><span class="header-section-number">17.1.2</span> Demo 12 — what tuning on the test set does</h3>
+<p>The damage from peeking is <strong>selection bias</strong>: when you try many candidates and keep the one that scored highest, the score you kept is partly a measure of luck. Here the signal is genuinely weak, so the candidates are nearly equivalent and “best” is mostly noise — which is exactly the situation where peeking hurts most.</p>
+<div id="dd0b41cc" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeRegressor</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>weak <span class="op">=</span> pd.read_csv(<span class="st">"datasets/weak_signal.csv"</span>)   <span class="co"># one real driver, buried in noise</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>Xw <span class="op">=</span> weak[[<span class="ss">f"f</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>)]].values</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>yw <span class="op">=</span> weak[<span class="st">"target"</span>].values</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>Xtr, Xtmp, ytr, ytmp <span class="op">=</span> train_test_split(Xw, yw, test_size<span class="op">=</span><span class="fl">.4</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>Xpeek, Xfresh, ypeek, yfresh <span class="op">=</span> train_test_split(Xtmp, ytmp, test_size<span class="op">=</span><span class="fl">.5</span>, random_state<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>candidates <span class="op">=</span> [(d, leaf) <span class="cf">for</span> d <span class="kw">in</span> [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">12</span>, <span class="va">None</span>]</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">for</span> leaf <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">80</span>]]</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> score_on(Xset, yset, depth, leaf):</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> DecisionTreeRegressor(max_depth<span class="op">=</span>depth, min_samples_leaf<span class="op">=</span>leaf, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> r2_score(yset, m.fit(Xtr, ytr).predict(Xset))</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>peeked <span class="op">=</span> {c: score_on(Xpeek, ypeek, <span class="op">*</span>c) <span class="cf">for</span> c <span class="kw">in</span> candidates}</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>best <span class="op">=</span> <span class="bu">max</span>(peeked, key<span class="op">=</span>peeked.get)</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"settings tried            : </span><span class="sc">{</span><span class="bu">len</span>(candidates)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"best score while peeking  : </span><span class="sc">{</span>peeked[best]<span class="sc">:+.3f}</span><span class="ss">   (max_depth=</span><span class="sc">{</span>best[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">, min_samples_leaf=</span><span class="sc">{</span>best[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"that same model, fresh data: </span><span class="sc">{</span>score_on(Xfresh, yfresh, <span class="op">*</span>best)<span class="sc">:+.3f}</span><span class="ss">"</span>)</span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">flattery                  : </span><span class="sc">{</span>peeked[best] <span class="op">-</span> score_on(Xfresh, yfresh, <span class="op">*</span>best)<span class="sc">:+.3f}</span><span class="ss">"</span>)</span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"average candidate, peek set : </span><span class="sc">{</span>np<span class="sc">.</span>mean(<span class="bu">list</span>(peeked.values()))<span class="sc">:+.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>settings tried            : 56
+best score while peeking  : +0.084   (max_depth=2, min_samples_leaf=80)
+that same model, fresh data: -0.204
+
+flattery                  : +0.288
+average candidate, peek set : -0.189</code></pre>
+</div>
+</div>
+<p><strong>The reported figure was positive. The truth was negative.</strong> Nothing about that model was good — it was simply the luckiest of 56 draws against one small set of rows, and the score that made it look best was the part that would not repeat.</p>
+<p>Note that the <em>average</em> candidate scored badly on the peek set too. The problem is not that the models were good and got worse; it is that <strong>taking the maximum over many noisy measurements returns an inflated measurement.</strong></p>
+<div class="callout callout-style-default callout-important callout-titled" title="🔓 The test set is spent after one use">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>🔓 The test set is spent after one use
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Every time you look at the test score and change something because of it, you leak a little information into your choices. Do it twenty times and the test set has quietly become a second training set.</p>
+<p><strong>The discipline:</strong></p>
+<ol type="1">
+<li>Split off the test set and <strong>do not touch it</strong></li>
+<li>Do all tuning with cross-validation on the training data</li>
+<li>Look at the test set <strong>once</strong>, at the very end, and report what it says</li>
+<li>If you then change the model, you need a fresh test set</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="demo-13-the-whole-evaluation-as-one-report" class="level3" data-number="17.1.3">
+<h3 data-number="17.1.3" class="anchored" data-anchor-id="demo-13-the-whole-evaluation-as-one-report"><span class="header-section-number">17.1.3</span> Demo 13 — the whole evaluation, as one report</h3>
+<div id="a050d598" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyRegressor</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score, KFold, train_test_split</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error, r2_score</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>Xtr, Xte, ytr, yte <span class="op">=</span> train_test_split(Xb, yb, test_size<span class="op">=</span><span class="fl">.25</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>cv <span class="op">=</span> KFold(<span class="dv">5</span>, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, model <span class="kw">in</span> [(<span class="st">"Baseline (mean)"</span>, DummyRegressor()),</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>                    (<span class="st">"Linear regression"</span>, LinearRegression()),</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>                    (<span class="st">"Random forest"</span>, RandomForestRegressor(n_estimators<span class="op">=</span><span class="dv">120</span>, random_state<span class="op">=</span><span class="dv">0</span>))]:</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>    folds <span class="op">=</span> cross_val_score(model, Xtr, ytr, cv<span class="op">=</span>cv, scoring<span class="op">=</span><span class="st">"r2"</span>)</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>    model.fit(Xtr, ytr)</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> model.predict(Xte)</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:&lt;20}</span><span class="ss"> CV R² </span><span class="sc">{</span>folds<span class="sc">.</span>mean()<span class="sc">:&gt;6.3f}</span><span class="ss"> ± </span><span class="sc">{</span>folds<span class="sc">.</span>std()<span class="sc">:.3f}</span><span class="ss">   "</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"test R² </span><span class="sc">{</span>r2_score(yte, pred)<span class="sc">:&gt;6.3f}</span><span class="ss">   test MAE </span><span class="sc">{</span>mean_absolute_error(yte, pred)<span class="sc">:&gt;5.2f}</span><span class="ss">"</span>)</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">The forest wins, and the ± tells you the win is larger than the fold-to-fold noise."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Baseline (mean)      CV R² -0.010 ± 0.009   test R² -0.000   test MAE  3.02
+Linear regression    CV R²  0.375 ± 0.053   test R²  0.514   test MAE  2.06
+Random forest        CV R²  0.972 ± 0.006   test R²  0.969   test MAE  0.47
+
+The forest wins, and the ± tells you the win is larger than the fold-to-fold noise.</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="sec-s11-tasks" class="level1" data-number="18">
+<h1 data-number="18"><span class="header-section-number">18</span> 🎯 Tasks</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Practise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Task 1 — Find the sweet spot.</strong> In Demo 1, add degrees 3, 4, 6 and 7. <strong>Report which degree has the best test R², and how far the training score has run ahead of it there.</strong></p>
+<p><strong>Task 2 — Measure the spread.</strong> Run Demo 4 with 100 seeds instead of 20. <strong>Report the standard deviation, and state the smallest score difference you would be willing to call a real difference.</strong></p>
+<p><strong>Task 3 — Diagnose.</strong> For each pair, say overfitting, underfitting or healthy: train 0.95 / test 0.93; train 0.99 / test 0.52; train 0.44 / test 0.42; train 0.72 / test 0.70.</p>
+<p><strong>Task 4 — Tune honestly.</strong> Grid-search a <code>RandomForestRegressor</code> over <code>max_depth</code> and <code>n_estimators</code> using cross-validation on the training set only, then report the test score once.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="819c2032" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 3"</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> tr, te <span class="kw">in</span> [(<span class="fl">0.95</span>, <span class="fl">0.93</span>), (<span class="fl">0.99</span>, <span class="fl">0.52</span>), (<span class="fl">0.44</span>, <span class="fl">0.42</span>), (<span class="fl">0.72</span>, <span class="fl">0.70</span>)]:</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> tr <span class="op">-</span> te <span class="op">&gt;</span> <span class="fl">0.2</span>:            v <span class="op">=</span> <span class="st">"OVERFITTING — big gap"</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> tr <span class="op">&lt;</span> <span class="fl">0.6</span>:               v <span class="op">=</span> <span class="st">"UNDERFITTING — poor on both"</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:                        v <span class="op">=</span> <span class="st">"healthy — good, and the gap is small"</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  train </span><span class="sc">{</span>tr<span class="sc">:.2f}</span><span class="ss"> / test </span><span class="sc">{</span>te<span class="sc">:.2f}</span><span class="ss">  → </span><span class="sc">{</span>v<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — how big must a difference be before it means anything?</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>feats <span class="op">=</span> pd.read_csv(<span class="st">"datasets/three_features.csv"</span>)</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> feats[[<span class="st">"f1"</span>, <span class="st">"f2"</span>, <span class="st">"f3"</span>]].values<span class="op">;</span> y <span class="op">=</span> feats[<span class="st">"target"</span>].values</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> np.array([r2_score(<span class="op">*</span>(<span class="kw">lambda</span> a: (a[<span class="dv">3</span>], LinearRegression().fit(a[<span class="dv">0</span>], a[<span class="dv">2</span>]).predict(a[<span class="dv">1</span>])))(</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>        train_test_split(X, y, test_size<span class="op">=</span><span class="fl">.3</span>, random_state<span class="op">=</span>k))) <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100</span>)])</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Task 2 — over 100 seeds: mean </span><span class="sc">{</span>s<span class="sc">.</span>mean()<span class="sc">:.3f}</span><span class="ss">, std </span><span class="sc">{</span>s<span class="sc">.</span>std()<span class="sc">:.3f}</span><span class="ss">, "</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"range </span><span class="sc">{</span>s<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:.3f}</span><span class="ss"> to </span><span class="sc">{</span>s<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  A gap smaller than about </span><span class="sc">{</span><span class="dv">2</span><span class="op">*</span>s<span class="sc">.</span>std()<span class="sc">:.2f}</span><span class="ss"> is inside the noise — do not"</span>)</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  claim one model beat another on less than that."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Task 3
+  train 0.95 / test 0.93  → healthy — good, and the gap is small
+  train 0.99 / test 0.52  → OVERFITTING — big gap
+  train 0.44 / test 0.42  → UNDERFITTING — poor on both
+  train 0.72 / test 0.70  → healthy — good, and the gap is small
+
+Task 2 — over 100 seeds: mean 0.709, std 0.060, range 0.545 to 0.827
+  A gap smaller than about 0.12 is inside the noise — do not
+  claim one model beat another on less than that.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-s11-mcqs" class="level1" data-number="19">
+<h1 data-number="19"><span class="header-section-number">19</span> ❓ MCQs</h1>
+<p><strong>Q1.</strong> Training R² is 0.99, test R² is 0.41. What is happening?</p>
+<ul>
+<li><ol type="a">
+<li>Underfitting.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Overfitting.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>The model is good.</li>
+</ol></li>
+</ul>
+<p><strong>Q2.</strong> Both scores are around 0.3. What should you do?</p>
+<ul>
+<li><ol type="a">
+<li>Simplify the model.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Use a richer model or add better features — it is underfitting.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Collect more rows.</li>
+</ol></li>
+</ul>
+<p><strong>Q3.</strong> Why report R² as 0.71 ± 0.06 rather than 0.71?</p>
+<ul>
+<li><ol type="a">
+<li>It looks more professional.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>A single split can vary by more than the difference you are trying to detect.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>R² is always uncertain.</li>
+</ol></li>
+</ul>
+<p><strong>Q4.</strong> Your data is monthly sales for five years. Which validation?</p>
+<ul>
+<li><ol type="a">
+<li>K-fold with shuffling.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>TimeSeriesSplit — always train on earlier months, test on later ones.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Leave-one-out.</li>
+</ol></li>
+</ul>
+<p><strong>Q5.</strong> You tried 30 model settings, kept the one with the best test score, and reported that score. What is wrong?</p>
+<ul>
+<li><ol type="a">
+<li>30 is too many.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>The test set was used to make a choice, so the reported score is optimistic. It is no longer an unbiased estimate.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Nothing.</li>
+</ol></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" title="Answers">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Answers
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>A1 — (b).</strong> Excellent on seen data, poor on unseen data — Demo 1’s right-hand column.</p>
+<p><strong>A2 — (b).</strong> Poor on both is the underfitting signature. Demo 10’s left panel shows what the learning curve looks like.</p>
+<p><strong>A3 — (b).</strong> Demo 4 measured a spread of over 0.15 across seeds on the same model.</p>
+<p><strong>A4 — (b).</strong> Shuffling lets the model train on the future. It will look excellent and be worthless.</p>
+<p><strong>A5 — (b).</strong> Demo 12 measured exactly this gap.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="✅ Before you move on">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>✅ Before you move on
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul class="task-list">
+<li><label><input type="checkbox">I can diagnose overfitting and underfitting from two numbers</label></li>
+<li><label><input type="checkbox">I report a cross-validated score with its spread, not a single split</label></li>
+<li><label><input type="checkbox">I know not to shuffle time-ordered data</label></li>
+<li><label><input type="checkbox">I draw the residual plot before believing the R²</label></li>
+<li><label><input type="checkbox">I tune with cross-validation and touch the test set once</label></li>
+<li><label><input type="checkbox"><strong>Easiest thing to forget:</strong> every peek at the test set spends a little of it. Set it aside at the start and leave it alone.</label></li>
+</ul>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../sessions/session-10-unsupervised-learning-techniques-clustering.html" class="pagination-link" aria-label="Session 10 — Unsupervised Learning and Clustering">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning and Clustering</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../sessions/session-12-model-saving-and-deployment.html" class="pagination-link" aria-label="Session 12 — Model Saving and Deployment">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Session 12 — Model Saving and Deployment</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

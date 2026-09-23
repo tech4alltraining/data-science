@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>12&nbsp; Session 10 — Unsupervised Learning and Clustering – Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../sessions/session-11-data-model-evaluation.html" rel="next">
+<link href="../sessions/session-09-supervised-learning-techniques.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-7202036dd3638cbfcbeb4151d116aa42.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-09-supervised-learning-techniques.html">Part D — Learning from data</a></li><li class="breadcrumb-item"><a href="../sessions/session-10-unsupervised-learning-techniques-clustering.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning and Clustering</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Data Science</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Science</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup-guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Environment Setup Guide</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part A — Getting hold of data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-01-introduction-to-data-science.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 1 — Introduction to Data Science</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-02-data-collection-and-pre-processing-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Session 2 — Data Collection and Pre-Processing Overview</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part B — Making data fit to use</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-03-data-cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Session 3 — Data Cleaning</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-04-data-integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Session 4 — Data Integration</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-05-data-transformation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Session 5 — Data Transformation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-06-data-reduction-and-discretization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Session 6 — Data Reduction and Discretization</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part C — Understanding data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-07-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Session 7 — Descriptive Statistics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-08-exploratory-data-analytics-eda-and-visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Session 8 — Exploratory Data Analysis and Visualization</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part D — Learning from data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-09-supervised-learning-techniques.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 9 — Supervised Learning Techniques</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-10-unsupervised-learning-techniques-clustering.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning and Clustering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-11-data-model-evaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Session 11 — Model Evaluation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-12-model-saving-and-deployment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Session 12 — Model Saving and Deployment</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part E — Data at scale</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-13-big-data-analytics-fundamentals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Session 13 — Big Data Analytics Fundamentals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-14-distributed-data-processing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Session 14 — Distributed Data Processing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-15-nosql-databases-and-scaled-visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Session 15 — NoSQL Databases and Visualization at Scale</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session-16-open-ended-module-implementation-and-capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Session 16 — Capstone: The End-to-End Project</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-s10-outcomes" id="toc-sec-s10-outcomes" class="nav-link active" data-scroll-target="#sec-s10-outcomes"><span class="header-section-number">12.1</span> 🎯 Learning outcomes</a></li>
+  <li><a href="#sec-s10-organisation" id="toc-sec-s10-organisation" class="nav-link" data-scroll-target="#sec-s10-organisation"><span class="header-section-number">12.2</span> How this chapter is organised</a></li>
+  <li><a href="#sec-s10-a" id="toc-sec-s10-a" class="nav-link" data-scroll-target="#sec-s10-a"><span class="header-section-number">13</span> Part A — Learning without labels</a>
+  <ul class="collapse">
+  <li><a href="#sec-s10-topic-1" id="toc-sec-s10-topic-1" class="nav-link" data-scroll-target="#sec-s10-topic-1"><span class="header-section-number">13.1</span> 1. Unsupervised learning</a></li>
+  <li><a href="#sec-s10-topic-2" id="toc-sec-s10-topic-2" class="nav-link" data-scroll-target="#sec-s10-topic-2"><span class="header-section-number">13.2</span> 2. What clustering is for</a></li>
+  </ul></li>
+  <li><a href="#sec-s10-b" id="toc-sec-s10-b" class="nav-link" data-scroll-target="#sec-s10-b"><span class="header-section-number">14</span> Part B — K-Means</a>
+  <ul class="collapse">
+  <li><a href="#sec-s10-topic-3" id="toc-sec-s10-topic-3" class="nav-link" data-scroll-target="#sec-s10-topic-3"><span class="header-section-number">14.1</span> 3. How K-Means works</a>
+  <ul class="collapse">
+  <li><a href="#demo-1-watching-the-centres-settle-step-by-step" id="toc-demo-1-watching-the-centres-settle-step-by-step" class="nav-link" data-scroll-target="#demo-1-watching-the-centres-settle-step-by-step"><span class="header-section-number">14.1.1</span> Demo 1 — watching the centres settle, step by step</a></li>
+  <li><a href="#demo-2-the-same-thing-with-scikit-learn" id="toc-demo-2-the-same-thing-with-scikit-learn" class="nav-link" data-scroll-target="#demo-2-the-same-thing-with-scikit-learn"><span class="header-section-number">14.1.2</span> Demo 2 — the same thing with scikit-learn</a></li>
+  </ul></li>
+  <li><a href="#sec-s10-topic-4" id="toc-sec-s10-topic-4" class="nav-link" data-scroll-target="#sec-s10-topic-4"><span class="header-section-number">14.2</span> 4. Scale first — always</a>
+  <ul class="collapse">
+  <li><a href="#demo-3-real-data-where-the-scales-genuinely-differ" id="toc-demo-3-real-data-where-the-scales-genuinely-differ" class="nav-link" data-scroll-target="#demo-3-real-data-where-the-scales-genuinely-differ"><span class="header-section-number">14.2.1</span> Demo 3 — real data where the scales genuinely differ</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s10-c" id="toc-sec-s10-c" class="nav-link" data-scroll-target="#sec-s10-c"><span class="header-section-number">15</span> Part C — Choosing k</a>
+  <ul class="collapse">
+  <li><a href="#sec-s10-topic-5" id="toc-sec-s10-topic-5" class="nav-link" data-scroll-target="#sec-s10-topic-5"><span class="header-section-number">15.1</span> 5. The elbow method</a>
+  <ul class="collapse">
+  <li><a href="#demo-4-the-elbow" id="toc-demo-4-the-elbow" class="nav-link" data-scroll-target="#demo-4-the-elbow"><span class="header-section-number">15.1.1</span> Demo 4 — the elbow</a></li>
+  </ul></li>
+  <li><a href="#sec-s10-topic-6" id="toc-sec-s10-topic-6" class="nav-link" data-scroll-target="#sec-s10-topic-6"><span class="header-section-number">15.2</span> 6. The silhouette score</a>
+  <ul class="collapse">
+  <li><a href="#demo-5-silhouette-across-k" id="toc-demo-5-silhouette-across-k" class="nav-link" data-scroll-target="#demo-5-silhouette-across-k"><span class="header-section-number">15.2.1</span> Demo 5 — silhouette across k</a></li>
+  <li><a href="#demo-6-when-the-silhouette-score-is-wrong" id="toc-demo-6-when-the-silhouette-score-is-wrong" class="nav-link" data-scroll-target="#demo-6-when-the-silhouette-score-is-wrong"><span class="header-section-number">15.2.2</span> Demo 6 — when the silhouette score is wrong</a></li>
+  </ul></li>
+  <li><a href="#sec-s10-topic-7" id="toc-sec-s10-topic-7" class="nav-link" data-scroll-target="#sec-s10-topic-7"><span class="header-section-number">15.3</span> 7. Profiling: turning clusters into an answer</a>
+  <ul class="collapse">
+  <li><a href="#demo-7-from-cluster-numbers-to-named-segments" id="toc-demo-7-from-cluster-numbers-to-named-segments" class="nav-link" data-scroll-target="#demo-7-from-cluster-numbers-to-named-segments"><span class="header-section-number">15.3.1</span> Demo 7 — from cluster numbers to named segments</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s10-d" id="toc-sec-s10-d" class="nav-link" data-scroll-target="#sec-s10-d"><span class="header-section-number">16</span> Part D — When K-Means fails</a>
+  <ul class="collapse">
+  <li><a href="#sec-s10-topic-8" id="toc-sec-s10-topic-8" class="nav-link" data-scroll-target="#sec-s10-topic-8"><span class="header-section-number">16.1</span> 8. Hierarchical clustering</a>
+  <ul class="collapse">
+  <li><a href="#demo-8-the-dendrogram" id="toc-demo-8-the-dendrogram" class="nav-link" data-scroll-target="#demo-8-the-dendrogram"><span class="header-section-number">16.1.1</span> Demo 8 — the dendrogram</a></li>
+  </ul></li>
+  <li><a href="#sec-s10-topic-9" id="toc-sec-s10-topic-9" class="nav-link" data-scroll-target="#sec-s10-topic-9"><span class="header-section-number">16.2</span> 9. DBSCAN</a>
+  <ul class="collapse">
+  <li><a href="#demo-9-the-crescents-where-k-means-could-not-win" id="toc-demo-9-the-crescents-where-k-means-could-not-win" class="nav-link" data-scroll-target="#demo-9-the-crescents-where-k-means-could-not-win"><span class="header-section-number">16.2.1</span> Demo 9 — the crescents, where K-Means could not win</a></li>
+  <li><a href="#demo-10-choosing-between-the-three" id="toc-demo-10-choosing-between-the-three" class="nav-link" data-scroll-target="#demo-10-choosing-between-the-three"><span class="header-section-number">16.2.2</span> Demo 10 — choosing between the three</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s10-tasks" id="toc-sec-s10-tasks" class="nav-link" data-scroll-target="#sec-s10-tasks"><span class="header-section-number">17</span> 🎯 Tasks</a></li>
+  <li><a href="#sec-s10-mcqs" id="toc-sec-s10-mcqs" class="nav-link" data-scroll-target="#sec-s10-mcqs"><span class="header-section-number">18</span> ❓ MCQs</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session-09-supervised-learning-techniques.html">Part D — Learning from data</a></li><li class="breadcrumb-item"><a href="../sessions/session-10-unsupervised-learning-techniques-clustering.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning and Clustering</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session 10 — Unsupervised Learning and Clustering</span></h1>
+<p class="subtitle lead">Learning without labels · K-Means · Choosing k · Hierarchical · DBSCAN · Profiling</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>This chapter finds structure in data that has no answer column at all.</strong></p>
+<p><strong>Assumed knowledge:</strong> Session 5 — scaling, and why distance-based methods need it. Session 8 — scatter plots. Session 9 — the <code>fit</code> / <code>predict</code> shape of a scikit-learn model.</p>
+<p><strong>The one idea to take away:</strong> there is <strong>no right answer to check against</strong>. That changes everything: you cannot measure accuracy, so you must justify your result instead. This chapter is mostly about how to justify one.</p>
+</div>
+</div>
+<section id="sec-s10-outcomes" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="sec-s10-outcomes"><span class="header-section-number">12.1</span> 🎯 Learning outcomes</h2>
+<p>By the end of this chapter you can:</p>
+<ol type="1">
+<li>Explain how unsupervised learning differs from supervised learning.</li>
+<li>Describe the K-Means algorithm step by step.</li>
+<li>Show why clustering must be done on scaled data.</li>
+<li>Choose <em>k</em> using an elbow plot and a silhouette score, and say what to do when they disagree.</li>
+<li>Use hierarchical clustering and DBSCAN, and say when each beats K-Means.</li>
+<li>Turn clusters into a description a business can act on.</li>
+</ol>
+</section>
+<section id="sec-s10-organisation" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="sec-s10-organisation"><span class="header-section-number">12.2</span> How this chapter is organised</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Part</th>
+<th>Question it answers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#sec-s10-a">A — Learning without labels</a></td>
+<td><em>What can you learn with no answer key?</em></td>
+</tr>
+<tr class="even">
+<td><a href="#sec-s10-b">B — K-Means</a></td>
+<td><em>How does the standard method actually work?</em></td>
+</tr>
+<tr class="odd">
+<td><a href="#sec-s10-c">C — Choosing k</a></td>
+<td><em>How many groups are there?</em></td>
+</tr>
+<tr class="even">
+<td><a href="#sec-s10-d">D — When K-Means fails</a></td>
+<td><em>What do I use instead?</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sec-s10-a" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> Part A — Learning without labels</h1>
+<section id="sec-s10-topic-1" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="sec-s10-topic-1"><span class="header-section-number">13.1</span> 1. Unsupervised learning</h2>
+<p><strong>Unsupervised learning finds structure in data that has no target column.</strong> Nobody has labelled anything; the algorithm has only the features.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Supervised (Session 9)</th>
+<th>Unsupervised (this chapter)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Data</td>
+<td><code>X</code> <strong>and</strong> <code>y</code></td>
+<td><code>X</code> only</td>
+</tr>
+<tr class="even">
+<td>Goal</td>
+<td>predict <code>y</code> for new rows</td>
+<td>find structure in <code>X</code></td>
+</tr>
+<tr class="odd">
+<td>Can you measure accuracy?</td>
+<td><strong>yes</strong> — compare to the true <code>y</code></td>
+<td><strong>no</strong> — there is no true answer</td>
+</tr>
+<tr class="even">
+<td>Fails by</td>
+<td>predicting badly</td>
+<td>producing groups that mean nothing</td>
+</tr>
+</tbody>
+</table>
+<p>Three families:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Family</th>
+<th>Finds</th>
+<th>Covered in</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Clustering</strong></td>
+<td>groups of similar rows</td>
+<td>this chapter</td>
+</tr>
+<tr class="even">
+<td><strong>Dimensionality reduction</strong></td>
+<td>a smaller set of columns</td>
+<td>Session 6 (PCA)</td>
+</tr>
+<tr class="odd">
+<td><strong>Association rules</strong></td>
+<td>things that occur together</td>
+<td>Session 16</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip callout-titled" title="🧠 Analogy — sorting the laundry">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>🧠 Analogy — sorting the laundry
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Nobody told you the categories. You tip the basket out and start making piles — darks, whites, towels — because things in a pile <em>resemble</em> each other.</p>
+<p><strong>Somebody else would make different piles.</strong> By fabric, perhaps, or by owner. Neither is wrong. <strong>That is unsupervised learning: several defensible answers, and no marking scheme.</strong></p>
+</div>
+</div>
+</section>
+<section id="sec-s10-topic-2" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="sec-s10-topic-2"><span class="header-section-number">13.2</span> 2. What clustering is for</h2>
+<p><strong>Clustering puts rows into groups so that rows in a group are more similar to each other than to rows in other groups.</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Use</th>
+<th>What the clusters become</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Customer segmentation</td>
+<td>marketing groups with different offers</td>
+</tr>
+<tr class="even">
+<td>Document grouping</td>
+<td>topics</td>
+</tr>
+<tr class="odd">
+<td>Image compression</td>
+<td>a small palette of representative colours</td>
+</tr>
+<tr class="even">
+<td>Anomaly detection</td>
+<td>whatever does not fit any cluster</td>
+</tr>
+<tr class="odd">
+<td>Exploration</td>
+<td>the first look at data nobody has labelled</td>
+</tr>
+</tbody>
+</table>
+<p><strong>“Similar” means “close together” — so clustering is a distance calculation</strong>, and every warning from Session 5 about scale applies with full force.</p>
+</section>
+</section>
+<section id="sec-s10-b" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> Part B — K-Means</h1>
+<section id="sec-s10-topic-3" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="sec-s10-topic-3"><span class="header-section-number">14.1</span> 3. How K-Means works</h2>
+<p><strong>K-Means splits data into <em>k</em> groups by repeatedly moving <em>k</em> centre points until they settle.</strong></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+    S1["&lt;b&gt;1.&lt;/b&gt; Pick k. Place k centres at random"]
+    S2["&lt;b&gt;2.&lt;/b&gt; Assign every point to its&lt;br/&gt;nearest centre"]
+    S3["&lt;b&gt;3.&lt;/b&gt; Move each centre to the average&lt;br/&gt;of the points assigned to it"]
+    S4{"Did anything&lt;br/&gt;move?"}
+    S1 --&gt; S2 --&gt; S3 --&gt; S4
+    S4 -- yes --&gt; S2
+    S4 -- no --&gt; S5["&lt;b&gt;Done.&lt;/b&gt; The centres have settled"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><strong>You must choose <em>k</em> yourself.</strong> The algorithm cannot tell you how many groups exist — that is the whole difficulty, and Part C is about it.</p>
+<section id="demo-1-watching-the-centres-settle-step-by-step" class="level3" data-number="14.1.1">
+<h3 data-number="14.1.1" class="anchored" data-anchor-id="demo-1-watching-the-centres-settle-step-by-step"><span class="header-section-number">14.1.1</span> Demo 1 — watching the centres settle, step by step</h3>
+<div id="cell-fig-s10-kmeans-steps" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>points <span class="op">=</span> pd.read_csv(<span class="st">"datasets/three_blobs.csv"</span>)[[<span class="st">"x"</span>, <span class="st">"y"</span>]].values</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>centres <span class="op">=</span> np.array([[<span class="fl">1.</span>, <span class="fl">6.</span>], [<span class="fl">2.</span>, <span class="fl">7.</span>], [<span class="fl">3.</span>, <span class="fl">6.5</span>]])   <span class="co"># deliberately bad starting positions</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">4</span>, figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="fl">3.1</span>))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> step, ax <span class="kw">in</span> <span class="bu">enumerate</span>(axes):</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    distances <span class="op">=</span> np.linalg.norm(points[:, <span class="va">None</span>] <span class="op">-</span> centres[<span class="va">None</span>], axis<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> distances.argmin(axis<span class="op">=</span><span class="dv">1</span>)                       <span class="co"># step 2: assign</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    ax.scatter(points[:, <span class="dv">0</span>], points[:, <span class="dv">1</span>], c<span class="op">=</span>labels, s<span class="op">=</span><span class="dv">12</span>, cmap<span class="op">=</span><span class="st">"viridis"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    ax.scatter(centres[:, <span class="dv">0</span>], centres[:, <span class="dv">1</span>], c<span class="op">=</span><span class="st">"red"</span>, marker<span class="op">=</span><span class="st">"X"</span>, s<span class="op">=</span><span class="dv">150</span>, edgecolor<span class="op">=</span><span class="st">"k"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"iteration </span><span class="sc">{</span>step<span class="sc">}</span><span class="ss">"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)<span class="op">;</span> ax.set_xticks([])<span class="op">;</span> ax.set_yticks([])</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):                                       <span class="co"># step 3: move</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (labels <span class="op">==</span> j).<span class="bu">any</span>():</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>            centres[j] <span class="op">=</span> points[labels <span class="op">==</span> j].mean(axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Started at:"</span>, [[<span class="fl">1.</span>, <span class="fl">6.</span>], [<span class="fl">2.</span>, <span class="fl">7.</span>], [<span class="fl">3.</span>, <span class="fl">6.5</span>]], <span class="st">"— all three bunched in one corner"</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Ended at:  "</span>, centres.<span class="bu">round</span>(<span class="dv">1</span>).tolist())</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The true centres were [2,2], [7,3], [4,7]."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s10-kmeans-steps" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s10-kmeans-steps-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-10-unsupervised-learning-techniques-clustering_files/figure-html/fig-s10-kmeans-steps-output-1.png" width="1419" height="330" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s10-kmeans-steps-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14.1: Four iterations of K-Means. The crosses are the centres; watch them walk into place.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Started at: [[1.0, 6.0], [2.0, 7.0], [3.0, 6.5]] — all three bunched in one corner
+Ended at:   [[1.9, 2.0], [4.1, 7.0], [7.0, 3.0]]
+The true centres were [2,2], [7,3], [4,7].</code></pre>
+</div>
+</div>
+</section>
+<section id="demo-2-the-same-thing-with-scikit-learn" class="level3" data-number="14.1.2">
+<h3 data-number="14.1.2" class="anchored" data-anchor-id="demo-2-the-same-thing-with-scikit-learn"><span class="header-section-number">14.1.2</span> Demo 2 — the same thing with scikit-learn</h3>
+<div id="cell-fig-s10-kmeans-sklearn" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># A real dataset: 200 mall customers, their annual income and a spending score</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># the mall assigned them.</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>customers <span class="op">=</span> pd.read_csv(<span class="st">"datasets/Mall_Customers.csv"</span>).rename(columns<span class="op">=</span>{</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Annual Income (k$)"</span>: <span class="st">"income"</span>, <span class="st">"Spending Score (1-100)"</span>: <span class="st">"spending_score"</span>})</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(customers.head(<span class="dv">3</span>), <span class="ss">f"</span><span class="ch">\n\n</span><span class="sc">{</span><span class="bu">len</span>(customers)<span class="sc">}</span><span class="ss"> customers on file</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>km <span class="op">=</span> KMeans(n_clusters<span class="op">=</span><span class="dv">5</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>customers[<span class="st">"cluster"</span>] <span class="op">=</span> km.fit_predict(customers[[<span class="st">"income"</span>, <span class="st">"spending_score"</span>]])</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>plt.scatter(customers[<span class="st">"income"</span>], customers[<span class="st">"spending_score"</span>],</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>            c<span class="op">=</span>customers[<span class="st">"cluster"</span>], cmap<span class="op">=</span><span class="st">"viridis"</span>, s<span class="op">=</span><span class="dv">18</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>plt.scatter(km.cluster_centers_[:, <span class="dv">0</span>], km.cluster_centers_[:, <span class="dv">1</span>],</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>            c<span class="op">=</span><span class="st">"red"</span>, marker<span class="op">=</span><span class="st">"X"</span>, s<span class="op">=</span><span class="dv">220</span>, edgecolor<span class="op">=</span><span class="st">"k"</span>, label<span class="op">=</span><span class="st">"centres"</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Annual income (k$)"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"Spending score"</span>)<span class="op">;</span> plt.legend()</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(customers.groupby(<span class="st">"cluster"</span>).agg(</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    n<span class="op">=</span>(<span class="st">"income"</span>, <span class="st">"size"</span>), avg_income<span class="op">=</span>(<span class="st">"income"</span>, <span class="st">"mean"</span>), avg_spend<span class="op">=</span>(<span class="st">"spending_score"</span>, <span class="st">"mean"</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>).<span class="bu">round</span>(<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   CustomerID  Gender  Age  income  spending_score
+0           1    Male   19      15              39
+1           2    Male   21      15              81
+2           3  Female   20      16               6 
+
+200 customers on file
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div id="fig-s10-kmeans-sklearn" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s10-kmeans-sklearn-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-10-unsupervised-learning-techniques-clustering_files/figure-html/fig-s10-kmeans-sklearn-output-2.png" width="682" height="408" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s10-kmeans-sklearn-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14.2: Customer segments by income and spending score, with the centres marked.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          n  avg_income  avg_spend
+cluster                           
+0        81        55.3       49.5
+1        39        86.5       82.1
+2        35        88.2       17.1
+3        23        26.3       20.9
+4        22        25.7       79.4</code></pre>
+</div>
+</div>
+<p>Note <code>n_init=10</code>: K-Means starts from random positions and can settle into a poor arrangement, so it runs ten times from different starts and keeps the best.</p>
+</section>
+</section>
+<section id="sec-s10-topic-4" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="sec-s10-topic-4"><span class="header-section-number">14.2</span> 4. Scale first — always</h2>
+<p><strong>K-Means measures straight-line distance. An unscaled column with big numbers decides every cluster on its own.</strong></p>
+<p>This is Session 5’s lesson, and clustering is where it does the most damage — because there is no accuracy score to warn you that the answer is wrong.</p>
+<section id="demo-3-real-data-where-the-scales-genuinely-differ" class="level3" data-number="14.2.1">
+<h3 data-number="14.2.1" class="anchored" data-anchor-id="demo-3-real-data-where-the-scales-genuinely-differ"><span class="header-section-number">14.2.1</span> Demo 3 — real data where the scales genuinely differ</h3>
+<p>The mall file happens to be convenient: income in thousands (range 122) and spending score out of 100 (range 98) are already on comparable scales, so scaling would change almost nothing. <strong>Check before you assume you need it.</strong></p>
+<div id="527284df" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>mall <span class="op">=</span> pd.read_csv(<span class="st">"datasets/Mall_Customers.csv"</span>).rename(columns<span class="op">=</span>{</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Annual Income (k$)"</span>: <span class="st">"income"</span>, <span class="st">"Spending Score (1-100)"</span>: <span class="st">"spending_score"</span>})</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mall file — the two columns are already comparable:"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> [<span class="st">"income"</span>, <span class="st">"spending_score"</span>]:</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>c<span class="sc">:&lt;15}</span><span class="ss"> range </span><span class="sc">{</span>mall[c]<span class="sc">.</span><span class="bu">max</span>() <span class="op">-</span> mall[c]<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:&gt;10,.0f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Mall file — the two columns are already comparable:
+  income          range        122
+  spending_score  range         98</code></pre>
+</div>
+</div>
+<p>Now a real file where they are not. <code>loan_data_10k.csv</code> records <strong>income in rupees</strong> (hundreds of thousands) next to <strong>loan-to-income ratio</strong> (a fraction between 0 and 1).</p>
+<div id="cell-fig-s10-scaling" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>loan <span class="op">=</span> (pd.read_csv(<span class="st">"datasets/loan_data_10k.csv"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>          .dropna(subset<span class="op">=</span>[<span class="st">"person_income"</span>, <span class="st">"loan_percent_income"</span>])</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>          .sample(<span class="dv">2_000</span>, random_state<span class="op">=</span><span class="dv">0</span>))</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> loan[[<span class="st">"person_income"</span>, <span class="st">"loan_percent_income"</span>]]</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Loan file — the two columns are not remotely comparable:"</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> X.columns:</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>c<span class="sc">:&lt;22}</span><span class="ss"> range </span><span class="sc">{</span>X[c]<span class="sc">.</span><span class="bu">max</span>() <span class="op">-</span> X[c]<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:&gt;13,.2f}</span><span class="ss">"</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>unscaled_labels <span class="op">=</span> KMeans(<span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(X)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>scaled_labels <span class="op">=</span> KMeans(<span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(StandardScaler().fit_transform(X))</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">3.6</span>))</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].scatter(X[<span class="st">"person_income"</span>], X[<span class="st">"loan_percent_income"</span>], c<span class="op">=</span>unscaled_labels,</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>              cmap<span class="op">=</span><span class="st">"viridis"</span>, s<span class="op">=</span><span class="dv">6</span>, alpha<span class="op">=</span><span class="fl">.6</span>)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_title(<span class="st">"Unscaled — boundaries are vertical"</span>)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].scatter(X[<span class="st">"person_income"</span>], X[<span class="st">"loan_percent_income"</span>], c<span class="op">=</span>scaled_labels,</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>              cmap<span class="op">=</span><span class="st">"viridis"</span>, s<span class="op">=</span><span class="dv">6</span>, alpha<span class="op">=</span><span class="fl">.6</span>)</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"Scaled — both columns count"</span>)</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> ax:</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    a.set_xlabel(<span class="st">"Income (₹)"</span>)<span class="op">;</span> a.set_ylabel(<span class="st">"Loan as a share of income"</span>)<span class="op">;</span> a.set_xscale(<span class="st">"log"</span>)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>agree <span class="op">=</span> pd.crosstab(unscaled_labels, scaled_labels).<span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>).<span class="bu">sum</span>() <span class="op">/</span> <span class="bu">len</span>(X)</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Unscaled, an income gap of ₹1,000 outweighs the entire 0-to-1 ratio scale."</span>)</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The two clusterings agree on only </span><span class="sc">{</span>agree<span class="sc">:.0%}</span><span class="ss"> of applicants —"</span>)</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="dv">1</span> <span class="op">-</span> agree<span class="sc">:.0%}</span><span class="ss"> land in a completely different group depending on whether you scaled."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Loan file — the two columns are not remotely comparable:
+  person_income          range    832,912.00
+  loan_percent_income    range          0.53</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div id="fig-s10-scaling" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s10-scaling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-10-unsupervised-learning-techniques-clustering_files/figure-html/fig-s10-scaling-output-2.png" width="1198" height="384" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s10-scaling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14.3: Left: unscaled, so income alone decides and the boundaries are vertical. Right: scaled, so both columns count.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Unscaled, an income gap of ₹1,000 outweighs the entire 0-to-1 ratio scale.
+The two clusterings agree on only 57% of applicants —
+43% land in a completely different group depending on whether you scaled.</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Unscaled clustering produces confident nonsense">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Unscaled clustering produces confident nonsense
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No error is raised. The clusters look tidy, the chart is colourful, and <strong>43% of applicants are in a different group</strong> purely because of a unit choice.</p>
+<p><strong>Put <code>StandardScaler</code> in front of <code>KMeans</code> unless you have checked that the columns are already comparable</strong> — and check by printing the ranges, as the first cell above does.</p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="sec-s10-c" class="level1" data-number="15">
+<h1 data-number="15"><span class="header-section-number">15</span> Part C — Choosing k</h1>
+<section id="sec-s10-topic-5" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="sec-s10-topic-5"><span class="header-section-number">15.1</span> 5. The elbow method</h2>
+<p><strong>Inertia is the total squared distance from every point to its own centre.</strong> More clusters always means lower inertia — with one cluster per point it reaches zero — so you cannot simply minimise it.</p>
+<p><strong>The elbow method looks for the point where the improvement stops being worth it.</strong></p>
+<section id="demo-4-the-elbow" class="level3" data-number="15.1.1">
+<h3 data-number="15.1.1" class="anchored" data-anchor-id="demo-4-the-elbow"><span class="header-section-number">15.1.1</span> Demo 4 — the elbow</h3>
+<div id="cell-fig-s10-elbow" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>Xs <span class="op">=</span> StandardScaler().fit_transform(customers[[<span class="st">"income"</span>, <span class="st">"spending_score"</span>]])</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>ks <span class="op">=</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">9</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>inertias <span class="op">=</span> [KMeans(k, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit(Xs).inertia_ <span class="cf">for</span> k <span class="kw">in</span> ks]</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>plt.plot(ks, inertias, <span class="st">"o-"</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="dv">5</span>, color<span class="op">=</span><span class="st">"red"</span>, ls<span class="op">=</span><span class="st">"--"</span>, alpha<span class="op">=</span><span class="fl">.6</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"k (number of clusters)"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"inertia"</span>)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Where does the line stop dropping steeply?"</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'k'</span><span class="sc">:&gt;3}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'inertia'</span><span class="sc">:&gt;10}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'improvement'</span><span class="sc">:&gt;13}</span><span class="ss">"</span>)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (k, v) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(ks, inertias)):</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    imp <span class="op">=</span> <span class="st">""</span> <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="ss">f"</span><span class="sc">{</span>(inertias[i<span class="op">-</span><span class="dv">1</span>]<span class="op">-</span>v)<span class="op">/</span>inertias[i<span class="op">-</span><span class="dv">1</span>]<span class="sc">:&gt;12.1%}</span><span class="ss">"</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>k<span class="sc">:&gt;3}</span><span class="ss"> </span><span class="sc">{</span>v<span class="sc">:&gt;10.1f}</span><span class="ss"> </span><span class="sc">{</span>imp<span class="sc">:&gt;13}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s10-elbow" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s10-elbow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-10-unsupervised-learning-techniques-clustering_files/figure-html/fig-s10-elbow-output-1.png" width="681" height="431" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s10-elbow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;15.1: Inertia falls with every extra cluster. The bend at k=5 is where extra clusters stop paying.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  k    inertia   improvement
+  1      400.0              
+  2      269.3         32.7%
+  3      157.7         41.4%
+  4      108.9         30.9%
+  5       65.6         39.8%
+  6       55.1         15.9%
+  7       44.9         18.5%
+  8       37.1         17.3%</code></pre>
+</div>
+</div>
+<p>Read the improvement column: large gains up to k=5, then much smaller ones. <strong>That is the elbow</strong> — and five is the answer this well-known dataset is famous for.</p>
+</section>
+</section>
+<section id="sec-s10-topic-6" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="sec-s10-topic-6"><span class="header-section-number">15.2</span> 6. The silhouette score</h2>
+<p><strong>The silhouette score measures, for each point, how much closer it is to its own cluster than to the next nearest one.</strong> It runs from −1 to +1.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Score</th>
+<th>Means</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>near +1</strong></td>
+<td>comfortably inside its own cluster</td>
+</tr>
+<tr class="even">
+<td><strong>near 0</strong></td>
+<td>on the boundary — could belong to either</td>
+</tr>
+<tr class="odd">
+<td><strong>negative</strong></td>
+<td><strong>closer to a different cluster — probably misassigned</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Unlike inertia, it does <strong>not</strong> automatically improve with more clusters, so you can compare values across different <em>k</em> directly.</p>
+<section id="demo-5-silhouette-across-k" class="level3" data-number="15.2.1">
+<h3 data-number="15.2.1" class="anchored" data-anchor-id="demo-5-silhouette-across-k"><span class="header-section-number">15.2.1</span> Demo 5 — silhouette across k</h3>
+<div id="cell-fig-s10-silhouette" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> silhouette_score</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>ks <span class="op">=</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">9</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> [silhouette_score(Xs, KMeans(k, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(Xs)) <span class="cf">for</span> k <span class="kw">in</span> ks]</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">list</span>(ks), scores, <span class="st">"o-"</span>, color<span class="op">=</span><span class="st">"darkgreen"</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>best <span class="op">=</span> <span class="bu">list</span>(ks)[<span class="bu">int</span>(np.argmax(scores))]</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>plt.axvline(best, color<span class="op">=</span><span class="st">"red"</span>, ls<span class="op">=</span><span class="st">"--"</span>, alpha<span class="op">=</span><span class="fl">.6</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"k"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"silhouette score"</span>)<span class="op">;</span> plt.title(<span class="st">"Higher is better"</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, s <span class="kw">in</span> <span class="bu">zip</span>(ks, scores):</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"k = </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">: silhouette </span><span class="sc">{</span>s<span class="sc">:.3f}{</span><span class="st">'   ← best'</span> <span class="cf">if</span> k <span class="op">==</span> best <span class="cf">else</span> <span class="st">''</span><span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s10-silhouette" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s10-silhouette-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-10-unsupervised-learning-techniques-clustering_files/figure-html/fig-s10-silhouette-output-1.png" width="686" height="431" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s10-silhouette-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;15.2: Silhouette by k. Unlike inertia, higher is genuinely better, so the peak is the answer.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>k = 2: silhouette 0.286
+k = 3: silhouette 0.467
+k = 4: silhouette 0.494
+k = 5: silhouette 0.555   ← best
+k = 6: silhouette 0.538
+k = 7: silhouette 0.526
+k = 8: silhouette 0.457</code></pre>
+</div>
+</div>
+<p>Both methods point at the same answer here. <strong>They do not always.</strong></p>
+</section>
+<section id="demo-6-when-the-silhouette-score-is-wrong" class="level3" data-number="15.2.2">
+<h3 data-number="15.2.2" class="anchored" data-anchor-id="demo-6-when-the-silhouette-score-is-wrong"><span class="header-section-number">15.2.2</span> Demo 6 — when the silhouette score is wrong</h3>
+<div id="6177dcaf" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> silhouette_score</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Two interleaved crescents. The true structure is obviously 2 groups.</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>mo <span class="op">=</span> pd.read_csv(<span class="st">"datasets/moons.csv"</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>moons <span class="op">=</span> mo[[<span class="st">"x"</span>, <span class="st">"y"</span>]].values</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>true_labels <span class="op">=</span> mo[<span class="st">"true_group"</span>].values</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]:</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> KMeans(k, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(moons)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"k = </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">: silhouette </span><span class="sc">{</span>silhouette_score(moons, labels)<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>agree <span class="op">=</span> (KMeans(<span class="dv">2</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(moons) <span class="op">==</span> true_labels)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">At k=2, K-Means agrees with the true crescents for "</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"</span><span class="sc">{</span><span class="bu">max</span>(agree.mean(), <span class="dv">1</span><span class="op">-</span>agree.mean())<span class="sc">:.0%}</span><span class="ss"> of points."</span>)</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The score prefers k=2, and yet K-Means still cuts the crescents in the wrong"</span>)</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"place — because it can only draw straight boundaries. A good score does not"</span>)</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"mean a good clustering."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>k = 2: silhouette 0.489
+k = 3: silhouette 0.428
+k = 4: silhouette 0.461
+
+At k=2, K-Means agrees with the true crescents for 76% of points.
+The score prefers k=2, and yet K-Means still cuts the crescents in the wrong
+place — because it can only draw straight boundaries. A good score does not
+mean a good clustering.</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Clustering always returns clusters">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>⚠️ Clustering always returns clusters
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ask K-Means for four groups in pure random noise and you will get four groups, each with a centre and a colour, and a chart that looks meaningful.</p>
+<div id="22e8c72e" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> silhouette_score</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>noise <span class="op">=</span> pd.read_csv(<span class="st">"datasets/random_noise.csv"</span>)[[<span class="st">"x"</span>, <span class="st">"y"</span>]].values   <span class="co"># no structure at all</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]:</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"k = </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss"> on pure noise: silhouette </span><span class="sc">{</span>silhouette_score(noise, KMeans(k, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(noise))<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>k = 2 on pure noise: silhouette 0.314
+k = 3 on pure noise: silhouette 0.326
+k = 4 on pure noise: silhouette 0.321</code></pre>
+</div>
+</div>
+<p>Those are not zero. <strong>The elbow and the silhouette are evidence, not proof. The real test is whether the clusters mean something to somebody who knows the business.</strong></p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s10-topic-7" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="sec-s10-topic-7"><span class="header-section-number">15.3</span> 7. Profiling: turning clusters into an answer</h2>
+<p><strong>A cluster number is not a deliverable.</strong> <code>cluster = 2</code> means nothing to a marketing team. The deliverable is a <strong>description</strong>.</p>
+<section id="demo-7-from-cluster-numbers-to-named-segments" class="level3" data-number="15.3.1">
+<h3 data-number="15.3.1" class="anchored" data-anchor-id="demo-7-from-cluster-numbers-to-named-segments"><span class="header-section-number">15.3.1</span> Demo 7 — from cluster numbers to named segments</h3>
+<div id="dfdabf11" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> customers[[<span class="st">"income"</span>, <span class="st">"spending_score"</span>]]</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>customers[<span class="st">"segment"</span>] <span class="op">=</span> KMeans(<span class="dv">5</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    StandardScaler().fit_transform(X))</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>profile <span class="op">=</span> customers.groupby(<span class="st">"segment"</span>).agg(</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    customers<span class="op">=</span>(<span class="st">"income"</span>, <span class="st">"size"</span>),</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    median_income<span class="op">=</span>(<span class="st">"income"</span>, <span class="st">"median"</span>),</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    median_spend<span class="op">=</span>(<span class="st">"spending_score"</span>, <span class="st">"median"</span>),</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>).<span class="bu">round</span>(<span class="dv">0</span>)</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>profile[<span class="st">"share"</span>] <span class="op">=</span> (profile[<span class="st">"customers"</span>] <span class="op">/</span> <span class="bu">len</span>(customers) <span class="op">*</span> <span class="dv">100</span>).<span class="bu">round</span>(<span class="dv">1</span>).astype(<span class="bu">str</span>) <span class="op">+</span> <span class="st">"%"</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(profile)</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Now name them, and say what to do:"</span>)</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>overall_income <span class="op">=</span> customers[<span class="st">"income"</span>].median()</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>overall_spend <span class="op">=</span> customers[<span class="st">"spending_score"</span>].median()</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> seg, row <span class="kw">in</span> profile.iterrows():</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    rich <span class="op">=</span> <span class="st">"high"</span> <span class="cf">if</span> row[<span class="st">"median_income"</span>] <span class="op">&gt;</span> overall_income <span class="cf">else</span> <span class="st">"modest"</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    spends <span class="op">=</span> <span class="st">"high"</span> <span class="cf">if</span> row[<span class="st">"median_spend"</span>] <span class="op">&gt;</span> overall_spend <span class="cf">else</span> <span class="st">"low"</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    name <span class="op">=</span> {(<span class="st">"high"</span>, <span class="st">"high"</span>): <span class="st">"Best customers — reward and retain"</span>,</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"high"</span>, <span class="st">"low"</span>):  <span class="st">"Untapped — money, but not spending here"</span>,</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"modest"</span>, <span class="st">"low"</span>): <span class="st">"Budget-conscious — low priority"</span>,</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"modest"</span>, <span class="st">"high"</span>): <span class="st">"Enthusiasts on a budget — grow carefully"</span>}[(rich, spends)]</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  Segment </span><span class="sc">{</span>seg<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>name<span class="sc">:&lt;44}</span><span class="ss"> (</span><span class="sc">{</span>row[<span class="st">'share'</span>]<span class="sc">:&gt;5}</span><span class="ss"> of customers, "</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"$</span><span class="sc">{</span>row[<span class="st">'median_income'</span>]<span class="sc">:,.0f}</span><span class="ss">k income)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         customers  median_income  median_spend  share
+segment                                               
+0               81           54.0          50.0  40.5%
+1               39           79.0          83.0  19.5%
+2               35           85.0          16.0  17.5%
+3               23           25.0          17.0  11.5%
+4               22           24.0          77.0  11.0%
+
+Now name them, and say what to do:
+  Segment 0: Budget-conscious — low priority              (40.5% of customers, $54k income)
+  Segment 1: Best customers — reward and retain           (19.5% of customers, $79k income)
+  Segment 2: Untapped — money, but not spending here      (17.5% of customers, $85k income)
+  Segment 3: Budget-conscious — low priority              (11.5% of customers, $25k income)
+  Segment 4: Enthusiasts on a budget — grow carefully     (11.0% of customers, $24k income)</code></pre>
+</div>
+</div>
+<p><strong>That last block is the actual output of a clustering project.</strong> “Segment 1” became “high income, not spending — worth a targeted offer”, which somebody can act on tomorrow.</p>
+</section>
+</section>
+</section>
+<section id="sec-s10-d" class="level1" data-number="16">
+<h1 data-number="16"><span class="header-section-number">16</span> Part D — When K-Means fails</h1>
+<section id="sec-s10-topic-8" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="sec-s10-topic-8"><span class="header-section-number">16.1</span> 8. Hierarchical clustering</h2>
+<p><strong>Hierarchical clustering builds a tree.</strong> It starts with every point as its own cluster and repeatedly merges the two closest, until everything is one cluster. You then cut the tree wherever you like.</p>
+<p><strong>Its advantage over K-Means: you do not have to choose <em>k</em> in advance.</strong> You build the tree once and read off any number of clusters from it.</p>
+<section id="demo-8-the-dendrogram" class="level3" data-number="16.1.1">
+<h3 data-number="16.1.1" class="anchored" data-anchor-id="demo-8-the-dendrogram"><span class="header-section-number">16.1.1</span> Demo 8 — the dendrogram</h3>
+<div id="cell-fig-s10-dendro" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.cluster.hierarchy <span class="im">import</span> dendrogram, linkage, fcluster</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>sample <span class="op">=</span> customers[[<span class="st">"income"</span>, <span class="st">"spending_score"</span>]].sample(<span class="dv">40</span>, random_state<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> linkage(StandardScaler().fit_transform(sample), method<span class="op">=</span><span class="st">"ward"</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="fl">3.4</span>))</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>dendrogram(Z, no_labels<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>plt.axhline(<span class="dv">6</span>, color<span class="op">=</span><span class="st">"red"</span>, ls<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"distance at which clusters merged"</span>)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Cut the tree where the vertical lines are longest"</span>)</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cut <span class="kw">in</span> [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]:</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> fcluster(Z, cut, criterion<span class="op">=</span><span class="st">"maxclust"</span>)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"cutting for </span><span class="sc">{</span>cut<span class="sc">}</span><span class="ss"> clusters → sizes </span><span class="sc">{</span>np<span class="sc">.</span>bincount(labels)[<span class="dv">1</span>:]<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s10-dendro" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s10-dendro-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-10-unsupervised-learning-techniques-clustering_files/figure-html/fig-s10-dendro-output-1.png" width="831" height="342" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s10-dendro-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;16.1: A dendrogram. Cutting across at a height gives that many clusters — the long vertical gap suggests where.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>cutting for 2 clusters → sizes [9, 31]
+cutting for 3 clusters → sizes [9, 5, 26]
+cutting for 4 clusters → sizes [9, 5, 5, 21]</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-s10-topic-9" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="sec-s10-topic-9"><span class="header-section-number">16.2</span> 9. DBSCAN</h2>
+<p><strong>DBSCAN groups points that are packed closely together and labels everything else as noise.</strong> It has two strengths K-Means does not:</p>
+<ul>
+<li>clusters can be <strong>any shape</strong>, not just round blobs</li>
+<li>points that belong to no cluster are marked as <strong>noise</strong> rather than forced into one</li>
+</ul>
+<p>You do not give it <em>k</em>. You give it <code>eps</code> (how close counts as “near”) and <code>min_samples</code> (how many neighbours make a dense region).</p>
+<section id="demo-9-the-crescents-where-k-means-could-not-win" class="level3" data-number="16.2.1">
+<h3 data-number="16.2.1" class="anchored" data-anchor-id="demo-9-the-crescents-where-k-means-could-not-win"><span class="header-section-number">16.2.1</span> Demo 9 — the crescents, where K-Means could not win</h3>
+<div id="cell-fig-s10-dbscan" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans, DBSCAN</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>mo <span class="op">=</span> pd.read_csv(<span class="st">"datasets/moons.csv"</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>moons, truth <span class="op">=</span> mo[[<span class="st">"x"</span>, <span class="st">"y"</span>]].values, mo[<span class="st">"true_group"</span>].values</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>km_labels <span class="op">=</span> KMeans(<span class="dv">2</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(moons)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>db_labels <span class="op">=</span> DBSCAN(eps<span class="op">=</span><span class="fl">0.2</span>, min_samples<span class="op">=</span><span class="dv">5</span>).fit_predict(moons)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="fl">3.2</span>))</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].scatter(<span class="op">*</span>moons.T, c<span class="op">=</span>truth, cmap<span class="op">=</span><span class="st">"viridis"</span>, s<span class="op">=</span><span class="dv">10</span>)<span class="op">;</span>      ax[<span class="dv">0</span>].set_title(<span class="st">"The truth"</span>)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].scatter(<span class="op">*</span>moons.T, c<span class="op">=</span>km_labels, cmap<span class="op">=</span><span class="st">"viridis"</span>, s<span class="op">=</span><span class="dv">10</span>)<span class="op">;</span>  ax[<span class="dv">1</span>].set_title(<span class="st">"K-Means"</span>)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">2</span>].scatter(<span class="op">*</span>moons.T, c<span class="op">=</span>db_labels, cmap<span class="op">=</span><span class="st">"viridis"</span>, s<span class="op">=</span><span class="dv">10</span>)<span class="op">;</span>  ax[<span class="dv">2</span>].set_title(<span class="st">"DBSCAN"</span>)</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> ax: a.set_xticks([])<span class="op">;</span> a.set_yticks([])</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>km_acc <span class="op">=</span> <span class="bu">max</span>((km_labels <span class="op">==</span> truth).mean(), <span class="dv">1</span> <span class="op">-</span> (km_labels <span class="op">==</span> truth).mean())</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>db_acc <span class="op">=</span> <span class="bu">max</span>((db_labels <span class="op">==</span> truth).mean(), <span class="dv">1</span> <span class="op">-</span> (db_labels <span class="op">==</span> truth).mean())</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"K-Means matches the true crescents: </span><span class="sc">{</span>km_acc<span class="sc">:.0%}</span><span class="ss">"</span>)</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"DBSCAN  matches the true crescents: </span><span class="sc">{</span>db_acc<span class="sc">:.0%}</span><span class="ss">"</span>)</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"DBSCAN labelled </span><span class="sc">{</span>(db_labels <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss"> points as noise (label -1)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-s10-dbscan" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-s10-dbscan-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-10-unsupervised-learning-techniques-clustering_files/figure-html/fig-s10-dbscan-output-1.png" width="1309" height="341" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s10-dbscan-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;16.2: K-Means cuts the crescents with a straight line. DBSCAN follows their shape.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>K-Means matches the true crescents: 76%
+DBSCAN  matches the true crescents: 100%
+DBSCAN labelled 0 points as noise (label -1)</code></pre>
+</div>
+</div>
+</section>
+<section id="demo-10-choosing-between-the-three" class="level3" data-number="16.2.2">
+<h3 data-number="16.2.2" class="anchored" data-anchor-id="demo-10-choosing-between-the-three"><span class="header-section-number">16.2.2</span> Demo 10 — choosing between the three</h3>
+<div id="ecfdf95b" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">''</span><span class="sc">:&lt;22}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'K-Means'</span><span class="sc">:&lt;22}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Hierarchical'</span><span class="sc">:&lt;22}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'DBSCAN'</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> [</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"must choose k?"</span>,     <span class="st">"yes"</span>,                 <span class="st">"no — cut the tree"</span>,   <span class="st">"no"</span>),</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"cluster shapes"</span>,     <span class="st">"round blobs only"</span>,    <span class="st">"flexible"</span>,            <span class="st">"any shape"</span>),</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"handles noise"</span>,      <span class="st">"no — forces a group"</span>, <span class="st">"no"</span>,                  <span class="st">"yes, explicitly"</span>),</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"speed on big data"</span>,  <span class="st">"fast"</span>,                <span class="st">"slow (n² memory)"</span>,    <span class="st">"medium"</span>),</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"clusters of very different density"</span>, <span class="st">"poor"</span>, <span class="st">"fair"</span>,               <span class="st">"poor"</span>),</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"main use"</span>,           <span class="st">"the default first try"</span>,<span class="st">"exploring structure"</span>,<span class="st">"odd shapes, outliers"</span>),</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> label, a, b, c <span class="kw">in</span> rows:</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>label<span class="sc">:&lt;22}</span><span class="ss"> </span><span class="sc">{</span>a<span class="sc">:&lt;22}</span><span class="ss"> </span><span class="sc">{</span>b<span class="sc">:&lt;22}</span><span class="ss"> </span><span class="sc">{</span>c<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                       K-Means                Hierarchical           DBSCAN
+must choose k?         yes                    no — cut the tree      no
+cluster shapes         round blobs only       flexible               any shape
+handles noise          no — forces a group    no                     yes, explicitly
+speed on big data      fast                   slow (n² memory)       medium
+clusters of very different density poor                   fair                   poor
+main use               the default first try  exploring structure    odd shapes, outliers</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="sec-s10-tasks" class="level1" data-number="17">
+<h1 data-number="17"><span class="header-section-number">17</span> 🎯 Tasks</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Practise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Task 1 — Choose k and defend it.</strong> For the <code>customers</code> data, produce both the elbow plot and the silhouette curve. <strong>State your k and give two reasons.</strong></p>
+<p><strong>Task 2 — Prove scaling matters.</strong> Using <code>datasets/loan_data_10k.csv</code>, cluster on <code>person_income</code> and <code>credit_score</code> unscaled and scaled. <strong>Report what percentage of applicants end up in a different group.</strong></p>
+<p><strong>Task 3 — Name the segments.</strong> Run Demo 7 with k=4 and write a one-sentence description and one recommended action for each segment.</p>
+<p><strong>Task 4 — Cluster noise.</strong> Generate 300 random points with no structure, run K-Means with k=3, and plot the result. <strong>Write one sentence on what this teaches you about trusting a cluster chart.</strong></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="734094f2" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>cust <span class="op">=</span> (pd.read_csv(<span class="st">"datasets/loan_data_10k.csv"</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>          .dropna(subset<span class="op">=</span>[<span class="st">"person_income"</span>, <span class="st">"credit_score"</span>])</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>          .sample(<span class="dv">2_000</span>, random_state<span class="op">=</span><span class="dv">0</span>)[[<span class="st">"person_income"</span>, <span class="st">"credit_score"</span>]])</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — how many applicants change group when you scale?</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>raw <span class="op">=</span> KMeans(<span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(cust)</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>scl <span class="op">=</span> KMeans(<span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(StandardScaler().fit_transform(cust))</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>best_match <span class="op">=</span> pd.crosstab(raw, scl).<span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>).<span class="bu">sum</span>()</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Task 2 — </span><span class="sc">{</span><span class="dv">1</span> <span class="op">-</span> best_match<span class="op">/</span><span class="bu">len</span>(cust)<span class="sc">:.0%}</span><span class="ss"> of applicants land in a different group"</span>)</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"         once the data is scaled. Income is measured in hundreds of thousands and"</span>)</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"         credit score in hundreds, so unscaled, income decides everything."</span>)</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 4 — clusters found in data that has none</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>noise <span class="op">=</span> pd.read_csv(<span class="st">"datasets/random_noise.csv"</span>)[[<span class="st">"x"</span>, <span class="st">"y"</span>]].values</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>lab <span class="op">=</span> KMeans(<span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(noise)</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Task 4 — K-Means split pure noise into groups of </span><span class="sc">{</span>np<span class="sc">.</span>bincount(lab)<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"         A cluster chart always looks convincing. The chart is not the evidence."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Task 2 — 45% of applicants land in a different group
+         once the data is scaled. Income is measured in hundreds of thousands and
+         credit score in hundreds, so unscaled, income decides everything.
+
+Task 4 — K-Means split pure noise into groups of [138, 137, 125].
+         A cluster chart always looks convincing. The chart is not the evidence.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-s10-mcqs" class="level1" data-number="18">
+<h1 data-number="18"><span class="header-section-number">18</span> ❓ MCQs</h1>
+<p><strong>Q1.</strong> What makes clustering unsupervised?</p>
+<ul>
+<li><ol type="a">
+<li>It is less accurate.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>There is no target column, so there is no correct answer to compare against.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>It runs without training.</li>
+</ol></li>
+</ul>
+<p><strong>Q2.</strong> Why does inertia always fall as <em>k</em> rises?</p>
+<ul>
+<li><ol type="a">
+<li>A bug in scikit-learn.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>More centres means every point is nearer to one, until with one centre per point inertia is zero.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>It does not.</li>
+</ol></li>
+</ul>
+<p><strong>Q3.</strong> You cluster income (in rupees) and age (in years) without scaling. What happens?</p>
+<ul>
+<li><ol type="a">
+<li>Nothing important.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Income decides every cluster, because its numbers are thousands of times larger.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>The code raises an error.</li>
+</ol></li>
+</ul>
+<p><strong>Q4.</strong> Your data forms two interlocking crescents. Which method?</p>
+<ul>
+<li><ol type="a">
+<li>K-Means with k=2.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>DBSCAN.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>K-Means with k=4.</li>
+</ol></li>
+</ul>
+<p><strong>Q5.</strong> The silhouette score for your clustering is 0.61, and the business says the segments make no sense. What do you conclude?</p>
+<ul>
+<li><ol type="a">
+<li>The business is wrong; 0.61 is a good score.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>The clusters are mathematically separated but not meaningful — go back and change the features, not the score.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Increase k until the score improves.</li>
+</ol></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" title="Answers">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Answers
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>A1 — (b).</strong> Which is why this chapter measures <em>justification</em> rather than accuracy.</p>
+<p><strong>A2 — (b).</strong> This is exactly why the elbow method looks for a bend rather than a minimum.</p>
+<p><strong>A3 — (b).</strong> Demo 3 measured 43% of applicants changing group on real loan data.</p>
+<p><strong>A4 — (b).</strong> Demo 9 measured K-Means at 76% and DBSCAN at essentially perfect.</p>
+<p><strong>A5 — (b).</strong> Demo 6’s noise experiment gave respectable silhouette scores on data with no structure at all. The score cannot tell you whether a grouping is meaningful.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="✅ Before you move on">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>✅ Before you move on
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul class="task-list">
+<li><label><input type="checkbox">I can describe the K-Means loop in three steps</label></li>
+<li><label><input type="checkbox">I always scale before clustering, and I know what happens if I do not</label></li>
+<li><label><input type="checkbox">I can read an elbow plot and a silhouette curve</label></li>
+<li><label><input type="checkbox">I know DBSCAN handles odd shapes and noise, and K-Means does not</label></li>
+<li><label><input type="checkbox">I deliver named, described segments — not cluster numbers</label></li>
+<li><label><input type="checkbox"><strong>Easiest thing to forget:</strong> clustering always returns clusters. A tidy chart is not evidence that groups exist.</label></li>
+</ul>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../sessions/session-09-supervised-learning-techniques.html" class="pagination-link" aria-label="Session 9 — Supervised Learning Techniques">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Session 9 — Supervised Learning Techniques</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../sessions/session-11-data-model-evaluation.html" class="pagination-link" aria-label="Session 11 — Model Evaluation">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Session 11 — Model Evaluation</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

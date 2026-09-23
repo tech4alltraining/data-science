@@ -1,0 +1,17 @@
+/* Data Science syllabus — light styling for the standalone render. */
+
+body { font-size: 1rem; }
+
+h1 { border-bottom: 2px solid #d0d7de; padding-bottom: .3rem; margin-top: 2.5rem; }
+h3 { margin-top: 2rem; }
+
+/* Session entries read as cards in a long document. */
+h3[id^="sec-s"] { border-left: 4px solid #0d6efd; padding-left: .6rem; }
+
+table { font-size: .93rem; }
+table th { background: #f6f8fa; }
+
+/* The ➕ marker for added topics. */
+li { margin-bottom: .15rem; }
+
+blockquote { border-left: 3px solid #d0d7de; color: #57606a; }
