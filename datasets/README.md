@@ -37,6 +37,25 @@ Every generator is **seeded**, so rebuilding produces byte-identical files.
 | `cardekho_dataset.csv` | 15,411 × 14 | strongly skewed prices; mean and median disagree | 4, 7, 8 |
 | `loan_data_10k.csv` | 10,000 × 14 | imbalanced target, mixed types, columns on different scales | 5, 16 |
 
+## Large real datasets (advanced demos, Sessions 13–14)
+
+Two genuinely large public datasets power the "advanced" demos that close Sessions 13
+and 14, so the chunking and MapReduce ideas are proven at real scale, not just on data
+built for the lesson. They are **not committed to git** (see `.gitignore`) — fetch them
+with:
+
+```bash
+python datasets/download_bigdata_real.py
+```
+
+| File | Source | Rows | Used in |
+|---|---|---|---|
+| `bigdata/covertype.csv` | [huggingface.co/datasets/inria-soda/tabular-benchmark](https://huggingface.co/datasets/inria-soda/tabular-benchmark) | 566,602 | Session 13 |
+| `bigdata/imdb_train.parquet` | [huggingface.co/datasets/stanfordnlp/imdb](https://huggingface.co/datasets/stanfordnlp/imdb) | 25,000 | Session 14 |
+
+Both are fetched with a plain HTTPS `GET` — no account, API key, or `kaggle`/`datasets`
+library needed. The parquet file needs `pyarrow`, which is in `requirements.txt`.
+
 ## Generated datasets
 
 One script per session. Run any of them on its own:

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Author">
-<meta name="dcterms.date" content="2026-09-23">
+<meta name="dcterms.date" content="2026-09-24">
 
 <title>Data Science</title>
 <style>
@@ -323,8 +323,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#the-sessions" id="toc-the-sessions" class="nav-link" data-scroll-target="#the-sessions"><span class="header-section-number">0.3</span> The sessions</a></li>
   <li><a href="#how-each-session-is-written" id="toc-how-each-session-is-written" class="nav-link" data-scroll-target="#how-each-session-is-written"><span class="header-section-number">0.4</span> How each session is written</a></li>
   <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data"><span class="header-section-number">0.5</span> The data</a></li>
-  <li><a href="#setting-up" id="toc-setting-up" class="nav-link" data-scroll-target="#setting-up"><span class="header-section-number">0.6</span> Setting up</a></li>
-  <li><a href="#a-note-on-the-order" id="toc-a-note-on-the-order" class="nav-link" data-scroll-target="#a-note-on-the-order"><span class="header-section-number">0.7</span> A note on the order</a></li>
+  <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides"><span class="header-section-number">0.6</span> Slides</a></li>
+  <li><a href="#setting-up" id="toc-setting-up" class="nav-link" data-scroll-target="#setting-up"><span class="header-section-number">0.7</span> Setting up</a></li>
+  <li><a href="#a-note-on-the-order" id="toc-a-note-on-the-order" class="nav-link" data-scroll-target="#a-note-on-the-order"><span class="header-section-number">0.8</span> A note on the order</a></li>
   </ul>
 </nav>
     </div>
@@ -351,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 23, 2026</p>
+      <p class="date">September 24, 2026</p>
     </div>
   </div>
   
@@ -602,23 +603,32 @@ Note
 <td><code>python datasets/download_real.py</code></td>
 </tr>
 <tr class="odd">
+<td>Get the two large real datasets for Sessions 13–14</td>
+<td><code>python datasets/download_bigdata_real.py</code></td>
+</tr>
+<tr class="even">
 <td>What each file is for</td>
 <td><a href="datasets/README.md"><code>datasets/README.md</code></a></td>
 </tr>
 </tbody>
 </table>
 <p>The formats vary on purpose — CSV, JSON, plain text, Excel, SQL, and one table split across several files — because real data does not arrive in one shape.</p>
+<p>Sessions 13 and 14 each close with an advanced demo on a genuinely large public dataset — 566,602 real rows of US Forest Service terrain data, and 25,000 real IMDB movie reviews, both from Hugging Face — so the chunking and MapReduce ideas are proven at real scale, not just on data built for the lesson.</p>
 </section>
-<section id="setting-up" class="level2" data-number="0.6">
-<h2 data-number="0.6" class="anchored" data-anchor-id="setting-up"><span class="header-section-number">0.6</span> Setting up</h2>
+<section id="slides" class="level2" data-number="0.6">
+<h2 data-number="0.6" class="anchored" data-anchor-id="slides"><span class="header-section-number">0.6</span> Slides</h2>
+<p>A companion slide deck covers every session’s concepts — no code, one section per session — for teaching from the front of a room: <a href="slides/data-science-course.tex"><code>slides/data-science-course.tex</code></a> (compile with <code>latexmk -xelatex data-science-course.tex</code>; the built PDF sits alongside it).</p>
+</section>
+<section id="setting-up" class="level2" data-number="0.7">
+<h2 data-number="0.7" class="anchored" data-anchor-id="setting-up"><span class="header-section-number">0.7</span> Setting up</h2>
 <p>All code runs in one conda environment. Create it once:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> ds python=3.11 <span class="at">-y</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate ds</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then build the book with <code>quarto render</code>, or open any session and run the cells in Jupyter. <strong>Every session is self-contained</strong> — variables do not carry from one to the next, so you can start anywhere, though the order is designed to be read straight through.</p>
 </section>
-<section id="a-note-on-the-order" class="level2" data-number="0.7">
-<h2 data-number="0.7" class="anchored" data-anchor-id="a-note-on-the-order"><span class="header-section-number">0.7</span> A note on the order</h2>
+<section id="a-note-on-the-order" class="level2" data-number="0.8">
+<h2 data-number="0.8" class="anchored" data-anchor-id="a-note-on-the-order"><span class="header-section-number">0.8</span> A note on the order</h2>
 <p>Sessions 3–6 prepare data; Sessions 7–8 describe it. If you have met this material before you may expect statistics to come first — it is the more common arrangement.</p>
 <p>Session 3 borrows the two ideas it needs (quartiles and standard deviation) in a marked box, so nothing is used before it is explained, and Session 7 then covers them properly. <strong>If you prefer, read Sessions 7 and 8 before Session 3.</strong> Nothing in them depends on Sessions 3–6.</p>
 

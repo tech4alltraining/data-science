@@ -496,7 +496,7 @@ Note
 </div>
 <section id="demo-1-the-same-data-cleaned-in-two-different-orders" class="level3" data-number="6.1.1">
 <h3 data-number="6.1.1" class="anchored" data-anchor-id="demo-1-the-same-data-cleaned-in-two-different-orders"><span class="header-section-number">6.1.1</span> Demo 1 — the same data, cleaned in two different orders</h3>
-<div id="b0af5b44" class="cell" data-execution_count="2">
+<div id="ea35a647" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -529,7 +529,7 @@ Right order → mean used for filling was 28.0
 <section id="demo-2-the-same-file-but-with-a-second-impossible-value-too" class="level3" data-number="6.1.2">
 <h3 data-number="6.1.2" class="anchored" data-anchor-id="demo-2-the-same-file-but-with-a-second-impossible-value-too"><span class="header-section-number">6.1.2</span> Demo 2 — the same file, but with a second impossible value too</h3>
 <p>The eight ages above only had one problem to catch. The full file has ten rows, and one more impossible age hiding in it: <code>-4</code>. A real rule has to catch <strong>both directions</strong> — too high and too low — not just the one you already know about.</p>
-<div id="f7894358" class="cell" data-execution_count="3">
+<div id="2033af7d" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -564,7 +564,7 @@ Right order → mean used for filling was 28.0
 <section id="sec-s03-b" class="level1" data-number="7">
 <h1 data-number="7"><span class="header-section-number">7</span> Part B — The six cleaning jobs</h1>
 <p>Everything below runs on one deliberately awful file — <code>datasets/messy_customers.csv</code>, the same one you inspected in Session 2 — so you can watch each fix land.</p>
-<div id="b61ea45c" class="cell" data-execution_count="4">
+<div id="58df5d32" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -593,7 +593,7 @@ Starting point: 10 rows, 3 blank cells</code></pre>
 <p>They matter because <strong>every duplicate silently increases that row’s influence.</strong> One customer counted twice votes twice.</p>
 <section id="demo-3-finding-and-removing-duplicates" class="level3" data-number="7.1.1">
 <h3 data-number="7.1.1" class="anchored" data-anchor-id="demo-3-finding-and-removing-duplicates"><span class="header-section-number">7.1.1</span> Demo 3 — finding and removing duplicates</h3>
-<div id="ed161e27" class="cell" data-execution_count="5">
+<div id="7f96594e" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Rows that are exact copies of an earlier row:"</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(raw[raw.duplicated()])</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -612,7 +612,7 @@ Before: 10 rows   After: 9 rows</code></pre>
 </div>
 </div>
 <p><code>drop_duplicates()</code> keeps the <strong>first</strong> copy by default. When rows differ slightly — the same customer with an updated address — you usually want the <strong>latest</strong> instead:</p>
-<div id="c448d6e3" class="cell" data-execution_count="6">
+<div id="91d2366d" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep the last recorded version of each customer, not the first:</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>latest <span class="op">=</span> raw.drop_duplicates(subset<span class="op">=</span><span class="st">"customer_id"</span>, keep<span class="op">=</span><span class="st">"last"</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"One row per customer, keeping the most recent: </span><span class="sc">{</span><span class="bu">len</span>(latest)<span class="sc">}</span><span class="ss"> rows"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -624,7 +624,7 @@ Before: 10 rows   After: 9 rows</code></pre>
 <section id="demo-4-seeing-every-copy-not-just-the-extra-one" class="level3" data-number="7.1.2">
 <h3 data-number="7.1.2" class="anchored" data-anchor-id="demo-4-seeing-every-copy-not-just-the-extra-one"><span class="header-section-number">7.1.2</span> Demo 4 — seeing every copy, not just the extra one</h3>
 <p>Before deciding which copy to keep, it often helps to see <strong>all</strong> of them side by side. <code>keep=False</code> marks every row that belongs to a repeated key, not only the ones beyond the first.</p>
-<div id="314a1fc0" class="cell" data-execution_count="7">
+<div id="61446631" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Every row that belongs to a repeated customer_id:"</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(raw[raw.duplicated(subset<span class="op">=</span><span class="st">"customer_id"</span>, keep<span class="op">=</span><span class="va">False</span>)][[<span class="st">"customer_id"</span>, <span class="st">"name"</span>, <span class="st">"age"</span>, <span class="st">"city"</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -686,7 +686,7 @@ Before: 10 rows   After: 9 rows</code></pre>
 </table>
 <section id="demo-5-apply-the-rules-and-convert-violations-to-missing" class="level3" data-number="7.2.1">
 <h3 data-number="7.2.1" class="anchored" data-anchor-id="demo-5-apply-the-rules-and-convert-violations-to-missing"><span class="header-section-number">7.2.1</span> Demo 5 — apply the rules, and convert violations to missing</h3>
-<div id="6e2ef2fc" class="cell" data-execution_count="8">
+<div id="a671ba8e" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> deduped.copy()</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>impossible <span class="op">=</span> (df[<span class="st">"age"</span>] <span class="op">&lt;</span> <span class="dv">0</span>) <span class="op">|</span> (df[<span class="st">"age"</span>] <span class="op">&gt;</span> <span class="dv">120</span>)</span>
@@ -709,7 +709,7 @@ Ages now missing (was 1, now 3)</code></pre>
 <section id="demo-6-checking-several-columns-at-once" class="level3" data-number="7.2.2">
 <h3 data-number="7.2.2" class="anchored" data-anchor-id="demo-6-checking-several-columns-at-once"><span class="header-section-number">7.2.2</span> Demo 6 — checking several columns at once</h3>
 <p>Real tables have more than one column with a rule. A dictionary of rules, one entry per column, checks all of them in a single pass instead of writing the same code out by hand for each.</p>
-<div id="5acf33d9" class="cell" data-execution_count="9">
+<div id="991d1ed4" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>rules <span class="op">=</span> {</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"age"</span>: (deduped[<span class="st">"age"</span>] <span class="op">&lt;</span> <span class="dv">0</span>) <span class="op">|</span> (deduped[<span class="st">"age"</span>] <span class="op">&gt;</span> <span class="dv">120</span>),</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"income"</span>: deduped[<span class="st">"income"</span>] <span class="op">&lt;</span> <span class="dv">0</span>,</span>
@@ -783,7 +783,7 @@ income   impossible values found: 0</code></pre>
 </section>
 <section id="demo-7-four-ways-to-fill-a-gap" class="level3" data-number="7.3.2">
 <h3 data-number="7.3.2" class="anchored" data-anchor-id="demo-7-four-ways-to-fill-a-gap"><span class="header-section-number">7.3.2</span> Demo 7 — four ways to fill a gap</h3>
-<div id="76504b28" class="cell" data-execution_count="10">
+<div id="413e0966" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>income <span class="op">=</span> df[<span class="st">"income"</span>]</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Missing incomes: </span><span class="sc">{</span>income<span class="sc">.</span>isna()<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss"> of </span><span class="sc">{</span><span class="bu">len</span>(income)<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -858,7 +858,7 @@ Filled by city median:
 </section>
 <section id="demo-8-always-record-that-you-guessed" class="level3" data-number="7.3.3">
 <h3 data-number="7.3.3" class="anchored" data-anchor-id="demo-8-always-record-that-you-guessed"><span class="header-section-number">7.3.3</span> Demo 8 — always record that you guessed</h3>
-<div id="ff90262f" class="cell" data-execution_count="11">
+<div id="2f0eba73" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"income_was_missing"</span>] <span class="op">=</span> df[<span class="st">"income"</span>].isna()          <span class="co"># remember, before filling</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"income"</span>] <span class="op">=</span> df[<span class="st">"income"</span>].fillna(df[<span class="st">"income"</span>].median())</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"age"</span>] <span class="op">=</span> df[<span class="st">"age"</span>].fillna(df[<span class="st">"age"</span>].median())</span>
@@ -990,7 +990,7 @@ no smoothing: average distance from the real temperature = 1.36 °C</code></pre>
 <section id="demo-10-binning-instead-of-a-rolling-mean" class="level3" data-number="7.4.2">
 <h3 data-number="7.4.2" class="anchored" data-anchor-id="demo-10-binning-instead-of-a-rolling-mean"><span class="header-section-number">7.4.2</span> Demo 10 — binning instead of a rolling mean</h3>
 <p>The mechanism table above named three methods; only the rolling mean has been shown so far. <strong>Binning</strong> groups the hours into blocks and replaces every reading in a block with that block’s own average.</p>
-<div id="e82ff04c" class="cell" data-execution_count="13">
+<div id="bf32b38f" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the 120 hours into 12 blocks of 10, and replace each reading with its block's mean.</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> pd.cut(sensor[<span class="st">"hour"</span>], bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">121</span>, <span class="dv">10</span>))</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>binned <span class="op">=</span> sensor.groupby(bins, observed<span class="op">=</span><span class="va">True</span>)[<span class="st">"sensor_reading"</span>].transform(<span class="st">"mean"</span>)</span>
@@ -1054,7 +1054,7 @@ Rolling mean, window 5      : average distance from the real temperature = 0.77 
 </table>
 <section id="demo-11-the-two-rules-and-why-they-disagree" class="level3" data-number="7.5.1">
 <h3 data-number="7.5.1" class="anchored" data-anchor-id="demo-11-the-two-rules-and-why-they-disagree"><span class="header-section-number">7.5.1</span> Demo 11 — the two rules, and why they disagree</h3>
-<div id="70bd7952" class="cell" data-execution_count="14">
+<div id="9c5ff2c6" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>income <span class="op">=</span> df[<span class="st">"income"</span>]</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># --- IQR rule ---</span></span>
@@ -1163,7 +1163,7 @@ Median (either way)      : ₹59,500</code></pre>
 <p><strong>The same thing written four ways is four different things to a computer.</strong> <code>Mumbai</code>, <code>mumbai</code>, <code>MUM</code> and <code>Bombay</code> become four separate categories, splitting one city’s data into four thin slices.</p>
 <section id="demo-13-repairing-a-text-column" class="level3" data-number="7.6.1">
 <h3 data-number="7.6.1" class="anchored" data-anchor-id="demo-13-repairing-a-text-column"><span class="header-section-number">7.6.1</span> Demo 13 — repairing a text column</h3>
-<div id="ae5cdf83" class="cell" data-execution_count="16">
+<div id="f0768def" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Before:"</span>)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[<span class="st">"city"</span>].value_counts())</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1197,7 +1197,7 @@ Name: count, dtype: int64</code></pre>
 </section>
 <section id="demo-14-dates-stored-as-text" class="level3" data-number="7.6.2">
 <h3 data-number="7.6.2" class="anchored" data-anchor-id="demo-14-dates-stored-as-text"><span class="header-section-number">7.6.2</span> Demo 14 — dates stored as text</h3>
-<div id="fe80966e" class="cell" data-execution_count="17">
+<div id="190742b9" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The 'joined' column is stored as:"</span>, df[<span class="st">"joined"</span>].dtype, <span class="st">"— that is text, not a date"</span>)</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sorting text gives:"</span>, <span class="bu">sorted</span>(df[<span class="st">'joined'</span>].tolist())[:<span class="dv">3</span>])</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1243,7 +1243,7 @@ Now we can do date arithmetic:
 <p><strong>A cleaning pass should be repeatable and should report what it did.</strong> If it is a scattering of cells run in an order you no longer remember, nobody — including you next month — can reproduce the result.</p>
 <section id="demo-15-the-whole-sequence-with-a-report" class="level3" data-number="8.1.1">
 <h3 data-number="8.1.1" class="anchored" data-anchor-id="demo-15-the-whole-sequence-with-a-report"><span class="header-section-number">8.1.1</span> Demo 15 — the whole sequence, with a report</h3>
-<div id="d74daae7" class="cell" data-execution_count="18">
+<div id="34f23858" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1324,7 +1324,7 @@ blank cells remaining    0
 <section id="demo-16-repeatable-means-the-same-answer-every-time" class="level3" data-number="8.1.2">
 <h3 data-number="8.1.2" class="anchored" data-anchor-id="demo-16-repeatable-means-the-same-answer-every-time"><span class="header-section-number">8.1.2</span> Demo 16 — repeatable means the same answer every time</h3>
 <p>“Repeatable” is a specific claim, and it is checkable: run the same function on the same input twice and the report should not differ by a single number.</p>
-<div id="9a5d51bd" class="cell" data-execution_count="19">
+<div id="02a30948" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>_, report_again <span class="op">=</span> clean(raw)</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Same report both times? </span><span class="sc">{</span>report <span class="op">==</span> report_again<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(report_again)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1349,10 +1349,10 @@ blank cells remaining    0
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Task 1 — Clean by hand first.</strong> Take the <code>raw</code> table at the top of Part B. On paper, without code, list every problem you can see. Then compare with the report from Demo 11. <strong>Anything you spotted that the code did not is a rule the code is missing.</strong></p>
-<p><strong>Task 2 — Change the imputation.</strong> In Demo 11, change <code>median()</code> to <code>mean()</code> for income. Re-run. <strong>Report the filled value both ways and say which is more honest.</strong></p>
+<p><strong>Task 1 — Clean by hand first.</strong> Take the <code>raw</code> table at the top of Part B. On paper, without code, list every problem you can see. Then compare with the report from Demo 15. <strong>Anything you spotted that the code did not is a rule the code is missing.</strong></p>
+<p><strong>Task 2 — Change the imputation.</strong> In Demo 15, change <code>median()</code> to <code>mean()</code> for income. Re-run. <strong>Report the filled value both ways and say which is more honest.</strong></p>
 <p><strong>Task 3 — Add a rule.</strong> Add a check to <code>clean()</code> for impossible incomes (negative values). Test it by setting one income to <code>-5000</code> first.</p>
-<p><strong>Task 4 — Pick the window.</strong> In Demo 6, try rolling windows of 3, 10 and 50. <strong>Report which gives the smallest average distance from the true temperature</strong>, and explain why the largest window is not the best.</p>
+<p><strong>Task 4 — Pick the window.</strong> In Demo 9, try rolling windows of 3, 10 and 50. <strong>Report which gives the smallest average distance from the true temperature</strong>, and explain why the largest window is not the best.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Solutions">
@@ -1367,7 +1367,7 @@ blank cells remaining    0
 </div>
 <div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="fcbe1408" class="cell" data-execution_count="20">
+<div id="fb9fd77d" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, numpy <span class="im">as</span> np</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — mean vs median for a skewed column</span></span>
@@ -1468,7 +1468,7 @@ the real peaks it was supposed to reveal.</code></pre>
 <div class="callout-body-container callout-body">
 <p><strong>A1 — (b).</strong> Dropping rows throws away every other column in that row. And if the blanks follow a pattern — say, high earners declining to answer — dropping them removes those people from your analysis entirely.</p>
 <p><strong>A2 — (b).</strong> The median ignores the mansions. The mean would place every filled value above what a typical house costs.</p>
-<p><strong>A3 — (b).</strong> Demo 8’s warning. The rule found the thing you were hired to find.</p>
+<p><strong>A3 — (b).</strong> Demo 12’s warning. The rule found the thing you were hired to find.</p>
 <p><strong>A4 — (b).</strong> Demo 1 showed exactly what the other order costs.</p>
 </div>
 </div>
