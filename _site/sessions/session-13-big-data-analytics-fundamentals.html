@@ -346,18 +346,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#demo-5-block-splitting-and-replication-simulated" id="toc-demo-5-block-splitting-and-replication-simulated" class="nav-link" data-scroll-target="#demo-5-block-splitting-and-replication-simulated"><span class="header-section-number">18.1.1</span> Demo 5 — block splitting and replication, simulated</a></li>
   <li><a href="#demo-6-why-replication-is-worth-3-the-disk" id="toc-demo-6-why-replication-is-worth-3-the-disk" class="nav-link" data-scroll-target="#demo-6-why-replication-is-worth-3-the-disk"><span class="header-section-number">18.1.2</span> Demo 6 — why replication is worth 3× the disk</a></li>
   </ul></li>
-  <li><a href="#sec-s13-topic-5" id="toc-sec-s13-topic-5" class="nav-link" data-scroll-target="#sec-s13-topic-5"><span class="header-section-number">18.2</span> 5. Talking to HDFS</a></li>
+  <li><a href="#sec-s13-topic-5" id="toc-sec-s13-topic-5" class="nav-link" data-scroll-target="#sec-s13-topic-5"><span class="header-section-number">18.2</span> 5. Talking to HDFS</a>
+  <ul class="collapse">
+  <li><a href="#demo-7-one-file-size-by-hand" id="toc-demo-7-one-file-size-by-hand" class="nav-link" data-scroll-target="#demo-7-one-file-size-by-hand"><span class="header-section-number">18.2.1</span> Demo 7 — one file size, by hand</a></li>
+  <li><a href="#demo-8-the-same-10-tb-four-different-file-sizes" id="toc-demo-8-the-same-10-tb-four-different-file-sizes" class="nav-link" data-scroll-target="#demo-8-the-same-10-tb-four-different-file-sizes"><span class="header-section-number">18.2.2</span> Demo 8 — the same 10 TB, four different file sizes</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#sec-s13-d" id="toc-sec-s13-d" class="nav-link" data-scroll-target="#sec-s13-d"><span class="header-section-number">19</span> Part D — The toolkit</a>
   <ul class="collapse">
   <li><a href="#sec-s13-topic-6" id="toc-sec-s13-topic-6" class="nav-link" data-scroll-target="#sec-s13-topic-6"><span class="header-section-number">19.1</span> 6. What all the names are</a></li>
   <li><a href="#sec-s13-topic-7" id="toc-sec-s13-topic-7" class="nav-link" data-scroll-target="#sec-s13-topic-7"><span class="header-section-number">19.2</span> 7. When not to use any of this</a>
   <ul class="collapse">
-  <li><a href="#demo-7-the-overhead-quantified" id="toc-demo-7-the-overhead-quantified" class="nav-link" data-scroll-target="#demo-7-the-overhead-quantified"><span class="header-section-number">19.2.1</span> Demo 7 — the overhead, quantified</a></li>
-  <li><a href="#check-yourself" id="toc-check-yourself" class="nav-link" data-scroll-target="#check-yourself"><span class="header-section-number">19.2.2</span> ❓ Check yourself</a></li>
+  <li><a href="#demo-9-the-fixed-cost-on-its-own" id="toc-demo-9-the-fixed-cost-on-its-own" class="nav-link" data-scroll-target="#demo-9-the-fixed-cost-on-its-own"><span class="header-section-number">19.2.1</span> Demo 9 — the fixed cost, on its own</a></li>
+  <li><a href="#demo-10-the-overhead-quantified" id="toc-demo-10-the-overhead-quantified" class="nav-link" data-scroll-target="#demo-10-the-overhead-quantified"><span class="header-section-number">19.2.2</span> Demo 10 — the overhead, quantified</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-s13-tasks" id="toc-sec-s13-tasks" class="nav-link" data-scroll-target="#sec-s13-tasks"><span class="header-section-number">20</span> 🎯 Tasks</a></li>
+  <li><a href="#sec-s13-e" id="toc-sec-s13-e" class="nav-link" data-scroll-target="#sec-s13-e"><span class="header-section-number">20</span> Part E — On a real file</a>
+  <ul class="collapse">
+  <li><a href="#sec-s13-topic-8" id="toc-sec-s13-topic-8" class="nav-link" data-scroll-target="#sec-s13-topic-8"><span class="header-section-number">20.1</span> 8. The same three ideas, on 566,602 real rows</a>
+  <ul class="collapse">
+  <li><a href="#demo-11-load-it-whole-then-load-it-in-chunks-and-compare" id="toc-demo-11-load-it-whole-then-load-it-in-chunks-and-compare" class="nav-link" data-scroll-target="#demo-11-load-it-whole-then-load-it-in-chunks-and-compare"><span class="header-section-number">20.1.1</span> Demo 11 — load it whole, then load it in chunks, and compare</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-s13-tasks" id="toc-sec-s13-tasks" class="nav-link" data-scroll-target="#sec-s13-tasks"><span class="header-section-number">21</span> 🎯 Tasks</a></li>
+  <li><a href="#sec-s13-mcqs" id="toc-sec-s13-mcqs" class="nav-link" data-scroll-target="#sec-s13-mcqs"><span class="header-section-number">22</span> ❓ MCQs</a></li>
   </ul>
 </nav>
     </div>
@@ -410,6 +422,7 @@ Note
 <li>Explain how HDFS stores a file across many machines and survives a failure.</li>
 <li>Place the main big-data tools on a map and say what each is for.</li>
 <li>Say when <strong>not</strong> to use big-data tools.</li>
+<li>Run a real chunked calculation on a dataset with over half a million rows.</li>
 </ol>
 </section>
 <section id="sec-s13-organisation" class="level2" data-number="15.2">
@@ -437,6 +450,10 @@ Note
 <tr class="even">
 <td><a href="#sec-s13-d">D — The toolkit</a></td>
 <td><em>What are all these names, and which do I need?</em></td>
+</tr>
+<tr class="odd">
+<td><a href="#sec-s13-e">E — On a real file</a></td>
+<td><em>Does any of this hold up outside a made-up example?</em></td>
 </tr>
 </tbody>
 </table>
@@ -508,36 +525,39 @@ Note
 <p>A rough guide: pandas comfortably handles data up to about <strong>one fifth of your RAM</strong>, because operations make copies. Beyond that your machine starts swapping to disk and everything slows by orders of magnitude.</p>
 <section id="demo-1-measure-it-on-your-own-machine" class="level3" data-number="16.2.1">
 <h3 data-number="16.2.1" class="anchored" data-anchor-id="demo-1-measure-it-on-your-own-machine"><span class="header-section-number">16.2.1</span> Demo 1 — measure it on your own machine</h3>
-<div id="c0902f90" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd, time</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> timed(f):</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> time.perf_counter()<span class="op">;</span> out <span class="op">=</span> f()<span class="op">;</span> <span class="cf">return</span> out, time.perf_counter() <span class="op">-</span> t</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Read one real file, then time the same operation on growing slices of it.</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> pd.read_csv(<span class="st">"datasets/transactions.csv"</span>, usecols<span class="op">=</span>[<span class="st">"shop"</span>, <span class="st">"amount"</span>])</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>big <span class="op">=</span> pd.concat([base] <span class="op">*</span> <span class="dv">20</span>, ignore_index<span class="op">=</span><span class="va">True</span>)      <span class="co"># 4 million rows from one file</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"source file: </span><span class="sc">{</span><span class="bu">len</span>(base)<span class="sc">:,}</span><span class="ss"> rows; stacked to </span><span class="sc">{</span><span class="bu">len</span>(big)<span class="sc">:,}</span><span class="ss"> for the largest test</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'rows'</span><span class="sc">:&gt;12}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'memory'</span><span class="sc">:&gt;12}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'groupby time'</span><span class="sc">:&gt;14}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'per M rows'</span><span class="sc">:&gt;12}</span><span class="ss">"</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">54</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> [<span class="dv">10_000</span>, <span class="dv">100_000</span>, <span class="dv">1_000_000</span>, <span class="dv">4_000_000</span>]:</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> big.iloc[:n]</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    mem <span class="op">=</span> df.memory_usage(deep<span class="op">=</span><span class="va">True</span>).<span class="bu">sum</span>() <span class="op">/</span> <span class="fl">1e6</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    _, secs <span class="op">=</span> timed(<span class="kw">lambda</span>: df.groupby(<span class="st">"shop"</span>)[<span class="st">"amount"</span>].mean())</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">:&gt;12,}</span><span class="ss"> </span><span class="sc">{</span>mem<span class="sc">:&gt;10.1f}</span><span class="ss"> MB </span><span class="sc">{</span>secs<span class="op">*</span><span class="dv">1000</span><span class="sc">:&gt;12.1f}</span><span class="ss"> ms </span><span class="sc">{</span>secs<span class="op">/</span>(n<span class="op">/</span><span class="fl">1e6</span>)<span class="op">*</span><span class="dv">1000</span><span class="sc">:&gt;10.1f}</span><span class="ss"> ms"</span>)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">The cost per million rows stays roughly flat — pandas is not struggling yet."</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"It struggles when the data plus its working copies stop fitting in RAM."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="bde42a23" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read one real file, then time the same operation on growing slices of it.</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> pd.read_csv(<span class="st">"datasets/transactions.csv"</span>, usecols<span class="op">=</span>[<span class="st">"shop"</span>, <span class="st">"amount"</span>])</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>big <span class="op">=</span> pd.concat([base] <span class="op">*</span> <span class="dv">20</span>, ignore_index<span class="op">=</span><span class="va">True</span>)      <span class="co"># 4 million rows from one file</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"source file: </span><span class="sc">{</span><span class="bu">len</span>(base)<span class="sc">:,}</span><span class="ss"> rows; stacked to </span><span class="sc">{</span><span class="bu">len</span>(big)<span class="sc">:,}</span><span class="ss"> for the largest test</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'rows'</span><span class="sc">:&gt;12}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'memory'</span><span class="sc">:&gt;12}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'groupby time'</span><span class="sc">:&gt;14}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'per M rows'</span><span class="sc">:&gt;12}</span><span class="ss">"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">54</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> [<span class="dv">10_000</span>, <span class="dv">100_000</span>, <span class="dv">1_000_000</span>, <span class="dv">4_000_000</span>]:</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> big.iloc[:n]</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    mem <span class="op">=</span> df.memory_usage(deep<span class="op">=</span><span class="va">True</span>).<span class="bu">sum</span>() <span class="op">/</span> <span class="fl">1e6</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    start <span class="op">=</span> time.perf_counter()</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> df.groupby(<span class="st">"shop"</span>)[<span class="st">"amount"</span>].mean()</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    secs <span class="op">=</span> time.perf_counter() <span class="op">-</span> start</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">:&gt;12,}</span><span class="ss"> </span><span class="sc">{</span>mem<span class="sc">:&gt;10.1f}</span><span class="ss"> MB </span><span class="sc">{</span>secs<span class="op">*</span><span class="dv">1000</span><span class="sc">:&gt;12.1f}</span><span class="ss"> ms </span><span class="sc">{</span>secs<span class="op">/</span>(n<span class="op">/</span><span class="fl">1e6</span>)<span class="op">*</span><span class="dv">1000</span><span class="sc">:&gt;10.1f}</span><span class="ss"> ms"</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">The cost per million rows stays roughly flat — pandas is not struggling yet."</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"It struggles when the data plus its working copies stop fitting in RAM."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>source file: 200,000 rows; stacked to 4,000,000 for the largest test
 
         rows       memory   groupby time   per M rows
 ------------------------------------------------------
-      10,000        0.2 MB          2.6 ms      259.2 ms
-     100,000        1.6 MB          1.0 ms       10.1 ms
-   1,000,000       16.0 MB          9.6 ms        9.6 ms
-   4,000,000       64.0 MB         51.0 ms       12.8 ms
+      10,000        0.2 MB          2.6 ms      262.8 ms
+     100,000        1.6 MB          1.4 ms       14.0 ms
+   1,000,000       16.0 MB         13.5 ms       13.5 ms
+   4,000,000       64.0 MB         51.1 ms       12.8 ms
 
 The cost per million rows stays roughly flat — pandas is not struggling yet.
 It struggles when the data plus its working copies stop fitting in RAM.</code></pre>
@@ -546,7 +566,7 @@ It struggles when the data plus its working copies stop fitting in RAM.</code></
 </section>
 <section id="demo-2-how-much-memory-a-realistic-table-needs" class="level3" data-number="16.2.2">
 <h3 data-number="16.2.2" class="anchored" data-anchor-id="demo-2-how-much-memory-a-realistic-table-needs"><span class="header-section-number">16.2.2</span> Demo 2 — how much memory a realistic table needs</h3>
-<div id="2fb63cfd" class="cell" data-execution_count="3">
+<div id="f1bcaebc" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"datasets/transactions.csv"</span>, parse_dates<span class="op">=</span>[<span class="st">"ts"</span>])</span>
@@ -562,51 +582,53 @@ It struggles when the data plus its working copies stop fitting in RAM.</code></
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    verdict <span class="op">=</span> <span class="st">"yes, comfortably"</span> <span class="cf">if</span> gb <span class="op">&lt;</span> <span class="dv">3</span> <span class="cf">else</span> <span class="st">"tight — use chunks"</span> <span class="cf">if</span> gb <span class="op">&lt;</span> <span class="dv">16</span> <span class="cf">else</span> <span class="st">"NO — needs a cluster"</span></span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>rows<span class="sc">:&gt;16,.0f}</span><span class="ss"> </span><span class="sc">{</span>gb<span class="sc">:&gt;13.1f}</span><span class="ss"> GB   </span><span class="sc">{</span>verdict<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>this table: 17.2 MB for 200,000 rows (86 bytes per row)
+<pre><code>this table: 7.4 MB for 200,000 rows (37 bytes per row)
 
             rows   estimated size fits in 16 GB RAM?
-       1,000,000           0.1 GB   yes, comfortably
-      10,000,000           0.9 GB   yes, comfortably
-     100,000,000           8.6 GB   tight — use chunks
-   1,000,000,000          86.0 GB   NO — needs a cluster</code></pre>
+       1,000,000           0.0 GB   yes, comfortably
+      10,000,000           0.4 GB   yes, comfortably
+     100,000,000           3.7 GB   tight — use chunks
+   1,000,000,000          37.0 GB   NO — needs a cluster</code></pre>
 </div>
 </div>
 </section>
 <section id="demo-3-two-ways-to-survive-a-file-bigger-than-memory" class="level3" data-number="16.2.3">
 <h3 data-number="16.2.3" class="anchored" data-anchor-id="demo-3-two-ways-to-survive-a-file-bigger-than-memory"><span class="header-section-number">16.2.3</span> Demo 3 — two ways to survive a file bigger than memory</h3>
 <p><strong>Before reaching for a cluster, two techniques solve most “too big” problems on one machine.</strong></p>
-<div id="4b16c814" class="cell" data-execution_count="4">
+<div id="5ae8f8bb" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd, tempfile, os</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> <span class="st">"datasets/transactions.csv"</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">open</span>(path)) <span class="op">-</span> <span class="dv">1</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"file on disk: </span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>getsize(path)<span class="op">/</span><span class="fl">1e6</span><span class="sc">:.1f}</span><span class="ss"> MB, </span><span class="sc">{</span>n<span class="sc">:,}</span><span class="ss"> rows</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># --- TECHNIQUE 1: chunking. Never hold the whole file at once. -------------</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>running_total, running_count <span class="op">=</span> <span class="fl">0.0</span>, <span class="dv">0</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>per_city <span class="op">=</span> {}</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> chunk <span class="kw">in</span> pd.read_csv(path, chunksize<span class="op">=</span><span class="dv">50_000</span>):        <span class="co"># 50,000 rows at a time</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    running_total <span class="op">+=</span> chunk[<span class="st">"amount"</span>].<span class="bu">sum</span>()</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    running_count <span class="op">+=</span> <span class="bu">len</span>(chunk)</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> city, total <span class="kw">in</span> chunk.groupby(<span class="st">"city"</span>)[<span class="st">"amount"</span>].<span class="bu">sum</span>().items():</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        per_city[city] <span class="op">=</span> per_city.get(city, <span class="dv">0</span>) <span class="op">+</span> total</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"CHUNKED: mean amount </span><span class="sc">{</span>running_total<span class="op">/</span>running_count<span class="sc">:.2f}</span><span class="ss"> over </span><span class="sc">{</span>running_count<span class="sc">:,}</span><span class="ss"> rows"</span>)</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"         totals per city: </span><span class="sc">{</span> {k: <span class="bu">round</span>(v) <span class="cf">for</span> k, v <span class="kw">in</span> per_city.items()} <span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"         peak memory held: one chunk of 50,000 rows, not </span><span class="sc">{</span>n<span class="sc">:,}</span><span class="ss">"</span>)</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># --- TECHNIQUE 2: read only what you need ---------------------------------</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>narrow <span class="op">=</span> pd.read_csv(path, usecols<span class="op">=</span>[<span class="st">"city"</span>, <span class="st">"amount"</span>])</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>wide   <span class="op">=</span> pd.read_csv(path)</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">COLUMN SELECTION: all columns </span><span class="sc">{</span>wide<span class="sc">.</span>memory_usage(deep<span class="op">=</span><span class="va">True</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="op">/</span><span class="fl">1e6</span><span class="sc">:.1f}</span><span class="ss"> MB"</span>)</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"                  two columns  </span><span class="sc">{</span>narrow<span class="sc">.</span>memory_usage(deep<span class="op">=</span><span class="va">True</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="op">/</span><span class="fl">1e6</span><span class="sc">:.1f}</span><span class="ss"> MB"</span>)</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co"># --- BONUS: the right dtype often halves the memory -----------------------</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>compact <span class="op">=</span> wide.copy()</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>compact[<span class="st">"city"</span>] <span class="op">=</span> compact[<span class="st">"city"</span>].astype(<span class="st">"category"</span>)</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>compact[<span class="st">"shop"</span>] <span class="op">=</span> compact[<span class="st">"shop"</span>].astype(<span class="st">"int8"</span>)</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">DTYPES:  before </span><span class="sc">{</span>wide<span class="sc">.</span>memory_usage(deep<span class="op">=</span><span class="va">True</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="op">/</span><span class="fl">1e6</span><span class="sc">:.1f}</span><span class="ss"> MB"</span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"  →  after </span><span class="sc">{</span>compact<span class="sc">.</span>memory_usage(deep<span class="op">=</span><span class="va">True</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="op">/</span><span class="fl">1e6</span><span class="sc">:.1f}</span><span class="ss"> MB"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(path) <span class="im">as</span> f:</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> _ <span class="kw">in</span> f) <span class="op">-</span> <span class="dv">1</span>        <span class="co"># count data rows, excluding the header</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"file on disk: </span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>getsize(path)<span class="op">/</span><span class="fl">1e6</span><span class="sc">:.1f}</span><span class="ss"> MB, </span><span class="sc">{</span>n<span class="sc">:,}</span><span class="ss"> rows</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># --- TECHNIQUE 1: chunking. Never hold the whole file at once. -------------</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>running_total, running_count <span class="op">=</span> <span class="fl">0.0</span>, <span class="dv">0</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>per_city <span class="op">=</span> {}</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> chunk <span class="kw">in</span> pd.read_csv(path, chunksize<span class="op">=</span><span class="dv">50_000</span>):        <span class="co"># 50,000 rows at a time</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    running_total <span class="op">+=</span> chunk[<span class="st">"amount"</span>].<span class="bu">sum</span>()</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    running_count <span class="op">+=</span> <span class="bu">len</span>(chunk)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> city, total <span class="kw">in</span> chunk.groupby(<span class="st">"city"</span>)[<span class="st">"amount"</span>].<span class="bu">sum</span>().items():</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        per_city[city] <span class="op">=</span> per_city.get(city, <span class="dv">0</span>) <span class="op">+</span> total</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>per_city_rounded <span class="op">=</span> {city: <span class="bu">round</span>(total) <span class="cf">for</span> city, total <span class="kw">in</span> per_city.items()}</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"CHUNKED: mean amount </span><span class="sc">{</span>running_total<span class="op">/</span>running_count<span class="sc">:.2f}</span><span class="ss"> over </span><span class="sc">{</span>running_count<span class="sc">:,}</span><span class="ss"> rows"</span>)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"         totals per city: </span><span class="sc">{</span>per_city_rounded<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"         peak memory held: one chunk of 50,000 rows, not </span><span class="sc">{</span>n<span class="sc">:,}</span><span class="ss">"</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co"># --- TECHNIQUE 2: read only what you need ---------------------------------</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>narrow <span class="op">=</span> pd.read_csv(path, usecols<span class="op">=</span>[<span class="st">"city"</span>, <span class="st">"amount"</span>])</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>wide   <span class="op">=</span> pd.read_csv(path)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">COLUMN SELECTION: all columns </span><span class="sc">{</span>wide<span class="sc">.</span>memory_usage(deep<span class="op">=</span><span class="va">True</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="op">/</span><span class="fl">1e6</span><span class="sc">:.1f}</span><span class="ss"> MB"</span>)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"                  two columns  </span><span class="sc">{</span>narrow<span class="sc">.</span>memory_usage(deep<span class="op">=</span><span class="va">True</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="op">/</span><span class="fl">1e6</span><span class="sc">:.1f}</span><span class="ss"> MB"</span>)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co"># --- BONUS: the right dtype often halves the memory -----------------------</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>compact <span class="op">=</span> wide.copy()</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>compact[<span class="st">"city"</span>] <span class="op">=</span> compact[<span class="st">"city"</span>].astype(<span class="st">"category"</span>)</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>compact[<span class="st">"shop"</span>] <span class="op">=</span> compact[<span class="st">"shop"</span>].astype(<span class="st">"int8"</span>)</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">DTYPES:  before </span><span class="sc">{</span>wide<span class="sc">.</span>memory_usage(deep<span class="op">=</span><span class="va">True</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="op">/</span><span class="fl">1e6</span><span class="sc">:.1f}</span><span class="ss"> MB"</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"  →  after </span><span class="sc">{</span>compact<span class="sc">.</span>memory_usage(deep<span class="op">=</span><span class="va">True</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="op">/</span><span class="fl">1e6</span><span class="sc">:.1f}</span><span class="ss"> MB"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>file on disk: 7.1 MB, 200,000 rows
 
@@ -614,10 +636,10 @@ CHUNKED: mean amount 500.32 over 200,000 rows
          totals per city: {'Delhi': 33243295, 'Mumbai': 33508355, 'Pune': 33311979}
          peak memory held: one chunk of 50,000 rows, not 200,000
 
-COLUMN SELECTION: all columns 30.8 MB
-                  two columns  14.0 MB
+COLUMN SELECTION: all columns 11.2 MB
+                  two columns  4.2 MB
 
-DTYPES:  before 30.8 MB  →  after 17.2 MB</code></pre>
+DTYPES:  before 11.2 MB  →  after 7.4 MB</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled" title="⚠️ Try these before you build a cluster">
@@ -700,7 +722,7 @@ DTYPES:  before 30.8 MB  →  after 17.2 MB</code></pre>
 </div>
 <section id="demo-4-all-four-on-one-dataset" class="level3" data-number="17.1.1">
 <h3 data-number="17.1.1" class="anchored" data-anchor-id="demo-4-all-four-on-one-dataset"><span class="header-section-number">17.1.1</span> Demo 4 — all four on one dataset</h3>
-<div id="3c4d69ff" class="cell" data-execution_count="5">
+<div id="dad801e4" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>sales <span class="op">=</span> pd.read_csv(<span class="st">"datasets/regional_sales.csv"</span>, parse_dates<span class="op">=</span>[<span class="st">"month"</span>])</span>
@@ -710,26 +732,31 @@ DTYPES:  before 30.8 MB  →  after 17.2 MB</code></pre>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>change <span class="op">=</span> (by_month.iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> by_month.iloc[<span class="dv">0</span>]) <span class="op">/</span> by_month.iloc[<span class="dv">0</span>]</span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"DESCRIPTIVE : total sales moved </span><span class="sc">{</span>change<span class="sc">:+.1%}</span><span class="ss"> across the year"</span>)</span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. DIAGNOSTIC — why?</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>by_region <span class="op">=</span> sales.groupby(<span class="st">"region"</span>).<span class="bu">apply</span>(</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> g: (g.sort_values(<span class="st">"month"</span>)[<span class="st">"sales"</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>               g.sort_values(<span class="st">"month"</span>)[<span class="st">"sales"</span>].iloc[<span class="dv">0</span>]), include_groups<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"DIAGNOSTIC  : change by region over the year"</span>)</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r, v <span class="kw">in</span> by_region.items():</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"                </span><span class="sc">{</span>r<span class="sc">:&lt;6}</span><span class="ss"> </span><span class="sc">{</span>v<span class="sc">:&gt;+10,.0f}</span><span class="ss">"</span>)</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"              → the decline is entirely </span><span class="sc">{</span>by_region<span class="sc">.</span>idxmin()<span class="sc">}</span><span class="ss">; the others grew"</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. DIAGNOSTIC — why? Compute the change over the year, one region at a time.</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>change_by_region <span class="op">=</span> {}</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> region, group <span class="kw">in</span> sales.groupby(<span class="st">"region"</span>):</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    group_sorted <span class="op">=</span> group.sort_values(<span class="st">"month"</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    first_month <span class="op">=</span> group_sorted[<span class="st">"sales"</span>].iloc[<span class="dv">0</span>]</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    last_month <span class="op">=</span> group_sorted[<span class="st">"sales"</span>].iloc[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    change_by_region[region] <span class="op">=</span> last_month <span class="op">-</span> first_month</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>by_region <span class="op">=</span> pd.Series(change_by_region)</span>
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. PREDICTIVE — what next?</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="bu">len</span>(by_month)).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>trend_model <span class="op">=</span> LinearRegression().fit(x, by_month.values)</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>next3 <span class="op">=</span> trend_model.predict([[<span class="dv">12</span>], [<span class="dv">13</span>], [<span class="dv">14</span>]])</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"PREDICTIVE  : next three months ≈ </span><span class="sc">{</span><span class="st">', '</span><span class="sc">.</span>join(<span class="ss">f'</span><span class="sc">{</span>v<span class="sc">:,.0f}</span><span class="ss">'</span> <span class="cf">for</span> v <span class="kw">in</span> next3)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. PRESCRIPTIVE — what should we do?</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>growing <span class="op">=</span> by_region[by_region <span class="op">&gt;</span> <span class="dv">0</span>].index.tolist()</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"PRESCRIPTIVE: shift investment from </span><span class="sc">{</span>by_region<span class="sc">.</span>idxmin()<span class="sc">}</span><span class="ss"> to </span><span class="sc">{</span><span class="st">', '</span><span class="sc">.</span>join(growing)<span class="sc">}</span><span class="ss">;"</span>)</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"              re-examine </span><span class="sc">{</span>by_region<span class="sc">.</span>idxmin()<span class="sc">}</span><span class="ss"> before writing it off"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"DIAGNOSTIC  : change by region over the year"</span>)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r, v <span class="kw">in</span> by_region.items():</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"                </span><span class="sc">{</span>r<span class="sc">:&lt;6}</span><span class="ss"> </span><span class="sc">{</span>v<span class="sc">:&gt;+10,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"              → the decline is entirely </span><span class="sc">{</span>by_region<span class="sc">.</span>idxmin()<span class="sc">}</span><span class="ss">; the others grew"</span>)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. PREDICTIVE — what next?</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="bu">len</span>(by_month)).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>trend_model <span class="op">=</span> LinearRegression().fit(x, by_month.values)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>next3 <span class="op">=</span> trend_model.predict([[<span class="dv">12</span>], [<span class="dv">13</span>], [<span class="dv">14</span>]])</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"PREDICTIVE  : next three months ≈ </span><span class="sc">{</span><span class="st">', '</span><span class="sc">.</span>join(<span class="ss">f'</span><span class="sc">{</span>v<span class="sc">:,.0f}</span><span class="ss">'</span> <span class="cf">for</span> v <span class="kw">in</span> next3)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. PRESCRIPTIVE — what should we do?</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>growing <span class="op">=</span> by_region[by_region <span class="op">&gt;</span> <span class="dv">0</span>].index.tolist()</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"PRESCRIPTIVE: shift investment from </span><span class="sc">{</span>by_region<span class="sc">.</span>idxmin()<span class="sc">}</span><span class="ss"> to </span><span class="sc">{</span><span class="st">', '</span><span class="sc">.</span>join(growing)<span class="sc">}</span><span class="ss">;"</span>)</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"              re-examine </span><span class="sc">{</span>by_region<span class="sc">.</span>idxmin()<span class="sc">}</span><span class="ss"> before writing it off"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>DESCRIPTIVE : total sales moved -0.6% across the year
 DIAGNOSTIC  : change by region over the year
@@ -804,7 +831,7 @@ PRESCRIPTIVE: shift investment from North to South, West;
 <p>The <strong>NameNode</strong> holds the index — which blocks make up which file, and where each copy lives. The <strong>DataNodes</strong> hold the actual blocks. <strong>The NameNode never touches the data itself</strong>, which is why one modest machine can index petabytes.</p>
 <section id="demo-5-block-splitting-and-replication-simulated" class="level3" data-number="18.1.1">
 <h3 data-number="18.1.1" class="anchored" data-anchor-id="demo-5-block-splitting-and-replication-simulated"><span class="header-section-number">18.1.1</span> Demo 5 — block splitting and replication, simulated</h3>
-<div id="5fd87542" class="cell" data-execution_count="6">
+<div id="d1c0c0bc" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plan_storage(file_gb, block_mb<span class="op">=</span><span class="dv">128</span>, replication<span class="op">=</span><span class="dv">3</span>, datanodes<span class="op">=</span><span class="dv">6</span>):</span>
@@ -833,7 +860,7 @@ machines that can fail without data loss: 2</code></pre>
 </section>
 <section id="demo-6-why-replication-is-worth-3-the-disk" class="level3" data-number="18.1.2">
 <h3 data-number="18.1.2" class="anchored" data-anchor-id="demo-6-why-replication-is-worth-3-the-disk"><span class="header-section-number">18.1.2</span> Demo 6 — why replication is worth 3× the disk</h3>
-<div id="8fd17ba3" class="cell" data-execution_count="7">
+<div id="08147304" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">75</span>)</span>
@@ -943,17 +970,34 @@ Three copies turns near-certain annual data loss into a negligible risk.</code><
 <p><strong>The fix is always the same: combine small files into large ones before storing them.</strong></p>
 </div>
 </div>
-<div id="9f93f569" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> namenode_pressure(total_gb, avg_file_mb):</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    files <span class="op">=</span> total_gb <span class="op">*</span> <span class="dv">1024</span> <span class="op">/</span> avg_file_mb</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># roughly 150 bytes of NameNode memory per file plus per block</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    mem_gb <span class="op">=</span> files <span class="op">*</span> <span class="dv">150</span> <span class="op">*</span> <span class="dv">2</span> <span class="op">/</span> <span class="fl">1e9</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>total_gb<span class="sc">:&gt;6}</span><span class="ss"> GB as </span><span class="sc">{</span>avg_file_mb<span class="sc">:&gt;6.2f}</span><span class="ss"> MB files → </span><span class="sc">{</span>files<span class="sc">:&gt;12,.0f}</span><span class="ss"> files, "</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"NameNode index ≈ </span><span class="sc">{</span>mem_gb<span class="sc">:&gt;7.2f}</span><span class="ss"> GB"</span>)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Same amount of data, different file sizes:"</span>)</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> size <span class="kw">in</span> [<span class="dv">256</span>, <span class="dv">64</span>, <span class="dv">1</span>, <span class="fl">0.1</span>]:</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    namenode_pressure(<span class="dv">10_000</span>, size)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="demo-7-one-file-size-by-hand" class="level3" data-number="18.2.1">
+<h3 data-number="18.2.1" class="anchored" data-anchor-id="demo-7-one-file-size-by-hand"><span class="header-section-number">18.2.1</span> Demo 7 — one file size, by hand</h3>
+<div id="eb0fe2f5" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>total_gb, avg_file_mb <span class="op">=</span> <span class="dv">10_000</span>, <span class="dv">256</span>      <span class="co"># 10 TB, stored as 256 MB files</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>files <span class="op">=</span> total_gb <span class="op">*</span> <span class="dv">1024</span> <span class="op">/</span> avg_file_mb</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>mem_gb <span class="op">=</span> files <span class="op">*</span> <span class="dv">150</span> <span class="op">*</span> <span class="dv">2</span> <span class="op">/</span> <span class="fl">1e9</span>           <span class="co"># ~150 bytes of NameNode memory per file, per block</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>total_gb<span class="sc">:,}</span><span class="ss"> GB as </span><span class="sc">{</span>avg_file_mb<span class="sc">}</span><span class="ss"> MB files → </span><span class="sc">{</span>files<span class="sc">:,.0f}</span><span class="ss"> files"</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NameNode index needed: </span><span class="sc">{</span>mem_gb<span class="sc">:.4f}</span><span class="ss"> GB (</span><span class="sc">{</span>mem_gb<span class="op">*</span><span class="dv">1000</span><span class="sc">:.1f}</span><span class="ss"> MB)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>10,000 GB as 256 MB files → 40,000 files
+NameNode index needed: 0.0120 GB (12.0 MB)</code></pre>
+</div>
+</div>
+<p><strong>40,000 files is nothing — 12 MB of index.</strong> The next demo repeats this for much smaller files and watches the index grow.</p>
+</section>
+<section id="demo-8-the-same-10-tb-four-different-file-sizes" class="level3" data-number="18.2.2">
+<h3 data-number="18.2.2" class="anchored" data-anchor-id="demo-8-the-same-10-tb-four-different-file-sizes"><span class="header-section-number">18.2.2</span> Demo 8 — the same 10 TB, four different file sizes</h3>
+<div id="53ebab58" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> namenode_pressure(total_gb, avg_file_mb):</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    files <span class="op">=</span> total_gb <span class="op">*</span> <span class="dv">1024</span> <span class="op">/</span> avg_file_mb</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># roughly 150 bytes of NameNode memory per file plus per block</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    mem_gb <span class="op">=</span> files <span class="op">*</span> <span class="dv">150</span> <span class="op">*</span> <span class="dv">2</span> <span class="op">/</span> <span class="fl">1e9</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>total_gb<span class="sc">:&gt;6}</span><span class="ss"> GB as </span><span class="sc">{</span>avg_file_mb<span class="sc">:&gt;6.2f}</span><span class="ss"> MB files → </span><span class="sc">{</span>files<span class="sc">:&gt;12,.0f}</span><span class="ss"> files, "</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"NameNode index ≈ </span><span class="sc">{</span>mem_gb<span class="sc">:&gt;7.2f}</span><span class="ss"> GB"</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Same amount of data, different file sizes:"</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> size <span class="kw">in</span> [<span class="dv">256</span>, <span class="dv">64</span>, <span class="dv">1</span>, <span class="fl">0.1</span>]:</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    namenode_pressure(<span class="dv">10_000</span>, size)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Same amount of data, different file sizes:
  10000 GB as 256.00 MB files →       40,000 files, NameNode index ≈    0.01 GB
@@ -962,6 +1006,7 @@ Three copies turns near-certain annual data loss into a negligible risk.</code><
  10000 GB as   0.10 MB files →  102,400,000 files, NameNode index ≈   30.72 GB</code></pre>
 </div>
 </div>
+</section>
 </section>
 </section>
 <section id="sec-s13-d" class="level1" data-number="19">
@@ -1058,43 +1103,67 @@ Three copies turns near-certain annual data loss into a negligible risk.</code><
 <section id="sec-s13-topic-7" class="level2" data-number="19.2">
 <h2 data-number="19.2" class="anchored" data-anchor-id="sec-s13-topic-7"><span class="header-section-number">19.2</span> 7. When not to use any of this</h2>
 <p><strong>Distributed tools have a fixed overhead. Below a certain size they are slower than pandas, not faster.</strong></p>
-<section id="demo-7-the-overhead-quantified" class="level3" data-number="19.2.1">
-<h3 data-number="19.2.1" class="anchored" data-anchor-id="demo-7-the-overhead-quantified"><span class="header-section-number">19.2.1</span> Demo 7 — the overhead, quantified</h3>
-<div id="f4ed4f53" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd, time</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>CLUSTER_STARTUP_S <span class="op">=</span> <span class="fl">8.0</span>        <span class="co"># a real Spark session takes seconds to start</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>PER_TASK_OVERHEAD <span class="op">=</span> <span class="fl">0.15</span>       <span class="co"># scheduling, serialising, shuffling</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> pd.read_csv(<span class="st">"datasets/transactions.csv"</span>, usecols<span class="op">=</span>[<span class="st">"shop"</span>, <span class="st">"amount"</span>])</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>big <span class="op">=</span> pd.concat([base] <span class="op">*</span> <span class="dv">25</span>, ignore_index<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'rows'</span><span class="sc">:&gt;12}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'pandas'</span><span class="sc">:&gt;10}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'distributed (modelled)'</span><span class="sc">:&gt;24}</span><span class="ss">   winner"</span>)</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">62</span>)</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> [<span class="dv">10_000</span>, <span class="dv">100_000</span>, <span class="dv">1_000_000</span>, <span class="dv">5_000_000</span>]:</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> big.iloc[:n]</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> time.perf_counter()</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    df.groupby(<span class="st">"shop"</span>)[<span class="st">"amount"</span>].mean()</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    pandas_s <span class="op">=</span> time.perf_counter() <span class="op">-</span> t</span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># A cluster splits the work but pays startup and coordination costs.</span></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    partitions <span class="op">=</span> <span class="bu">max</span>(<span class="dv">4</span>, n <span class="op">//</span> <span class="dv">250_000</span>)</span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    dist_s <span class="op">=</span> CLUSTER_STARTUP_S <span class="op">+</span> PER_TASK_OVERHEAD <span class="op">*</span> partitions <span class="op">+</span> (pandas_s <span class="op">/</span> <span class="dv">8</span>)</span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    winner <span class="op">=</span> <span class="st">"pandas"</span> <span class="cf">if</span> pandas_s <span class="op">&lt;</span> dist_s <span class="cf">else</span> <span class="st">"distributed"</span></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">:&gt;12,}</span><span class="ss"> </span><span class="sc">{</span>pandas_s<span class="op">*</span><span class="dv">1000</span><span class="sc">:&gt;8.1f}</span><span class="ss"> ms </span><span class="sc">{</span>dist_s<span class="op">*</span><span class="dv">1000</span><span class="sc">:&gt;21,.0f}</span><span class="ss"> ms   </span><span class="sc">{</span>winner<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">The modelled cluster never wins here, because none of these datasets is"</span>)</span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"large enough to repay an 8-second startup. That crossover is the number"</span>)</span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"you must find for yourself — Session 14 measures it with real Spark."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="demo-9-the-fixed-cost-on-its-own" class="level3" data-number="19.2.1">
+<h3 data-number="19.2.1" class="anchored" data-anchor-id="demo-9-the-fixed-cost-on-its-own"><span class="header-section-number">19.2.1</span> Demo 9 — the fixed cost, on its own</h3>
+<p><strong>Before modelling a whole crossover curve, look at just the fixed cost in isolation: a cluster takes seconds to even start, no matter how small the job is.</strong></p>
+<div id="7bba4b90" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, time</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> pd.read_csv(<span class="st">"datasets/transactions.csv"</span>, usecols<span class="op">=</span>[<span class="st">"shop"</span>, <span class="st">"amount"</span>])</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> time.perf_counter()</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>base.groupby(<span class="st">"shop"</span>)[<span class="st">"amount"</span>].mean()</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>laptop_s <span class="op">=</span> time.perf_counter() <span class="op">-</span> t0</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>cluster_startup_s <span class="op">=</span> <span class="fl">8.0</span>   <span class="co"># a real Spark session takes seconds just to start</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"laptop, </span><span class="sc">{</span><span class="bu">len</span>(base)<span class="sc">:,}</span><span class="ss"> rows: </span><span class="sc">{</span>laptop_s<span class="op">*</span><span class="dv">1000</span><span class="sc">:.1f}</span><span class="ss"> ms"</span>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"a cluster's startup alone: </span><span class="sc">{</span>cluster_startup_s<span class="sc">:.0f}</span><span class="ss"> s = </span><span class="sc">{</span>cluster_startup_s<span class="op">*</span><span class="dv">1000</span><span class="sc">:,.0f}</span><span class="ss"> ms"</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"the laptop finishes </span><span class="sc">{</span>cluster_startup_s<span class="op">/</span>laptop_s<span class="sc">:,.0f}</span><span class="ss">x before the cluster has even started"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>laptop, 200,000 rows: 2.2 ms
+a cluster's startup alone: 8 s = 8,000 ms
+the laptop finishes 3,679x before the cluster has even started</code></pre>
+</div>
+</div>
+<p>The exact multiple varies a little between runs, but it is always in the thousands — a 200,000-row <code>groupby</code> is over before a cluster has finished saying hello. The next demo turns this into a full crossover curve across dataset sizes.</p>
+</section>
+<section id="demo-10-the-overhead-quantified" class="level3" data-number="19.2.2">
+<h3 data-number="19.2.2" class="anchored" data-anchor-id="demo-10-the-overhead-quantified"><span class="header-section-number">19.2.2</span> Demo 10 — the overhead, quantified</h3>
+<div id="794849e7" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd, time</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>CLUSTER_STARTUP_S <span class="op">=</span> <span class="fl">8.0</span>        <span class="co"># a real Spark session takes seconds to start</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>PER_TASK_OVERHEAD <span class="op">=</span> <span class="fl">0.15</span>       <span class="co"># scheduling, serialising, shuffling</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> pd.read_csv(<span class="st">"datasets/transactions.csv"</span>, usecols<span class="op">=</span>[<span class="st">"shop"</span>, <span class="st">"amount"</span>])</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>big <span class="op">=</span> pd.concat([base] <span class="op">*</span> <span class="dv">25</span>, ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'rows'</span><span class="sc">:&gt;12}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'pandas'</span><span class="sc">:&gt;10}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'distributed (modelled)'</span><span class="sc">:&gt;24}</span><span class="ss">   winner"</span>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">62</span>)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> [<span class="dv">10_000</span>, <span class="dv">100_000</span>, <span class="dv">1_000_000</span>, <span class="dv">5_000_000</span>]:</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> big.iloc[:n]</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> time.perf_counter()</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    df.groupby(<span class="st">"shop"</span>)[<span class="st">"amount"</span>].mean()</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    pandas_s <span class="op">=</span> time.perf_counter() <span class="op">-</span> t</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># A cluster splits the work but pays startup and coordination costs.</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    partitions <span class="op">=</span> <span class="bu">max</span>(<span class="dv">4</span>, n <span class="op">//</span> <span class="dv">250_000</span>)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    dist_s <span class="op">=</span> CLUSTER_STARTUP_S <span class="op">+</span> PER_TASK_OVERHEAD <span class="op">*</span> partitions <span class="op">+</span> (pandas_s <span class="op">/</span> <span class="dv">8</span>)</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>    winner <span class="op">=</span> <span class="st">"pandas"</span> <span class="cf">if</span> pandas_s <span class="op">&lt;</span> dist_s <span class="cf">else</span> <span class="st">"distributed"</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">:&gt;12,}</span><span class="ss"> </span><span class="sc">{</span>pandas_s<span class="op">*</span><span class="dv">1000</span><span class="sc">:&gt;8.1f}</span><span class="ss"> ms </span><span class="sc">{</span>dist_s<span class="op">*</span><span class="dv">1000</span><span class="sc">:&gt;21,.0f}</span><span class="ss"> ms   </span><span class="sc">{</span>winner<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">The modelled cluster never wins here, because none of these datasets is"</span>)</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"large enough to repay an 8-second startup. That crossover is the number"</span>)</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"you must find for yourself — Session 14 measures it with real Spark."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        rows     pandas   distributed (modelled)   winner
 --------------------------------------------------------------
-      10,000      0.6 ms                 8,600 ms   pandas
+      10,000      0.7 ms                 8,600 ms   pandas
      100,000      1.1 ms                 8,600 ms   pandas
-   1,000,000     12.2 ms                 8,602 ms   pandas
-   5,000,000     65.2 ms                11,008 ms   pandas
+   1,000,000     10.0 ms                 8,601 ms   pandas
+   5,000,000     65.1 ms                11,008 ms   pandas
 
 The modelled cluster never wins here, because none of these datasets is
 large enough to repay an 8-second startup. That crossover is the number
@@ -1121,8 +1190,167 @@ you must find for yourself — Session 14 measures it with real Spark.</code></p
 </div>
 </div>
 </section>
-<section id="check-yourself" class="level3" data-number="19.2.2">
-<h3 data-number="19.2.2" class="anchored" data-anchor-id="check-yourself"><span class="header-section-number">19.2.2</span> ❓ Check yourself</h3>
+</section>
+</section>
+<section id="sec-s13-e" class="level1" data-number="20">
+<h1 data-number="20"><span class="header-section-number">20</span> Part E — On a real file</h1>
+<section id="sec-s13-topic-8" class="level2" data-number="20.1">
+<h2 data-number="20.1" class="anchored" data-anchor-id="sec-s13-topic-8"><span class="header-section-number">20.1</span> 8. The same three ideas, on 566,602 real rows</h2>
+<p><strong>Every demo so far has run on data built for the lesson. Here is one built from a real file, so you can see the same ideas hold up outside a made-up example.</strong></p>
+<p>The file is <code>covertype.csv</code> — 566,602 real measurements of forest terrain from the US Forest Service, published on Hugging Face (<a href="https://huggingface.co/datasets/inria-soda/tabular-benchmark"><code>inria-soda/tabular-benchmark</code></a>). Ten numeric columns describe a patch of land; <code>Y</code> says whether it is one particular kind of forest cover or not. Get it once with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> datasets/download_bigdata_real.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="demo-11-load-it-whole-then-load-it-in-chunks-and-compare" class="level3" data-number="20.1.1">
+<h3 data-number="20.1.1" class="anchored" data-anchor-id="demo-11-load-it-whole-then-load-it-in-chunks-and-compare"><span class="header-section-number">20.1.1</span> Demo 11 — load it whole, then load it in chunks, and compare</h3>
+<div id="3731d95a" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, numpy <span class="im">as</span> np, time, os</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> <span class="st">"datasets/bigdata/covertype.csv"</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"file on disk: </span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>getsize(path)<span class="op">/</span><span class="fl">1e6</span><span class="sc">:.1f}</span><span class="ss"> MB</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co"># --- THE WHOLE FILE AT ONCE ------------------------------------------------</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> time.perf_counter()</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>whole <span class="op">=</span> pd.read_csv(path)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>load_s <span class="op">=</span> time.perf_counter() <span class="op">-</span> t0</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>whole_mb <span class="op">=</span> whole.memory_usage(deep<span class="op">=</span><span class="va">True</span>).<span class="bu">sum</span>() <span class="op">/</span> <span class="fl">1e6</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"whole file : </span><span class="sc">{</span><span class="bu">len</span>(whole)<span class="sc">:,}</span><span class="ss"> rows, loaded in </span><span class="sc">{</span>load_s<span class="sc">:.2f}</span><span class="ss">s, "</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"held </span><span class="sc">{</span>whole_mb<span class="sc">:.1f}</span><span class="ss"> MB in memory"</span>)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> time.perf_counter()</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>answer_whole <span class="op">=</span> whole.groupby(<span class="st">"Y"</span>)[[<span class="st">"X1"</span>, <span class="st">"X2"</span>, <span class="st">"X3"</span>]].mean()</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"groupby    : </span><span class="sc">{</span>time<span class="sc">.</span>perf_counter()<span class="op">-</span>t0<span class="sc">:.3f}</span><span class="ss">s</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(answer_whole)</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="co"># --- THE SAME QUESTION, ONE CHUNK OF 50,000 ROWS AT A TIME -----------------</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> time.perf_counter()</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>totals <span class="op">=</span> {<span class="dv">0</span>: np.zeros(<span class="dv">3</span>), <span class="dv">1</span>: np.zeros(<span class="dv">3</span>)}</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>counts <span class="op">=</span> {<span class="dv">0</span>: <span class="dv">0</span>, <span class="dv">1</span>: <span class="dv">0</span>}</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>peak_chunk_mb <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> chunk <span class="kw">in</span> pd.read_csv(path, usecols<span class="op">=</span>[<span class="st">"X1"</span>, <span class="st">"X2"</span>, <span class="st">"X3"</span>, <span class="st">"Y"</span>], chunksize<span class="op">=</span><span class="dv">50_000</span>):</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>    peak_chunk_mb <span class="op">=</span> <span class="bu">max</span>(peak_chunk_mb, chunk.memory_usage(deep<span class="op">=</span><span class="va">True</span>).<span class="bu">sum</span>() <span class="op">/</span> <span class="fl">1e6</span>)</span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> y, group <span class="kw">in</span> chunk.groupby(<span class="st">"Y"</span>):</span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>        totals[y] <span class="op">+=</span> group[[<span class="st">"X1"</span>, <span class="st">"X2"</span>, <span class="st">"X3"</span>]].<span class="bu">sum</span>().values</span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>        counts[y] <span class="op">+=</span> <span class="bu">len</span>(group)</span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>chunk_s <span class="op">=</span> time.perf_counter() <span class="op">-</span> t0</span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">chunked    : </span><span class="sc">{</span>chunk_s<span class="sc">:.2f}</span><span class="ss">s, the biggest single chunk held only "</span></span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"</span><span class="sc">{</span>peak_chunk_mb<span class="sc">:.2f}</span><span class="ss"> MB"</span>)</span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> y <span class="kw">in</span> (<span class="dv">0</span>, <span class="dv">1</span>):</span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  Y=</span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">: mean = </span><span class="sc">{</span>(totals[y] <span class="op">/</span> counts[y])<span class="sc">.</span><span class="bu">round</span>(<span class="dv">4</span>)<span class="sc">}</span><span class="ss">   n=</span><span class="sc">{</span>counts[y]<span class="sc">:,}</span><span class="ss">"</span>)</span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">same answer, </span><span class="sc">{</span>whole_mb<span class="op">/</span>peak_chunk_mb<span class="sc">:.0f}</span><span class="ss">x less memory at any one moment"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>file on disk: 106.1 MB
+
+whole file : 566,602 rows, loaded in 0.66s, held 49.9 MB in memory
+groupby    : 0.019s
+
+          X1       X2        X3
+Y                              
+0  10.699536  1.42150  1.953283
+1  10.432483  1.35873  1.809570
+
+chunked    : 0.61s, the biggest single chunk held only 1.60 MB
+  Y=0: mean = [10.6995  1.4215  1.9533]   n=283,301
+  Y=1: mean = [10.4325  1.3587  1.8096]   n=283,301
+
+same answer, 31x less memory at any one moment</code></pre>
+</div>
+</div>
+<p><strong>The numbers match to four decimal places, and the chunked version never held more than a few megabytes at once.</strong> This is Demo 3’s lesson — chunk it, do not hold it all — proven on a file with over half a million real rows instead of a file built to make the point.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="🧠 What changed, going from the toy demo to the real file">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>🧠 What changed, going from the toy demo to the real file
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Nothing in the code changed in kind — only in scale. The same <code>chunksize=</code> argument, the same running totals, the same reason for doing it. <strong>That is the whole point of this section</strong>: the techniques in this chapter are not toy tricks that stop working on real data. They are the same three lines, run on a bigger file.</p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="sec-s13-tasks" class="level1" data-number="21">
+<h1 data-number="21"><span class="header-section-number">21</span> 🎯 Tasks</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Practise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Task 1 — Find your own limit.</strong> Extend Demo 1 to 10 and 20 million rows. <strong>Report the row count at which the time per million rows starts to rise</strong>, and how much RAM your machine has.</p>
+<p><strong>Task 2 — Chunk a real job.</strong> Using the chunking pattern from Demo 3, compute the <strong>median</strong> amount per city. <strong>Explain why this is harder than the mean</strong> and what you did about it.</p>
+<p><strong>Task 3 — Classify the questions.</strong> Which of the four types: “which products are most often returned?”; “will this customer return this item?”; “why did returns rise in March?”; “which items should we stop stocking?”</p>
+<p><strong>Task 4 — Size a cluster.</strong> You have 8 TB of logs, a 128 MB block size and replication 3. <strong>Report the number of blocks, the total disk needed, and how many 4 TB machines you would buy.</strong></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="34e846e3" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math, numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 2 — the mean can be computed from running totals, so chunks combine"</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  trivially. The median cannot: you need all the values for a city at once,"</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  or an approximation. Two workable approaches:"</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"    a) collect just the one column per city across chunks, then take the median"</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"    b) use an approximate quantile from a histogram built chunk by chunk"</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 3"</span>)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> q, kind <span class="kw">in</span> [(<span class="st">"which products are most often returned?"</span>, <span class="st">"DESCRIPTIVE"</span>),</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>                (<span class="st">"will this customer return this item?"</span>,    <span class="st">"PREDICTIVE"</span>),</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>                (<span class="st">"why did returns rise in March?"</span>,          <span class="st">"DIAGNOSTIC"</span>),</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>                (<span class="st">"which items should we stop stocking?"</span>,    <span class="st">"PRESCRIPTIVE"</span>)]:</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>q<span class="sc">:&lt;44}</span><span class="ss"> </span><span class="sc">{</span>kind<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 4</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>tb, block_mb, rep, disk_per_node_tb <span class="op">=</span> <span class="dv">8</span>, <span class="dv">128</span>, <span class="dv">3</span>, <span class="dv">4</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>blocks <span class="op">=</span> math.ceil(tb <span class="op">*</span> <span class="dv">1024</span> <span class="op">*</span> <span class="dv">1024</span> <span class="op">/</span> block_mb)</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>total_tb <span class="op">=</span> tb <span class="op">*</span> rep</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Task 4 — </span><span class="sc">{</span>blocks<span class="sc">:,}</span><span class="ss"> blocks; </span><span class="sc">{</span>total_tb<span class="sc">}</span><span class="ss"> TB of disk needed;"</span>)</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"         </span><span class="sc">{</span>math<span class="sc">.</span>ceil(total_tb <span class="op">/</span> disk_per_node_tb)<span class="sc">}</span><span class="ss"> machines at </span><span class="sc">{</span>disk_per_node_tb<span class="sc">}</span><span class="ss"> TB each,"</span>)</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"         and in practice more, since you never fill a cluster to 100%."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Task 2 — the mean can be computed from running totals, so chunks combine
+  trivially. The median cannot: you need all the values for a city at once,
+  or an approximation. Two workable approaches:
+    a) collect just the one column per city across chunks, then take the median
+    b) use an approximate quantile from a histogram built chunk by chunk
+
+Task 3
+  which products are most often returned?      DESCRIPTIVE
+  will this customer return this item?         PREDICTIVE
+  why did returns rise in March?               DIAGNOSTIC
+  which items should we stop stocking?         PRESCRIPTIVE
+
+Task 4 — 65,536 blocks; 24 TB of disk needed;
+         6 machines at 4 TB each,
+         and in practice more, since you never fill a cluster to 100%.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-s13-mcqs" class="level1" data-number="22">
+<h1 data-number="22"><span class="header-section-number">22</span> ❓ MCQs</h1>
 <p><strong>Q1.</strong> A hospital receives 50,000 sensor readings per second and must react within a second. Which V is the problem?</p>
 <ul>
 <li><ol type="a">
@@ -1184,7 +1412,7 @@ you must find for yourself — Session 14 measures it with real Spark.</code></p
 </ol></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1193,90 +1421,13 @@ you must find for yourself — Session 14 measures it with real Spark.</code></p
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>A1 — (b).</strong> The total volume may be modest; the difficulty is the rate and the deadline.</p>
 <p><strong>A2 — (b).</strong> Demo 3. Chunking plus column selection solves most of these.</p>
 <p><strong>A3 — (b).</strong> It explains <em>why</em>, which is the diagnostic question.</p>
 <p><strong>A4 — (b).</strong> Demo 6 measured the failure probabilities.</p>
 <p><strong>A5 — (b).</strong> The small-files problem — the NameNode’s index lives in memory.</p>
-</div>
-</div>
-</div>
-</section>
-</section>
-</section>
-<section id="sec-s13-tasks" class="level1" data-number="20">
-<h1 data-number="20"><span class="header-section-number">20</span> 🎯 Tasks</h1>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Practise
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Task 1 — Find your own limit.</strong> Extend Demo 1 to 10 and 20 million rows. <strong>Report the row count at which the time per million rows starts to rise</strong>, and how much RAM your machine has.</p>
-<p><strong>Task 2 — Chunk a real job.</strong> Using the chunking pattern from Demo 3, compute the <strong>median</strong> amount per city. <strong>Explain why this is harder than the mean</strong> and what you did about it.</p>
-<p><strong>Task 3 — Classify the questions.</strong> Which of the four types: “which products are most often returned?”; “will this customer return this item?”; “why did returns rise in March?”; “which items should we stop stocking?”</p>
-<p><strong>Task 4 — Size a cluster.</strong> You have 8 TB of logs, a 128 MB block size and replication 3. <strong>Report the number of blocks, the total disk needed, and how many 4 TB machines you would buy.</strong></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="b3e48ed2" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math, numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 2 — the mean can be computed from running totals, so chunks combine"</span>)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  trivially. The median cannot: you need all the values for a city at once,"</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  or an approximation. Two workable approaches:"</span>)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"    a) collect just the one column per city across chunks, then take the median"</span>)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"    b) use an approximate quantile from a histogram built chunk by chunk"</span>)</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 3"</span>)</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> q, kind <span class="kw">in</span> [(<span class="st">"which products are most often returned?"</span>, <span class="st">"DESCRIPTIVE"</span>),</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>                (<span class="st">"will this customer return this item?"</span>,    <span class="st">"PREDICTIVE"</span>),</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>                (<span class="st">"why did returns rise in March?"</span>,          <span class="st">"DIAGNOSTIC"</span>),</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>                (<span class="st">"which items should we stop stocking?"</span>,    <span class="st">"PRESCRIPTIVE"</span>)]:</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>q<span class="sc">:&lt;44}</span><span class="ss"> </span><span class="sc">{</span>kind<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 4</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>tb, block_mb, rep, disk_per_node_tb <span class="op">=</span> <span class="dv">8</span>, <span class="dv">128</span>, <span class="dv">3</span>, <span class="dv">4</span></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>blocks <span class="op">=</span> math.ceil(tb <span class="op">*</span> <span class="dv">1024</span> <span class="op">*</span> <span class="dv">1024</span> <span class="op">/</span> block_mb)</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>total_tb <span class="op">=</span> tb <span class="op">*</span> rep</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Task 4 — </span><span class="sc">{</span>blocks<span class="sc">:,}</span><span class="ss"> blocks; </span><span class="sc">{</span>total_tb<span class="sc">}</span><span class="ss"> TB of disk needed;"</span>)</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"         </span><span class="sc">{</span>math<span class="sc">.</span>ceil(total_tb <span class="op">/</span> disk_per_node_tb)<span class="sc">}</span><span class="ss"> machines at </span><span class="sc">{</span>disk_per_node_tb<span class="sc">}</span><span class="ss"> TB each,"</span>)</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"         and in practice more, since you never fill a cluster to 100%."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Task 2 — the mean can be computed from running totals, so chunks combine
-  trivially. The median cannot: you need all the values for a city at once,
-  or an approximation. Two workable approaches:
-    a) collect just the one column per city across chunks, then take the median
-    b) use an approximate quantile from a histogram built chunk by chunk
-
-Task 3
-  which products are most often returned?      DESCRIPTIVE
-  will this customer return this item?         PREDICTIVE
-  why did returns rise in March?               DIAGNOSTIC
-  which items should we stop stocking?         PRESCRIPTIVE
-
-Task 4 — 65,536 blocks; 24 TB of disk needed;
-         6 machines at 4 TB each,
-         and in practice more, since you never fill a cluster to 100%.</code></pre>
-</div>
-</div>
 </div>
 </div>
 </div>

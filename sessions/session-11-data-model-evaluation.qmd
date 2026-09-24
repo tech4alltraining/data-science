@@ -547,7 +547,52 @@ for name, model in [("Baseline (mean)", DummyRegressor()),
 print("\nThe forest wins, and the ± tells you the win is larger than the fold-to-fold noise.")
 ```
 
-### ❓ Check yourself
+# 🎯 Tasks {#sec-s11-tasks}
+
+::: {.callout-note title="✏️ Practise"}
+**Task 1 — Find the sweet spot.** In Demo 1, add degrees 3, 4, 6 and 7. **Report which
+degree has the best test R², and how far the training score has run ahead of it there.**
+
+**Task 2 — Measure the spread.** Run Demo 4 with 100 seeds instead of 20. **Report the
+standard deviation, and state the smallest score difference you would be willing to call
+a real difference.**
+
+**Task 3 — Diagnose.** For each pair, say overfitting, underfitting or healthy:
+train 0.95 / test 0.93; train 0.99 / test 0.52; train 0.44 / test 0.42;
+train 0.72 / test 0.70.
+
+**Task 4 — Tune honestly.** Grid-search a `RandomForestRegressor` over `max_depth` and
+`n_estimators` using cross-validation on the training set only, then report the test
+score once.
+:::
+
+:::: {.callout-note collapse="true" title="Solutions"}
+```{python}
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score
+
+print("Task 3")
+for tr, te in [(0.95, 0.93), (0.99, 0.52), (0.44, 0.42), (0.72, 0.70)]:
+    if tr - te > 0.2:            v = "OVERFITTING — big gap"
+    elif tr < 0.6:               v = "UNDERFITTING — poor on both"
+    else:                        v = "healthy — good, and the gap is small"
+    print(f"  train {tr:.2f} / test {te:.2f}  → {v}")
+
+# Task 2 — how big must a difference be before it means anything?
+feats = pd.read_csv("datasets/three_features.csv")
+X = feats[["f1", "f2", "f3"]].values; y = feats["target"].values
+s = np.array([r2_score(*(lambda a: (a[3], LinearRegression().fit(a[0], a[2]).predict(a[1])))(
+        train_test_split(X, y, test_size=.3, random_state=k))) for k in range(100)])
+print(f"\nTask 2 — over 100 seeds: mean {s.mean():.3f}, std {s.std():.3f}, "
+      f"range {s.min():.3f} to {s.max():.3f}")
+print(f"  A gap smaller than about {2*s.std():.2f} is inside the noise — do not")
+print("  claim one model beat another on less than that.")
+```
+::::
+
+# ❓ MCQs {#sec-s11-mcqs}
 
 **Q1.** Training R² is 0.99, test R² is 0.41. What is happening?
 
@@ -594,51 +639,6 @@ worthless.
 
 **A5 — (b).** Demo 12 measured exactly this gap.
 :::
-
-# 🎯 Tasks {#sec-s11-tasks}
-
-::: {.callout-note title="✏️ Practise"}
-**Task 1 — Find the sweet spot.** In Demo 1, add degrees 3, 4, 6 and 7. **Report which
-degree has the best test R², and how far the training score has run ahead of it there.**
-
-**Task 2 — Measure the spread.** Run Demo 4 with 100 seeds instead of 20. **Report the
-standard deviation, and state the smallest score difference you would be willing to call
-a real difference.**
-
-**Task 3 — Diagnose.** For each pair, say overfitting, underfitting or healthy:
-train 0.95 / test 0.93; train 0.99 / test 0.52; train 0.44 / test 0.42;
-train 0.72 / test 0.70.
-
-**Task 4 — Tune honestly.** Grid-search a `RandomForestRegressor` over `max_depth` and
-`n_estimators` using cross-validation on the training set only, then report the test
-score once.
-:::
-
-:::: {.callout-note collapse="true" title="Solutions"}
-```{python}
-import numpy as np
-from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import r2_score
-
-print("Task 3")
-for tr, te in [(0.95, 0.93), (0.99, 0.52), (0.44, 0.42), (0.72, 0.70)]:
-    if tr - te > 0.2:            v = "OVERFITTING — big gap"
-    elif tr < 0.6:               v = "UNDERFITTING — poor on both"
-    else:                        v = "healthy — good, and the gap is small"
-    print(f"  train {tr:.2f} / test {te:.2f}  → {v}")
-
-# Task 2 — how big must a difference be before it means anything?
-feats = pd.read_csv("datasets/three_features.csv")
-X = feats[["f1", "f2", "f3"]].values; y = feats["target"].values
-s = np.array([r2_score(*(lambda a: (a[3], LinearRegression().fit(a[0], a[2]).predict(a[1])))(
-        train_test_split(X, y, test_size=.3, random_state=k))) for k in range(100)])
-print(f"\nTask 2 — over 100 seeds: mean {s.mean():.3f}, std {s.std():.3f}, "
-      f"range {s.min():.3f} to {s.max():.3f}")
-print(f"  A gap smaller than about {2*s.std():.2f} is inside the noise — do not")
-print("  claim one model beat another on less than that.")
-```
-::::
 
 ::: {.callout-tip title="✅ Before you move on"}
 - [ ] I can diagnose overfitting and underfitting from two numbers

@@ -57,6 +57,14 @@ def main():
     r = rng(14)
     save(pd.DataFrame({"age": r.integers(18, 71, 200)}), "respondent_ages.csv")
 
+    # Two exam classes, 30 students each, nearly the same average mark but very
+    # different spread — the same idea as supplier_deliveries.csv, at a size
+    # closer to a real classroom.
+    r = rng(16)
+    save(pd.DataFrame({"class_a": r.normal(70, 4, 30).round(0),
+                       "class_b": r.normal(70, 16, 30).round(0)}),
+         "exam_scores_two_classes.csv")
+
 
 if __name__ == "__main__":
     main()

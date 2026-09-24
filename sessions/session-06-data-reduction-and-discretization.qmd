@@ -112,6 +112,40 @@ every column added — a model can always fit more junk. **Only the test score r
 damage**, which is why Session 5 taught the split before this chapter needed it.
 :::
 
+### Demo 2 — the same test, with far fewer rows to learn from
+
+The curse of dimensionality is really about rows **relative to** columns. Shrink the
+training set and the same noise columns should do more damage, sooner.
+
+```{python}
+import numpy as np, pandas as pd
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score
+
+data = pd.read_csv("datasets/signal_and_noise.csv")
+signal = data[[f"real_{i}" for i in (1, 2, 3)]].values
+junk = data[[c for c in data.columns if c.startswith("noise_")]].values
+y = data["target"].values
+
+print(f"{'useless columns':>16} | {'R², ~140 training rows':>24} | {'R², only 30 rows':>18}")
+print("-" * 64)
+for n_noise in [0, 5, 20, 100, 190]:
+    X = np.hstack([signal, junk[:, :n_noise]])
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
+
+    normal_model = LinearRegression().fit(X_train, y_train)
+    small_model  = LinearRegression().fit(X_train[:30], y_train[:30])   # only 30 rows
+
+    r2_normal = r2_score(y_test, normal_model.predict(X_test))
+    r2_small  = r2_score(y_test, small_model.predict(X_test))
+    print(f"{n_noise:>16} | {r2_normal:>24.3f} | {r2_small:>18.3f}")
+```
+
+**With only 30 rows, the damage arrives much sooner.** Twenty useless columns alone drop
+R² from 0.95 to 0.81, and by 190 columns the 30-row model is barely better than guessing
+the average (R² 0.11) — the same columns that only dented the bigger model.
+
 # Part B — Fewer columns {#sec-s06-b}
 
 ## 3. Feature selection: keep some, drop the rest {#sec-s06-topic-3}
@@ -127,7 +161,7 @@ Three families:
 | **Wrapper** | train a model repeatedly, adding or removing columns | expensive | recursive feature elimination |
 | **Embedded** | the model selects while it trains | cheap | Lasso, tree feature importance |
 
-### Demo 2 — the three families on one dataset
+### Demo 3 — the three families on one dataset
 
 ```{python}
 import numpy as np, pandas as pd
@@ -159,10 +193,35 @@ drop the rest with confidence. When they disagree, that disagreement is informat
 usually it means two columns carry the same signal.
 
 ::: {.callout-important title="🔓 Selection is a step that learns — it belongs in the pipeline"}
-Session 5's Demo 9 manufactured 80% accuracy from coin flips by selecting features on
+Session 5's Demo 13 manufactured 82% accuracy from coin flips by selecting features on
 all the data. **Feature selection must be fitted on the training set only**, which means
 it goes *inside* a `Pipeline`, never before the split.
 :::
+
+### Demo 4 — the filter method, at a much bigger scale
+
+Six columns was a comfortable case. What happens with 193 columns, when only three of
+them are real?
+
+```{python}
+import pandas as pd
+from sklearn.feature_selection import SelectKBest, f_regression
+
+data = pd.read_csv("datasets/signal_and_noise.csv")   # from Demo 1: 3 real columns, 190 junk
+X = data.drop(columns="target")
+y = data["target"]
+print(f"{X.shape[1]} columns total, 3 of them real")
+
+selector = SelectKBest(f_regression, k=3).fit(X, y)
+chosen = X.columns[selector.get_support()].tolist()
+print("FILTER chose:", chosen)
+```
+
+**The filter method missed one.** It kept two of the three real columns and one noise
+column — with 190 candidates, at least one of them is going to look correlated with the
+target purely by chance. **A filter judges each column alone**, so it has no way to
+notice that it has been fooled. This is exactly the risk a wrapper or embedded method,
+which considers columns together, is better placed to catch.
 
 ## 4. PCA: compressing columns instead of dropping them {#sec-s06-topic-4}
 
@@ -184,7 +243,7 @@ out, because that is the direction carrying the most information.
 near side or the far side. Some questions need the dimension you dropped.
 :::
 
-### Demo 3 — three overlapping columns become one
+### Demo 5 — three overlapping columns become one
 
 ```{python}
 import numpy as np, pandas as pd
@@ -205,7 +264,7 @@ print(f"\nKeeping just component 1 retains {pca.explained_variance_ratio_[0]:.1%
       f"of the information, from 3 columns down to 1.")
 ```
 
-### Demo 4 — choosing how many components to keep
+### Demo 6 — choosing how many components to keep
 
 ```{python}
 #| label: fig-s06-scree
@@ -253,7 +312,7 @@ answer at all.
 names.
 :::
 
-### Demo 5 — always scale before PCA
+### Demo 7 — always scale before PCA
 
 ```{python}
 import numpy as np, pandas as pd
@@ -289,7 +348,7 @@ question.** Two approaches:
 | **Non-parametric** | keep some of the actual data | sampling, histograms, cluster centres |
 | **Parametric** | keep a *model* of the data instead of the data | store a fitted line's two numbers instead of a million points |
 
-### Demo 6 — a sample, a histogram, and a two-number model
+### Demo 8 — a sample, a histogram, and a two-number model
 
 ```{python}
 import numpy as np
@@ -318,6 +377,29 @@ Four representations of the same 200,000 numbers, and all four give essentially 
 average. The last one is **thousands of times smaller** — but it can only answer questions the
 normal distribution can answer. Ask it "how many people earn exactly ₹1,00,000?" and it
 will invent a plausible answer rather than report a real one.
+
+### Demo 9 — how far can the sample shrink before it breaks?
+
+```{python}
+import numpy as np, pandas as pd
+
+full = pd.read_csv("datasets/salaries_large.csv")["salary"].values
+rng = np.random.default_rng(7)
+
+print(f"{'sample size':>12} | {'sample mean':>12} | {'off by':>10}")
+print("-" * 40)
+for n in [1_000, 100, 20, 5]:
+    sample = rng.choice(full, n, replace=False)
+    off_by = abs(sample.mean() - full.mean())
+    print(f"{n:>12,} | {sample.mean():>12,.0f} | {off_by:>10,.0f}")
+print(f"\n(true mean: {full.mean():,.0f})")
+```
+
+**A sample of 1,000 is close enough to use. A sample of 5 is a guess.** There is no single
+"right" sample size — it depends how much error the question can tolerate — but the
+pattern is the same one behind every reduction in this chapter: **smaller costs
+accuracy, and the cost is not linear.** The last few rows you remove hurt far more than
+the first few thousand.
 
 ## 6. Cube aggregation {#sec-s06-topic-6}
 
@@ -465,46 +547,6 @@ thing you are predicting varies smoothly with age, binning has thrown away the p
 **Bin when the categories mean something to a human. Do not bin just to tidy up.**
 :::
 
-### ❓ Check yourself
-
-**Q1.** You add 50 columns of random noise to a dataset. What happens to the *training*
-score and the *test* score?
-
-- (a) Both fall.
-- (b) **Training score rises, test score falls.**
-- (c) Both rise.
-
-**Q2.** Which reduces rows rather than columns?
-
-- (a) PCA.
-- (b) **Sampling.**
-- (c) Recursive feature elimination.
-
-**Q3.** Why must data be scaled before PCA?
-
-- (a) PCA cannot handle negative numbers.
-- (b) **PCA chases variance, so the column with the biggest raw numbers would dominate
-  regardless of importance.**
-- (c) It makes PCA faster.
-
-**Q4.** A bank must tell rejected applicants why they were rejected. Selection or PCA?
-
-- (a) PCA — it is more powerful.
-- (b) **Feature selection — the surviving columns still have meaningful names.**
-- (c) Either.
-
-::: {.callout-note collapse="true" title="Answers"}
-**A1 — (b).** A model can always fit more noise on data it has seen. Demo 1 measured the
-test score falling.
-
-**A2 — (b).** PCA and RFE both work on columns.
-
-**A3 — (b).** Demo 5 showed component 1 becoming "the income column" when scaling was
-skipped.
-
-**A4 — (b).** "Component 1 was low" is not an explanation anybody can act on.
-:::
-
 # 🎯 Tasks {#sec-s06-tasks}
 
 ::: {.callout-note title="✏️ Practise"}
@@ -559,6 +601,46 @@ print("the noise columns have variance too. PCA never looks at the target, so it
 print("cannot know which variation is the useful kind.")
 ```
 ::::
+
+# ❓ MCQs {#sec-s06-mcqs}
+
+**Q1.** You add 50 columns of random noise to a dataset. What happens to the *training*
+score and the *test* score?
+
+- (a) Both fall.
+- (b) **Training score rises, test score falls.**
+- (c) Both rise.
+
+**Q2.** Which reduces rows rather than columns?
+
+- (a) PCA.
+- (b) **Sampling.**
+- (c) Recursive feature elimination.
+
+**Q3.** Why must data be scaled before PCA?
+
+- (a) PCA cannot handle negative numbers.
+- (b) **PCA chases variance, so the column with the biggest raw numbers would dominate
+  regardless of importance.**
+- (c) It makes PCA faster.
+
+**Q4.** A bank must tell rejected applicants why they were rejected. Selection or PCA?
+
+- (a) PCA — it is more powerful.
+- (b) **Feature selection — the surviving columns still have meaningful names.**
+- (c) Either.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** A model can always fit more noise on data it has seen. Demo 1 measured the
+test score falling.
+
+**A2 — (b).** PCA and RFE both work on columns.
+
+**A3 — (b).** Demo 5 showed component 1 becoming "the income column" when scaling was
+skipped.
+
+**A4 — (b).** "Component 1 was low" is not an explanation anybody can act on.
+:::
 
 ::: {.callout-tip title="✅ Before you move on"}
 - [ ] I can explain why extra columns can lower a test score

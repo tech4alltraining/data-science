@@ -363,10 +363,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#sec-s05-topic-7" id="toc-sec-s05-topic-7" class="nav-link" data-scroll-target="#sec-s05-topic-7"><span class="header-section-number">11.3</span> 7. Pipelines: making the order impossible to get wrong</a>
   <ul class="collapse">
   <li><a href="#demo-10-the-whole-preparation-as-one-object" id="toc-demo-10-the-whole-preparation-as-one-object" class="nav-link" data-scroll-target="#demo-10-the-whole-preparation-as-one-object"><span class="header-section-number">11.3.1</span> Demo 10 — the whole preparation as one object</a></li>
-  <li><a href="#check-yourself" id="toc-check-yourself" class="nav-link" data-scroll-target="#check-yourself"><span class="header-section-number">11.3.2</span> ❓ Check yourself</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#sec-s05-tasks" id="toc-sec-s05-tasks" class="nav-link" data-scroll-target="#sec-s05-tasks"><span class="header-section-number">12</span> 🎯 Tasks</a></li>
+  <li><a href="#sec-s05-mcqs" id="toc-sec-s05-mcqs" class="nav-link" data-scroll-target="#sec-s05-mcqs"><span class="header-section-number">13</span> ❓ MCQs</a></li>
   </ul>
 </nav>
     </div>
@@ -499,7 +499,7 @@ Note
 </div>
 <section id="demo-1-watch-a-unit-decide-the-answer" class="level3" data-number="8.1.1">
 <h3 data-number="8.1.1" class="anchored" data-anchor-id="demo-1-watch-a-unit-decide-the-answer"><span class="header-section-number">8.1.1</span> Demo 1 — watch a unit decide the answer</h3>
-<div id="645ffd0a" class="cell" data-execution_count="2">
+<div id="c756cd66" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -596,7 +596,7 @@ SCALED — the same question:
 </table>
 <section id="demo-2-proving-trees-do-not-care" class="level3" data-number="8.2.1">
 <h3 data-number="8.2.1" class="anchored" data-anchor-id="demo-2-proving-trees-do-not-care"><span class="header-section-number">8.2.1</span> Demo 2 — proving trees do not care</h3>
-<div id="8a2624ba" class="cell" data-execution_count="3">
+<div id="72d798d7" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsClassifier</span>
@@ -696,7 +696,7 @@ k-Nearest Neighbours   unscaled 0.694   scaled 0.994   difference +0.300</code><
 </div>
 <section id="demo-3-all-five-on-the-same-small-table" class="level3" data-number="9.1.1">
 <h3 data-number="9.1.1" class="anchored" data-anchor-id="demo-3-all-five-on-the-same-small-table"><span class="header-section-number">9.1.1</span> Demo 3 — all five, on the same small table</h3>
-<div id="23a98b51" class="cell" data-execution_count="4">
+<div id="e001df9a" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> (MinMaxScaler, StandardScaler, RobustScaler,</span>
@@ -749,7 +749,7 @@ RobustScaler  (median 0)
 </div>
 </div>
 <p>Look at what the outlier does to each one:</p>
-<div id="8119d031" class="cell" data-execution_count="5">
+<div id="a099b72c" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, tool <span class="kw">in</span> [(<span class="st">"MinMax"</span>, MinMaxScaler()), (<span class="st">"Standard"</span>, StandardScaler()),</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                   (<span class="st">"Robust"</span>, RobustScaler())]:</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> tool.fit_transform(data)[:, <span class="dv">1</span>]      <span class="co"># the income column</span></span>
@@ -765,7 +765,7 @@ Robust    income → range  -0.85 to   8.51 ; the five ordinary earners now sit 
 </section>
 <section id="demo-4-normalizer-and-binarizer-which-do-something-different" class="level3" data-number="9.1.2">
 <h3 data-number="9.1.2" class="anchored" data-anchor-id="demo-4-normalizer-and-binarizer-which-do-something-different"><span class="header-section-number">9.1.2</span> Demo 4 — Normalizer and Binarizer, which do something different</h3>
-<div id="8e3697bc" class="cell" data-execution_count="6">
+<div id="d1813fcc" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> Normalizer, Binarizer</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -841,7 +841,7 @@ After : mean       0.00   std       1.00</code></pre>
 </div>
 <div class="callout-body-container callout-body">
 <p>Both histograms lean the same way. Scaling shifts and stretches; it does not <strong>reshape</strong>. If a column is heavily skewed and you need it symmetric, you need a different tool — a <strong>log transform</strong>:</p>
-<div id="c4c5c80b" class="cell" data-execution_count="8">
+<div id="e9eb2b03" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Skewness before log transform:"</span>, <span class="bu">float</span>(pd.Series(income.ravel()).skew().<span class="bu">round</span>(<span class="dv">2</span>)))</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Skewness after  log transform:"</span>, <span class="bu">float</span>(pd.Series(np.log1p(income.ravel())).skew().<span class="bu">round</span>(<span class="dv">2</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -897,7 +897,7 @@ Skewness after  log transform: -1.01</code></pre>
 </table>
 <section id="demo-6-the-three-encodings-and-the-trap-in-the-middle" class="level3" data-number="10.1.1">
 <h3 data-number="10.1.1" class="anchored" data-anchor-id="demo-6-the-three-encodings-and-the-trap-in-the-middle"><span class="header-section-number">10.1.1</span> Demo 6 — the three encodings, and the trap in the middle</h3>
-<div id="453a20b8" class="cell" data-execution_count="9">
+<div id="d71e3a2a" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> LabelEncoder, OrdinalEncoder</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -962,7 +962,7 @@ One-hot encoding 'city':
 </section>
 <section id="demo-7-the-invented-ordering-measured" class="level3" data-number="10.1.2">
 <h3 data-number="10.1.2" class="anchored" data-anchor-id="demo-7-the-invented-ordering-measured"><span class="header-section-number">10.1.2</span> Demo 7 — the invented ordering, measured</h3>
-<div id="6bf30529" class="cell" data-execution_count="10">
+<div id="2c926236" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1034,7 +1034,7 @@ one-hot encoded (right)    explains  96.5% of the variation in rent</code></pre>
 </div>
 <section id="demo-8-splitting-with-the-naming-convention-we-use-everywhere" class="level3" data-number="11.1.1">
 <h3 data-number="11.1.1" class="anchored" data-anchor-id="demo-8-splitting-with-the-naming-convention-we-use-everywhere"><span class="header-section-number">11.1.1</span> Demo 8 — splitting, with the naming convention we use everywhere</h3>
-<div id="bff3268e" class="cell" data-execution_count="11">
+<div id="1e75e769" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, numpy <span class="im">as</span> np</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1114,7 +1114,7 @@ Approval rate in test  : 8.5%   &lt;- kept the same by stratify=y</code></pre>
 <h3 data-number="11.2.1" class="anchored" data-anchor-id="demo-9-how-big-is-the-damage-two-kinds-of-leakage-measured"><span class="header-section-number">11.2.1</span> Demo 9 — how big is the damage? Two kinds of leakage, measured</h3>
 <p>Leakage is often taught with a warning and no number. Let us get the number, because <strong>the two kinds do not cost the same.</strong></p>
 <p><strong>Kind 1 — a scaler fitted on everything.</strong> The scaler learns a minimum and maximum from all rows, including the test rows.</p>
-<div id="3a54b7ff" class="cell" data-execution_count="12">
+<div id="4434f275" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsRegressor</span>
@@ -1148,7 +1148,7 @@ scaler fitted on train only : average error 49.52</code></pre>
 </div>
 <p><strong>Read that carefully, because it does not say what you were probably expecting.</strong> The leaked version is not better. On this data it is very slightly <em>worse</em>. Scaler leakage is real, but its effect is usually tiny — a minimum and a maximum are only two numbers, and thirty extra rows barely move them.</p>
 <p><strong>Kind 2 — feature selection done on everything.</strong> Now the same rule, broken in a different place. Here is data with <strong>nothing to learn</strong>: 2,000 columns of pure random noise, and a target that is literally a coin flip.</p>
-<div id="9ab71d70" class="cell" data-execution_count="13">
+<div id="7bd9df6f" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_selection <span class="im">import</span> SelectKBest, f_classif</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
@@ -1230,7 +1230,7 @@ the truth                      : 50% — the labels are coin flips</code></pre>
 <p><strong>A <code>Pipeline</code> chains the steps together so that “fit on train only” happens automatically.</strong> You then cannot leak by forgetting.</p>
 <section id="demo-10-the-whole-preparation-as-one-object" class="level3" data-number="11.3.1">
 <h3 data-number="11.3.1" class="anchored" data-anchor-id="demo-10-the-whole-preparation-as-one-object"><span class="header-section-number">11.3.1</span> Demo 10 — the whole preparation as one object</h3>
-<div id="9b0756e5" class="cell" data-execution_count="14">
+<div id="e9355b36" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
@@ -1275,8 +1275,74 @@ the pipeline made that happen without anyone having to remember it.</code></pre>
 </div>
 <p><strong>One <code>fit</code> call handled imputation, scaling and encoding, in the right order, on the right data.</strong> From here on, this is how preparation is done in this course.</p>
 </section>
-<section id="check-yourself" class="level3" data-number="11.3.2">
-<h3 data-number="11.3.2" class="anchored" data-anchor-id="check-yourself"><span class="header-section-number">11.3.2</span> ❓ Check yourself</h3>
+</section>
+</section>
+<section id="sec-s05-tasks" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> 🎯 Tasks</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Practise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Task 1 — Pick the scaler.</strong> For each, say which of the five transformers you would use and why: exam marks 0–100 for a neural network; salaries containing three billionaires; a pass/fail flag from a 0–100 mark; word counts across documents of very different lengths.</p>
+<p><strong>Task 2 — Encode.</strong> Encode <code>size</code> (small/medium/large) and <code>city</code> (Mumbai/Delhi/Pune) correctly, in one <code>ColumnTransformer</code>.</p>
+<p><strong>Task 3 — Break the split.</strong> In Demo 8, remove <code>stratify=y</code> and run the split with ten different <code>random_state</code> values. <strong>Report the lowest and highest approval rate you see in the test set</strong>, and say why that is a problem.</p>
+<p><strong>Task 4 — Leak on purpose.</strong> In Demo 10, fit a <code>StandardScaler</code> on all of <code>X</code> before splitting, and compare the accuracy to the pipeline version.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="dc399483" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 1</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 1"</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  exam marks for a neural network  → MinMaxScaler (already bounded 0-100)"</span>)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  salaries with three billionaires → RobustScaler (median and IQR ignore them)"</span>)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  pass/fail from a 0-100 mark      → Binarizer(threshold=...)"</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  word counts, uneven doc lengths  → Normalizer (works across the row)"</span>)</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 3 — what stratify was protecting you from</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co"># A small sample makes the problem visible; on 5,000 rows the wobble is tiny.</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> pd.read_csv(<span class="st">"datasets/loan_imbalanced.csv"</span>)[<span class="st">"loan_status"</span>].sample(<span class="dv">200</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>rates <span class="op">=</span> [train_test_split(y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span>s)[<span class="dv">1</span>].mean() <span class="cf">for</span> s <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>)]</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Task 3 — test-set approval rate across 10 splits, no stratify:"</span>)</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  lowest </span><span class="sc">{</span><span class="bu">min</span>(rates)<span class="sc">:.1%}</span><span class="ss">, highest </span><span class="sc">{</span><span class="bu">max</span>(rates)<span class="sc">:.1%}</span><span class="ss">, true rate </span><span class="sc">{</span>y<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  The measured score would change with the seed — you would be reporting luck."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Task 1
+  exam marks for a neural network  → MinMaxScaler (already bounded 0-100)
+  salaries with three billionaires → RobustScaler (median and IQR ignore them)
+  pass/fail from a 0-100 mark      → Binarizer(threshold=...)
+  word counts, uneven doc lengths  → Normalizer (works across the row)
+
+Task 3 — test-set approval rate across 10 splits, no stratify:
+  lowest 2.5%, highest 10.0%, true rate 8.0%
+  The measured score would change with the seed — you would be reporting luck.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-s05-mcqs" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> ❓ MCQs</h1>
 <p><strong>Q1.</strong> Which needs no scaling?</p>
 <ul>
 <li><ol type="a">
@@ -1326,7 +1392,7 @@ the pipeline made that happen without anyone having to remember it.</code></pre>
 </ol></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1335,78 +1401,12 @@ the pipeline made that happen without anyone having to remember it.</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>A1 — (b).</strong> A tree asks “is age &gt; 30?”. Changing units changes the threshold it picks, not the split it makes. Demo 2 measured this.</p>
 <p><strong>A2 — (b).</strong> Cities have no order. Label encoding invents one, and Demo 7 measured what that costs.</p>
 <p><strong>A3 — (b).</strong> Especially important when one class is rare — without it, a test set can end up with almost none of the class you care about.</p>
 <p><strong>A4 — (b).</strong> And nothing warns you. This is why Demo 10’s pipeline exists.</p>
-</div>
-</div>
-</div>
-</section>
-</section>
-</section>
-<section id="sec-s05-tasks" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> 🎯 Tasks</h1>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Practise
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Task 1 — Pick the scaler.</strong> For each, say which of the five transformers you would use and why: exam marks 0–100 for a neural network; salaries containing three billionaires; a pass/fail flag from a 0–100 mark; word counts across documents of very different lengths.</p>
-<p><strong>Task 2 — Encode.</strong> Encode <code>size</code> (small/medium/large) and <code>city</code> (Mumbai/Delhi/Pune) correctly, in one <code>ColumnTransformer</code>.</p>
-<p><strong>Task 3 — Break the split.</strong> In Demo 8, remove <code>stratify=y</code> and run the split with ten different <code>random_state</code> values. <strong>Report the lowest and highest approval rate you see in the test set</strong>, and say why that is a problem.</p>
-<p><strong>Task 4 — Leak on purpose.</strong> In Demo 10, fit a <code>StandardScaler</code> on all of <code>X</code> before splitting, and compare the accuracy to the pipeline version.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="b8092ba0" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 1</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 1"</span>)</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  exam marks for a neural network  → MinMaxScaler (already bounded 0-100)"</span>)</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  salaries with three billionaires → RobustScaler (median and IQR ignore them)"</span>)</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  pass/fail from a 0-100 mark      → Binarizer(threshold=...)"</span>)</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  word counts, uneven doc lengths  → Normalizer (works across the row)"</span>)</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 3 — what stratify was protecting you from</span></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co"># A small sample makes the problem visible; on 5,000 rows the wobble is tiny.</span></span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> pd.read_csv(<span class="st">"datasets/loan_imbalanced.csv"</span>)[<span class="st">"loan_status"</span>].sample(<span class="dv">200</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>rates <span class="op">=</span> [train_test_split(y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span>s)[<span class="dv">1</span>].mean() <span class="cf">for</span> s <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>)]</span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Task 3 — test-set approval rate across 10 splits, no stratify:"</span>)</span>
-<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  lowest </span><span class="sc">{</span><span class="bu">min</span>(rates)<span class="sc">:.1%}</span><span class="ss">, highest </span><span class="sc">{</span><span class="bu">max</span>(rates)<span class="sc">:.1%}</span><span class="ss">, true rate </span><span class="sc">{</span>y<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
-<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  The measured score would change with the seed — you would be reporting luck."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Task 1
-  exam marks for a neural network  → MinMaxScaler (already bounded 0-100)
-  salaries with three billionaires → RobustScaler (median and IQR ignore them)
-  pass/fail from a 0-100 mark      → Binarizer(threshold=...)
-  word counts, uneven doc lengths  → Normalizer (works across the row)
-
-Task 3 — test-set approval rate across 10 splits, no stratify:
-  lowest 2.5%, highest 10.0%, true rate 8.0%
-  The measured score would change with the seed — you would be reporting luck.</code></pre>
-</div>
-</div>
 </div>
 </div>
 </div>

@@ -471,7 +471,42 @@ def first_look(df, target=None):
 first_look(homes[["area_sqft", "age_years", "bedrooms", "price", "city"]], target="price")
 ```
 
-### ❓ Check yourself
+# 🎯 Tasks {#sec-s08-tasks}
+
+::: {.callout-note title="✏️ Practise"}
+**Task 1 — Match the chart.** Which chart for each: the spread of exam marks; how many
+students per department; whether study hours relate to marks; how marks differ between
+departments; how enrolment changed over ten years.
+
+**Task 2 — Find the confounder.** In Demo 9, change the temperature range in the final
+filter to 20–23°C. **Report the correlation.** Then explain in one sentence what holding
+temperature constant does.
+
+**Task 3 — Read the heatmap.** From Demo 8, list the columns you would give a
+price-prediction model, and name any pair you would not include together.
+
+**Task 4 — Pivot with counts.** Build a pivot table of median `price_per_sqft` by city
+and `age_band`, **and print the matching count table beside it.** Identify any cell you
+would refuse to quote.
+:::
+
+:::: {.callout-note collapse="true" title="Solutions"}
+```{python}
+print("Task 1")
+print("  spread of exam marks           → histogram (shape) or box plot (summary)")
+print("  students per department        → bar chart")
+print("  study hours vs marks           → scatter plot")
+print("  marks by department            → box plot grouped by department")
+print("  enrolment over ten years       → line chart")
+print()
+print("Task 3")
+print("  Give the model: area_sqft, age_years, and city (one-hot encoded).")
+print("  Do NOT include area_sqft and bedrooms together — they correlate at 0.93")
+print("  because bedrooms was derived from area. Keep area_sqft; it is finer-grained.")
+```
+::::
+
+# ❓ MCQs {#sec-s08-mcqs}
 
 **Q1.** You want to know whether house prices differ between three cities. Which chart?
 
@@ -511,41 +546,6 @@ one fact. Session 6's feature selection is the tool.
 **A4 — (b).** Demo 11's warning. An average of two houses looks identical to an average
 of two hundred.
 :::
-
-# 🎯 Tasks {#sec-s08-tasks}
-
-::: {.callout-note title="✏️ Practise"}
-**Task 1 — Match the chart.** Which chart for each: the spread of exam marks; how many
-students per department; whether study hours relate to marks; how marks differ between
-departments; how enrolment changed over ten years.
-
-**Task 2 — Find the confounder.** In Demo 9, change the temperature range in the final
-filter to 20–23°C. **Report the correlation.** Then explain in one sentence what holding
-temperature constant does.
-
-**Task 3 — Read the heatmap.** From Demo 8, list the columns you would give a
-price-prediction model, and name any pair you would not include together.
-
-**Task 4 — Pivot with counts.** Build a pivot table of median `price_per_sqft` by city
-and `age_band`, **and print the matching count table beside it.** Identify any cell you
-would refuse to quote.
-:::
-
-:::: {.callout-note collapse="true" title="Solutions"}
-```{python}
-print("Task 1")
-print("  spread of exam marks           → histogram (shape) or box plot (summary)")
-print("  students per department        → bar chart")
-print("  study hours vs marks           → scatter plot")
-print("  marks by department            → box plot grouped by department")
-print("  enrolment over ten years       → line chart")
-print()
-print("Task 3")
-print("  Give the model: area_sqft, age_years, and city (one-hot encoded).")
-print("  Do NOT include area_sqft and bedrooms together — they correlate at 0.93")
-print("  because bedrooms was derived from area. Keep area_sqft; it is finer-grained.")
-```
-::::
 
 ::: {.callout-tip title="✅ Before you move on"}
 - [ ] Every chart I draw has a question as its title

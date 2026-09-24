@@ -399,10 +399,10 @@ window.Quarto = {
   <li><a href="#demo-11-building-a-frequency-table-by-hand" id="toc-demo-11-building-a-frequency-table-by-hand" class="nav-link" data-scroll-target="#demo-11-building-a-frequency-table-by-hand"><span class="header-section-number">13.1.1</span> Demo 11 — building a frequency table by hand</a></li>
   <li><a href="#demo-12-bin-width-changes-the-story" id="toc-demo-12-bin-width-changes-the-story" class="nav-link" data-scroll-target="#demo-12-bin-width-changes-the-story"><span class="header-section-number">13.1.2</span> Demo 12 — bin width changes the story</a></li>
   <li><a href="#demo-13-the-full-description-in-one-function" id="toc-demo-13-the-full-description-in-one-function" class="nav-link" data-scroll-target="#demo-13-the-full-description-in-one-function"><span class="header-section-number">13.1.3</span> Demo 13 — the full description, in one function</a></li>
-  <li><a href="#check-yourself" id="toc-check-yourself" class="nav-link" data-scroll-target="#check-yourself"><span class="header-section-number">13.1.4</span> ❓ Check yourself</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#sec-s07-tasks" id="toc-sec-s07-tasks" class="nav-link" data-scroll-target="#sec-s07-tasks"><span class="header-section-number">14</span> 🎯 Tasks</a></li>
+  <li><a href="#sec-s07-mcqs" id="toc-sec-s07-mcqs" class="nav-link" data-scroll-target="#sec-s07-mcqs"><span class="header-section-number">15</span> ❓ MCQs</a></li>
   </ul>
 </nav>
     </div>
@@ -525,7 +525,7 @@ Note
 </table>
 <section id="demo-1-computed-by-hand-then-by-pandas" class="level3" data-number="10.1.1">
 <h3 data-number="10.1.1" class="anchored" data-anchor-id="demo-1-computed-by-hand-then-by-pandas"><span class="header-section-number">10.1.1</span> Demo 1 — computed by hand, then by pandas</h3>
-<div id="ec74cad1" class="cell" data-execution_count="2">
+<div id="d536cb31" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>marks <span class="op">=</span> pd.read_csv(<span class="st">"datasets/class_marks.csv"</span>)[<span class="st">"mark"</span>]</span>
@@ -573,7 +573,7 @@ pandas: mean 55.88   median 58.0   mode 61</code></pre>
 </div>
 <section id="demo-2-the-same-data-two-honest-looking-answers" class="level3" data-number="10.2.1">
 <h3 data-number="10.2.1" class="anchored" data-anchor-id="demo-2-the-same-data-two-honest-looking-answers"><span class="header-section-number">10.2.1</span> Demo 2 — the same data, two honest-looking answers</h3>
-<div id="62ded591" class="cell" data-execution_count="3">
+<div id="4fc526b4" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>salaries <span class="op">=</span> pd.read_csv(<span class="st">"datasets/team_salaries.csv"</span>)[<span class="st">"salary"</span>]</span>
@@ -597,7 +597,7 @@ A company could truthfully advertise the mean — and 9 of 10 staff earn less.</
 </section>
 <section id="demo-3-how-much-one-value-can-move-each-measure" class="level3" data-number="10.2.2">
 <h3 data-number="10.2.2" class="anchored" data-anchor-id="demo-3-how-much-one-value-can-move-each-measure"><span class="header-section-number">10.2.2</span> Demo 3 — how much one value can move each measure</h3>
-<div id="776e53f9" class="cell" data-execution_count="4">
+<div id="1267ef59" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> pd.read_csv(<span class="st">"datasets/team_salaries.csv"</span>)[<span class="st">"salary"</span>].head(<span class="dv">9</span>)   <span class="co"># drop the founder</span></span>
@@ -665,7 +665,7 @@ A company could truthfully advertise the mean — and 9 of 10 staff earn less.</
 <p><strong>Two datasets can have identical means and be nothing alike.</strong></p>
 <section id="demo-4-same-mean-different-worlds" class="level3" data-number="11.1.1">
 <h3 data-number="11.1.1" class="anchored" data-anchor-id="demo-4-same-mean-different-worlds"><span class="header-section-number">11.1.1</span> Demo 4 — same mean, different worlds</h3>
-<div id="ed0ea03f" class="cell" data-execution_count="5">
+<div id="e5c7bcbd" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>deliveries <span class="op">=</span> pd.read_csv(<span class="st">"datasets/supplier_deliveries.csv"</span>)</span>
@@ -733,7 +733,7 @@ Identical averages. You would not choose between them on the average.</code></pr
 <p><strong>Standard deviation is the one you will report</strong>, because it is in the same units as the data. Variance is in <em>squared</em> units — “squared rupees” means nothing to anybody — but it is what the maths works with internally.</p>
 <section id="demo-5-standard-deviation-computed-step-by-step" class="level3" data-number="11.2.1">
 <h3 data-number="11.2.1" class="anchored" data-anchor-id="demo-5-standard-deviation-computed-step-by-step"><span class="header-section-number">11.2.1</span> Demo 5 — standard deviation computed step by step</h3>
-<div id="546611d4" class="cell" data-execution_count="6">
+<div id="961e9068" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, numpy <span class="im">as</span> np</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> pd.read_csv(<span class="st">"datasets/supplier_deliveries.csv"</span>)[<span class="st">"steady"</span>]</span>
@@ -763,7 +763,7 @@ pandas agrees      : 1.414</code></pre>
 </div>
 </div>
 <p>Why squared? Because plain distances from the mean always sum to zero — the positives cancel the negatives. Squaring makes everything positive; the square root at the end puts the answer back into the original units.</p>
-<div id="1fe697a2" class="cell" data-execution_count="7">
+<div id="418e022d" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Sum of raw distances from the mean: </span><span class="sc">{</span>(s <span class="op">-</span> s.mean())<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">:.10f}</span><span class="ss">  ← always zero"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sum of raw distances from the mean: 0.0000000000  ← always zero</code></pre>
@@ -772,7 +772,7 @@ pandas agrees      : 1.414</code></pre>
 </section>
 <section id="demo-6-all-four-measures-and-which-one-the-outlier-fools" class="level3" data-number="11.2.2">
 <h3 data-number="11.2.2" class="anchored" data-anchor-id="demo-6-all-four-measures-and-which-one-the-outlier-fools"><span class="header-section-number">11.2.2</span> Demo 6 — all four measures, and which one the outlier fools</h3>
-<div id="204e864d" class="cell" data-execution_count="8">
+<div id="15a32947" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>clean <span class="op">=</span> pd.read_csv(<span class="st">"datasets/supplier_deliveries.csv"</span>)[<span class="st">"steady"</span>]</span>
@@ -890,7 +890,7 @@ Name: income, dtype: float64</code></pre>
 <p><span class="math display">\[z = \frac{\text{value} - \text{mean}}{\text{standard deviation}}\]</span></p>
 <section id="demo-8-which-result-was-more-impressive" class="level3" data-number="11.4.1">
 <h3 data-number="11.4.1" class="anchored" data-anchor-id="demo-8-which-result-was-more-impressive"><span class="header-section-number">11.4.1</span> Demo 8 — which result was more impressive?</h3>
-<div id="656287d7" class="cell" data-execution_count="10">
+<div id="5b0ce7cb" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A student scored 78 in maths and 65 in physics. Which was the better performance?</span></span>
@@ -1042,7 +1042,7 @@ Left-skewed (easy exam)  skew  -1.36   mean − median =       -1.8</code></pre>
 </table>
 <section id="demo-10-same-mean-same-standard-deviation-very-different-risk" class="level3" data-number="12.2.1">
 <h3 data-number="12.2.1" class="anchored" data-anchor-id="demo-10-same-mean-same-standard-deviation-very-different-risk"><span class="header-section-number">12.2.1</span> Demo 10 — same mean, same standard deviation, very different risk</h3>
-<div id="62dc0485" class="cell" data-execution_count="12">
+<div id="b76874bd" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>returns <span class="op">=</span> pd.read_csv(<span class="st">"datasets/daily_returns.csv"</span>)</span>
@@ -1089,7 +1089,7 @@ more extreme days — and a risk model assuming normal tails would miss them.</c
 <p><strong>A frequency distribution counts how many values fall into each bin.</strong> A histogram is its picture. It is the fastest way to see everything at once — centre, spread, shape, gaps and outliers, in one glance.</p>
 <section id="demo-11-building-a-frequency-table-by-hand" class="level3" data-number="13.1.1">
 <h3 data-number="13.1.1" class="anchored" data-anchor-id="demo-11-building-a-frequency-table-by-hand"><span class="header-section-number">13.1.1</span> Demo 11 — building a frequency table by hand</h3>
-<div id="48afcddb" class="cell" data-execution_count="13">
+<div id="c3c25dd3" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, numpy <span class="im">as</span> np</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>ages <span class="op">=</span> pd.read_csv(<span class="st">"datasets/respondent_ages.csv"</span>)[<span class="st">"age"</span>]</span>
@@ -1169,7 +1169,7 @@ Figure&nbsp;13.1: The same 2,000 values at four bin widths. Too few bins hides t
 </section>
 <section id="demo-13-the-full-description-in-one-function" class="level3" data-number="13.1.3">
 <h3 data-number="13.1.3" class="anchored" data-anchor-id="demo-13-the-full-description-in-one-function"><span class="header-section-number">13.1.3</span> Demo 13 — the full description, in one function</h3>
-<div id="dc726f34" class="cell" data-execution_count="15">
+<div id="43e7acdd" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, numpy <span class="im">as</span> np</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> describe_column(s, name<span class="op">=</span><span class="st">"column"</span>):</span>
@@ -1216,8 +1216,76 @@ Figure&nbsp;13.1: The same 2,000 values at four bin widths. Too few bins hides t
 </div>
 </div>
 </section>
-<section id="check-yourself" class="level3" data-number="13.1.4">
-<h3 data-number="13.1.4" class="anchored" data-anchor-id="check-yourself"><span class="header-section-number">13.1.4</span> ❓ Check yourself</h3>
+</section>
+</section>
+<section id="sec-s07-tasks" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> 🎯 Tasks</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Practise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Task 1 — Predict the gap.</strong> For each, say whether the mean will be above, below or equal to the median: house prices in a city; heights of adult women; number of days patients stay in hospital; marks on a test where most students scored above 90.</p>
+<p><strong>Task 2 — Compare fairly.</strong> A runner finishes a 5 km race in 22 minutes (field mean 25, std 4) and a 10 km race in 50 minutes (field mean 55, std 8). <strong>Which was the better run?</strong></p>
+<p><strong>Task 3 — Choose the bin width.</strong> Run Demo 12 with 6, 20 and 100 bins on data made of <em>three</em> groups instead of two. <strong>Report the smallest number of bins at which all three groups are visible.</strong></p>
+<p><strong>Task 4 — Describe a column.</strong> Use <code>describe_column</code> from Demo 13 on the <code>income</code> series from Demo 7. <strong>Report which measure of centre you would publish and why.</strong></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="74c0930b" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, numpy <span class="im">as</span> np</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 1</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 1"</span>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  house prices           → mean ABOVE median (right-skewed)"</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  heights of adult women → mean EQUAL to median (symmetric)"</span>)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  hospital stay length   → mean ABOVE median (a few very long stays)"</span>)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  marks on an easy test  → mean BELOW median (left-skewed)"</span>)</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — compare with z-scores. Lower time is better, so a NEGATIVE z is good.</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 2  (a faster time is better, so the more negative z wins)"</span>)</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> race, time, mean, std <span class="kw">in</span> [(<span class="st">"5 km"</span>, <span class="dv">22</span>, <span class="dv">25</span>, <span class="dv">4</span>), (<span class="st">"10 km"</span>, <span class="dv">50</span>, <span class="dv">55</span>, <span class="dv">8</span>)]:</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>race<span class="sc">:&lt;6}</span><span class="ss"> z = (</span><span class="sc">{</span>time<span class="sc">}</span><span class="ss"> - </span><span class="sc">{</span>mean<span class="sc">}</span><span class="ss">) / </span><span class="sc">{</span>std<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>(time<span class="op">-</span>mean)<span class="op">/</span>std<span class="sc">:+.2f}</span><span class="ss">"</span>)</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  The 5 km run wins: -0.75 is further below its field average than -0.62."</span>)</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  In raw minutes the 10 km looks like the bigger gap (5 minutes vs 3), but"</span>)</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  that field is more spread out, so 5 minutes buys less there."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Task 1
+  house prices           → mean ABOVE median (right-skewed)
+  heights of adult women → mean EQUAL to median (symmetric)
+  hospital stay length   → mean ABOVE median (a few very long stays)
+  marks on an easy test  → mean BELOW median (left-skewed)
+
+Task 2  (a faster time is better, so the more negative z wins)
+  5 km   z = (22 - 25) / 4 = -0.75
+  10 km  z = (50 - 55) / 8 = -0.62
+  The 5 km run wins: -0.75 is further below its field average than -0.62.
+  In raw minutes the 10 km looks like the bigger gap (5 minutes vs 3), but
+  that field is more spread out, so 5 minutes buys less there.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-s07-mcqs" class="level1" data-number="15">
+<h1 data-number="15"><span class="header-section-number">15</span> ❓ MCQs</h1>
 <p><strong>Q1.</strong> In a neighbourhood, 99 houses cost ₹1 crore and one costs ₹500 crore. Which figure best describes a typical house?</p>
 <ul>
 <li><ol type="a">
@@ -1279,7 +1347,7 @@ Figure&nbsp;13.1: The same 2,000 values at four bin widths. Too few bins hides t
 </ol></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1288,81 +1356,13 @@ Figure&nbsp;13.1: The same 2,000 values at four bin widths. Too few bins hides t
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>A1 — (b).</strong> The mean would be about ₹6 crore — a price no house in the area has.</p>
 <p><strong>A2 — (b).</strong> Same centre, very different spread. Demo 4’s two archers.</p>
 <p><strong>A3 — (b).</strong> Mean above median means a right tail. Demo 9 showed the sign always matching.</p>
 <p><strong>A4 — (b).</strong> Demo 6 measured this: adding one outlier barely moved the IQR and changed the standard deviation completely.</p>
 <p><strong>A5 — (b).</strong> Demo 10 — the heavy-tailed series had several times as many extreme days at identical mean and standard deviation.</p>
-</div>
-</div>
-</div>
-</section>
-</section>
-</section>
-<section id="sec-s07-tasks" class="level1" data-number="14">
-<h1 data-number="14"><span class="header-section-number">14</span> 🎯 Tasks</h1>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Practise
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Task 1 — Predict the gap.</strong> For each, say whether the mean will be above, below or equal to the median: house prices in a city; heights of adult women; number of days patients stay in hospital; marks on a test where most students scored above 90.</p>
-<p><strong>Task 2 — Compare fairly.</strong> A runner finishes a 5 km race in 22 minutes (field mean 25, std 4) and a 10 km race in 50 minutes (field mean 55, std 8). <strong>Which was the better run?</strong></p>
-<p><strong>Task 3 — Choose the bin width.</strong> Run Demo 12 with 6, 20 and 100 bins on data made of <em>three</em> groups instead of two. <strong>Report the smallest number of bins at which all three groups are visible.</strong></p>
-<p><strong>Task 4 — Describe a column.</strong> Use <code>describe_column</code> from Demo 13 on the <code>income</code> series from Demo 7. <strong>Report which measure of centre you would publish and why.</strong></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="ad7fd61a" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, numpy <span class="im">as</span> np</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 1</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 1"</span>)</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  house prices           → mean ABOVE median (right-skewed)"</span>)</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  heights of adult women → mean EQUAL to median (symmetric)"</span>)</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  hospital stay length   → mean ABOVE median (a few very long stays)"</span>)</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  marks on an easy test  → mean BELOW median (left-skewed)"</span>)</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — compare with z-scores. Lower time is better, so a NEGATIVE z is good.</span></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 2  (a faster time is better, so the more negative z wins)"</span>)</span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> race, time, mean, std <span class="kw">in</span> [(<span class="st">"5 km"</span>, <span class="dv">22</span>, <span class="dv">25</span>, <span class="dv">4</span>), (<span class="st">"10 km"</span>, <span class="dv">50</span>, <span class="dv">55</span>, <span class="dv">8</span>)]:</span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>race<span class="sc">:&lt;6}</span><span class="ss"> z = (</span><span class="sc">{</span>time<span class="sc">}</span><span class="ss"> - </span><span class="sc">{</span>mean<span class="sc">}</span><span class="ss">) / </span><span class="sc">{</span>std<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>(time<span class="op">-</span>mean)<span class="op">/</span>std<span class="sc">:+.2f}</span><span class="ss">"</span>)</span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  The 5 km run wins: -0.75 is further below its field average than -0.62."</span>)</span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  In raw minutes the 10 km looks like the bigger gap (5 minutes vs 3), but"</span>)</span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  that field is more spread out, so 5 minutes buys less there."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Task 1
-  house prices           → mean ABOVE median (right-skewed)
-  heights of adult women → mean EQUAL to median (symmetric)
-  hospital stay length   → mean ABOVE median (a few very long stays)
-  marks on an easy test  → mean BELOW median (left-skewed)
-
-Task 2  (a faster time is better, so the more negative z wins)
-  5 km   z = (22 - 25) / 4 = -0.75
-  10 km  z = (50 - 55) / 8 = -0.62
-  The 5 km run wins: -0.75 is further below its field average than -0.62.
-  In raw minutes the 10 km looks like the bigger gap (5 minutes vs 3), but
-  that field is more spread out, so 5 minutes buys less there.</code></pre>
-</div>
-</div>
 </div>
 </div>
 </div>

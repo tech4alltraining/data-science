@@ -11,3 +11,4 @@ mlxtend
 joblib
 streamlit
 openpyxl
+pyarrow

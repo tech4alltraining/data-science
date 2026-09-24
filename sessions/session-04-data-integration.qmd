@@ -89,30 +89,6 @@ repeated identically, and fails silently when a column shifts by one. **If a man
 integration is going to happen more than twice, write the code instead.**
 :::
 
-### ❓ Check yourself
-
-**Q1.** A dashboard must show live warehouse stock, and stock changes every few seconds.
-Which approach?
-
-- (a) Physical integration into a nightly warehouse.
-- (b) **Virtual integration, querying the stock system directly.**
-- (c) Manual integration.
-
-**Q2.** Twelve internal systems each need data from the other eleven, and every team is
-writing its own converter. Which approach fixes this?
-
-- (a) Manual integration.
-- (b) Virtual integration.
-- (c) **Middleware — one translation layer instead of many pairwise converters.**
-
-::: {.callout-note collapse="true" title="Answers"}
-**A1 — (b).** A nightly copy would show yesterday's stock, which for this question is
-worse than useless. Virtual integration trades speed for freshness, and freshness is
-what this dashboard is for.
-
-**A2 — (c).** With 12 systems talking directly, you can end up maintaining dozens of
-converters. Middleware means each system talks to one thing.
-:::
 
 # Part B — Doing it in pandas {#sec-s04-b}
 
@@ -174,6 +150,23 @@ print(oops)
 print("\nTwo amount columns, both half empty — and no error was raised.")
 ```
 
+### Demo 2 — the fix: rename first, then stack all three
+
+Checking `.columns` found the problem. Fixing it is one line — rename the odd column out
+to match the others — and then all three months stack cleanly.
+
+```{python}
+mar_fixed = mismatched.rename(columns={"Amount": "amount"})
+all_three = pd.concat([jan, feb, mar_fixed], ignore_index=True)
+print(all_three)
+print(f"\n{len(jan)}+{len(feb)}+{len(mar_fixed)} = {len(all_three)} rows, "
+      f"one column: {list(all_three.columns)}")
+```
+
+One `rename` and the three-way stack behaves exactly like the two-way one did — a single
+`amount` column, no blanks, no silent duplication. **The fix is always this cheap once
+you have actually looked at `.columns`.**
+
 ## 4. Linking tables with merge {#sec-s04-topic-4}
 
 **`merge` joins two tables using a shared column called the key.** The key is usually an
@@ -198,6 +191,23 @@ print(f"\ncustomers {len(customers)} rows + purchases {len(purchases)} rows → 
 Read that row count carefully. **Four and four made three.** Bob and Devi vanished
 (no purchases), user 5 vanished (not a known customer), and Alice appears twice (two
 purchases). This is normal, and it is why you check.
+
+### Demo 3 — seeing exactly which rows matched
+
+Counting rows before and after tells you *that* something changed. `indicator=True` adds
+a column telling you *which side* every row came from, so you never have to guess.
+
+```{python}
+tagged = pd.merge(customers, purchases, on="user_id", how="outer", indicator=True)
+print(tagged[["user_id", "name", "purchase_id", "_merge"]])
+print("\nCount by origin:")
+print(tagged["_merge"].value_counts())
+```
+
+`both` means the row matched on both sides. `left_only` is Bob and Devi — customers with
+no purchase. `right_only` is the purchase from user 5, who is not a known customer at
+all. **This is the same information the row count gave you, broken down by exactly who
+is missing** — and it scales to joins far too big to eyeball.
 
 ## 5. The four join types {#sec-s04-topic-5}
 
@@ -245,6 +255,27 @@ customers have never purchased. An inner join deletes exactly those people.
 **The blanks are not a nuisance. They are usually the finding.**
 :::
 
+### Demo 4 — what if *both* sides repeat the key?
+
+Every example so far had a repeated key on one side only (Alice, twice, in `purchases`).
+What if `customers` also had a repeated key?
+
+```{python}
+# Duplicate Alice's row once, on purpose, so user_id 1 now appears twice on the LEFT too.
+customers_with_dup = pd.concat([customers, customers[customers["user_id"] == 1]],
+                                ignore_index=True)
+print(f"customers: {len(customers)} rows -> customers_with_dup: {len(customers_with_dup)} rows")
+
+many_to_many = pd.merge(customers_with_dup, purchases, on="user_id", how="inner")
+print(f"\n{len(customers_with_dup)} x {len(purchases)} -> {len(many_to_many)} rows")
+print(many_to_many[["user_id", "name", "purchase_id", "amount"]])
+```
+
+Alice's two customer rows each matched against her two purchase rows — **2 × 2 = 4 rows**,
+where a clean key on both sides would have given 2. This is called a **many-to-many
+join**, and the row count is not additive, it is **multiplicative**: duplicate a key on
+both sides and the damage compounds instead of just adding up.
+
 ## 6. Aggregate, then join {#sec-s04-topic-6}
 
 **When one side has many rows per key, joining directly multiplies rows. Usually you
@@ -273,6 +304,27 @@ print(summary)
 
 **One row per customer, every customer present, spending totalled.** This
 aggregate-then-join pattern is the one you will use most often in real work.
+
+### Demo 5 — what if you forget `.reset_index()`?
+
+The aggregate above ended with `.reset_index()`. Skip it, and `user_id` stops being a
+column — it becomes the table's index instead. Does the merge still work?
+
+```{python}
+per_customer_noreset = purchases.groupby("user_id").agg(total_spent=("amount", "sum"))
+print("Columns:", list(per_customer_noreset.columns))
+print("Index name:", per_customer_noreset.index.name)
+
+still_works = pd.merge(customers, per_customer_noreset, on="user_id", how="left")
+print("\nMerged anyway:")
+print(still_works)
+```
+
+It works — pandas will match `on="user_id"` against an **index name**, not just a column
+name. But look at `print("Columns:", ...)` above: `user_id` is nowhere in it. Any other
+code that expects `per_customer_noreset["user_id"]` to exist — a filter, another merge, a
+plot — breaks, even though this particular merge did not. **`.reset_index()` costs one
+line and removes the surprise.**
 
 # Part C — What goes wrong {#sec-s04-c}
 
@@ -368,39 +420,6 @@ keys is not unique"*. Both may be fine — but **you should be able to say which
 why**, before you use the result.
 :::
 
-### ❓ Check yourself
-
-**Q3.** You have 1,000 customers and join a `city → region` lookup. You get 1,043 rows.
-What happened?
-
-- (a) 43 customers were added.
-- (b) **The lookup table has duplicate city entries, so some customers matched twice.**
-- (c) The join type was wrong.
-
-**Q4.** You want every product listed in a sales report, including those that sold
-nothing this month. Which join?
-
-- (a) `inner`, from sales to products.
-- (b) **`left`, from products to sales.**
-- (c) `right`, from products to sales.
-
-**Q5.** A merge on `email` returns 0 rows even though both tables clearly contain the
-same people. Most likely cause?
-
-- (a) Pandas is broken.
-- (b) **The keys differ in case or whitespace.**
-- (c) The tables are too large.
-
-::: {.callout-note collapse="true" title="Answers"}
-**A3 — (b).** Demo in Failure 3. Every total computed afterwards is inflated for the
-duplicated cities.
-
-**A4 — (b).** Start from the table whose rows you want to keep all of. Products with no
-sales come through with blank sales figures — which is exactly the answer you wanted.
-
-**A5 — (b).** Failure 1. `"ASHA@mail.com"` and `"asha@mail.com"` are different strings.
-:::
-
 # 🎯 Tasks {#sec-s04-tasks}
 
 ::: {.callout-note title="✏️ Practise"}
@@ -442,6 +461,60 @@ by_city = (pd.merge(customers, per_cust, on="user_id", how="left")
 print("\nTask 4:"); print(by_city)
 ```
 ::::
+
+# ❓ MCQs {#sec-s04-mcqs}
+
+**Q1.** A dashboard must show live warehouse stock, and stock changes every few seconds.
+Which approach?
+
+- (a) Physical integration into a nightly warehouse.
+- (b) **Virtual integration, querying the stock system directly.**
+- (c) Manual integration.
+
+**Q2.** Twelve internal systems each need data from the other eleven, and every team is
+writing its own converter. Which approach fixes this?
+
+- (a) Manual integration.
+- (b) Virtual integration.
+- (c) **Middleware — one translation layer instead of many pairwise converters.**
+
+**Q3.** You have 1,000 customers and join a `city → region` lookup. You get 1,043 rows.
+What happened?
+
+- (a) 43 customers were added.
+- (b) **The lookup table has duplicate city entries, so some customers matched twice.**
+- (c) The join type was wrong.
+
+**Q4.** You want every product listed in a sales report, including those that sold
+nothing this month. Which join?
+
+- (a) `inner`, from sales to products.
+- (b) **`left`, from products to sales.**
+- (c) `right`, from products to sales.
+
+**Q5.** A merge on `email` returns 0 rows even though both tables clearly contain the
+same people. Most likely cause?
+
+- (a) Pandas is broken.
+- (b) **The keys differ in case or whitespace.**
+- (c) The tables are too large.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** A nightly copy would show yesterday's stock, which for this question is
+worse than useless. Virtual integration trades speed for freshness, and freshness is
+what this dashboard is for.
+
+**A2 — (c).** With 12 systems talking directly, you can end up maintaining dozens of
+converters. Middleware means each system talks to one thing.
+
+**A3 — (b).** Demo in Failure 3. Every total computed afterwards is inflated for the
+duplicated cities.
+
+**A4 — (b).** Start from the table whose rows you want to keep all of. Products with no
+sales come through with blank sales figures — which is exactly the answer you wanted.
+
+**A5 — (b).** Failure 1. `"ASHA@mail.com"` and `"asha@mail.com"` are different strings.
+:::
 
 ::: {.callout-tip title="✅ Before you move on"}
 - [ ] I can name all five integration approaches and choose between them

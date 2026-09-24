@@ -193,7 +193,24 @@ print(f"  numpy=={np.__version__}")
 everywhere** — the notebook, the app, the batch job, the tests. If the app builds its
 input rows differently from the notebook, you have two models.
 
-### Demo 5 — `predict_one`, with input validation
+### Demo 5 — the plain inference call
+
+```{python}
+import pandas as pd, joblib
+
+bundle = joblib.load(bundle_path)
+row = pd.DataFrame([{"area_sqft": 1500, "age_years": 5}])
+price = bundle["pipeline"].predict(row[bundle["feature_names"]])[0]
+print(f"1500 sqft, 5 years old → ₹{price:,.0f}")
+```
+
+**That is genuinely all a prediction is: load the bundle, build one row, call
+`predict`.** But typed out again in the notebook, again in the app and again in a test,
+it will drift — one copy will forget to reorder the columns, another will forget to
+validate. Demo 6 wraps this exact call in one function so there is only one copy to get
+right.
+
+### Demo 6 — `predict_one`, with input validation
 
 ```{python}
 import pandas as pd, joblib
@@ -246,7 +263,7 @@ is needed.**
 **Most projects should start offline.** If a nightly file of predictions solves the
 problem, you have avoided servers, uptime and latency entirely.
 
-### Demo 6 — offline scoring, which is often the whole product
+### Demo 7 — offline scoring, which is often the whole product
 
 ```{python}
 import pandas as pd, joblib, os
@@ -265,7 +282,7 @@ portfolio.to_csv(out, index=False)
 print(f"\nwritten to {os.path.basename(out)} — this file is the deliverable")
 ```
 
-### Demo 7 — online scoring, one request at a time
+### Demo 8 — online scoring, one request at a time
 
 ```{python}
 import time, joblib
@@ -363,7 +380,7 @@ Without it, Streamlit reruns the **entire script** every time a slider moves —
 `@st.cache_resource` loads it once and keeps it.
 :::
 
-### Demo 8 — the app's logic, tested without a browser
+### Demo 9 — the app's logic, tested without a browser
 
 You can and should test the prediction logic directly. Everything except the widgets is
 ordinary Python.
@@ -382,12 +399,26 @@ print(f"{'area':>6} {'age':>4} {'estimate':>16}")
 for area in [600, 1200, 2000]:
     for age in [0, 20]:
         print(f"{area:>6} {age:>4} ₹{app_logic(area, age):>15,.0f}")
-
-print(f"\nSanity checks the app should pass:")
-print(f"  bigger house costs more     : {app_logic(2000, 5) > app_logic(1000, 5)}")
-print(f"  older house costs less      : {app_logic(1500, 30) < app_logic(1500, 2)}")
-print(f"  test MAE quoted to the user : ₹{bundle['test_mae']:,.0f}")
 ```
+
+**Running the function proves it does not crash. It does not prove the answers make
+sense.** For that, check that the estimates move in the direction a house price should.
+
+### Demo 10 — sanity checks the app should pass
+
+```{python}
+bigger_costs_more = app_logic(2000, 5) > app_logic(1000, 5)
+older_costs_less = app_logic(1500, 30) < app_logic(1500, 2)
+
+print(f"bigger house costs more     : {bigger_costs_more}")
+print(f"older house costs less      : {older_costs_less}")
+print(f"test MAE quoted to the user : ₹{bundle['test_mae']:,.0f}")
+```
+
+**These are checks a test suite would run automatically before every deploy** — not
+because anyone expects them to fail, but because a silent regression (Demo 1's bug,
+for instance) would fail exactly one of them, immediately, instead of waiting for a
+user to notice a nonsensical price.
 
 ## 8. Publishing it {#sec-s12-topic-8}
 
@@ -424,7 +455,7 @@ learned from carries on changing.
 | **Version drift** | the library is upgraded under the model | pin versions; record them |
 | **Extrapolation** | users enter values outside the training range | validate inputs |
 
-### Demo 10 — detecting drift by watching the inputs
+### Demo 11 — detecting drift by watching the inputs
 
 ```{python}
 import numpy as np, pandas as pd
@@ -449,18 +480,23 @@ for name, seen in months.items():
 **No accuracy figure was needed.** Watching the *inputs* catches drift before the
 predictions have visibly gone wrong — and long before anybody complains.
 
-### Demo 11 — the deployment checklist, as code
+### Demo 12 — the deployment checklist, as code
 
 ```{python}
 import joblib, os
+
+def has_preprocessing_step(pipeline):
+    """True if any step name looks like scaling, encoding or imputation."""
+    keywords = ("scal", "prep", "impute")
+    step_names = [name for name, _ in pipeline.steps]
+    return any(keyword in name for name in step_names for keyword in keywords)
 
 def preflight(bundle_path):
     """Checks to run before any model goes live."""
     b = joblib.load(bundle_path)
     checks = {
         "pipeline saved (not a bare model)": hasattr(b["pipeline"], "steps"),
-        "preprocessing inside the pipeline": any("scal" in n or "prep" in n or "impute" in n
-                                                 for n, _ in b["pipeline"].steps),
+        "preprocessing inside the pipeline": has_preprocessing_step(b["pipeline"]),
         "feature order recorded":            bool(b.get("feature_names")),
         "library version recorded":          bool(b.get("sklearn_version")),
         "test score recorded":               b.get("test_r2") is not None,
@@ -475,7 +511,59 @@ print("PRE-FLIGHT CHECKS")
 print(f"\nready to deploy: {preflight(bundle_path)}")
 ```
 
-### ❓ Check yourself
+# 🎯 Tasks {#sec-s12-tasks}
+
+::: {.callout-note title="✏️ Practise"}
+**Task 1 — Break it deliberately.** Save a bare `LinearRegression` (no pipeline), reload
+it, and predict on raw input. **Report the difference from the correct prediction.**
+
+**Task 2 — Extend the bundle.** Add the minimum and maximum of each training feature to
+the bundle, and make `predict_price` warn when an input falls outside those bounds.
+
+**Task 3 — Build and run the app.** Save `app.py` and `model_bundle.joblib` to a folder
+and run `streamlit run app.py`. **Report what happens when you move a slider past the
+training range.**
+
+**Task 4 — Detect drift.** Generate a month of input data where the *age* distribution
+has shifted rather than area, and extend Demo 11 to catch it.
+:::
+
+:::: {.callout-note collapse="true" title="Solutions"}
+```{python}
+import numpy as np, pandas as pd, joblib, os, tempfile
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LinearRegression
+from sklearn.pipeline import Pipeline
+
+# Task 1 — the bare model versus the pipeline
+d = tempfile.mkdtemp()
+bare_path = os.path.join(d, "bare.joblib")
+joblib.dump(model, bare_path)                      # the estimator only
+
+bare = joblib.load(bare_path)
+new = pd.DataFrame([{"area_sqft": 1500, "age_years": 5}])
+print(f"Task 1 — bare model on raw input : ₹{bare.predict(new)[0]:>14,.0f}")
+print(f"         pipeline on raw input   : ₹{pipeline.predict(new)[0]:>14,.0f}")
+print(f"         difference              : ₹{abs(bare.predict(new)[0]-pipeline.predict(new)[0]):>14,.0f}")
+
+# Task 2 — record the training ranges and warn on extrapolation
+bounds = {c: (float(X_train[c].min()), float(X_train[c].max())) for c in X_train.columns}
+print(f"\nTask 2 — training ranges: {bounds}")
+
+def predict_checked(area, age):
+    warnings = [f"{c}={v} is outside the training range {bounds[c]}"
+                for c, v in [("area_sqft", area), ("age_years", age)]
+                if not bounds[c][0] <= v <= bounds[c][1]]
+    price = float(pipeline.predict(pd.DataFrame([{"area_sqft": area, "age_years": age}]))[0])
+    return price, warnings
+
+for a in [1500, 9000]:
+    p, w = predict_checked(a, 5)
+    print(f"  {a:>5} sqft → ₹{p:>12,.0f}   {'⚠ ' + w[0] if w else 'within range'}")
+```
+::::
+
+# ❓ MCQs {#sec-s12-mcqs}
 
 **Q1.** You save only the `LinearRegression` and not its scaler. What happens in
 production?
@@ -520,63 +608,11 @@ unchanged. Most likely cause?
 
 **A3 — (b).** Every slider move reruns the script top to bottom.
 
-**A4 — (b).** Demo 10 shows how to catch it by watching inputs rather than waiting for
+**A4 — (b).** Demo 11 shows how to catch it by watching inputs rather than waiting for
 complaints.
 
 **A5 — (b).** Session 9's extrapolation warning, now with a user attached.
 :::
-
-# 🎯 Tasks {#sec-s12-tasks}
-
-::: {.callout-note title="✏️ Practise"}
-**Task 1 — Break it deliberately.** Save a bare `LinearRegression` (no pipeline), reload
-it, and predict on raw input. **Report the difference from the correct prediction.**
-
-**Task 2 — Extend the bundle.** Add the minimum and maximum of each training feature to
-the bundle, and make `predict_price` warn when an input falls outside those bounds.
-
-**Task 3 — Build and run the app.** Save `app.py` and `model_bundle.joblib` to a folder
-and run `streamlit run app.py`. **Report what happens when you move a slider past the
-training range.**
-
-**Task 4 — Detect drift.** Generate a month of input data where the *age* distribution
-has shifted rather than area, and extend Demo 10 to catch it.
-:::
-
-:::: {.callout-note collapse="true" title="Solutions"}
-```{python}
-import numpy as np, pandas as pd, joblib, os, tempfile
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LinearRegression
-from sklearn.pipeline import Pipeline
-
-# Task 1 — the bare model versus the pipeline
-d = tempfile.mkdtemp()
-bare_path = os.path.join(d, "bare.joblib")
-joblib.dump(model, bare_path)                      # the estimator only
-
-bare = joblib.load(bare_path)
-new = pd.DataFrame([{"area_sqft": 1500, "age_years": 5}])
-print(f"Task 1 — bare model on raw input : ₹{bare.predict(new)[0]:>14,.0f}")
-print(f"         pipeline on raw input   : ₹{pipeline.predict(new)[0]:>14,.0f}")
-print(f"         difference              : ₹{abs(bare.predict(new)[0]-pipeline.predict(new)[0]):>14,.0f}")
-
-# Task 2 — record the training ranges and warn on extrapolation
-bounds = {c: (float(X_train[c].min()), float(X_train[c].max())) for c in X_train.columns}
-print(f"\nTask 2 — training ranges: {bounds}")
-
-def predict_checked(area, age):
-    warnings = [f"{c}={v} is outside the training range {bounds[c]}"
-                for c, v in [("area_sqft", area), ("age_years", age)]
-                if not bounds[c][0] <= v <= bounds[c][1]]
-    price = float(pipeline.predict(pd.DataFrame([{"area_sqft": area, "age_years": age}]))[0])
-    return price, warnings
-
-for a in [1500, 9000]:
-    p, w = predict_checked(a, 5)
-    print(f"  {a:>5} sqft → ₹{p:>12,.0f}   {'⚠ ' + w[0] if w else 'within range'}")
-```
-::::
 
 ::: {.callout-tip title="✅ Before you move on"}
 - [ ] I save the whole pipeline, never a bare estimator

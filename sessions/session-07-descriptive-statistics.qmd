@@ -448,7 +448,47 @@ describe_column(three["height_symmetric"], "Height (cm)")
 describe_column(pd.read_csv("datasets/incomes_200.csv")["income"], "Incomes (200 people)")
 ```
 
-### ❓ Check yourself
+# 🎯 Tasks {#sec-s07-tasks}
+
+::: {.callout-note title="✏️ Practise"}
+**Task 1 — Predict the gap.** For each, say whether the mean will be above, below or
+equal to the median: house prices in a city; heights of adult women; number of days
+patients stay in hospital; marks on a test where most students scored above 90.
+
+**Task 2 — Compare fairly.** A runner finishes a 5 km race in 22 minutes (field mean 25,
+std 4) and a 10 km race in 50 minutes (field mean 55, std 8). **Which was the better
+run?**
+
+**Task 3 — Choose the bin width.** Run Demo 12 with 6, 20 and 100 bins on data made of
+*three* groups instead of two. **Report the smallest number of bins at which all three
+groups are visible.**
+
+**Task 4 — Describe a column.** Use `describe_column` from Demo 13 on the `income` series
+from Demo 7. **Report which measure of centre you would publish and why.**
+:::
+
+:::: {.callout-note collapse="true" title="Solutions"}
+```{python}
+import pandas as pd, numpy as np
+
+# Task 1
+print("Task 1")
+print("  house prices           → mean ABOVE median (right-skewed)")
+print("  heights of adult women → mean EQUAL to median (symmetric)")
+print("  hospital stay length   → mean ABOVE median (a few very long stays)")
+print("  marks on an easy test  → mean BELOW median (left-skewed)")
+
+# Task 2 — compare with z-scores. Lower time is better, so a NEGATIVE z is good.
+print("\nTask 2  (a faster time is better, so the more negative z wins)")
+for race, time, mean, std in [("5 km", 22, 25, 4), ("10 km", 50, 55, 8)]:
+    print(f"  {race:<6} z = ({time} - {mean}) / {std} = {(time-mean)/std:+.2f}")
+print("  The 5 km run wins: -0.75 is further below its field average than -0.62.")
+print("  In raw minutes the 10 km looks like the bigger gap (5 minutes vs 3), but")
+print("  that field is more spread out, so 5 minutes buys less there.")
+```
+::::
+
+# ❓ MCQs {#sec-s07-mcqs}
 
 **Q1.** In a neighbourhood, 99 houses cost ₹1 crore and one costs ₹500 crore. Which
 figure best describes a typical house?
@@ -498,46 +538,6 @@ the standard deviation completely.
 **A5 — (b).** Demo 10 — the heavy-tailed series had several times as many extreme days at
 identical mean and standard deviation.
 :::
-
-# 🎯 Tasks {#sec-s07-tasks}
-
-::: {.callout-note title="✏️ Practise"}
-**Task 1 — Predict the gap.** For each, say whether the mean will be above, below or
-equal to the median: house prices in a city; heights of adult women; number of days
-patients stay in hospital; marks on a test where most students scored above 90.
-
-**Task 2 — Compare fairly.** A runner finishes a 5 km race in 22 minutes (field mean 25,
-std 4) and a 10 km race in 50 minutes (field mean 55, std 8). **Which was the better
-run?**
-
-**Task 3 — Choose the bin width.** Run Demo 12 with 6, 20 and 100 bins on data made of
-*three* groups instead of two. **Report the smallest number of bins at which all three
-groups are visible.**
-
-**Task 4 — Describe a column.** Use `describe_column` from Demo 13 on the `income` series
-from Demo 7. **Report which measure of centre you would publish and why.**
-:::
-
-:::: {.callout-note collapse="true" title="Solutions"}
-```{python}
-import pandas as pd, numpy as np
-
-# Task 1
-print("Task 1")
-print("  house prices           → mean ABOVE median (right-skewed)")
-print("  heights of adult women → mean EQUAL to median (symmetric)")
-print("  hospital stay length   → mean ABOVE median (a few very long stays)")
-print("  marks on an easy test  → mean BELOW median (left-skewed)")
-
-# Task 2 — compare with z-scores. Lower time is better, so a NEGATIVE z is good.
-print("\nTask 2  (a faster time is better, so the more negative z wins)")
-for race, time, mean, std in [("5 km", 22, 25, 4), ("10 km", 50, 55, 8)]:
-    print(f"  {race:<6} z = ({time} - {mean}) / {std} = {(time-mean)/std:+.2f}")
-print("  The 5 km run wins: -0.75 is further below its field average than -0.62.")
-print("  In raw minutes the 10 km looks like the bigger gap (5 minutes vs 3), but")
-print("  that field is more spread out, so 5 minutes buys less there.")
-```
-::::
 
 ::: {.callout-tip title="✅ Before you move on"}
 - [ ] I can choose between mean, median and mode with a stated reason

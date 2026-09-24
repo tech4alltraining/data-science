@@ -26,6 +26,7 @@ By the end of this chapter you can:
 5. Explain how HDFS stores a file across many machines and survives a failure.
 6. Place the main big-data tools on a map and say what each is for.
 7. Say when **not** to use big-data tools.
+8. Run a real chunked calculation on a dataset with over half a million rows.
 
 ## How this chapter is organised {#sec-s13-organisation}
 
@@ -35,6 +36,7 @@ By the end of this chapter you can:
 | [B — Four types of analytics](#sec-s13-b) | *What questions can you ask of it?* |
 | [C — Distributed storage](#sec-s13-c) | *How do you keep a file too big for one disk?* |
 | [D — The toolkit](#sec-s13-d) | *What are all these names, and which do I need?* |
+| [E — On a real file](#sec-s13-e) | *Does any of this hold up outside a made-up example?* |
 
 # Part A — What makes data big {#sec-s13-a}
 
@@ -75,10 +77,8 @@ everything slows by orders of magnitude.
 ### Demo 1 — measure it on your own machine
 
 ```{python}
-import numpy as np, pandas as pd, time
-
-def timed(f):
-    t = time.perf_counter(); out = f(); return out, time.perf_counter() - t
+import pandas as pd
+import time
 
 # Read one real file, then time the same operation on growing slices of it.
 base = pd.read_csv("datasets/transactions.csv", usecols=["shop", "amount"])
@@ -87,10 +87,15 @@ print(f"source file: {len(base):,} rows; stacked to {len(big):,} for the largest
 
 print(f"{'rows':>12} {'memory':>12} {'groupby time':>14} {'per M rows':>12}")
 print("-" * 54)
+
 for n in [10_000, 100_000, 1_000_000, 4_000_000]:
     df = big.iloc[:n]
     mem = df.memory_usage(deep=True).sum() / 1e6
-    _, secs = timed(lambda: df.groupby("shop")["amount"].mean())
+
+    start = time.perf_counter()
+    result = df.groupby("shop")["amount"].mean()
+    secs = time.perf_counter() - start
+
     print(f"{n:>12,} {mem:>10.1f} MB {secs*1000:>12.1f} ms {secs/(n/1e6)*1000:>10.1f} ms")
 
 print("\nThe cost per million rows stays roughly flat — pandas is not struggling yet.")
@@ -125,7 +130,8 @@ machine.**
 import numpy as np, pandas as pd, tempfile, os
 
 path = "datasets/transactions.csv"
-n = sum(1 for _ in open(path)) - 1
+with open(path) as f:
+    n = sum(1 for _ in f) - 1        # count data rows, excluding the header
 print(f"file on disk: {os.path.getsize(path)/1e6:.1f} MB, {n:,} rows\n")
 
 # --- TECHNIQUE 1: chunking. Never hold the whole file at once. -------------
@@ -137,8 +143,9 @@ for chunk in pd.read_csv(path, chunksize=50_000):        # 50,000 rows at a time
     for city, total in chunk.groupby("city")["amount"].sum().items():
         per_city[city] = per_city.get(city, 0) + total
 
+per_city_rounded = {city: round(total) for city, total in per_city.items()}
 print(f"CHUNKED: mean amount {running_total/running_count:.2f} over {running_count:,} rows")
-print(f"         totals per city: { {k: round(v) for k, v in per_city.items()} }")
+print(f"         totals per city: {per_city_rounded}")
 print(f"         peak memory held: one chunk of 50,000 rows, not {n:,}")
 
 # --- TECHNIQUE 2: read only what you need ---------------------------------
@@ -194,10 +201,15 @@ by_month = sales.groupby("month")["sales"].sum()
 change = (by_month.iloc[-1] - by_month.iloc[0]) / by_month.iloc[0]
 print(f"DESCRIPTIVE : total sales moved {change:+.1%} across the year")
 
-# 2. DIAGNOSTIC — why?
-by_region = sales.groupby("region").apply(
-    lambda g: (g.sort_values("month")["sales"].iloc[-1] -
-               g.sort_values("month")["sales"].iloc[0]), include_groups=False)
+# 2. DIAGNOSTIC — why? Compute the change over the year, one region at a time.
+change_by_region = {}
+for region, group in sales.groupby("region"):
+    group_sorted = group.sort_values("month")
+    first_month = group_sorted["sales"].iloc[0]
+    last_month = group_sorted["sales"].iloc[-1]
+    change_by_region[region] = last_month - first_month
+by_region = pd.Series(change_by_region)
+
 print("DIAGNOSTIC  : change by region over the year")
 for r, v in by_region.items():
     print(f"                {r:<6} {v:>+10,.0f}")
@@ -345,6 +357,21 @@ exhaust the cluster's index long before they exhaust its disks.
 **The fix is always the same: combine small files into large ones before storing them.**
 :::
 
+### Demo 7 — one file size, by hand
+
+```{python}
+total_gb, avg_file_mb = 10_000, 256      # 10 TB, stored as 256 MB files
+files = total_gb * 1024 / avg_file_mb
+mem_gb = files * 150 * 2 / 1e9           # ~150 bytes of NameNode memory per file, per block
+print(f"{total_gb:,} GB as {avg_file_mb} MB files → {files:,.0f} files")
+print(f"NameNode index needed: {mem_gb:.4f} GB ({mem_gb*1000:.1f} MB)")
+```
+
+**40,000 files is nothing — 12 MB of index.** The next demo repeats this for much smaller
+files and watches the index grow.
+
+### Demo 8 — the same 10 TB, four different file sizes
+
 ```{python}
 def namenode_pressure(total_gb, avg_file_mb):
     files = total_gb * 1024 / avg_file_mb
@@ -401,7 +428,31 @@ flowchart TB
 **Distributed tools have a fixed overhead. Below a certain size they are slower than
 pandas, not faster.**
 
-### Demo 7 — the overhead, quantified
+### Demo 9 — the fixed cost, on its own
+
+**Before modelling a whole crossover curve, look at just the fixed cost in isolation: a
+cluster takes seconds to even start, no matter how small the job is.**
+
+```{python}
+import pandas as pd, time
+
+base = pd.read_csv("datasets/transactions.csv", usecols=["shop", "amount"])
+
+t0 = time.perf_counter()
+base.groupby("shop")["amount"].mean()
+laptop_s = time.perf_counter() - t0
+
+cluster_startup_s = 8.0   # a real Spark session takes seconds just to start
+print(f"laptop, {len(base):,} rows: {laptop_s*1000:.1f} ms")
+print(f"a cluster's startup alone: {cluster_startup_s:.0f} s = {cluster_startup_s*1000:,.0f} ms")
+print(f"the laptop finishes {cluster_startup_s/laptop_s:,.0f}x before the cluster has even started")
+```
+
+The exact multiple varies a little between runs, but it is always in the thousands — a
+200,000-row `groupby` is over before a cluster has finished saying hello. The next demo
+turns this into a full crossover curve across dataset sizes.
+
+### Demo 10 — the overhead, quantified
 
 ```{python}
 import numpy as np, pandas as pd, time
@@ -444,51 +495,75 @@ If the answer to 3 is "four minutes, and ten would be fine", **you do not have a
 problem.** You have a four-minute job.
 :::
 
-### ❓ Check yourself
 
-**Q1.** A hospital receives 50,000 sensor readings per second and must react within a
-second. Which V is the problem?
+# Part E — On a real file {#sec-s13-e}
 
-- (a) Volume.
-- (b) **Velocity.**
-- (c) Value.
+## 8. The same three ideas, on 566,602 real rows {#sec-s13-topic-8}
 
-**Q2.** A 40 GB CSV must be summarised on a laptop with 16 GB of RAM. What do you try
-first?
+**Every demo so far has run on data built for the lesson. Here is one built from a real
+file, so you can see the same ideas hold up outside a made-up example.**
 
-- (a) Buy a cluster.
-- (b) **Read it in chunks and select only the needed columns.**
-- (c) Sample 1% and hope.
+The file is `covertype.csv` — 566,602 real measurements of forest terrain from the US
+Forest Service, published on Hugging Face
+([`inria-soda/tabular-benchmark`](https://huggingface.co/datasets/inria-soda/tabular-benchmark)).
+Ten numeric columns describe a patch of land; `Y` says whether it is one particular kind
+of forest cover or not. Get it once with:
 
-**Q3.** "Sales fell because the North region lost its two largest customers." Which type?
+```bash
+python datasets/download_bigdata_real.py
+```
 
-- (a) Descriptive.
-- (b) **Diagnostic.**
-- (c) Prescriptive.
+### Demo 11 — load it whole, then load it in chunks, and compare
 
-**Q4.** HDFS replicates every block three times. What does that cost and buy?
+```{python}
+import pandas as pd, numpy as np, time, os
 
-- (a) Costs nothing, buys speed.
-- (b) **Costs 3× the disk, buys survival when up to two machines holding a block fail.**
-- (c) Costs 3× the time, buys accuracy.
+path = "datasets/bigdata/covertype.csv"
+print(f"file on disk: {os.path.getsize(path)/1e6:.1f} MB\n")
 
-**Q5.** Your cluster has plenty of disk free but the NameNode is out of memory. Likely
-cause?
+# --- THE WHOLE FILE AT ONCE ------------------------------------------------
+t0 = time.perf_counter()
+whole = pd.read_csv(path)
+load_s = time.perf_counter() - t0
+whole_mb = whole.memory_usage(deep=True).sum() / 1e6
+print(f"whole file : {len(whole):,} rows, loaded in {load_s:.2f}s, "
+      f"held {whole_mb:.1f} MB in memory")
 
-- (a) A single enormous file.
-- (b) **Millions of tiny files, each needing an index entry.**
-- (c) Replication set too low.
+t0 = time.perf_counter()
+answer_whole = whole.groupby("Y")[["X1", "X2", "X3"]].mean()
+print(f"groupby    : {time.perf_counter()-t0:.3f}s\n")
+print(answer_whole)
 
-::: {.callout-note collapse="true" title="Answers"}
-**A1 — (b).** The total volume may be modest; the difficulty is the rate and the deadline.
+# --- THE SAME QUESTION, ONE CHUNK OF 50,000 ROWS AT A TIME -----------------
+t0 = time.perf_counter()
+totals = {0: np.zeros(3), 1: np.zeros(3)}
+counts = {0: 0, 1: 0}
+peak_chunk_mb = 0.0
 
-**A2 — (b).** Demo 3. Chunking plus column selection solves most of these.
+for chunk in pd.read_csv(path, usecols=["X1", "X2", "X3", "Y"], chunksize=50_000):
+    peak_chunk_mb = max(peak_chunk_mb, chunk.memory_usage(deep=True).sum() / 1e6)
+    for y, group in chunk.groupby("Y"):
+        totals[y] += group[["X1", "X2", "X3"]].sum().values
+        counts[y] += len(group)
 
-**A3 — (b).** It explains *why*, which is the diagnostic question.
+chunk_s = time.perf_counter() - t0
+print(f"\nchunked    : {chunk_s:.2f}s, the biggest single chunk held only "
+      f"{peak_chunk_mb:.2f} MB")
+for y in (0, 1):
+    print(f"  Y={y}: mean = {(totals[y] / counts[y]).round(4)}   n={counts[y]:,}")
 
-**A4 — (b).** Demo 6 measured the failure probabilities.
+print(f"\nsame answer, {whole_mb/peak_chunk_mb:.0f}x less memory at any one moment")
+```
 
-**A5 — (b).** The small-files problem — the NameNode's index lives in memory.
+**The numbers match to four decimal places, and the chunked version never held more than
+a few megabytes at once.** This is Demo 3's lesson — chunk it, do not hold it all — proven
+on a file with over half a million real rows instead of a file built to make the point.
+
+::: {.callout-tip title="🧠 What changed, going from the toy demo to the real file"}
+Nothing in the code changed in kind — only in scale. The same `chunksize=` argument, the
+same running totals, the same reason for doing it. **That is the whole point of this
+section**: the techniques in this chapter are not toy tricks that stop working on real
+data. They are the same three lines, run on a bigger file.
 :::
 
 # 🎯 Tasks {#sec-s13-tasks}
@@ -537,6 +612,53 @@ print(f"         {math.ceil(total_tb / disk_per_node_tb)} machines at {disk_per_
 print(f"         and in practice more, since you never fill a cluster to 100%.")
 ```
 ::::
+
+# ❓ MCQs {#sec-s13-mcqs}
+
+**Q1.** A hospital receives 50,000 sensor readings per second and must react within a
+second. Which V is the problem?
+
+- (a) Volume.
+- (b) **Velocity.**
+- (c) Value.
+
+**Q2.** A 40 GB CSV must be summarised on a laptop with 16 GB of RAM. What do you try
+first?
+
+- (a) Buy a cluster.
+- (b) **Read it in chunks and select only the needed columns.**
+- (c) Sample 1% and hope.
+
+**Q3.** "Sales fell because the North region lost its two largest customers." Which type?
+
+- (a) Descriptive.
+- (b) **Diagnostic.**
+- (c) Prescriptive.
+
+**Q4.** HDFS replicates every block three times. What does that cost and buy?
+
+- (a) Costs nothing, buys speed.
+- (b) **Costs 3× the disk, buys survival when up to two machines holding a block fail.**
+- (c) Costs 3× the time, buys accuracy.
+
+**Q5.** Your cluster has plenty of disk free but the NameNode is out of memory. Likely
+cause?
+
+- (a) A single enormous file.
+- (b) **Millions of tiny files, each needing an index entry.**
+- (c) Replication set too low.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** The total volume may be modest; the difficulty is the rate and the deadline.
+
+**A2 — (b).** Demo 3. Chunking plus column selection solves most of these.
+
+**A3 — (b).** It explains *why*, which is the diagnostic question.
+
+**A4 — (b).** Demo 6 measured the failure probabilities.
+
+**A5 — (b).** The small-files problem — the NameNode's index lives in memory.
+:::
 
 ::: {.callout-tip title="✅ Before you move on"}
 - [ ] I can name the five Vs and say which one a given project actually suffers from

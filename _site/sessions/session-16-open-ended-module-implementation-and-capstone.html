@@ -369,10 +369,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#sec-s16-topic-8" id="toc-sec-s16-topic-8" class="nav-link" data-scroll-target="#sec-s16-topic-8"><span class="header-section-number">22.2</span> 8. Responsible delivery</a>
   <ul class="collapse">
   <li><a href="#demo-14-a-fairness-check" id="toc-demo-14-a-fairness-check" class="nav-link" data-scroll-target="#demo-14-a-fairness-check"><span class="header-section-number">22.2.1</span> Demo 14 — a fairness check</a></li>
-  <li><a href="#check-yourself" id="toc-check-yourself" class="nav-link" data-scroll-target="#check-yourself"><span class="header-section-number">22.2.2</span> ❓ Check yourself</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#sec-s16-tasks" id="toc-sec-s16-tasks" class="nav-link" data-scroll-target="#sec-s16-tasks"><span class="header-section-number">23</span> 🎯 Capstone project</a></li>
+  <li><a href="#sec-s16-mcqs" id="toc-sec-s16-mcqs" class="nav-link" data-scroll-target="#sec-s16-mcqs"><span class="header-section-number">24</span> ❓ MCQs</a></li>
   </ul>
 </nav>
     </div>
@@ -511,7 +511,7 @@ Note
 </div>
 <section id="demo-1-the-dataset-and-the-question" class="level3" data-number="19.1.1">
 <h3 data-number="19.1.1" class="anchored" data-anchor-id="demo-1-the-dataset-and-the-question"><span class="header-section-number">19.1.1</span> Demo 1 — the dataset, and the question</h3>
-<div id="ff931acb" class="cell" data-execution_count="2">
+<div id="373eb01c" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>customers <span class="op">=</span> pd.read_csv(<span class="st">"datasets/telecom_churn.csv"</span>)</span>
@@ -612,7 +612,7 @@ BASELINE      : contacting everyone catches 100% but contacts 100%</code></pre>
 <h2 data-number="19.2" class="anchored" data-anchor-id="sec-s16-topic-2"><span class="header-section-number">19.2</span> 2. Steps 1–3: clean, explore, prepare</h2>
 <section id="demo-2-cleaning-with-a-report-session-3" class="level3" data-number="19.2.1">
 <h3 data-number="19.2.1" class="anchored" data-anchor-id="demo-2-cleaning-with-a-report-session-3"><span class="header-section-number">19.2.1</span> Demo 2 — cleaning, with a report (Session 3)</h3>
-<div id="534ba3d1" class="cell" data-execution_count="3">
+<div id="f7c3253c" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> clean(df):</span>
@@ -709,7 +709,7 @@ support_calls    0.174</code></pre>
 </section>
 <section id="demo-4-preparing-with-a-pipeline-session-5" class="level3" data-number="19.2.3">
 <h3 data-number="19.2.3" class="anchored" data-anchor-id="demo-4-preparing-with-a-pipeline-session-5"><span class="header-section-number">19.2.3</span> Demo 4 — preparing, with a pipeline (Session 5)</h3>
-<div id="f2dd3c4a" class="cell" data-execution_count="5">
+<div id="0169916b" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
@@ -743,7 +743,7 @@ columns after preparation: 10</code></pre>
 <h2 data-number="19.3" class="anchored" data-anchor-id="sec-s16-topic-3"><span class="header-section-number">19.3</span> 3. Steps 4–5: model and evaluate</h2>
 <section id="demo-5-four-models-against-a-baseline-sessions-911" class="level3" data-number="19.3.1">
 <h3 data-number="19.3.1" class="anchored" data-anchor-id="demo-5-four-models-against-a-baseline-sessions-911"><span class="header-section-number">19.3.1</span> Demo 5 — four models against a baseline (Sessions 9–11)</h3>
-<div id="ff5fd2f3" class="cell" data-execution_count="6">
+<div id="6c572a01" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyClassifier</span>
@@ -924,7 +924,7 @@ Report this honestly. Either the budget rises or the model improves.</code></pre
 </table>
 <section id="demo-7-by-hand-on-ten-baskets" class="level3" data-number="20.1.1">
 <h3 data-number="20.1.1" class="anchored" data-anchor-id="demo-7-by-hand-on-ten-baskets"><span class="header-section-number">20.1.1</span> Demo 7 — by hand, on ten baskets</h3>
-<div id="c52084a4" class="cell" data-execution_count="8">
+<div id="0c30607d" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ten baskets, one per line, from a real text file.</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>baskets <span class="op">=</span> [<span class="bu">set</span>(line.split()) <span class="cf">for</span> line <span class="kw">in</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>           <span class="bu">open</span>(<span class="st">"datasets/baskets_small.txt"</span>).read().strip().split(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)]</span>
@@ -982,7 +982,7 @@ Rule: ['bread', 'butter'] → ['jam']
 </section>
 <section id="demo-8-the-trap-high-confidence-no-information" class="level3" data-number="20.1.2">
 <h3 data-number="20.1.2" class="anchored" data-anchor-id="demo-8-the-trap-high-confidence-no-information"><span class="header-section-number">20.1.2</span> Demo 8 — the trap: high confidence, no information</h3>
-<div id="1fe34316" class="cell" data-execution_count="9">
+<div id="ea0f7016" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A rule about something almost everyone buys.</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>left2, right2 <span class="op">=</span> {<span class="st">"milk"</span>}, {<span class="st">"bread"</span>}</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>c2 <span class="op">=</span> support(left2 <span class="op">|</span> right2) <span class="op">/</span> support(left2)</span>
@@ -1024,7 +1024,7 @@ Rule: ['bread', 'butter'] → ['jam']
 <p><strong>Checking every possible combination is impossible</strong> — 100 products give more than 10³⁰ possible itemsets. <strong>Apriori</strong> avoids that with one observation: <em>if {bread, butter} is rare, then {bread, butter, jam} must be rarer still</em>, so whole branches can be discarded without checking.</p>
 <section id="demo-9-mining-rules-with-mlxtend" class="level3" data-number="20.2.1">
 <h3 data-number="20.2.1" class="anchored" data-anchor-id="demo-9-mining-rules-with-mlxtend"><span class="header-section-number">20.2.1</span> Demo 9 — mining rules with mlxtend</h3>
-<div id="b6372049" class="cell" data-execution_count="10">
+<div id="d9eca089" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mlxtend.frequent_patterns <span class="im">import</span> apriori, association_rules</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1057,10 +1057,10 @@ Rule: ['bread', 'butter'] → ['jam']
 antecedents consequents  support  confidence  lift
      butter  bread, jam    0.116       0.346 2.885
  bread, jam      butter    0.116       0.967 2.885
-      bread      butter    0.171       0.832 2.483
      butter       bread    0.171       0.510 2.483
-      bread butter, jam    0.116       0.564 2.375
+      bread      butter    0.171       0.832 2.483
 butter, jam       bread    0.116       0.487 2.375
+      bread butter, jam    0.116       0.564 2.375
      coffee       sugar    0.154       0.779 2.366
       sugar      coffee    0.154       0.468 2.366</code></pre>
 </div>
@@ -1068,7 +1068,7 @@ butter, jam       bread    0.116       0.487 2.375
 </section>
 <section id="demo-10-did-it-find-the-rules-we-planted" class="level3" data-number="20.2.2">
 <h3 data-number="20.2.2" class="anchored" data-anchor-id="demo-10-did-it-find-the-rules-we-planted"><span class="header-section-number">20.2.2</span> Demo 10 — did it find the rules we planted?</h3>
-<div id="c18faab3" class="cell" data-execution_count="11">
+<div id="03eef43d" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>planted <span class="op">=</span> [({<span class="st">"bread"</span>}, {<span class="st">"butter"</span>}), ({<span class="st">"butter"</span>}, {<span class="st">"jam"</span>}), ({<span class="st">"coffee"</span>}, {<span class="st">"sugar"</span>})]</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Checking the algorithm against the truth we built in:</span><span class="ch">\n</span><span class="st">"</span>)</span>
@@ -1154,7 +1154,7 @@ Filter on lift FIRST, then read the survivors.</code></pre>
 </div>
 <section id="demo-11-testing-the-three-hypotheses-from-demo-3" class="level3" data-number="21.1.1">
 <h3 data-number="21.1.1" class="anchored" data-anchor-id="demo-11-testing-the-three-hypotheses-from-demo-3"><span class="header-section-number">21.1.1</span> Demo 11 — testing the three hypotheses from Demo 3</h3>
-<div id="4490f14a" class="cell" data-execution_count="12">
+<div id="f4045827" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1198,7 +1198,7 @@ standard  1003   77</code></pre>
 </section>
 <section id="demo-12-what-the-model-learned-checked-against-the-tests" class="level3" data-number="21.1.2">
 <h3 data-number="21.1.2" class="anchored" data-anchor-id="demo-12-what-the-model-learned-checked-against-the-tests"><span class="header-section-number">21.1.2</span> Demo 12 — what the model learned, checked against the tests</h3>
-<div id="669e1984" class="cell" data-execution_count="13">
+<div id="5d04e40d" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
@@ -1270,7 +1270,7 @@ something is wrong — usually a leaked column or a proxy for the target.</code>
 </table>
 <section id="demo-13-packaging-the-result-session-12" class="level3" data-number="22.1.1">
 <h3 data-number="22.1.1" class="anchored" data-anchor-id="demo-13-packaging-the-result-session-12"><span class="header-section-number">22.1.1</span> Demo 13 — packaging the result (Session 12)</h3>
-<div id="9a1b8fd1" class="cell" data-execution_count="14">
+<div id="c35c84f0" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> joblib, sklearn, tempfile, os, json</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> date</span>
@@ -1318,7 +1318,7 @@ something is wrong — usually a leaked column or a proxy for the target.</code>
     "plan"
   ],
   "decision_threshold": 0.45,
-  "trained_on": "2026-09-11",
+  "trained_on": "2026-09-23",
   "n_training_rows": 2250,
   "sklearn_version": "1.9.0",
   "test_auc": 0.724,
@@ -1370,7 +1370,7 @@ met the target? False</code></pre>
 </table>
 <section id="demo-14-a-fairness-check" class="level3" data-number="22.2.1">
 <h3 data-number="22.2.1" class="anchored" data-anchor-id="demo-14-a-fairness-check"><span class="header-section-number">22.2.1</span> Demo 14 — a fairness check</h3>
-<div id="4ceecc40" class="cell" data-execution_count="15">
+<div id="8b4e29b3" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> recall_score, precision_score</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1414,8 +1414,54 @@ worth investigating before anyone acts on it.</code></pre>
 </div>
 </div>
 </section>
-<section id="check-yourself" class="level3" data-number="22.2.2">
-<h3 data-number="22.2.2" class="anchored" data-anchor-id="check-yourself"><span class="header-section-number">22.2.2</span> ❓ Check yourself</h3>
+</section>
+</section>
+<section id="sec-s16-tasks" class="level1" data-number="23">
+<h1 data-number="23"><span class="header-section-number">23</span> 🎯 Capstone project</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Your project">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Your project
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Task 1 — Frame it.</strong> Choose a dataset. Write the four answers from Demo 1: the decision, the success criterion <strong>with a number</strong>, the data available, and what would make the model useless. <strong>Fix these before writing code.</strong></p>
+<p><strong>Task 2 — Clean and explore.</strong> Produce a cleaning report and an EDA section that ends with three written hypotheses.</p>
+<p><strong>Task 3 — Test the hypotheses.</strong> For each, run the appropriate test and report the p-value <strong>and</strong> the effect size. Say which survived.</p>
+<p><strong>Task 4 — Model.</strong> Compare at least four models against a baseline, cross-validated with the spread reported. Tune the best one without touching the test set.</p>
+<p><strong>Task 5 — Meet the requirement.</strong> Choose the decision threshold that satisfies your Task 1 criterion, <strong>or report honestly that no threshold does.</strong></p>
+<p><strong>Task 6 — Mine the rules.</strong> If your data has transactions, run Apriori and report the three most useful rules by lift. Explain why each is actionable.</p>
+<p><strong>Task 7 — Deliver.</strong> Bundle the pipeline with metadata and limitations, deploy a Streamlit app, and write the report.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="✅ A capstone that passes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>✅ A capstone that passes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul class="task-list">
+<li><label><input type="checkbox">Runs from a clean clone, first try, with versions pinned</label></li>
+<li><label><input type="checkbox">States a success criterion that was fixed <strong>before</strong> the modelling</label></li>
+<li><label><input type="checkbox">Beats a named baseline, with the baseline’s score printed</label></li>
+<li><label><input type="checkbox">Reports at least one thing that was tried and did not work</label></li>
+<li><label><input type="checkbox">Supports every claim with a test <strong>and</strong> an effect size, not just a chart</label></li>
+<li><label><input type="checkbox">Has a deployed link a stranger can open</label></li>
+<li><label><input type="checkbox">Names who could be harmed by a wrong prediction, and checks group fairness</label></li>
+<li><label><input type="checkbox"><strong>Says clearly what the result cannot support</strong></label></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="sec-s16-mcqs" class="level1" data-number="24">
+<h1 data-number="24"><span class="header-section-number">24</span> ❓ MCQs</h1>
 <p><strong>Q1.</strong> A rule has confidence 0.85 and lift 1.02. Is it useful?</p>
 <ul>
 <li><ol type="a">
@@ -1477,7 +1523,7 @@ worth investigating before anyone acts on it.</code></pre>
 </ol></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1486,7 +1532,7 @@ worth investigating before anyone acts on it.</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>A1 — (b).</strong> Demo 8 measured exactly this case.</p>
 <p><strong>A2 — (b).</strong> The criterion is a commitment; chosen afterwards it is a rationalisation.</p>
@@ -1494,52 +1540,6 @@ worth investigating before anyone acts on it.</code></pre>
 <p><strong>A4 — (b).</strong> Demo 12’s closing note. This mismatch is one of the most reliable leakage detectors there is.</p>
 <p><strong>A5 — (c).</strong> It is what lets somebody else use the result safely — and it is the section that is almost always missing.</p>
 </div>
-</div>
-</div>
-</section>
-</section>
-</section>
-<section id="sec-s16-tasks" class="level1" data-number="23">
-<h1 data-number="23"><span class="header-section-number">23</span> 🎯 Capstone project</h1>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Your project">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Your project
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Task 1 — Frame it.</strong> Choose a dataset. Write the four answers from Demo 1: the decision, the success criterion <strong>with a number</strong>, the data available, and what would make the model useless. <strong>Fix these before writing code.</strong></p>
-<p><strong>Task 2 — Clean and explore.</strong> Produce a cleaning report and an EDA section that ends with three written hypotheses.</p>
-<p><strong>Task 3 — Test the hypotheses.</strong> For each, run the appropriate test and report the p-value <strong>and</strong> the effect size. Say which survived.</p>
-<p><strong>Task 4 — Model.</strong> Compare at least four models against a baseline, cross-validated with the spread reported. Tune the best one without touching the test set.</p>
-<p><strong>Task 5 — Meet the requirement.</strong> Choose the decision threshold that satisfies your Task 1 criterion, <strong>or report honestly that no threshold does.</strong></p>
-<p><strong>Task 6 — Mine the rules.</strong> If your data has transactions, run Apriori and report the three most useful rules by lift. Explain why each is actionable.</p>
-<p><strong>Task 7 — Deliver.</strong> Bundle the pipeline with metadata and limitations, deploy a Streamlit app, and write the report.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-tip callout-titled" title="✅ A capstone that passes">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>✅ A capstone that passes
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul class="task-list">
-<li><label><input type="checkbox">Runs from a clean clone, first try, with versions pinned</label></li>
-<li><label><input type="checkbox">States a success criterion that was fixed <strong>before</strong> the modelling</label></li>
-<li><label><input type="checkbox">Beats a named baseline, with the baseline’s score printed</label></li>
-<li><label><input type="checkbox">Reports at least one thing that was tried and did not work</label></li>
-<li><label><input type="checkbox">Supports every claim with a test <strong>and</strong> an effect size, not just a chart</label></li>
-<li><label><input type="checkbox">Has a deployed link a stranger can open</label></li>
-<li><label><input type="checkbox">Names who could be harmed by a wrong prediction, and checks group fairness</label></li>
-<li><label><input type="checkbox"><strong>Says clearly what the result cannot support</strong></label></li>
-</ul>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="✅ Before you finish the course">

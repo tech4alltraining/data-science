@@ -360,10 +360,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#demo-10-detecting-drift-by-watching-the-inputs" id="toc-demo-10-detecting-drift-by-watching-the-inputs" class="nav-link" data-scroll-target="#demo-10-detecting-drift-by-watching-the-inputs"><span class="header-section-number">18.1.1</span> Demo 10 — detecting drift by watching the inputs</a></li>
   <li><a href="#demo-11-the-deployment-checklist-as-code" id="toc-demo-11-the-deployment-checklist-as-code" class="nav-link" data-scroll-target="#demo-11-the-deployment-checklist-as-code"><span class="header-section-number">18.1.2</span> Demo 11 — the deployment checklist, as code</a></li>
-  <li><a href="#check-yourself" id="toc-check-yourself" class="nav-link" data-scroll-target="#check-yourself"><span class="header-section-number">18.1.3</span> ❓ Check yourself</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#sec-s12-tasks" id="toc-sec-s12-tasks" class="nav-link" data-scroll-target="#sec-s12-tasks"><span class="header-section-number">19</span> 🎯 Tasks</a></li>
+  <li><a href="#sec-s12-mcqs" id="toc-sec-s12-mcqs" class="nav-link" data-scroll-target="#sec-s12-mcqs"><span class="header-section-number">20</span> ❓ MCQs</a></li>
   </ul>
 </nav>
     </div>
@@ -473,7 +473,7 @@ Note
 <p>A trained <code>LinearRegression</code> knows its coefficients. It does <strong>not</strong> know that its inputs were scaled before training. Feed it raw, unscaled numbers and it will apply coefficients meant for scaled ones — and return a number, confidently, with no error.</p>
 <section id="demo-1-the-silent-failure-measured" class="level3" data-number="15.2.1">
 <h3 data-number="15.2.1" class="anchored" data-anchor-id="demo-1-the-silent-failure-measured"><span class="header-section-number">15.2.1</span> Demo 1 — the silent failure, measured</h3>
-<div id="c3216e36" class="cell" data-execution_count="2">
+<div id="2debde70" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
@@ -512,7 +512,7 @@ No error was raised. The wrong answer is off by ₹1,689,075,773.</code></pre>
 </section>
 <section id="demo-2-the-fix-one-object-that-carries-everything" class="level3" data-number="15.2.2">
 <h3 data-number="15.2.2" class="anchored" data-anchor-id="demo-2-the-fix-one-object-that-carries-everything"><span class="header-section-number">15.2.2</span> Demo 2 — the fix: one object that carries everything</h3>
-<div id="9c7edc22" class="cell" data-execution_count="3">
+<div id="8d620ee8" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>pipeline <span class="op">=</span> Pipeline([</span>
@@ -539,7 +539,7 @@ to forget the scaler, because the scaler is inside the thing you saved.</code></
 <p><strong><code>joblib</code> writes a fitted Python object to a file and reads it back.</strong> It is preferred over <code>pickle</code> for scikit-learn because it stores large numeric arrays more efficiently.</p>
 <section id="demo-3-a-full-save-and-reload-round-trip" class="level3" data-number="15.3.1">
 <h3 data-number="15.3.1" class="anchored" data-anchor-id="demo-3-a-full-save-and-reload-round-trip"><span class="header-section-number">15.3.1</span> Demo 3 — a full save-and-reload round trip</h3>
-<div id="d2ffe523" class="cell" data-execution_count="4">
+<div id="2be0b149" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> joblib, tempfile, os</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -567,7 +567,7 @@ largest difference: 0.0000000000</code></pre>
 </section>
 <section id="demo-4-save-everything-needed-to-reproduce-the-model" class="level3" data-number="15.3.2">
 <h3 data-number="15.3.2" class="anchored" data-anchor-id="demo-4-save-everything-needed-to-reproduce-the-model"><span class="header-section-number">15.3.2</span> Demo 4 — save everything needed to reproduce the model</h3>
-<div id="4234e190" class="cell" data-execution_count="5">
+<div id="9330a630" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> joblib, sklearn, os, json</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> date</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error, r2_score</span>
@@ -595,7 +595,7 @@ largest difference: 0.0000000000</code></pre>
     "age_years"
   ],
   "target": "price",
-  "trained_on": "2026-09-11",
+  "trained_on": "2026-09-23",
   "n_training_rows": 400,
   "sklearn_version": "1.9.0",
   "test_mae": 169824.38561731137,
@@ -647,7 +647,7 @@ largest difference: 0.0000000000</code></pre>
 <p>A pipeline saved under scikit-learn 1.3 and loaded under 1.5 may warn, may behave differently, or may refuse to load. <strong>Pin your versions in <code>requirements.txt</code></strong> and record the version in the bundle so the mismatch is diagnosable rather than mysterious.</p>
 </div>
 </div>
-<div id="a8b327a9" class="cell" data-execution_count="6">
+<div id="1f771459" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"requirements.txt should pin exactly what trained the model, for example:"</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  scikit-learn==</span><span class="sc">{</span>sklearn<span class="sc">.</span>__version__<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  pandas==</span><span class="sc">{</span>pd<span class="sc">.</span>__version__<span class="sc">}</span><span class="ss">"</span>)</span>
@@ -669,7 +669,7 @@ largest difference: 0.0000000000</code></pre>
 <p><strong>Write one function that turns raw user input into a prediction, and use it everywhere</strong> — the notebook, the app, the batch job, the tests. If the app builds its input rows differently from the notebook, you have two models.</p>
 <section id="demo-5-predict_one-with-input-validation" class="level3" data-number="16.1.1">
 <h3 data-number="16.1.1" class="anchored" data-anchor-id="demo-5-predict_one-with-input-validation"><span class="header-section-number">16.1.1</span> Demo 5 — <code>predict_one</code>, with input validation</h3>
-<div id="85cce07e" class="cell" data-execution_count="7">
+<div id="e88a1af8" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, joblib</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_model(path):</span>
@@ -774,7 +774,7 @@ Rejected bad input: area_sqft -50 is outside the sensible range 200–10,000</co
 <p><strong>Most projects should start offline.</strong> If a nightly file of predictions solves the problem, you have avoided servers, uptime and latency entirely.</p>
 <section id="demo-6-offline-scoring-which-is-often-the-whole-product" class="level3" data-number="16.2.1">
 <h3 data-number="16.2.1" class="anchored" data-anchor-id="demo-6-offline-scoring-which-is-often-the-whole-product"><span class="header-section-number">16.2.1</span> Demo 6 — offline scoring, which is often the whole product</h3>
-<div id="c8d2a1dc" class="cell" data-execution_count="8">
+<div id="10d35aa3" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, joblib, os</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A batch job: read the properties awaiting valuation, score them, write the file, stop.</span></span>
@@ -806,7 +806,7 @@ written to valuations.csv — this file is the deliverable</code></pre>
 </section>
 <section id="demo-7-online-scoring-one-request-at-a-time" class="level3" data-number="16.2.2">
 <h3 data-number="16.2.2" class="anchored" data-anchor-id="demo-7-online-scoring-one-request-at-a-time"><span class="header-section-number">16.2.2</span> Demo 7 — online scoring, one request at a time</h3>
-<div id="87946869" class="cell" data-execution_count="9">
+<div id="ac3af45a" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time, joblib</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>pipe, features <span class="op">=</span> load_model(bundle_path)          <span class="co"># load ONCE, not per request</span></span>
@@ -825,8 +825,8 @@ written to valuations.csv — this file is the deliverable</code></pre>
 <span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> payload <span class="kw">in</span> [{<span class="st">"area_sqft"</span>: <span class="dv">1500</span>, <span class="st">"age_years"</span>: <span class="dv">5</span>}, {<span class="st">"area_sqft"</span>: <span class="dv">2400</span>, <span class="st">"age_years"</span>: <span class="dv">20</span>}]:</span>
 <span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(payload, <span class="st">"→"</span>, handle_request(payload))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>{'area_sqft': 1500, 'age_years': 5} → {'estimated_price': 4994000.0, 'confidence_note': 'typical error ±₹169,824', 'latency_ms': 1.29}
-{'area_sqft': 2400, 'age_years': 20} → {'estimated_price': 7200000.0, 'confidence_note': 'typical error ±₹169,824', 'latency_ms': 1.12}</code></pre>
+<pre><code>{'area_sqft': 1500, 'age_years': 5} → {'estimated_price': 4994000.0, 'confidence_note': 'typical error ±₹169,824', 'latency_ms': 1.65}
+{'area_sqft': 2400, 'age_years': 20} → {'estimated_price': 7200000.0, 'confidence_note': 'typical error ±₹169,824', 'latency_ms': 1.32}</code></pre>
 </div>
 </div>
 <p><strong>Note where the model is loaded.</strong> Loading it inside the request function would reread the file on every call. Loading it once, when the process starts, is the difference between a page that responds instantly and one that does not.</p>
@@ -930,7 +930,7 @@ written to valuations.csv — this file is the deliverable</code></pre>
 <section id="demo-8-the-apps-logic-tested-without-a-browser" class="level3" data-number="17.2.1">
 <h3 data-number="17.2.1" class="anchored" data-anchor-id="demo-8-the-apps-logic-tested-without-a-browser"><span class="header-section-number">17.2.1</span> Demo 8 — the app’s logic, tested without a browser</h3>
 <p>You can and should test the prediction logic directly. Everything except the widgets is ordinary Python.</p>
-<div id="cb6102ab" class="cell" data-execution_count="10">
+<div id="f5ab5b63" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, joblib</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>bundle <span class="op">=</span> joblib.load(bundle_path)</span>
@@ -1059,7 +1059,7 @@ Sanity checks the app should pass:
 </table>
 <section id="demo-10-detecting-drift-by-watching-the-inputs" class="level3" data-number="18.1.1">
 <h3 data-number="18.1.1" class="anchored" data-anchor-id="demo-10-detecting-drift-by-watching-the-inputs"><span class="header-section-number">18.1.1</span> Demo 10 — detecting drift by watching the inputs</h3>
-<div id="54dbe56e" class="cell" data-execution_count="11">
+<div id="33f42ece" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>training_areas <span class="op">=</span> X_train[<span class="st">"area_sqft"</span>]</span>
@@ -1089,7 +1089,7 @@ Month 8: mean   1,695   shift +1.45 std    2.0% outside training range  ⚠ DRIF
 </section>
 <section id="demo-11-the-deployment-checklist-as-code" class="level3" data-number="18.1.2">
 <h3 data-number="18.1.2" class="anchored" data-anchor-id="demo-11-the-deployment-checklist-as-code"><span class="header-section-number">18.1.2</span> Demo 11 — the deployment checklist, as code</h3>
-<div id="604efb2c" class="cell" data-execution_count="12">
+<div id="3ac6e2e2" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> joblib, os</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> preflight(bundle_path):</span>
@@ -1125,8 +1125,85 @@ ready to deploy: True</code></pre>
 </div>
 </div>
 </section>
-<section id="check-yourself" class="level3" data-number="18.1.3">
-<h3 data-number="18.1.3" class="anchored" data-anchor-id="check-yourself"><span class="header-section-number">18.1.3</span> ❓ Check yourself</h3>
+</section>
+</section>
+<section id="sec-s12-tasks" class="level1" data-number="19">
+<h1 data-number="19"><span class="header-section-number">19</span> 🎯 Tasks</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Practise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Task 1 — Break it deliberately.</strong> Save a bare <code>LinearRegression</code> (no pipeline), reload it, and predict on raw input. <strong>Report the difference from the correct prediction.</strong></p>
+<p><strong>Task 2 — Extend the bundle.</strong> Add the minimum and maximum of each training feature to the bundle, and make <code>predict_price</code> warn when an input falls outside those bounds.</p>
+<p><strong>Task 3 — Build and run the app.</strong> Save <code>app.py</code> and <code>model_bundle.joblib</code> to a folder and run <code>streamlit run app.py</code>. <strong>Report what happens when you move a slider past the training range.</strong></p>
+<p><strong>Task 4 — Detect drift.</strong> Generate a month of input data where the <em>age</em> distribution has shifted rather than area, and extend Demo 10 to catch it.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="78188a00" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd, joblib, os, tempfile</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 1 — the bare model versus the pipeline</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> tempfile.mkdtemp()</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>bare_path <span class="op">=</span> os.path.join(d, <span class="st">"bare.joblib"</span>)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>joblib.dump(model, bare_path)                      <span class="co"># the estimator only</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>bare <span class="op">=</span> joblib.load(bare_path)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>new <span class="op">=</span> pd.DataFrame([{<span class="st">"area_sqft"</span>: <span class="dv">1500</span>, <span class="st">"age_years"</span>: <span class="dv">5</span>}])</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Task 1 — bare model on raw input : ₹</span><span class="sc">{</span>bare<span class="sc">.</span>predict(new)[<span class="dv">0</span>]<span class="sc">:&gt;14,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"         pipeline on raw input   : ₹</span><span class="sc">{</span>pipeline<span class="sc">.</span>predict(new)[<span class="dv">0</span>]<span class="sc">:&gt;14,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"         difference              : ₹</span><span class="sc">{</span><span class="bu">abs</span>(bare.predict(new)[<span class="dv">0</span>]<span class="op">-</span>pipeline.predict(new)[<span class="dv">0</span>])<span class="sc">:&gt;14,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — record the training ranges and warn on extrapolation</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>bounds <span class="op">=</span> {c: (<span class="bu">float</span>(X_train[c].<span class="bu">min</span>()), <span class="bu">float</span>(X_train[c].<span class="bu">max</span>())) <span class="cf">for</span> c <span class="kw">in</span> X_train.columns}</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Task 2 — training ranges: </span><span class="sc">{</span>bounds<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> predict_checked(area, age):</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    warnings <span class="op">=</span> [<span class="ss">f"</span><span class="sc">{</span>c<span class="sc">}</span><span class="ss">=</span><span class="sc">{</span>v<span class="sc">}</span><span class="ss"> is outside the training range </span><span class="sc">{</span>bounds[c]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> c, v <span class="kw">in</span> [(<span class="st">"area_sqft"</span>, area), (<span class="st">"age_years"</span>, age)]</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="kw">not</span> bounds[c][<span class="dv">0</span>] <span class="op">&lt;=</span> v <span class="op">&lt;=</span> bounds[c][<span class="dv">1</span>]]</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>    price <span class="op">=</span> <span class="bu">float</span>(pipeline.predict(pd.DataFrame([{<span class="st">"area_sqft"</span>: area, <span class="st">"age_years"</span>: age}]))[<span class="dv">0</span>])</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> price, warnings</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> [<span class="dv">1500</span>, <span class="dv">9000</span>]:</span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>    p, w <span class="op">=</span> predict_checked(a, <span class="dv">5</span>)</span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>a<span class="sc">:&gt;5}</span><span class="ss"> sqft → ₹</span><span class="sc">{</span>p<span class="sc">:&gt;12,.0f}</span><span class="ss">   </span><span class="sc">{</span><span class="st">'⚠ '</span> <span class="op">+</span> w[<span class="dv">0</span>] <span class="cf">if</span> w <span class="cf">else</span> <span class="st">'within range'</span><span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Task 1 — bare model on raw input : ₹ 1,694,069,949
+         pipeline on raw input   : ₹     4,994,176
+         difference              : ₹ 1,689,075,773
+
+Task 2 — training ranges: {'area_sqft': (400.0, 2376.0), 'age_years': (0.0, 39.0)}
+   1500 sqft → ₹   4,994,176   within range
+   9000 sqft → ₹  29,148,823   ⚠ area_sqft=9000 is outside the training range (400.0, 2376.0)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-s12-mcqs" class="level1" data-number="20">
+<h1 data-number="20"><span class="header-section-number">20</span> ❓ MCQs</h1>
 <p><strong>Q1.</strong> You save only the <code>LinearRegression</code> and not its scaler. What happens in production?</p>
 <ul>
 <li><ol type="a">
@@ -1188,7 +1265,7 @@ ready to deploy: True</code></pre>
 </ol></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1197,90 +1274,13 @@ ready to deploy: True</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>A1 — (b).</strong> Demo 1 measured the size of the error. Silence is what makes it dangerous.</p>
 <p><strong>A2 — (b).</strong> No server, no latency requirement — the file is the product.</p>
 <p><strong>A3 — (b).</strong> Every slider move reruns the script top to bottom.</p>
 <p><strong>A4 — (b).</strong> Demo 10 shows how to catch it by watching inputs rather than waiting for complaints.</p>
 <p><strong>A5 — (b).</strong> Session 9’s extrapolation warning, now with a user attached.</p>
-</div>
-</div>
-</div>
-</section>
-</section>
-</section>
-<section id="sec-s12-tasks" class="level1" data-number="19">
-<h1 data-number="19"><span class="header-section-number">19</span> 🎯 Tasks</h1>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Practise
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Task 1 — Break it deliberately.</strong> Save a bare <code>LinearRegression</code> (no pipeline), reload it, and predict on raw input. <strong>Report the difference from the correct prediction.</strong></p>
-<p><strong>Task 2 — Extend the bundle.</strong> Add the minimum and maximum of each training feature to the bundle, and make <code>predict_price</code> warn when an input falls outside those bounds.</p>
-<p><strong>Task 3 — Build and run the app.</strong> Save <code>app.py</code> and <code>model_bundle.joblib</code> to a folder and run <code>streamlit run app.py</code>. <strong>Report what happens when you move a slider past the training range.</strong></p>
-<p><strong>Task 4 — Detect drift.</strong> Generate a month of input data where the <em>age</em> distribution has shifted rather than area, and extend Demo 10 to catch it.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="975cd235" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd, joblib, os, tempfile</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 1 — the bare model versus the pipeline</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> tempfile.mkdtemp()</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>bare_path <span class="op">=</span> os.path.join(d, <span class="st">"bare.joblib"</span>)</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>joblib.dump(model, bare_path)                      <span class="co"># the estimator only</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>bare <span class="op">=</span> joblib.load(bare_path)</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>new <span class="op">=</span> pd.DataFrame([{<span class="st">"area_sqft"</span>: <span class="dv">1500</span>, <span class="st">"age_years"</span>: <span class="dv">5</span>}])</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Task 1 — bare model on raw input : ₹</span><span class="sc">{</span>bare<span class="sc">.</span>predict(new)[<span class="dv">0</span>]<span class="sc">:&gt;14,.0f}</span><span class="ss">"</span>)</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"         pipeline on raw input   : ₹</span><span class="sc">{</span>pipeline<span class="sc">.</span>predict(new)[<span class="dv">0</span>]<span class="sc">:&gt;14,.0f}</span><span class="ss">"</span>)</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"         difference              : ₹</span><span class="sc">{</span><span class="bu">abs</span>(bare.predict(new)[<span class="dv">0</span>]<span class="op">-</span>pipeline.predict(new)[<span class="dv">0</span>])<span class="sc">:&gt;14,.0f}</span><span class="ss">"</span>)</span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — record the training ranges and warn on extrapolation</span></span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>bounds <span class="op">=</span> {c: (<span class="bu">float</span>(X_train[c].<span class="bu">min</span>()), <span class="bu">float</span>(X_train[c].<span class="bu">max</span>())) <span class="cf">for</span> c <span class="kw">in</span> X_train.columns}</span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Task 2 — training ranges: </span><span class="sc">{</span>bounds<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> predict_checked(area, age):</span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    warnings <span class="op">=</span> [<span class="ss">f"</span><span class="sc">{</span>c<span class="sc">}</span><span class="ss">=</span><span class="sc">{</span>v<span class="sc">}</span><span class="ss"> is outside the training range </span><span class="sc">{</span>bounds[c]<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> c, v <span class="kw">in</span> [(<span class="st">"area_sqft"</span>, area), (<span class="st">"age_years"</span>, age)]</span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="kw">not</span> bounds[c][<span class="dv">0</span>] <span class="op">&lt;=</span> v <span class="op">&lt;=</span> bounds[c][<span class="dv">1</span>]]</span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>    price <span class="op">=</span> <span class="bu">float</span>(pipeline.predict(pd.DataFrame([{<span class="st">"area_sqft"</span>: area, <span class="st">"age_years"</span>: age}]))[<span class="dv">0</span>])</span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> price, warnings</span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> [<span class="dv">1500</span>, <span class="dv">9000</span>]:</span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>    p, w <span class="op">=</span> predict_checked(a, <span class="dv">5</span>)</span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>a<span class="sc">:&gt;5}</span><span class="ss"> sqft → ₹</span><span class="sc">{</span>p<span class="sc">:&gt;12,.0f}</span><span class="ss">   </span><span class="sc">{</span><span class="st">'⚠ '</span> <span class="op">+</span> w[<span class="dv">0</span>] <span class="cf">if</span> w <span class="cf">else</span> <span class="st">'within range'</span><span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Task 1 — bare model on raw input : ₹ 1,694,069,949
-         pipeline on raw input   : ₹     4,994,176
-         difference              : ₹ 1,689,075,773
-
-Task 2 — training ranges: {'area_sqft': (400.0, 2376.0), 'age_years': (0.0, 39.0)}
-   1500 sqft → ₹   4,994,176   within range
-   9000 sqft → ₹  29,148,823   ⚠ area_sqft=9000 is outside the training range (400.0, 2376.0)</code></pre>
-</div>
-</div>
 </div>
 </div>
 </div>

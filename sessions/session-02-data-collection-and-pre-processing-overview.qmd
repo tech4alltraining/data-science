@@ -108,6 +108,35 @@ whether your laptop copes.
   in the shop, and only what you asked for comes home.
 :::
 
+### Demo 2 — asking the database for a summary, not just rows
+
+The example above asked SQL to filter. It can also **aggregate**, which is the same
+"selecting happens in the shop" idea applied to a calculation instead of a row count.
+
+```{python}
+import pandas as pd
+import sqlite3
+
+orders = pd.read_csv("datasets/orders.csv")
+conn = sqlite3.connect(":memory:")
+orders.to_sql("orders", conn, index=False)
+
+sql_summary = pd.read_sql(
+    "SELECT customer, SUM(amount) AS total FROM orders GROUP BY customer", conn)
+conn.close()
+print("Summary computed inside the database:")
+print(sql_summary)
+
+pandas_summary = orders.groupby("customer")["amount"].sum().reset_index(name="total")
+print("\nSame summary, computed in pandas after loading the whole table:")
+print(pandas_summary)
+```
+
+Same numbers, two routes. With ten million rows, the SQL version sends back three lines;
+the pandas version sends back ten million rows and then throws away everything except
+three lines. `groupby` is Part C's tool — you will use it constantly once the data is in
+Python, but it is worth knowing the database can often do the same job first.
+
 ## 2. Sampling, and how a sample lies {#sec-s02-topic-2}
 
 **A sample is a subset of the data you actually analyse. You almost always work with
@@ -120,7 +149,7 @@ one — and if the subset is not representative, every later step is wasted.**
 | **Systematic** | every *n*th row | fails if the data has a repeating pattern |
 | **Convenience** | whatever was easy to get | **usually biased, and usually invisible** |
 
-### Demo 2 — the same population, two samples, two different answers
+### Demo 3 — the same population, two samples, two different answers
 
 A town where income genuinely differs by neighbourhood. We survey it twice: once at
 random, once by standing outside one office building.
@@ -151,27 +180,27 @@ you collect fixes bias.** Always ask "who could not have appeared in this data?"
 you trust it.
 :::
 
-### ❓ Check yourself
+### Demo 4 — a stratified sample, deliberately matching the town's mix
 
-**Q1.** You need competitor pricing from a website with no API. Which route?
+The table above named **stratified** sampling: picking proportionally from each group
+instead of picking blind. The town is 60% north, 40% south, so a stratified sample of 100
+takes 60 from north and 40 from south — the same mix as the town itself.
 
-- (a) Query your internal database.
-- (b) **Web scraping.**
-- (c) A customer survey.
+```{python}
+north_sample = town[town["area"] == "north"].sample(60, random_state=1)
+south_sample = town[town["area"] == "south"].sample(40, random_state=1)
+stratified_sample = pd.concat([north_sample, south_sample])
 
-**Q2.** A phone survey run between 10am and 4pm on weekdays finds that 78% of people
-are satisfied with local bus services. What is the main problem?
+print(f"True average income of the whole town    : ₹{town['income'].mean():,.0f}")
+print(f"Estimate from the random sample (Demo 3) : ₹{random_sample['income'].mean():,.0f}")
+print(f"Estimate from the stratified sample       : ₹{stratified_sample['income'].mean():,.0f}")
+```
 
-- (a) The sample is too small.
-- (b) **People who commute by bus are at work during those hours and cannot answer.**
-- (c) Phone surveys are illegal.
-
-::: {.callout-note collapse="true" title="Answers"}
-**A1 — (b).** No API means scraping — after checking the terms of service.
-
-**A2 — (b).** The people most affected by bus services are systematically excluded. The
-result is biased, not merely imprecise, and a bigger sample would not help.
-:::
+The stratified estimate lands closer to the true average than the plain random sample
+did, and it will keep doing so reliably — a random sample can occasionally draw too many
+from one area by chance, but a stratified one cannot, because the proportions are fixed
+by design. **Knowing the groups in advance buys you a more dependable answer for the same
+100 people.**
 
 # Part B — The preprocessing map {#sec-s02-b}
 
@@ -191,7 +220,7 @@ Raw data is messy because it is produced by people and by imperfect machines:
 An algorithm cannot see that these are problems. It will treat `225` as a real age and
 happily conclude that older customers spend more.
 
-### Demo 3 — watch one bad value ruin a summary
+### Demo 5 — watch one bad value ruin a summary
 
 ```{python}
 import pandas as pd
@@ -209,6 +238,29 @@ print(f"Median age, the same typo   : {typed.median():.1f} years  <- barely move
 **One wrong value out of eight moved the average by nearly 25 years.** The median barely
 noticed. Session 7 explains why; Session 3 fixes the typo. For now, the point is only
 that raw data cannot be trusted.
+
+### Demo 6 — the same lesson, on a messier real file
+
+Eight tidy rows made the point cleanly. `datasets/messy_customers.csv` — used again in
+Session 3 — has ten rows with a missing age, an impossible `225`, and a negative `-4`, all
+at once. Does the same damage show up on a file nobody has cleaned yet?
+
+```{python}
+messy = pd.read_csv("datasets/messy_customers.csv")
+print(messy[["customer_id", "age"]])
+
+all_ages = messy["age"]
+plausible_ages = messy.loc[(messy["age"] >= 0) & (messy["age"] <= 120), "age"]
+
+print(f"\nAverage age, all rows as typed      : {all_ages.mean():.1f} years")
+print(f"Average age, only the plausible ones: {plausible_ages.mean():.1f} years")
+```
+
+**46.3 years against 28.0 years** — an even bigger gap than the typed-survey example,
+because this file has two bad values pulling in different directions instead of one.
+Notice the file also has a missing age (`NaN`) sitting quietly in the middle of it; that
+one does not corrupt the average by itself, but it does mean `.mean()` is already
+silently dropping a row before you have decided whether that is the right thing to do.
 
 ## 4. The order we clean in {#sec-s02-topic-4}
 
@@ -252,7 +304,27 @@ select rows 4–19, you say *"give me the rows where city is Mumbai"* — and it
 same whether there are 20 rows or 20 million.
 :::
 
-### Demo 4 — building a table, and the column inside it
+### Demo 7 — the smallest possible DataFrame
+
+Before loading a file, it helps to see what a DataFrame actually is: a dictionary of
+columns, each one a Series, held together as a table.
+
+```{python}
+import pandas as pd
+
+tiny = pd.DataFrame({"fruit": ["apple", "banana"], "price": [40, 25]})
+print(tiny)
+print(f"\ntype: {type(tiny).__name__}")
+
+print("\nOne column on its own is a Series:")
+print(tiny["price"])
+```
+
+Two lists went in; one table came out, and pulling out `"price"` gave back a `Series` —
+the same shape `pd.read_csv` builds from a file. Every dataset in this book becomes
+exactly this: columns, held together, with a name for each one.
+
+### Demo 8 — building a table, and the column inside it
 
 ```{python}
 import pandas as pd
@@ -282,7 +354,7 @@ loop. That is the whole reason pandas exists.
 | `.describe()` | what are the numeric columns like? |
 | `.value_counts()` | what values does this text column contain, and how often? |
 
-### Demo 5 — the five-command first look
+### Demo 9 — the five-command first look
 
 We load `datasets/messy_customers.csv` — ten rows of the kind of file a colleague
 actually sends you.
@@ -323,6 +395,27 @@ It silently ignores every text column. A dataset can look perfectly healthy in
 text columns too.**
 :::
 
+### Demo 10 — the same five commands, on a dataset with nothing wrong
+
+It is worth seeing what a **healthy** file looks like through the same five commands, so
+you recognise "nothing to fix" as clearly as you recognise "something is wrong."
+
+```{python}
+inventory = pd.read_excel("datasets/inventory.xlsx")
+
+print(f"1. SHAPE — {inventory.shape[0]} rows, {inventory.shape[1]} columns\n")
+print("3. INFO — types and how many values are actually present")
+inventory.info()
+print("\n4. DESCRIBE — the numeric columns")
+print(inventory.describe())
+```
+
+Every column has 5 non-null values out of 5 rows — no gaps. `price` and `stock` have
+sensible minimums and maximums, nothing negative, nothing absurd. There is nothing here
+to call `.value_counts()` on either, since `product` is just five distinct names. **A
+boring printout is itself an answer: this file needs no cleaning**, and knowing that
+took the same five commands as finding four problems in `messy_customers.csv`.
+
 ## 7. Selecting and filtering {#sec-s02-topic-7}
 
 **Selecting is choosing which rows and columns you want. There are three tools, and
@@ -334,7 +427,7 @@ they are easy to confuse.**
 | `df.loc[rows, cols]` | **label** — the name of the row or column | `sales.loc[2, "price"]` |
 | `df.iloc[rows, cols]` | **position** — the number, counting from 0 | `sales.iloc[2, 3]` |
 
-### Demo 6 — the three selectors, side by side
+### Demo 11 — the three selectors, side by side
 
 ```{python}
 print("Whole column:")
@@ -359,7 +452,7 @@ rows 1 and 2 — two rows. This catches everybody at least once. `.loc` follows 
 logic ("from this one to that one"); `.iloc` follows Python slicing ("stop before").
 :::
 
-### Demo 7 — filtering with a condition
+### Demo 12 — filtering with a condition
 
 Filtering is the single most-used operation in pandas. You write a condition; pandas
 gives you back only the rows where it is true.
@@ -390,7 +483,7 @@ Python's order of operations gives you a confusing error.
 answers back together.** It is how you turn a table of transactions into a summary
 somebody wants to read.
 
-### Demo 8 — from raw rows to an answer
+### Demo 13 — from raw rows to an answer
 
 ```{python}
 print("Total revenue per city:")
@@ -410,7 +503,7 @@ print(sales.groupby(["city", "product"])["revenue"].sum())
 Three lines answered three business questions. `groupby` is the verb that turns a table
 into a report.
 
-### Demo 9 — writing the answer back out
+### Demo 14 — writing the answer back out
 
 ```{python}
 summary = sales.groupby("city")["revenue"].sum().reset_index()
@@ -420,28 +513,6 @@ print(summary.to_csv(index=False))    # what would be written to a file
 In a real project the last line is `summary.to_csv("revenue_by_city.csv", index=False)`.
 `index=False` stops pandas adding an unnamed extra column of row numbers — a small
 detail that causes a lot of confusion when the file is opened in Excel.
-
-### ❓ Check yourself
-
-**Q3.** `.info()` reports 1,000 entries but the `income` column has 940 non-null values.
-What does that mean?
-
-- (a) 940 customers earn money.
-- (b) **60 income values are missing.**
-- (c) The file is corrupt.
-
-**Q4.** Which returns the *second* row of a DataFrame?
-
-- (a) `df.loc[2]`
-- (b) **`df.iloc[1]`**
-- (c) `df["2"]`
-
-::: {.callout-note collapse="true" title="Answers"}
-**A3 — (b).** 1,000 − 940 = 60 blanks. Session 3 covers what to do about them.
-
-**A4 — (b).** `.iloc` counts positions from 0, so position 1 is the second row.
-`df.loc[2]` looks for a row *labelled* 2, which is usually the third row.
-:::
 
 # 🎯 Tasks {#sec-s02-tasks}
 
@@ -455,7 +526,7 @@ city is Delhi *or* the units sold are above 10.
 **Task 3 — Group.** Find the average revenue per product, sorted from highest to lowest.
 
 **Task 4 — Spot the trouble.** Run `.value_counts()` on `messy["subscribed"]` from Demo
-5. **How many distinct values does it contain, and how many should it contain?**
+9. **How many distinct values does it contain, and how many should it contain?**
 :::
 
 :::: {.callout-note collapse="true" title="Solutions"}
@@ -485,6 +556,46 @@ print(subscribed.value_counts())
 print(f"Distinct values found: {subscribed.nunique()} — there should be 2 (yes and no).")
 ```
 ::::
+
+# ❓ MCQs {#sec-s02-mcqs}
+
+**Q1.** You need competitor pricing from a website with no API. Which route?
+
+- (a) Query your internal database.
+- (b) **Web scraping.**
+- (c) A customer survey.
+
+**Q2.** A phone survey run between 10am and 4pm on weekdays finds that 78% of people
+are satisfied with local bus services. What is the main problem?
+
+- (a) The sample is too small.
+- (b) **People who commute by bus are at work during those hours and cannot answer.**
+- (c) Phone surveys are illegal.
+
+**Q3.** `.info()` reports 1,000 entries but the `income` column has 940 non-null values.
+What does that mean?
+
+- (a) 940 customers earn money.
+- (b) **60 income values are missing.**
+- (c) The file is corrupt.
+
+**Q4.** Which returns the *second* row of a DataFrame?
+
+- (a) `df.loc[2]`
+- (b) **`df.iloc[1]`**
+- (c) `df["2"]`
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** No API means scraping — after checking the terms of service.
+
+**A2 — (b).** The people most affected by bus services are systematically excluded. The
+result is biased, not merely imprecise, and a bigger sample would not help.
+
+**A3 — (b).** 1,000 − 940 = 60 blanks. Session 3 covers what to do about them.
+
+**A4 — (b).** `.iloc` counts positions from 0, so position 1 is the second row.
+`df.loc[2]` looks for a row *labelled* 2, which is usually the third row.
+:::
 
 ::: {.callout-tip title="✅ Before you move on"}
 - [ ] I can load data from a CSV, a JSON document and a SQL query

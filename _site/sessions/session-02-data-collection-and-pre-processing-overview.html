@@ -328,7 +328,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#sec-s02-topic-2" id="toc-sec-s02-topic-2" class="nav-link" data-scroll-target="#sec-s02-topic-2"><span class="header-section-number">5.2</span> 2. Sampling, and how a sample lies</a>
   <ul class="collapse">
   <li><a href="#demo-2-the-same-population-two-samples-two-different-answers" id="toc-demo-2-the-same-population-two-samples-two-different-answers" class="nav-link" data-scroll-target="#demo-2-the-same-population-two-samples-two-different-answers"><span class="header-section-number">5.2.1</span> Demo 2 — the same population, two samples, two different answers</a></li>
-  <li><a href="#check-yourself" id="toc-check-yourself" class="nav-link" data-scroll-target="#check-yourself"><span class="header-section-number">5.2.2</span> ❓ Check yourself</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#sec-s02-b" id="toc-sec-s02-b" class="nav-link" data-scroll-target="#sec-s02-b"><span class="header-section-number">6</span> Part B — The preprocessing map</a>
@@ -358,10 +357,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#demo-8-from-raw-rows-to-an-answer" id="toc-demo-8-from-raw-rows-to-an-answer" class="nav-link" data-scroll-target="#demo-8-from-raw-rows-to-an-answer"><span class="header-section-number">7.4.1</span> Demo 8 — from raw rows to an answer</a></li>
   <li><a href="#demo-9-writing-the-answer-back-out" id="toc-demo-9-writing-the-answer-back-out" class="nav-link" data-scroll-target="#demo-9-writing-the-answer-back-out"><span class="header-section-number">7.4.2</span> Demo 9 — writing the answer back out</a></li>
-  <li><a href="#check-yourself-1" id="toc-check-yourself-1" class="nav-link" data-scroll-target="#check-yourself-1"><span class="header-section-number">7.4.3</span> ❓ Check yourself</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#sec-s02-tasks" id="toc-sec-s02-tasks" class="nav-link" data-scroll-target="#sec-s02-tasks"><span class="header-section-number">8</span> 🎯 Tasks</a></li>
+  <li><a href="#sec-s02-mcqs" id="toc-sec-s02-mcqs" class="nav-link" data-scroll-target="#sec-s02-mcqs"><span class="header-section-number">9</span> ❓ MCQs</a></li>
   </ul>
 </nav>
     </div>
@@ -512,7 +511,7 @@ Note
 <section id="demo-1-reading-a-csv-a-json-file-an-excel-sheet-and-a-sql-database" class="level3" data-number="5.1.1">
 <h3 data-number="5.1.1" class="anchored" data-anchor-id="demo-1-reading-a-csv-a-json-file-an-excel-sheet-and-a-sql-database"><span class="header-section-number">5.1.1</span> Demo 1 — reading a CSV, a JSON file, an Excel sheet and a SQL database</h3>
 <p><strong>Four sources, four functions, one table each.</strong> Every file is in the <code>datasets/</code> folder of this project — nothing here is typed into the program.</p>
-<div id="47526b67" class="cell" data-execution_count="2">
+<div id="a3d690ce" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json, sqlite3</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -628,7 +627,7 @@ From SQL, with the filtering done by the database:
 <section id="demo-2-the-same-population-two-samples-two-different-answers" class="level3" data-number="5.2.1">
 <h3 data-number="5.2.1" class="anchored" data-anchor-id="demo-2-the-same-population-two-samples-two-different-answers"><span class="header-section-number">5.2.1</span> Demo 2 — the same population, two samples, two different answers</h3>
 <p>A town where income genuinely differs by neighbourhood. We survey it twice: once at random, once by standing outside one office building.</p>
-<div id="daada931" class="cell" data-execution_count="3">
+<div id="4dc598df" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -669,50 +668,6 @@ Estimate from the convenient sample   : ₹86,078</code></pre>
 </div>
 </div>
 </section>
-<section id="check-yourself" class="level3" data-number="5.2.2">
-<h3 data-number="5.2.2" class="anchored" data-anchor-id="check-yourself"><span class="header-section-number">5.2.2</span> ❓ Check yourself</h3>
-<p><strong>Q1.</strong> You need competitor pricing from a website with no API. Which route?</p>
-<ul>
-<li><ol type="a">
-<li>Query your internal database.</li>
-</ol></li>
-<li><ol start="2" type="a">
-<li><strong>Web scraping.</strong></li>
-</ol></li>
-<li><ol start="3" type="a">
-<li>A customer survey.</li>
-</ol></li>
-</ul>
-<p><strong>Q2.</strong> A phone survey run between 10am and 4pm on weekdays finds that 78% of people are satisfied with local bus services. What is the main problem?</p>
-<ul>
-<li><ol type="a">
-<li>The sample is too small.</li>
-</ol></li>
-<li><ol start="2" type="a">
-<li><strong>People who commute by bus are at work during those hours and cannot answer.</strong></li>
-</ol></li>
-<li><ol start="3" type="a">
-<li>Phone surveys are illegal.</li>
-</ol></li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Answers
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>A1 — (b).</strong> No API means scraping — after checking the terms of service.</p>
-<p><strong>A2 — (b).</strong> The people most affected by bus services are systematically excluded. The result is biased, not merely imprecise, and a bigger sample would not help.</p>
-</div>
-</div>
-</div>
-</section>
 </section>
 </section>
 <section id="sec-s02-b" class="level1" data-number="6">
@@ -731,7 +686,7 @@ Estimate from the convenient sample   : ₹86,078</code></pre>
 <p>An algorithm cannot see that these are problems. It will treat <code>225</code> as a real age and happily conclude that older customers spend more.</p>
 <section id="demo-3-watch-one-bad-value-ruin-a-summary" class="level3" data-number="6.1.1">
 <h3 data-number="6.1.1" class="anchored" data-anchor-id="demo-3-watch-one-bad-value-ruin-a-summary"><span class="header-section-number">6.1.1</span> Demo 3 — watch one bad value ruin a summary</h3>
-<div id="b323853f" class="cell" data-execution_count="4">
+<div id="ce712a1f" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>survey <span class="op">=</span> pd.read_csv(<span class="st">"datasets/survey_ages_typo.csv"</span>)</span>
@@ -862,7 +817,7 @@ Median age, the same typo   : 30.0 years  &lt;- barely moved</code></pre>
 </div>
 <section id="demo-4-building-a-table-and-the-column-inside-it" class="level3" data-number="7.1.1">
 <h3 data-number="7.1.1" class="anchored" data-anchor-id="demo-4-building-a-table-and-the-column-inside-it"><span class="header-section-number">7.1.1</span> Demo 4 — building a table, and the column inside it</h3>
-<div id="167720b3" class="cell" data-execution_count="5">
+<div id="68e4b0dd" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>sales <span class="op">=</span> pd.read_csv(<span class="st">"datasets/shop_sales.csv"</span>)</span>
@@ -938,7 +893,7 @@ type of one column : Series</code></pre>
 <section id="demo-5-the-five-command-first-look" class="level3" data-number="7.2.1">
 <h3 data-number="7.2.1" class="anchored" data-anchor-id="demo-5-the-five-command-first-look"><span class="header-section-number">7.2.1</span> Demo 5 — the five-command first look</h3>
 <p>We load <code>datasets/messy_customers.csv</code> — ten rows of the kind of file a colleague actually sends you.</p>
-<div id="5261e67f" class="cell" data-execution_count="6">
+<div id="bd011c80" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -980,7 +935,7 @@ Data columns (total 7 columns):
  5   joined       10 non-null     str    
  6   subscribed   10 non-null     str    
 dtypes: float64(2), int64(1), str(4)
-memory usage: 692.0 bytes
+memory usage: 903.0 bytes
 
 4. DESCRIBE — the numeric columns
        customer_id    age    income
@@ -1063,7 +1018,7 @@ Name: count, dtype: int64</code></pre>
 </table>
 <section id="demo-6-the-three-selectors-side-by-side" class="level3" data-number="7.3.1">
 <h3 data-number="7.3.1" class="anchored" data-anchor-id="demo-6-the-three-selectors-side-by-side"><span class="header-section-number">7.3.1</span> Demo 6 — the three selectors, side by side</h3>
-<div id="640e50c0" class="cell" data-execution_count="7">
+<div id="886a960c" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Whole column:"</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales[<span class="st">"product"</span>].tolist())</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1117,7 +1072,7 @@ Name: count, dtype: int64</code></pre>
 <section id="demo-7-filtering-with-a-condition" class="level3" data-number="7.3.2">
 <h3 data-number="7.3.2" class="anchored" data-anchor-id="demo-7-filtering-with-a-condition"><span class="header-section-number">7.3.2</span> Demo 7 — filtering with a condition</h3>
 <p>Filtering is the single most-used operation in pandas. You write a condition; pandas gives you back only the rows where it is true.</p>
-<div id="aa16032b" class="cell" data-execution_count="8">
+<div id="1b0cec85" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The condition on its own produces True/False for every row:</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Is revenue over 50,000?"</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>((sales[<span class="st">"revenue"</span>] <span class="op">&gt;</span> <span class="dv">50_000</span>).tolist())</span>
@@ -1165,7 +1120,7 @@ Mumbai rows with more than 10 units:
 <p><strong><code>groupby</code> splits the table into groups, applies a calculation to each, and puts the answers back together.</strong> It is how you turn a table of transactions into a summary somebody wants to read.</p>
 <section id="demo-8-from-raw-rows-to-an-answer" class="level3" data-number="7.4.1">
 <h3 data-number="7.4.1" class="anchored" data-anchor-id="demo-8-from-raw-rows-to-an-answer"><span class="header-section-number">7.4.1</span> Demo 8 — from raw rows to an answer</h3>
-<div id="3dc7e910" class="cell" data-execution_count="9">
+<div id="0c15deb8" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Total revenue per city:"</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales.groupby(<span class="st">"city"</span>)[<span class="st">"revenue"</span>].<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>))</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1209,7 +1164,7 @@ Name: revenue, dtype: int64</code></pre>
 </section>
 <section id="demo-9-writing-the-answer-back-out" class="level3" data-number="7.4.2">
 <h3 data-number="7.4.2" class="anchored" data-anchor-id="demo-9-writing-the-answer-back-out"><span class="header-section-number">7.4.2</span> Demo 9 — writing the answer back out</h3>
-<div id="1d6ab65b" class="cell" data-execution_count="10">
+<div id="09d9cc7e" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>summary <span class="op">=</span> sales.groupby(<span class="st">"city"</span>)[<span class="st">"revenue"</span>].<span class="bu">sum</span>().reset_index()</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(summary.to_csv(index<span class="op">=</span><span class="va">False</span>))    <span class="co"># what would be written to a file</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1221,50 +1176,6 @@ Pune,60000
 </div>
 </div>
 <p>In a real project the last line is <code>summary.to_csv("revenue_by_city.csv", index=False)</code>. <code>index=False</code> stops pandas adding an unnamed extra column of row numbers — a small detail that causes a lot of confusion when the file is opened in Excel.</p>
-</section>
-<section id="check-yourself-1" class="level3" data-number="7.4.3">
-<h3 data-number="7.4.3" class="anchored" data-anchor-id="check-yourself-1"><span class="header-section-number">7.4.3</span> ❓ Check yourself</h3>
-<p><strong>Q3.</strong> <code>.info()</code> reports 1,000 entries but the <code>income</code> column has 940 non-null values. What does that mean?</p>
-<ul>
-<li><ol type="a">
-<li>940 customers earn money.</li>
-</ol></li>
-<li><ol start="2" type="a">
-<li><strong>60 income values are missing.</strong></li>
-</ol></li>
-<li><ol start="3" type="a">
-<li>The file is corrupt.</li>
-</ol></li>
-</ul>
-<p><strong>Q4.</strong> Which returns the <em>second</em> row of a DataFrame?</p>
-<ul>
-<li><ol type="a">
-<li><code>df.loc[2]</code></li>
-</ol></li>
-<li><ol start="2" type="a">
-<li><strong><code>df.iloc[1]</code></strong></li>
-</ol></li>
-<li><ol start="3" type="a">
-<li><code>df["2"]</code></li>
-</ol></li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Answers
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>A3 — (b).</strong> 1,000 − 940 = 60 blanks. Session 3 covers what to do about them.</p>
-<p><strong>A4 — (b).</strong> <code>.iloc</code> counts positions from 0, so position 1 is the second row. <code>df.loc[2]</code> looks for a row <em>labelled</em> 2, which is usually the third row.</p>
-</div>
-</div>
-</div>
 </section>
 </section>
 </section>
@@ -1287,7 +1198,7 @@ Pune,60000
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1296,9 +1207,9 @@ Pune,60000
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="f50833ba" class="cell" data-execution_count="11">
+<div id="1ed354ac" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1360,6 +1271,76 @@ Name: count, dtype: int64
 Distinct values found: 5 — there should be 2 (yes and no).</code></pre>
 </div>
 </div>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-s02-mcqs" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> ❓ MCQs</h1>
+<p><strong>Q1.</strong> You need competitor pricing from a website with no API. Which route?</p>
+<ul>
+<li><ol type="a">
+<li>Query your internal database.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Web scraping.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>A customer survey.</li>
+</ol></li>
+</ul>
+<p><strong>Q2.</strong> A phone survey run between 10am and 4pm on weekdays finds that 78% of people are satisfied with local bus services. What is the main problem?</p>
+<ul>
+<li><ol type="a">
+<li>The sample is too small.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>People who commute by bus are at work during those hours and cannot answer.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Phone surveys are illegal.</li>
+</ol></li>
+</ul>
+<p><strong>Q3.</strong> <code>.info()</code> reports 1,000 entries but the <code>income</code> column has 940 non-null values. What does that mean?</p>
+<ul>
+<li><ol type="a">
+<li>940 customers earn money.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>60 income values are missing.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>The file is corrupt.</li>
+</ol></li>
+</ul>
+<p><strong>Q4.</strong> Which returns the <em>second</em> row of a DataFrame?</p>
+<ul>
+<li><ol type="a">
+<li><code>df.loc[2]</code></li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong><code>df.iloc[1]</code></strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li><code>df["2"]</code></li>
+</ol></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" title="Answers">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Answers
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>A1 — (b).</strong> No API means scraping — after checking the terms of service.</p>
+<p><strong>A2 — (b).</strong> The people most affected by bus services are systematically excluded. The result is biased, not merely imprecise, and a bigger sample would not help.</p>
+<p><strong>A3 — (b).</strong> 1,000 − 940 = 60 blanks. Session 3 covers what to do about them.</p>
+<p><strong>A4 — (b).</strong> <code>.iloc</code> counts positions from 0, so position 1 is the second row. <code>df.loc[2]</code> looks for a row <em>labelled</em> 2, which is usually the third row.</p>
 </div>
 </div>
 </div>

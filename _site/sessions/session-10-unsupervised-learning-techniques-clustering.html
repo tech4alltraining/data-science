@@ -365,10 +365,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#demo-9-the-crescents-where-k-means-could-not-win" id="toc-demo-9-the-crescents-where-k-means-could-not-win" class="nav-link" data-scroll-target="#demo-9-the-crescents-where-k-means-could-not-win"><span class="header-section-number">16.2.1</span> Demo 9 — the crescents, where K-Means could not win</a></li>
   <li><a href="#demo-10-choosing-between-the-three" id="toc-demo-10-choosing-between-the-three" class="nav-link" data-scroll-target="#demo-10-choosing-between-the-three"><span class="header-section-number">16.2.2</span> Demo 10 — choosing between the three</a></li>
-  <li><a href="#check-yourself" id="toc-check-yourself" class="nav-link" data-scroll-target="#check-yourself"><span class="header-section-number">16.2.3</span> ❓ Check yourself</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#sec-s10-tasks" id="toc-sec-s10-tasks" class="nav-link" data-scroll-target="#sec-s10-tasks"><span class="header-section-number">17</span> 🎯 Tasks</a></li>
+  <li><a href="#sec-s10-mcqs" id="toc-sec-s10-mcqs" class="nav-link" data-scroll-target="#sec-s10-mcqs"><span class="header-section-number">18</span> ❓ MCQs</a></li>
   </ul>
 </nav>
     </div>
@@ -711,7 +711,7 @@ cluster
 <section id="demo-3-real-data-where-the-scales-genuinely-differ" class="level3" data-number="14.2.1">
 <h3 data-number="14.2.1" class="anchored" data-anchor-id="demo-3-real-data-where-the-scales-genuinely-differ"><span class="header-section-number">14.2.1</span> Demo 3 — real data where the scales genuinely differ</h3>
 <p>The mall file happens to be convenient: income in thousands (range 122) and spending score out of 100 (range 98) are already on comparable scales, so scaling would change almost nothing. <strong>Check before you assume you need it.</strong></p>
-<div id="b70caa1c" class="cell" data-execution_count="4">
+<div id="527284df" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>mall <span class="op">=</span> pd.read_csv(<span class="st">"datasets/Mall_Customers.csv"</span>).rename(columns<span class="op">=</span>{</span>
@@ -928,7 +928,7 @@ k = 8: silhouette 0.457</code></pre>
 </section>
 <section id="demo-6-when-the-silhouette-score-is-wrong" class="level3" data-number="15.2.2">
 <h3 data-number="15.2.2" class="anchored" data-anchor-id="demo-6-when-the-silhouette-score-is-wrong"><span class="header-section-number">15.2.2</span> Demo 6 — when the silhouette score is wrong</h3>
-<div id="382036d9" class="cell" data-execution_count="8">
+<div id="6177dcaf" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> silhouette_score</span>
@@ -970,7 +970,7 @@ mean a good clustering.</code></pre>
 </div>
 <div class="callout-body-container callout-body">
 <p>Ask K-Means for four groups in pure random noise and you will get four groups, each with a centre and a colour, and a chart that looks meaningful.</p>
-<div id="2cd3e29e" class="cell" data-execution_count="9">
+<div id="22e8c72e" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> silhouette_score</span>
@@ -994,7 +994,7 @@ k = 4 on pure noise: silhouette 0.321</code></pre>
 <p><strong>A cluster number is not a deliverable.</strong> <code>cluster = 2</code> means nothing to a marketing team. The deliverable is a <strong>description</strong>.</p>
 <section id="demo-7-from-cluster-numbers-to-named-segments" class="level3" data-number="15.3.1">
 <h3 data-number="15.3.1" class="anchored" data-anchor-id="demo-7-from-cluster-numbers-to-named-segments"><span class="header-section-number">15.3.1</span> Demo 7 — from cluster numbers to named segments</h3>
-<div id="5c93d9ee" class="cell" data-execution_count="10">
+<div id="dfdabf11" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
@@ -1143,7 +1143,7 @@ DBSCAN labelled 0 points as noise (label -1)</code></pre>
 </section>
 <section id="demo-10-choosing-between-the-three" class="level3" data-number="16.2.2">
 <h3 data-number="16.2.2" class="anchored" data-anchor-id="demo-10-choosing-between-the-three"><span class="header-section-number">16.2.2</span> Demo 10 — choosing between the three</h3>
-<div id="4f6345ff" class="cell" data-execution_count="13">
+<div id="ecfdf95b" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">''</span><span class="sc">:&lt;22}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'K-Means'</span><span class="sc">:&lt;22}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Hierarchical'</span><span class="sc">:&lt;22}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'DBSCAN'</span><span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> [</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"must choose k?"</span>,     <span class="st">"yes"</span>,                 <span class="st">"no — cut the tree"</span>,   <span class="st">"no"</span>),</span>
@@ -1166,8 +1166,75 @@ main use               the default first try  exploring structure    odd shapes,
 </div>
 </div>
 </section>
-<section id="check-yourself" class="level3" data-number="16.2.3">
-<h3 data-number="16.2.3" class="anchored" data-anchor-id="check-yourself"><span class="header-section-number">16.2.3</span> ❓ Check yourself</h3>
+</section>
+</section>
+<section id="sec-s10-tasks" class="level1" data-number="17">
+<h1 data-number="17"><span class="header-section-number">17</span> 🎯 Tasks</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Practise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Task 1 — Choose k and defend it.</strong> For the <code>customers</code> data, produce both the elbow plot and the silhouette curve. <strong>State your k and give two reasons.</strong></p>
+<p><strong>Task 2 — Prove scaling matters.</strong> Using <code>datasets/loan_data_10k.csv</code>, cluster on <code>person_income</code> and <code>credit_score</code> unscaled and scaled. <strong>Report what percentage of applicants end up in a different group.</strong></p>
+<p><strong>Task 3 — Name the segments.</strong> Run Demo 7 with k=4 and write a one-sentence description and one recommended action for each segment.</p>
+<p><strong>Task 4 — Cluster noise.</strong> Generate 300 random points with no structure, run K-Means with k=3, and plot the result. <strong>Write one sentence on what this teaches you about trusting a cluster chart.</strong></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="734094f2" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>cust <span class="op">=</span> (pd.read_csv(<span class="st">"datasets/loan_data_10k.csv"</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>          .dropna(subset<span class="op">=</span>[<span class="st">"person_income"</span>, <span class="st">"credit_score"</span>])</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>          .sample(<span class="dv">2_000</span>, random_state<span class="op">=</span><span class="dv">0</span>)[[<span class="st">"person_income"</span>, <span class="st">"credit_score"</span>]])</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — how many applicants change group when you scale?</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>raw <span class="op">=</span> KMeans(<span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(cust)</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>scl <span class="op">=</span> KMeans(<span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(StandardScaler().fit_transform(cust))</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>best_match <span class="op">=</span> pd.crosstab(raw, scl).<span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>).<span class="bu">sum</span>()</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Task 2 — </span><span class="sc">{</span><span class="dv">1</span> <span class="op">-</span> best_match<span class="op">/</span><span class="bu">len</span>(cust)<span class="sc">:.0%}</span><span class="ss"> of applicants land in a different group"</span>)</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"         once the data is scaled. Income is measured in hundreds of thousands and"</span>)</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"         credit score in hundreds, so unscaled, income decides everything."</span>)</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 4 — clusters found in data that has none</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>noise <span class="op">=</span> pd.read_csv(<span class="st">"datasets/random_noise.csv"</span>)[[<span class="st">"x"</span>, <span class="st">"y"</span>]].values</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>lab <span class="op">=</span> KMeans(<span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(noise)</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Task 4 — K-Means split pure noise into groups of </span><span class="sc">{</span>np<span class="sc">.</span>bincount(lab)<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"         A cluster chart always looks convincing. The chart is not the evidence."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Task 2 — 45% of applicants land in a different group
+         once the data is scaled. Income is measured in hundreds of thousands and
+         credit score in hundreds, so unscaled, income decides everything.
+
+Task 4 — K-Means split pure noise into groups of [138, 137, 125].
+         A cluster chart always looks convincing. The chart is not the evidence.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-s10-mcqs" class="level1" data-number="18">
+<h1 data-number="18"><span class="header-section-number">18</span> ❓ MCQs</h1>
 <p><strong>Q1.</strong> What makes clustering unsupervised?</p>
 <ul>
 <li><ol type="a">
@@ -1229,7 +1296,7 @@ main use               the default first try  exploring structure    odd shapes,
 </ol></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1238,80 +1305,13 @@ main use               the default first try  exploring structure    odd shapes,
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>A1 — (b).</strong> Which is why this chapter measures <em>justification</em> rather than accuracy.</p>
 <p><strong>A2 — (b).</strong> This is exactly why the elbow method looks for a bend rather than a minimum.</p>
 <p><strong>A3 — (b).</strong> Demo 3 measured 43% of applicants changing group on real loan data.</p>
 <p><strong>A4 — (b).</strong> Demo 9 measured K-Means at 76% and DBSCAN at essentially perfect.</p>
 <p><strong>A5 — (b).</strong> Demo 6’s noise experiment gave respectable silhouette scores on data with no structure at all. The score cannot tell you whether a grouping is meaningful.</p>
-</div>
-</div>
-</div>
-</section>
-</section>
-</section>
-<section id="sec-s10-tasks" class="level1" data-number="17">
-<h1 data-number="17"><span class="header-section-number">17</span> 🎯 Tasks</h1>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Practise
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Task 1 — Choose k and defend it.</strong> For the <code>customers</code> data, produce both the elbow plot and the silhouette curve. <strong>State your k and give two reasons.</strong></p>
-<p><strong>Task 2 — Prove scaling matters.</strong> Using <code>datasets/loan_data_10k.csv</code>, cluster on <code>person_income</code> and <code>credit_score</code> unscaled and scaled. <strong>Report what percentage of applicants end up in a different group.</strong></p>
-<p><strong>Task 3 — Name the segments.</strong> Run Demo 7 with k=4 and write a one-sentence description and one recommended action for each segment.</p>
-<p><strong>Task 4 — Cluster noise.</strong> Generate 300 random points with no structure, run K-Means with k=3, and plot the result. <strong>Write one sentence on what this teaches you about trusting a cluster chart.</strong></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="2556ab04" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>cust <span class="op">=</span> (pd.read_csv(<span class="st">"datasets/loan_data_10k.csv"</span>)</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>          .dropna(subset<span class="op">=</span>[<span class="st">"person_income"</span>, <span class="st">"credit_score"</span>])</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>          .sample(<span class="dv">2_000</span>, random_state<span class="op">=</span><span class="dv">0</span>)[[<span class="st">"person_income"</span>, <span class="st">"credit_score"</span>]])</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — how many applicants change group when you scale?</span></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>raw <span class="op">=</span> KMeans(<span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(cust)</span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>scl <span class="op">=</span> KMeans(<span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(StandardScaler().fit_transform(cust))</span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>best_match <span class="op">=</span> pd.crosstab(raw, scl).<span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>).<span class="bu">sum</span>()</span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Task 2 — </span><span class="sc">{</span><span class="dv">1</span> <span class="op">-</span> best_match<span class="op">/</span><span class="bu">len</span>(cust)<span class="sc">:.0%}</span><span class="ss"> of applicants land in a different group"</span>)</span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"         once the data is scaled. Income is measured in hundreds of thousands and"</span>)</span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"         credit score in hundreds, so unscaled, income decides everything."</span>)</span>
-<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 4 — clusters found in data that has none</span></span>
-<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>noise <span class="op">=</span> pd.read_csv(<span class="st">"datasets/random_noise.csv"</span>)[[<span class="st">"x"</span>, <span class="st">"y"</span>]].values</span>
-<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>lab <span class="op">=</span> KMeans(<span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">0</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(noise)</span>
-<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Task 4 — K-Means split pure noise into groups of </span><span class="sc">{</span>np<span class="sc">.</span>bincount(lab)<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">."</span>)</span>
-<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"         A cluster chart always looks convincing. The chart is not the evidence."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Task 2 — 45% of applicants land in a different group
-         once the data is scaled. Income is measured in hundreds of thousands and
-         credit score in hundreds, so unscaled, income decides everything.
-
-Task 4 — K-Means split pure noise into groups of [138, 137, 125].
-         A cluster chart always looks convincing. The chart is not the evidence.</code></pre>
-</div>
-</div>
 </div>
 </div>
 </div>

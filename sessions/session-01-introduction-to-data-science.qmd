@@ -121,31 +121,29 @@ print(f"Spend ₹150,000 on TV and expect to sell about {predicted*1000:,.0f} un
 That is the whole shape of it: **data in, pattern found, question answered.**
 Everything else in this course is doing that more carefully, on messier data.
 
-### ❓ Check yourself
+### Demo 2 — could five shops alone have told us this?
 
-**Q1.** Which is the most accurate description of data science?
+The fitted line used all 200 markets. Before trusting maths you cannot see, it is worth
+asking: could a much smaller look have hinted at the same thing?
 
-- (a) Writing software applications for web browsers.
-- (b) **Turning recorded facts into decisions, using programming, mathematics and
-  knowledge of the subject.**
-- (c) Reading customer emails to find complaints.
-- (d) Installing and maintaining servers.
+```{python}
+import pandas as pd
 
-**Q2.** A model correctly predicts which patients will be readmitted to hospital, but
-the team did not realise the "discharge code" column is only filled in *after* a
-readmission is scheduled. Which ingredient was missing?
+ads = pd.read_csv("datasets/advertising.csv")
+five = ads.head()
+print(five[["TV", "Sales"]])
 
-- (a) Programming.
-- (b) Mathematics.
-- (c) **Domain knowledge.**
+cheapest = five.loc[five["TV"].idxmin()]
+priciest = five.loc[five["TV"].idxmax()]
+print(f"\nLeast spent: ₹{cheapest['TV']*1000:,.0f} on TV -> sold {cheapest['Sales']*1000:,.0f} units")
+print(f"Most spent : ₹{priciest['TV']*1000:,.0f} on TV -> sold {priciest['Sales']*1000:,.0f} units")
+```
 
-::: {.callout-note collapse="true" title="Answers"}
-**A1 — (b).** (a) is software engineering, (c) is manual research, (d) is IT
-administration.
-
-**A2 — (c).** The code ran and the maths was sound. Only somebody who knew the
-hospital's process would spot that the column contains the answer.
-:::
+Five rows already hint at the pattern — more spend, more sales. But a hint is not a
+measurement: five rows could easily be a coincidence, and there is no way to turn
+"more spend, more sales" into a number you can act on without the maths behind Demo 1.
+**Noticing a pattern and being able to use it are two different skills**, and data
+science is mostly the second one.
 
 **We have said "data" a dozen times. It is worth being precise about what that word
 covers, because it is wider than a spreadsheet.**
@@ -165,7 +163,7 @@ Most of this course works with structured data, because that is where the ideas 
 clearest. The techniques for the other two are the same ideas with more preparation in
 front of them.
 
-### Demo 2 — the same facts in three files
+### Demo 3 — the same facts in three files
 
 The same three orders, stored three different ways: `orders.csv`, `orders.json` and
 `order_notes.txt`. **Three files, three loaders** — and the work rises sharply from the
@@ -215,6 +213,38 @@ Blanks where a field was absent, and one column holding a whole nested record.
 print(pd.json_normalize(semi))
 ```
 
+### Demo 4 — what "effort to analyse" costs, in numbers
+
+The table above said effort rises from structured to unstructured. Here it is as an
+actual number: add up the total order value from each of the three files.
+
+```{python}
+import pandas as pd
+import json
+import re
+
+# CSV: the column already exists. The total is one line.
+structured = pd.read_csv("datasets/orders.csv")
+print(f"Structured total     (orders.csv)   : ₹{structured['amount'].sum():,.0f}")
+
+# JSON: normalise into a table first, then the same one line works.
+semi = json.loads(open("datasets/orders.json").read())
+semi_table = pd.json_normalize(semi)
+print(f"Semi-structured total (orders.json) : ₹{semi_table['amount'].sum():,.0f}")
+
+# Text: there is no "amount" column, only sentences. Pull out whatever looks like a number.
+notes = open("datasets/order_notes.txt").read()
+numbers_found = re.findall(r"\b\d+\b", notes)
+print(f"\nDigits found in the text file: {numbers_found}")
+print(f"Unstructured total, naive guess (order_notes.txt): ₹{sum(int(n) for n in numbers_found):,.0f}")
+```
+
+The CSV and the JSON agree: ₹750. The text file's naive total is **₹340** — not close,
+and wrong without raising any error. Chan's ₹410 was written as words ("four hundred
+and ten"), and a search for digits cannot see it. **Getting the real total out of free
+text needs code that understands English**, which is a far bigger job than reading a
+column.
+
 # Part B — Where it came from {#sec-s01-b}
 
 ## 3. How the field grew {#sec-s01-topic-3}
@@ -239,7 +269,7 @@ keep it as the score your complicated method has to beat. A model that cannot be
 average has not worked.
 :::
 
-### Demo 3 — the simple method is hard to beat
+### Demo 5 — the simple method is hard to beat
 
 Two ways to predict tomorrow's demand. The plain one: **the average of every past day.**
 The reactive one: **whatever happened yesterday.** Judge them over sixty days, not one —
@@ -268,6 +298,34 @@ yesterday's wobble carries no information about today. Notice that it does *not*
 every day — it wins on average, which is the only sense in which one method beats
 another. **This is why a single comparison proves nothing, and why Session 11 exists.**
 
+### Demo 6 — same race, a trending signal instead of a stable one
+
+That test used demand that wobbles around a flat level. What if the level itself is
+genuinely moving? `datasets/daily_price.csv` — used again later in this chapter — trends
+upward over 100 days. Same race, different track.
+
+```{python}
+import numpy as np
+import pandas as pd
+
+price = pd.read_csv("datasets/daily_price.csv")["price"].values
+
+avg_errors, yest_errors = [], []
+for day in range(10, len(price)):
+    history = price[:day]
+    avg_errors.append(abs(price[day] - history.mean()))     # predict the running average
+    yest_errors.append(abs(price[day] - price[day - 1]))    # predict yesterday's value
+
+print(f"Predicting with the running average : average error {np.mean(avg_errors):5.2f}")
+print(f"Predicting with yesterday's value    : average error {np.mean(yest_errors):5.2f}")
+```
+
+Now **yesterday's value wins by a wide margin** — 3.98 against 13.72. Once the level
+itself is moving, the running average is always looking back at a level the data has
+already left behind, while yesterday's value at least starts close to today.
+**"Try the simple method first" does not mean "always use the same simple method"** — it
+means measure more than one and let the data pick.
+
 ## 4. AI, machine learning, deep learning, generative AI {#sec-s01-topic-4}
 
 **These four words are used interchangeably in the news. They are not the same thing.
@@ -293,29 +351,6 @@ The useful distinction is **who writes the rule**:
 collecting the data, cleaning it, exploring it, and explaining the result to somebody
 who has to act on it. In most real projects the machine learning is the *smallest* part.
 
-### ❓ Check yourself
-
-**Q3.** A shop's till software prints a discount when the total is over ₹5,000. Is this
-machine learning?
-
-- (a) Yes, because a computer decided.
-- (b) **No — a human wrote the rule. The machine learned nothing.**
-- (c) Yes, because it uses customer data.
-
-**Q4.** Which statement is true?
-
-- (a) Machine learning includes artificial intelligence.
-- (b) **Deep learning is one kind of machine learning.**
-- (c) Generative AI and data science are the same thing.
-
-::: {.callout-note collapse="true" title="Answers"}
-**A3 — (b).** The rule was written by a person and never changes. Machine learning
-would be the till working out *for itself*, from past receipts, which customers respond
-to a discount.
-
-**A4 — (b).** AI is the widest circle; machine learning sits inside it; deep learning
-sits inside machine learning; generative AI sits inside deep learning.
-:::
 
 # Part C — Who does it, and how {#sec-s01-c}
 
@@ -341,19 +376,6 @@ Two more titles you will meet: the **machine learning engineer**, who takes a wo
 model and makes it survive real traffic, and the **BI developer**, who builds the
 dashboards an analyst designs.
 
-### ❓ Check yourself
-
-**Q5.** Terabytes of messy log files sit on ten different servers, and nobody can query
-them. Who do you hire first?
-
-- (a) Data scientist.
-- (b) **Data engineer.**
-- (c) Data analyst.
-
-::: {.callout-note collapse="true" title="Answers"}
-**A5 — (b).** Until the data is somewhere queryable, the other two have nothing to work
-with. This is the most common sequencing mistake real teams make.
-:::
 
 ## 6. The data science lifecycle {#sec-s01-topic-6}
 
@@ -376,7 +398,7 @@ the data takes most of a project**, and modelling is often an afternoon. This is
 Sessions 2 to 8 — seven of sixteen — are about data rather than about algorithms.
 :::
 
-### Demo 4 — all seven stages in one cell
+### Demo 7 — all seven stages in one cell
 
 This is the entire lifecycle, on tiny data, so you can see the whole shape before we
 slow down and do each stage properly. **You are not expected to follow the detail yet.**
@@ -422,6 +444,32 @@ Every stage above is one line here and one *chapter* later. Session 3 spends a w
 chapter on that single `fillna`, because there are six ways to do it and choosing
 wrongly changes the answer.
 
+### Demo 8 — what happens if you skip Stage 3
+
+The callout above said Stage 3 is most of the work. Here is what happens if you skip it
+and jump straight from Stage 2 to Stage 5.
+
+```{python}
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+
+flats_raw = pd.read_csv("datasets/flats.csv")     # loaded, but never cleaned
+X = flats_raw[["sqft", "age_yrs"]]
+y = flats_raw["rent"]
+
+try:
+    LinearRegression().fit(X, y)
+    print("Model trained fine.")
+except ValueError as e:
+    print("Training failed instead of silently giving a wrong answer:")
+    print(f"  {type(e).__name__}: {str(e).splitlines()[0]}")
+```
+
+scikit-learn refuses outright rather than guessing what the missing square footage
+should be. That is the better failure — a model trained on a silently mean-filled column
+would give an answer with no warning attached. **Stage 3 does not just make the numbers
+nicer; skipping it can stop Stage 5 from running at all.**
+
 ## 7. What it is used for {#sec-s01-topic-7}
 
 **Any process that currently relies on somebody guessing can usually be improved by
@@ -438,7 +486,7 @@ finding the pattern in what happened before.**
 | **Route optimisation** | how long the journey takes | maps, delivery firms |
 | **Credit scoring** | whether a loan is repaid | lenders — and Sessions 9 and 12 |
 
-### Demo 5 — a recommendation, from scratch
+### Demo 9 — a recommendation, from scratch
 
 Recommendation engines sound complicated. The simplest useful one is a single idea:
 **find the person most like you, and suggest what they liked that you have not seen.**
@@ -453,7 +501,12 @@ print(ratings)
 # How similar is each viewer to you? Count agreement across the films you have both seen.
 you = ratings.loc["You"]
 others = ratings.drop("You")
-similarity = others.apply(lambda person: (person * you).sum(), axis=1)
+
+similarity_scores = {}
+for viewer in others.index:
+    person = others.loc[viewer]
+    similarity_scores[viewer] = (person * you).sum()
+similarity = pd.Series(similarity_scores)
 
 print("\nSimilarity to you:")
 print(similarity.sort_values(ascending=False))
@@ -468,7 +521,7 @@ for film in unseen:
 Real systems do this across millions of users with far better similarity measures, but
 the idea on screen is the idea they use.
 
-### Demo 6 — what you will be able to build
+### Demo 10 — what you will be able to build
 
 By Session 12 you will train a model and put it behind a web page. Here is the kind of
 output that page will show: history, a prediction, and an honest band around it.
@@ -531,6 +584,62 @@ nearby real shops. 80 is beyond every shop in the data — the line has been *ex
 into territory where we have no evidence the relationship still holds. Predicting
 outside the observed range is called **extrapolation**, and it is where models fail
 most confidently.
+:::
+
+# ❓ MCQs {#sec-s01-mcqs}
+
+**Q1.** Which is the most accurate description of data science?
+
+- (a) Writing software applications for web browsers.
+- (b) **Turning recorded facts into decisions, using programming, mathematics and
+  knowledge of the subject.**
+- (c) Reading customer emails to find complaints.
+- (d) Installing and maintaining servers.
+
+**Q2.** A model correctly predicts which patients will be readmitted to hospital, but
+the team did not realise the "discharge code" column is only filled in *after* a
+readmission is scheduled. Which ingredient was missing?
+
+- (a) Programming.
+- (b) Mathematics.
+- (c) **Domain knowledge.**
+
+**Q3.** A shop's till software prints a discount when the total is over ₹5,000. Is this
+machine learning?
+
+- (a) Yes, because a computer decided.
+- (b) **No — a human wrote the rule. The machine learned nothing.**
+- (c) Yes, because it uses customer data.
+
+**Q4.** Which statement is true?
+
+- (a) Machine learning includes artificial intelligence.
+- (b) **Deep learning is one kind of machine learning.**
+- (c) Generative AI and data science are the same thing.
+
+**Q5.** Terabytes of messy log files sit on ten different servers, and nobody can query
+them. Who do you hire first?
+
+- (a) Data scientist.
+- (b) **Data engineer.**
+- (c) Data analyst.
+
+::: {.callout-note collapse="true" title="Answers"}
+**A1 — (b).** (a) is software engineering, (c) is manual research, (d) is IT
+administration.
+
+**A2 — (c).** The code ran and the maths was sound. Only somebody who knew the
+hospital's process would spot that the column contains the answer.
+
+**A3 — (b).** The rule was written by a person and never changes. Machine learning
+would be the till working out *for itself*, from past receipts, which customers respond
+to a discount.
+
+**A4 — (b).** AI is the widest circle; machine learning sits inside it; deep learning
+sits inside machine learning; generative AI sits inside deep learning.
+
+**A5 — (b).** Until the data is somewhere queryable, the other two have nothing to work
+with. This is the most common sequencing mistake real teams make.
 :::
 
 ::: {.callout-tip title="✅ Before you move on"}

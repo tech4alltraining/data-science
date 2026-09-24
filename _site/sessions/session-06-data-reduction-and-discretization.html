@@ -361,10 +361,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#demo-8-equal-width-and-equal-frequency-top-down" id="toc-demo-8-equal-width-and-equal-frequency-top-down" class="nav-link" data-scroll-target="#demo-8-equal-width-and-equal-frequency-top-down"><span class="header-section-number">12.1.1</span> Demo 8 — equal-width and equal-frequency, top-down</a></li>
   <li><a href="#demo-9-bins-chosen-by-domain-knowledge-which-usually-beats-both" id="toc-demo-9-bins-chosen-by-domain-knowledge-which-usually-beats-both" class="nav-link" data-scroll-target="#demo-9-bins-chosen-by-domain-knowledge-which-usually-beats-both"><span class="header-section-number">12.1.2</span> Demo 9 — bins chosen by domain knowledge, which usually beats both</a></li>
   <li><a href="#demo-10-bottom-up-merging-by-hand" id="toc-demo-10-bottom-up-merging-by-hand" class="nav-link" data-scroll-target="#demo-10-bottom-up-merging-by-hand"><span class="header-section-number">12.1.3</span> Demo 10 — bottom-up merging, by hand</a></li>
-  <li><a href="#check-yourself" id="toc-check-yourself" class="nav-link" data-scroll-target="#check-yourself"><span class="header-section-number">12.1.4</span> ❓ Check yourself</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#sec-s06-tasks" id="toc-sec-s06-tasks" class="nav-link" data-scroll-target="#sec-s06-tasks"><span class="header-section-number">13</span> 🎯 Tasks</a></li>
+  <li><a href="#sec-s06-mcqs" id="toc-sec-s06-mcqs" class="nav-link" data-scroll-target="#sec-s06-mcqs"><span class="header-section-number">14</span> ❓ MCQs</a></li>
   </ul>
 </nav>
     </div>
@@ -521,7 +521,7 @@ Note
 </div>
 <section id="demo-1-adding-useless-columns-makes-the-model-worse" class="level3" data-number="9.2.1">
 <h3 data-number="9.2.1" class="anchored" data-anchor-id="demo-1-adding-useless-columns-makes-the-model-worse"><span class="header-section-number">9.2.1</span> Demo 1 — adding useless columns makes the model worse</h3>
-<div id="aac82c56" class="cell" data-execution_count="2">
+<div id="b42766cb" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
@@ -616,7 +616,7 @@ Note
 </table>
 <section id="demo-2-the-three-families-on-one-dataset" class="level3" data-number="10.1.1">
 <h3 data-number="10.1.1" class="anchored" data-anchor-id="demo-2-the-three-families-on-one-dataset"><span class="header-section-number">10.1.1</span> Demo 2 — the three families on one dataset</h3>
-<div id="3ec062a1" class="cell" data-execution_count="3">
+<div id="f1f72fa6" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_selection <span class="im">import</span> SelectKBest, f_regression, RFE</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression, LassoCV</span>
@@ -698,7 +698,7 @@ dtype: float64</code></pre>
 </div>
 <section id="demo-3-three-overlapping-columns-become-one" class="level3" data-number="10.2.1">
 <h3 data-number="10.2.1" class="anchored" data-anchor-id="demo-3-three-overlapping-columns-become-one"><span class="header-section-number">10.2.1</span> Demo 3 — three overlapping columns become one</h3>
-<div id="f4d8f881" class="cell" data-execution_count="4">
+<div id="c8a2215a" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
@@ -801,7 +801,7 @@ Component-by-component: [0.387, 0.349, 0.13, 0.089, 0.014, 0.009] ...</code></pr
 </section>
 <section id="demo-5-always-scale-before-pca" class="level3" data-number="10.2.3">
 <h3 data-number="10.2.3" class="anchored" data-anchor-id="demo-5-always-scale-before-pca"><span class="header-section-number">10.2.3</span> Demo 5 — always scale before PCA</h3>
-<div id="03a12cef" class="cell" data-execution_count="6">
+<div id="19daf888" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
@@ -862,7 +862,7 @@ With scaling, component 1 carries 36.7%
 </table>
 <section id="demo-6-a-sample-a-histogram-and-a-two-number-model" class="level3" data-number="11.1.1">
 <h3 data-number="11.1.1" class="anchored" data-anchor-id="demo-6-a-sample-a-histogram-and-a-two-number-model"><span class="header-section-number">11.1.1</span> Demo 6 — a sample, a histogram, and a two-number model</h3>
-<div id="f5fc319f" class="cell" data-execution_count="7">
+<div id="492694cf" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -899,7 +899,7 @@ Two numbers    : 0.000016 MB, mean 50,011 (stored as mean and standard deviation
 <p><strong>Rolling up</strong> is going from fine to coarse (day → month). <strong>Drilling down</strong> is the reverse.</p>
 <section id="demo-7-rolling-the-same-data-up-three-ways" class="level3" data-number="11.2.1">
 <h3 data-number="11.2.1" class="anchored" data-anchor-id="demo-7-rolling-the-same-data-up-three-ways"><span class="header-section-number">11.2.1</span> Demo 7 — rolling the same data up three ways</h3>
-<div id="6c774c50" class="cell" data-execution_count="8">
+<div id="afcecd73" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, numpy <span class="im">as</span> np</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>sales <span class="op">=</span> pd.read_csv(<span class="st">"datasets/shop_daily_sales.csv"</span>, parse_dates<span class="op">=</span>[<span class="st">"date"</span>])</span>
@@ -965,7 +965,7 @@ date
 <p><strong>Before you act on an aggregate, drill back down once and check the parts agree with the whole.</strong></p>
 </div>
 </div>
-<div id="ba4213cd" class="cell" data-execution_count="9">
+<div id="a6e0a31c" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Watch it happen: two shops both decline, yet the total rises.</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>detail <span class="op">=</span> pd.read_csv(<span class="st">"datasets/simpsons_shops.csv"</span>)   <span class="co"># shop C opens in February</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(detail.pivot_table(index<span class="op">=</span><span class="st">"month"</span>, columns<span class="op">=</span><span class="st">"shop"</span>, values<span class="op">=</span><span class="st">"sales"</span>))</span>
@@ -1034,7 +1034,7 @@ Total is up. Every shop that existed in January is down.</code></pre>
 </table>
 <section id="demo-8-equal-width-and-equal-frequency-top-down" class="level3" data-number="12.1.1">
 <h3 data-number="12.1.1" class="anchored" data-anchor-id="demo-8-equal-width-and-equal-frequency-top-down"><span class="header-section-number">12.1.1</span> Demo 8 — equal-width and equal-frequency, top-down</h3>
-<div id="a13e9a29" class="cell" data-execution_count="10">
+<div id="a4e8c226" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, numpy <span class="im">as</span> np</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>ages <span class="op">=</span> pd.read_csv(<span class="st">"datasets/survey_ages.csv"</span>)[<span class="st">"age"</span>]   <span class="co"># mostly young, a long older tail</span></span>
@@ -1070,7 +1070,7 @@ Name: count, dtype: int64</code></pre>
 </section>
 <section id="demo-9-bins-chosen-by-domain-knowledge-which-usually-beats-both" class="level3" data-number="12.1.2">
 <h3 data-number="12.1.2" class="anchored" data-anchor-id="demo-9-bins-chosen-by-domain-knowledge-which-usually-beats-both"><span class="header-section-number">12.1.2</span> Demo 9 — bins chosen by domain knowledge, which usually beats both</h3>
-<div id="34a78730" class="cell" data-execution_count="11">
+<div id="10f40a70" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>labelled <span class="op">=</span> pd.cut(ages,</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                  bins<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">12</span>, <span class="dv">19</span>, <span class="dv">35</span>, <span class="dv">60</span>, <span class="dv">120</span>],</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                  labels<span class="op">=</span>[<span class="st">"child"</span>, <span class="st">"teen"</span>, <span class="st">"young adult"</span>, <span class="st">"middle aged"</span>, <span class="st">"senior"</span>])</span>
@@ -1094,7 +1094,7 @@ than a mathematically tidy split.</code></pre>
 <section id="demo-10-bottom-up-merging-by-hand" class="level3" data-number="12.1.3">
 <h3 data-number="12.1.3" class="anchored" data-anchor-id="demo-10-bottom-up-merging-by-hand"><span class="header-section-number">12.1.3</span> Demo 10 — bottom-up merging, by hand</h3>
 <p>Bottom-up methods start with every value separate and merge neighbours that behave alike. Here is the idea in twenty lines: merge adjacent bins while their outcome rates are similar.</p>
-<div id="15874163" class="cell" data-execution_count="12">
+<div id="181adf3f" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ten age groups and the proportion in each who bought insurance.</span></span>
@@ -1151,8 +1151,90 @@ age_group   n  bought
 </div>
 </div>
 </section>
-<section id="check-yourself" class="level3" data-number="12.1.4">
-<h3 data-number="12.1.4" class="anchored" data-anchor-id="check-yourself"><span class="header-section-number">12.1.4</span> ❓ Check yourself</h3>
+</section>
+</section>
+<section id="sec-s06-tasks" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> 🎯 Tasks</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Practise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Task 1 — Find the elbow.</strong> In Demo 4, change the number of hidden factors from 4 to 7 and re-run. <strong>Report how many components PCA now needs for 90%.</strong></p>
+<p><strong>Task 2 — Compare three reductions.</strong> Take the 6-column dataset from Demo 2. Build a model three ways — all columns, the 3 selected columns, and 3 PCA components — and report the test R² for each. <strong>Which wins, and does that surprise you?</strong></p>
+<p><strong>Task 3 — Choose bins.</strong> Discretize income into bins that would make sense to a marketing team. Justify each boundary in one sentence.</p>
+<p><strong>Task 4 — Break an aggregate.</strong> Extend the shop example so that three shops are open in January and five in February. Show the regional total rising while every original shop falls.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="f3cc195b" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — all columns vs selected columns vs PCA components</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>houses <span class="op">=</span> pd.read_csv(<span class="st">"datasets/house_features.csv"</span>)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> houses.drop(columns<span class="op">=</span><span class="st">"price"</span>)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> houses[<span class="st">"price"</span>]</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>Xtr, Xte, ytr, yte <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>real <span class="op">=</span> [<span class="st">"area"</span>, <span class="st">"bedrooms"</span>, <span class="st">"age"</span>]</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>sc <span class="op">=</span> StandardScaler().fit(Xtr)</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">3</span>).fit(sc.transform(Xtr))</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> {</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"all 6 columns"</span>:      LinearRegression().fit(Xtr, ytr).score(Xte, yte),</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"3 selected columns"</span>: LinearRegression().fit(Xtr[real], ytr).score(Xte[real], yte),</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"3 PCA components"</span>:   LinearRegression().fit(p.transform(sc.transform(Xtr)), ytr)</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>                                            .score(p.transform(sc.transform(Xte)), yte),</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, v <span class="kw">in</span> results.items():</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Task 2 — </span><span class="sc">{</span>k<span class="sc">:&lt;20}</span><span class="ss"> test R² </span><span class="sc">{</span>v<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">All-columns and selection are indistinguishable — a gap of 0.0003 is noise,"</span>)</span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"not a result. With 300 rows and only 3 junk columns, the model coped."</span>)</span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"PCA is the surprise: R² near zero means it predicts no better than always"</span>)</span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"guessing the average price. It chose its 3 directions by variance alone, and"</span>)</span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"the noise columns have variance too. PCA never looks at the target, so it"</span>)</span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"cannot know which variation is the useful kind."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Task 2 — all 6 columns        test R² 0.9714
+Task 2 — 3 selected columns   test R² 0.9711
+Task 2 — 3 PCA components     test R² -0.0065
+
+All-columns and selection are indistinguishable — a gap of 0.0003 is noise,
+not a result. With 300 rows and only 3 junk columns, the model coped.
+PCA is the surprise: R² near zero means it predicts no better than always
+guessing the average price. It chose its 3 directions by variance alone, and
+the noise columns have variance too. PCA never looks at the target, so it
+cannot know which variation is the useful kind.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-s06-mcqs" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> ❓ MCQs</h1>
 <p><strong>Q1.</strong> You add 50 columns of random noise to a dataset. What happens to the <em>training</em> score and the <em>test</em> score?</p>
 <ul>
 <li><ol type="a">
@@ -1202,7 +1284,7 @@ age_group   n  bought
 </ol></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1211,94 +1293,12 @@ age_group   n  bought
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>A1 — (b).</strong> A model can always fit more noise on data it has seen. Demo 1 measured the test score falling.</p>
 <p><strong>A2 — (b).</strong> PCA and RFE both work on columns.</p>
 <p><strong>A3 — (b).</strong> Demo 5 showed component 1 becoming “the income column” when scaling was skipped.</p>
 <p><strong>A4 — (b).</strong> “Component 1 was low” is not an explanation anybody can act on.</p>
-</div>
-</div>
-</div>
-</section>
-</section>
-</section>
-<section id="sec-s06-tasks" class="level1" data-number="13">
-<h1 data-number="13"><span class="header-section-number">13</span> 🎯 Tasks</h1>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Practise
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Task 1 — Find the elbow.</strong> In Demo 4, change the number of hidden factors from 4 to 7 and re-run. <strong>Report how many components PCA now needs for 90%.</strong></p>
-<p><strong>Task 2 — Compare three reductions.</strong> Take the 6-column dataset from Demo 2. Build a model three ways — all columns, the 3 selected columns, and 3 PCA components — and report the test R² for each. <strong>Which wins, and does that surprise you?</strong></p>
-<p><strong>Task 3 — Choose bins.</strong> Discretize income into bins that would make sense to a marketing team. Justify each boundary in one sentence.</p>
-<p><strong>Task 4 — Break an aggregate.</strong> Extend the shop example so that three shops are open in January and five in February. Show the regional total rising while every original shop falls.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="a7c3d1e3" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — all columns vs selected columns vs PCA components</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>houses <span class="op">=</span> pd.read_csv(<span class="st">"datasets/house_features.csv"</span>)</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> houses.drop(columns<span class="op">=</span><span class="st">"price"</span>)</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> houses[<span class="st">"price"</span>]</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>Xtr, Xte, ytr, yte <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>real <span class="op">=</span> [<span class="st">"area"</span>, <span class="st">"bedrooms"</span>, <span class="st">"age"</span>]</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>sc <span class="op">=</span> StandardScaler().fit(Xtr)</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">3</span>).fit(sc.transform(Xtr))</span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> {</span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"all 6 columns"</span>:      LinearRegression().fit(Xtr, ytr).score(Xte, yte),</span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"3 selected columns"</span>: LinearRegression().fit(Xtr[real], ytr).score(Xte[real], yte),</span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"3 PCA components"</span>:   LinearRegression().fit(p.transform(sc.transform(Xtr)), ytr)</span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>                                            .score(p.transform(sc.transform(Xte)), yte),</span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, v <span class="kw">in</span> results.items():</span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Task 2 — </span><span class="sc">{</span>k<span class="sc">:&lt;20}</span><span class="ss"> test R² </span><span class="sc">{</span>v<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">All-columns and selection are indistinguishable — a gap of 0.0003 is noise,"</span>)</span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"not a result. With 300 rows and only 3 junk columns, the model coped."</span>)</span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"PCA is the surprise: R² near zero means it predicts no better than always"</span>)</span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"guessing the average price. It chose its 3 directions by variance alone, and"</span>)</span>
-<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"the noise columns have variance too. PCA never looks at the target, so it"</span>)</span>
-<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"cannot know which variation is the useful kind."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Task 2 — all 6 columns        test R² 0.9714
-Task 2 — 3 selected columns   test R² 0.9711
-Task 2 — 3 PCA components     test R² -0.0065
-
-All-columns and selection are indistinguishable — a gap of 0.0003 is noise,
-not a result. With 300 rows and only 3 junk columns, the model coped.
-PCA is the surprise: R² near zero means it predicts no better than always
-guessing the average price. It chose its 3 directions by variance alone, and
-the noise columns have variance too. PCA never looks at the target, so it
-cannot know which variation is the useful kind.</code></pre>
-</div>
-</div>
 </div>
 </div>
 </div>

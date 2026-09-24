@@ -91,8 +91,41 @@ problems = [
 print(f"{'problem':<48} {'answer looks like':<18} {'task'}")
 print("-" * 84)
 for q, example, kind in problems:
-    print(f"{q:<48} {example:<18} {'REGRESSION' if kind=='number' else 'CLASSIFICATION'}")
+    label = "REGRESSION" if kind == "number" else "CLASSIFICATION"
+    print(f"{q:<48} {example:<18} {label}")
 ```
+
+That table was hand-built to make the point. Real columns need a real check.
+
+### Demo 2 — the same test on real columns
+
+```{python}
+import pandas as pd
+
+homes = pd.read_csv("datasets/house_prices.csv")   # used properly from Part C onward
+churn = pd.read_csv("datasets/telecom_churn.csv")  # a fresh dataset, just for this contrast
+
+print(f"price   : {homes['price'].nunique()} distinct values  → looks like REGRESSION")
+print(f"churned : {churn['churned'].nunique()} distinct values → looks like CLASSIFICATION")
+```
+
+**Counting distinct values is a quick, useful first check** — a column with hundreds of
+different numbers is very unlikely to be a category, and a column with two values is very
+unlikely to be a continuous measurement.
+
+### Demo 3 — why counting distinct values is not enough
+
+```{python}
+distinct_bedrooms = sorted(int(b) for b in homes["bedrooms"].unique())
+print(f"bedrooms: {homes['bedrooms'].nunique()} distinct values → {distinct_bedrooms}")
+```
+
+**`bedrooms` has only 5 distinct values — as few as a 5-category classification target
+would have.** Counting alone cannot settle this one. `bedrooms` is still a genuine count
+(five bedrooms really is two more than three), so treating it as a number is a safe call —
+Part C fits a regression on it. **A satisfaction rating from 1 to 5 has exactly the same
+shape of data and a much shakier claim behind it.** The check that actually matters is the
+one below.
 
 ::: {.callout-warning title="⚠️ A number is not always a regression target"}
 A rating of 1 to 5 *looks* numeric. But if the gap between 1 and 2 does not mean the
@@ -120,7 +153,7 @@ $$\text{prediction} = \text{intercept} + \text{slope} \times \text{input}$$
 distances to the points as small as possible. Squared, for the same reason as in Session
 7 — so that errors above and below the line cannot cancel out.
 
-### Demo 2 — fitting one line, and reading it out loud
+### Demo 4 — fitting one line, and reading it out loud
 
 ```{python}
 #| label: fig-s09-simple
@@ -155,7 +188,7 @@ print(f'  "Someone with no experience earns about ₹{model.intercept_:,.0f}.')
 print(f'   Each additional year is worth about ₹{model.coef_[0]:,.0f}."')
 ```
 
-### Demo 3 — using it to predict
+### Demo 5 — using it to predict
 
 ```{python}
 import pandas as pd
@@ -196,7 +229,7 @@ bedroom adds ₹4 lakh, comparing houses of the same area and age"** is right �
 completely different claim, because bigger houses usually have more bedrooms anyway.
 :::
 
-### Demo 4 — a real multiple regression, done properly
+### Demo 6 — a real multiple regression, done properly
 
 ```{python}
 import numpy as np, pandas as pd
@@ -227,7 +260,7 @@ print(f"  one more bedroom      → ₹{model.coef_[1]:>10,.0f}   (same area, sa
 print(f"  one more year of age  → ₹{model.coef_[2]:>10,.0f}   (same area, same bedrooms)")
 ```
 
-### Demo 5 — why "holding constant" changes the answer
+### Demo 7 — why "holding constant" changes the answer
 
 ```{python}
 from sklearn.linear_model import LinearRegression
@@ -250,7 +283,7 @@ the **individual coefficients become unstable** and should not be quoted as find
 This is called **multicollinearity**, and Session 8's heatmap is how you spot it coming.
 :::
 
-### Demo 6 — adding features one at a time
+### Demo 8 — adding features one at a time
 
 ```{python}
 import pandas as pd
@@ -290,7 +323,7 @@ automates exactly this comparison.
 | **RMSE** | square root of the average *squared* error | same as the target | **punishes large errors much harder** |
 | **R²** | share of the variation the model explains | none — a fraction | 1.0 perfect, 0 no better than the average |
 
-### Demo 7 — computed by hand, then by scikit-learn
+### Demo 9 — computed by hand, then by scikit-learn
 
 ```{python}
 import numpy as np
@@ -318,7 +351,7 @@ print(f"\nscikit-learn agrees: MAE {mean_absolute_error(actual, predicted):.2f},
       f"R² {r2_score(actual, predicted):.4f}")
 ```
 
-### Demo 8 — why MAE and RMSE disagree, and when it matters
+### Demo 10 — why MAE and RMSE disagree, and when it matters
 
 ```{python}
 import numpy as np
@@ -349,7 +382,7 @@ small ones.
 | you are talking to a non-technical audience | **MAE** | *"we are typically off by ₹2 lakh"* needs no explanation |
 | you are comparing across different datasets | **R²** | it has no units |
 
-### Demo 9 — always compare against a baseline
+### Demo 11 — always compare against a baseline
 
 ```{python}
 import numpy as np
@@ -390,7 +423,7 @@ can still work — but the coefficients and confidence in them cannot be trusted
 | **Independence** | one row's error tells you nothing about the next | know how the data was collected |
 | **No severe multicollinearity** | features are not near-copies of each other | correlation heatmap |
 
-### Demo 10 — the residual plot, and the two shapes that condemn a model
+### Demo 12 — the residual plot, and the two shapes that condemn a model
 
 ```{python}
 #| label: fig-s09-residuals
@@ -427,7 +460,7 @@ print("             reliable for large values than the single R² suggests.")
 Session 11 goes further with this. For now: **draw the residual plot before you believe
 the R².**
 
-### Demo 11 — when the straight line is the wrong shape
+### Demo 13 — when the straight line is the wrong shape
 
 ```{python}
 import numpy as np
@@ -454,7 +487,60 @@ print("`PolynomialFeatures(2)` adds a squared term, and the same LinearRegressio
 print("then fits a curve — the model is still 'linear' in its coefficients.")
 ```
 
-### ❓ Check yourself
+# 🎯 Tasks {#sec-s09-tasks}
+
+::: {.callout-note title="✏️ Practise"}
+**Task 1 — Classify the problem.** Regression or classification: predicting how many
+days a patient stays in hospital; whether an email is spam; a film's rating out of 10;
+which of four warehouses should ship an order.
+
+**Task 2 — Read the coefficients.** In Demo 6, the true relationship used 3,200 per
+square foot, 250,000 per bedroom and −45,000 per year. **Report how close the model's
+recovered coefficients came, and explain which one is furthest off and why.**
+
+**Task 3 — Extrapolate and be careful.** Use the Demo 6 model to predict the price of a
+6,000 sqft house. **Report the number and write one sentence on why you would not quote
+it to a client.**
+
+**Task 4 — Beat the baseline.** Add a `price_per_sqft`-style engineered feature of your
+own to Demo 6 and report whether the test MAE improves. **Report honestly if it does
+not.**
+:::
+
+:::: {.callout-note collapse="true" title="Solutions"}
+```{python}
+import numpy as np, pandas as pd
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+
+print("Task 1")
+print("  days in hospital        → REGRESSION (a count, a number)")
+print("  spam or not             → CLASSIFICATION")
+print("  film rating out of 10   → REGRESSION (but see the warning in topic 2)")
+print("  which of 4 warehouses   → CLASSIFICATION (4 categories)")
+
+# Task 2 — how close did the model get to the truth?
+homes = pd.read_csv("datasets/house_prices.csv")
+X = homes[["area_sqft", "bedrooms", "age_years"]]
+Xtr, Xte, ytr, yte = train_test_split(X, homes["price"], test_size=.2, random_state=0)
+m = LinearRegression().fit(Xtr, ytr)
+
+print("\nTask 2")
+for name, truth, got in zip(X.columns, [3_200, 250_000, -45_000], m.coef_):
+    print(f"  {name:<12} truth {truth:>10,}   recovered {got:>12,.0f}")
+print("  bedrooms is furthest off: it correlates 0.98 with area, so the model cannot")
+print("  tell which of the two deserves the credit. Predictions are fine; this one")
+print("  coefficient should not be quoted as a finding.")
+
+print(f"\nTask 3 — a 6,000 sqft, 3-bed, 5-year-old house:")
+print(f"  ₹{m.predict(pd.DataFrame([{'area_sqft':6000,'bedrooms':3,'age_years':5}]))[0]:,.0f}")
+print(f"  The largest house in training was {X['area_sqft'].max():,.0f} sqft. This is")
+print("  extrapolation — the straight line has been extended into territory where no")
+print("  evidence exists that the relationship still holds.")
+```
+::::
+
+# ❓ MCQs {#sec-s09-mcqs}
 
 **Q1.** A bank predicts whether a customer will default (yes/no). What kind of task?
 
@@ -493,69 +579,16 @@ metric separates them?
 **A1 — (b).** The target is a category.
 
 **A2 — (b).** The "holding everything else constant" clause is the whole meaning of a
-coefficient. Demo 5 showed the number more than doubling without it.
+coefficient. Demo 7 showed the number more than doubling without it.
 
-**A3 — (b).** Demo 8 measured identical MAEs and very different RMSEs.
+**A3 — (b).** Demo 10 measured identical MAEs and very different RMSEs.
 
 **A4 — (b).** R² is defined against the always-predict-the-mean baseline, so 0.02 means
 almost no improvement on it.
 
-**A5 — (b).** Demo 10's third panel. Quote the R² alone and you overstate reliability for
+**A5 — (b).** Demo 12's third panel. Quote the R² alone and you overstate reliability for
 exactly the expensive cases.
 :::
-
-# 🎯 Tasks {#sec-s09-tasks}
-
-::: {.callout-note title="✏️ Practise"}
-**Task 1 — Classify the problem.** Regression or classification: predicting how many
-days a patient stays in hospital; whether an email is spam; a film's rating out of 10;
-which of four warehouses should ship an order.
-
-**Task 2 — Read the coefficients.** In Demo 4, the true relationship used 3,200 per
-square foot, 250,000 per bedroom and −45,000 per year. **Report how close the model's
-recovered coefficients came, and explain which one is furthest off and why.**
-
-**Task 3 — Extrapolate and be careful.** Use the Demo 4 model to predict the price of a
-6,000 sqft house. **Report the number and write one sentence on why you would not quote
-it to a client.**
-
-**Task 4 — Beat the baseline.** Add a `price_per_sqft`-style engineered feature of your
-own to Demo 4 and report whether the test MAE improves. **Report honestly if it does
-not.**
-:::
-
-:::: {.callout-note collapse="true" title="Solutions"}
-```{python}
-import numpy as np, pandas as pd
-from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
-
-print("Task 1")
-print("  days in hospital        → REGRESSION (a count, a number)")
-print("  spam or not             → CLASSIFICATION")
-print("  film rating out of 10   → REGRESSION (but see the warning in topic 2)")
-print("  which of 4 warehouses   → CLASSIFICATION (4 categories)")
-
-# Task 2 — how close did the model get to the truth?
-homes = pd.read_csv("datasets/house_prices.csv")
-X = homes[["area_sqft", "bedrooms", "age_years"]]
-Xtr, Xte, ytr, yte = train_test_split(X, homes["price"], test_size=.2, random_state=0)
-m = LinearRegression().fit(Xtr, ytr)
-
-print("\nTask 2")
-for name, truth, got in zip(X.columns, [3_200, 250_000, -45_000], m.coef_):
-    print(f"  {name:<12} truth {truth:>10,}   recovered {got:>12,.0f}")
-print("  bedrooms is furthest off: it correlates 0.98 with area, so the model cannot")
-print("  tell which of the two deserves the credit. Predictions are fine; this one")
-print("  coefficient should not be quoted as a finding.")
-
-print(f"\nTask 3 — a 6,000 sqft, 3-bed, 5-year-old house:")
-print(f"  ₹{m.predict(pd.DataFrame([{'area_sqft':6000,'bedrooms':3,'age_years':5}]))[0]:,.0f}")
-print(f"  The largest house in training was {X['area_sqft'].max():,.0f} sqft. This is")
-print("  extrapolation — the straight line has been extended into territory where no")
-print("  evidence exists that the relationship still holds.")
-```
-::::
 
 ::: {.callout-tip title="✅ Before you move on"}
 - [ ] I can tell a regression problem from a classification problem

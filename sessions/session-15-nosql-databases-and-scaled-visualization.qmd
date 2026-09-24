@@ -70,7 +70,26 @@ The cost is that you can no longer assume any two folders contain the same thing
 with.**
 :::
 
-### Demo 1 — records that genuinely do not fit one table
+### Demo 1 — the idea, in two documents
+
+**The smallest version of the idea, with no file and no library: two documents, kept as
+plain Python dictionaries, that simply do not share the same fields.**
+
+```{python}
+book = {"name": "Data Science Handbook", "price": 899, "pages": 412}
+shirt = {"name": "Cotton Shirt", "price": 1299, "size": "M", "colour": "blue"}
+
+print("Two documents, two different sets of fields:")
+print(" book :", book)
+print(" shirt:", shirt)
+print("\nNeither is missing anything. 'pages' would simply never make sense for a shirt.")
+```
+
+**Nothing was left blank.** A relational table would need both a `pages` and a `size`
+column, and one of them would be empty on every row. The next demo makes that cost
+concrete on a real catalogue.
+
+### Demo 2 — records that genuinely do not fit one table
 
 ```{python}
 import pandas as pd, json
@@ -116,41 +135,44 @@ between giving a possibly stale answer and giving no answer.** You cannot have b
 
 Networks fail, so **P is not optional.** The real choice is C or A.
 
-### Demo 2 — the trade-off, made concrete
+### Demo 3 — the choice, in four lines
 
 ```{python}
-class Node:
-    def __init__(self, name, balance=1000):
-        self.name, self.balance, self.reachable = name, balance, True
+network_partitioned = True
 
-primary, replica = Node("primary"), Node("replica")
+if network_partitioned:
+    print("choose CONSISTENCY → refuse to answer until the machines agree again")
+    print("choose AVAILABILITY → answer anyway, from whichever machine you can reach")
+print("\nYou cannot pick both at the same moment — that is the whole theorem.")
+```
 
-def write(amount):
-    primary.balance += amount
-    if replica.reachable:
-        replica.balance = primary.balance
-        return "written and replicated"
-    return "written to primary only — replica is now stale"
+**That is the entire trade-off.** The next demo puts real numbers behind it, with an
+actual balance that goes stale.
 
-def read(node, mode):
-    if not node.reachable:
-        return "ERROR: cannot reach this node"
-    if mode == "consistency" and node.balance != primary.balance:
-        return "REFUSED: this node may be stale (chose Consistency)"
-    return f"₹{node.balance}"
+### Demo 4 — the trade-off, made concrete
+
+```{python}
+primary = {"name": "primary", "balance": 1000}
+replica = {"name": "replica", "balance": 1000, "can_hear_primary": True}
 
 print("Network is healthy:")
-print(" ", write(500), "→ replica reads", read(replica, "availability"))
+primary["balance"] += 500
+replica["balance"] = primary["balance"]
+print("  wrote ₹500 and copied it to the replica")
+print(f"  replica reads ₹{replica['balance']}")
 
 print("\nNetwork splits — the replica can no longer hear the primary:")
-replica.reachable = False
-print(" ", write(300))
-replica.reachable = True                    # reachable by clients, but stale
+replica["can_hear_primary"] = False
+primary["balance"] += 300
+print("  wrote ₹300 to the primary only")
 
 print("\nA client now reads from the replica:")
-print(f"  choosing AVAILABILITY : {read(replica, 'availability')}  ← an answer, possibly stale")
-print(f"  choosing CONSISTENCY  : {read(replica, 'consistency')}")
-print(f"\n  (the true balance on the primary is ₹{primary.balance})")
+print(f"  choosing AVAILABILITY : ₹{replica['balance']}  ← an answer, but stale")
+
+if replica["balance"] != primary["balance"]:
+    print("  choosing CONSISTENCY  : refused, because the replica may be stale")
+
+print(f"\n  the true balance on the primary is ₹{primary['balance']}")
 ```
 
 ::: {.callout-warning title="⚠️ This is a business decision, not a technical one"}
@@ -181,56 +203,44 @@ business can tolerate.
 rather than join across collections.** An order carries its line items inside it, so
 fetching the order is one read rather than a join.
 
-### Demo 3 — a document store, implemented in plain Python
-
-To make the query model concrete, here is a miniature MongoDB. It supports `insert_many`,
-`find`, and the aggregation stages you will meet next.
+### Demo 5 — one document, queried directly
 
 ```{python}
-class Collection:
-    """A miniature document store — enough to show how MongoDB queries work."""
+order = {"item": "laptop", "city": "Mumbai", "price": 74999}
 
-    def __init__(self):
-        self.docs = []
+print("A single MongoDB-style document is just a Python dict:")
+print(order)
+print("field 'city' →", order["city"])
+```
 
-    def insert_many(self, docs):
-        self.docs.extend(docs)
-        return len(docs)
+**That is a MongoDB document.** A real collection is simply a list of these, which is
+exactly what the next demo builds.
 
-    def find(self, query=None):
-        return [d for d in self.docs if self._matches(d, query or {})]
+### Demo 6 — documents as simple dictionaries
 
-    @staticmethod
-    def _matches(doc, query):
-        for field, cond in query.items():
-            value = doc.get(field)
-            if isinstance(cond, dict):                     # {"$gt": 100} style
-                for op, target in cond.items():
-                    if op == "$gt"  and not (value is not None and value >  target): return False
-                    if op == "$gte" and not (value is not None and value >= target): return False
-                    if op == "$lt"  and not (value is not None and value <  target): return False
-                    if op == "$in"  and value not in target: return False
-                    if op == "$exists" and (value is not None) != target: return False
-            elif value != cond:
-                return False
-        return True
+To make the query model concrete, use a plain Python list. Each document is a
+dictionary, and the documents do not have to share the same fields.
 
-
+```{python}
 import json
 
-sales = Collection()
-# Load the documents straight from the JSON file — no shape is imposed on them.
-sales.insert_many(json.loads(open("datasets/store_sales.json").read()))
-print(f"{len(sales.docs)} documents loaded from datasets/store_sales.json\n")
+sales = json.loads(open("datasets/store_sales.json").read())
+print(f"{len(sales)} documents loaded from datasets/store_sales.json\n")
 
 print("All Mumbai sales:")
-for d in sales.find({"city": "Mumbai"}): print("  ", d)
+for doc in sales:
+    if doc.get("city") == "Mumbai":
+        print("  ", doc)
 
 print("\nSales over ₹1,000 per unit:")
-for d in sales.find({"price": {"$gt": 1000}}): print("  ", d)
+for doc in sales:
+    if doc.get("price", 0) > 1000:
+        print("  ", doc)
 
 print("\nDocuments that HAVE a loyalty_points field (others simply lack it):")
-for d in sales.find({"loyalty_points": {"$exists": True}}): print("  ", d)
+for doc in sales:
+    if "loyalty_points" in doc:
+        print("  ", doc)
 ```
 
 **The last query is the point.** In a relational table, `loyalty_points` would exist as a
@@ -250,74 +260,55 @@ presence is a meaningful question.
 | `$project` | choose or compute fields | `df[["a","b"]]` |
 | `$limit` | keep the first n | `df.head(n)` |
 
-### Demo 4 — running an aggregation pipeline
+### Demo 7 — aggregation stages by hand
 
 ```{python}
-from collections import defaultdict
-
-def aggregate(collection, pipeline):
-    """Execute a MongoDB-style aggregation pipeline."""
-    docs = list(collection.docs)
-    for stage in pipeline:
-        (op, spec), = stage.items()
-
-        if op == "$match":
-            docs = [d for d in docs if Collection._matches(d, spec)]
-
-        elif op == "$group":
-            groups = defaultdict(list)
-            key_field = spec["_id"].lstrip("$")
-            for d in docs:
-                groups[d.get(key_field)].append(d)
-            out = []
-            for key, members in groups.items():
-                row = {"_id": key}
-                for name, rule in spec.items():
-                    if name == "_id":
-                        continue
-                    (fn, field), = rule.items()
-                    field = field.lstrip("$") if isinstance(field, str) else field
-                    vals = [m.get(field, 0) for m in members] if isinstance(field, str) else []
-                    row[name] = {"$sum": sum(vals) if vals else len(members),
-                                 "$avg": (sum(vals)/len(vals)) if vals else 0,
-                                 "$max": max(vals) if vals else 0}[fn]
-                out.append(row)
-            docs = out
-
-        elif op == "$sort":
-            (field, direction), = spec.items()
-            docs = sorted(docs, key=lambda d: d.get(field, 0), reverse=direction == -1)
-
-        elif op == "$project":
-            docs = [{k: d.get(k) for k in spec if spec[k]} for d in docs]
-
-        elif op == "$limit":
-            docs = docs[:spec]
-    return docs
-
+def revenue_of(row):          # the sort key, named instead of an inline lambda
+    return row["revenue"]
 
 print("Total revenue per item, biggest first:")
-for row in aggregate(sales, [
-    {"$group": {"_id": "$item", "revenue": {"$sum": "$price"}, "units": {"$sum": "$qty"}}},
-    {"$sort": {"revenue": -1}},
-]):
-    print(f"  {row['_id']:<10} revenue ₹{row['revenue']:>8,}  units {row['units']:>3}")
+by_item = {}
+for doc in sales:
+    item = doc["item"]
+    if item not in by_item:
+        by_item[item] = {"revenue": 0, "units": 0}
+    by_item[item]["revenue"] += doc["price"]
+    by_item[item]["units"] += doc["qty"]
+
+item_rows = []
+for item, totals in by_item.items():
+    item_rows.append({"item": item, "revenue": totals["revenue"], "units": totals["units"]})
+
+item_rows = sorted(item_rows, key=revenue_of, reverse=True)
+for row in item_rows:
+    print(f"  {row['item']:<10} revenue ₹{row['revenue']:>8,}  units {row['units']:>3}")
 
 print("\nOnline sales only, grouped by city:")
-for row in aggregate(sales, [
-    {"$match": {"channel": "online"}},
-    {"$group": {"_id": "$city", "revenue": {"$sum": "$price"}}},
-    {"$sort": {"revenue": -1}},
-]):
-    print(f"  {row['_id']:<10} ₹{row['revenue']:>8,}")
+online_docs = []                                                    # $match
+for doc in sales:
+    if doc["channel"] == "online":
+        online_docs.append(doc)
+
+by_city = {}
+for doc in online_docs:                                             # $group
+    city = doc["city"]
+    by_city[city] = by_city.get(city, 0) + doc["price"]
+
+city_rows = []
+for city, revenue in by_city.items():
+    city_rows.append({"city": city, "revenue": revenue})
+city_rows = sorted(city_rows, key=revenue_of, reverse=True)         # $sort
+
+for row in city_rows:
+    print(f"  {row['city']:<10} ₹{row['revenue']:>8,}")
 ```
 
-### Demo 5 — the same thing in pandas, for comparison
+### Demo 8 — the same thing in pandas, for comparison
 
 ```{python}
 import pandas as pd
 
-df = pd.DataFrame(sales.docs)
+df = pd.DataFrame(sales)
 print("pandas equivalent of the first pipeline:")
 print(df.groupby("item").agg(revenue=("price", "sum"), units=("qty", "sum"))
         .sort_values("revenue", ascending=False))
@@ -327,9 +318,8 @@ print("the database, so only the small summary crosses the network.")
 
 ## 6. Real pymongo {#sec-s15-topic-6}
 
-**Against a real MongoDB server, the code is almost identical to Demo 4** — the pipeline
-is the same list of dictionaries. This block needs a running MongoDB, so it is shown
-rather than executed.
+**Against a real MongoDB server, the same stages become a pipeline list.** This block
+needs a running MongoDB, so it is shown rather than executed.
 
 ```python
 from pymongo import MongoClient
@@ -353,7 +343,7 @@ sales.create_index([("city", 1), ("item", 1)])
 for doc in sales.find({"price": {"$gt": 1000}}).limit(5):
     print(doc)
 
-# AGGREGATE — the same pipeline as Demo 4, run inside the database
+# AGGREGATE — the Demo 7 stages, run inside the database
 pipeline = [
     {"$match": {"channel": "online"}},
     {"$group": {"_id": "$city", "revenue": {"$sum": "$price"}, "orders": {"$sum": 1}}},
@@ -422,7 +412,7 @@ CREATE TABLE orders_by_day (
 ) WITH CLUSTERING ORDER BY (total DESC);
 ```
 
-### Demo 6 — why the partition key decides everything
+### Demo 9 — why the partition key decides everything
 
 ```{python}
 import hashlib
@@ -447,7 +437,7 @@ print("Evenly spread — a good partition key. A key like 'country' would put")
 print("half your data on one machine and melt it.")
 ```
 
-### Demo 7 — choosing between the three
+### Demo 10 — choosing between the three
 
 ```{python}
 rows = [
@@ -471,7 +461,26 @@ for r in rows:
 **Draw ten million dots and you get a solid rectangle.** The dots overlap — a phenomenon
 called **overplotting** — and where one dot sits, a thousand look identical.
 
-### Demo 8 — overplotting, and three fixes
+### Demo 11 — the same data, two sizes
+
+```{python}
+#| label: fig-s15-overplot-small
+#| fig-cap: "The same underlying data at 500 points and at 50,000 points. Overplotting is not a property of the data — it is what happens once there are too many dots for the pixels available."
+import pandas as pd, matplotlib.pyplot as plt
+
+pts = pd.read_csv("datasets/overplot_points.csv")
+fig, ax = plt.subplots(1, 2, figsize=(8, 3.2))
+ax[0].scatter(pts["x"][:500], pts["y"][:500], s=6, alpha=.6)
+ax[0].set_title("500 points — still readable", fontsize=9)
+ax[1].scatter(pts["x"][:50_000], pts["y"][:50_000], s=1, alpha=.4)
+ax[1].set_title("50,000 points — already a blob", fontsize=9)
+for a in ax: a.set_xticks([]); a.set_yticks([])
+plt.tight_layout(); plt.show()
+
+print(f"{len(pts):,} points available in the file; the full set makes it worse still.")
+```
+
+### Demo 12 — overplotting, and three fixes
 
 ```{python}
 #| label: fig-s15-overplot
@@ -513,7 +522,22 @@ print("The raw scatter hides that there are TWO groups. The other three show it.
 **The most effective technique is to never send the raw rows to the chart at all.**
 Summarise in the database, plot the summary.
 
-### Demo 9 — the size of what crosses the network
+### Demo 13 — the idea, on eight numbers
+
+```{python}
+raw_readings = [12, 15, 11, 14, 100, 102, 98, 101]     # imagine millions of these
+summary = {
+    "morning_avg": sum(raw_readings[:4]) / 4,
+    "evening_avg": sum(raw_readings[4:]) / 4,
+}
+print(f"raw: {len(raw_readings)} numbers → summary: {len(summary)} numbers")
+print(summary)
+```
+
+**Eight numbers became two, and the two are all a chart of "morning vs evening" would
+ever need.** The next demo does the same reduction on 300,000 real rows.
+
+### Demo 14 — the size of what crosses the network
 
 ```{python}
 import numpy as np, pandas as pd
@@ -548,7 +572,22 @@ plt.tight_layout(); plt.show()
 
 **A sampled chart is an estimate, and it must be labelled as one.**
 
-### Demo 10 — how wrong a sample can be, and how to say so
+### Demo 15 — a sample of four, from ten
+
+```{python}
+import numpy as np
+
+population = np.array([10, 12, 11, 50, 13, 9, 11, 48, 10, 12])
+rng = np.random.default_rng(1)
+sample = rng.choice(population, 4, replace=False)
+
+print(f"population mean : {population.mean():.1f}")
+print(f"sample of 4     : {sample}, mean {sample.mean():.1f}")
+print("\nA small sample can land on the outliers by chance and read high or low.")
+print("The next demo shows how that risk shrinks as the sample grows.")
+```
+
+### Demo 16 — how wrong a sample can be, and how to say so
 
 ```{python}
 import numpy as np
@@ -590,7 +629,55 @@ print(f"df.head(5000)          : ₹{customers['spend'].head(5000).mean():>7.0f}
 print(f"df.sample(5000)        : ₹{customers['spend'].sample(5000, random_state=1).mean():>7.0f}   ← correct")
 ```
 
-### ❓ Check yourself
+# 🎯 Tasks {#sec-s15-tasks}
+
+::: {.callout-note title="✏️ Practise"}
+**Task 1 — Write a pipeline.** Using `aggregate` from Demo 7, find the average price per
+city for store sales only, sorted highest first.
+
+**Task 2 — Design for Cassandra.** An app must answer "show a user's last 20 orders" and
+"show the 10 largest orders today". **Write the two `CREATE TABLE` statements** and say
+what has to be duplicated.
+
+**Task 3 — Fix a chart.** Generate 5 million points in three clusters and produce one
+chart that shows all three groups clearly. **Say which technique you used and why.**
+
+**Task 4 — Quantify a sample.** For the population in Demo 16, find the smallest sample
+size whose 95% margin is under 1% of the true mean.
+:::
+
+:::: {.callout-note collapse="true" title="Solutions"}
+```{python}
+import numpy as np
+
+print("Task 2 — two tables, because Cassandra plans tables around queries:")
+print("""
+  CREATE TABLE orders_by_user (
+      user_id uuid, order_date timestamp, order_id uuid, total decimal,
+      PRIMARY KEY (user_id, order_date)
+  ) WITH CLUSTERING ORDER BY (order_date DESC);
+
+  CREATE TABLE orders_by_day (
+      day date, total decimal, order_id uuid, user_id uuid,
+      PRIMARY KEY (day, total, order_id)
+  ) WITH CLUSTERING ORDER BY (total DESC);
+""")
+print("  Every order is written to BOTH tables. That duplication is deliberate:")
+print("  storage is cheap, and it is what makes both queries fast.\n")
+
+# Task 4 — smallest sample whose margin is under 1% of the mean
+population = pd.read_csv("datasets/sampling_population.csv")["value"].values
+rng = np.random.default_rng(93)
+truth = population.mean()
+for size in [100, 300, 1_000, 3_000, 10_000, 30_000]:
+    s = rng.choice(population, size, replace=False)
+    margin = 1.96 * s.std() / np.sqrt(size)
+    print(f"Task 4 — n={size:>6,}: margin ±{margin:.3f} = {margin/truth:.2%} of the mean"
+          f"{'   ← first under 1%' if margin/truth < 0.01 and size >= 1000 else ''}")
+```
+::::
+
+# ❓ MCQs {#sec-s15-mcqs}
 
 **Q1.** Your product catalogue has 40 product types with almost no shared attributes.
 Which storage?
@@ -625,65 +712,17 @@ Which storage?
 - (c) Fine if the table is large.
 
 ::: {.callout-note collapse="true" title="Answers"}
-**A1 — (b).** Demo 1 measured the blank ratio a single table produces.
+**A1 — (b).** Demo 2 measured the blank ratio a single table produces.
 
-**A2 — (b).** Demo 2's warning: this is a business decision, and for money the answer is
+**A2 — (b).** Demo 4's warning: this is a business decision, and for money the answer is
 consistency.
 
-**A3 — (b).** Demo 6 showed rows spread by a hash of the partition key.
+**A3 — (b).** Demo 9 showed rows spread by a hash of the partition key.
 
-**A4 — (b).** Demo 9 reduced 300,000 rows to 72 and lost nothing the chart needed.
+**A4 — (b).** Demo 14 reduced 300,000 rows to 72 and lost nothing the chart needed.
 
 **A5 — (b).** The final demo measured ₹209 from `head()` against a true mean of ₹550.
 :::
-
-# 🎯 Tasks {#sec-s15-tasks}
-
-::: {.callout-note title="✏️ Practise"}
-**Task 1 — Write a pipeline.** Using `aggregate` from Demo 4, find the average price per
-city for store sales only, sorted highest first.
-
-**Task 2 — Design for Cassandra.** An app must answer "show a user's last 20 orders" and
-"show the 10 largest orders today". **Write the two `CREATE TABLE` statements** and say
-what has to be duplicated.
-
-**Task 3 — Fix a chart.** Generate 5 million points in three clusters and produce one
-chart that shows all three groups clearly. **Say which technique you used and why.**
-
-**Task 4 — Quantify a sample.** For the population in Demo 10, find the smallest sample
-size whose 95% margin is under 1% of the true mean.
-:::
-
-:::: {.callout-note collapse="true" title="Solutions"}
-```{python}
-import numpy as np
-
-print("Task 2 — two tables, because Cassandra plans tables around queries:")
-print("""
-  CREATE TABLE orders_by_user (
-      user_id uuid, order_date timestamp, order_id uuid, total decimal,
-      PRIMARY KEY (user_id, order_date)
-  ) WITH CLUSTERING ORDER BY (order_date DESC);
-
-  CREATE TABLE orders_by_day (
-      day date, total decimal, order_id uuid, user_id uuid,
-      PRIMARY KEY (day, total, order_id)
-  ) WITH CLUSTERING ORDER BY (total DESC);
-""")
-print("  Every order is written to BOTH tables. That duplication is deliberate:")
-print("  storage is cheap, and it is what makes both queries fast.\n")
-
-# Task 4 — smallest sample whose margin is under 1% of the mean
-population = pd.read_csv("datasets/sampling_population.csv")["value"].values
-rng = np.random.default_rng(93)
-truth = population.mean()
-for size in [100, 300, 1_000, 3_000, 10_000, 30_000]:
-    s = rng.choice(population, size, replace=False)
-    margin = 1.96 * s.std() / np.sqrt(size)
-    print(f"Task 4 — n={size:>6,}: margin ±{margin:.3f} = {margin/truth:.2%} of the mean"
-          f"{'   ← first under 1%' if margin/truth < 0.01 and size >= 1000 else ''}")
-```
-::::
 
 ::: {.callout-tip title="✅ Before you move on"}
 - [ ] I can say what a fixed schema costs and when that cost is worth paying

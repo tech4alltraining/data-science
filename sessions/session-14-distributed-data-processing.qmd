@@ -32,6 +32,7 @@ By the end of this chapter you can:
 5. Explain lazy evaluation, transformations and actions.
 6. Read and write PySpark DataFrame code.
 7. Say when a distributed engine is the wrong tool.
+8. Run a real word-count MapReduce over thousands of real documents.
 
 ## How this chapter is organised {#sec-s14-organisation}
 
@@ -41,6 +42,7 @@ By the end of this chapter you can:
 | [B — Building it](#sec-s14-b) | *What do the three steps actually do?* |
 | [C — Spark](#sec-s14-c) | *Why did something replace it, and what changed?* |
 | [D — PySpark](#sec-s14-d) | *What does the code look like in practice?* |
+| [E — On real text](#sec-s14-e) | *Does word count still work at real scale?* |
 
 # Part A — MapReduce {#sec-s14-a}
 
@@ -142,57 +144,82 @@ print(f"\nfinal counts: {result}")
 **That is MapReduce.** Twenty lines, no cluster. Hadoop's contribution is not the idea —
 it is doing this across a thousand machines while some of them fail.
 
+### Demo 2 — the same counts, now asking a real question of them
+
+Counting every word is only useful once you ask something of the counts. The obvious
+first question: **which word was used most?**
+
+```{python}
+# `result` still holds the counts from Demo 1: {'the': 3, 'cat': 2, 'sat': 1, 'ran': 2, 'dog': 1}
+ranked = list(result.items())
+ranked.sort(key=lambda pair: pair[1], reverse=True)   # sort by the count, biggest first
+
+print("word counts, most common first:")
+for word, count in ranked:
+    print(f"  {word:<5} {count}")
+
+most_common_word, most_common_count = ranked[0]
+print(f"\nmost common word: '{most_common_word}' ({most_common_count} times)")
+```
+
+**Sorting by the count is a fourth, tiny step tacked onto the end of reduce.** It runs on
+one machine, on the already-small result — never on the original data — which is exactly
+why MapReduce keeps reduce's output small. Part E does this same sort on 25,000 real
+reviews instead of 3 sentences, and it is the identical two lines.
+
 # Part B — Building it {#sec-s14-b}
 
-## 3. A general MapReduce engine {#sec-s14-topic-3}
+## 3. The reusable MapReduce pattern {#sec-s14-topic-3}
 
-**The same three steps solve any problem of that shape.** Write the engine once and pass
-in different map and reduce functions.
+**The same three steps solve any problem of that shape.** First keep the steps visible:
+map the rows, shuffle them by key, then answer the question for each key.
 
-### Demo 2 — one engine, three different jobs
+### Demo 3 — three jobs, same grouped data
 
 ```{python}
 from collections import defaultdict
-
-def mapreduce(chunks, mapper, reducer, verbose=False):
-    """A single-machine MapReduce. The real thing does this across a cluster."""
-    # MAP — independent per chunk, so this is where parallelism happens
-    mapped = []
-    for chunk in chunks:
-        mapped.extend(mapper(chunk))
-
-    # SHUFFLE — group by key. This is the step that crosses the network.
-    grouped = defaultdict(list)
-    for k, v in mapped:
-        grouped[k].append(v)
-    if verbose:
-        print(f"  map emitted {len(mapped)} pairs → shuffled into {len(grouped)} keys")
-
-    # REDUCE — independent per key, so this is parallel too
-    return {k: reducer(k, v) for k, v in grouped.items()}
-
-
 import pandas as pd, glob
 
 # One logical table, stored as three files — which is how HDFS holds one dataset.
-sales_chunks = [list(pd.read_csv(f).itertuples(index=False, name=None))
-                for f in sorted(glob.glob("datasets/chunks/city_sales_*.csv"))]
-for i, c in enumerate(sales_chunks, 1):
-    print(f"  file {i}: {c}")
+sales_chunks = []
+for file in sorted(glob.glob("datasets/chunks/city_sales_*.csv")):
+    chunk = list(pd.read_csv(file).itertuples(index=False, name=None))
+    sales_chunks.append(chunk)
+
+for i, chunk in enumerate(sales_chunks, 1):
+    print(f"  file {i}: {chunk}")
 print()
 
-print("JOB 1 — total sales per city")
-print(" ", mapreduce(sales_chunks, lambda c: c, lambda k, v: sum(v), verbose=True))
+# MAP: each file emits city, amount pairs.
+mapped = []
+for chunk in sales_chunks:
+    for city, amount in chunk:
+        mapped.append((city, amount))
+print(f"MAP emitted {len(mapped)} pairs")
 
-print("\nJOB 2 — average sale per city")
-print(" ", mapreduce(sales_chunks, lambda c: c, lambda k, v: round(sum(v)/len(v), 1)))
+# SHUFFLE: gather all amounts for the same city.
+grouped = defaultdict(list)
+for city, amount in mapped:
+    grouped[city].append(amount)
+print(f"SHUFFLE made {len(grouped)} city groups\n")
 
-print("\nJOB 3 — largest single sale per city")
-print(" ", mapreduce(sales_chunks, lambda c: c, lambda k, v: max(v)))
+totals = {}
+averages = {}
+largest_sales = {}
+
+# REDUCE: answer one question per city.
+for city, amounts in grouped.items():
+    totals[city] = sum(amounts)
+    averages[city] = round(sum(amounts) / len(amounts), 1)
+    largest_sales[city] = max(amounts)
+
+print("total sales per city  :", totals)
+print("average sale per city :", averages)
+print("largest single sale   :", largest_sales)
 ```
 
-**Only the reducer changed.** The map step and the shuffle were identical, which is
-exactly why the model is worth having.
+**The grouped data is reusable.** Once the shuffle has put all values for each city
+together, the final question can be total, average or maximum.
 
 ## 4. Why the shuffle is the expensive step {#sec-s14-topic-4}
 
@@ -201,7 +228,7 @@ hundreds of times slower than memory.
 
 **The fix is the combiner: reduce locally before sending anything.**
 
-### Demo 3 — a combiner, and how much traffic it saves
+### Demo 4 — a combiner, and how much traffic it saves
 
 ```{python}
 from collections import defaultdict
@@ -276,7 +303,7 @@ print(f"combinable average: {total_sum}/{total_n} = {total_sum/total_n:.2f}  ✓
 **You have been writing MapReduce jobs since Session 2.** `df.groupby("city")["amount"].sum()`
 is a map (pick out city and amount), a shuffle (gather by city), and a reduce (sum).
 
-### Demo 4 — the same answer, both ways
+### Demo 5 — the same answer, both ways
 
 ```{python}
 import pandas as pd
@@ -287,8 +314,19 @@ df = pd.DataFrame(rows, columns=["city", "amount"])
 print("pandas groupby:")
 print(df.groupby("city")["amount"].sum().to_dict())
 
-print("\nour MapReduce engine:")
-print(mapreduce(sales_chunks, lambda c: c, lambda k, v: sum(v)))
+print("\nthe same answer with explicit map-shuffle-reduce steps:")
+manual_groups = {}
+for chunk in sales_chunks:
+    for city, amount in chunk:
+        if city not in manual_groups:
+            manual_groups[city] = []
+        manual_groups[city].append(amount)
+
+manual_totals = {}
+for city, amounts in manual_groups.items():
+    manual_totals[city] = sum(amounts)
+
+print(manual_totals)
 ```
 
 **The difference is only where the work happens.** Pandas does all three steps in one
@@ -311,7 +349,7 @@ means — it is ruinous.
 | Interactive queries | no | yes |
 | Written in | Java | Scala, with Python, R and SQL front ends |
 
-### Demo 5 — the cost of writing to disk between passes
+### Demo 6 — the cost of writing to disk between passes
 
 ```{python}
 DISK_ROUND_TRIP_S = 12       # writing and re-reading a large intermediate result
@@ -343,48 +381,37 @@ you ask for a result.**
 rearrange it. If you filter after selecting two columns, it can push the filter earlier
 and read far less data.
 
-### Demo 6 — lazy evaluation, built in plain Python
+### Demo 7 — lazy evaluation, with a tiny recorded plan
 
 ```{python}
-class LazyFrame:
-    """A miniature of Spark's laziness: record operations, run only on an action."""
-
-    def __init__(self, rows, plan=None):
-        self._rows = rows
-        self._plan = plan or []
-
-    # --- transformations: recorded, not executed ---------------------------
-    def filter(self, fn, label):
-        print(f"  recorded: filter({label})   ← nothing has run")
-        return LazyFrame(self._rows, self._plan + [("filter", fn, label)])
-
-    def select(self, keys):
-        print(f"  recorded: select({keys})    ← nothing has run")
-        return LazyFrame(self._rows, self._plan + [("select", keys, str(keys))])
-
-    # --- actions: the whole plan finally executes --------------------------
-    def collect(self):
-        print(f"  ACTION — executing {len(self._plan)} recorded steps now")
-        rows = self._rows
-        for kind, arg, _ in self._plan:
-            rows = [r for r in rows if arg(r)] if kind == "filter" \
-                   else [{k: r[k] for k in arg} for r in rows]
-        return rows
-
-
 data = [{"city": "Mumbai", "amount": 250, "cashier": "A"},
         {"city": "Delhi",  "amount": 100, "cashier": "B"},
         {"city": "Mumbai", "amount": 900, "cashier": "C"},
         {"city": "Pune",   "amount": 80,  "cashier": "D"}]
 
 print("Building the plan:")
-query = (LazyFrame(data)
-         .filter(lambda r: r["city"] == "Mumbai", "city == Mumbai")
-         .filter(lambda r: r["amount"] > 200, "amount > 200")
-         .select(["city", "amount"]))
+plan = []
+
+plan.append(("filter city", "Mumbai"))
+print("  recorded: keep city == Mumbai")
+
+plan.append(("filter amount greater than", 200))
+print("  recorded: keep amount > 200")
+
+plan.append(("select columns", ["city", "amount"]))
+print("  recorded: keep only city and amount")
 
 print("\nNothing has been computed yet. Now we ask for the answer:")
-print(" ", query.collect())
+rows = data
+for step, value in plan:
+    if step == "filter city":
+        rows = [row for row in rows if row["city"] == value]
+    elif step == "filter amount greater than":
+        rows = [row for row in rows if row["amount"] > value]
+    elif step == "select columns":
+        rows = [{col: row[col] for col in value} for row in rows]
+
+print(" ", rows)
 ```
 
 ::: {.callout-warning title="⚠️ Lazy evaluation moves your errors"}
@@ -447,7 +474,7 @@ spark.stop()
 **`master("local[*]")` runs Spark on your own machine using every core**, which is how you
 develop and test. Moving to a real cluster changes that one string and nothing else.
 
-### Demo 7 — the same job, in the plain-Python engine
+### Demo 8 — the same job, in the plain-Python engine
 
 So you can see the answer this produces, here is the identical calculation with our own
 MapReduce.
@@ -468,18 +495,21 @@ grouped = defaultdict(list)
 for r in errors:
     grouped[r["server"]].append(r["response_ms"])
 
-summary = sorted(((s, len(v), sum(v)/len(v)) for s, v in grouped.items()),
-                 key=lambda t: -t[1])
+# Build one row per server: its error count and its average response time.
+rows = []
+for server, times in grouped.items():
+    rows.append((server, len(times), sum(times) / len(times)))
+rows.sort(key=lambda row: row[1], reverse=True)   # busiest server first
 
 print(f"{n:,} log rows → {len(errors):,} errors ({len(errors)/n:.1%})\n")
 print(f"{'server':<12} {'errors':>8} {'avg ms':>9}")
-for s, c, avg in summary:
-    print(f"{s:<12} {c:>8,} {avg:>9.1f}")
+for server, error_count, avg_ms in rows:
+    print(f"{server:<12} {error_count:>8,} {avg_ms:>9.1f}")
 ```
 
 ## 9. When not to use Spark {#sec-s14-topic-9}
 
-### Demo 8 — the crossover, modelled
+### Demo 9 — the crossover, modelled
 
 ```{python}
 import numpy as np, pandas as pd, time
@@ -516,7 +546,194 @@ Spark earns its overhead when:
 It does **not** earn it for a 200 MB CSV, however important that CSV is.
 :::
 
-### ❓ Check yourself
+
+# Part E — On real text {#sec-s14-e}
+
+## 10. Word count, on 25,000 real documents {#sec-s14-topic-10}
+
+**Demo 1 ran word count on three sentences so the mechanism was easy to see. Here is the
+identical mechanism on 25,000 real movie reviews — 3.7 million real words — to show that
+nothing about the idea changes with scale, only the numbers.**
+
+The file is `imdb_train.parquet` — real reviews from the IMDB dataset, published on
+Hugging Face ([`stanfordnlp/imdb`](https://huggingface.co/datasets/stanfordnlp/imdb)). Get
+it once with:
+
+```bash
+python datasets/download_bigdata_real.py
+```
+
+### Demo 10 — the same three steps, at real scale
+
+```{python}
+import pandas as pd, re, time
+from collections import defaultdict
+
+reviews = pd.read_parquet("datasets/bigdata/imdb_train.parquet")
+print(f"{len(reviews):,} real reviews loaded\n")
+
+# Split the reviews into 4 pieces, standing in for 4 machines — exactly the
+# same idea as the three files in datasets/chunks/ from Demo 3.
+n_workers = 4
+chunks = [reviews.iloc[i::n_workers] for i in range(n_workers)]
+print("reviews per simulated worker:", [len(c) for c in chunks])
+
+common_words = set("the a an and or of to in is it this that was were "
+                   "for on with as be but are br".split())
+
+def map_one_worker(texts):
+    """MAP: turn each review into (word, 1) pairs. Runs independently per worker."""
+    pairs = []
+    for text in texts:
+        for word in re.findall(r"[a-z']+", text.lower()):
+            if word not in common_words and len(word) > 2:
+                pairs.append((word, 1))
+    return pairs
+
+t0 = time.perf_counter()
+total_pairs_made = 0
+word_totals = defaultdict(int)
+
+for chunk in chunks:
+    pairs = map_one_worker(chunk["text"].tolist())
+    total_pairs_made += len(pairs)
+
+    # COMBINE: each worker adds up its own words before sending anything on —
+    # this is Demo 4's combiner, now doing real work.
+    local_totals = defaultdict(int)
+    for word, one in pairs:
+        local_totals[word] += one
+
+    # SHUFFLE + REDUCE: fold this worker's local totals into the overall totals.
+    for word, count in local_totals.items():
+        word_totals[word] += count
+
+elapsed = time.perf_counter() - t0
+print(f"\nMAP made {total_pairs_made:,} (word, 1) pairs")
+print(f"after combining, {len(word_totals):,} distinct words were shuffled")
+print(f"whole job took {elapsed:.1f}s")
+
+print("\nthe 10 most common words across all 25,000 real reviews:")
+for word, count in sorted(word_totals.items(), key=lambda x: -x[1])[:10]:
+    print(f"  {word:<10} {count:,}")
+```
+
+### Demo 11 — measuring what the combiner actually saved, at this scale
+
+```{python}
+# Without a combiner, every single (word, 1) pair would cross the network.
+pairs_without_combiner = total_pairs_made
+
+# With a combiner, each worker sends at most one row per distinct word IT saw.
+worker_vocab_sizes = []
+for chunk in chunks:
+    pairs = map_one_worker(chunk["text"].tolist())
+    local_totals = defaultdict(int)
+    for word, one in pairs:
+        local_totals[word] += one
+    worker_vocab_sizes.append(len(local_totals))
+pairs_with_combiner = sum(worker_vocab_sizes)
+
+print(f"without a combiner : {pairs_without_combiner:,} pairs cross the network")
+print(f"with a combiner    : {pairs_with_combiner:,} pairs cross the network")
+print(f"reduction          : {1 - pairs_with_combiner/pairs_without_combiner:.1%}")
+```
+
+**3.7 million word occurrences shrank to 185,394 rows crossing the network, from one
+combiner, on 25,000 real reviews.** Demo 4 measured this same idea on 14,000 manufactured
+rows and found a reduction of over 99.9%; on real, messy, human-written text the reduction
+is smaller — **real text repeats words far less predictably than a manufactured example
+does** — but it is still over 95%, and the code that produced it is the same handful of
+lines.
+
+::: {.callout-warning title="⚠️ Real data is messier than the demo that taught you the idea"}
+The manufactured combiner demo (Demo 4) showed a reduction of over 99.9%, because it used
+the same handful of cities over and over. Real text has a long tail of distinct words —
+names, misspellings, one-off phrases — that no combiner can shrink as effectively. **The
+mechanism is identical; only the size of the win depends on how repetitive your real data
+actually is.** Measure it on your own data before you promise a colleague a number.
+:::
+
+# 🎯 Tasks {#sec-s14-tasks}
+
+::: {.callout-note title="✏️ Practise"}
+**Task 1 — Trace it by hand.** Before running anything, work out the map output, the
+shuffle groups and the reduce output for `["a b a", "b c", "a c c"]`. Then check with
+Demo 1.
+
+**Task 2 — Write a new job.** Using the map-shuffle-reduce pattern from Demo 3, count
+how many **distinct** cashiers served each city. **Say whether the job is combinable.**
+
+**Task 3 — Build a combinable average.** Write a mapper that emits `(city, (amount, 1))`
+and a reducer that returns the correct average, so a combiner would be safe.
+
+**Task 4 — Find the crossover.** Run Demo 9 at 10, 20 and 50 million rows. **Report the
+row count at which the modelled Spark time beats pandas on your machine.**
+:::
+
+:::: {.callout-note collapse="true" title="Solutions"}
+```{python}
+from collections import defaultdict
+
+# Task 1
+lines = ["a b a", "b c", "a c c"]
+mapped = []
+for line in lines:
+    for word in line.split():
+        mapped.append((word, 1))
+
+grouped = defaultdict(list)
+for word, count in mapped:
+    grouped[word].append(count)
+
+counts = {}
+for word, values in grouped.items():
+    counts[word] = sum(values)
+
+print("Task 1 — map:    ", mapped)
+print("Task 1 — shuffle:", dict(grouped))
+print("Task 1 — reduce: ", counts)
+
+# Task 2 — distinct cashiers per city
+records = [[("Mumbai", "A"), ("Delhi", "B")],
+           [("Mumbai", "A"), ("Mumbai", "C")],
+           [("Delhi", "B"),  ("Pune", "D")]]
+
+cashiers = defaultdict(set)
+for chunk in records:
+    for city, cashier in chunk:
+        cashiers[city].add(cashier)
+
+distinct_counts = {}
+for city, names in cashiers.items():
+    distinct_counts[city] = len(names)
+
+print("\nTask 2 —", distinct_counts)
+print("  NOT combinable as a count: local counts would double-count a cashier who")
+print("  appears on two machines. Combinable if each machine sends the SET of names.")
+
+# Task 3 — combinable average, read from the three chunk files
+import pandas as pd, glob
+sales = [list(pd.read_csv(f).itertuples(index=False, name=None))
+         for f in sorted(glob.glob("datasets/chunks/city_sales_*.csv"))]
+
+totals = defaultdict(int)
+row_counts = defaultdict(int)
+for chunk in sales:
+    for city, amount in chunk:
+        totals[city] += amount
+        row_counts[city] += 1
+
+averages = {}
+for city in totals:
+    averages[city] = round(totals[city] / row_counts[city], 1)
+
+print("\nTask 3 —", averages)
+print("  Carrying (sum, count) through the shuffle makes the average combinable.")
+```
+::::
+
+# ❓ MCQs {#sec-s14-mcqs}
 
 **Q1.** Which MapReduce step moves data between machines?
 
@@ -551,72 +768,16 @@ unsafe?
 - (c) Only if you have a cluster.
 
 ::: {.callout-note collapse="true" title="Answers"}
-**A1 — (b).** Which is why the combiner in Demo 3 matters so much.
+**A1 — (b).** Which is why the combiner in Demo 4 matters so much.
 
-**A2 — (b).** Demo 3's warning measured the wrong answer it produces.
+**A2 — (b).** Demo 4's warning measured the wrong answer it produces.
 
-**A3 — (b).** Demo 5 modelled the gap widening with each extra pass.
+**A3 — (b).** Demo 6 modelled the gap widening with each extra pass.
 
 **A4 — (b).** And the next action will take as long as all six put together.
 
-**A5 — (b).** Demo 8. A 4-second job cannot repay a 7-second overhead.
+**A5 — (b).** Demo 9. A 4-second job cannot repay a 7-second overhead.
 :::
-
-# 🎯 Tasks {#sec-s14-tasks}
-
-::: {.callout-note title="✏️ Practise"}
-**Task 1 — Trace it by hand.** Before running anything, work out the map output, the
-shuffle groups and the reduce output for `["a b a", "b c", "a c c"]`. Then check with
-Demo 1.
-
-**Task 2 — Write a new job.** Using the `mapreduce` engine from Demo 2, count how many
-**distinct** cashiers served each city. **Say whether your reducer is combinable.**
-
-**Task 3 — Build a combinable average.** Write a mapper that emits `(city, (amount, 1))`
-and a reducer that returns the correct average, so a combiner would be safe.
-
-**Task 4 — Find the crossover.** Run Demo 8 at 10, 20 and 50 million rows. **Report the
-row count at which the modelled Spark time beats pandas on your machine.**
-:::
-
-:::: {.callout-note collapse="true" title="Solutions"}
-```{python}
-from collections import defaultdict
-
-def mapreduce(chunks, mapper, reducer):
-    mapped = []
-    for c in chunks:
-        mapped.extend(mapper(c))
-    grouped = defaultdict(list)
-    for k, v in mapped:
-        grouped[k].append(v)
-    return {k: reducer(k, v) for k, v in grouped.items()}
-
-# Task 1
-lines = ["a b a", "b c", "a c c"]
-print("Task 1 — map:    ", [[(w, 1) for w in l.split()] for l in lines])
-print("Task 1 — reduce: ", mapreduce([l.split() for l in lines],
-                                     lambda c: [(w, 1) for w in c],
-                                     lambda k, v: sum(v)))
-
-# Task 2 — distinct cashiers per city
-records = [[("Mumbai", "A"), ("Delhi", "B")],
-           [("Mumbai", "A"), ("Mumbai", "C")],
-           [("Delhi", "B"),  ("Pune", "D")]]
-print("\nTask 2 —", mapreduce(records, lambda c: c, lambda k, v: len(set(v))))
-print("  NOT combinable as a count: local counts would double-count a cashier who")
-print("  appears on two machines. Combinable if each machine sends the SET of names.")
-
-# Task 3 — combinable average, read from the three chunk files
-import pandas as pd, glob
-sales = [list(pd.read_csv(f).itertuples(index=False, name=None))
-         for f in sorted(glob.glob("datasets/chunks/city_sales_*.csv"))]
-sums = mapreduce(sales, lambda c: [(k, (v, 1)) for k, v in c],
-                 lambda k, pairs: (sum(s for s, _ in pairs), sum(n for _, n in pairs)))
-print("\nTask 3 —", {k: round(s/n, 1) for k, (s, n) in sums.items()})
-print("  Carrying (sum, count) through the shuffle makes the average combinable.")
-```
-::::
 
 ::: {.callout-tip title="✅ Before you move on"}
 - [ ] I can trace map, shuffle and reduce on three short lines

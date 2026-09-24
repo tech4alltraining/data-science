@@ -335,11 +335,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#sec-s15-topic-4" id="toc-sec-s15-topic-4" class="nav-link" data-scroll-target="#sec-s15-topic-4"><span class="header-section-number">19.1</span> 4. MongoDB’s model</a>
   <ul class="collapse">
-  <li><a href="#demo-3-a-document-store-implemented-in-plain-python" id="toc-demo-3-a-document-store-implemented-in-plain-python" class="nav-link" data-scroll-target="#demo-3-a-document-store-implemented-in-plain-python"><span class="header-section-number">19.1.1</span> Demo 3 — a document store, implemented in plain Python</a></li>
+  <li><a href="#demo-3-documents-as-simple-dictionaries" id="toc-demo-3-documents-as-simple-dictionaries" class="nav-link" data-scroll-target="#demo-3-documents-as-simple-dictionaries"><span class="header-section-number">19.1.1</span> Demo 3 — documents as simple dictionaries</a></li>
   </ul></li>
   <li><a href="#sec-s15-topic-5" id="toc-sec-s15-topic-5" class="nav-link" data-scroll-target="#sec-s15-topic-5"><span class="header-section-number">19.2</span> 5. The aggregation pipeline</a>
   <ul class="collapse">
-  <li><a href="#demo-4-running-an-aggregation-pipeline" id="toc-demo-4-running-an-aggregation-pipeline" class="nav-link" data-scroll-target="#demo-4-running-an-aggregation-pipeline"><span class="header-section-number">19.2.1</span> Demo 4 — running an aggregation pipeline</a></li>
+  <li><a href="#demo-4-aggregation-stages-by-hand" id="toc-demo-4-aggregation-stages-by-hand" class="nav-link" data-scroll-target="#demo-4-aggregation-stages-by-hand"><span class="header-section-number">19.2.1</span> Demo 4 — aggregation stages by hand</a></li>
   <li><a href="#demo-5-the-same-thing-in-pandas-for-comparison" id="toc-demo-5-the-same-thing-in-pandas-for-comparison" class="nav-link" data-scroll-target="#demo-5-the-same-thing-in-pandas-for-comparison"><span class="header-section-number">19.2.2</span> Demo 5 — the same thing in pandas, for comparison</a></li>
   </ul></li>
   <li><a href="#sec-s15-topic-6" id="toc-sec-s15-topic-6" class="nav-link" data-scroll-target="#sec-s15-topic-6"><span class="header-section-number">19.3</span> 6. Real pymongo</a></li>
@@ -365,10 +365,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#sec-s15-topic-10" id="toc-sec-s15-topic-10" class="nav-link" data-scroll-target="#sec-s15-topic-10"><span class="header-section-number">21.3</span> 10. Sampling honestly</a>
   <ul class="collapse">
   <li><a href="#demo-10-how-wrong-a-sample-can-be-and-how-to-say-so" id="toc-demo-10-how-wrong-a-sample-can-be-and-how-to-say-so" class="nav-link" data-scroll-target="#demo-10-how-wrong-a-sample-can-be-and-how-to-say-so"><span class="header-section-number">21.3.1</span> Demo 10 — how wrong a sample can be, and how to say so</a></li>
-  <li><a href="#check-yourself" id="toc-check-yourself" class="nav-link" data-scroll-target="#check-yourself"><span class="header-section-number">21.3.2</span> ❓ Check yourself</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#sec-s15-tasks" id="toc-sec-s15-tasks" class="nav-link" data-scroll-target="#sec-s15-tasks"><span class="header-section-number">22</span> 🎯 Tasks</a></li>
+  <li><a href="#sec-s15-mcqs" id="toc-sec-s15-mcqs" class="nav-link" data-scroll-target="#sec-s15-mcqs"><span class="header-section-number">23</span> ❓ MCQs</a></li>
   </ul>
 </nav>
     </div>
@@ -520,7 +520,7 @@ Note
 </div>
 <section id="demo-1-records-that-genuinely-do-not-fit-one-table" class="level3" data-number="18.1.1">
 <h3 data-number="18.1.1" class="anchored" data-anchor-id="demo-1-records-that-genuinely-do-not-fit-one-table"><span class="header-section-number">18.1.1</span> Demo 1 — records that genuinely do not fit one table</h3>
-<div id="fdd75022" class="cell" data-execution_count="2">
+<div id="397624b2" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, json</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A real product catalogue, stored as JSON. A book, a shirt and a laptop</span></span>
@@ -659,51 +659,41 @@ Add a fourth product type and the table grows more columns and more blanks.</cod
 <p>Networks fail, so <strong>P is not optional.</strong> The real choice is C or A.</p>
 <section id="demo-2-the-trade-off-made-concrete" class="level3" data-number="18.3.1">
 <h3 data-number="18.3.1" class="anchored" data-anchor-id="demo-2-the-trade-off-made-concrete"><span class="header-section-number">18.3.1</span> Demo 2 — the trade-off, made concrete</h3>
-<div id="e087445f" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Node:</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name, balance<span class="op">=</span><span class="dv">1000</span>):</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.name, <span class="va">self</span>.balance, <span class="va">self</span>.reachable <span class="op">=</span> name, balance, <span class="va">True</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>primary, replica <span class="op">=</span> Node(<span class="st">"primary"</span>), Node(<span class="st">"replica"</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> write(amount):</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    primary.balance <span class="op">+=</span> amount</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> replica.reachable:</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        replica.balance <span class="op">=</span> primary.balance</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"written and replicated"</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"written to primary only — replica is now stale"</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> read(node, mode):</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> node.reachable:</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"ERROR: cannot reach this node"</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> mode <span class="op">==</span> <span class="st">"consistency"</span> <span class="kw">and</span> node.balance <span class="op">!=</span> primary.balance:</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"REFUSED: this node may be stale (chose Consistency)"</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"₹</span><span class="sc">{</span>node<span class="sc">.</span>balance<span class="sc">}</span><span class="ss">"</span></span>
+<div id="73993a0d" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>primary <span class="op">=</span> {<span class="st">"name"</span>: <span class="st">"primary"</span>, <span class="st">"balance"</span>: <span class="dv">1000</span>}</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>replica <span class="op">=</span> {<span class="st">"name"</span>: <span class="st">"replica"</span>, <span class="st">"balance"</span>: <span class="dv">1000</span>, <span class="st">"can_hear_primary"</span>: <span class="va">True</span>}</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Network is healthy:"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>primary[<span class="st">"balance"</span>] <span class="op">+=</span> <span class="dv">500</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>replica[<span class="st">"balance"</span>] <span class="op">=</span> primary[<span class="st">"balance"</span>]</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  wrote ₹500 and copied it to the replica"</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  replica reads ₹</span><span class="sc">{</span>replica[<span class="st">'balance'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Network splits — the replica can no longer hear the primary:"</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>replica[<span class="st">"can_hear_primary"</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>primary[<span class="st">"balance"</span>] <span class="op">+=</span> <span class="dv">300</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  wrote ₹300 to the primary only"</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">A client now reads from the replica:"</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  choosing AVAILABILITY : ₹</span><span class="sc">{</span>replica[<span class="st">'balance'</span>]<span class="sc">}</span><span class="ss">  ← an answer, but stale"</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> replica[<span class="st">"balance"</span>] <span class="op">!=</span> primary[<span class="st">"balance"</span>]:</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"  choosing CONSISTENCY  : refused, because the replica may be stale"</span>)</span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Network is healthy:"</span>)</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">" "</span>, write(<span class="dv">500</span>), <span class="st">"→ replica reads"</span>, read(replica, <span class="st">"availability"</span>))</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Network splits — the replica can no longer hear the primary:"</span>)</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>replica.reachable <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">" "</span>, write(<span class="dv">300</span>))</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>replica.reachable <span class="op">=</span> <span class="va">True</span>                    <span class="co"># reachable by clients, but stale</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">A client now reads from the replica:"</span>)</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  choosing AVAILABILITY : </span><span class="sc">{</span>read(replica, <span class="st">'availability'</span>)<span class="sc">}</span><span class="ss">  ← an answer, possibly stale"</span>)</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  choosing CONSISTENCY  : </span><span class="sc">{</span>read(replica, <span class="st">'consistency'</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">  (the true balance on the primary is ₹</span><span class="sc">{</span>primary<span class="sc">.</span>balance<span class="sc">}</span><span class="ss">)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">  the true balance on the primary is ₹</span><span class="sc">{</span>primary[<span class="st">'balance'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Network is healthy:
-  written and replicated → replica reads ₹1500
+  wrote ₹500 and copied it to the replica
+  replica reads ₹1500
 
 Network splits — the replica can no longer hear the primary:
-  written to primary only — replica is now stale
+  wrote ₹300 to the primary only
 
 A client now reads from the replica:
-  choosing AVAILABILITY : ₹1500  ← an answer, possibly stale
-  choosing CONSISTENCY  : REFUSED: this node may be stale (chose Consistency)
+  choosing AVAILABILITY : ₹1500  ← an answer, but stale
+  choosing CONSISTENCY  : refused, because the replica may be stale
 
-  (the true balance on the primary is ₹1800)</code></pre>
+  the true balance on the primary is ₹1800</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled" title="⚠️ This is a business decision, not a technical one">
@@ -756,54 +746,29 @@ A client now reads from the replica:
 </tbody>
 </table>
 <p><strong>The big design difference: MongoDB prefers to embed related data inside one document rather than join across collections.</strong> An order carries its line items inside it, so fetching the order is one read rather than a join.</p>
-<section id="demo-3-a-document-store-implemented-in-plain-python" class="level3" data-number="19.1.1">
-<h3 data-number="19.1.1" class="anchored" data-anchor-id="demo-3-a-document-store-implemented-in-plain-python"><span class="header-section-number">19.1.1</span> Demo 3 — a document store, implemented in plain Python</h3>
-<p>To make the query model concrete, here is a miniature MongoDB. It supports <code>insert_many</code>, <code>find</code>, and the aggregation stages you will meet next.</p>
-<div id="4538e217" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Collection:</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""A miniature document store — enough to show how MongoDB queries work."""</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.docs <span class="op">=</span> []</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> insert_many(<span class="va">self</span>, docs):</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.docs.extend(docs)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">len</span>(docs)</span>
+<section id="demo-3-documents-as-simple-dictionaries" class="level3" data-number="19.1.1">
+<h3 data-number="19.1.1" class="anchored" data-anchor-id="demo-3-documents-as-simple-dictionaries"><span class="header-section-number">19.1.1</span> Demo 3 — documents as simple dictionaries</h3>
+<p>To make the query model concrete, start with a plain Python list. Each document is a dictionary, and the documents do not have to share the same fields.</p>
+<div id="407175fd" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sales <span class="op">=</span> json.loads(<span class="bu">open</span>(<span class="st">"datasets/store_sales.json"</span>).read())</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(sales)<span class="sc">}</span><span class="ss"> documents loaded from datasets/store_sales.json</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"All Mumbai sales:"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> doc <span class="kw">in</span> sales:</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> doc.get(<span class="st">"city"</span>) <span class="op">==</span> <span class="st">"Mumbai"</span>:</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"  "</span>, doc)</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> find(<span class="va">self</span>, query<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> [d <span class="cf">for</span> d <span class="kw">in</span> <span class="va">self</span>.docs <span class="cf">if</span> <span class="va">self</span>._matches(d, query <span class="kw">or</span> {})]</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">@staticmethod</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> _matches(doc, query):</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> field, cond <span class="kw">in</span> query.items():</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>            value <span class="op">=</span> doc.get(field)</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">isinstance</span>(cond, <span class="bu">dict</span>):                     <span class="co"># {"$gt": 100} style</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> op, target <span class="kw">in</span> cond.items():</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> op <span class="op">==</span> <span class="st">"$gt"</span>  <span class="kw">and</span> <span class="kw">not</span> (value <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> value <span class="op">&gt;</span>  target): <span class="cf">return</span> <span class="va">False</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> op <span class="op">==</span> <span class="st">"$gte"</span> <span class="kw">and</span> <span class="kw">not</span> (value <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> value <span class="op">&gt;=</span> target): <span class="cf">return</span> <span class="va">False</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> op <span class="op">==</span> <span class="st">"$lt"</span>  <span class="kw">and</span> <span class="kw">not</span> (value <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> value <span class="op">&lt;</span>  target): <span class="cf">return</span> <span class="va">False</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> op <span class="op">==</span> <span class="st">"$in"</span>  <span class="kw">and</span> value <span class="kw">not</span> <span class="kw">in</span> target: <span class="cf">return</span> <span class="va">False</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> op <span class="op">==</span> <span class="st">"$exists"</span> <span class="kw">and</span> (value <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>) <span class="op">!=</span> target: <span class="cf">return</span> <span class="va">False</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> value <span class="op">!=</span> cond:</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="va">False</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">True</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>sales <span class="op">=</span> Collection()</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the documents straight from the JSON file — no shape is imposed on them.</span></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>sales.insert_many(json.loads(<span class="bu">open</span>(<span class="st">"datasets/store_sales.json"</span>).read()))</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(sales.docs)<span class="sc">}</span><span class="ss"> documents loaded from datasets/store_sales.json</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"All Mumbai sales:"</span>)</span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> d <span class="kw">in</span> sales.find({<span class="st">"city"</span>: <span class="st">"Mumbai"</span>}): <span class="bu">print</span>(<span class="st">"  "</span>, d)</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Sales over ₹1,000 per unit:"</span>)</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> d <span class="kw">in</span> sales.find({<span class="st">"price"</span>: {<span class="st">"$gt"</span>: <span class="dv">1000</span>}}): <span class="bu">print</span>(<span class="st">"  "</span>, d)</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Documents that HAVE a loyalty_points field (others simply lack it):"</span>)</span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> d <span class="kw">in</span> sales.find({<span class="st">"loyalty_points"</span>: {<span class="st">"$exists"</span>: <span class="va">True</span>}}): <span class="bu">print</span>(<span class="st">"  "</span>, d)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Sales over ₹1,000 per unit:"</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> doc <span class="kw">in</span> sales:</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> doc.get(<span class="st">"price"</span>, <span class="dv">0</span>) <span class="op">&gt;</span> <span class="dv">1000</span>:</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"  "</span>, doc)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Documents that HAVE a loyalty_points field (others simply lack it):"</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> doc <span class="kw">in</span> sales:</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">"loyalty_points"</span> <span class="kw">in</span> doc:</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"  "</span>, doc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>5 documents loaded from datasets/store_sales.json
 
@@ -862,66 +827,39 @@ Documents that HAVE a loyalty_points field (others simply lack it):
 </tr>
 </tbody>
 </table>
-<section id="demo-4-running-an-aggregation-pipeline" class="level3" data-number="19.2.1">
-<h3 data-number="19.2.1" class="anchored" data-anchor-id="demo-4-running-an-aggregation-pipeline"><span class="header-section-number">19.2.1</span> Demo 4 — running an aggregation pipeline</h3>
-<div id="a7355122" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> aggregate(collection, pipeline):</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Execute a MongoDB-style aggregation pipeline."""</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    docs <span class="op">=</span> <span class="bu">list</span>(collection.docs)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> stage <span class="kw">in</span> pipeline:</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        (op, spec), <span class="op">=</span> stage.items()</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> op <span class="op">==</span> <span class="st">"$match"</span>:</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>            docs <span class="op">=</span> [d <span class="cf">for</span> d <span class="kw">in</span> docs <span class="cf">if</span> Collection._matches(d, spec)]</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> op <span class="op">==</span> <span class="st">"$group"</span>:</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>            groups <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>            key_field <span class="op">=</span> spec[<span class="st">"_id"</span>].lstrip(<span class="st">"$"</span>)</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> d <span class="kw">in</span> docs:</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>                groups[d.get(key_field)].append(d)</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>            out <span class="op">=</span> []</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> key, members <span class="kw">in</span> groups.items():</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>                row <span class="op">=</span> {<span class="st">"_id"</span>: key}</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> name, rule <span class="kw">in</span> spec.items():</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> name <span class="op">==</span> <span class="st">"_id"</span>:</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">continue</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>                    (fn, field), <span class="op">=</span> rule.items()</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>                    field <span class="op">=</span> field.lstrip(<span class="st">"$"</span>) <span class="cf">if</span> <span class="bu">isinstance</span>(field, <span class="bu">str</span>) <span class="cf">else</span> field</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>                    vals <span class="op">=</span> [m.get(field, <span class="dv">0</span>) <span class="cf">for</span> m <span class="kw">in</span> members] <span class="cf">if</span> <span class="bu">isinstance</span>(field, <span class="bu">str</span>) <span class="cf">else</span> []</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>                    row[name] <span class="op">=</span> {<span class="st">"$sum"</span>: <span class="bu">sum</span>(vals) <span class="cf">if</span> vals <span class="cf">else</span> <span class="bu">len</span>(members),</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"$avg"</span>: (<span class="bu">sum</span>(vals)<span class="op">/</span><span class="bu">len</span>(vals)) <span class="cf">if</span> vals <span class="cf">else</span> <span class="dv">0</span>,</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"$max"</span>: <span class="bu">max</span>(vals) <span class="cf">if</span> vals <span class="cf">else</span> <span class="dv">0</span>}[fn]</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>                out.append(row)</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>            docs <span class="op">=</span> out</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> op <span class="op">==</span> <span class="st">"$sort"</span>:</span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>            (field, direction), <span class="op">=</span> spec.items()</span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>            docs <span class="op">=</span> <span class="bu">sorted</span>(docs, key<span class="op">=</span><span class="kw">lambda</span> d: d.get(field, <span class="dv">0</span>), reverse<span class="op">=</span>direction <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>)</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> op <span class="op">==</span> <span class="st">"$project"</span>:</span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>            docs <span class="op">=</span> [{k: d.get(k) <span class="cf">for</span> k <span class="kw">in</span> spec <span class="cf">if</span> spec[k]} <span class="cf">for</span> d <span class="kw">in</span> docs]</span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> op <span class="op">==</span> <span class="st">"$limit"</span>:</span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>            docs <span class="op">=</span> docs[:spec]</span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> docs</span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Total revenue per item, biggest first:"</span>)</span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row <span class="kw">in</span> aggregate(sales, [</span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"$group"</span>: {<span class="st">"_id"</span>: <span class="st">"$item"</span>, <span class="st">"revenue"</span>: {<span class="st">"$sum"</span>: <span class="st">"$price"</span>}, <span class="st">"units"</span>: {<span class="st">"$sum"</span>: <span class="st">"$qty"</span>}}},</span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"$sort"</span>: {<span class="st">"revenue"</span>: <span class="op">-</span><span class="dv">1</span>}},</span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>]):</span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>row[<span class="st">'_id'</span>]<span class="sc">:&lt;10}</span><span class="ss"> revenue ₹</span><span class="sc">{</span>row[<span class="st">'revenue'</span>]<span class="sc">:&gt;8,}</span><span class="ss">  units </span><span class="sc">{</span>row[<span class="st">'units'</span>]<span class="sc">:&gt;3}</span><span class="ss">"</span>)</span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Online sales only, grouped by city:"</span>)</span>
-<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row <span class="kw">in</span> aggregate(sales, [</span>
-<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"$match"</span>: {<span class="st">"channel"</span>: <span class="st">"online"</span>}},</span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"$group"</span>: {<span class="st">"_id"</span>: <span class="st">"$city"</span>, <span class="st">"revenue"</span>: {<span class="st">"$sum"</span>: <span class="st">"$price"</span>}}},</span>
-<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"$sort"</span>: {<span class="st">"revenue"</span>: <span class="op">-</span><span class="dv">1</span>}},</span>
-<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>]):</span>
-<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>row[<span class="st">'_id'</span>]<span class="sc">:&lt;10}</span><span class="ss"> ₹</span><span class="sc">{</span>row[<span class="st">'revenue'</span>]<span class="sc">:&gt;8,}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="demo-4-aggregation-stages-by-hand" class="level3" data-number="19.2.1">
+<h3 data-number="19.2.1" class="anchored" data-anchor-id="demo-4-aggregation-stages-by-hand"><span class="header-section-number">19.2.1</span> Demo 4 — aggregation stages by hand</h3>
+<div id="0ec0ae0c" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Total revenue per item, biggest first:"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>by_item <span class="op">=</span> {}</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> doc <span class="kw">in</span> sales:</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    item <span class="op">=</span> doc[<span class="st">"item"</span>]</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> item <span class="kw">not</span> <span class="kw">in</span> by_item:</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        by_item[item] <span class="op">=</span> {<span class="st">"revenue"</span>: <span class="dv">0</span>, <span class="st">"units"</span>: <span class="dv">0</span>}</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    by_item[item][<span class="st">"revenue"</span>] <span class="op">+=</span> doc[<span class="st">"price"</span>]</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    by_item[item][<span class="st">"units"</span>] <span class="op">+=</span> doc[<span class="st">"qty"</span>]</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>item_rows <span class="op">=</span> []</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item, totals <span class="kw">in</span> by_item.items():</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    item_rows.append({<span class="st">"item"</span>: item, <span class="st">"revenue"</span>: totals[<span class="st">"revenue"</span>], <span class="st">"units"</span>: totals[<span class="st">"units"</span>]})</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>item_rows <span class="op">=</span> <span class="bu">sorted</span>(item_rows, key<span class="op">=</span><span class="kw">lambda</span> row: row[<span class="st">"revenue"</span>], reverse<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row <span class="kw">in</span> item_rows:</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>row[<span class="st">'item'</span>]<span class="sc">:&lt;10}</span><span class="ss"> revenue ₹</span><span class="sc">{</span>row[<span class="st">'revenue'</span>]<span class="sc">:&gt;8,}</span><span class="ss">  units </span><span class="sc">{</span>row[<span class="st">'units'</span>]<span class="sc">:&gt;3}</span><span class="ss">"</span>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Online sales only, grouped by city:"</span>)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>online_docs <span class="op">=</span> [doc <span class="cf">for</span> doc <span class="kw">in</span> sales <span class="cf">if</span> doc[<span class="st">"channel"</span>] <span class="op">==</span> <span class="st">"online"</span>]  <span class="co"># $match</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>by_city <span class="op">=</span> {}</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> doc <span class="kw">in</span> online_docs:                                             <span class="co"># $group</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    city <span class="op">=</span> doc[<span class="st">"city"</span>]</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    by_city[city] <span class="op">=</span> by_city.get(city, <span class="dv">0</span>) <span class="op">+</span> doc[<span class="st">"price"</span>]</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>city_rows <span class="op">=</span> [{<span class="st">"city"</span>: city, <span class="st">"revenue"</span>: revenue} <span class="cf">for</span> city, revenue <span class="kw">in</span> by_city.items()]</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>city_rows <span class="op">=</span> <span class="bu">sorted</span>(city_rows, key<span class="op">=</span><span class="kw">lambda</span> row: row[<span class="st">"revenue"</span>], reverse<span class="op">=</span><span class="va">True</span>)  <span class="co"># $sort</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row <span class="kw">in</span> city_rows:</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>row[<span class="st">'city'</span>]<span class="sc">:&lt;10}</span><span class="ss"> ₹</span><span class="sc">{</span>row[<span class="st">'revenue'</span>]<span class="sc">:&gt;8,}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Total revenue per item, biggest first:
   laptop     revenue ₹ 149,998  units   3
@@ -937,10 +875,10 @@ Online sales only, grouped by city:
 </section>
 <section id="demo-5-the-same-thing-in-pandas-for-comparison" class="level3" data-number="19.2.2">
 <h3 data-number="19.2.2" class="anchored" data-anchor-id="demo-5-the-same-thing-in-pandas-for-comparison"><span class="header-section-number">19.2.2</span> Demo 5 — the same thing in pandas, for comparison</h3>
-<div id="dc534a72" class="cell" data-execution_count="6">
+<div id="e7d5275f" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(sales.docs)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(sales)</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"pandas equivalent of the first pipeline:"</span>)</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.groupby(<span class="st">"item"</span>).agg(revenue<span class="op">=</span>(<span class="st">"price"</span>, <span class="st">"sum"</span>), units<span class="op">=</span>(<span class="st">"qty"</span>, <span class="st">"sum"</span>))</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        .sort_values(<span class="st">"revenue"</span>, ascending<span class="op">=</span><span class="va">False</span>))</span>
@@ -962,7 +900,7 @@ the database, so only the small summary crosses the network.</code></pre>
 </section>
 <section id="sec-s15-topic-6" class="level2" data-number="19.3">
 <h2 data-number="19.3" class="anchored" data-anchor-id="sec-s15-topic-6"><span class="header-section-number">19.3</span> 6. Real pymongo</h2>
-<p><strong>Against a real MongoDB server, the code is almost identical to Demo 4</strong> — the pipeline is the same list of dictionaries. This block needs a running MongoDB, so it is shown rather than executed.</p>
+<p><strong>Against a real MongoDB server, the same stages become a pipeline list.</strong> This block needs a running MongoDB, so it is shown rather than executed.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pymongo <span class="im">import</span> MongoClient</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -984,7 +922,7 @@ the database, so only the small summary crosses the network.</code></pre>
 <span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> doc <span class="kw">in</span> sales.find({<span class="st">"price"</span>: {<span class="st">"$gt"</span>: <span class="dv">1000</span>}}).limit(<span class="dv">5</span>):</span>
 <span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(doc)</span>
 <span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co"># AGGREGATE — the same pipeline as Demo 4, run inside the database</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co"># AGGREGATE — the Demo 4 stages, run inside the database</span></span>
 <span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>pipeline <span class="op">=</span> [</span>
 <span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"$match"</span>: {<span class="st">"channel"</span>: <span class="st">"online"</span>}},</span>
 <span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"$group"</span>: {<span class="st">"_id"</span>: <span class="st">"$city"</span>, <span class="st">"revenue"</span>: {<span class="st">"$sum"</span>: <span class="st">"$price"</span>}, <span class="st">"orders"</span>: {<span class="st">"$sum"</span>: <span class="dv">1</span>}}},</span>
@@ -1070,7 +1008,7 @@ the database, so only the small summary crosses the network.</code></pre>
 <span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>) <span class="kw">WITH</span> CLUSTERING <span class="kw">ORDER</span> <span class="kw">BY</span> (total <span class="kw">DESC</span>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <section id="demo-6-why-the-partition-key-decides-everything" class="level3" data-number="20.1.1">
 <h3 data-number="20.1.1" class="anchored" data-anchor-id="demo-6-why-the-partition-key-decides-everything"><span class="header-section-number">20.1.1</span> Demo 6 — why the partition key decides everything</h3>
-<div id="afcde3d9" class="cell" data-execution_count="7">
+<div id="2e6ab964" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> hashlib</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> which_machine(partition_key, n_machines<span class="op">=</span><span class="dv">6</span>):</span>
@@ -1112,7 +1050,7 @@ half your data on one machine and melt it.</code></pre>
 </section>
 <section id="demo-7-choosing-between-the-three" class="level3" data-number="20.1.2">
 <h3 data-number="20.1.2" class="anchored" data-anchor-id="demo-7-choosing-between-the-three"><span class="header-section-number">20.1.2</span> Demo 7 — choosing between the three</h3>
-<div id="73a0be1d" class="cell" data-execution_count="8">
+<div id="1dd9cc74" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> [</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"data shape"</span>,        <span class="st">"documents, flexible"</span>,  <span class="st">"wide rows, fixed queries"</span>, <span class="st">"rows and columns"</span>),</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"query flexibility"</span>, <span class="st">"high"</span>,                 <span class="st">"low — plan queries first"</span>, <span class="st">"highest (SQL)"</span>),</span>
@@ -1205,7 +1143,7 @@ The raw scatter hides that there are TWO groups. The other three show it.</code>
 <p><strong>The most effective technique is to never send the raw rows to the chart at all.</strong> Summarise in the database, plot the summary.</p>
 <section id="demo-9-the-size-of-what-crosses-the-network" class="level3" data-number="21.2.1">
 <h3 data-number="21.2.1" class="anchored" data-anchor-id="demo-9-the-size-of-what-crosses-the-network"><span class="header-section-number">21.2.1</span> Demo 9 — the size of what crosses the network</h3>
-<div id="4b80b57c" class="cell" data-execution_count="10">
+<div id="e0d3e10e" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>logs <span class="op">=</span> pd.read_csv(<span class="st">"datasets/request_logs.csv"</span>)</span>
@@ -1262,7 +1200,7 @@ Figure&nbsp;21.2: A chart of 300,000 rows, drawn from a 72-row summary.
 <p><strong>A sampled chart is an estimate, and it must be labelled as one.</strong></p>
 <section id="demo-10-how-wrong-a-sample-can-be-and-how-to-say-so" class="level3" data-number="21.3.1">
 <h3 data-number="21.3.1" class="anchored" data-anchor-id="demo-10-how-wrong-a-sample-can-be-and-how-to-say-so"><span class="header-section-number">21.3.1</span> Demo 10 — how wrong a sample can be, and how to say so</h3>
-<div id="69081e31" class="cell" data-execution_count="12">
+<div id="7740ad62" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>population <span class="op">=</span> pd.read_csv(<span class="st">"datasets/sampling_population.csv"</span>)[<span class="st">"value"</span>].values</span>
@@ -1308,7 +1246,7 @@ a percent. Sampling is not a compromise — it is usually the right answer.</cod
 <p>And remember Session 2: <strong>a sample must be random.</strong> <code>df.head(10000)</code> is not a sample — it is whatever was written first, which is usually ordered by time or by ID.</p>
 </div>
 </div>
-<div id="12e30cfa" class="cell" data-execution_count="13">
+<div id="41f22942" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A real file, stored in signup order — and average spend has risen over time.</span></span>
@@ -1324,8 +1262,95 @@ df.sample(5000)        : ₹    549   ← correct</code></pre>
 </div>
 </div>
 </section>
-<section id="check-yourself" class="level3" data-number="21.3.2">
-<h3 data-number="21.3.2" class="anchored" data-anchor-id="check-yourself"><span class="header-section-number">21.3.2</span> ❓ Check yourself</h3>
+</section>
+</section>
+<section id="sec-s15-tasks" class="level1" data-number="22">
+<h1 data-number="22"><span class="header-section-number">22</span> 🎯 Tasks</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Practise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Task 1 — Write a pipeline.</strong> Using <code>aggregate</code> from Demo 4, find the average price per city for store sales only, sorted highest first.</p>
+<p><strong>Task 2 — Design for Cassandra.</strong> An app must answer “show a user’s last 20 orders” and “show the 10 largest orders today”. <strong>Write the two <code>CREATE TABLE</code> statements</strong> and say what has to be duplicated.</p>
+<p><strong>Task 3 — Fix a chart.</strong> Generate 5 million points in three clusters and produce one chart that shows all three groups clearly. <strong>Say which technique you used and why.</strong></p>
+<p><strong>Task 4 — Quantify a sample.</strong> For the population in Demo 10, find the smallest sample size whose 95% margin is under 1% of the true mean.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="cfca3b9b" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 2 — two tables, because Cassandra plans tables around queries:"</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"""</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="st">  CREATE TABLE orders_by_user (</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="st">      user_id uuid, order_date timestamp, order_id uuid, total decimal,</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="st">      PRIMARY KEY (user_id, order_date)</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="st">  ) WITH CLUSTERING ORDER BY (order_date DESC);</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="st">  CREATE TABLE orders_by_day (</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="st">      day date, total decimal, order_id uuid, user_id uuid,</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="st">      PRIMARY KEY (day, total, order_id)</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="st">  ) WITH CLUSTERING ORDER BY (total DESC);</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  Every order is written to BOTH tables. That duplication is deliberate:"</span>)</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  storage is cheap, and it is what makes both queries fast.</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 4 — smallest sample whose margin is under 1% of the mean</span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>population <span class="op">=</span> pd.read_csv(<span class="st">"datasets/sampling_population.csv"</span>)[<span class="st">"value"</span>].values</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">93</span>)</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>truth <span class="op">=</span> population.mean()</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> size <span class="kw">in</span> [<span class="dv">100</span>, <span class="dv">300</span>, <span class="dv">1_000</span>, <span class="dv">3_000</span>, <span class="dv">10_000</span>, <span class="dv">30_000</span>]:</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> rng.choice(population, size, replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>    margin <span class="op">=</span> <span class="fl">1.96</span> <span class="op">*</span> s.std() <span class="op">/</span> np.sqrt(size)</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Task 4 — n=</span><span class="sc">{</span>size<span class="sc">:&gt;6,}</span><span class="ss">: margin ±</span><span class="sc">{</span>margin<span class="sc">:.3f}</span><span class="ss"> = </span><span class="sc">{</span>margin<span class="op">/</span>truth<span class="sc">:.2%}</span><span class="ss"> of the mean"</span></span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"</span><span class="sc">{</span><span class="st">'   ← first under 1%'</span> <span class="cf">if</span> margin<span class="op">/</span>truth <span class="op">&lt;</span> <span class="fl">0.01</span> <span class="kw">and</span> size <span class="op">&gt;=</span> <span class="dv">1000</span> <span class="cf">else</span> <span class="st">''</span><span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Task 2 — two tables, because Cassandra plans tables around queries:
+
+  CREATE TABLE orders_by_user (
+      user_id uuid, order_date timestamp, order_id uuid, total decimal,
+      PRIMARY KEY (user_id, order_date)
+  ) WITH CLUSTERING ORDER BY (order_date DESC);
+
+  CREATE TABLE orders_by_day (
+      day date, total decimal, order_id uuid, user_id uuid,
+      PRIMARY KEY (day, total, order_id)
+  ) WITH CLUSTERING ORDER BY (total DESC);
+
+  Every order is written to BOTH tables. That duplication is deliberate:
+  storage is cheap, and it is what makes both queries fast.
+
+Task 4 — n=   100: margin ±13.449 = 16.83% of the mean
+Task 4 — n=   300: margin ±6.206 = 7.76% of the mean
+Task 4 — n= 1,000: margin ±3.377 = 4.22% of the mean
+Task 4 — n= 3,000: margin ±2.050 = 2.56% of the mean
+Task 4 — n=10,000: margin ±1.111 = 1.39% of the mean
+Task 4 — n=30,000: margin ±0.630 = 0.79% of the mean   ← first under 1%</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-s15-mcqs" class="level1" data-number="23">
+<h1 data-number="23"><span class="header-section-number">23</span> ❓ MCQs</h1>
 <p><strong>Q1.</strong> Your product catalogue has 40 product types with almost no shared attributes. Which storage?</p>
 <ul>
 <li><ol type="a">
@@ -1387,7 +1412,7 @@ df.sample(5000)        : ₹    549   ← correct</code></pre>
 </ol></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1396,100 +1421,13 @@ df.sample(5000)        : ₹    549   ← correct</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>A1 — (b).</strong> Demo 1 measured the blank ratio a single table produces.</p>
 <p><strong>A2 — (b).</strong> Demo 2’s warning: this is a business decision, and for money the answer is consistency.</p>
 <p><strong>A3 — (b).</strong> Demo 6 showed rows spread by a hash of the partition key.</p>
 <p><strong>A4 — (b).</strong> Demo 9 reduced 300,000 rows to 72 and lost nothing the chart needed.</p>
 <p><strong>A5 — (b).</strong> The final demo measured ₹209 from <code>head()</code> against a true mean of ₹550.</p>
-</div>
-</div>
-</div>
-</section>
-</section>
-</section>
-<section id="sec-s15-tasks" class="level1" data-number="22">
-<h1 data-number="22"><span class="header-section-number">22</span> 🎯 Tasks</h1>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Practise
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Task 1 — Write a pipeline.</strong> Using <code>aggregate</code> from Demo 4, find the average price per city for store sales only, sorted highest first.</p>
-<p><strong>Task 2 — Design for Cassandra.</strong> An app must answer “show a user’s last 20 orders” and “show the 10 largest orders today”. <strong>Write the two <code>CREATE TABLE</code> statements</strong> and say what has to be duplicated.</p>
-<p><strong>Task 3 — Fix a chart.</strong> Generate 5 million points in three clusters and produce one chart that shows all three groups clearly. <strong>Say which technique you used and why.</strong></p>
-<p><strong>Task 4 — Quantify a sample.</strong> For the population in Demo 10, find the smallest sample size whose 95% margin is under 1% of the true mean.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="03082fc1" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 2 — two tables, because Cassandra plans tables around queries:"</span>)</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"""</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="st">  CREATE TABLE orders_by_user (</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="st">      user_id uuid, order_date timestamp, order_id uuid, total decimal,</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="st">      PRIMARY KEY (user_id, order_date)</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="st">  ) WITH CLUSTERING ORDER BY (order_date DESC);</span></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="st">  CREATE TABLE orders_by_day (</span></span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="st">      day date, total decimal, order_id uuid, user_id uuid,</span></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="st">      PRIMARY KEY (day, total, order_id)</span></span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="st">  ) WITH CLUSTERING ORDER BY (total DESC);</span></span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  Every order is written to BOTH tables. That duplication is deliberate:"</span>)</span>
-<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  storage is cheap, and it is what makes both queries fast.</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 4 — smallest sample whose margin is under 1% of the mean</span></span>
-<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>population <span class="op">=</span> pd.read_csv(<span class="st">"datasets/sampling_population.csv"</span>)[<span class="st">"value"</span>].values</span>
-<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">93</span>)</span>
-<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>truth <span class="op">=</span> population.mean()</span>
-<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> size <span class="kw">in</span> [<span class="dv">100</span>, <span class="dv">300</span>, <span class="dv">1_000</span>, <span class="dv">3_000</span>, <span class="dv">10_000</span>, <span class="dv">30_000</span>]:</span>
-<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> rng.choice(population, size, replace<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>    margin <span class="op">=</span> <span class="fl">1.96</span> <span class="op">*</span> s.std() <span class="op">/</span> np.sqrt(size)</span>
-<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Task 4 — n=</span><span class="sc">{</span>size<span class="sc">:&gt;6,}</span><span class="ss">: margin ±</span><span class="sc">{</span>margin<span class="sc">:.3f}</span><span class="ss"> = </span><span class="sc">{</span>margin<span class="op">/</span>truth<span class="sc">:.2%}</span><span class="ss"> of the mean"</span></span>
-<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"</span><span class="sc">{</span><span class="st">'   ← first under 1%'</span> <span class="cf">if</span> margin<span class="op">/</span>truth <span class="op">&lt;</span> <span class="fl">0.01</span> <span class="kw">and</span> size <span class="op">&gt;=</span> <span class="dv">1000</span> <span class="cf">else</span> <span class="st">''</span><span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Task 2 — two tables, because Cassandra plans tables around queries:
-
-  CREATE TABLE orders_by_user (
-      user_id uuid, order_date timestamp, order_id uuid, total decimal,
-      PRIMARY KEY (user_id, order_date)
-  ) WITH CLUSTERING ORDER BY (order_date DESC);
-
-  CREATE TABLE orders_by_day (
-      day date, total decimal, order_id uuid, user_id uuid,
-      PRIMARY KEY (day, total, order_id)
-  ) WITH CLUSTERING ORDER BY (total DESC);
-
-  Every order is written to BOTH tables. That duplication is deliberate:
-  storage is cheap, and it is what makes both queries fast.
-
-Task 4 — n=   100: margin ±13.449 = 16.83% of the mean
-Task 4 — n=   300: margin ±6.206 = 7.76% of the mean
-Task 4 — n= 1,000: margin ±3.377 = 4.22% of the mean
-Task 4 — n= 3,000: margin ±2.050 = 2.56% of the mean
-Task 4 — n=10,000: margin ±1.111 = 1.39% of the mean
-Task 4 — n=30,000: margin ±0.630 = 0.79% of the mean   ← first under 1%</code></pre>
-</div>
-</div>
 </div>
 </div>
 </div>

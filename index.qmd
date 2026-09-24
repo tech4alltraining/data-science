@@ -95,10 +95,22 @@ cluster structure, a planted association rule, a deliberate leak.
 |---|---|
 | Rebuild every generated file | `python datasets/make_all.py` |
 | Re-download the real ones | `python datasets/download_real.py` |
+| Get the two large real datasets for Sessions 13–14 | `python datasets/download_bigdata_real.py` |
 | What each file is for | [`datasets/README.md`](datasets/README.md) |
 
 The formats vary on purpose — CSV, JSON, plain text, Excel, SQL, and one table split
 across several files — because real data does not arrive in one shape.
+
+Sessions 13 and 14 each close with an advanced demo on a genuinely large public dataset —
+566,602 real rows of US Forest Service terrain data, and 25,000 real IMDB movie reviews,
+both from Hugging Face — so the chunking and MapReduce ideas are proven at real scale, not
+just on data built for the lesson.
+
+## Slides
+
+A companion slide deck covers every session's concepts — no code, one section per
+session — for teaching from the front of a room: [`slides/data-science-course.tex`](slides/data-science-course.tex)
+(compile with `latexmk -xelatex data-science-course.tex`; the built PDF sits alongside it).
 
 ## Setting up
 

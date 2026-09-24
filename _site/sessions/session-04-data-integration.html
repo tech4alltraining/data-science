@@ -328,7 +328,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#sec-s04-topic-2" id="toc-sec-s04-topic-2" class="nav-link" data-scroll-target="#sec-s04-topic-2"><span class="header-section-number">7.2</span> 2. The five approaches</a>
   <ul class="collapse">
   <li><a href="#how-to-choose" id="toc-how-to-choose" class="nav-link" data-scroll-target="#how-to-choose"><span class="header-section-number">7.2.1</span> How to choose</a></li>
-  <li><a href="#check-yourself" id="toc-check-yourself" class="nav-link" data-scroll-target="#check-yourself"><span class="header-section-number">7.2.2</span> ❓ Check yourself</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#sec-s04-b" id="toc-sec-s04-b" class="nav-link" data-scroll-target="#sec-s04-b"><span class="header-section-number">8</span> Part B — Doing it in pandas</a>
@@ -358,12 +357,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#failure-2-the-same-thing-different-column-names" id="toc-failure-2-the-same-thing-different-column-names" class="nav-link" data-scroll-target="#failure-2-the-same-thing-different-column-names"><span class="header-section-number">9.1.2</span> Failure 2 — the same thing, different column names</a></li>
   <li><a href="#failure-3-duplicate-keys-multiply-rows" id="toc-failure-3-duplicate-keys-multiply-rows" class="nav-link" data-scroll-target="#failure-3-duplicate-keys-multiply-rows"><span class="header-section-number">9.1.3</span> Failure 3 — duplicate keys multiply rows</a></li>
   </ul></li>
-  <li><a href="#sec-s04-topic-8" id="toc-sec-s04-topic-8" class="nav-link" data-scroll-target="#sec-s04-topic-8"><span class="header-section-number">9.2</span> 8. The check that catches all three</a>
-  <ul class="collapse">
-  <li><a href="#check-yourself-1" id="toc-check-yourself-1" class="nav-link" data-scroll-target="#check-yourself-1"><span class="header-section-number">9.2.1</span> ❓ Check yourself</a></li>
-  </ul></li>
+  <li><a href="#sec-s04-topic-8" id="toc-sec-s04-topic-8" class="nav-link" data-scroll-target="#sec-s04-topic-8"><span class="header-section-number">9.2</span> 8. The check that catches all three</a></li>
   </ul></li>
   <li><a href="#sec-s04-tasks" id="toc-sec-s04-tasks" class="nav-link" data-scroll-target="#sec-s04-tasks"><span class="header-section-number">10</span> 🎯 Tasks</a></li>
+  <li><a href="#sec-s04-mcqs" id="toc-sec-s04-mcqs" class="nav-link" data-scroll-target="#sec-s04-mcqs"><span class="header-section-number">11</span> ❓ MCQs</a></li>
   </ul>
 </nav>
     </div>
@@ -555,50 +552,6 @@ Note
 </div>
 </div>
 </section>
-<section id="check-yourself" class="level3" data-number="7.2.2">
-<h3 data-number="7.2.2" class="anchored" data-anchor-id="check-yourself"><span class="header-section-number">7.2.2</span> ❓ Check yourself</h3>
-<p><strong>Q1.</strong> A dashboard must show live warehouse stock, and stock changes every few seconds. Which approach?</p>
-<ul>
-<li><ol type="a">
-<li>Physical integration into a nightly warehouse.</li>
-</ol></li>
-<li><ol start="2" type="a">
-<li><strong>Virtual integration, querying the stock system directly.</strong></li>
-</ol></li>
-<li><ol start="3" type="a">
-<li>Manual integration.</li>
-</ol></li>
-</ul>
-<p><strong>Q2.</strong> Twelve internal systems each need data from the other eleven, and every team is writing its own converter. Which approach fixes this?</p>
-<ul>
-<li><ol type="a">
-<li>Manual integration.</li>
-</ol></li>
-<li><ol start="2" type="a">
-<li>Virtual integration.</li>
-</ol></li>
-<li><ol start="3" type="a">
-<li><strong>Middleware — one translation layer instead of many pairwise converters.</strong></li>
-</ol></li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Answers
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>A1 — (b).</strong> A nightly copy would show yesterday’s stock, which for this question is worse than useless. Virtual integration trades speed for freshness, and freshness is what this dashboard is for.</p>
-<p><strong>A2 — (c).</strong> With 12 systems talking directly, you can end up maintaining dozens of converters. Middleware means each system talks to one thing.</p>
-</div>
-</div>
-</div>
-</section>
 </section>
 </section>
 <section id="sec-s04-b" class="level1" data-number="8">
@@ -655,7 +608,7 @@ Note
 </div>
 <section id="demo-1-stacking-with-concat" class="level3" data-number="8.1.1">
 <h3 data-number="8.1.1" class="anchored" data-anchor-id="demo-1-stacking-with-concat"><span class="header-section-number">8.1.1</span> Demo 1 — stacking with concat</h3>
-<div id="c9cba671" class="cell" data-execution_count="2">
+<div id="989246f1" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>jan <span class="op">=</span> pd.read_csv(<span class="st">"datasets/sales_jan.csv"</span>)</span>
@@ -701,7 +654,7 @@ February:
 <p>If one month’s file calls the column <code>amount</code> and the other calls it <code>Amount</code>, <code>concat</code> does not complain. It creates <strong>both</strong> columns and fills each with blanks where the other was used. <strong>Check <code>.columns</code> on both tables before stacking.</strong></p>
 </div>
 </div>
-<div id="f7bf7962" class="cell" data-execution_count="3">
+<div id="d975921e" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mismatched <span class="op">=</span> pd.read_csv(<span class="st">"datasets/sales_mar.csv"</span>)   <span class="co"># this file spells it "Amount"</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"March, as it arrived:"</span>)<span class="op">;</span> <span class="bu">print</span>(mismatched)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>oops <span class="op">=</span> pd.concat([jan, mismatched], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
@@ -728,7 +681,7 @@ Two amount columns, both half empty — and no error was raised.</code></pre>
 <p><strong><code>merge</code> joins two tables using a shared column called the key.</strong> The key is usually an ID.</p>
 <section id="demo-2-a-first-merge" class="level3" data-number="8.2.1">
 <h3 data-number="8.2.1" class="anchored" data-anchor-id="demo-2-a-first-merge"><span class="header-section-number">8.2.1</span> Demo 2 — a first merge</h3>
-<div id="8b8b0ecc" class="cell" data-execution_count="4">
+<div id="80fa94a3" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>customers <span class="op">=</span> pd.read_csv(<span class="st">"datasets/customers.csv"</span>)</span>
@@ -808,7 +761,7 @@ customers 4 rows + purchases 4 rows → 3 rows</code></pre>
 </table>
 <section id="demo-3-all-four-on-the-same-two-tables" class="level3" data-number="8.3.1">
 <h3 data-number="8.3.1" class="anchored" data-anchor-id="demo-3-all-four-on-the-same-two-tables"><span class="header-section-number">8.3.1</span> Demo 3 — all four, on the same two tables</h3>
-<div id="77f4c118" class="cell" data-execution_count="5">
+<div id="767a765e" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> how <span class="kw">in</span> [<span class="st">"inner"</span>, <span class="st">"left"</span>, <span class="st">"right"</span>, <span class="st">"outer"</span>]:</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> pd.merge(customers, purchases, on<span class="op">=</span><span class="st">"user_id"</span>, how<span class="op">=</span>how)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    names <span class="op">=</span> result[<span class="st">"name"</span>].fillna(<span class="st">"(unknown)"</span>).tolist()</span>
@@ -821,7 +774,7 @@ customers 4 rows + purchases 4 rows → 3 rows</code></pre>
 </div>
 </div>
 <p>Now read what each one is <em>for</em>:</p>
-<div id="11783268" class="cell" data-execution_count="6">
+<div id="10328b56" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"LEFT — every customer, whether or not they bought anything:"</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>left <span class="op">=</span> pd.merge(customers, purchases, on<span class="op">=</span><span class="st">"user_id"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(left[[<span class="st">"name"</span>, <span class="st">"city"</span>, <span class="st">"amount"</span>]])</span>
@@ -871,7 +824,7 @@ OUTER — everything, including the purchase by an unknown user 5:
 <p><strong>When one side has many rows per key, joining directly multiplies rows. Usually you want a summary instead.</strong></p>
 <section id="demo-4-one-row-per-customer" class="level3" data-number="8.4.1">
 <h3 data-number="8.4.1" class="anchored" data-anchor-id="demo-4-one-row-per-customer"><span class="header-section-number">8.4.1</span> Demo 4 — one row per customer</h3>
-<div id="aed061ef" class="cell" data-execution_count="7">
+<div id="69c442b8" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wrong for most purposes: Alice appears twice, so any count of customers is now wrong.</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>naive <span class="op">=</span> pd.merge(customers, purchases, on<span class="op">=</span><span class="st">"user_id"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Naive join: </span><span class="sc">{</span><span class="bu">len</span>(naive)<span class="sc">}</span><span class="ss"> rows for </span><span class="sc">{</span><span class="bu">len</span>(customers)<span class="sc">}</span><span class="ss"> customers"</span>)</span>
@@ -910,7 +863,7 @@ Aggregate-then-join: 4 rows for 4 customers
 <section id="failure-1-the-key-does-not-match" class="level3" data-number="9.1.1">
 <h3 data-number="9.1.1" class="anchored" data-anchor-id="failure-1-the-key-does-not-match"><span class="header-section-number">9.1.1</span> Failure 1 — the key does not match</h3>
 <p><strong>The most common cause of “the join returned nothing”.</strong> The keys look identical to a human and differ to a computer.</p>
-<div id="47c4ab3f" class="cell" data-execution_count="8">
+<div id="c2dabe68" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>left_tbl  <span class="op">=</span> pd.read_csv(<span class="st">"datasets/subscribers_plan.csv"</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>right_tbl <span class="op">=</span> pd.read_csv(<span class="st">"datasets/subscribers_spend.csv"</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The two files, side by side — the emails LOOK identical:"</span>)</span>
@@ -947,7 +900,7 @@ After cleaning the key:
 </section>
 <section id="failure-2-the-same-thing-different-column-names" class="level3" data-number="9.1.2">
 <h3 data-number="9.1.2" class="anchored" data-anchor-id="failure-2-the-same-thing-different-column-names"><span class="header-section-number">9.1.2</span> Failure 2 — the same thing, different column names</h3>
-<div id="82155b57" class="cell" data-execution_count="9">
+<div id="b6f842bf" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>orders <span class="op">=</span> pd.read_csv(<span class="st">"datasets/orders_by_ref.csv"</span>)   <span class="co"># this file calls the key cust_ref</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>merged <span class="op">=</span> pd.merge(customers, orders, left_on<span class="op">=</span><span class="st">"user_id"</span>, right_on<span class="op">=</span><span class="st">"cust_ref"</span>, how<span class="op">=</span><span class="st">"inner"</span>)</span>
@@ -965,7 +918,7 @@ After cleaning the key:
 <section id="failure-3-duplicate-keys-multiply-rows" class="level3" data-number="9.1.3">
 <h3 data-number="9.1.3" class="anchored" data-anchor-id="failure-3-duplicate-keys-multiply-rows"><span class="header-section-number">9.1.3</span> Failure 3 — duplicate keys multiply rows</h3>
 <p><strong>This is the dangerous one, because nothing fails.</strong> The code runs, the model trains, the numbers look plausible, and they are wrong.</p>
-<div id="154cbae9" class="cell" data-execution_count="10">
+<div id="cae63bd5" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A dirty reference table: 'Mumbai' is listed twice by mistake.</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>regions <span class="op">=</span> pd.read_csv(<span class="st">"datasets/regions_dirty.csv"</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(regions)</span>
@@ -1008,7 +961,7 @@ After de-duplicating the lookup table: 4 rows</code></pre>
 <section id="sec-s04-topic-8" class="level2" data-number="9.2">
 <h2 data-number="9.2" class="anchored" data-anchor-id="sec-s04-topic-8"><span class="header-section-number">9.2</span> 8. The check that catches all three</h2>
 <p><strong>One helper function, used after every join, catches every failure in this chapter.</strong></p>
-<div id="09fff22a" class="cell" data-execution_count="11">
+<div id="6000adc1" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> check_join(left, right, result, name<span class="op">=</span><span class="st">"join"</span>):</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Report what a join did to the row count, and whether keys went unmatched."""</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">: left </span><span class="sc">{</span><span class="bu">len</span>(left)<span class="sc">}</span><span class="ss"> × right </span><span class="sc">{</span><span class="bu">len</span>(right)<span class="sc">}</span><span class="ss"> → result </span><span class="sc">{</span><span class="bu">len</span>(result)<span class="sc">}</span><span class="ss">"</span>)</span>
@@ -1051,8 +1004,105 @@ customers + purchases (inner): left 4 × right 4 → result 3
 <p>A shrinking join says <em>“these records had no match”</em>. A growing join says <em>“one of these keys is not unique”</em>. Both may be fine — but <strong>you should be able to say which, and why</strong>, before you use the result.</p>
 </div>
 </div>
-<section id="check-yourself-1" class="level3" data-number="9.2.1">
-<h3 data-number="9.2.1" class="anchored" data-anchor-id="check-yourself-1"><span class="header-section-number">9.2.1</span> ❓ Check yourself</h3>
+</section>
+</section>
+<section id="sec-s04-tasks" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> 🎯 Tasks</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Practise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Task 1 — Predict, then check.</strong> Before running anything, write down how many rows each of the four join types will return for <code>customers</code> and <code>purchases</code>. Then run Demo 3. <strong>Report which you got wrong and why.</strong></p>
+<p><strong>Task 2 — Find the silent customers.</strong> Using a left join, list every customer who has never made a purchase.</p>
+<p><strong>Task 3 — Break it, then fix it.</strong> Add a second <code>"Delhi"</code> row to the <code>regions</code> table. Join, and use <code>check_join</code> to detect the damage. Then fix it.</p>
+<p><strong>Task 4 — Aggregate then join.</strong> Produce a table with one row per <strong>city</strong> showing the number of customers and the total amount spent by customers in that city.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="a4906a33" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>customers <span class="op">=</span> pd.read_csv(<span class="st">"datasets/customers.csv"</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>purchases <span class="op">=</span> pd.read_csv(<span class="st">"datasets/purchases.csv"</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 1 — inner 3, left 5, right 4, outer 6</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> how <span class="kw">in</span> [<span class="st">"inner"</span>,<span class="st">"left"</span>,<span class="st">"right"</span>,<span class="st">"outer"</span>]:</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Task 1 — </span><span class="sc">{</span>how<span class="sc">:&gt;6}</span><span class="ss">: </span><span class="sc">{</span><span class="bu">len</span>(pd.merge(customers, purchases, on<span class="op">=</span><span class="st">'user_id'</span>, how<span class="op">=</span>how))<span class="sc">}</span><span class="ss"> rows"</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>left <span class="op">=</span> pd.merge(customers, purchases, on<span class="op">=</span><span class="st">"user_id"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 2 — never purchased:"</span>, left[left[<span class="st">"amount"</span>].isna()][<span class="st">"name"</span>].tolist())</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 4 — aggregate the many side, then join, then group by city</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>per_cust <span class="op">=</span> purchases.groupby(<span class="st">"user_id"</span>)[<span class="st">"amount"</span>].<span class="bu">sum</span>().reset_index(name<span class="op">=</span><span class="st">"spent"</span>)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>by_city <span class="op">=</span> (pd.merge(customers, per_cust, on<span class="op">=</span><span class="st">"user_id"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>             .assign(spent<span class="op">=</span><span class="kw">lambda</span> d: d[<span class="st">"spent"</span>].fillna(<span class="dv">0</span>))</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>             .groupby(<span class="st">"city"</span>)</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>             .agg(customers<span class="op">=</span>(<span class="st">"user_id"</span>,<span class="st">"count"</span>), total_spent<span class="op">=</span>(<span class="st">"spent"</span>,<span class="st">"sum"</span>)))</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 4:"</span>)<span class="op">;</span> <span class="bu">print</span>(by_city)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Task 1 —  inner: 3 rows
+Task 1 —   left: 5 rows
+Task 1 —  right: 4 rows
+Task 1 —  outer: 6 rows
+
+Task 2 — never purchased: ['Bob', 'Devi']
+
+Task 4:
+        customers  total_spent
+city                          
+Delhi           1          0.0
+Mumbai          2        445.5
+Pune            1          0.0</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-s04-mcqs" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> ❓ MCQs</h1>
+<p><strong>Q1.</strong> A dashboard must show live warehouse stock, and stock changes every few seconds. Which approach?</p>
+<ul>
+<li><ol type="a">
+<li>Physical integration into a nightly warehouse.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><strong>Virtual integration, querying the stock system directly.</strong></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>Manual integration.</li>
+</ol></li>
+</ul>
+<p><strong>Q2.</strong> Twelve internal systems each need data from the other eleven, and every team is writing its own converter. Which approach fixes this?</p>
+<ul>
+<li><ol type="a">
+<li>Manual integration.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li>Virtual integration.</li>
+</ol></li>
+<li><ol start="3" type="a">
+<li><strong>Middleware — one translation layer instead of many pairwise converters.</strong></li>
+</ol></li>
+</ul>
 <p><strong>Q3.</strong> You have 1,000 customers and join a <code>city → region</code> lookup. You get 1,043 rows. What happened?</p>
 <ul>
 <li><ol type="a">
@@ -1090,7 +1140,7 @@ customers + purchases (inner): left 4 × right 4 → result 3
 </ol></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1099,84 +1149,13 @@ customers + purchases (inner): left 4 × right 4 → result 3
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
+<p><strong>A1 — (b).</strong> A nightly copy would show yesterday’s stock, which for this question is worse than useless. Virtual integration trades speed for freshness, and freshness is what this dashboard is for.</p>
+<p><strong>A2 — (c).</strong> With 12 systems talking directly, you can end up maintaining dozens of converters. Middleware means each system talks to one thing.</p>
 <p><strong>A3 — (b).</strong> Demo in Failure 3. Every total computed afterwards is inflated for the duplicated cities.</p>
 <p><strong>A4 — (b).</strong> Start from the table whose rows you want to keep all of. Products with no sales come through with blank sales figures — which is exactly the answer you wanted.</p>
 <p><strong>A5 — (b).</strong> Failure 1. <code>"ASHA@mail.com"</code> and <code>"asha@mail.com"</code> are different strings.</p>
-</div>
-</div>
-</div>
-</section>
-</section>
-</section>
-<section id="sec-s04-tasks" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> 🎯 Tasks</h1>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Practise
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Task 1 — Predict, then check.</strong> Before running anything, write down how many rows each of the four join types will return for <code>customers</code> and <code>purchases</code>. Then run Demo 3. <strong>Report which you got wrong and why.</strong></p>
-<p><strong>Task 2 — Find the silent customers.</strong> Using a left join, list every customer who has never made a purchase.</p>
-<p><strong>Task 3 — Break it, then fix it.</strong> Add a second <code>"Delhi"</code> row to the <code>regions</code> table. Join, and use <code>check_join</code> to detect the damage. Then fix it.</p>
-<p><strong>Task 4 — Aggregate then join.</strong> Produce a table with one row per <strong>city</strong> showing the number of customers and the total amount spent by customers in that city.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="a3ab2a50" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>customers <span class="op">=</span> pd.read_csv(<span class="st">"datasets/customers.csv"</span>)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>purchases <span class="op">=</span> pd.read_csv(<span class="st">"datasets/purchases.csv"</span>)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 1 — inner 3, left 5, right 4, outer 6</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> how <span class="kw">in</span> [<span class="st">"inner"</span>,<span class="st">"left"</span>,<span class="st">"right"</span>,<span class="st">"outer"</span>]:</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Task 1 — </span><span class="sc">{</span>how<span class="sc">:&gt;6}</span><span class="ss">: </span><span class="sc">{</span><span class="bu">len</span>(pd.merge(customers, purchases, on<span class="op">=</span><span class="st">'user_id'</span>, how<span class="op">=</span>how))<span class="sc">}</span><span class="ss"> rows"</span>)</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2</span></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>left <span class="op">=</span> pd.merge(customers, purchases, on<span class="op">=</span><span class="st">"user_id"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 2 — never purchased:"</span>, left[left[<span class="st">"amount"</span>].isna()][<span class="st">"name"</span>].tolist())</span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 4 — aggregate the many side, then join, then group by city</span></span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>per_cust <span class="op">=</span> purchases.groupby(<span class="st">"user_id"</span>)[<span class="st">"amount"</span>].<span class="bu">sum</span>().reset_index(name<span class="op">=</span><span class="st">"spent"</span>)</span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>by_city <span class="op">=</span> (pd.merge(customers, per_cust, on<span class="op">=</span><span class="st">"user_id"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>             .assign(spent<span class="op">=</span><span class="kw">lambda</span> d: d[<span class="st">"spent"</span>].fillna(<span class="dv">0</span>))</span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>             .groupby(<span class="st">"city"</span>)</span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>             .agg(customers<span class="op">=</span>(<span class="st">"user_id"</span>,<span class="st">"count"</span>), total_spent<span class="op">=</span>(<span class="st">"spent"</span>,<span class="st">"sum"</span>)))</span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Task 4:"</span>)<span class="op">;</span> <span class="bu">print</span>(by_city)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Task 1 —  inner: 3 rows
-Task 1 —   left: 5 rows
-Task 1 —  right: 4 rows
-Task 1 —  outer: 6 rows
-
-Task 2 — never purchased: ['Bob', 'Devi']
-
-Task 4:
-        customers  total_spent
-city                          
-Delhi           1          0.0
-Mumbai          2        445.5
-Pune            1          0.0</code></pre>
-</div>
-</div>
 </div>
 </div>
 </div>

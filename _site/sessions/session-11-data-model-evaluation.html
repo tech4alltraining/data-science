@@ -372,10 +372,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#demo-11-grid-search-done-correctly" id="toc-demo-11-grid-search-done-correctly" class="nav-link" data-scroll-target="#demo-11-grid-search-done-correctly"><span class="header-section-number">17.1.1</span> Demo 11 — grid search, done correctly</a></li>
   <li><a href="#demo-12-what-tuning-on-the-test-set-does" id="toc-demo-12-what-tuning-on-the-test-set-does" class="nav-link" data-scroll-target="#demo-12-what-tuning-on-the-test-set-does"><span class="header-section-number">17.1.2</span> Demo 12 — what tuning on the test set does</a></li>
   <li><a href="#demo-13-the-whole-evaluation-as-one-report" id="toc-demo-13-the-whole-evaluation-as-one-report" class="nav-link" data-scroll-target="#demo-13-the-whole-evaluation-as-one-report"><span class="header-section-number">17.1.3</span> Demo 13 — the whole evaluation, as one report</a></li>
-  <li><a href="#check-yourself" id="toc-check-yourself" class="nav-link" data-scroll-target="#check-yourself"><span class="header-section-number">17.1.4</span> ❓ Check yourself</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#sec-s11-tasks" id="toc-sec-s11-tasks" class="nav-link" data-scroll-target="#sec-s11-tasks"><span class="header-section-number">18</span> 🎯 Tasks</a></li>
+  <li><a href="#sec-s11-mcqs" id="toc-sec-s11-mcqs" class="nav-link" data-scroll-target="#sec-s11-mcqs"><span class="header-section-number">19</span> ❓ MCQs</a></li>
   </ul>
 </nav>
     </div>
@@ -526,7 +526,7 @@ Note
 </div>
 <section id="demo-1-watching-a-model-overfit-in-one-table" class="level3" data-number="14.1.1">
 <h3 data-number="14.1.1" class="anchored" data-anchor-id="demo-1-watching-a-model-overfit-in-one-table"><span class="header-section-number">14.1.1</span> Demo 1 — watching a model overfit, in one table</h3>
-<div id="14790648" class="cell" data-execution_count="2">
+<div id="8486016f" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PolynomialFeatures, StandardScaler</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
@@ -688,7 +688,7 @@ Right: six wildly different curves from the same underlying truth —
 <p><strong>A single train–test split gives you one number, and that number depends on which rows happened to land in the test set.</strong></p>
 <section id="demo-4-the-same-model-twenty-different-scores" class="level3" data-number="15.1.1">
 <h3 data-number="15.1.1" class="anchored" data-anchor-id="demo-4-the-same-model-twenty-different-scores"><span class="header-section-number">15.1.1</span> Demo 4 — the same model, twenty different scores</h3>
-<div id="eba18c4e" class="cell" data-execution_count="5">
+<div id="3ea42510" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
@@ -762,7 +762,7 @@ Same model, same data, same code. Only the random seed changed.</code></pre>
 </div>
 <section id="demo-5-cross-validation-fold-by-fold" class="level3" data-number="15.2.1">
 <h3 data-number="15.2.1" class="anchored" data-anchor-id="demo-5-cross-validation-fold-by-fold"><span class="header-section-number">15.2.1</span> Demo 5 — cross-validation, fold by fold</h3>
-<div id="95f03da4" class="cell" data-execution_count="6">
+<div id="2a264c07" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score, KFold</span>
@@ -790,7 +790,7 @@ a single split could have given you anything from 0.656 to 0.802</code></pre>
 </section>
 <section id="sec-s11-topic-5" class="level2" data-number="15.3">
 <h2 data-number="15.3" class="anchored" data-anchor-id="sec-s11-topic-5"><span class="header-section-number">15.3</span> 5. Choosing a validation strategy</h2>
-<div id="f64dfda8" class="cell" data-execution_count="7">
+<div id="074e16b5" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'strategy'</span><span class="sc">:&lt;24}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'how it works'</span><span class="sc">:&lt;44}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'use when'</span><span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">108</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> [</span>
@@ -829,7 +829,7 @@ Time-series split        always train on the past, test on the future the rows a
 </div>
 <section id="demo-6-bootstrapping-for-a-confidence-interval" class="level3" data-number="15.3.1">
 <h3 data-number="15.3.1" class="anchored" data-anchor-id="demo-6-bootstrapping-for-a-confidence-interval"><span class="header-section-number">15.3.1</span> Demo 6 — bootstrapping for a confidence interval</h3>
-<div id="0e3774c7" class="cell" data-execution_count="8">
+<div id="f9b2c854" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score</span>
@@ -1090,7 +1090,7 @@ RIGHT — a gap between the curves that is still narrowing:
 </table>
 <section id="demo-11-grid-search-done-correctly" class="level3" data-number="17.1.1">
 <h3 data-number="17.1.1" class="anchored" data-anchor-id="demo-11-grid-search-done-correctly"><span class="header-section-number">17.1.1</span> Demo 11 — grid search, done correctly</h3>
-<div id="a8cfbb58" class="cell" data-execution_count="13">
+<div id="5482103e" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeRegressor</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV, train_test_split</span>
@@ -1122,7 +1122,7 @@ score on the sealed test set: 0.945</code></pre>
 <section id="demo-12-what-tuning-on-the-test-set-does" class="level3" data-number="17.1.2">
 <h3 data-number="17.1.2" class="anchored" data-anchor-id="demo-12-what-tuning-on-the-test-set-does"><span class="header-section-number">17.1.2</span> Demo 12 — what tuning on the test set does</h3>
 <p>The damage from peeking is <strong>selection bias</strong>: when you try many candidates and keep the one that scored highest, the score you kept is partly a measure of luck. Here the signal is genuinely weak, so the candidates are nearly equivalent and “best” is mostly noise — which is exactly the situation where peeking hurts most.</p>
-<div id="621eb4d9" class="cell" data-execution_count="14">
+<div id="dd0b41cc" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeRegressor</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
@@ -1184,7 +1184,7 @@ average candidate, peek set : -0.189</code></pre>
 </section>
 <section id="demo-13-the-whole-evaluation-as-one-report" class="level3" data-number="17.1.3">
 <h3 data-number="17.1.3" class="anchored" data-anchor-id="demo-13-the-whole-evaluation-as-one-report"><span class="header-section-number">17.1.3</span> Demo 13 — the whole evaluation, as one report</h3>
-<div id="d7c332c9" class="cell" data-execution_count="15">
+<div id="a050d598" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyRegressor</span>
@@ -1213,8 +1213,78 @@ The forest wins, and the ± tells you the win is larger than the fold-to-fold no
 </div>
 </div>
 </section>
-<section id="check-yourself" class="level3" data-number="17.1.4">
-<h3 data-number="17.1.4" class="anchored" data-anchor-id="check-yourself"><span class="header-section-number">17.1.4</span> ❓ Check yourself</h3>
+</section>
+</section>
+<section id="sec-s11-tasks" class="level1" data-number="18">
+<h1 data-number="18"><span class="header-section-number">18</span> 🎯 Tasks</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Practise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Task 1 — Find the sweet spot.</strong> In Demo 1, add degrees 3, 4, 6 and 7. <strong>Report which degree has the best test R², and how far the training score has run ahead of it there.</strong></p>
+<p><strong>Task 2 — Measure the spread.</strong> Run Demo 4 with 100 seeds instead of 20. <strong>Report the standard deviation, and state the smallest score difference you would be willing to call a real difference.</strong></p>
+<p><strong>Task 3 — Diagnose.</strong> For each pair, say overfitting, underfitting or healthy: train 0.95 / test 0.93; train 0.99 / test 0.52; train 0.44 / test 0.42; train 0.72 / test 0.70.</p>
+<p><strong>Task 4 — Tune honestly.</strong> Grid-search a <code>RandomForestRegressor</code> over <code>max_depth</code> and <code>n_estimators</code> using cross-validation on the training set only, then report the test score once.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="819c2032" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 3"</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> tr, te <span class="kw">in</span> [(<span class="fl">0.95</span>, <span class="fl">0.93</span>), (<span class="fl">0.99</span>, <span class="fl">0.52</span>), (<span class="fl">0.44</span>, <span class="fl">0.42</span>), (<span class="fl">0.72</span>, <span class="fl">0.70</span>)]:</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> tr <span class="op">-</span> te <span class="op">&gt;</span> <span class="fl">0.2</span>:            v <span class="op">=</span> <span class="st">"OVERFITTING — big gap"</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> tr <span class="op">&lt;</span> <span class="fl">0.6</span>:               v <span class="op">=</span> <span class="st">"UNDERFITTING — poor on both"</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:                        v <span class="op">=</span> <span class="st">"healthy — good, and the gap is small"</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  train </span><span class="sc">{</span>tr<span class="sc">:.2f}</span><span class="ss"> / test </span><span class="sc">{</span>te<span class="sc">:.2f}</span><span class="ss">  → </span><span class="sc">{</span>v<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — how big must a difference be before it means anything?</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>feats <span class="op">=</span> pd.read_csv(<span class="st">"datasets/three_features.csv"</span>)</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> feats[[<span class="st">"f1"</span>, <span class="st">"f2"</span>, <span class="st">"f3"</span>]].values<span class="op">;</span> y <span class="op">=</span> feats[<span class="st">"target"</span>].values</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> np.array([r2_score(<span class="op">*</span>(<span class="kw">lambda</span> a: (a[<span class="dv">3</span>], LinearRegression().fit(a[<span class="dv">0</span>], a[<span class="dv">2</span>]).predict(a[<span class="dv">1</span>])))(</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>        train_test_split(X, y, test_size<span class="op">=</span><span class="fl">.3</span>, random_state<span class="op">=</span>k))) <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100</span>)])</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Task 2 — over 100 seeds: mean </span><span class="sc">{</span>s<span class="sc">.</span>mean()<span class="sc">:.3f}</span><span class="ss">, std </span><span class="sc">{</span>s<span class="sc">.</span>std()<span class="sc">:.3f}</span><span class="ss">, "</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"range </span><span class="sc">{</span>s<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:.3f}</span><span class="ss"> to </span><span class="sc">{</span>s<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  A gap smaller than about </span><span class="sc">{</span><span class="dv">2</span><span class="op">*</span>s<span class="sc">.</span>std()<span class="sc">:.2f}</span><span class="ss"> is inside the noise — do not"</span>)</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  claim one model beat another on less than that."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Task 3
+  train 0.95 / test 0.93  → healthy — good, and the gap is small
+  train 0.99 / test 0.52  → OVERFITTING — big gap
+  train 0.44 / test 0.42  → UNDERFITTING — poor on both
+  train 0.72 / test 0.70  → healthy — good, and the gap is small
+
+Task 2 — over 100 seeds: mean 0.709, std 0.060, range 0.545 to 0.827
+  A gap smaller than about 0.12 is inside the noise — do not
+  claim one model beat another on less than that.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-s11-mcqs" class="level1" data-number="19">
+<h1 data-number="19"><span class="header-section-number">19</span> ❓ MCQs</h1>
 <p><strong>Q1.</strong> Training R² is 0.99, test R² is 0.41. What is happening?</p>
 <ul>
 <li><ol type="a">
@@ -1276,7 +1346,7 @@ The forest wins, and the ± tells you the win is larger than the fold-to-fold no
 </ol></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled" title="Answers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1285,83 +1355,13 @@ The forest wins, and the ± tells you the win is larger than the fold-to-fold no
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>A1 — (b).</strong> Excellent on seen data, poor on unseen data — Demo 1’s right-hand column.</p>
 <p><strong>A2 — (b).</strong> Poor on both is the underfitting signature. Demo 10’s left panel shows what the learning curve looks like.</p>
 <p><strong>A3 — (b).</strong> Demo 4 measured a spread of over 0.15 across seeds on the same model.</p>
 <p><strong>A4 — (b).</strong> Shuffling lets the model train on the future. It will look excellent and be worthless.</p>
 <p><strong>A5 — (b).</strong> Demo 12 measured exactly this gap.</p>
-</div>
-</div>
-</div>
-</section>
-</section>
-</section>
-<section id="sec-s11-tasks" class="level1" data-number="18">
-<h1 data-number="18"><span class="header-section-number">18</span> 🎯 Tasks</h1>
-<div class="callout callout-style-default callout-note callout-titled" title="✏️ Practise">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>✏️ Practise
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Task 1 — Find the sweet spot.</strong> In Demo 1, add degrees 3, 4, 6 and 7. <strong>Report which degree has the best test R², and how far the training score has run ahead of it there.</strong></p>
-<p><strong>Task 2 — Measure the spread.</strong> Run Demo 4 with 100 seeds instead of 20. <strong>Report the standard deviation, and state the smallest score difference you would be willing to call a real difference.</strong></p>
-<p><strong>Task 3 — Diagnose.</strong> For each pair, say overfitting, underfitting or healthy: train 0.95 / test 0.93; train 0.99 / test 0.52; train 0.44 / test 0.42; train 0.72 / test 0.70.</p>
-<p><strong>Task 4 — Tune honestly.</strong> Grid-search a <code>RandomForestRegressor</code> over <code>max_depth</code> and <code>n_estimators</code> using cross-validation on the training set only, then report the test score once.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solutions">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="956b6b09" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Task 3"</span>)</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> tr, te <span class="kw">in</span> [(<span class="fl">0.95</span>, <span class="fl">0.93</span>), (<span class="fl">0.99</span>, <span class="fl">0.52</span>), (<span class="fl">0.44</span>, <span class="fl">0.42</span>), (<span class="fl">0.72</span>, <span class="fl">0.70</span>)]:</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> tr <span class="op">-</span> te <span class="op">&gt;</span> <span class="fl">0.2</span>:            v <span class="op">=</span> <span class="st">"OVERFITTING — big gap"</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> tr <span class="op">&lt;</span> <span class="fl">0.6</span>:               v <span class="op">=</span> <span class="st">"UNDERFITTING — poor on both"</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:                        v <span class="op">=</span> <span class="st">"healthy — good, and the gap is small"</span></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  train </span><span class="sc">{</span>tr<span class="sc">:.2f}</span><span class="ss"> / test </span><span class="sc">{</span>te<span class="sc">:.2f}</span><span class="ss">  → </span><span class="sc">{</span>v<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2 — how big must a difference be before it means anything?</span></span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>feats <span class="op">=</span> pd.read_csv(<span class="st">"datasets/three_features.csv"</span>)</span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> feats[[<span class="st">"f1"</span>, <span class="st">"f2"</span>, <span class="st">"f3"</span>]].values<span class="op">;</span> y <span class="op">=</span> feats[<span class="st">"target"</span>].values</span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> np.array([r2_score(<span class="op">*</span>(<span class="kw">lambda</span> a: (a[<span class="dv">3</span>], LinearRegression().fit(a[<span class="dv">0</span>], a[<span class="dv">2</span>]).predict(a[<span class="dv">1</span>])))(</span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>        train_test_split(X, y, test_size<span class="op">=</span><span class="fl">.3</span>, random_state<span class="op">=</span>k))) <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100</span>)])</span>
-<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Task 2 — over 100 seeds: mean </span><span class="sc">{</span>s<span class="sc">.</span>mean()<span class="sc">:.3f}</span><span class="ss">, std </span><span class="sc">{</span>s<span class="sc">.</span>std()<span class="sc">:.3f}</span><span class="ss">, "</span></span>
-<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"range </span><span class="sc">{</span>s<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:.3f}</span><span class="ss"> to </span><span class="sc">{</span>s<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  A gap smaller than about </span><span class="sc">{</span><span class="dv">2</span><span class="op">*</span>s<span class="sc">.</span>std()<span class="sc">:.2f}</span><span class="ss"> is inside the noise — do not"</span>)</span>
-<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  claim one model beat another on less than that."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Task 3
-  train 0.95 / test 0.93  → healthy — good, and the gap is small
-  train 0.99 / test 0.52  → OVERFITTING — big gap
-  train 0.44 / test 0.42  → UNDERFITTING — poor on both
-  train 0.72 / test 0.70  → healthy — good, and the gap is small
-
-Task 2 — over 100 seeds: mean 0.709, std 0.060, range 0.545 to 0.827
-  A gap smaller than about 0.12 is inside the noise — do not
-  claim one model beat another on less than that.</code></pre>
-</div>
-</div>
 </div>
 </div>
 </div>

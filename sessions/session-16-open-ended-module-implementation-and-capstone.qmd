@@ -55,7 +55,21 @@ Choosing the target metric *after* seeing the results means choosing the metric 
 model happens to do well on. **Write the number down first**, and keep it visible.
 :::
 
-### Demo 1 — the dataset, and the question
+### Demo 1 — the dataset, at a glance
+
+```{python}
+import pandas as pd
+
+customers = pd.read_csv("datasets/telecom_churn.csv")
+print(f"{customers.shape[0]:,} rows, {customers.shape[1]} columns")
+print(customers.columns.tolist())
+```
+
+**Before any question can be asked, know what you actually have**: 3,060 customers, six
+possible predictors, and a `churned` column. The next demo turns that into an actual
+question.
+
+### Demo 2 — the dataset, and the question
 
 ```{python}
 import numpy as np, pandas as pd
@@ -73,7 +87,7 @@ customers.head()
 
 ## 2. Steps 1–3: clean, explore, prepare {#sec-s16-topic-2}
 
-### Demo 2 — cleaning, with a report (Session 3)
+### Demo 3 — cleaning, with a report (Session 3)
 
 ```{python}
 import numpy as np, pandas as pd
@@ -108,7 +122,7 @@ for k, v in report.items():
 print("\nOutliers were flagged, not removed — high spenders are real customers.")
 ```
 
-### Demo 3 — exploring, and forming a hypothesis (Sessions 7–8)
+### Demo 4 — exploring, and forming a hypothesis (Sessions 7–8)
 
 ```{python}
 #| label: fig-s16-eda
@@ -125,9 +139,10 @@ ax[2].set_title("Monthly spend")
 plt.tight_layout(); plt.show()
 
 print("Churn rate by plan:")
-print((clean_df.groupby("plan")["churned"].agg(["mean", "size"])
-       .rename(columns={"mean": "churn_rate", "size": "customers"})
-       .assign(churn_rate=lambda d: (d["churn_rate"]*100).round(1)).to_string()))
+by_plan = clean_df.groupby("plan")["churned"].agg(["mean", "size"])
+by_plan = by_plan.rename(columns={"mean": "churn_rate", "size": "customers"})
+by_plan["churn_rate"] = (by_plan["churn_rate"] * 100).round(1)   # as a percentage
+print(by_plan.to_string())
 
 print("\nCorrelation with churn:")
 print(clean_df[["tenure_months","monthly_spend","support_calls","churned"]]
@@ -137,7 +152,7 @@ print(clean_df[["tenure_months","monthly_spend","support_calls","churned"]]
 **Three hypotheses, formed from the pictures:** support calls raise churn, tenure lowers
 it, spend does little. Part C tests them properly rather than trusting the eye.
 
-### Demo 4 — preparing, with a pipeline (Session 5)
+### Demo 5 — preparing, with a pipeline (Session 5)
 
 ```{python}
 import pandas as pd
@@ -165,7 +180,7 @@ print(f"columns after preparation: {prepare.fit_transform(X_train).shape[1]}")
 
 ## 3. Steps 4–5: model and evaluate {#sec-s16-topic-3}
 
-### Demo 5 — four models against a baseline (Sessions 9–11)
+### Demo 6 — four models against a baseline (Sessions 9–11)
 
 ```{python}
 import numpy as np, pandas as pd
@@ -205,7 +220,7 @@ for name, clf in models.items():
 print(pd.DataFrame(rows).to_string(index=False))
 ```
 
-### Demo 6 — the threshold is where the business requirement is met
+### Demo 7 — the threshold is where the business requirement is met
 
 **Accuracy was never the goal. The goal was: catch 60% of churners while contacting under
 30% of customers.** That is a statement about the decision threshold, not the model.
@@ -235,15 +250,26 @@ plt.axhline(0.30, color="red", ls="--", lw=1, label="contact budget 0.30")
 plt.xlabel("decision threshold"); plt.legend(fontsize=8)
 plt.show()
 
-ok = [(t, r, c) for t, r, c in zip(thresholds, recalls, contacts) if r >= 0.60 and c <= 0.30]
-if ok:
-    t, r, c = ok[0]
+# Find every threshold that meets BOTH requirements at once.
+met_requirement = []
+for t, r, c in zip(thresholds, recalls, contacts):
+    if r >= 0.60 and c <= 0.30:
+        met_requirement.append((t, r, c))
+
+if met_requirement:
+    t, r, c = met_requirement[0]
     print(f"Requirement MET at threshold {t:.3f}: recall {r:.1%}, contacting {c:.1%}")
 else:
-    closest = max(zip(thresholds, recalls, contacts), key=lambda z: z[1] if z[2] <= 0.30 else -1)
+    # No threshold meets both. Report the best recall among thresholds that
+    # at least stay inside the 30% contact budget.
+    best_recall_so_far = -1
+    for t, r, c in zip(thresholds, recalls, contacts):
+        if c <= 0.30 and r > best_recall_so_far:
+            best_recall_so_far = r
+            best_t, best_r, best_c = t, r, c
     print(f"Requirement NOT met by this model.")
     print(f"Within the 30% contact budget the best recall is "
-          f"{closest[1]:.1%} at threshold {closest[0]:.3f}.")
+          f"{best_r:.1%} at threshold {best_t:.3f}.")
     print("Report this honestly. Either the budget rises or the model improves.")
 ```
 
@@ -288,7 +314,7 @@ again.
 | **= 1** | independent — **the rule found nothing** |
 | **< 1** | they go together **less** than chance |
 
-### Demo 7 — by hand, on ten baskets
+### Demo 8 — by hand, on ten baskets
 
 ```{python}
 # Ten baskets, one per line, from a real text file.
@@ -578,7 +604,44 @@ print("A large gap means the model serves some groups better than others —")
 print("worth investigating before anyone acts on it.")
 ```
 
-### ❓ Check yourself
+# 🎯 Capstone project {#sec-s16-tasks}
+
+::: {.callout-note title="✏️ Your project"}
+**Task 1 — Frame it.** Choose a dataset. Write the four answers from Demo 1: the
+decision, the success criterion **with a number**, the data available, and what would
+make the model useless. **Fix these before writing code.**
+
+**Task 2 — Clean and explore.** Produce a cleaning report and an EDA section that ends
+with three written hypotheses.
+
+**Task 3 — Test the hypotheses.** For each, run the appropriate test and report the
+p-value **and** the effect size. Say which survived.
+
+**Task 4 — Model.** Compare at least four models against a baseline, cross-validated with
+the spread reported. Tune the best one without touching the test set.
+
+**Task 5 — Meet the requirement.** Choose the decision threshold that satisfies your
+Task 1 criterion, **or report honestly that no threshold does.**
+
+**Task 6 — Mine the rules.** If your data has transactions, run Apriori and report the
+three most useful rules by lift. Explain why each is actionable.
+
+**Task 7 — Deliver.** Bundle the pipeline with metadata and limitations, deploy a
+Streamlit app, and write the report.
+:::
+
+::: {.callout-tip title="✅ A capstone that passes"}
+- [ ] Runs from a clean clone, first try, with versions pinned
+- [ ] States a success criterion that was fixed **before** the modelling
+- [ ] Beats a named baseline, with the baseline's score printed
+- [ ] Reports at least one thing that was tried and did not work
+- [ ] Supports every claim with a test **and** an effect size, not just a chart
+- [ ] Has a deployed link a stranger can open
+- [ ] Names who could be harmed by a wrong prediction, and checks group fairness
+- [ ] **Says clearly what the result cannot support**
+:::
+
+# ❓ MCQs {#sec-s16-mcqs}
 
 **Q1.** A rule has confidence 0.85 and lift 1.02. Is it useful?
 
@@ -625,43 +688,6 @@ detectors there is.
 
 **A5 — (c).** It is what lets somebody else use the result safely — and it is the section
 that is almost always missing.
-:::
-
-# 🎯 Capstone project {#sec-s16-tasks}
-
-::: {.callout-note title="✏️ Your project"}
-**Task 1 — Frame it.** Choose a dataset. Write the four answers from Demo 1: the
-decision, the success criterion **with a number**, the data available, and what would
-make the model useless. **Fix these before writing code.**
-
-**Task 2 — Clean and explore.** Produce a cleaning report and an EDA section that ends
-with three written hypotheses.
-
-**Task 3 — Test the hypotheses.** For each, run the appropriate test and report the
-p-value **and** the effect size. Say which survived.
-
-**Task 4 — Model.** Compare at least four models against a baseline, cross-validated with
-the spread reported. Tune the best one without touching the test set.
-
-**Task 5 — Meet the requirement.** Choose the decision threshold that satisfies your
-Task 1 criterion, **or report honestly that no threshold does.**
-
-**Task 6 — Mine the rules.** If your data has transactions, run Apriori and report the
-three most useful rules by lift. Explain why each is actionable.
-
-**Task 7 — Deliver.** Bundle the pipeline with metadata and limitations, deploy a
-Streamlit app, and write the report.
-:::
-
-::: {.callout-tip title="✅ A capstone that passes"}
-- [ ] Runs from a clean clone, first try, with versions pinned
-- [ ] States a success criterion that was fixed **before** the modelling
-- [ ] Beats a named baseline, with the baseline's score printed
-- [ ] Reports at least one thing that was tried and did not work
-- [ ] Supports every claim with a test **and** an effect size, not just a chart
-- [ ] Has a deployed link a stranger can open
-- [ ] Names who could be harmed by a wrong prediction, and checks group fairness
-- [ ] **Says clearly what the result cannot support**
 :::
 
 ::: {.callout-tip title="✅ Before you finish the course"}
