@@ -1,0 +1,14 @@
+# Every package imported anywhere in this book.
+jupyter
+numpy
+pandas
+matplotlib
+seaborn
+scikit-learn
+scipy
+statsmodels
+mlxtend
+joblib
+streamlit
+openpyxl
+pyarrow
