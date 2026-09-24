@@ -10,12 +10,15 @@ ran** when the book was built. The numbers you see are the numbers the code prod
 
 **Every demonstration loads a real file.** Nothing is typed into the program as a Python
 list, because that is not how data arrives. The files live in
-[`datasets/`](https://github.com/) and are read the way a real project reads them:
+[`datasets/`](https://github.com/tech4alltraining/data-science/tree/main/datasets) and are read the way a real project reads them:
 
 ```python
 df = pd.read_csv("datasets/messy_customers.csv")
 ```
 :::
+
+## Notebooks
+- [1] [Preprocessing](https://colab.research.google.com/drive/1MsdDPnB3WE3qZZUcZU7QRkJcl0kddz6e?usp=sharing)  
 
 ## Who this is for
 

@@ -318,14 +318,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#who-this-is-for" id="toc-who-this-is-for" class="nav-link active" data-scroll-target="#who-this-is-for"><span class="header-section-number">0.1</span> Who this is for</a></li>
-  <li><a href="#how-the-course-is-built" id="toc-how-the-course-is-built" class="nav-link" data-scroll-target="#how-the-course-is-built"><span class="header-section-number">0.2</span> How the course is built</a></li>
-  <li><a href="#the-sessions" id="toc-the-sessions" class="nav-link" data-scroll-target="#the-sessions"><span class="header-section-number">0.3</span> The sessions</a></li>
-  <li><a href="#how-each-session-is-written" id="toc-how-each-session-is-written" class="nav-link" data-scroll-target="#how-each-session-is-written"><span class="header-section-number">0.4</span> How each session is written</a></li>
-  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data"><span class="header-section-number">0.5</span> The data</a></li>
-  <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides"><span class="header-section-number">0.6</span> Slides</a></li>
-  <li><a href="#setting-up" id="toc-setting-up" class="nav-link" data-scroll-target="#setting-up"><span class="header-section-number">0.7</span> Setting up</a></li>
-  <li><a href="#a-note-on-the-order" id="toc-a-note-on-the-order" class="nav-link" data-scroll-target="#a-note-on-the-order"><span class="header-section-number">0.8</span> A note on the order</a></li>
+  <li><a href="#notebooks" id="toc-notebooks" class="nav-link active" data-scroll-target="#notebooks"><span class="header-section-number">0.1</span> Notebooks</a></li>
+  <li><a href="#who-this-is-for" id="toc-who-this-is-for" class="nav-link" data-scroll-target="#who-this-is-for"><span class="header-section-number">0.2</span> Who this is for</a></li>
+  <li><a href="#how-the-course-is-built" id="toc-how-the-course-is-built" class="nav-link" data-scroll-target="#how-the-course-is-built"><span class="header-section-number">0.3</span> How the course is built</a></li>
+  <li><a href="#the-sessions" id="toc-the-sessions" class="nav-link" data-scroll-target="#the-sessions"><span class="header-section-number">0.4</span> The sessions</a></li>
+  <li><a href="#how-each-session-is-written" id="toc-how-each-session-is-written" class="nav-link" data-scroll-target="#how-each-session-is-written"><span class="header-section-number">0.5</span> How each session is written</a></li>
+  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data"><span class="header-section-number">0.6</span> The data</a></li>
+  <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides"><span class="header-section-number">0.7</span> Slides</a></li>
+  <li><a href="#setting-up" id="toc-setting-up" class="nav-link" data-scroll-target="#setting-up"><span class="header-section-number">0.8</span> Setting up</a></li>
+  <li><a href="#a-note-on-the-order" id="toc-a-note-on-the-order" class="nav-link" data-scroll-target="#a-note-on-the-order"><span class="header-section-number">0.9</span> A note on the order</a></li>
   </ul>
 </nav>
     </div>
@@ -375,16 +376,22 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <p><strong>This is a book you read alone.</strong> Every idea is explained from the beginning, every term is defined the first time it appears, and <strong>every piece of code on these pages actually ran</strong> when the book was built. The numbers you see are the numbers the code produced.</p>
-<p><strong>Every demonstration loads a real file.</strong> Nothing is typed into the program as a Python list, because that is not how data arrives. The files live in <a href="https://github.com/"><code>datasets/</code></a> and are read the way a real project reads them:</p>
+<p><strong>Every demonstration loads a real file.</strong> Nothing is typed into the program as a Python list, because that is not how data arrives. The files live in <a href="https://github.com/tech4alltraining/data-science/tree/main/datasets"><code>datasets/</code></a> and are read the way a real project reads them:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"datasets/messy_customers.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
-<section id="who-this-is-for" class="level2" data-number="0.1">
-<h2 data-number="0.1" class="anchored" data-anchor-id="who-this-is-for"><span class="header-section-number">0.1</span> Who this is for</h2>
+<section id="notebooks" class="level2" data-number="0.1">
+<h2 data-number="0.1" class="anchored" data-anchor-id="notebooks"><span class="header-section-number">0.1</span> Notebooks</h2>
+<ul>
+<li>[1] <a href="https://colab.research.google.com/drive/1MsdDPnB3WE3qZZUcZU7QRkJcl0kddz6e?usp=sharing">Preprocessing</a></li>
+</ul>
+</section>
+<section id="who-this-is-for" class="level2" data-number="0.2">
+<h2 data-number="0.2" class="anchored" data-anchor-id="who-this-is-for"><span class="header-section-number">0.2</span> Who this is for</h2>
 <p>Anyone who wants to work with data and has <strong>no prior background</strong> in statistics, machine learning, or Python. Session 1 assumes you can use a computer. Nothing else.</p>
 </section>
-<section id="how-the-course-is-built" class="level2" data-number="0.2">
-<h2 data-number="0.2" class="anchored" data-anchor-id="how-the-course-is-built"><span class="header-section-number">0.2</span> How the course is built</h2>
+<section id="how-the-course-is-built" class="level2" data-number="0.3">
+<h2 data-number="0.3" class="anchored" data-anchor-id="how-the-course-is-built"><span class="header-section-number">0.3</span> How the course is built</h2>
 <p>Sixteen sessions in five parts. Each part exists because the one before it is not enough on its own.</p>
 <table class="caption-top table">
 <colgroup>
@@ -428,8 +435,8 @@ Note
 </tbody>
 </table>
 </section>
-<section id="the-sessions" class="level2" data-number="0.3">
-<h2 data-number="0.3" class="anchored" data-anchor-id="the-sessions"><span class="header-section-number">0.3</span> The sessions</h2>
+<section id="the-sessions" class="level2" data-number="0.4">
+<h2 data-number="0.4" class="anchored" data-anchor-id="the-sessions"><span class="header-section-number">0.4</span> The sessions</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -522,8 +529,8 @@ Note
 </tbody>
 </table>
 </section>
-<section id="how-each-session-is-written" class="level2" data-number="0.4">
-<h2 data-number="0.4" class="anchored" data-anchor-id="how-each-session-is-written"><span class="header-section-number">0.4</span> How each session is written</h2>
+<section id="how-each-session-is-written" class="level2" data-number="0.5">
+<h2 data-number="0.5" class="anchored" data-anchor-id="how-each-session-is-written"><span class="header-section-number">0.5</span> How each session is written</h2>
 <p>Every session follows the same shape, so once you have read two you can predict the third.</p>
 <table class="caption-top table">
 <colgroup>
@@ -589,8 +596,8 @@ Note
 </div>
 </div>
 </section>
-<section id="the-data" class="level2" data-number="0.5">
-<h2 data-number="0.5" class="anchored" data-anchor-id="the-data"><span class="header-section-number">0.5</span> The data</h2>
+<section id="the-data" class="level2" data-number="0.6">
+<h2 data-number="0.6" class="anchored" data-anchor-id="the-data"><span class="header-section-number">0.6</span> The data</h2>
 <p>Eight of the datasets are <strong>real published files</strong> — a car marketplace, a loan book, mall customers, heart-failure patients. The rest are <strong>generated by a seeded script</strong> in the <code>datasets/</code> folder, and only where a chapter needs a property no real file has: a known cluster structure, a planted association rule, a deliberate leak.</p>
 <table class="caption-top table">
 <tbody>
@@ -615,20 +622,20 @@ Note
 <p>The formats vary on purpose — CSV, JSON, plain text, Excel, SQL, and one table split across several files — because real data does not arrive in one shape.</p>
 <p>Sessions 13 and 14 each close with an advanced demo on a genuinely large public dataset — 566,602 real rows of US Forest Service terrain data, and 25,000 real IMDB movie reviews, both from Hugging Face — so the chunking and MapReduce ideas are proven at real scale, not just on data built for the lesson.</p>
 </section>
-<section id="slides" class="level2" data-number="0.6">
-<h2 data-number="0.6" class="anchored" data-anchor-id="slides"><span class="header-section-number">0.6</span> Slides</h2>
+<section id="slides" class="level2" data-number="0.7">
+<h2 data-number="0.7" class="anchored" data-anchor-id="slides"><span class="header-section-number">0.7</span> Slides</h2>
 <p>A companion slide deck covers every session’s concepts — no code, one section per session — for teaching from the front of a room: <a href="slides/data-science-course.tex"><code>slides/data-science-course.tex</code></a> (compile with <code>latexmk -xelatex data-science-course.tex</code>; the built PDF sits alongside it).</p>
 </section>
-<section id="setting-up" class="level2" data-number="0.7">
-<h2 data-number="0.7" class="anchored" data-anchor-id="setting-up"><span class="header-section-number">0.7</span> Setting up</h2>
+<section id="setting-up" class="level2" data-number="0.8">
+<h2 data-number="0.8" class="anchored" data-anchor-id="setting-up"><span class="header-section-number">0.8</span> Setting up</h2>
 <p>All code runs in one conda environment. Create it once:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> ds python=3.11 <span class="at">-y</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate ds</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then build the book with <code>quarto render</code>, or open any session and run the cells in Jupyter. <strong>Every session is self-contained</strong> — variables do not carry from one to the next, so you can start anywhere, though the order is designed to be read straight through.</p>
 </section>
-<section id="a-note-on-the-order" class="level2" data-number="0.8">
-<h2 data-number="0.8" class="anchored" data-anchor-id="a-note-on-the-order"><span class="header-section-number">0.8</span> A note on the order</h2>
+<section id="a-note-on-the-order" class="level2" data-number="0.9">
+<h2 data-number="0.9" class="anchored" data-anchor-id="a-note-on-the-order"><span class="header-section-number">0.9</span> A note on the order</h2>
 <p>Sessions 3–6 prepare data; Sessions 7–8 describe it. If you have met this material before you may expect statistics to come first — it is the more common arrangement.</p>
 <p>Session 3 borrows the two ideas it needs (quartiles and standard deviation) in a marked box, so nothing is used before it is explained, and Session 7 then covers them properly. <strong>If you prefer, read Sessions 7 and 8 before Session 3.</strong> Nothing in them depends on Sessions 3–6.</p>
 

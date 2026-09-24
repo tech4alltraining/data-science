@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Data Science",
     "section": "",
-    "text": "0.1 Who this is for\nAnyone who wants to work with data and has no prior background in statistics, machine learning, or Python. Session 1 assumes you can use a computer. Nothing else.",
+    "text": "0.1 Notebooks",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Data Science</span>"
     ]
@@ -13,8 +13,8 @@
     "objectID": "index.html#how-the-course-is-built",
     "href": "index.html#how-the-course-is-built",
     "title": "Data Science",
-    "section": "0.2 How the course is built",
-    "text": "0.2 How the course is built\nSixteen sessions in five parts. Each part exists because the one before it is not enough on its own.\n\n\n\n\n\n\n\n\nPart\nSessions\nThe question it answers\n\n\n\n\nA — Getting hold of data\n1–2\nWhat is this field, and how do I load a dataset?\n\n\nB — Making data fit to use\n3–6\nIt is messy, scattered and too wide. Now what?\n\n\nC — Understanding data\n7–8\nWhat is actually in here?\n\n\nD — Learning from data\n9–12\nWhat can be predicted, is it real, and how do others use it?\n\n\nE — Data at scale\n13–16\nWhat changes when it no longer fits on one machine?",
+    "section": "0.3 How the course is built",
+    "text": "0.3 How the course is built\nSixteen sessions in five parts. Each part exists because the one before it is not enough on its own.\n\n\n\n\n\n\n\n\nPart\nSessions\nThe question it answers\n\n\n\n\nA — Getting hold of data\n1–2\nWhat is this field, and how do I load a dataset?\n\n\nB — Making data fit to use\n3–6\nIt is messy, scattered and too wide. Now what?\n\n\nC — Understanding data\n7–8\nWhat is actually in here?\n\n\nD — Learning from data\n9–12\nWhat can be predicted, is it real, and how do others use it?\n\n\nE — Data at scale\n13–16\nWhat changes when it no longer fits on one machine?",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Data Science</span>"
     ]
@@ -23,8 +23,8 @@
     "objectID": "index.html#the-sessions",
     "href": "index.html#the-sessions",
     "title": "Data Science",
-    "section": "0.3 The sessions",
-    "text": "0.3 The sessions\n\n\n\n#\nSession\nYou will be able to\n\n\n\n\n1\nIntroduction to Data Science\nName the seven lifecycle stages and place AI, ML and GenAI correctly\n\n\n2\nData Collection and Pre-Processing\nLoad from CSV, JSON and SQL; select, filter and group\n\n\n3\nData Cleaning\nRun the six cleaning jobs in the order that does not hide errors\n\n\n4\nData Integration\nJoin tables and detect a join that lost or multiplied rows\n\n\n5\nData Transformation\nSplit before you scale, encode text, and avoid leakage\n\n\n6\nData Reduction and Discretization\nCut columns without cutting the signal\n\n\n7\nDescriptive Statistics\nReport centre, spread and shape honestly\n\n\n8\nEDA and Visualization\nPick the chart that answers the question you asked\n\n\n9\nSupervised Learning\nFit a regression, interpret it, and beat a baseline\n\n\n10\nUnsupervised Learning and Clustering\nChoose k and defend it\n\n\n11\nModel Evaluation\nCross-validate, diagnose, and tune without cheating\n\n\n12\nModel Saving and Deployment\nShip a working prediction app\n\n\n13\nBig Data Fundamentals\nMeasure where your own machine stops coping\n\n\n14\nDistributed Data Processing\nTrace map, shuffle and reduce, and read PySpark\n\n\n15\nNoSQL and Visualization at Scale\nWrite an aggregation pipeline and plot ten million rows\n\n\n16\nCapstone\nDeliver and defend a complete project",
+    "section": "0.4 The sessions",
+    "text": "0.4 The sessions\n\n\n\n#\nSession\nYou will be able to\n\n\n\n\n1\nIntroduction to Data Science\nName the seven lifecycle stages and place AI, ML and GenAI correctly\n\n\n2\nData Collection and Pre-Processing\nLoad from CSV, JSON and SQL; select, filter and group\n\n\n3\nData Cleaning\nRun the six cleaning jobs in the order that does not hide errors\n\n\n4\nData Integration\nJoin tables and detect a join that lost or multiplied rows\n\n\n5\nData Transformation\nSplit before you scale, encode text, and avoid leakage\n\n\n6\nData Reduction and Discretization\nCut columns without cutting the signal\n\n\n7\nDescriptive Statistics\nReport centre, spread and shape honestly\n\n\n8\nEDA and Visualization\nPick the chart that answers the question you asked\n\n\n9\nSupervised Learning\nFit a regression, interpret it, and beat a baseline\n\n\n10\nUnsupervised Learning and Clustering\nChoose k and defend it\n\n\n11\nModel Evaluation\nCross-validate, diagnose, and tune without cheating\n\n\n12\nModel Saving and Deployment\nShip a working prediction app\n\n\n13\nBig Data Fundamentals\nMeasure where your own machine stops coping\n\n\n14\nDistributed Data Processing\nTrace map, shuffle and reduce, and read PySpark\n\n\n15\nNoSQL and Visualization at Scale\nWrite an aggregation pipeline and plot ten million rows\n\n\n16\nCapstone\nDeliver and defend a complete project",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Data Science</span>"
     ]
@@ -33,8 +33,8 @@
     "objectID": "index.html#how-each-session-is-written",
     "href": "index.html#how-each-session-is-written",
     "title": "Data Science",
-    "section": "0.4 How each session is written",
-    "text": "0.4 How each session is written\nEvery session follows the same shape, so once you have read two you can predict the third.\n\n\n\n\n\n\n\nElement\nWhat it is\n\n\n\n\nDemo\nrunnable code that demonstrates one idea. Most sessions have eight to fifteen.\n\n\n🧠 Analogy\nan everyday comparison — used only where a concept genuinely needs one\n\n\n⚠️ Trap\na mistake that produces a wrong answer without raising an error\n\n\n🔓 Key idea\nsomething you must carry into later sessions\n\n\n❓ Check yourself\nshort questions with worked answers, folded away\n\n\n✏️ Tasks\nthings to do, with solutions folded away\n\n\n✅ Before you move on\nthe checklist for that session\n\n\n\n\n\n\n\n\n\nTip🧠 What makes this course different\n\n\n\nNothing here is asserted without being measured. Where a demonstration contradicted the lesson it was written for, the lesson was changed and the number kept. You will find, among other things:\n\n80% accuracy manufactured from coin flips, by one careless line\na model saved without its scaler, valuing a flat at ₹1.69 billion instead of ₹5 million\na polynomial that fits its training data best and scores −187 on new data\na “best” model chosen by peeking, reported at +0.08 and worth −0.20 in truth\nK-Means confidently finding three clusters in pure random noise\n\nThose are the passages that teach the most, because they are what you will actually meet.",
+    "section": "0.5 How each session is written",
+    "text": "0.5 How each session is written\nEvery session follows the same shape, so once you have read two you can predict the third.\n\n\n\n\n\n\n\nElement\nWhat it is\n\n\n\n\nDemo\nrunnable code that demonstrates one idea. Most sessions have eight to fifteen.\n\n\n🧠 Analogy\nan everyday comparison — used only where a concept genuinely needs one\n\n\n⚠️ Trap\na mistake that produces a wrong answer without raising an error\n\n\n🔓 Key idea\nsomething you must carry into later sessions\n\n\n❓ Check yourself\nshort questions with worked answers, folded away\n\n\n✏️ Tasks\nthings to do, with solutions folded away\n\n\n✅ Before you move on\nthe checklist for that session\n\n\n\n\n\n\n\n\n\nTip🧠 What makes this course different\n\n\n\nNothing here is asserted without being measured. Where a demonstration contradicted the lesson it was written for, the lesson was changed and the number kept. You will find, among other things:\n\n80% accuracy manufactured from coin flips, by one careless line\na model saved without its scaler, valuing a flat at ₹1.69 billion instead of ₹5 million\na polynomial that fits its training data best and scores −187 on new data\na “best” model chosen by peeking, reported at +0.08 and worth −0.20 in truth\nK-Means confidently finding three clusters in pure random noise\n\nThose are the passages that teach the most, because they are what you will actually meet.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Data Science</span>"
     ]
@@ -43,8 +43,8 @@
     "objectID": "index.html#the-data",
     "href": "index.html#the-data",
     "title": "Data Science",
-    "section": "0.5 The data",
-    "text": "0.5 The data\nEight of the datasets are real published files — a car marketplace, a loan book, mall customers, heart-failure patients. The rest are generated by a seeded script in the datasets/ folder, and only where a chapter needs a property no real file has: a known cluster structure, a planted association rule, a deliberate leak.\n\n\n\nRebuild every generated file\npython datasets/make_all.py\n\n\nRe-download the real ones\npython datasets/download_real.py\n\n\nGet the two large real datasets for Sessions 13–14\npython datasets/download_bigdata_real.py\n\n\nWhat each file is for\ndatasets/README.md\n\n\n\nThe formats vary on purpose — CSV, JSON, plain text, Excel, SQL, and one table split across several files — because real data does not arrive in one shape.\nSessions 13 and 14 each close with an advanced demo on a genuinely large public dataset — 566,602 real rows of US Forest Service terrain data, and 25,000 real IMDB movie reviews, both from Hugging Face — so the chunking and MapReduce ideas are proven at real scale, not just on data built for the lesson.",
+    "section": "0.6 The data",
+    "text": "0.6 The data\nEight of the datasets are real published files — a car marketplace, a loan book, mall customers, heart-failure patients. The rest are generated by a seeded script in the datasets/ folder, and only where a chapter needs a property no real file has: a known cluster structure, a planted association rule, a deliberate leak.\n\n\n\nRebuild every generated file\npython datasets/make_all.py\n\n\nRe-download the real ones\npython datasets/download_real.py\n\n\nGet the two large real datasets for Sessions 13–14\npython datasets/download_bigdata_real.py\n\n\nWhat each file is for\ndatasets/README.md\n\n\n\nThe formats vary on purpose — CSV, JSON, plain text, Excel, SQL, and one table split across several files — because real data does not arrive in one shape.\nSessions 13 and 14 each close with an advanced demo on a genuinely large public dataset — 566,602 real rows of US Forest Service terrain data, and 25,000 real IMDB movie reviews, both from Hugging Face — so the chunking and MapReduce ideas are proven at real scale, not just on data built for the lesson.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Data Science</span>"
     ]
@@ -53,8 +53,8 @@
     "objectID": "index.html#slides",
     "href": "index.html#slides",
     "title": "Data Science",
-    "section": "0.6 Slides",
-    "text": "0.6 Slides\nA companion slide deck covers every session’s concepts — no code, one section per session — for teaching from the front of a room: slides/data-science-course.tex (compile with latexmk -xelatex data-science-course.tex; the built PDF sits alongside it).",
+    "section": "0.7 Slides",
+    "text": "0.7 Slides\nA companion slide deck covers every session’s concepts — no code, one section per session — for teaching from the front of a room: slides/data-science-course.tex (compile with latexmk -xelatex data-science-course.tex; the built PDF sits alongside it).",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Data Science</span>"
     ]
@@ -63,8 +63,8 @@
     "objectID": "index.html#setting-up",
     "href": "index.html#setting-up",
     "title": "Data Science",
-    "section": "0.7 Setting up",
-    "text": "0.7 Setting up\nAll code runs in one conda environment. Create it once:\nconda create -n ds python=3.11 -y\nconda activate ds\npip install -r requirements.txt\nThen build the book with quarto render, or open any session and run the cells in Jupyter. Every session is self-contained — variables do not carry from one to the next, so you can start anywhere, though the order is designed to be read straight through.",
+    "section": "0.8 Setting up",
+    "text": "0.8 Setting up\nAll code runs in one conda environment. Create it once:\nconda create -n ds python=3.11 -y\nconda activate ds\npip install -r requirements.txt\nThen build the book with quarto render, or open any session and run the cells in Jupyter. Every session is self-contained — variables do not carry from one to the next, so you can start anywhere, though the order is designed to be read straight through.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Data Science</span>"
     ]
@@ -73,8 +73,8 @@
     "objectID": "index.html#a-note-on-the-order",
     "href": "index.html#a-note-on-the-order",
     "title": "Data Science",
-    "section": "0.8 A note on the order",
-    "text": "0.8 A note on the order\nSessions 3–6 prepare data; Sessions 7–8 describe it. If you have met this material before you may expect statistics to come first — it is the more common arrangement.\nSession 3 borrows the two ideas it needs (quartiles and standard deviation) in a marked box, so nothing is used before it is explained, and Session 7 then covers them properly. If you prefer, read Sessions 7 and 8 before Session 3. Nothing in them depends on Sessions 3–6.",
+    "section": "0.9 A note on the order",
+    "text": "0.9 A note on the order\nSessions 3–6 prepare data; Sessions 7–8 describe it. If you have met this material before you may expect statistics to come first — it is the more common arrangement.\nSession 3 borrows the two ideas it needs (quartiles and standard deviation) in a marked box, so nothing is used before it is explained, and Session 7 then covers them properly. If you prefer, read Sessions 7 and 8 before Session 3. Nothing in them depends on Sessions 3–6.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Data Science</span>"
     ]
@@ -2085,6 +2085,26 @@
     "crumbs": [
       "Part E — Data at scale",
       "<span class='chapter-number'>18</span>  <span class='chapter-title'>Session 16 — Capstone: The End-to-End Project</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#notebooks",
+    "href": "index.html#notebooks",
+    "title": "Data Science",
+    "section": "",
+    "text": "[1] Preprocessing",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Data Science</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#who-this-is-for",
+    "href": "index.html#who-this-is-for",
+    "title": "Data Science",
+    "section": "0.2 Who this is for",
+    "text": "0.2 Who this is for\nAnyone who wants to work with data and has no prior background in statistics, machine learning, or Python. Session 1 assumes you can use a computer. Nothing else.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Data Science</span>"
     ]
   }
 ]
