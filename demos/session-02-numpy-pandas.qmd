@@ -32,34 +32,34 @@ By the end of this session you can:
 
 | # | Topic | | # | Topic |
 |---|---|---|---|---|
-| 1 | [NumPy Intro](#1-numpy-intro) | | 6 | [Copy vs View](#6-numpy-copy-vs-view) |
-| 2 | [Creating Arrays](#2-numpy-creating-arrays) | | 7 | [Array Shape](#7-numpy-array-shape) |
-| 3 | [Array Indexing](#3-numpy-array-indexing) | | 8 | [Array Reshape](#8-numpy-array-reshape) |
-| 4 | [Array Slicing](#4-numpy-array-slicing) | | 9 | [Array Iterating](#9-numpy-array-iterating) |
-| 5 | [Data Types](#5-numpy-data-types) | | | |
+| 1 | [NumPy Intro](#numpy-intro) | | 6 | [Copy vs View](#numpy-copy-vs-view) |
+| 2 | [Creating Arrays](#numpy-creating-arrays) | | 7 | [Array Shape](#numpy-array-shape) |
+| 3 | [Array Indexing](#numpy-array-indexing) | | 8 | [Array Reshape](#numpy-array-reshape) |
+| 4 | [Array Slicing](#numpy-array-slicing) | | 9 | [Array Iterating](#numpy-array-iterating) |
+| 5 | [Data Types](#numpy-data-types) | | | |
 
 **Part B — Pandas for Data Handling**
 
 | # | Topic | | # | Topic |
 |---|---|---|---|---|
-| 10 | [Pandas Introduction](#10-pandas-introduction) | | 14 | [Analyzing Data](#14-pandas-analyzing-data) |
-| 11 | [Pandas Series](#11-pandas-series) | | 15 | [Correlations](#15-pandas-correlations) |
-| 12 | [Pandas DataFrames](#12-pandas-dataframes) | | 16 | [Plotting](#16-pandas-plotting) |
-| 13 | [Read CSV](#13-pandas-read-csv) | | | |
+| 10 | [Pandas Introduction](#pandas-introduction) | | 14 | [Analyzing Data](#pandas-analyzing-data) |
+| 11 | [Pandas Series](#pandas-series) | | 15 | [Correlations](#pandas-correlations) |
+| 12 | [Pandas DataFrames](#pandas-dataframes) | | 16 | [Plotting](#pandas-plotting) |
+| 13 | [Read CSV](#pandas-read-csv) | | | |
 
 **Part C — Pandas for Data Cleaning**
 
 | # | Topic | | # | Topic |
 |---|---|---|---|---|
-| 17 | [Cleaning Data](#17-cleaning-data) | | 20 | [Cleaning Wrong Data](#20-cleaning-wrong-data) |
-| 18 | [Cleaning Empty Cells](#18-cleaning-empty-cells) | | 21 | [Removing Duplicates](#21-removing-duplicates) |
-| 19 | [Cleaning Wrong Format](#19-cleaning-wrong-format) | | | |
+| 17 | [Cleaning Data](#cleaning-data) | | 20 | [Cleaning Wrong Data](#cleaning-wrong-data) |
+| 18 | [Cleaning Empty Cells](#cleaning-empty-cells) | | 21 | [Removing Duplicates](#removing-duplicates) |
+| 19 | [Cleaning Wrong Format](#cleaning-wrong-format) | | | |
 
 **Part D — Python Libraries for Data Visualization**
 
 | # | Topic | | # | Topic |
 |---|---|---|---|---|
-| 22 | [Matplotlib](#22-matplotlib) | | 23 | [Seaborn](#23-seaborn) |
+| 22 | [Matplotlib](#matplotlib) | | 23 | [Seaborn](#seaborn) |
 
 **Six checkpoint problems** sit between the topics, each using only what you have learned so far:
 
@@ -85,7 +85,7 @@ By the end of this session you can:
 
 # Part A — NumPy Fundamentals
 
-# 1. NumPy Intro
+# NumPy Intro
 
 **NumPy is Python's library for working with numbers in bulk.** Its one big idea is the **array**: a grid of values, all the same type.
 
@@ -270,7 +270,7 @@ print(f"{passed} of {marks.size} passed = {passed / marks.size:.0%}")
 
 ---
 
-# 2. NumPy Creating Arrays
+# NumPy Creating Arrays
 
 **There are five ways to make an array, and you will use all of them.**
 
@@ -433,7 +433,7 @@ print(sales)
 
 ---
 
-# 3. NumPy Array Indexing
+# NumPy Array Indexing
 
 **Getting a single value out. Positions start at 0** — exactly like strings and lists in Session 1.
 
@@ -599,7 +599,7 @@ print(nums)                                 # [12 45 10 89 23]
 
 ---
 
-# 4. NumPy Array Slicing
+# NumPy Array Slicing
 
 **Getting a run of values. `array[start:stop:step]` — and the stop is excluded**, exactly as in Session 1.
 
@@ -817,7 +817,7 @@ print(f"Days above 30 : {(temps > 30).sum()} of {temps.size}")
 
 ---
 
-# 5. NumPy Data Types
+# NumPy Data Types
 
 **Every array has one `dtype`, and everything in it shares that type.** That is the egg-carton rule from Topic 1, made concrete.
 
@@ -1003,7 +1003,7 @@ print(f"average {marks.mean():.2f}")
 
 ---
 
-# 6. NumPy Copy vs View
+# NumPy Copy vs View
 
 **This topic exists because of one surprise that costs beginners hours.**
 
@@ -1210,7 +1210,7 @@ print("capped:", capped)
 
 ---
 
-# 7. NumPy Array Shape
+# NumPy Array Shape
 
 **The shape tells you how many rows, columns and layers an array has.** It is a tuple.
 
@@ -1403,7 +1403,7 @@ print("x:", x.shape, " y:", y.shape)         # (3,) (2, 2)
 
 ---
 
-# 8. NumPy Array Reshape
+# NumPy Array Reshape
 
 **Reshaping rearranges the same values into a different grid.** Nothing is added or removed.
 
@@ -1582,7 +1582,7 @@ print(g.flatten())          # same values, but flatten() makes a COPY
 
 ---
 
-# 9. NumPy Array Iterating
+# NumPy Array Iterating
 
 **You *can* loop over an array. Usually you should not.**
 
@@ -1857,7 +1857,7 @@ NumPy stretches the `(10, 1)` column and the `(10,)` row against each other to f
 
 # Part B — Pandas for Data Handling
 
-# 10. Pandas Introduction
+# Pandas Introduction
 
 **NumPy handles grids of numbers. Pandas handles *tables* — with column names, mixed types, and missing values.** That is what real data looks like.
 
@@ -2065,7 +2065,7 @@ print(reg)
 
 ---
 
-# 11. Pandas Series
+# Pandas Series
 
 **A Series is one column: values plus an index.**
 
@@ -2260,7 +2260,7 @@ print(monthly[monthly > monthly.mean()])
 
 ---
 
-# 12. Pandas DataFrames
+# Pandas DataFrames
 
 **A DataFrame is the whole table.** Think of it as a dictionary whose values are Series, all sharing one index.
 
@@ -2542,7 +2542,7 @@ print(df["grade"].value_counts().to_string())
 
 ---
 
-# 13. Pandas Read CSV
+# Pandas Read CSV
 
 **Almost all real data arrives as a CSV file.** One function reads it.
 
@@ -2730,7 +2730,7 @@ print(pd.read_csv("loans_clean.csv").shape)
 
 ---
 
-# 14. Pandas Analyzing Data
+# Pandas Analyzing Data
 
 **You have loaded the file. Now: what is actually in it?**
 
@@ -2912,7 +2912,7 @@ print(df.groupby("person_education")["person_income"]                  # 5
 
 ---
 
-# 15. Pandas Correlations
+# Pandas Correlations
 
 **A correlation says how strongly two numeric columns move together.**
 
@@ -3097,7 +3097,7 @@ print(c[(c < 1.0) & (c > 0.7)].drop_duplicates())
 
 ---
 
-# 16. Pandas Plotting
+# Pandas Plotting
 
 **Pandas can plot straight from a DataFrame.** No separate library call needed for a quick look.
 
@@ -3324,7 +3324,7 @@ plt.show()
 
 # Part C — Pandas for Data Cleaning
 
-# 17. Cleaning Data
+# Cleaning Data
 
 **Real data is messy. Cleaning it is most of the job.**
 
@@ -3334,10 +3334,10 @@ plt.show()
 
 | Problem | Looks like | Topic |
 |---|---|---|
-| **Empty cells** | `NaN`, blanks, `None` | [18](#18-cleaning-empty-cells) |
-| **Wrong format** | A date written as `20260307` | [19](#19-cleaning-wrong-format) |
-| **Wrong data** | A workout of 450 minutes; an age of 144 | [20](#20-cleaning-wrong-data) |
-| **Duplicates** | The same row entered twice | [21](#21-removing-duplicates) |
+| **Empty cells** | `NaN`, blanks, `None` | [18](#cleaning-empty-cells) |
+| **Wrong format** | A date written as `20260307` | [19](#cleaning-wrong-format) |
+| **Wrong data** | A workout of 450 minutes; an age of 144 | [20](#cleaning-wrong-data) |
+| **Duplicates** | The same row entered twice | [21](#removing-duplicates) |
 
 ## The messy dataset we will fix
 
@@ -3566,7 +3566,7 @@ print(len(raw), len(raw.dropna()), len(raw.drop_duplicates()),         # 4
 
 ---
 
-# 18. Cleaning Empty Cells
+# Cleaning Empty Cells
 
 **Empty cells are the commonest defect, and you have two choices: remove them, or fill them.**
 
@@ -3778,7 +3778,7 @@ print(f"real mean {c.mean():.1f} | zero-filled {c.fillna(0).mean():.1f} "
 
 ---
 
-# 19. Cleaning Wrong Format
+# Cleaning Wrong Format
 
 **Data that is the right value in the wrong shape.** Dates are the usual culprit.
 
@@ -3980,7 +3980,7 @@ print(c.str.strip().str.title().unique())      # ['France']
 
 ---
 
-# 20. Cleaning Wrong Data
+# Cleaning Wrong Data
 
 **A value that is the right type and the right format, and still cannot be true.**
 
@@ -4202,7 +4202,7 @@ for col, (lo, hi) in limits.items():
 
 ---
 
-# 21. Removing Duplicates
+# Removing Duplicates
 
 **The same row, entered twice.** Usually a data-entry slip or a botched file merge.
 
@@ -4512,7 +4512,7 @@ checked against the raw data.
 
 # Part D — Python Libraries for Data Visualization
 
-# 22. Matplotlib
+# Matplotlib
 
 **Topic 16 showed you `df.plot()` — Pandas' shortcut for a quick look. Matplotlib is what sits underneath it**, and you reach for it directly whenever you need control: several panels, exact labels, a saved file.
 
@@ -4788,7 +4788,7 @@ plt.tight_layout(); plt.show()
 
 ---
 
-# 23. Seaborn
+# Seaborn
 
 **Seaborn is Matplotlib with the statistics built in and the styling already done.**
 

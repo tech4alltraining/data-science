@@ -36,13 +36,13 @@ By the end of this session you can:
 
 | # | Topic | | # | Topic |
 |---|---|---|---|---|
-| 1 | [Demo or deployment?](#1-demo-or-deployment) | | 8 | [Common widgets](#8-common-widgets) |
-| 2 | [Environment setup](#2-environment-setup) | | 9 | [Layout and display](#9-layout-and-display) |
-| 3 | [Project layout](#3-project-layout) | | 10 | [The three rules](#10-the-three-rules-that-fix-most-streamlit-bugs) |
-| 4 | [App 1 — `train.py`](#4-app-1--trainpy) | | 11 | [Where to look things up](#11-where-to-look-things-up) |
-| 5 | [App 1 — `app.py`](#5-app-1--apppy) | | 12 | [App 2 — Loan approval](#12-app-2--loan-approval) |
-| 6 | [Running it](#6-running-it) | | 13 | [App 3 — Diabetes screening](#13-app-3--diabetes-screening) |
-| 7 | [The pattern, extracted](#7-the-pattern-extracted) | | 14 | [App 4 — Salary prediction](#14-app-4--salary-prediction) |
+| 1 | [Demo or deployment?](#demo-or-deployment) | | 8 | [Common widgets](#common-widgets) |
+| 2 | [Environment setup](#environment-setup) | | 9 | [Layout and display](#layout-and-display) |
+| 3 | [Project layout](#project-layout) | | 10 | [The three rules](#the-three-rules-that-fix-most-streamlit-bugs) |
+| 4 | [App 1 — `train.py`](#app-1--trainpy) | | 11 | [Where to look things up](#where-to-look-things-up) |
+| 5 | [App 1 — `app.py`](#app-1--apppy) | | 12 | [App 2 — Loan approval](#app-2--loan-approval) |
+| 6 | [Running it](#running-it) | | 13 | [App 3 — Diabetes screening](#app-3--diabetes-screening) |
+| 7 | [The pattern, extracted](#the-pattern-extracted) | | 14 | [App 4 — Salary prediction](#app-4--salary-prediction) |
 
 **The [20 MCQs](#-session-5c--20-mcqs) and [tasks](#-session-5c--tasks) are at the end.**
 
@@ -50,7 +50,7 @@ By the end of this session you can:
 
 # Part A — Before you build
 
-# 1. Demo or deployment?
+# Demo or deployment?
 
 🧠 **Analogy: a chef's tasting spoon versus a restaurant.** **The spoon proves the sauce works. The restaurant has to serve it to a stranger, at speed, without the chef standing there explaining it.**
 
@@ -69,7 +69,7 @@ By the end of this session you can:
 
 ---
 
-# 2. Environment setup
+# Environment setup
 
 **Everything here runs in the course's `genai` environment.**
 
@@ -114,7 +114,7 @@ streamlit run app.py
 
 ---
 
-# 3. Project layout
+# Project layout
 
 **Every app in this session uses the same three-file shape.**
 
@@ -144,7 +144,7 @@ iris-app/
 
 ---
 
-# 4. App 1 — `train.py`
+# App 1 — `train.py`
 
 ```python
 # train.py  -  run this ONCE:  python train.py
@@ -220,7 +220,7 @@ saved -> models/iris_model.joblib
 
 ---
 
-# 5. App 1 — `app.py`
+# App 1 — `app.py`
 
 ```python
 # streamlit-only: run with `streamlit run app.py`, not `python app.py`
@@ -289,7 +289,7 @@ st.caption(f"Model test accuracy: {bundle['accuracy']:.1%}. "
 
 ---
 
-# 6. Running it
+# Running it
 
 ```bash
 cd iris-app
@@ -312,7 +312,7 @@ streamlit run app.py     # every time you want the app
 
 ---
 
-# 7. The pattern, extracted
+# The pattern, extracted
 
 **Every app in Part D is this same shape.**
 
@@ -341,7 +341,7 @@ train.py                              app.py
 
 # Part C — Streamlit reference
 
-# 8. Common widgets
+# Common widgets
 
 **Streamlit's whole design: every widget is a function that *returns the value the user chose*.** **There are no callbacks, no event handlers, no forms to wire up.**
 
@@ -397,7 +397,7 @@ age = st.slider("Age", 18, 100, 30)     # `age` IS the number the user picked
 
 ---
 
-# 9. Layout and display
+# Layout and display
 
 **Two layouts cover almost everything.**
 
@@ -445,7 +445,7 @@ if submitted:
 
 ---
 
-# 10. The three rules that fix most Streamlit bugs
+# The three rules that fix most Streamlit bugs
 
 ## Rule 1 — the script reruns top to bottom on every interaction
 
@@ -488,7 +488,7 @@ st.write(f"You have made {len(st.session_state.history)} predictions.")
 
 ---
 
-# 11. Where to look things up
+# Where to look things up
 
 | Resource | What it is best for |
 |---|---|
@@ -512,13 +512,13 @@ st.write(f"You have made {len(st.session_state.history)} predictions.")
 
 | App | Problem | New thing it teaches |
 |---|---|---|
-| **[Loan approval](#12-app-2--loan-approval)** | Binary classification | **Categorical inputs, and a `ColumnTransformer`** |
-| **[Diabetes screening](#13-app-3--diabetes-screening)** | Binary, **imbalanced** | **A user-adjustable threshold** |
-| **[Salary prediction](#14-app-4--salary-prediction)** | Regression | **A number, with an honest error range** |
+| **[Loan approval](#app-2--loan-approval)** | Binary classification | **Categorical inputs, and a `ColumnTransformer`** |
+| **[Diabetes screening](#app-3--diabetes-screening)** | Binary, **imbalanced** | **A user-adjustable threshold** |
+| **[Salary prediction](#app-4--salary-prediction)** | Regression | **A number, with an honest error range** |
 
 ---
 
-# 12. App 2 — Loan approval
+# App 2 — Loan approval
 
 **10,000 applications, 13 features — eight numeric and five categorical — and a yes/no decision.**
 
@@ -725,7 +725,7 @@ st.caption(f"Model test accuracy: {bundle['accuracy']:.1%}. "
 
 ---
 
-# 13. App 3 — Diabetes screening
+# App 3 — Diabetes screening
 
 **100,000 patients, and only 8.5% of them have diabetes.** **That imbalance changes the app.**
 
@@ -904,7 +904,7 @@ st.caption(
 
 ---
 
-# 14. App 4 — Salary prediction
+# App 4 — Salary prediction
 
 **A regression app: the output is a number, not a class.**
 
@@ -1061,7 +1061,7 @@ st.caption(f"Cross-validated R² {bundle['cv_r2']:.2f} — the model explains ab
 
 # Part E — Going live
 
-# 15. Deploying to Streamlit Community Cloud
+# Deploying to Streamlit Community Cloud
 
 **Free, and it takes about five minutes.**
 
@@ -1123,7 +1123,7 @@ joblib
 
 ---
 
-# 16. Before you deploy anything
+# Before you deploy anything
 
 **A short checklist, and none of it is optional.**
 

@@ -34,18 +34,18 @@ By the end of this session you can:
 
 | # | Topic |
 |---|---|
-| 1 | [Supervised learning: regression and classification](#1-supervised-learning-regression-and-classification) |
-| 2 | [Use case 1 — Salary from experience](#2-use-case-1--salary-from-experience) |
-| 3 | [Use case 2 — Advertising spend and sales](#3-use-case-2--advertising-spend-and-sales) |
-| 4 | [Use case 3 — Used car prices](#4-use-case-3--used-car-prices) |
-| 5 | [What the three use cases showed](#5-what-the-three-use-cases-showed) |
+| 1 | [Supervised learning: regression and classification](#supervised-learning-regression-and-classification) |
+| 2 | [Use case 1 — Salary from experience](#use-case-1--salary-from-experience) |
+| 3 | [Use case 2 — Advertising spend and sales](#use-case-2--advertising-spend-and-sales) |
+| 4 | [Use case 3 — Used car prices](#use-case-3--used-car-prices) |
+| 5 | [What the three use cases showed](#what-the-three-use-cases-showed) |
 | | [❓ 20 MCQs](#-regression--20-mcqs) · [🎯 Tasks](#-regression--tasks) |
 
 **Practices sit between the use cases.** The MCQs and tasks are at the end.
 
 ---
 
-# 1. Supervised learning: regression and classification
+# Supervised learning: regression and classification
 
 **Supervised** means you have the answers. You show the model inputs *and* correct outputs, and it learns the mapping between them.
 
@@ -96,7 +96,7 @@ pincode + pincode           -> nonsense    -> pincode is a CATEGORY
 
 ---
 
-# 2. Use case 1 — Salary from experience
+# Use case 1 — Salary from experience
 
 **One feature, one target, and no complications.** That is exactly why we start here: **every step is visible, and you can concentrate on what the metrics mean.**
 
@@ -720,7 +720,7 @@ print(f"R2   {r2_score(y_test, y_pred):.4f}")
 
 ---
 
-# 3. Use case 2 — Advertising spend and sales
+# Use case 2 — Advertising spend and sales
 
 **One feature was enough to learn the mechanics. Real problems have several** — and that changes what you can read out of the model.
 
@@ -1020,7 +1020,7 @@ print(f"without R2 {r2_score(d_, p2):.4f}")
 
 ---
 
-# 4. Use case 3 — Used car prices
+# Use case 3 — Used car prices
 
 **The first two datasets were clean and cooperative. This one is neither** — and it is much more like what you will actually be handed.
 
@@ -1416,7 +1416,7 @@ print(f"log-target R2 {r2_score(d_, LinearRegression().fit(a, c_).predict(b)):.4
 
 ---
 
-# 5. What the three use cases showed
+# What the three use cases showed
 
 | | Use case 1 — Salary | Use case 2 — Advertising | Use case 3 — Cars |
 |---|---|---|---|

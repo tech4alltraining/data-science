@@ -1,82 +1,207 @@
-Yes. In fact, for teaching, I would **not start with Hadoop**.
+---
+title: "Part 1 — Python MapReduce Without Hadoop"
+subtitle: "Hands-on MapReduce Programming with Python"
+format:
+  ipynb: default
+jupyter: python3
+execute:
+  echo: true
+  warning: false
+  error: true
+---
 
-You can teach the MapReduce programming model entirely in a Python notebook first:
+# Part 1 — Python MapReduce Without Hadoop
 
-```text
-CSV dataset
-   ↓
-Pandas
-   ↓
-Mapper function
-   ↓
-key-value pairs
-   ↓
-Shuffle / Group
-   ↓
-Reducer function
-   ↓
-Result
-```
+## Learning Objectives
 
-Then, once students understand the logic, run essentially the **same Mapper/Reducer logic through Hadoop Streaming**. Hadoop Streaming is specifically designed to let executables such as Python programs act as the mapper and reducer. ([Apache Hadoop][1])
+In this practical, you will learn the MapReduce programming model by implementing it entirely in Python.
 
-For your **i5 + 8 GB RAM machines**, this is also much more practical than trying to teach a full multi-node Hadoop cluster. A single-node/pseudo-distributed Hadoop installation is sufficient for the demonstrations; Apache documents this mode specifically for running Hadoop on one machine. ([Apache Hadoop][2])
+By the end of this practical, you will be able to:
 
-## Recommended teaching structure
+- understand the MapReduce programming model;
+- implement a Mapper;
+- implement a Shuffle operation;
+- implement a Reducer;
+- process text data using MapReduce;
+- process CSV data using MapReduce;
+- perform counting, summation, averaging, and ranking;
+- compare MapReduce with Pandas;
+- process progressively larger datasets;
+- understand why distributed frameworks such as Hadoop are useful.
 
-I would change the earlier plan to this:
-
-| Demo | Dataset          |       Size | Python notebook | Hadoop               |
-| ---- | ---------------- | ---------: | --------------- | -------------------- |
-| 1    | Small text/CSV   |       Tiny | ✅               | Optional             |
-| 2    | Small CSV        |      Small | ✅               | Optional             |
-| 3    | Online Shoppers  |  ~12K rows | ✅               | Optional             |
-| 4    | Clickstream      |  165K rows | ✅               | Recommended          |
-| 5    | Online Retail    |  541K rows | ✅               | Recommended          |
-| 6    | Online Retail II | 1.07M rows | ✅               | Strongly recommended |
-| 7    | Streamlit        |    Results | ✅               | Optional             |
-
-The UCI **Online Retail** dataset has 541,909 transactions, while **Online Retail II** has 1,067,371 transactions, making them particularly useful for demonstrating why distributed processing becomes interesting. ([UCI Machine Learning Repository][3])
+> **Important:** Hadoop is **not used in Part 1**. You will first understand the MapReduce programming model using Python alone.
 
 ---
 
-# Part 1 — Environment
+# 1. Environment Setup
 
-Since you already have pandas, I'd keep the environment simple.
+## 1.1 Activate the Conda Environment
 
-### Conda
+Before starting this practical, activate the `demo` Conda environment.
+
+Run the following command in your terminal:
 
 ```bash
 conda activate demo
-```
+````
 
-Install the complete teaching stack:
-
-```bash
-pip install pandas numpy matplotlib seaborn jupyterlab streamlit requests openpyxl
-```
-
-Optional:
+If the environment does not exist yet, create it using:
 
 ```bash
-pip install ucimlrepo
+conda create -n demo python=3.11 -y
+conda activate demo
 ```
-
-I would actually use direct dataset downloads where possible so students can see the **"download → load → process"** workflow.
 
 ---
 
-# Part 2 — Demo 1: Word Count Without Hadoop
+## 1.2 Install Required Python Packages
 
-The first notebook should deliberately avoid pandas.
+Run the following command in your terminal:
 
-That is important because students need to understand what a Mapper actually does.
+```bash
+pip install pandas numpy matplotlib seaborn requests openpyxl
+```
 
-## Notebook structure
+The main packages used in this practical are:
 
-### Cell 1 — Create a tiny dataset
+| Package      | Purpose                        |
+| ------------ | ------------------------------ |
+| `pandas`     | Dataset loading and comparison |
+| `numpy`      | Numerical operations           |
+| `matplotlib` | Visualization                  |
+| `seaborn`    | Visualization                  |
+| `requests`   | Downloading datasets           |
+| `openpyxl`   | Reading Excel datasets         |
 
-```python
+The first demonstration uses only Python's standard library.
+
+---
+
+## 1.3 Verify the Environment
+
+Run the following Python cell.
+
+```{python}
+import sys
+import pandas as pd
+import numpy as np
+import matplotlib
+import seaborn as sns
+
+print("Python version:", sys.version)
+print("Pandas version:", pd.__version__)
+print("NumPy version:", np.__version__)
+print("Matplotlib version:", matplotlib.__version__)
+print("Seaborn version:", sns.__version__)
+
+print("\nEnvironment is ready!")
+```
+
+---
+
+# 2. Understanding the MapReduce Model
+
+Before writing the first program, understand the basic MapReduce workflow.
+
+```text
+                 INPUT DATA
+                     |
+                     v
+                +----------+
+                |  MAPPER  |
+                +----------+
+                     |
+                     v
+                KEY-VALUE PAIRS
+                     |
+                     v
+                +----------+
+                | SHUFFLE  |
+                +----------+
+                     |
+                     v
+                GROUPED VALUES
+                     |
+                     v
+                +----------+
+                | REDUCER  |
+                +----------+
+                     |
+                     v
+                   OUTPUT
+```
+
+The three important stages are:
+
+### Mapper
+
+Converts input records into key-value pairs.
+
+### Shuffle
+
+Groups values belonging to the same key.
+
+### Reducer
+
+Aggregates the grouped values.
+
+For example, for Word Count:
+
+```text
+Input:
+
+Python Hadoop Python
+
+Mapper:
+
+Python  -> 1
+Hadoop  -> 1
+Python  -> 1
+
+Shuffle:
+
+Python  -> [1, 1]
+Hadoop  -> [1]
+
+Reducer:
+
+Python  -> 2
+Hadoop  -> 1
+```
+
+In Hadoop, the framework performs the Shuffle phase.
+
+In this practical, you will implement the Shuffle phase yourself so that you can understand exactly what happens.
+
+---
+
+# 3. Demo 1 — Word Count
+
+## Objective
+
+You will implement your first complete MapReduce program.
+
+The problem is:
+
+> **Count how many times each word occurs in a text dataset.**
+
+You will implement:
+
+```text
+Mapper
+   ↓
+Shuffle
+   ↓
+Reducer
+```
+
+---
+
+## 3.1 Create a Small Dataset
+
+Run the following cell.
+
+```{python}
 text = """
 Python is simple
 Python is powerful
@@ -85,516 +210,1588 @@ Python processes data
 Hadoop and Python work together
 """
 
-with open("data.txt", "w") as f:
-    f.write(text)
-
 print(text)
 ```
 
 ---
 
-### Cell 2 — Read the data
+## 3.2 Save the Dataset
 
-```python
-with open("data.txt", "r") as f:
-    lines = f.readlines()
+Run:
 
-lines
+```{python}
+with open("word_count_input.txt", "w") as file:
+    file.write(text)
+
+print("Dataset saved as word_count_input.txt")
 ```
 
 ---
 
-### Cell 3 — Mapper
+## 3.3 Read the Dataset
 
-```python
-def mapper(lines):
-    mapped = []
+Run:
+
+```{python}
+with open("word_count_input.txt", "r") as file:
+    lines = file.readlines()
+
+print("Number of lines:", len(lines))
+
+for line in lines:
+    print(repr(line))
+```
+
+---
+
+# 4. Implement the Mapper
+
+The Mapper should convert every word into:
+
+```text
+(word, 1)
+```
+
+For example:
+
+```text
+Python Python Hadoop
+```
+
+becomes:
+
+```text
+("python", 1)
+("python", 1)
+("hadoop", 1)
+```
+
+Run the following cell.
+
+```{python}
+def word_count_mapper(lines):
+    mapped_data = []
 
     for line in lines:
+
         words = line.strip().lower().split()
 
         for word in words:
-            mapped.append((word, 1))
+            mapped_data.append((word, 1))
 
-    return mapped
-
-
-mapped_data = mapper(lines)
-
-mapped_data
+    return mapped_data
 ```
 
-Students will see:
+---
+
+## 4.1 Run the Mapper
+
+```{python}
+mapped_data = word_count_mapper(lines)
+
+print("Mapper output:\n")
+
+for key, value in mapped_data:
+    print(key, "->", value)
+```
+
+### Observe
+
+You should see output similar to:
 
 ```text
-('python', 1)
-('is', 1)
-('simple', 1)
-('python', 1)
+python -> 1
+is -> 1
+simple -> 1
+python -> 1
+is -> 1
+powerful -> 1
 ...
 ```
 
-Explain:
+The Mapper does not calculate the final count.
 
-> The Mapper converts the original data into **key-value pairs**.
+It only produces key-value pairs.
 
 ---
 
-### Cell 4 — Shuffle
+# 5. Implement the Shuffle
 
-Now implement the part Hadoop normally performs.
+The Shuffle phase groups values having the same key.
 
-```python
+For example:
+
+```text
+python -> 1
+python -> 1
+python -> 1
+```
+
+becomes:
+
+```text
+python -> [1, 1, 1]
+```
+
+Run:
+
+```{python}
 from collections import defaultdict
 
 def shuffle(mapped_data):
-    grouped = defaultdict(list)
+
+    grouped_data = defaultdict(list)
 
     for key, value in mapped_data:
-        grouped[key].append(value)
+        grouped_data[key].append(value)
 
-    return grouped
-
-
-grouped_data = shuffle(mapped_data)
-
-dict(grouped_data)
+    return grouped_data
 ```
-
-Students will see something like:
-
-```text
-{
-    'python': [1, 1, 1],
-    'is': [1],
-    'data': [1, 1],
-    'hadoop': [1, 1],
-    ...
-}
-```
-
-This is the most important conceptual step.
 
 ---
 
-### Cell 5 — Reducer
+## 5.1 Run the Shuffle
 
-```python
-def reducer(grouped_data):
+```{python}
+grouped_data = shuffle(mapped_data)
+
+print("Shuffle output:\n")
+
+for key, values in grouped_data.items():
+    print(key, "->", values)
+```
+
+---
+
+# 6. Implement the Reducer
+
+The Reducer receives:
+
+```text
+key -> [values]
+```
+
+and calculates the final result.
+
+For Word Count:
+
+```text
+python -> [1, 1, 1]
+```
+
+becomes:
+
+```text
+python -> 3
+```
+
+Run:
+
+```{python}
+def word_count_reducer(grouped_data):
 
     result = {}
 
     for key, values in grouped_data.items():
+
         result[key] = sum(values)
 
     return result
-
-
-result = reducer(grouped_data)
-
-result
 ```
 
 ---
 
-### Cell 6 — Sort the result
+## 6.1 Run the Reducer
 
-```python
-sorted(result.items(), key=lambda x: x[1], reverse=True)
-```
+```{python}
+word_count_result = word_count_reducer(grouped_data)
 
-Expected idea:
+print("Reducer output:\n")
 
-```text
-python     3
-hadoop     2
-data       2
-...
+for key, value in word_count_result.items():
+    print(key, "->", value)
 ```
 
 ---
 
-### Cell 7 — Complete MapReduce pipeline
+# 7. Sort the Results
 
-Now combine everything:
+Run:
 
-```python
-def map_reduce(lines):
+```{python}
+sorted_word_count = sorted(
+    word_count_result.items(),
+    key=lambda item: item[1],
+    reverse=True
+)
+
+for word, count in sorted_word_count:
+    print(f"{word:15} {count}")
+```
+
+---
+
+# 8. Build a Complete MapReduce Function
+
+You have implemented Mapper, Shuffle, and Reducer separately.
+
+Now combine them into one function.
+
+```{python}
+def map_reduce(
+    data,
+    mapper_function,
+    reducer_function
+):
 
     # MAP
-    mapped = mapper(lines)
+    mapped = mapper_function(data)
 
     # SHUFFLE
     grouped = shuffle(mapped)
 
     # REDUCE
-    result = reducer(grouped)
+    result = reducer_function(grouped)
 
     return result
-
-
-result = map_reduce(lines)
-
-for key, value in sorted(result.items(), key=lambda x: x[1], reverse=True):
-    print(f"{key:15} {value}")
 ```
-
-Now students have implemented **MapReduce without Hadoop**.
-
-That is exactly what I recommend for Demo 1.
 
 ---
 
-# Part 3 — Demo 2: CSV + Pandas + MapReduce
+## 8.1 Execute the Complete Pipeline
 
-Now introduce a real dataset downloaded from the Internet.
+```{python}
+result = map_reduce(
+    lines,
+    word_count_mapper,
+    word_count_reducer
+)
 
-For this demo, I suggest **Online Shoppers Purchasing Intention** from UCI. It is small enough for every student's laptop but realistic enough to introduce CSV processing. The UCI repository provides the dataset as a CSV and documents its variables. ([UCI Machine Learning Repository][4])
+for key, value in sorted(
+    result.items(),
+    key=lambda item: item[1],
+    reverse=True
+):
+    print(f"{key:15} {value}")
+```
 
-## Cell 1 — Download
+---
 
-```python
+# 9. Visualize the Word Count
+
+Run:
+
+```{python}
+import matplotlib.pyplot as plt
+
+words = [item[0] for item in sorted_word_count]
+counts = [item[1] for item in sorted_word_count]
+
+plt.figure(figsize=(10, 5))
+
+plt.bar(words, counts)
+
+plt.xlabel("Word")
+plt.ylabel("Frequency")
+plt.title("Word Frequency")
+
+plt.xticks(rotation=45)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+# 10. Check Your Understanding
+
+Answer these questions before continuing.
+
+### Question 1
+
+What does the Mapper produce?
+
+### Question 2
+
+Why is the value `1` in the Word Count Mapper?
+
+### Question 3
+
+What does Shuffle do?
+
+### Question 4
+
+What does the Reducer calculate?
+
+### Question 5
+
+What would happen if the Mapper produced:
+
+```text
+python -> 5
+```
+
+instead of:
+
+```text
+python -> 1
+```
+
+---
+
+# 11. Demo 2 — Real CSV Dataset
+
+## Objective
+
+You will now move from a manually created text dataset to a real dataset downloaded from the Internet.
+
+We will use the **Online Shoppers Purchasing Intention** dataset from the UCI Machine Learning Repository.
+
+The dataset contains online shopping sessions and includes information such as visitor type, browsing activity, and whether a purchase was made.
+
+---
+
+## 11.1 Download the Dataset
+
+Run:
+
+```{python}
+import requests
+from pathlib import Path
+
+url = (
+    "https://archive.ics.uci.edu/"
+    "ml/machine-learning-databases/"
+    "00468/online_shoppers_intention.csv"
+)
+
+filename = Path("online_shoppers_intention.csv")
+
+if not filename.exists():
+
+    response = requests.get(url)
+    response.raise_for_status()
+
+    filename.write_bytes(response.content)
+
+    print("Dataset downloaded successfully.")
+
+else:
+
+    print("Dataset already exists.")
+```
+
+---
+
+## 11.2 Load the Dataset
+
+```{python}
 import pandas as pd
 
-url = "https://archive.ics.uci.edu/ml/machine-learning-databases/00468/online_shoppers_intention.csv"
-
-df = pd.read_csv(url)
+df = pd.read_csv(
+    "online_shoppers_intention.csv"
+)
 
 df.head()
 ```
 
-If that particular legacy URL becomes unavailable, use the UCI repository's dataset page/download mechanism instead. ([UCI Machine Learning Repository][4])
-
 ---
 
-## Cell 2 — Inspect dataset
+## 11.3 Inspect the Dataset
 
-```python
-print("Rows:", len(df))
-print("Columns:", len(df.columns))
+```{python}
+print("Number of rows:", len(df))
+print("Number of columns:", len(df.columns))
+```
 
+Display the columns:
+
+```{python}
+df.columns.tolist()
+```
+
+Display the data types:
+
+```{python}
 df.info()
 ```
 
 ---
 
-## Cell 3 — Understand the problem
+# 12. Demo 2 — Counting by Visitor Type
 
-We can ask:
+## Problem
 
-> **How many visitors belong to each VisitorType?**
+Answer the following question:
 
-For example:
+> **How many sessions belong to each VisitorType?**
+
+First solve the problem using Pandas.
+
+---
+
+## 12.1 Pandas Solution
+
+```{python}
+pandas_counts = df["VisitorType"].value_counts()
+
+pandas_counts
+```
+
+This is our reference solution.
+
+---
+
+# 13. Implement the Mapper
+
+The Mapper should produce:
 
 ```text
-Returning_Visitor
-New_Visitor
-Other
+VisitorType -> 1
 ```
 
----
+Run:
 
-## Cell 4 — Normal Pandas solution
-
-First show students the conventional solution:
-
-```python
-df["VisitorType"].value_counts()
-```
-
-This establishes a baseline.
-
----
-
-# Cell 5 — Mapper
-
-Now recreate the same operation using MapReduce.
-
-```python
-def mapper(df):
+```{python}
+def visitor_type_mapper(df):
 
     mapped = []
 
     for visitor_type in df["VisitorType"]:
-        mapped.append((visitor_type, 1))
+
+        mapped.append(
+            (visitor_type, 1)
+        )
 
     return mapped
-
-
-mapped = mapper(df)
-
-mapped[:10]
 ```
 
-Output:
+---
+
+## 13.1 Execute the Mapper
+
+```{python}
+visitor_mapped = visitor_type_mapper(df)
+
+print("First 20 Mapper records:\n")
+
+for item in visitor_mapped[:20]:
+    print(item)
+```
+
+---
+
+# 14. Shuffle the Data
+
+Use the Shuffle function created earlier.
+
+```{python}
+visitor_grouped = shuffle(
+    visitor_mapped
+)
+
+for key, values in visitor_grouped.items():
+
+    print(
+        key,
+        "->",
+        len(values),
+        "records"
+    )
+```
+
+---
+
+# 15. Reduce the Data
+
+Use the existing Word Count reducer.
+
+```{python}
+visitor_counts = word_count_reducer(
+    visitor_grouped
+)
+
+visitor_counts
+```
+
+---
+
+# 16. Compare MapReduce With Pandas
+
+```{python}
+print("Pandas result:")
+print(pandas_counts.to_dict())
+
+print("\nMapReduce result:")
+print(visitor_counts)
+```
+
+Check whether the results are identical:
+
+```{python}
+pandas_counts.to_dict() == visitor_counts
+```
+
+You should get:
 
 ```text
-[
-    ('Returning_Visitor', 1),
-    ('Returning_Visitor', 1),
-    ('Returning_Visitor', 1),
-    ...
-]
+True
 ```
 
 ---
 
-# Cell 6 — Shuffle
+# 17. Demo 3 — Average Using MapReduce
 
-```python
-from collections import defaultdict
+## Objective
 
-def shuffle(mapped):
+You will now perform numerical aggregation.
 
-    grouped = defaultdict(list)
+Answer:
 
-    for key, value in mapped:
-        grouped[key].append(value)
+> **What is the average PageValues for each VisitorType?**
 
-    return grouped
+The MapReduce operation is:
 
+```text
+Mapper:
 
-grouped = shuffle(mapped)
+VisitorType -> PageValues
 
-for key, values in grouped.items():
-    print(key, len(values))
+        ↓
+
+Shuffle:
+
+VisitorType -> [PageValue1, PageValue2, ...]
+
+        ↓
+
+Reducer:
+
+VisitorType -> Average(PageValues)
 ```
 
 ---
 
-# Cell 7 — Reducer
+# 18. Implement the Mapper
 
-```python
-def reducer(grouped):
+```{python}
+def page_value_mapper(df):
+
+    mapped = []
+
+    for _, row in df.iterrows():
+
+        visitor_type = row["VisitorType"]
+        page_value = row["PageValues"]
+
+        mapped.append(
+            (visitor_type, page_value)
+        )
+
+    return mapped
+```
+
+---
+
+# 19. Implement the Average Reducer
+
+```{python}
+def average_reducer(grouped_data):
 
     result = {}
 
-    for key, values in grouped.items():
+    for key, values in grouped_data.items():
+
+        if len(values) > 0:
+
+            result[key] = (
+                sum(values) / len(values)
+            )
+
+    return result
+```
+
+---
+
+# 20. Execute MapReduce
+
+```{python}
+average_result = map_reduce(
+    df,
+    page_value_mapper,
+    average_reducer
+)
+
+average_result
+```
+
+---
+
+# 21. Verify Using Pandas
+
+```{python}
+pandas_average = (
+    df.groupby("VisitorType")["PageValues"]
+      .mean()
+)
+
+pandas_average
+```
+
+Compare:
+
+```{python}
+print("MapReduce:")
+print(average_result)
+
+print("\nPandas:")
+print(pandas_average.to_dict())
+```
+
+---
+
+# 22. Demo 4 — Multiple Aggregations
+
+You will now use the same dataset to perform several MapReduce operations.
+
+The purpose of this exercise is to understand that the MapReduce model is **not limited to counting**.
+
+---
+
+## Task 1 — Count Revenue Sessions
+
+Determine how many sessions resulted in a purchase.
+
+The dataset contains the `Revenue` column.
+
+Use:
+
+```{python}
+df["Revenue"].value_counts()
+```
+
+Now implement the same operation using MapReduce.
+
+---
+
+## Task 2 — Count Sessions by Month
+
+Use the `Month` column.
+
+Calculate:
+
+```text
+Month -> Number of Sessions
+```
+
+---
+
+## Task 3 — Average Page Value by Month
+
+Calculate:
+
+```text
+Month -> Average PageValues
+```
+
+---
+
+## Task 4 — Count Sessions by Visitor Type and Month
+
+This introduces a **composite key**.
+
+Instead of:
+
+```text
+VisitorType -> Value
+```
+
+use:
+
+```text
+(VisitorType, Month) -> Value
+```
+
+For example:
+
+```text
+("Returning_Visitor", "May") -> 1
+```
+
+Implement the Mapper and Reducer yourself.
+
+---
+
+# 23. Demo 5 — Medium Dataset
+
+## Clickstream Data
+
+You will now move to a larger dataset.
+
+Use the **Clickstream Data for Online Shopping** dataset from the UCI Machine Learning Repository.
+
+Download the dataset from the UCI repository and save it locally.
+
+> **Your task:** Identify the downloaded file name and load it into Pandas.
+
+---
+
+## 23.1 Load the Dataset
+
+Modify the filename below if necessary.
+
+```{python}
+clickstream = pd.read_csv(
+    "clickstream.csv"
+)
+
+clickstream.head()
+```
+
+---
+
+## 23.2 Inspect the Dataset
+
+```{python}
+print(
+    "Rows:",
+    len(clickstream)
+)
+
+print(
+    "Columns:",
+    len(clickstream.columns)
+)
+```
+
+```{python}
+clickstream.columns.tolist()
+```
+
+```{python}
+clickstream.info()
+```
+
+---
+
+# 24. Medium Dataset — Task 1
+
+## Count by Category
+
+Choose an appropriate categorical column.
+
+Calculate:
+
+```text
+Category -> Number of Records
+```
+
+### First
+
+Solve it using Pandas.
+
+### Then
+
+Implement:
+
+```text
+Mapper
+   ↓
+Shuffle
+   ↓
+Reducer
+```
+
+### Finally
+
+Compare the two results.
+
+---
+
+# 25. Medium Dataset — Task 2
+
+## Average Numeric Value by Category
+
+Choose a meaningful numeric column.
+
+Calculate:
+
+```text
+Category -> Average(Value)
+```
+
+Implement your own:
+
+```python
+mapper_average(...)
+```
+
+and:
+
+```python
+reducer_average(...)
+```
+
+Then verify your result using Pandas.
+
+---
+
+# 26. Medium Dataset — Task 3
+
+## Top 10 Categories
+
+After obtaining your aggregated result, identify the top 10 categories.
+
+Use:
+
+```{python}
+top10 = sorted(
+    result.items(),
+    key=lambda item: item[1],
+    reverse=True
+)[:10]
+
+top10
+```
+
+---
+
+# 27. Measure Execution Time
+
+Import the timing module:
+
+```{python}
+import time
+```
+
+Measure a MapReduce operation:
+
+```{python}
+start = time.perf_counter()
+
+# Run your MapReduce operation here.
+
+end = time.perf_counter()
+
+print(
+    "Execution time:",
+    end - start,
+    "seconds"
+)
+```
+
+Record the execution time.
+
+---
+
+# 28. Demo 6 — Large Dataset
+
+# Online Retail
+
+You will now work with a larger real-world dataset.
+
+The UCI **Online Retail** dataset contains approximately **541,909 transactions**.
+
+Download the dataset from the UCI Machine Learning Repository.
+
+Save the downloaded Excel file in the same directory as this notebook.
+
+---
+
+# 29. Load Online Retail
+
+```{python}
+retail = pd.read_excel(
+    "Online Retail.xlsx"
+)
+
+retail.head()
+```
+
+---
+
+# 30. Inspect the Dataset
+
+```{python}
+print("Rows:", len(retail))
+print("Columns:", len(retail.columns))
+```
+
+```{python}
+retail.columns.tolist()
+```
+
+```{python}
+retail.info()
+```
+
+---
+
+# 31. Check Missing Values
+
+```{python}
+retail.isnull().sum()
+```
+
+---
+
+# 32. Calculate Revenue
+
+Revenue is defined as:
+
+```text
+Revenue = Quantity × UnitPrice
+```
+
+Run:
+
+```{python}
+retail["Revenue"] = (
+    retail["Quantity"] *
+    retail["UnitPrice"]
+)
+
+retail[
+    [
+        "Quantity",
+        "UnitPrice",
+        "Revenue"
+    ]
+].head()
+```
+
+---
+
+# 33. Large Dataset — Task 1
+
+## Total Revenue by Country
+
+Your objective is:
+
+```text
+Country -> Total Revenue
+```
+
+The MapReduce design is:
+
+```text
+Mapper:
+
+Country -> Revenue
+
+        ↓
+
+Shuffle:
+
+Country -> [Revenue1, Revenue2, ...]
+
+        ↓
+
+Reducer:
+
+Country -> Total Revenue
+```
+
+---
+
+# 34. Implement the Mapper
+
+```{python}
+def country_revenue_mapper(df):
+
+    mapped = []
+
+    for _, row in df.iterrows():
+
+        country = row["Country"]
+        revenue = row["Revenue"]
+
+        mapped.append(
+            (country, revenue)
+        )
+
+    return mapped
+```
+
+---
+
+# 35. Implement the Reducer
+
+```{python}
+def sum_reducer(grouped_data):
+
+    result = {}
+
+    for key, values in grouped_data.items():
+
         result[key] = sum(values)
 
     return result
-
-
-result = reducer(grouped)
-
-result
 ```
 
 ---
 
-# Cell 8 — Compare with Pandas
+# 36. Execute the MapReduce Job
+
+```{python}
+start = time.perf_counter()
+
+country_revenue = map_reduce(
+    retail,
+    country_revenue_mapper,
+    sum_reducer
+)
+
+country_revenue_time = (
+    time.perf_counter() - start
+)
+
+print(
+    "Execution time:",
+    country_revenue_time,
+    "seconds"
+)
+```
+
+---
+
+# 37. Display Top 10 Countries
+
+```{python}
+top_countries = sorted(
+    country_revenue.items(),
+    key=lambda item: item[1],
+    reverse=True
+)
+
+for country, revenue in top_countries[:10]:
+
+    print(
+        f"{country:30} "
+        f"{revenue:,.2f}"
+    )
+```
+
+---
+
+# 38. Verify With Pandas
+
+```{python}
+start = time.perf_counter()
+
+pandas_country_revenue = (
+    retail
+    .groupby("Country")["Revenue"]
+    .sum()
+    .sort_values(
+        ascending=False
+    )
+)
+
+pandas_country_revenue_time = (
+    time.perf_counter() - start
+)
+
+pandas_country_revenue.head(10)
+```
+
+---
+
+# 39. Compare Execution Time
+
+```{python}
+print(
+    "Pandas:",
+    pandas_country_revenue_time,
+    "seconds"
+)
+
+print(
+    "Python MapReduce:",
+    country_revenue_time,
+    "seconds"
+)
+```
+
+---
+
+# 40. Create a Performance Comparison
+
+```{python}
+performance = pd.DataFrame({
+    "Method": [
+        "Pandas",
+        "Python MapReduce"
+    ],
+    "Execution_Time_Seconds": [
+        pandas_country_revenue_time,
+        country_revenue_time
+    ]
+})
+
+performance
+```
+
+---
+
+# 41. Large Dataset — Task 2
+
+## Top 10 Products by Revenue
+
+Answer:
+
+> Which products generated the highest revenue?
+
+Use the `Description` column as the product identifier.
+
+The required MapReduce operation is:
+
+```text
+Product -> Revenue
+```
+
+Implement a new Mapper:
 
 ```python
-pandas_result = df["VisitorType"].value_counts().to_dict()
-
-print("MapReduce:")
-print(result)
-
-print("\nPandas:")
-print(pandas_result)
+def product_revenue_mapper(df):
+    ...
 ```
 
-The students should see that both approaches produce the same conceptual result.
-
----
-
-# Cell 9 — Make the MapReduce framework reusable
-
-This is where I would start making the teaching progressively more advanced.
+Use the existing:
 
 ```python
-def map_reduce(df, mapper, reducer):
-
-    mapped = mapper(df)
-
-    grouped = defaultdict(list)
-
-    for key, value in mapped:
-        grouped[key].append(value)
-
-    result = reducer(grouped)
-
-    return result
+sum_reducer(...)
 ```
 
-Then:
+Then identify the top 10 products.
+
+---
+
+# 42. Large Dataset — Task 3
+
+## Revenue by Customer
+
+Answer:
+
+> Which customers generated the highest revenue?
+
+The required operation is:
+
+```text
+CustomerID -> Total Revenue
+```
+
+Implement:
 
 ```python
-result = map_reduce(df, mapper, reducer)
-
-result
+def customer_revenue_mapper(df):
+    ...
 ```
 
-Now students have their own miniature MapReduce framework.
+Then reuse:
+
+```python
+sum_reducer(...)
+```
+
+Identify the top 10 customers.
 
 ---
 
-# Part 4 — Why not Hadoop initially?
+# 43. Large Dataset — Task 4
 
-Because there are actually **two different things you want students to understand**:
+## Daily Revenue
 
-### 1. MapReduce programming model
+First extract the transaction date.
 
-```text
-Mapper
-   ↓
-Shuffle
-   ↓
-Reducer
+```{python}
+retail["Date"] = (
+    retail["InvoiceDate"]
+    .dt.date
+)
+
+retail[
+    [
+        "InvoiceDate",
+        "Date"
+    ]
+].head()
 ```
 
-### 2. Hadoop distributed execution
+Now calculate:
 
 ```text
-                    Hadoop Cluster
-                         │
-       ┌─────────────────┼─────────────────┐
-       ↓                 ↓                 ↓
-   Mapper 1          Mapper 2          Mapper 3
-       │                 │                 │
-       └─────────────────┼─────────────────┘
-                         ↓
-                  Shuffle / Sort
-                         ↓
-                Reducer 1 / 2 / 3
-                         ↓
-                       HDFS
+Date -> Total Revenue
 ```
 
-If you introduce Hadoop immediately, students can easily become confused by:
+Implement a Mapper that produces:
 
-* HDFS
-* NameNode
-* DataNode
-* ResourceManager
-* NodeManager
-* Java
-* SSH
-* configuration files
-* Hadoop Streaming
-* mapper/reducer
-* permissions
-* environment variables
+```text
+Date -> Revenue
+```
 
-They may learn **Hadoop configuration instead of MapReduce**.
-
-So I'd teach:
-
-> **Python MapReduce → datasets → scaling problem → Hadoop → same MapReduce algorithm on Hadoop.**
-
-That's a much better progression.
+and use the existing sum reducer.
 
 ---
 
-# Part 5 — Dataset progression
+# 44. Plot Daily Revenue
 
-I'd use the following four datasets.
+After obtaining your MapReduce result, convert it into a Pandas Series.
 
-## Dataset 1 — Tiny
+```{python}
+daily_revenue_series = pd.Series(
+    daily_revenue
+).sort_index()
 
-Our manually created:
-
-```text
-data.txt
+daily_revenue_series.head()
 ```
 
-Purpose:
+Plot the result:
 
-**Understand Mapper / Shuffle / Reducer**
+```{python}
+plt.figure(figsize=(12, 5))
 
----
+plt.plot(
+    daily_revenue_series.index,
+    daily_revenue_series.values
+)
 
-## Dataset 2 — Small
+plt.xlabel("Date")
+plt.ylabel("Revenue")
+plt.title("Daily Revenue")
 
-**Online Shoppers Purchasing Intention**
+plt.xticks(rotation=45)
 
-About 12,000 sessions.
+plt.tight_layout()
 
-It has variables such as administrative activity, product-related activity, bounce rate, exit rate, page values, visitor type and revenue. ([UCI Machine Learning Repository][4])
-
-Purpose:
-
-**MapReduce + Pandas + CSV**
-
----
-
-## Dataset 3 — Medium
-
-**Clickstream Data for Online Shopping**
-
-UCI reports **165,474 instances and 14 features**. ([UCI Machine Learning Repository][5])
-
-This is a good intermediate dataset.
-
-Potential question:
-
-> What is the average product price by country?
-
-Mapper:
-
-```text
-country → price
-```
-
-Reducer:
-
-```text
-country → average(price)
-```
-
-Then introduce:
-
-```text
-Mapper
-   ↓
-Combiner
-   ↓
-Shuffle
-   ↓
-Reducer
+plt.show()
 ```
 
 ---
 
-## Dataset 4 — Large
+# 45. Advanced Concept — Composite Keys
 
-**Online Retail**
+MapReduce does not require the key to be a single value.
 
-UCI reports **541,909 transactions**. ([UCI Machine Learning Repository][3])
+You can use a tuple as a key.
 
-Questions can become much more realistic:
-
-### Demo
-
-> Calculate total revenue by country.
-
-Mapper:
+For example:
 
 ```text
-country → quantity × unit_price
+(VisitorType, Month)
 ```
 
-Reducer:
+The Mapper can produce:
 
 ```text
-country → sum(revenue)
+("Returning_Visitor", "May") -> 1
 ```
 
-Then:
-
-> Find top 10 countries by revenue.
-
-Then:
-
-> Find top products by revenue.
-
-Then:
-
-> Calculate daily revenue.
-
-Then:
-
-> Calculate customer spending.
+This allows you to calculate statistics for combinations of attributes.
 
 ---
 
+## Exercise
+
+Using the Online Shoppers dataset, calculate:
+
+```text
+(VisitorType, Month) -> Number of Sessions
+```
+
+Implement:
+
+```python
+def composite_key_mapper(df):
+    ...
+```
+
+and use the existing Shuffle and Reducer functions.
+
+---
+
+# 46. Advanced Concept — Combiner
+
+In a distributed MapReduce system, sending every Mapper output through the network can be expensive.
+
+A **Combiner** can perform local aggregation before the Shuffle phase.
+
+For example:
+
+```text
+Mapper output:
+
+python -> 1
+python -> 1
+python -> 1
+python -> 1
+```
+
+A Combiner can transform this locally into:
+
+```text
+python -> 4
+```
+
+Implement a simple Combiner:
+
+```{python}
+def combiner(mapped_data):
+
+    local_counts = defaultdict(int)
+
+    for key, value in mapped_data:
+
+        local_counts[key] += value
+
+    return list(
+        local_counts.items()
+    )
+```
+
+Test it:
+
+```{python}
+combined_data = combiner(
+    mapped_data
+)
+
+for item in combined_data:
+    print(item)
+```
+
+Think about the following question:
+
+> Why would reducing the number of intermediate records be useful when data is distributed across multiple machines?
+
+---
+
+# 47. Final Large Dataset Challenge
+
+You will now use the **Online Retail II** dataset.
+
+This dataset contains approximately **1 million transactions**.
+
+Download the dataset and load it using Pandas.
+
+Repeat at least three analyses:
+
+1. Revenue by country.
+2. Revenue by product.
+3. Revenue by customer.
+
+For each analysis:
+
+1. Solve using Pandas.
+2. Solve using MapReduce.
+3. Verify that the results agree.
+4. Measure execution time.
+5. Record the results.
+
+---
+
+# 48. Final Performance Experiment
+
+Create a table containing your actual measurements.
+
+```{python}
+final_results = pd.DataFrame({
+    "Dataset": [
+        "Small",
+        "Medium",
+        "Large",
+        "Very Large"
+    ],
+    "Records": [
+        None,
+        None,
+        None,
+        None
+    ],
+    "Pandas_Time": [
+        None,
+        None,
+        None,
+        None
+    ],
+    "MapReduce_Time": [
+        None,
+        None,
+        None,
+        None
+    ]
+})
+
+final_results
+```
+
+Replace the `None` values with your measured results.
+
+---
+
+# 49. Important Observation
+
+Do **not** assume that Python MapReduce will always be faster than Pandas.
+
+You are currently processing the data on a single machine.
+
+Pandas uses highly optimized internal implementations, whereas our MapReduce implementation is intentionally written in straightforward Python so that the processing model is visible.
+
+The objective of this practical is:
+
+> **Understand how a data-processing problem can be expressed using Map → Shuffle → Reduce.**
+
+The objective is not to demonstrate that manually implemented Python MapReduce is faster than Pandas.
+
+---
+
+# 50. Reflection
+
+Before moving to Part 2, answer the following questions.
+
+## Question 1
+
+What is the purpose of the Mapper?
+
+## Question 2
+
+What is a key-value pair?
+
+## Question 3
+
+Why is the Shuffle phase necessary?
+
+## Question 4
+
+What does the Reducer do?
+
+## Question 5
+
+Can one input record generate multiple key-value pairs?
+
+Explain with an example.
+
+## Question 6
+
+Can multiple input records generate the same key?
+
+Explain with an example.
+
+## Question 7
+
+Why can a tuple be used as a MapReduce key?
+
+## Question 8
+
+What is the purpose of a Combiner?
+
+## Question 9
+
+Why might Pandas be faster than our Python MapReduce implementation?
+
+## Question 10
+
+What happens when a dataset becomes too large to process efficiently on one machine?
+
+## Question 11
+
+What would be required to process the data across multiple machines?
+
+## Question 12
+
+What role could Hadoop play in this situation?
+
+---
+
+# 51. Part 1 Completion Checklist
+
+Before proceeding to Part 2, make sure you have completed the following:
+
+* [ ] Created the `demo` Conda environment.
+* [ ] Installed the required Python packages.
+* [ ] Implemented Word Count.
+* [ ] Implemented Mapper.
+* [ ] Implemented Shuffle.
+* [ ] Implemented Reducer.
+* [ ] Built a complete MapReduce function.
+* [ ] Downloaded and processed a real CSV dataset.
+* [ ] Compared MapReduce results with Pandas.
+* [ ] Implemented average aggregation.
+* [ ] Processed a medium-sized dataset.
+* [ ] Processed the Online Retail dataset.
+* [ ] Calculated revenue by country.
+* [ ] Calculated revenue by product.
+* [ ] Calculated revenue by customer.
+* [ ] Calculated daily revenue.
+* [ ] Used composite keys.
+* [ ] Implemented a simple Combiner.
+* [ ] Processed the larger Online Retail II dataset.
+* [ ] Recorded execution times.
+* [ ] Answered the reflection questions.
+
+---
+
+# 52. Transition to Part 2
+
+You have now implemented MapReduce entirely using Python.
+
+The processing model you used was:
+
+```text
+                 DATASET
+                    |
+                    v
+                 MAPPER
+                    |
+                    v
+              KEY-VALUE PAIRS
+                    |
+                    v
+                 SHUFFLE
+                    |
+                    v
+              GROUPED VALUES
+                    |
+                    v
+                 REDUCER
+                    |
+                    v
+                  RESULT
+```
+
+However, everything in Part 1 was executed on **one computer**.
+
+In Part 2, you will use Hadoop to provide:
+
+* distributed storage using HDFS;
+* distributed MapReduce execution;
+* Hadoop Shuffle and Sort;
+* Python Mapper and Reducer execution using Hadoop Streaming.
+
+The workflow will become:
+
+```text
+                    DATASET
+                       |
+                       v
+                      HDFS
+                       |
+                       v
+                 HADOOP MAP
+                       |
+                       v
+                HADOOP SHUFFLE
+                       |
+                       v
+                 HADOOP REDUCE
+                       |
+                       v
+                  HDFS OUTPUT
+                       |
+                       v
+                 FINAL RESULT
+```
+
+You will reuse the MapReduce concepts learned in Part 1 and apply them to Hadoop in Part 2.
+
+```

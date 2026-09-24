@@ -1,0 +1,152 @@
+Link changed: | 1 | [Supervised learning: regression and classification](#1-supervised-learning-regression-and-classification) | -> | 1 | [Supervised learning: regression and classification](#supervised-learning-regression-and-classification) |
+Link changed: | 2 | [Use case 1 — Salary from experience](#2-use-case-1--salary-from-experience) | -> | 2 | [Use case 1 — Salary from experience](#use-case-1--salary-from-experience) |
+Link changed: | 3 | [Use case 2 — Advertising spend and sales](#3-use-case-2--advertising-spend-and-sales) | -> | 3 | [Use case 2 — Advertising spend and sales](#use-case-2--advertising-spend-and-sales) |
+Link changed: | 4 | [Use case 3 — Used car prices](#4-use-case-3--used-car-prices) | -> | 4 | [Use case 3 — Used car prices](#use-case-3--used-car-prices) |
+Link changed: | 5 | [What the three use cases showed](#5-what-the-three-use-cases-showed) | -> | 5 | [What the three use cases showed](#what-the-three-use-cases-showed) |
+Heading changed: # 1. Supervised learning: regression and classification -> # Supervised learning: regression and classification
+Heading changed: # 2. Use case 1 — Salary from experience -> # Use case 1 — Salary from experience
+Heading changed: # 3. Use case 2 — Advertising spend and sales -> # Use case 2 — Advertising spend and sales
+Heading changed: # 4. Use case 3 — Used car prices -> # Use case 3 — Used car prices
+Heading changed: # 5. What the three use cases showed -> # What the three use cases showed
+Link changed: | 1 | [What classification is](#1-what-classification-is) | -> | 1 | [What classification is](#what-classification-is) |
+Link changed: | 2 | [Use case 1 — Loan approval](#2-use-case-1--loan-approval) | -> | 2 | [Use case 1 — Loan approval](#use-case-1--loan-approval) |
+Link changed: | 3 | [TP, TN, FP, FN — the four outcomes](#3-tp-tn-fp-fn--the-four-outcomes) | -> | 3 | [TP, TN, FP, FN — the four outcomes](#tp-tn-fp-fn--the-four-outcomes) |
+Link changed: | 4 | [The evaluation metrics](#4-the-evaluation-metrics) | -> | 4 | [The evaluation metrics](#the-evaluation-metrics) |
+Link changed: | 5 | [The six algorithms](#5-the-six-algorithms) | -> | 5 | [The six algorithms](#the-six-algorithms) |
+Link changed: | 6 | [Pipelines](#6-pipelines) | -> | 6 | [Pipelines](#pipelines) |
+Link changed: | 7 | [Use case 2 — Imbalanced data](#7-use-case-2--imbalanced-data) | -> | 7 | [Use case 2 — Imbalanced data](#use-case-2--imbalanced-data) |
+Link changed: | 8 | [Use case 3 — More than two classes](#8-use-case-3--more-than-two-classes) | -> | 8 | [Use case 3 — More than two classes](#use-case-3--more-than-two-classes) |
+Heading changed: # 1. What classification is -> # What classification is
+Heading changed: # 2. Use case 1 — Loan approval -> # Use case 1 — Loan approval
+Heading changed: # 3. TP, TN, FP, FN — the four outcomes -> # TP, TN, FP, FN — the four outcomes
+Heading changed: # 4. The evaluation metrics -> # The evaluation metrics
+Heading changed: # 5. The six algorithms -> # The six algorithms
+Heading changed: # 6. Pipelines -> # Pipelines
+Heading changed: # 7. Use case 2 — Imbalanced data -> # Use case 2 — Imbalanced data
+Heading changed: # 8. Use case 3 — More than two classes -> # Use case 3 — More than two classes
+Link changed: | 1 | [Human Intelligence](#1-human-intelligence) | | 4 | [Applications of AI in Real Life](#4-applications-of-ai-in-real-life) | -> | 1 | [Human Intelligence](#human-intelligence) | | 4 | [Applications of AI in Real Life](#applications-of-ai-in-real-life) |
+Link changed: | 2 | [What is Artificial Intelligence?](#2-what-is-artificial-intelligence) | | 5 | [Generative AI & its Applications](#5-generative-ai--its-applications) | -> | 2 | [What is Artificial Intelligence?](#what-is-artificial-intelligence) | | 5 | [Generative AI & its Applications](#generative-ai--its-applications) |
+Link changed: | 3 | [Human Intelligence vs AI](#3-human-intelligence-vs-artificial-intelligence) | | | | -> | 3 | [Human Intelligence vs AI](#human-intelligence-vs-artificial-intelligence) | | | |
+Link changed: | 6 | [What is a Machine?](#6-what-is-a-machine) | | 8 | [What is Machine Learning?](#8-what-is-machine-learning) | -> | 6 | [What is a Machine?](#what-is-a-machine) | | 8 | [What is Machine Learning?](#what-is-machine-learning) |
+Link changed: | 7 | [What is Learning?](#7-what-is-learning) | | 9 | [Examples of Machine Learning](#9-examples-of-machine-learning) | -> | 7 | [What is Learning?](#what-is-learning) | | 9 | [Examples of Machine Learning](#examples-of-machine-learning) |
+Link changed: | 10 | [Supervised Learning](#10-supervised-learning) | | 12 | [Reinforcement Learning](#12-reinforcement-learning) | -> | 10 | [Supervised Learning](#supervised-learning) | | 12 | [Reinforcement Learning](#reinforcement-learning) |
+Link changed: | 11 | [Unsupervised Learning](#11-unsupervised-learning) | | | | -> | 11 | [Unsupervised Learning](#unsupervised-learning) | | | |
+Link changed: | 13 | [Types of Data in ML](#13-types-of-data-in-machine-learning) | | 15 | [AI Programming Languages & Ecosystem](#15-ai-programming-languages--ecosystem) | -> | 13 | [Types of Data in ML](#types-of-data-in-machine-learning) | | 15 | [AI Programming Languages & Ecosystem](#ai-programming-languages--ecosystem) |
+Link changed: | 14 | [Mathematical Foundations](#14-mathematical-foundations-for-machine-learning) | | 16 | [Local, Cloud, Edge & No-Code](#16-local-cloud-edge--no-code-platforms) | -> | 14 | [Mathematical Foundations](#mathematical-foundations-for-machine-learning) | | 16 | [Local, Cloud, Edge & No-Code](#local-cloud-edge--no-code-platforms) |
+Link changed: | | | | 17 | [Dataset Repositories](#17-aiml-dataset-repositories) | -> | | | | 17 | [Dataset Repositories](#aiml-dataset-repositories) |
+Link changed: | 18 | [The Machine Learning Workflow](#18-the-machine-learning-workflow) | -> | 18 | [The Machine Learning Workflow](#the-machine-learning-workflow) |
+Link changed: | 19 | [ML & AI APIs](#19-ml--ai-apis) | -> | 19 | [ML & AI APIs](#ml--ai-apis) |
+Heading changed: # 1. Human Intelligence -> # Human Intelligence
+Heading changed: # 2. What is Artificial Intelligence? -> # What is Artificial Intelligence?
+Heading changed: # 3. Human Intelligence vs Artificial Intelligence -> # Human Intelligence vs Artificial Intelligence
+Heading changed: # 4. Applications of AI in Real Life -> # Applications of AI in Real Life
+Heading changed: # 5. Generative AI & its Applications -> # Generative AI & its Applications
+Heading changed: # 6. What is a Machine? -> # What is a Machine?
+Heading changed: # 7. What is Learning? -> # What is Learning?
+Heading changed: # 8. What is Machine Learning? -> # What is Machine Learning?
+Heading changed: # 9. Examples of Machine Learning -> # Examples of Machine Learning
+Heading changed: # 10. Supervised Learning -> # Supervised Learning
+Heading changed: # 11. Unsupervised Learning -> # Unsupervised Learning
+Heading changed: # 12. Reinforcement Learning -> # Reinforcement Learning
+Heading changed: # 13. Types of Data in Machine Learning -> # Types of Data in Machine Learning
+Heading changed: # 14. Mathematical Foundations for Machine Learning -> # Mathematical Foundations for Machine Learning
+Heading changed: ### 1. Statistics — needed from day one -> ### Statistics — needed from day one
+Heading changed: ### 2. Linear algebra — needed to understand, not to use -> ### Linear algebra — needed to understand, not to use
+Heading changed: ### 3. Calculus — needed only to understand training -> ### Calculus — needed only to understand training
+Heading changed: ### 4. Probability — needed for classification -> ### Probability — needed for classification
+Heading changed: # 15. AI Programming Languages & Ecosystem -> # AI Programming Languages & Ecosystem
+Heading changed: # 16. Local, Cloud, Edge & No-Code Platforms -> # Local, Cloud, Edge & No-Code Platforms
+Heading changed: # 17. AIML Dataset Repositories -> # AIML Dataset Repositories
+Heading changed: # 18. The Machine Learning Workflow -> # The Machine Learning Workflow
+Heading changed: # 19. ML & AI APIs -> # ML & AI APIs
+Heading changed: ### 1. MapReduce programming model -> ### MapReduce programming model
+Heading changed: ### 2. Hadoop distributed execution -> ### Hadoop distributed execution
+Link changed: | 1 | [Demo or deployment?](#1-demo-or-deployment) | | 8 | [Common widgets](#8-common-widgets) | -> | 1 | [Demo or deployment?](#demo-or-deployment) | | 8 | [Common widgets](#common-widgets) |
+Link changed: | 2 | [Environment setup](#2-environment-setup) | | 9 | [Layout and display](#9-layout-and-display) | -> | 2 | [Environment setup](#environment-setup) | | 9 | [Layout and display](#layout-and-display) |
+Link changed: | 3 | [Project layout](#3-project-layout) | | 10 | [The three rules](#10-the-three-rules-that-fix-most-streamlit-bugs) | -> | 3 | [Project layout](#project-layout) | | 10 | [The three rules](#the-three-rules-that-fix-most-streamlit-bugs) |
+Link changed: | 4 | [App 1 — `train.py`](#4-app-1--trainpy) | | 11 | [Where to look things up](#11-where-to-look-things-up) | -> | 4 | [App 1 — `train.py`](#app-1--trainpy) | | 11 | [Where to look things up](#where-to-look-things-up) |
+Link changed: | 5 | [App 1 — `app.py`](#5-app-1--apppy) | | 12 | [App 2 — Loan approval](#12-app-2--loan-approval) | -> | 5 | [App 1 — `app.py`](#app-1--apppy) | | 12 | [App 2 — Loan approval](#app-2--loan-approval) |
+Link changed: | 6 | [Running it](#6-running-it) | | 13 | [App 3 — Diabetes screening](#13-app-3--diabetes-screening) | -> | 6 | [Running it](#running-it) | | 13 | [App 3 — Diabetes screening](#app-3--diabetes-screening) |
+Link changed: | 7 | [The pattern, extracted](#7-the-pattern-extracted) | | 14 | [App 4 — Salary prediction](#14-app-4--salary-prediction) | -> | 7 | [The pattern, extracted](#the-pattern-extracted) | | 14 | [App 4 — Salary prediction](#app-4--salary-prediction) |
+Heading changed: # 1. Demo or deployment? -> # Demo or deployment?
+Heading changed: # 2. Environment setup -> # Environment setup
+Heading changed: # 3. Project layout -> # Project layout
+Heading changed: # 4. App 1 — `train.py` -> # App 1 — `train.py`
+Heading changed: # 5. App 1 — `app.py` -> # App 1 — `app.py`
+Heading changed: # 6. Running it -> # Running it
+Heading changed: # 7. The pattern, extracted -> # The pattern, extracted
+Heading changed: # 8. Common widgets -> # Common widgets
+Heading changed: # 9. Layout and display -> # Layout and display
+Heading changed: # 10. The three rules that fix most Streamlit bugs -> # The three rules that fix most Streamlit bugs
+Heading changed: # 11. Where to look things up -> # Where to look things up
+Link changed: | **[Loan approval](#12-app-2--loan-approval)** | Binary classification | **Categorical inputs, and a `ColumnTransformer`** | -> | **[Loan approval](#app-2--loan-approval)** | Binary classification | **Categorical inputs, and a `ColumnTransformer`** |
+Link changed: | **[Diabetes screening](#13-app-3--diabetes-screening)** | Binary, **imbalanced** | **A user-adjustable threshold** | -> | **[Diabetes screening](#app-3--diabetes-screening)** | Binary, **imbalanced** | **A user-adjustable threshold** |
+Link changed: | **[Salary prediction](#14-app-4--salary-prediction)** | Regression | **A number, with an honest error range** | -> | **[Salary prediction](#app-4--salary-prediction)** | Regression | **A number, with an honest error range** |
+Heading changed: # 12. App 2 — Loan approval -> # App 2 — Loan approval
+Heading changed: # 13. App 3 — Diabetes screening -> # App 3 — Diabetes screening
+Heading changed: # 14. App 4 — Salary prediction -> # App 4 — Salary prediction
+Heading changed: # 15. Deploying to Streamlit Community Cloud -> # Deploying to Streamlit Community Cloud
+Heading changed: # 16. Before you deploy anything -> # Before you deploy anything
+Link changed: | 1 | [NumPy Intro](#1-numpy-intro) | | 6 | [Copy vs View](#6-numpy-copy-vs-view) | -> | 1 | [NumPy Intro](#numpy-intro) | | 6 | [Copy vs View](#numpy-copy-vs-view) |
+Link changed: | 2 | [Creating Arrays](#2-numpy-creating-arrays) | | 7 | [Array Shape](#7-numpy-array-shape) | -> | 2 | [Creating Arrays](#numpy-creating-arrays) | | 7 | [Array Shape](#numpy-array-shape) |
+Link changed: | 3 | [Array Indexing](#3-numpy-array-indexing) | | 8 | [Array Reshape](#8-numpy-array-reshape) | -> | 3 | [Array Indexing](#numpy-array-indexing) | | 8 | [Array Reshape](#numpy-array-reshape) |
+Link changed: | 4 | [Array Slicing](#4-numpy-array-slicing) | | 9 | [Array Iterating](#9-numpy-array-iterating) | -> | 4 | [Array Slicing](#numpy-array-slicing) | | 9 | [Array Iterating](#numpy-array-iterating) |
+Link changed: | 5 | [Data Types](#5-numpy-data-types) | | | | -> | 5 | [Data Types](#numpy-data-types) | | | |
+Link changed: | 10 | [Pandas Introduction](#10-pandas-introduction) | | 14 | [Analyzing Data](#14-pandas-analyzing-data) | -> | 10 | [Pandas Introduction](#pandas-introduction) | | 14 | [Analyzing Data](#pandas-analyzing-data) |
+Link changed: | 11 | [Pandas Series](#11-pandas-series) | | 15 | [Correlations](#15-pandas-correlations) | -> | 11 | [Pandas Series](#pandas-series) | | 15 | [Correlations](#pandas-correlations) |
+Link changed: | 12 | [Pandas DataFrames](#12-pandas-dataframes) | | 16 | [Plotting](#16-pandas-plotting) | -> | 12 | [Pandas DataFrames](#pandas-dataframes) | | 16 | [Plotting](#pandas-plotting) |
+Link changed: | 13 | [Read CSV](#13-pandas-read-csv) | | | | -> | 13 | [Read CSV](#pandas-read-csv) | | | |
+Link changed: | 17 | [Cleaning Data](#17-cleaning-data) | | 20 | [Cleaning Wrong Data](#20-cleaning-wrong-data) | -> | 17 | [Cleaning Data](#cleaning-data) | | 20 | [Cleaning Wrong Data](#cleaning-wrong-data) |
+Link changed: | 18 | [Cleaning Empty Cells](#18-cleaning-empty-cells) | | 21 | [Removing Duplicates](#21-removing-duplicates) | -> | 18 | [Cleaning Empty Cells](#cleaning-empty-cells) | | 21 | [Removing Duplicates](#removing-duplicates) |
+Link changed: | 19 | [Cleaning Wrong Format](#19-cleaning-wrong-format) | | | | -> | 19 | [Cleaning Wrong Format](#cleaning-wrong-format) | | | |
+Link changed: | 22 | [Matplotlib](#22-matplotlib) | | 23 | [Seaborn](#23-seaborn) | -> | 22 | [Matplotlib](#matplotlib) | | 23 | [Seaborn](#seaborn) |
+Heading changed: # 1. NumPy Intro -> # NumPy Intro
+Heading changed: # 2. NumPy Creating Arrays -> # NumPy Creating Arrays
+Heading changed: # 3. NumPy Array Indexing -> # NumPy Array Indexing
+Heading changed: # 4. NumPy Array Slicing -> # NumPy Array Slicing
+Heading changed: # 5. NumPy Data Types -> # NumPy Data Types
+Heading changed: # 6. NumPy Copy vs View -> # NumPy Copy vs View
+Heading changed: # 7. NumPy Array Shape -> # NumPy Array Shape
+Heading changed: # 8. NumPy Array Reshape -> # NumPy Array Reshape
+Heading changed: # 9. NumPy Array Iterating -> # NumPy Array Iterating
+Heading changed: # 10. Pandas Introduction -> # Pandas Introduction
+Heading changed: # 11. Pandas Series -> # Pandas Series
+Heading changed: # 12. Pandas DataFrames -> # Pandas DataFrames
+Heading changed: # 13. Pandas Read CSV -> # Pandas Read CSV
+Heading changed: # 14. Pandas Analyzing Data -> # Pandas Analyzing Data
+Heading changed: # 15. Pandas Correlations -> # Pandas Correlations
+Heading changed: # 16. Pandas Plotting -> # Pandas Plotting
+Heading changed: # 17. Cleaning Data -> # Cleaning Data
+Link changed: | **Empty cells** | `NaN`, blanks, `None` | [18](#18-cleaning-empty-cells) | -> | **Empty cells** | `NaN`, blanks, `None` | [18](#cleaning-empty-cells) |
+Link changed: | **Wrong format** | A date written as `20260307` | [19](#19-cleaning-wrong-format) | -> | **Wrong format** | A date written as `20260307` | [19](#cleaning-wrong-format) |
+Link changed: | **Wrong data** | A workout of 450 minutes; an age of 144 | [20](#20-cleaning-wrong-data) | -> | **Wrong data** | A workout of 450 minutes; an age of 144 | [20](#cleaning-wrong-data) |
+Link changed: | **Duplicates** | The same row entered twice | [21](#21-removing-duplicates) | -> | **Duplicates** | The same row entered twice | [21](#removing-duplicates) |
+Heading changed: # 18. Cleaning Empty Cells -> # Cleaning Empty Cells
+Heading changed: # 19. Cleaning Wrong Format -> # Cleaning Wrong Format
+Heading changed: # 20. Cleaning Wrong Data -> # Cleaning Wrong Data
+Heading changed: # 21. Removing Duplicates -> # Removing Duplicates
+Heading changed: # 22. Matplotlib -> # Matplotlib
+Heading changed: # 23. Seaborn -> # Seaborn
+Link changed: | 1 | [Python syntax](#1-python-syntax) | | 9 | [Lists](#9-lists) | -> | 1 | [Python syntax](#python-syntax) | | 9 | [Lists](#lists) |
+Link changed: | 2 | [Comments](#2-comments) | | 10 | [Tuples & Sets](#10-tuples-and-sets) | -> | 2 | [Comments](#comments) | | 10 | [Tuples & Sets](#tuples-and-sets) |
+Link changed: | 3 | [Variables](#3-variables) | | 11 | [Dictionaries](#11-dictionaries) | -> | 3 | [Variables](#variables) | | 11 | [Dictionaries](#dictionaries) |
+Link changed: | 4 | [Data types](#4-data-types) | | 12 | [Conditionals](#12-conditionals-if-elif-else-and-match) | -> | 4 | [Data types](#data-types) | | 12 | [Conditionals](#conditionals-if-elif-else-and-match) |
+Link changed: | 5 | [Numbers](#5-numbers) | | 13 | [Loops](#13-loops-for-and-while) | -> | 5 | [Numbers](#numbers) | | 13 | [Loops](#loops-for-and-while) |
+Link changed: | 6 | [Input & Output](#6-input-and-output) | | 14 | [Functions](#14-functions) | -> | 6 | [Input & Output](#input-and-output) | | 14 | [Functions](#functions) |
+Link changed: | 7 | [Strings](#7-strings) | | 15 | [Classes & Objects](#15-classes-and-objects) | -> | 7 | [Strings](#strings) | | 15 | [Classes & Objects](#classes-and-objects) |
+Link changed: | 8 | [Operators](#8-operators) | | | | -> | 8 | [Operators](#operators) | | | |
+Heading changed: # 1. Python syntax -> # Python syntax
+Heading changed: # 2. Comments -> # Comments
+Heading changed: # 3. Variables -> # Variables
+Heading changed: # 4. Data types -> # Data types
+Heading changed: # 5. Numbers -> # Numbers
+Heading changed: # 6. Input and Output -> # Input and Output
+Heading changed: # 7. Strings -> # Strings
+Heading changed: # 8. Operators -> # Operators
+Heading changed: # 9. Lists -> # Lists
+Heading changed: # 10. Tuples and Sets -> # Tuples and Sets
+Heading changed: # 11. Dictionaries -> # Dictionaries
+Heading changed: # 12. Conditionals: if, elif, else and match -> # Conditionals: if, elif, else and match
+Heading changed: # 13. Loops: for and while -> # Loops: for and while
+Heading changed: # 14. Functions -> # Functions
+Heading changed: # 15. Classes and Objects -> # Classes and Objects

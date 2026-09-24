@@ -33,38 +33,38 @@ By the end of this session you can:
 
 | # | Topic | | # | Topic |
 |---|---|---|---|---|
-| 1 | [Human Intelligence](#1-human-intelligence) | | 4 | [Applications of AI in Real Life](#4-applications-of-ai-in-real-life) |
-| 2 | [What is Artificial Intelligence?](#2-what-is-artificial-intelligence) | | 5 | [Generative AI & its Applications](#5-generative-ai--its-applications) |
-| 3 | [Human Intelligence vs AI](#3-human-intelligence-vs-artificial-intelligence) | | | |
+| 1 | [Human Intelligence](#human-intelligence) | | 4 | [Applications of AI in Real Life](#applications-of-ai-in-real-life) |
+| 2 | [What is Artificial Intelligence?](#what-is-artificial-intelligence) | | 5 | [Generative AI & its Applications](#generative-ai--its-applications) |
+| 3 | [Human Intelligence vs AI](#human-intelligence-vs-artificial-intelligence) | | | |
 
 **Part B — What is Machine Learning?**
 
 | # | Topic | | # | Topic |
 |---|---|---|---|---|
-| 6 | [What is a Machine?](#6-what-is-a-machine) | | 8 | [What is Machine Learning?](#8-what-is-machine-learning) |
-| 7 | [What is Learning?](#7-what-is-learning) | | 9 | [Examples of Machine Learning](#9-examples-of-machine-learning) |
+| 6 | [What is a Machine?](#what-is-a-machine) | | 8 | [What is Machine Learning?](#what-is-machine-learning) |
+| 7 | [What is Learning?](#what-is-learning) | | 9 | [Examples of Machine Learning](#examples-of-machine-learning) |
 
 **Part C — Types of Machine Learning**
 
 | # | Topic | | # | Topic |
 |---|---|---|---|---|
-| 10 | [Supervised Learning](#10-supervised-learning) | | 12 | [Reinforcement Learning](#12-reinforcement-learning) |
-| 11 | [Unsupervised Learning](#11-unsupervised-learning) | | | |
+| 10 | [Supervised Learning](#supervised-learning) | | 12 | [Reinforcement Learning](#reinforcement-learning) |
+| 11 | [Unsupervised Learning](#unsupervised-learning) | | | |
 
 **Part D — Types of Data · Part E — Maths · Part F — Building AI**
 
 | # | Topic | | # | Topic |
 |---|---|---|---|---|
-| 13 | [Types of Data in ML](#13-types-of-data-in-machine-learning) | | 15 | [AI Programming Languages & Ecosystem](#15-ai-programming-languages--ecosystem) |
-| 14 | [Mathematical Foundations](#14-mathematical-foundations-for-machine-learning) | | 16 | [Local, Cloud, Edge & No-Code](#16-local-cloud-edge--no-code-platforms) |
-| | | | 17 | [Dataset Repositories](#17-aiml-dataset-repositories) |
+| 13 | [Types of Data in ML](#types-of-data-in-machine-learning) | | 15 | [AI Programming Languages & Ecosystem](#ai-programming-languages--ecosystem) |
+| 14 | [Mathematical Foundations](#mathematical-foundations-for-machine-learning) | | 16 | [Local, Cloud, Edge & No-Code](#local-cloud-edge--no-code-platforms) |
+| | | | 17 | [Dataset Repositories](#aiml-dataset-repositories) |
 
 **Part G — Workflow · Part H — APIs**
 
 | # | Topic |
 |---|---|
-| 18 | [The Machine Learning Workflow](#18-the-machine-learning-workflow) |
-| 19 | [ML & AI APIs](#19-ml--ai-apis) |
+| 18 | [The Machine Learning Workflow](#the-machine-learning-workflow) |
+| 19 | [ML & AI APIs](#ml--ai-apis) |
 
 **Five checkpoint problems** sit between the topics:
 
@@ -79,7 +79,7 @@ By the end of this session you can:
 
 # Part A — Introduction to Artificial Intelligence
 
-# 1. Human Intelligence
+# Human Intelligence
 
 **Before asking what artificial intelligence is, it is worth asking what the real thing does.**
 
@@ -241,7 +241,7 @@ You judge the speed of several vehicles at once, predict where they will be in t
 
 ---
 
-# 2. What is Artificial Intelligence?
+# What is Artificial Intelligence?
 
 > **Artificial Intelligence means teaching computers to think, learn and solve problems the way humans do.**
 
@@ -455,7 +455,7 @@ rule correctly, write the rule.
 
 ---
 
-# 3. Human Intelligence vs Artificial Intelligence
+# Human Intelligence vs Artificial Intelligence
 
 **The useful comparison is not "which is better" — it is "which parts map onto each other, and where does the mapping break".**
 
@@ -618,7 +618,7 @@ It is therefore used to PRIORITISE, and a person DECIDES.
 
 ---
 
-# 4. Applications of AI in Real Life
+# Applications of AI in Real Life
 
 **AI is not coming. It is already in almost everything you touched today.**
 
@@ -806,7 +806,7 @@ RESULT    less chemical, lower cost, better yield
 
 ---
 
-# 5. Generative AI & its Applications
+# Generative AI & its Applications
 
 **Every application in Topic 4 that *chose* something was predictive. Generative AI *creates* something that did not exist before.**
 
@@ -1061,7 +1061,7 @@ WHAT THE COUNT SHOWS
 
 # Part B — What is Machine Learning?
 
-# 6. What is a Machine?
+# What is a Machine?
 
 **Before "Machine Learning", it is worth being clear what each word means on its own.**
 
@@ -1253,7 +1253,7 @@ for a in ["YES", "yeah", "y", "Yep", " yes"]:
 
 ---
 
-# 7. What is Learning?
+# What is Learning?
 
 **Learning is getting better at something through experience, without being given the rule.**
 
@@ -1435,7 +1435,7 @@ answer attached - is the easiest kind, and Session 5 starts there.
 
 ---
 
-# 8. What is Machine Learning?
+# What is Machine Learning?
 
 **Put the two words together.**
 
@@ -1658,7 +1658,7 @@ print(f"mark = {m.coef_[0]:.1f} * hours + {m.intercept_:.1f}")
 
 ---
 
-# 9. Examples of Machine Learning
+# Examples of Machine Learning
 
 **Concrete cases, so the definition stops being abstract.**
 
@@ -1948,7 +1948,7 @@ WHAT WOULD MOVE A RULE TO ML
 
 # Part C — Types of Machine Learning
 
-# 10. Supervised Learning
+# Supervised Learning
 
 **You give the model inputs *and* the correct answers. It learns the mapping between them.**
 
@@ -2153,7 +2153,7 @@ for col in df.columns:                                                 # 2
 
 ---
 
-# 11. Unsupervised Learning
+# Unsupervised Learning
 
 **No answers. You give the model data and it finds structure on its own.**
 
@@ -2357,7 +2357,7 @@ print(mall.columns.tolist())
 
 ---
 
-# 12. Reinforcement Learning
+# Reinforcement Learning
 
 **No answer key, and no fixed dataset. The model learns by *doing* and being rewarded or punished.**
 
@@ -2666,7 +2666,7 @@ WHAT THE COUNT SHOWS
 
 # Part D — Types of Data in Machine Learning
 
-# 13. Types of Data in Machine Learning
+# Types of Data in Machine Learning
 
 **From the real world to numbers.** A model does arithmetic — so everything it learns from must eventually become numbers. **How much work that takes depends on what shape the data arrives in.**
 
@@ -2971,7 +2971,7 @@ WHAT TO NOTICE
 
 # Part E — Mathematical Foundations
 
-# 14. Mathematical Foundations for Machine Learning
+# Mathematical Foundations for Machine Learning
 
 **You need less maths than you fear, and you need it later than you think.**
 
@@ -2990,7 +2990,7 @@ WHAT TO NOTICE
 
 ## What you genuinely need, in order
 
-### 1. Statistics — needed from day one
+### Statistics — needed from day one
 
 | Concept | Why |
 |---|---|
@@ -3002,7 +3002,7 @@ WHAT TO NOTICE
 
 **You have already used all five.**
 
-### 2. Linear algebra — needed to understand, not to use
+### Linear algebra — needed to understand, not to use
 
 ```text
 A VECTOR   is a list of numbers        [78, 92, 45]        - one student
@@ -3012,7 +3012,7 @@ A DOT PRODUCT multiplies and sums      78*0.3 + 92*0.5 + 45*0.2
 
 **Every row of your DataFrame is a vector; the whole table is a matrix.** When Session 9 writes `X @ W1 + b1`, that is one matrix multiplication doing thousands of dot products at once.
 
-### 3. Calculus — needed only to understand training
+### Calculus — needed only to understand training
 
 **One idea does almost all the work: a *gradient* is a slope, and it tells you which way is downhill.**
 
@@ -3023,7 +3023,7 @@ The gradient answers exactly that. Step that way. Repeat.
 
 **That is gradient descent, and it is how every neural network learns.** Session 9 builds it in NumPy — **and you will not need to differentiate anything by hand.**
 
-### 4. Probability — needed for classification
+### Probability — needed for classification
 
 | Concept | Where |
 |---|---|
@@ -3235,7 +3235,7 @@ for lr in [0.3, 1.5]:
 
 # Part F — Building AI
 
-# 15. AI Programming Languages & Ecosystem
+# AI Programming Languages & Ecosystem
 
 **Python won, and it is worth knowing why — because the reason tells you what to learn next.**
 
@@ -3452,7 +3452,7 @@ print(f"\npython {py:.4f}s   numpy {npt:.4f}s   -> ~{py/max(npt,1e-9):.0f}x")
 
 ---
 
-# 16. Local, Cloud, Edge & No-Code Platforms
+# Local, Cloud, Edge & No-Code Platforms
 
 **Where does the code actually run?** The answer changes cost, speed, privacy and who can build it.
 
@@ -3674,7 +3674,7 @@ The alternative was doing nothing. No-code beat nothing.
 
 ---
 
-# 17. AIML Dataset Repositories
+# AIML Dataset Repositories
 
 **You cannot learn Machine Learning without data, and you should not invent it.**
 
@@ -3915,7 +3915,7 @@ print(iris.shape)
 
 # Part G — The Workflow
 
-# 18. The Machine Learning Workflow
+# The Machine Learning Workflow
 
 **Every machine learning project — a bank's loan system, a hospital's screening tool, a road-safety camera, a news classifier — follows the same seven stages in the same order.**
 
@@ -4400,7 +4400,7 @@ This is why you ask "where will this run?" at the beginning.
 
 ---
 
-# 19. ML & AI APIs
+# ML & AI APIs
 
 **You will not write machine learning algorithms yourself.** You will use libraries that other people have written, tested and optimised over many years — and **choosing the right one is a real decision that this topic prepares you to make.**
 

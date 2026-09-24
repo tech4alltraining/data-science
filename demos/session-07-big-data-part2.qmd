@@ -1,186 +1,347 @@
-# Part 6 — Very Large Dataset
+Absolutely. Part 2 should now take students from **Python MapReduce → Hadoop MapReduce**, with setup instructions for **Ubuntu, Windows, and macOS**, followed by real Hadoop execution on progressively larger datasets.
 
-Finally use **Online Retail II**.
+---
 
-It contains approximately **1.07 million transactions** covering two years. ([UCI Machine Learning Repository][6])
+title: "Part 2 — Hadoop MapReduce"
+subtitle: "Hadoop Setup and Real-Time MapReduce Execution"
+format:
+html:
+toc: true
+toc-depth: 3
+code-fold: false
+jupyter: python3
+execute:
+echo: true
+warning: false
+error: true
+-----------
 
-This is where you can deliberately create the problem:
+# Part 2 — Hadoop MapReduce
 
-```python
-df = pd.read_excel(...)
-```
+## Learning Objectives
 
-versus:
+By the end of this part, you will be able to:
+
+1. Explain how Hadoop MapReduce differs from Python MapReduce.
+2. Understand the Hadoop Distributed File System (HDFS).
+3. Install and configure Hadoop in pseudo-distributed mode.
+4. Start and stop Hadoop services.
+5. Upload files to HDFS.
+6. Run a real Hadoop MapReduce program.
+7. Execute MapReduce jobs on datasets of increasing size.
+8. Inspect mapper, reducer, and job-level results.
+9. Compare local Python execution with Hadoop execution.
+10. Understand why Hadoop becomes useful when datasets are too large for a single machine.
+
+---
+
+# 1. From Python MapReduce to Hadoop
+
+In Part 1, we implemented the MapReduce idea ourselves using Python.
+
+The basic workflow was:
 
 ```text
-MapReduce
+Input Dataset
+     |
+     v
+   Mapper
+     |
+     v
+Key-Value Pairs
+     |
+     v
+  Shuffle
+     |
+     v
+Grouped Key-Value Pairs
+     |
+     v
+  Reducer
+     |
+     v
+   Output
 ```
 
-and discuss:
+Hadoop implements the same fundamental idea, but provides the infrastructure required to distribute processing across machines.
 
-> "What happens when the dataset becomes too large for the memory available to one machine?"
-
-That gives you the natural motivation for Hadoop.
-
----
-
-# Part 7 — When Hadoop becomes necessary
-
-An important teaching point:
-
-**1 million rows does NOT automatically require Hadoop.**
-
-Your i5/8 GB machine can process datasets of this size with pandas, depending on data types, operations and available disk/RAM.
-
-Hadoop becomes educationally useful when you want to demonstrate:
-
-* distributed storage
-* distributed computation
-* data partitioning
-* parallel mapping
-* shuffle
-* reducers
-* fault tolerance
-* scaling across machines
-
-So don't tell students:
-
-> "Big data means you must use Hadoop."
-
-Instead:
-
-> "Hadoop is one approach to distributing storage and computation when a single machine is insufficient or when distributed processing is useful."
-
----
-
-# Part 8 — Hadoop on an i5 + 8 GB machine
-
-Yes, you can run Hadoop.
-
-But use:
-
-### **Pseudo-distributed / single-node mode**
-
-not a multi-node cluster.
-
-Apache's documentation explicitly provides a single-node setup for running Hadoop on one machine. ([Apache Hadoop][2])
-
-I'd recommend:
+The Hadoop workflow can be viewed as:
 
 ```text
-i5
-8 GB RAM
-SSD
-Ubuntu/Linux
+                 Hadoop Cluster
+-------------------------------------------------
+                 HDFS
+                  |
+                  v
+              Input Data
+                  |
+                  v
+              Map Tasks
+                  |
+                  v
+        Shuffle and Sort
+                  |
+                  v
+            Reduce Tasks
+                  |
+                  v
+              HDFS Output
+-------------------------------------------------
 ```
 
-if you have control over the operating system.
+The important difference is that Hadoop manages many of the distributed-system tasks for us.
 
-For teaching Hadoop, **Ubuntu is the least complicated option** of the three.
+For example, Hadoop can handle:
+
+* distributing input data,
+* starting mapper tasks,
+* transferring intermediate data,
+* sorting intermediate keys,
+* starting reducer tasks,
+* monitoring tasks,
+* handling task failures,
+* storing output in HDFS.
 
 ---
 
-# Part 9 — Ubuntu Hadoop Setup
+# 2. Hadoop Components
 
-For your course, I'd use a current Hadoop 3.x release rather than old Hadoop tutorials you may find online.
+For this practical, we will mainly work with:
 
-### Step 1 — Java
+### Hadoop Distributed File System — HDFS
 
-Check:
+HDFS is the storage layer.
+
+```text
+Local Computer
+     |
+     | put
+     v
+    HDFS
+     |
+     +---- file 1
+     +---- file 2
+     +---- file 3
+```
+
+### Hadoop MapReduce
+
+MapReduce is the processing layer.
+
+```text
+HDFS Input
+    |
+    v
+Mapper
+    |
+    v
+Shuffle + Sort
+    |
+    v
+Reducer
+    |
+    v
+HDFS Output
+```
+
+### YARN
+
+YARN manages computing resources and schedules applications in a Hadoop cluster.
+
+For this practical, we will use Hadoop in **pseudo-distributed mode**.
+
+This means Hadoop runs on a single computer, but Hadoop components behave approximately as they would in a distributed environment.
+
+---
+
+# 3. Important Hadoop Services
+
+A simplified Hadoop installation contains several important services.
+
+| Service            | Purpose                          |
+| ------------------ | -------------------------------- |
+| NameNode           | Manages HDFS metadata            |
+| DataNode           | Stores HDFS data blocks          |
+| ResourceManager    | Manages cluster resources        |
+| NodeManager        | Manages computation on a node    |
+| Secondary NameNode | Performs checkpoint-related work |
+
+For this practical:
+
+```text
+NameNode
+    |
+    +---- HDFS metadata
+
+DataNode
+    |
+    +---- Actual HDFS data
+
+ResourceManager
+    |
+    +---- Resource scheduling
+
+NodeManager
+    |
+    +---- Executes tasks
+```
+
+---
+
+# 4. Hardware Assumption
+
+This practical is designed to work on a modest computer.
+
+A machine such as:
+
+```text
+CPU       : Intel Core i5
+RAM       : 8 GB
+Storage   : 20+ GB free
+OS        : Ubuntu / Windows / macOS
+```
+
+is sufficient for the demonstrations.
+
+We are **not** building a multi-node production Hadoop cluster.
+
+We will use:
+
+> Hadoop pseudo-distributed mode on one computer.
+
+---
+
+# 5. Before Installing Hadoop
+
+Make sure Java is installed.
+
+Hadoop requires Java.
+
+We will first check whether Java is available.
+
+Open a terminal.
+
+Run:
 
 ```bash
 java -version
 ```
 
-Install OpenJDK if necessary:
+You should see information about the installed Java version.
+
+Also check:
+
+```bash
+javac -version
+```
+
+If both commands work, Java is available.
+
+---
+
+# 6. Ubuntu Setup
+
+## 6.1 Update the System
+
+Open Terminal and run:
 
 ```bash
 sudo apt update
-sudo apt install openjdk-17-jdk ssh rsync -y
-```
-
-Check:
-
-```bash
-java -version
-```
-
----
-
-## Step 2 — Download Hadoop
-
-Download a stable Hadoop binary from the Apache Hadoop distribution site.
-
-For example, after downloading:
-
-```bash
-tar -xzf hadoop-*.tar.gz
-```
-
-Move it:
-
-```bash
-sudo mv hadoop-* /opt/hadoop
-```
-
----
-
-## Step 3 — Environment variables
-
-Edit:
-
-```bash
-nano ~/.bashrc
-```
-
-Add:
-
-```bash
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-
-export HADOOP_HOME=/opt/hadoop
-export HADOOP_HDFS_HOME=$HADOOP_HOME
-export HADOOP_MAPRED_HOME=$HADOOP_HOME
-export HADOOP_COMMON_HOME=$HADOOP_HOME
-export YARN_HOME=$HADOOP_HOME
-
-export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
-```
-
-Reload:
-
-```bash
-source ~/.bashrc
-```
-
-Check:
-
-```bash
-hadoop version
-```
-
----
-
-# Step 4 — SSH localhost
-
-Hadoop's single-node configuration traditionally uses passwordless localhost SSH. The Apache single-node documentation includes this setup. ([Apache Hadoop][2])
-
-Install:
-
-```bash
-sudo apt install openssh-server -y
 ```
 
 Then:
 
 ```bash
-ssh-keygen -t ed25519 -P ""
+sudo apt upgrade -y
 ```
 
-Add the key:
+---
+
+## 6.2 Install Java
+
+Run:
 
 ```bash
-cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
+sudo apt install openjdk-11-jdk -y
+```
+
+Check:
+
+```bash
+java -version
+```
+
+Then:
+
+```bash
+javac -version
+```
+
+---
+
+## 6.3 Create a Hadoop User
+
+For a classroom installation, a separate Hadoop user can make the configuration cleaner.
+
+Run:
+
+```bash
+sudo adduser hadoop
+```
+
+Add the user to the sudo group:
+
+```bash
+sudo usermod -aG sudo hadoop
+```
+
+Switch to the Hadoop user:
+
+```bash
+su - hadoop
+```
+
+---
+
+# 7. Configure SSH on Ubuntu
+
+Hadoop uses SSH for communication between Hadoop services.
+
+Install OpenSSH:
+
+```bash
+sudo apt install openssh-server openssh-client -y
+```
+
+Start SSH:
+
+```bash
+sudo systemctl enable ssh
+sudo systemctl start ssh
+```
+
+Check:
+
+```bash
+sudo systemctl status ssh
+```
+
+---
+
+# 8. Configure Passwordless SSH
+
+Generate an SSH key:
+
+```bash
+ssh-keygen -t rsa -P ""
+```
+
+When asked for the file location, press Enter.
+
+Add the public key:
+
+```bash
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 ```
 
 Set permissions:
@@ -195,24 +356,122 @@ Test:
 ssh localhost
 ```
 
----
+If asked whether you want to continue connecting, enter:
 
-# Step 5 — Configure HDFS
-
-Create directories:
-
-```bash
-mkdir -p ~/hadoopdata/hdfs/namenode
-mkdir -p ~/hadoopdata/hdfs/datanode
+```text
+yes
 ```
 
-Edit:
+You should be able to connect to localhost without entering a password.
+
+Exit:
+
+```bash
+exit
+```
+
+---
+
+# 9. Download Hadoop
+
+Download a stable Hadoop release from the official Apache Hadoop website.
+
+The Apache Hadoop project provides binary distributions that can be downloaded from its release mirrors.
+
+After downloading the Hadoop `.tar.gz` archive, move it to your home directory.
+
+For example:
+
+```bash
+cd ~
+```
+
+Then extract it:
+
+```bash
+tar -xzf hadoop-*.tar.gz
+```
+
+Rename the extracted directory:
+
+```bash
+mv hadoop-* hadoop
+```
+
+Your directory should now contain:
+
+```text
+~/hadoop
+```
+
+---
+
+# 10. Configure Hadoop Environment Variables
+
+Open:
+
+```bash
+nano ~/.bashrc
+```
+
+Add:
+
+```bash
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export HADOOP_HOME=$HOME/hadoop
+export HADOOP_HDFS_HOME=$HADOOP_HOME
+export HADOOP_MAPRED_HOME=$HADOOP_HOME
+export YARN_HOME=$HADOOP_HOME
+export HADOOP_COMMON_HOME=$HADOOP_HOME
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+```
+
+Save the file.
+
+Reload:
+
+```bash
+source ~/.bashrc
+```
+
+Check:
+
+```bash
+hadoop version
+```
+
+You should see the Hadoop version.
+
+---
+
+# 11. Configure JAVA_HOME for Hadoop
+
+Open:
+
+```bash
+nano $HADOOP_HOME/etc/hadoop/hadoop-env.sh
+```
+
+Find the Java configuration and set:
+
+```bash
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+```
+
+Save the file.
+
+---
+
+# 12. Configure core-site.xml
+
+Open:
 
 ```bash
 nano $HADOOP_HOME/etc/hadoop/core-site.xml
 ```
 
-Use:
+Replace the contents with:
 
 ```xml
 <configuration>
@@ -227,11 +486,22 @@ Use:
 
 ---
 
-### hdfs-site.xml
+# 13. Configure hdfs-site.xml
+
+Create directories:
+
+```bash
+mkdir -p ~/hadoop_data/hdfs/namenode
+mkdir -p ~/hadoop_data/hdfs/datanode
+```
+
+Open:
 
 ```bash
 nano $HADOOP_HOME/etc/hadoop/hdfs-site.xml
 ```
+
+Use:
 
 ```xml
 <configuration>
@@ -243,34 +513,30 @@ nano $HADOOP_HOME/etc/hadoop/hdfs-site.xml
 
     <property>
         <name>dfs.namenode.name.dir</name>
-        <value>file:///home/YOUR_USERNAME/hadoopdata/hdfs/namenode</value>
+        <value>file:///home/hadoop/hadoop_data/hdfs/namenode</value>
     </property>
 
     <property>
         <name>dfs.datanode.data.dir</name>
-        <value>file:///home/YOUR_USERNAME/hadoopdata/hdfs/datanode</value>
+        <value>file:///home/hadoop/hadoop_data/hdfs/datanode</value>
     </property>
 
 </configuration>
 ```
 
-Replace:
-
-```text
-YOUR_USERNAME
-```
-
-with your actual Linux username.
+> **Important:** Replace `/home/hadoop/` with your actual home directory if you used a different username.
 
 ---
 
-# Step 6 — MapReduce configuration
+# 14. Configure MapReduce
 
-Create/edit:
+Open:
 
 ```bash
 nano $HADOOP_HOME/etc/hadoop/mapred-site.xml
 ```
+
+Use:
 
 ```xml
 <configuration>
@@ -285,13 +551,15 @@ nano $HADOOP_HOME/etc/hadoop/mapred-site.xml
 
 ---
 
-# Step 7 — YARN
+# 15. Configure YARN
 
-Edit:
+Open:
 
 ```bash
 nano $HADOOP_HOME/etc/hadoop/yarn-site.xml
 ```
+
+Use:
 
 ```xml
 <configuration>
@@ -306,22 +574,37 @@ nano $HADOOP_HOME/etc/hadoop/yarn-site.xml
 
 ---
 
-# Step 8 — Format NameNode
+# 16. Format the NameNode
 
-**Only do this during initial setup.**
+This is an important step.
+
+Run:
 
 ```bash
 hdfs namenode -format
 ```
 
-Then:
+You should see a successful formatting message.
+
+> Run this command only when initializing a new HDFS installation. Do not repeatedly format an existing HDFS system because formatting can destroy the NameNode metadata.
+
+---
+
+# 17. Start Hadoop
+
+Start HDFS:
 
 ```bash
 start-dfs.sh
+```
+
+Start YARN:
+
+```bash
 start-yarn.sh
 ```
 
-Check:
+Check Java processes:
 
 ```bash
 jps
@@ -334,265 +617,1696 @@ NameNode
 DataNode
 ResourceManager
 NodeManager
+SecondaryNameNode
 ```
 
 ---
 
-# Step 9 — Test HDFS
+# 18. Stop Hadoop
+
+When you finish working, Hadoop can be stopped using:
 
 ```bash
-hdfs dfs -mkdir -p /demo/input
-```
-
-Copy a file:
-
-```bash
-hdfs dfs -put data.txt /demo/input/
-```
-
-Check:
-
-```bash
-hdfs dfs -ls /demo/input
-```
-
-Read:
-
-```bash
-hdfs dfs -cat /demo/input/data.txt
-```
-
-Now Hadoop is ready.
-
----
-
-# Part 10 — Hadoop Streaming
-
-This is the bridge from our notebook to Hadoop.
-
-Our Python mapper:
-
-```python
-for line in sys.stdin:
-    ...
-```
-
-and reducer:
-
-```python
-for line in sys.stdin:
-    ...
-```
-
-can be executed by Hadoop Streaming.
-
-That's one of the reasons I recommend this approach for your class. Hadoop Streaming allows MapReduce applications to be written using languages other than Java. ([Apache Hadoop][1])
-
-So students can learn:
-
-```text
-Notebook
-   ↓
-Python Mapper
-   ↓
-Python Reducer
-   ↓
-Local MapReduce
-   ↓
-Same Mapper
-   ↓
-Same Reducer
-   ↓
-Hadoop Streaming
-   ↓
-HDFS
-```
-
-That's a very strong teaching progression.
-
----
-
-# Part 11 — Windows
-
-Hadoop on native Windows is possible, but I would **not recommend native Windows Hadoop for a beginner class**.
-
-The problem isn't Python. The complexity comes from Hadoop's Unix-oriented environment and Windows-specific native components/configuration.
-
-For Windows students, I would use:
-
-### Option A — WSL2 ⭐
-
-Install WSL:
-
-```powershell
-wsl --install -d Ubuntu
-```
-
-Then inside Ubuntu:
-
-```bash
-sudo apt update
-```
-
-and follow the **Ubuntu Hadoop installation** above.
-
-This gives:
-
-```text
-Windows
-   │
-   └── WSL2
-        │
-        └── Ubuntu
-             │
-             └── Hadoop
-                  │
-                  └── Python
-```
-
-For teaching, this is much cleaner than maintaining separate Windows Hadoop instructions.
-
-### Option B — Linux VM
-
-VirtualBox/VMware:
-
-```text
-Windows
-   ↓
-Virtual Machine
-   ↓
-Ubuntu
-   ↓
-Hadoop
-```
-
-But with only 8 GB RAM, WSL2 is preferable.
-
----
-
-# Part 12 — macOS
-
-macOS can run Hadoop locally as well.
-
-Install Java:
-
-```bash
-brew install openjdk@17
-```
-
-Then:
-
-```bash
-brew install hadoop
-```
-
-Check:
-
-```bash
-hadoop version
-```
-
-You then configure the Hadoop XML files in:
-
-```text
-/usr/local/etc/hadoop/
-```
-
-or, on Apple Silicon/Homebrew setups, under the Homebrew prefix, which can differ.
-
-Check:
-
-```bash
-brew --prefix hadoop
+stop-yarn.sh
 ```
 
 and:
 
 ```bash
-brew --prefix openjdk@17
+stop-dfs.sh
 ```
-
-Then configure:
-
-```text
-core-site.xml
-hdfs-site.xml
-mapred-site.xml
-yarn-site.xml
-```
-
-using the same single-node configuration concept as Ubuntu.
 
 ---
 
-# My recommendation for your class
+# 19. Windows Setup
 
-Don't make students install Hadoop on Day 1.
+Hadoop on Windows requires additional configuration compared with Linux.
 
-I'd organize the notebooks like this:
+For this practical, Windows users should use either:
 
-```text
-01_word_count.ipynb
-        ↓
-02_csv_mapreduce.ipynb
-        ↓
-03_groupby_mapreduce.ipynb
-        ↓
-04_clickstream_mapreduce.ipynb
-        ↓
-05_online_retail_mapreduce.ipynb
-        ↓
-06_large_dataset_mapreduce.ipynb
-        ↓
-07_hadoop_streaming.ipynb
-        ↓
-08_hdfs.ipynb
-        ↓
-09_hadoop_mapreduce.ipynb
-        ↓
-10_streamlit_dashboard.ipynb
+1. WSL2 with Ubuntu, or
+2. a native Hadoop installation with the required Windows support binaries.
+
+## Recommended Classroom Approach
+
+Use:
+
+> Windows → WSL2 → Ubuntu → Hadoop
+
+This gives students an environment similar to the Ubuntu instructions above.
+
+---
+
+# 20. Enable WSL2
+
+Open PowerShell as Administrator.
+
+Run:
+
+```powershell
+wsl --install
 ```
 
-And each notebook should follow the **same teaching template**:
+Restart the computer if requested.
 
-```text
-1. Download dataset
-2. Load dataset
-3. Understand dataset
-4. Define problem
-5. Solve using Pandas
-6. Write Mapper
-7. Inspect Mapper output
-8. Write Shuffle
-9. Inspect grouped data
-10. Write Reducer
-11. Run complete MapReduce pipeline
-12. Compare with Pandas
-13. Measure execution time
-14. Visualize result
-15. Explain how Hadoop would execute it
-16. Run on Hadoop where appropriate
-```
+After restarting, open Ubuntu.
 
-This gives students a very clear progression from **"I know Python/Pandas" → "I understand MapReduce" → "I understand why Hadoop exists" → "I can actually run Python MapReduce on Hadoop."**
-
-And yes, **Streamlit is absolutely possible locally**. The final notebook/project can turn the MapReduce outputs into an interactive dashboard—for example, country revenue, top products, transaction counts, and daily sales—with:
+Check:
 
 ```bash
-streamlit run app.py
+uname -a
 ```
 
-For the datasets, I'd use the UCI Online Retail family because it gives you a particularly clean progression from small/intermediate data to **541K and 1.07M records** from the same real-world domain. ([UCI Machine Learning Repository][3])
+Then:
 
-If you want, I can next give you **`01_word_count.ipynb` and `02_csv_mapreduce.ipynb` as complete, copy-paste-ready notebook cells**, followed by the four real Internet datasets and the Hadoop version of each.
+```bash
+lsb_release -a
+```
 
-[1]: https://hadoop.apache.org/docs/r1.0.4/index.pdf?utm_source=chatgpt.com "Overview
+You should now be working inside Ubuntu running through WSL2.
 
-1\. Getting Started
+Continue with the Ubuntu Hadoop installation from:
 
-The Hadoop documenta"
-[2]: https://hadoop.apache.org/docs/stable1/single_node_setup.pdf?utm_source=chatgpt.com "Single Node Setup"
-[3]: https://www.archive.ics.uci.edu/dataset/352/online%2Bretail?utm_source=chatgpt.com "UCI Machine Learning Repository"
-[4]: https://www.archive.ics.uci.edu/dataset/468/online%20shoppers%20purchasing%20intention%20dataset?utm_source=chatgpt.com "UCI Machine Learning Repository"
-[5]: https://www.archive.ics.uci.edu/dataset/553/clickstream%2Bdata%2Bfor%2Bonline%2Bshopping?utm_source=chatgpt.com "UCI Machine Learning Repository"
-[6]: https://archive.ics.uci.edu/dataset/502/online%2Bretail?utm_source=chatgpt.com "UCI Machine Learning Repository"
+**Section 6 — Ubuntu Setup**
+
+---
+
+# 21. macOS Setup
+
+macOS users can install Java using Homebrew.
+
+If Homebrew is not installed, install it from the official Homebrew documentation.
+
+Then:
+
+```bash
+brew install openjdk@11
+```
+
+Check:
+
+```bash
+java -version
+```
+
+Find the Java installation:
+
+```bash
+/usr/libexec/java_home -V
+```
+
+Set `JAVA_HOME` according to the path reported by the command.
+
+For example:
+
+```bash
+export JAVA_HOME=$(/usr/libexec/java_home -v 11)
+```
+
+Then:
+
+```bash
+export HADOOP_HOME=$HOME/hadoop
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+```
+
+The remaining Hadoop configuration is conceptually the same as the Ubuntu configuration.
+
+---
+
+# 22. First HDFS Experiment
+
+We will now interact with HDFS.
+
+Check the root directory:
+
+```bash
+hdfs dfs -ls /
+```
+
+Initially, there may be very little content.
+
+Create a directory:
+
+```bash
+hdfs dfs -mkdir /user
+```
+
+Create your Hadoop user directory:
+
+```bash
+hdfs dfs -mkdir /user/$USER
+```
+
+Check:
+
+```bash
+hdfs dfs -ls /user
+```
+
+---
+
+# 23. Create a Local Dataset
+
+We will start with a very small dataset.
+
+Create:
+
+```bash
+nano wordcount.txt
+```
+
+Enter:
+
+```text
+Hadoop is a distributed system
+Hadoop supports distributed processing
+MapReduce processes large datasets
+MapReduce uses mapper and reducer
+Hadoop uses MapReduce
+```
+
+Save the file.
+
+Check:
+
+```bash
+cat wordcount.txt
+```
+
+---
+
+# 24. Upload the Dataset to HDFS
+
+Create an HDFS directory:
+
+```bash
+hdfs dfs -mkdir -p /user/$USER/input
+```
+
+Upload the file:
+
+```bash
+hdfs dfs -put wordcount.txt /user/$USER/input/
+```
+
+Check:
+
+```bash
+hdfs dfs -ls /user/$USER/input
+```
+
+You should see:
+
+```text
+wordcount.txt
+```
+
+---
+
+# 25. View a File Stored in HDFS
+
+Run:
+
+```bash
+hdfs dfs -cat /user/$USER/input/wordcount.txt
+```
+
+Notice that we are no longer reading the local file.
+
+The file is now stored in HDFS.
+
+---
+
+# 26. HDFS Commands You Should Know
+
+| Command           | Purpose            |
+| ----------------- | ------------------ |
+| `hdfs dfs -ls`    | List files         |
+| `hdfs dfs -mkdir` | Create directory   |
+| `hdfs dfs -put`   | Upload local file  |
+| `hdfs dfs -get`   | Download file      |
+| `hdfs dfs -cat`   | Display file       |
+| `hdfs dfs -rm`    | Delete file        |
+| `hdfs dfs -du`    | Display disk usage |
+| `hdfs dfs -cp`    | Copy file          |
+| `hdfs dfs -mv`    | Move file          |
+
+Try:
+
+```bash
+hdfs dfs -du -h /user/$USER/input
+```
+
+---
+
+# 27. Understanding the Hadoop Word Count Program
+
+In Part 1 we manually implemented:
+
+```text
+Mapper
+   ↓
+Shuffle
+   ↓
+Reducer
+```
+
+Hadoop performs the shuffle and sorting stage automatically.
+
+Conceptually, our mapper produces:
+
+```text
+Hadoop       1
+is           1
+a            1
+distributed  1
+system       1
+Hadoop       1
+...
+```
+
+Hadoop then groups identical keys:
+
+```text
+Hadoop       [1, 1, 1]
+distributed  [1, 1]
+MapReduce    [1, 1]
+...
+```
+
+The reducer calculates:
+
+```text
+Hadoop       3
+distributed  2
+MapReduce    2
+...
+```
+
+---
+
+# 28. Create the Hadoop Streaming Mapper
+
+We will use Hadoop Streaming because it allows us to write mapper and reducer programs in Python.
+
+Create:
+
+```bash
+nano mapper.py
+```
+
+Use:
+
+```python
+#!/usr/bin/env python3
+
+import sys
+
+for line in sys.stdin:
+    words = line.strip().split()
+
+    for word in words:
+        word = word.lower()
+        print(f"{word}\t1")
+```
+
+---
+
+# 29. Create the Hadoop Streaming Reducer
+
+Create:
+
+```bash
+nano reducer.py
+```
+
+Use:
+
+```python
+#!/usr/bin/env python3
+
+import sys
+
+current_word = None
+current_count = 0
+
+for line in sys.stdin:
+
+    line = line.strip()
+
+    word, count = line.split("\t", 1)
+
+    count = int(count)
+
+    if current_word == word:
+        current_count += count
+
+    else:
+
+        if current_word is not None:
+            print(f"{current_word}\t{current_count}")
+
+        current_word = word
+        current_count = count
+
+if current_word is not None:
+    print(f"{current_word}\t{current_count}")
+```
+
+---
+
+# 30. Make the Programs Executable
+
+Run:
+
+```bash
+chmod +x mapper.py
+chmod +x reducer.py
+```
+
+Check:
+
+```bash
+ls -l mapper.py reducer.py
+```
+
+---
+
+# 31. Test the Mapper Locally
+
+Before using Hadoop, test the mapper.
+
+Run:
+
+```bash
+cat wordcount.txt | ./mapper.py
+```
+
+You should see:
+
+```text
+hadoop    1
+is        1
+a         1
+distributed 1
+...
+```
+
+This is useful because it allows us to debug the mapper before involving Hadoop.
+
+---
+
+# 32. Test the Complete Pipeline Locally
+
+Run:
+
+```bash
+cat wordcount.txt | ./mapper.py | sort | ./reducer.py
+```
+
+The `sort` command represents the conceptual shuffle and sort phase.
+
+The complete pipeline is:
+
+```text
+Input
+  |
+  v
+Mapper
+  |
+  v
+sort
+  |
+  v
+Reducer
+```
+
+This is very similar to the Python MapReduce implementation from Part 1.
+
+---
+
+# 33. Run MapReduce Using Hadoop
+
+First remove any previous output directory:
+
+```bash
+hdfs dfs -rm -r /user/$USER/output
+```
+
+If it does not exist, that is fine.
+
+Run Hadoop Streaming:
+
+```bash
+hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-*.jar \
+-input /user/$USER/input \
+-output /user/$USER/output \
+-mapper mapper.py \
+-reducer reducer.py
+```
+
+Hadoop will now execute the MapReduce job.
+
+---
+
+# 34. Understand the Job Output
+
+After the job finishes:
+
+```bash
+hdfs dfs -ls /user/$USER/output
+```
+
+You should see files similar to:
+
+```text
+_SUCCESS
+part-00000
+```
+
+The `_SUCCESS` file indicates successful job completion.
+
+The `part-00000` file contains the reducer output.
+
+Display it:
+
+```bash
+hdfs dfs -cat /user/$USER/output/part-00000
+```
+
+---
+
+# 35. Important Observation
+
+Notice the difference.
+
+In Part 1:
+
+```text
+Python program
+     |
+     v
+Local machine
+     |
+     v
+Output
+```
+
+In Part 2:
+
+```text
+Python Mapper
+     |
+     v
+Hadoop
+     |
+     +---- HDFS
+     |
+     +---- Mapper
+     |
+     +---- Shuffle
+     |
+     +---- Reducer
+     |
+     v
+HDFS Output
+```
+
+The mapper and reducer are still Python programs.
+
+Hadoop provides the distributed execution framework.
+
+---
+
+# 36. Inspect the Hadoop Job
+
+Run:
+
+```bash
+yarn application -list
+```
+
+You can also inspect Hadoop logs through the ResourceManager interface.
+
+The default ResourceManager web interface is commonly:
+
+```text
+http://localhost:8088
+```
+
+Open it in a browser.
+
+You should be able to inspect information about applications and jobs.
+
+---
+
+# 37. Inspect HDFS
+
+The NameNode web interface is commonly available at:
+
+```text
+http://localhost:9870
+```
+
+Open it in a browser.
+
+Explore:
+
+* HDFS capacity
+* DataNodes
+* files
+* directories
+* cluster information
+
+This is your first graphical view of the Hadoop system.
+
+---
+
+# 38. Exercise 1 — Change the Word Count Program
+
+Modify the mapper so that punctuation is removed.
+
+For example:
+
+```text
+Hadoop,
+Hadoop.
+"Hadoop"
+```
+
+should all become:
+
+```text
+hadoop
+```
+
+### Try It
+
+Modify `mapper.py`.
+
+Test:
+
+```bash
+cat wordcount.txt | ./mapper.py
+```
+
+Then run:
+
+```bash
+cat wordcount.txt | ./mapper.py | sort | ./reducer.py
+```
+
+Finally execute the Hadoop job again.
+
+---
+
+# 39. Exercise 2 — Count Lines
+
+Create a new mapper:
+
+```python
+#!/usr/bin/env python3
+
+import sys
+
+for line in sys.stdin:
+    print("lines\t1")
+```
+
+Use the same reducer.
+
+The output should contain:
+
+```text
+lines    <number of lines>
+```
+
+This demonstrates that the key does not have to be a word.
+
+---
+
+# 40. Exercise 3 — Count Words by First Letter
+
+Modify the mapper so that:
+
+```text
+hadoop
+```
+
+produces:
+
+```text
+h    1
+```
+
+and:
+
+```text
+mapreduce
+```
+
+produces:
+
+```text
+m    1
+```
+
+The reducer should calculate the total number of words beginning with each letter.
+
+Expected conceptual output:
+
+```text
+a    ...
+d    ...
+h    ...
+i    ...
+m    ...
+p    ...
+r    ...
+s    ...
+u    ...
+```
+
+---
+
+# 41. Real Dataset Experiment
+
+We will now move from a manually created text file to a real dataset.
+
+For this experiment we will use the **Online Shoppers Purchasing Intention** dataset introduced in Part 1.
+
+Download the CSV file.
+
+For example:
+
+```bash
+wget https://archive.ics.uci.edu/ml/machine-learning-databases/00468/online_shoppers_intention.csv
+```
+
+Check:
+
+```bash
+ls -lh online_shoppers_intention.csv
+```
+
+---
+
+# 42. Upload the Real Dataset to HDFS
+
+Create:
+
+```bash
+hdfs dfs -mkdir -p /user/$USER/shopper_input
+```
+
+Upload:
+
+```bash
+hdfs dfs -put online_shoppers_intention.csv /user/$USER/shopper_input/
+```
+
+Check:
+
+```bash
+hdfs dfs -ls -h /user/$USER/shopper_input
+```
+
+---
+
+# 43. Hadoop MapReduce Problem
+
+We want to answer:
+
+> How many sessions belong to each VisitorType?
+
+For example:
+
+```text
+Returning_Visitor
+New_Visitor
+Other
+```
+
+The mapper should produce:
+
+```text
+Returning_Visitor    1
+Returning_Visitor    1
+New_Visitor          1
+Returning_Visitor    1
+...
+```
+
+The reducer will calculate:
+
+```text
+New_Visitor          ...
+Other                ...
+Returning_Visitor    ...
+```
+
+---
+
+# 44. CSV Mapper
+
+Create:
+
+```bash
+nano visitor_mapper.py
+```
+
+Use:
+
+```python
+#!/usr/bin/env python3
+
+import sys
+import csv
+
+reader = csv.reader(sys.stdin)
+
+header = next(reader, None)
+
+for row in reader:
+
+    if len(row) == 0:
+        continue
+
+    visitor_type = row[-2]
+
+    print(f"{visitor_type}\t1")
+```
+
+Make executable:
+
+```bash
+chmod +x visitor_mapper.py
+```
+
+---
+
+# 45. Reuse the Reducer
+
+We can use the same reducer because the mapper still produces:
+
+```text
+key    value
+```
+
+Run the mapper locally:
+
+```bash
+cat online_shoppers_intention.csv | ./visitor_mapper.py | head
+```
+
+---
+
+# 46. Run the Hadoop Job
+
+Remove previous output:
+
+```bash
+hdfs dfs -rm -r /user/$USER/visitor_output
+```
+
+Run:
+
+```bash
+hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-*.jar \
+-input /user/$USER/shopper_input \
+-output /user/$USER/visitor_output \
+-mapper visitor_mapper.py \
+-reducer reducer.py
+```
+
+View the result:
+
+```bash
+hdfs dfs -cat /user/$USER/visitor_output/part-00000
+```
+
+---
+
+# 47. Download Hadoop Output to Your Computer
+
+Create a local output directory:
+
+```bash
+mkdir -p results
+```
+
+Download:
+
+```bash
+hdfs dfs -get /user/$USER/visitor_output/part-00000 results/
+```
+
+Check:
+
+```bash
+cat results/part-00000
+```
+
+---
+
+# 48. Compare Hadoop with Pandas
+
+The Pandas solution from Part 1 was conceptually:
+
+```python
+df["VisitorType"].value_counts()
+```
+
+The Hadoop solution is:
+
+```text
+CSV
+ |
+ v
+Mapper
+ |
+ v
+key-value pairs
+ |
+ v
+Shuffle + Sort
+ |
+ v
+Reducer
+ |
+ v
+HDFS
+```
+
+Both approaches solve the same analytical problem.
+
+The important difference is **where and how the computation takes place**.
+
+---
+
+# 49. Processing a Larger Dataset
+
+We now increase the dataset size.
+
+A useful Hadoop experiment is to create a larger input file from the original dataset.
+
+For example:
+
+```bash
+hdfs dfs -cat /user/$USER/shopper_input/online_shoppers_intention.csv \
+/user/$USER/shopper_input/online_shoppers_intention.csv \
+/user/$USER/shopper_input/online_shoppers_intention.csv \
+> large_shoppers.csv
+```
+
+Check:
+
+```bash
+ls -lh large_shoppers.csv
+```
+
+This creates a larger dataset for experimentation.
+
+> This is a teaching technique for demonstrating scale. It does not create new independent observations.
+
+---
+
+# 50. Upload the Larger Dataset
+
+Create:
+
+```bash
+hdfs dfs -mkdir -p /user/$USER/large_input
+```
+
+Upload:
+
+```bash
+hdfs dfs -put large_shoppers.csv /user/$USER/large_input/
+```
+
+Check:
+
+```bash
+hdfs dfs -du -h /user/$USER/large_input
+```
+
+---
+
+# 51. Run MapReduce on the Larger Dataset
+
+Run:
+
+```bash
+hdfs dfs -rm -r /user/$USER/large_output
+```
+
+Then:
+
+```bash
+time hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-*.jar \
+-input /user/$USER/large_input \
+-output /user/$USER/large_output \
+-mapper visitor_mapper.py \
+-reducer reducer.py
+```
+
+Observe the execution time.
+
+---
+
+# 52. Understand the Hadoop Execution Flow
+
+The complete process is approximately:
+
+```text
+                 HDFS
+                  |
+                  v
+             Input Splits
+                  |
+          +-------+-------+
+          |               |
+          v               v
+       Mapper          Mapper
+          |               |
+          v               v
+      Intermediate    Intermediate
+       key-values      key-values
+          |               |
+          +-------+-------+
+                  |
+                  v
+            Shuffle/Sort
+                  |
+          +-------+-------+
+          |               |
+          v               v
+       Reducer          Reducer
+          |               |
+          +-------+-------+
+                  |
+                  v
+                HDFS
+                Output
+```
+
+On a real multi-node cluster, these tasks can execute across different machines.
+
+In our pseudo-distributed setup, they execute on the same computer.
+
+---
+
+# 53. Why Use Hadoop?
+
+Suppose we have:
+
+```text
+Dataset = 500 MB
+```
+
+A normal Python program may be perfectly adequate.
+
+But imagine:
+
+```text
+Dataset = 500 GB
+```
+
+or:
+
+```text
+Dataset = 5 TB
+```
+
+A single computer may not have enough memory or processing capacity.
+
+A Hadoop cluster can distribute the work.
+
+For example:
+
+```text
+             5 TB Dataset
+                  |
+        +---------+---------+
+        |         |         |
+        v         v         v
+      Node 1    Node 2    Node 3
+        |         |         |
+       1TB       1TB       1TB
+        |         |         |
+        +---------+---------+
+                  |
+                  v
+              MapReduce
+```
+
+---
+
+# 54. Data Locality
+
+One of Hadoop's important ideas is **data locality**.
+
+Instead of always moving data to the computation:
+
+```text
+Data
+  |
+  | transfer
+  v
+Computation
+```
+
+Hadoop tries to move computation closer to the data.
+
+Conceptually:
+
+```text
+        Data
+         |
+         v
+      Node 1
+         |
+      Mapper
+```
+
+This reduces unnecessary network transfer in distributed environments.
+
+---
+
+# 55. HDFS Blocks
+
+HDFS divides large files into blocks.
+
+For example, conceptually:
+
+```text
+Large File
+--------------------------------
+| Block 1 | Block 2 | Block 3 |
+--------------------------------
+```
+
+These blocks can be distributed across DataNodes.
+
+In a real cluster:
+
+```text
+NameNode
+    |
+    +---- Block 1 -> DataNode 1
+    |
+    +---- Block 2 -> DataNode 2
+    |
+    +---- Block 3 -> DataNode 3
+```
+
+---
+
+# 56. Replication
+
+HDFS normally maintains multiple copies of blocks.
+
+For example:
+
+```text
+Block A
+
+DataNode 1 ---- copy
+DataNode 2 ---- copy
+DataNode 3 ---- copy
+```
+
+If one machine fails, another copy may still be available.
+
+For our single-machine practical, we configured:
+
+```xml
+<property>
+    <name>dfs.replication</name>
+    <value>1</value>
+</property>
+```
+
+because there is only one DataNode.
+
+---
+
+# 57. MapReduce Versus Python MapReduce
+
+| Feature         | Python MapReduce     | Hadoop MapReduce    |
+| --------------- | -------------------- | ------------------- |
+| Execution       | Local                | Distributed-capable |
+| Storage         | Local filesystem     | HDFS                |
+| Mapper          | Python function      | Mapper task         |
+| Shuffle         | Manually implemented | Hadoop-managed      |
+| Reducer         | Python function      | Reducer task        |
+| Fault tolerance | No                   | Hadoop-managed      |
+| Scalability     | Limited              | High                |
+| Cluster support | No                   | Yes                 |
+| Scheduling      | Manual               | YARN                |
+| Data locality   | No                   | Yes                 |
+
+---
+
+# 58. Exercise — Revenue Analysis
+
+Use the retail dataset from Part 1.
+
+The goal is:
+
+> Calculate total revenue by country.
+
+For each transaction:
+
+```text
+Revenue = Quantity × UnitPrice
+```
+
+The mapper should conceptually produce:
+
+```text
+United Kingdom    135.50
+Germany            42.20
+France             73.80
+...
+```
+
+The reducer should calculate:
+
+```text
+United Kingdom    total
+France            total
+Germany           total
+...
+```
+
+---
+
+# 59. Revenue Mapper
+
+Create:
+
+```bash
+nano revenue_mapper.py
+```
+
+Use:
+
+```python
+#!/usr/bin/env python3
+
+import sys
+import csv
+
+reader = csv.reader(sys.stdin)
+
+header = next(reader, None)
+
+for row in reader:
+
+    try:
+
+        if len(row) < 8:
+            continue
+
+        quantity = float(row[3])
+        unit_price = float(row[5])
+        country = row[7]
+
+        if not country:
+            continue
+
+        revenue = quantity * unit_price
+
+        print(f"{country}\t{revenue}")
+
+    except (ValueError, IndexError):
+        continue
+```
+
+Make executable:
+
+```bash
+chmod +x revenue_mapper.py
+```
+
+---
+
+# 60. Run Revenue Analysis
+
+Upload the retail CSV to HDFS:
+
+```bash
+hdfs dfs -mkdir -p /user/$USER/retail_input
+```
+
+Then:
+
+```bash
+hdfs dfs -put OnlineRetail.csv /user/$USER/retail_input/
+```
+
+Run:
+
+```bash
+hdfs dfs -rm -r /user/$USER/revenue_output
+```
+
+Then:
+
+```bash
+hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-*.jar \
+-input /user/$USER/retail_input \
+-output /user/$USER/revenue_output \
+-mapper revenue_mapper.py \
+-reducer reducer.py
+```
+
+View:
+
+```bash
+hdfs dfs -cat /user/$USER/revenue_output/part-00000
+```
+
+---
+
+# 61. Exercise — Top Products
+
+Modify the mapper and reducer to calculate revenue by product.
+
+The mapper should emit:
+
+```text
+ProductName    Revenue
+```
+
+The reducer should calculate:
+
+```text
+ProductName    TotalRevenue
+```
+
+Then sort the output.
+
+One possible approach is:
+
+```bash
+hdfs dfs -cat /user/$USER/product_output/part-00000 | sort -k2 -nr | head
+```
+
+This demonstrates an important idea:
+
+> Hadoop performs the distributed computation, while additional tools can be used for subsequent analysis.
+
+---
+
+# 62. Measuring Execution Time
+
+For each experiment, record:
+
+```text
+Dataset Size
+Number of Records
+MapReduce Time
+Output Size
+```
+
+Example table:
+
+| Dataset            | Records |   Size | Hadoop Time |
+| ------------------ | ------: | -----: | ----------: |
+| Word Count         |       5 | < 1 KB |         ... |
+| Online Shoppers    |    ~12K |  ~1 MB |         ... |
+| Replicated Dataset |     ... |    ... |         ... |
+| Online Retail      |   ~542K |    ... |         ... |
+
+Do not assume Hadoop will be faster for small datasets.
+
+---
+
+# 63. An Important Observation
+
+Hadoop itself introduces overhead.
+
+For a tiny dataset:
+
+```text
+Python:
+Input → Processing → Output
+```
+
+may be faster.
+
+Hadoop has additional operations:
+
+```text
+Input
+  ↓
+HDFS
+  ↓
+Job submission
+  ↓
+Task initialization
+  ↓
+Mapper
+  ↓
+Shuffle
+  ↓
+Reducer
+  ↓
+HDFS
+  ↓
+Output
+```
+
+Therefore:
+
+> Hadoop is not automatically faster for every dataset.
+
+Its major advantage is the ability to process very large datasets across multiple machines.
+
+---
+
+# 64. Experiment — Python Versus Hadoop
+
+For the same dataset, measure:
+
+### Python
+
+```bash
+time python local_analysis.py
+```
+
+### Hadoop
+
+```bash
+time hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-*.jar \
+-input /user/$USER/input \
+-output /user/$USER/output \
+-mapper mapper.py \
+-reducer reducer.py
+```
+
+Record the results.
+
+Create a table:
+
+| Dataset | Python Time | Hadoop Time |
+| ------- | ----------: | ----------: |
+| Small   |             |             |
+| Medium  |             |             |
+| Large   |             |             |
+
+---
+
+# 65. Why Hadoop May Become More Useful as Data Grows
+
+Consider:
+
+```text
+Dataset size
+      |
+      v
++---------------------------+
+| 1 MB                      |
+| 10 MB                     |
+| 100 MB                    |
+| 1 GB                      |
+| 10 GB                     |
+| 100 GB                    |
+| 1 TB                      |
+| 10 TB                     |
++---------------------------+
+```
+
+For small datasets, local processing is usually simple.
+
+As datasets become very large, distributed storage and processing become increasingly useful.
+
+The important concept is:
+
+> **Scale changes the engineering problem.**
+
+---
+
+# 66. Troubleshooting
+
+## Problem: `hadoop: command not found`
+
+Check:
+
+```bash
+echo $HADOOP_HOME
+```
+
+Then:
+
+```bash
+echo $PATH
+```
+
+Make sure Hadoop's `bin` and `sbin` directories are in `PATH`.
+
+---
+
+## Problem: Java not found
+
+Run:
+
+```bash
+java -version
+```
+
+Then:
+
+```bash
+echo $JAVA_HOME
+```
+
+Make sure `JAVA_HOME` points to the Java installation.
+
+---
+
+## Problem: NameNode is not running
+
+Run:
+
+```bash
+jps
+```
+
+If `NameNode` is missing, check the Hadoop logs.
+
+Also check:
+
+```bash
+hdfs dfsadmin -report
+```
+
+---
+
+## Problem: DataNode is not running
+
+Run:
+
+```bash
+jps
+```
+
+Check the DataNode logs under the Hadoop log directory.
+
+---
+
+## Problem: Output directory already exists
+
+Hadoop normally refuses to write to an existing output directory.
+
+Remove it:
+
+```bash
+hdfs dfs -rm -r /user/$USER/output
+```
+
+Then run the job again.
+
+---
+
+## Problem: Permission denied
+
+Check the permissions of:
+
+```text
+~/.ssh
+~/.ssh/authorized_keys
+```
+
+Use:
+
+```bash
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+```
+
+---
+
+# 67. Final Practical Exercise
+
+You will now design your own Hadoop MapReduce application.
+
+Choose one of the following problems.
+
+### Option 1 — Visitor Analysis
+
+Calculate:
+
+```text
+VisitorType → Number of Sessions
+```
+
+### Option 2 — Revenue Analysis
+
+Calculate:
+
+```text
+Country → Total Revenue
+```
+
+### Option 3 — Product Analysis
+
+Calculate:
+
+```text
+Product → Total Revenue
+```
+
+### Option 4 — Time Analysis
+
+Calculate:
+
+```text
+Date → Total Revenue
+```
+
+### Option 5 — Custom Problem
+
+Choose a real CSV dataset and design your own MapReduce task.
+
+---
+
+# 68. Required Components of the Final Exercise
+
+Your solution must contain:
+
+### 1. Input Dataset
+
+Document:
+
+```text
+Dataset name:
+Dataset source:
+Number of records:
+Approximate size:
+```
+
+### 2. Mapper
+
+Your mapper must generate:
+
+```text
+key    value
+```
+
+### 3. Reducer
+
+Your reducer must aggregate values by key.
+
+### 4. HDFS
+
+Upload the dataset into HDFS.
+
+### 5. Hadoop Job
+
+Execute the mapper and reducer using Hadoop Streaming.
+
+### 6. Output
+
+Store the result in HDFS.
+
+### 7. Validation
+
+Compare the result with an equivalent Python/Pandas implementation where possible.
+
+---
+
+# 69. Final Checklist
+
+Before completing Part 2, make sure you can answer:
+
+* What is HDFS?
+* What is a NameNode?
+* What is a DataNode?
+* What is YARN?
+* What is a ResourceManager?
+* What is a NodeManager?
+* What is Hadoop MapReduce?
+* What does a mapper do?
+* What does a reducer do?
+* What happens during shuffle and sort?
+* Why does Hadoop use HDFS?
+* What is an HDFS block?
+* Why does HDFS use replication?
+* What is data locality?
+* Why is Hadoop not necessarily faster for small datasets?
+* Why is Hadoop useful for very large datasets?
+* What is Hadoop Streaming?
+* How do you upload a file to HDFS?
+* How do you retrieve a file from HDFS?
+* How do you run a Hadoop MapReduce job?
+
+---
+
+# 70. Part 2 Summary
+
+We started with a simple Python MapReduce program and moved to Hadoop.
+
+The progression was:
+
+```text
+Part 1
+
+Python
+  |
+  v
+Manual MapReduce
+  |
+  v
+Local Processing
+```
+
+Then:
+
+```text
+Part 2
+
+Python Mapper
+      |
+      v
+Hadoop
+      |
+      +---- HDFS
+      |
+      +---- Shuffle
+      |
+      +---- Reducer
+      |
+      v
+Distributed Processing
+```
+
+The key idea is:
+
+> **MapReduce is the programming model. Hadoop is a platform that provides distributed storage and distributed execution infrastructure for that model.**
+
+---

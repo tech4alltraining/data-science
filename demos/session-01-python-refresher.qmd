@@ -30,14 +30,14 @@ By the end of this session you can:
 
 | # | Topic | | # | Topic |
 |---|---|---|---|---|
-| 1 | [Python syntax](#1-python-syntax) | | 9 | [Lists](#9-lists) |
-| 2 | [Comments](#2-comments) | | 10 | [Tuples & Sets](#10-tuples-and-sets) |
-| 3 | [Variables](#3-variables) | | 11 | [Dictionaries](#11-dictionaries) |
-| 4 | [Data types](#4-data-types) | | 12 | [Conditionals](#12-conditionals-if-elif-else-and-match) |
-| 5 | [Numbers](#5-numbers) | | 13 | [Loops](#13-loops-for-and-while) |
-| 6 | [Input & Output](#6-input-and-output) | | 14 | [Functions](#14-functions) |
-| 7 | [Strings](#7-strings) | | 15 | [Classes & Objects](#15-classes-and-objects) |
-| 8 | [Operators](#8-operators) | | | |
+| 1 | [Python syntax](#python-syntax) | | 9 | [Lists](#lists) |
+| 2 | [Comments](#comments) | | 10 | [Tuples & Sets](#tuples-and-sets) |
+| 3 | [Variables](#variables) | | 11 | [Dictionaries](#dictionaries) |
+| 4 | [Data types](#data-types) | | 12 | [Conditionals](#conditionals-if-elif-else-and-match) |
+| 5 | [Numbers](#numbers) | | 13 | [Loops](#loops-for-and-while) |
+| 6 | [Input & Output](#input-and-output) | | 14 | [Functions](#functions) |
+| 7 | [Strings](#strings) | | 15 | [Classes & Objects](#classes-and-objects) |
+| 8 | [Operators](#operators) | | | |
 
 **Five checkpoint problems** sit between the topics. Each uses only what you have learned up to that point:
 
@@ -60,7 +60,7 @@ By the end of this session you can:
 
 ---
 
-# 1. Python syntax
+# Python syntax
 
 **Syntax means the rules for how code must be written.** Python has fewer of them than most languages, and one that is unusual.
 
@@ -249,7 +249,7 @@ print("3. Samosa")
 
 ---
 
-# 2. Comments
+# Comments
 
 **A comment is a note to a human. Python ignores it completely.**
 
@@ -415,7 +415,7 @@ print("Rounding to 2 decimal places")
 
 ---
 
-# 3. Variables
+# Variables
 
 **A variable is a name for a value.** You give a value a name so you can use it later.
 
@@ -597,7 +597,7 @@ print(priya_marks)        # 78
 
 ---
 
-# 4. Data types
+# Data types
 
 **Every value in Python has a type.** The type decides what you can do with the value.
 
@@ -779,7 +779,7 @@ print("I have " + str(books) + " books")
 
 ---
 
-# 5. Numbers
+# Numbers
 
 **Now that you know `int` and `float`, here is what you can do with them.**
 
@@ -962,7 +962,7 @@ print(sweets % children)                  # 2  left over
 
 ---
 
-# 6. Input and Output
+# Input and Output
 
 **A program that always prints the same thing is not very useful.** `input()` lets a person type something in.
 
@@ -1208,7 +1208,7 @@ Perimeter: 19.00 metres
 
 ---
 
-# 7. Strings
+# Strings
 
 **A string is text.** You have used strings since Topic 1 — now here is everything they can do.
 
@@ -1507,7 +1507,7 @@ P.R.S.
 
 ---
 
-# 8. Operators
+# Operators
 
 You already use `+`, `-`, `*`, `/` from Topic 5. **Here is the complete set.**
 
@@ -1743,7 +1743,7 @@ print("error" in message)                   # True
 
 ---
 
-# 9. Lists
+# Lists
 
 **A list holds many values in one variable, in order.**
 
@@ -2028,7 +2028,7 @@ for price in prices:
 
 ---
 
-# 10. Tuples and Sets
+# Tuples and Sets
 
 **Two more ways to hold several values, each with one distinctive property.**
 
@@ -2277,7 +2277,7 @@ print(f"{name} ({roll}), {course}, CGPA {cgpa}")
 
 ---
 
-# 11. Dictionaries
+# Dictionaries
 
 **A dictionary stores pairs: a key, and the value it points to.**
 
@@ -2524,7 +2524,7 @@ print(f"{student['name']} average: {sum(marks.values()) / len(marks):.2f}")
 
 ---
 
-# 12. Conditionals: if, elif, else and match
+# Conditionals: if, elif, else and match
 
 **A program that always does the same thing is a list of instructions. A program that decides is software.**
 
@@ -2895,7 +2895,7 @@ else:
 
 ---
 
-# 13. Loops: for and while
+# Loops: for and while
 
 **You met `for` briefly in Topic 9. Here is the full picture, plus `while`.**
 
@@ -3232,7 +3232,7 @@ for row in range(1, 11):
 
 ---
 
-# 14. Functions
+# Functions
 
 **A function is a named piece of code you can run whenever you like.**
 
@@ -3628,7 +3628,7 @@ print(f"There are {count} primes below 1000")      # 168
 
 ---
 
-# 15. Classes and Objects
+# Classes and Objects
 
 **Everything so far has kept data and the code that works on it separate.** A class puts them together.
 

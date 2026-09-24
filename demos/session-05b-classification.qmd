@@ -34,20 +34,20 @@ By the end of this session you can:
 
 | # | Topic |
 |---|---|
-| 1 | [What classification is](#1-what-classification-is) |
-| 2 | [Use case 1 — Loan approval](#2-use-case-1--loan-approval) |
-| 3 | [TP, TN, FP, FN — the four outcomes](#3-tp-tn-fp-fn--the-four-outcomes) |
-| 4 | [The evaluation metrics](#4-the-evaluation-metrics) |
-| 5 | [The six algorithms](#5-the-six-algorithms) |
-| 6 | [Pipelines](#6-pipelines) |
-| 7 | [Use case 2 — Imbalanced data](#7-use-case-2--imbalanced-data) |
-| 8 | [Use case 3 — More than two classes](#8-use-case-3--more-than-two-classes) |
+| 1 | [What classification is](#what-classification-is) |
+| 2 | [Use case 1 — Loan approval](#use-case-1--loan-approval) |
+| 3 | [TP, TN, FP, FN — the four outcomes](#tp-tn-fp-fn--the-four-outcomes) |
+| 4 | [The evaluation metrics](#the-evaluation-metrics) |
+| 5 | [The six algorithms](#the-six-algorithms) |
+| 6 | [Pipelines](#pipelines) |
+| 7 | [Use case 2 — Imbalanced data](#use-case-2--imbalanced-data) |
+| 8 | [Use case 3 — More than two classes](#use-case-3--more-than-two-classes) |
 | | *Deploying these models is [Session 5C](session-05c-deployment.qmd)* |
 | | [❓ 20 MCQs](#-classification--20-mcqs) · [🎯 Tasks](#-classification--tasks) |
 
 ---
 
-# 1. What classification is
+# What classification is
 
 **Classification predicts a category.** Will this loan be approved? Does this patient have diabetes? Which species is this flower?
 
@@ -72,7 +72,7 @@ By the end of this session you can:
 
 ---
 
-# 2. Use case 1 — Loan approval
+# Use case 1 — Loan approval
 
 **The question:** given an application, predict whether the loan will be approved.
 
@@ -391,7 +391,7 @@ print(accuracy_score(y_test, y_pred))
 
 ---
 
-# 3. TP, TN, FP, FN — the four outcomes
+# TP, TN, FP, FN — the four outcomes
 
 **Every prediction in a binary classification lands in exactly one of four buckets.**
 
@@ -512,7 +512,7 @@ plt.show()
 
 ---
 
-# 4. The evaluation metrics
+# The evaluation metrics
 
 **All four metrics are built from TP, TN, FP and FN.** Once you can read a confusion matrix, every metric is arithmetic.
 
@@ -726,7 +726,7 @@ print("F1              :", 0.0)                  # the honest answer
 
 ---
 
-# 5. The six algorithms
+# The six algorithms
 
 **Every one of these uses the same three lines.** What changes is *how* they decide.
 
@@ -965,7 +965,7 @@ print("test :", accuracy_score(y_test, dt.predict(X_test)))     # ~0.84
 
 ---
 
-# 6. Pipelines
+# Pipelines
 
 **Everything so far was done step by step: scale, then split, then train.** That works, and it is fragile.
 
@@ -1224,7 +1224,7 @@ for name, clf in models.items():
 
 ---
 
-# 7. Use case 2 — Imbalanced data
+# Use case 2 — Imbalanced data
 
 **Use case 1 had exactly 5,000 of each class. Real data is rarely so obliging.**
 
@@ -1460,7 +1460,7 @@ print(f"missed: {confusion_matrix(y_test, pred1)[1,0]} -> "
 
 ---
 
-# 8. Use case 3 — More than two classes
+# Use case 3 — More than two classes
 
 **Both previous use cases had two classes. Many real problems have more.**
 
