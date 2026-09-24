@@ -18,7 +18,8 @@ df = pd.read_csv("datasets/messy_customers.csv")
 :::
 
 ## Notebooks
-- [1] [Preprocessing](https://colab.research.google.com/drive/1MsdDPnB3WE3qZZUcZU7QRkJcl0kddz6e?usp=sharing)  
+- [1] [Preprocessing](https://colab.research.google.com/drive/1MsdDPnB3WE3qZZUcZU7QRkJcl0kddz6e?usp=sharing)
+- [2] [Classification](https://colab.research.google.com/drive/1mJQBMddfoi4P8EdgnPZVLo0tFPlAyBsH?usp=sharing)  
 
 ## Who this is for
 

@@ -1,0 +1,600 @@
+Yes. In fact, for teaching, I would **not start with Hadoop**.
+
+You can teach the MapReduce programming model entirely in a Python notebook first:
+
+```text
+CSV dataset
+   ↓
+Pandas
+   ↓
+Mapper function
+   ↓
+key-value pairs
+   ↓
+Shuffle / Group
+   ↓
+Reducer function
+   ↓
+Result
+```
+
+Then, once students understand the logic, run essentially the **same Mapper/Reducer logic through Hadoop Streaming**. Hadoop Streaming is specifically designed to let executables such as Python programs act as the mapper and reducer. ([Apache Hadoop][1])
+
+For your **i5 + 8 GB RAM machines**, this is also much more practical than trying to teach a full multi-node Hadoop cluster. A single-node/pseudo-distributed Hadoop installation is sufficient for the demonstrations; Apache documents this mode specifically for running Hadoop on one machine. ([Apache Hadoop][2])
+
+## Recommended teaching structure
+
+I would change the earlier plan to this:
+
+| Demo | Dataset          |       Size | Python notebook | Hadoop               |
+| ---- | ---------------- | ---------: | --------------- | -------------------- |
+| 1    | Small text/CSV   |       Tiny | ✅               | Optional             |
+| 2    | Small CSV        |      Small | ✅               | Optional             |
+| 3    | Online Shoppers  |  ~12K rows | ✅               | Optional             |
+| 4    | Clickstream      |  165K rows | ✅               | Recommended          |
+| 5    | Online Retail    |  541K rows | ✅               | Recommended          |
+| 6    | Online Retail II | 1.07M rows | ✅               | Strongly recommended |
+| 7    | Streamlit        |    Results | ✅               | Optional             |
+
+The UCI **Online Retail** dataset has 541,909 transactions, while **Online Retail II** has 1,067,371 transactions, making them particularly useful for demonstrating why distributed processing becomes interesting. ([UCI Machine Learning Repository][3])
+
+---
+
+# Part 1 — Environment
+
+Since you already have pandas, I'd keep the environment simple.
+
+### Conda
+
+```bash
+conda activate demo
+```
+
+Install the complete teaching stack:
+
+```bash
+pip install pandas numpy matplotlib seaborn jupyterlab streamlit requests openpyxl
+```
+
+Optional:
+
+```bash
+pip install ucimlrepo
+```
+
+I would actually use direct dataset downloads where possible so students can see the **"download → load → process"** workflow.
+
+---
+
+# Part 2 — Demo 1: Word Count Without Hadoop
+
+The first notebook should deliberately avoid pandas.
+
+That is important because students need to understand what a Mapper actually does.
+
+## Notebook structure
+
+### Cell 1 — Create a tiny dataset
+
+```python
+text = """
+Python is simple
+Python is powerful
+Hadoop processes big data
+Python processes data
+Hadoop and Python work together
+"""
+
+with open("data.txt", "w") as f:
+    f.write(text)
+
+print(text)
+```
+
+---
+
+### Cell 2 — Read the data
+
+```python
+with open("data.txt", "r") as f:
+    lines = f.readlines()
+
+lines
+```
+
+---
+
+### Cell 3 — Mapper
+
+```python
+def mapper(lines):
+    mapped = []
+
+    for line in lines:
+        words = line.strip().lower().split()
+
+        for word in words:
+            mapped.append((word, 1))
+
+    return mapped
+
+
+mapped_data = mapper(lines)
+
+mapped_data
+```
+
+Students will see:
+
+```text
+('python', 1)
+('is', 1)
+('simple', 1)
+('python', 1)
+...
+```
+
+Explain:
+
+> The Mapper converts the original data into **key-value pairs**.
+
+---
+
+### Cell 4 — Shuffle
+
+Now implement the part Hadoop normally performs.
+
+```python
+from collections import defaultdict
+
+def shuffle(mapped_data):
+    grouped = defaultdict(list)
+
+    for key, value in mapped_data:
+        grouped[key].append(value)
+
+    return grouped
+
+
+grouped_data = shuffle(mapped_data)
+
+dict(grouped_data)
+```
+
+Students will see something like:
+
+```text
+{
+    'python': [1, 1, 1],
+    'is': [1],
+    'data': [1, 1],
+    'hadoop': [1, 1],
+    ...
+}
+```
+
+This is the most important conceptual step.
+
+---
+
+### Cell 5 — Reducer
+
+```python
+def reducer(grouped_data):
+
+    result = {}
+
+    for key, values in grouped_data.items():
+        result[key] = sum(values)
+
+    return result
+
+
+result = reducer(grouped_data)
+
+result
+```
+
+---
+
+### Cell 6 — Sort the result
+
+```python
+sorted(result.items(), key=lambda x: x[1], reverse=True)
+```
+
+Expected idea:
+
+```text
+python     3
+hadoop     2
+data       2
+...
+```
+
+---
+
+### Cell 7 — Complete MapReduce pipeline
+
+Now combine everything:
+
+```python
+def map_reduce(lines):
+
+    # MAP
+    mapped = mapper(lines)
+
+    # SHUFFLE
+    grouped = shuffle(mapped)
+
+    # REDUCE
+    result = reducer(grouped)
+
+    return result
+
+
+result = map_reduce(lines)
+
+for key, value in sorted(result.items(), key=lambda x: x[1], reverse=True):
+    print(f"{key:15} {value}")
+```
+
+Now students have implemented **MapReduce without Hadoop**.
+
+That is exactly what I recommend for Demo 1.
+
+---
+
+# Part 3 — Demo 2: CSV + Pandas + MapReduce
+
+Now introduce a real dataset downloaded from the Internet.
+
+For this demo, I suggest **Online Shoppers Purchasing Intention** from UCI. It is small enough for every student's laptop but realistic enough to introduce CSV processing. The UCI repository provides the dataset as a CSV and documents its variables. ([UCI Machine Learning Repository][4])
+
+## Cell 1 — Download
+
+```python
+import pandas as pd
+
+url = "https://archive.ics.uci.edu/ml/machine-learning-databases/00468/online_shoppers_intention.csv"
+
+df = pd.read_csv(url)
+
+df.head()
+```
+
+If that particular legacy URL becomes unavailable, use the UCI repository's dataset page/download mechanism instead. ([UCI Machine Learning Repository][4])
+
+---
+
+## Cell 2 — Inspect dataset
+
+```python
+print("Rows:", len(df))
+print("Columns:", len(df.columns))
+
+df.info()
+```
+
+---
+
+## Cell 3 — Understand the problem
+
+We can ask:
+
+> **How many visitors belong to each VisitorType?**
+
+For example:
+
+```text
+Returning_Visitor
+New_Visitor
+Other
+```
+
+---
+
+## Cell 4 — Normal Pandas solution
+
+First show students the conventional solution:
+
+```python
+df["VisitorType"].value_counts()
+```
+
+This establishes a baseline.
+
+---
+
+# Cell 5 — Mapper
+
+Now recreate the same operation using MapReduce.
+
+```python
+def mapper(df):
+
+    mapped = []
+
+    for visitor_type in df["VisitorType"]:
+        mapped.append((visitor_type, 1))
+
+    return mapped
+
+
+mapped = mapper(df)
+
+mapped[:10]
+```
+
+Output:
+
+```text
+[
+    ('Returning_Visitor', 1),
+    ('Returning_Visitor', 1),
+    ('Returning_Visitor', 1),
+    ...
+]
+```
+
+---
+
+# Cell 6 — Shuffle
+
+```python
+from collections import defaultdict
+
+def shuffle(mapped):
+
+    grouped = defaultdict(list)
+
+    for key, value in mapped:
+        grouped[key].append(value)
+
+    return grouped
+
+
+grouped = shuffle(mapped)
+
+for key, values in grouped.items():
+    print(key, len(values))
+```
+
+---
+
+# Cell 7 — Reducer
+
+```python
+def reducer(grouped):
+
+    result = {}
+
+    for key, values in grouped.items():
+        result[key] = sum(values)
+
+    return result
+
+
+result = reducer(grouped)
+
+result
+```
+
+---
+
+# Cell 8 — Compare with Pandas
+
+```python
+pandas_result = df["VisitorType"].value_counts().to_dict()
+
+print("MapReduce:")
+print(result)
+
+print("\nPandas:")
+print(pandas_result)
+```
+
+The students should see that both approaches produce the same conceptual result.
+
+---
+
+# Cell 9 — Make the MapReduce framework reusable
+
+This is where I would start making the teaching progressively more advanced.
+
+```python
+def map_reduce(df, mapper, reducer):
+
+    mapped = mapper(df)
+
+    grouped = defaultdict(list)
+
+    for key, value in mapped:
+        grouped[key].append(value)
+
+    result = reducer(grouped)
+
+    return result
+```
+
+Then:
+
+```python
+result = map_reduce(df, mapper, reducer)
+
+result
+```
+
+Now students have their own miniature MapReduce framework.
+
+---
+
+# Part 4 — Why not Hadoop initially?
+
+Because there are actually **two different things you want students to understand**:
+
+### 1. MapReduce programming model
+
+```text
+Mapper
+   ↓
+Shuffle
+   ↓
+Reducer
+```
+
+### 2. Hadoop distributed execution
+
+```text
+                    Hadoop Cluster
+                         │
+       ┌─────────────────┼─────────────────┐
+       ↓                 ↓                 ↓
+   Mapper 1          Mapper 2          Mapper 3
+       │                 │                 │
+       └─────────────────┼─────────────────┘
+                         ↓
+                  Shuffle / Sort
+                         ↓
+                Reducer 1 / 2 / 3
+                         ↓
+                       HDFS
+```
+
+If you introduce Hadoop immediately, students can easily become confused by:
+
+* HDFS
+* NameNode
+* DataNode
+* ResourceManager
+* NodeManager
+* Java
+* SSH
+* configuration files
+* Hadoop Streaming
+* mapper/reducer
+* permissions
+* environment variables
+
+They may learn **Hadoop configuration instead of MapReduce**.
+
+So I'd teach:
+
+> **Python MapReduce → datasets → scaling problem → Hadoop → same MapReduce algorithm on Hadoop.**
+
+That's a much better progression.
+
+---
+
+# Part 5 — Dataset progression
+
+I'd use the following four datasets.
+
+## Dataset 1 — Tiny
+
+Our manually created:
+
+```text
+data.txt
+```
+
+Purpose:
+
+**Understand Mapper / Shuffle / Reducer**
+
+---
+
+## Dataset 2 — Small
+
+**Online Shoppers Purchasing Intention**
+
+About 12,000 sessions.
+
+It has variables such as administrative activity, product-related activity, bounce rate, exit rate, page values, visitor type and revenue. ([UCI Machine Learning Repository][4])
+
+Purpose:
+
+**MapReduce + Pandas + CSV**
+
+---
+
+## Dataset 3 — Medium
+
+**Clickstream Data for Online Shopping**
+
+UCI reports **165,474 instances and 14 features**. ([UCI Machine Learning Repository][5])
+
+This is a good intermediate dataset.
+
+Potential question:
+
+> What is the average product price by country?
+
+Mapper:
+
+```text
+country → price
+```
+
+Reducer:
+
+```text
+country → average(price)
+```
+
+Then introduce:
+
+```text
+Mapper
+   ↓
+Combiner
+   ↓
+Shuffle
+   ↓
+Reducer
+```
+
+---
+
+## Dataset 4 — Large
+
+**Online Retail**
+
+UCI reports **541,909 transactions**. ([UCI Machine Learning Repository][3])
+
+Questions can become much more realistic:
+
+### Demo
+
+> Calculate total revenue by country.
+
+Mapper:
+
+```text
+country → quantity × unit_price
+```
+
+Reducer:
+
+```text
+country → sum(revenue)
+```
+
+Then:
+
+> Find top 10 countries by revenue.
+
+Then:
+
+> Find top products by revenue.
+
+Then:
+
+> Calculate daily revenue.
+
+Then:
+
+> Calculate customer spending.
+
+---
+

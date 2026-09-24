@@ -16,6 +16,17 @@ book:
   chapters:
     - index.qmd
     - setup-guide.qmd
+    - part: "Workshop"
+      chapters:
+        - demos/session-01-python-refresher.qmd
+        - demos/session-02-numpy-pandas.qmd
+        - demos/session-03-eda-preprocessing.qmd
+        - demos/session-04-intro-ml-ai.qmd
+        - demos/session-05-regression.qmd
+        - demos/session-05b-classification.qmd
+        - demos/session-05c-deployment.qmd
+        - demos/session-06-big-data-part1.qmd
+        - demos/session-07-big-data-part2.qmd
     - part: "Part A — Getting hold of data"
       chapters:
         - sessions/session-01-introduction-to-data-science.qmd
