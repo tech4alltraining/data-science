@@ -32,7 +32,7 @@ By the end of this part, you will be able to:
 
 ---
 
-# 1. From Python MapReduce to Hadoop
+# From Python MapReduce to Hadoop
 
 In Part 1, we implemented the MapReduce idea ourselves using Python.
 
@@ -101,7 +101,7 @@ For example, Hadoop can handle:
 
 ---
 
-# 2. Hadoop Components
+# Hadoop Components
 
 For this practical, we will mainly work with:
 
@@ -151,7 +151,7 @@ This means Hadoop runs on a single computer, but Hadoop components behave approx
 
 ---
 
-# 3. Important Hadoop Services
+# Important Hadoop Services
 
 A simplified Hadoop installation contains several important services.
 
@@ -185,7 +185,7 @@ NodeManager
 
 ---
 
-# 4. Hardware Assumption
+# Hardware Assumption
 
 This practical is designed to work on a modest computer.
 
@@ -208,7 +208,7 @@ We will use:
 
 ---
 
-# 5. Before Installing Hadoop
+# Before Installing Hadoop
 
 Make sure Java is installed.
 
@@ -236,9 +236,9 @@ If both commands work, Java is available.
 
 ---
 
-# 6. Ubuntu Setup
+# Ubuntu Setup
 
-## 6.1 Update the System
+## Update the System
 
 Open Terminal and run:
 
@@ -254,7 +254,7 @@ sudo apt upgrade -y
 
 ---
 
-## 6.2 Install Java
+## Install Java
 
 Run:
 
@@ -276,7 +276,7 @@ javac -version
 
 ---
 
-## 6.3 Create a Hadoop User
+## Create a Hadoop User
 
 For a classroom installation, a separate Hadoop user can make the configuration cleaner.
 
@@ -300,7 +300,7 @@ su - hadoop
 
 ---
 
-# 7. Configure SSH on Ubuntu
+# Configure SSH on Ubuntu
 
 Hadoop uses SSH for communication between Hadoop services.
 
@@ -325,7 +325,7 @@ sudo systemctl status ssh
 
 ---
 
-# 8. Configure Passwordless SSH
+# Configure Passwordless SSH
 
 Generate an SSH key:
 
@@ -369,7 +369,7 @@ exit
 
 ---
 
-# 9. Download Hadoop
+# Download Hadoop
 
 Download a stable Hadoop release from the official Apache Hadoop website.
 
@@ -403,7 +403,7 @@ Your directory should now contain:
 
 ---
 
-# 10. Configure Hadoop Environment Variables
+# Configure Hadoop Environment Variables
 
 Open:
 
@@ -442,7 +442,7 @@ You should see the Hadoop version.
 
 ---
 
-# 11. Configure JAVA_HOME for Hadoop
+# Configure JAVA_HOME for Hadoop
 
 Open:
 
@@ -460,7 +460,7 @@ Save the file.
 
 ---
 
-# 12. Configure core-site.xml
+# Configure core-site.xml
 
 Open:
 
@@ -483,7 +483,7 @@ Replace the contents with:
 
 ---
 
-# 13. Configure hdfs-site.xml
+# Configure hdfs-site.xml
 
 Create directories:
 
@@ -525,7 +525,7 @@ Use:
 
 ---
 
-# 14. Configure MapReduce
+# Configure MapReduce
 
 Open:
 
@@ -548,7 +548,7 @@ Use:
 
 ---
 
-# 15. Configure YARN
+# Configure YARN
 
 Open:
 
@@ -571,7 +571,7 @@ Use:
 
 ---
 
-# 16. Format the NameNode
+# Format the NameNode
 
 This is an important step.
 
@@ -587,7 +587,7 @@ You should see a successful formatting message.
 
 ---
 
-# 17. Start Hadoop
+# Start Hadoop
 
 Start HDFS:
 
@@ -619,7 +619,7 @@ SecondaryNameNode
 
 ---
 
-# 18. Stop Hadoop
+# Stop Hadoop
 
 When you finish working, Hadoop can be stopped using:
 
@@ -635,7 +635,7 @@ stop-dfs.sh
 
 ---
 
-# 19. Windows Setup
+# Windows Setup
 
 Hadoop on Windows requires additional configuration compared with Linux.
 
@@ -654,7 +654,7 @@ This gives students an environment similar to the Ubuntu instructions above.
 
 ---
 
-# 20. Enable WSL2
+# Enable WSL2
 
 Open PowerShell as Administrator.
 
@@ -688,7 +688,7 @@ Continue with the Ubuntu Hadoop installation from:
 
 ---
 
-# 21. macOS Setup
+# macOS Setup
 
 macOS users can install Java using Homebrew.
 
@@ -731,7 +731,7 @@ The remaining Hadoop configuration is conceptually the same as the Ubuntu config
 
 ---
 
-# 22. First HDFS Experiment
+# First HDFS Experiment
 
 We will now interact with HDFS.
 
@@ -763,7 +763,7 @@ hdfs dfs -ls /user
 
 ---
 
-# 23. Create a Local Dataset
+# Create a Local Dataset
 
 We will start with a very small dataset.
 
@@ -793,7 +793,7 @@ cat wordcount.txt
 
 ---
 
-# 24. Upload the Dataset to HDFS
+# Upload the Dataset to HDFS
 
 Create an HDFS directory:
 
@@ -821,7 +821,7 @@ wordcount.txt
 
 ---
 
-# 25. View a File Stored in HDFS
+# View a File Stored in HDFS
 
 Run:
 
@@ -835,7 +835,7 @@ The file is now stored in HDFS.
 
 ---
 
-# 26. HDFS Commands You Should Know
+# HDFS Commands You Should Know
 
 | Command           | Purpose            |
 | ----------------- | ------------------ |
@@ -857,7 +857,7 @@ hdfs dfs -du -h /user/$USER/input
 
 ---
 
-# 27. Understanding the Hadoop Word Count Program
+# Understanding the Hadoop Word Count Program
 
 In Part 1 we manually implemented:
 
@@ -903,7 +903,7 @@ MapReduce    2
 
 ---
 
-# 28. Create the Hadoop Streaming Mapper
+# Create the Hadoop Streaming Mapper
 
 We will use Hadoop Streaming because it allows us to write mapper and reducer programs in Python.
 
@@ -930,7 +930,7 @@ for line in sys.stdin:
 
 ---
 
-# 29. Create the Hadoop Streaming Reducer
+# Create the Hadoop Streaming Reducer
 
 Create:
 
@@ -973,7 +973,7 @@ if current_word is not None:
 
 ---
 
-# 30. Make the Programs Executable
+# Make the Programs Executable
 
 Run:
 
@@ -990,7 +990,7 @@ ls -l mapper.py reducer.py
 
 ---
 
-# 31. Test the Mapper Locally
+# Test the Mapper Locally
 
 Before using Hadoop, test the mapper.
 
@@ -1014,7 +1014,7 @@ This is useful because it allows us to debug the mapper before involving Hadoop.
 
 ---
 
-# 32. Test the Complete Pipeline Locally
+# Test the Complete Pipeline Locally
 
 Run:
 
@@ -1043,7 +1043,7 @@ This is very similar to the Python MapReduce implementation from Part 1.
 
 ---
 
-# 33. Run MapReduce Using Hadoop
+# Run MapReduce Using Hadoop
 
 First remove any previous output directory:
 
@@ -1067,7 +1067,7 @@ Hadoop will now execute the MapReduce job.
 
 ---
 
-# 34. Understand the Job Output
+# Understand the Job Output
 
 After the job finishes:
 
@@ -1094,7 +1094,7 @@ hdfs dfs -cat /user/$USER/output/part-00000
 
 ---
 
-# 35. Important Observation
+# Important Observation
 
 Notice the difference.
 
@@ -1136,7 +1136,7 @@ Hadoop provides the distributed execution framework.
 
 ---
 
-# 36. Inspect the Hadoop Job
+# Inspect the Hadoop Job
 
 Run:
 
@@ -1158,7 +1158,7 @@ You should be able to inspect information about applications and jobs.
 
 ---
 
-# 37. Inspect HDFS
+# Inspect HDFS
 
 The NameNode web interface is commonly available at:
 
@@ -1180,7 +1180,7 @@ This is your first graphical view of the Hadoop system.
 
 ---
 
-# 38. Exercise 1 — Change the Word Count Program
+# Exercise 1 — Change the Word Count Program
 
 Modify the mapper so that punctuation is removed.
 
@@ -1218,7 +1218,7 @@ Finally execute the Hadoop job again.
 
 ---
 
-# 39. Exercise 2 — Count Lines
+# Exercise 2 — Count Lines
 
 Create a new mapper:
 
@@ -1243,7 +1243,7 @@ This demonstrates that the key does not have to be a word.
 
 ---
 
-# 40. Exercise 3 — Count Words by First Letter
+# Exercise 3 — Count Words by First Letter
 
 Modify the mapper so that:
 
@@ -1287,7 +1287,7 @@ u    ...
 
 ---
 
-# 41. Real Dataset Experiment
+# Real Dataset Experiment
 
 We will now move from a manually created text file to a real dataset.
 
@@ -1309,7 +1309,7 @@ ls -lh online_shoppers_intention.csv
 
 ---
 
-# 42. Upload the Real Dataset to HDFS
+# Upload the Real Dataset to HDFS
 
 Create:
 
@@ -1331,7 +1331,7 @@ hdfs dfs -ls -h /user/$USER/shopper_input
 
 ---
 
-# 43. Hadoop MapReduce Problem
+# Hadoop MapReduce Problem
 
 We want to answer:
 
@@ -1365,7 +1365,7 @@ Returning_Visitor    ...
 
 ---
 
-# 44. CSV Mapper
+# CSV Mapper
 
 Create:
 
@@ -1403,7 +1403,7 @@ chmod +x visitor_mapper.py
 
 ---
 
-# 45. Reuse the Reducer
+# Reuse the Reducer
 
 We can use the same reducer because the mapper still produces:
 
@@ -1419,7 +1419,7 @@ cat online_shoppers_intention.csv | ./visitor_mapper.py | head
 
 ---
 
-# 46. Run the Hadoop Job
+# Run the Hadoop Job
 
 Remove previous output:
 
@@ -1445,7 +1445,7 @@ hdfs dfs -cat /user/$USER/visitor_output/part-00000
 
 ---
 
-# 47. Download Hadoop Output to Your Computer
+# Download Hadoop Output to Your Computer
 
 Create a local output directory:
 
@@ -1467,7 +1467,7 @@ cat results/part-00000
 
 ---
 
-# 48. Compare Hadoop with Pandas
+# Compare Hadoop with Pandas
 
 The Pandas solution from Part 1 was conceptually:
 
@@ -1502,7 +1502,7 @@ The important difference is **where and how the computation takes place**.
 
 ---
 
-# 49. Processing a Larger Dataset
+# Processing a Larger Dataset
 
 We now increase the dataset size.
 
@@ -1529,7 +1529,7 @@ This creates a larger dataset for experimentation.
 
 ---
 
-# 50. Upload the Larger Dataset
+# Upload the Larger Dataset
 
 Create:
 
@@ -1551,7 +1551,7 @@ hdfs dfs -du -h /user/$USER/large_input
 
 ---
 
-# 51. Run MapReduce on the Larger Dataset
+# Run MapReduce on the Larger Dataset
 
 Run:
 
@@ -1573,7 +1573,7 @@ Observe the execution time.
 
 ---
 
-# 52. Understand the Hadoop Execution Flow
+# Understand the Hadoop Execution Flow
 
 The complete process is approximately:
 
@@ -1615,7 +1615,7 @@ In our pseudo-distributed setup, they execute on the same computer.
 
 ---
 
-# 53. Why Use Hadoop?
+# Why Use Hadoop?
 
 Suppose we have:
 
@@ -1661,7 +1661,7 @@ For example:
 
 ---
 
-# 54. Data Locality
+# Data Locality
 
 One of Hadoop's important ideas is **data locality**.
 
@@ -1692,7 +1692,7 @@ This reduces unnecessary network transfer in distributed environments.
 
 ---
 
-# 55. HDFS Blocks
+# HDFS Blocks
 
 HDFS divides large files into blocks.
 
@@ -1721,7 +1721,7 @@ NameNode
 
 ---
 
-# 56. Replication
+# Replication
 
 HDFS normally maintains multiple copies of blocks.
 
@@ -1750,7 +1750,7 @@ because there is only one DataNode.
 
 ---
 
-# 57. MapReduce Versus Python MapReduce
+# MapReduce Versus Python MapReduce
 
 | Feature         | Python MapReduce     | Hadoop MapReduce    |
 | --------------- | -------------------- | ------------------- |
@@ -1767,7 +1767,7 @@ because there is only one DataNode.
 
 ---
 
-# 58. Exercise — Revenue Analysis
+# Exercise — Revenue Analysis
 
 Use the retail dataset from Part 1.
 
@@ -1801,7 +1801,7 @@ Germany           total
 
 ---
 
-# 59. Revenue Mapper
+# Revenue Mapper
 
 Create:
 
@@ -1851,7 +1851,7 @@ chmod +x revenue_mapper.py
 
 ---
 
-# 60. Run Revenue Analysis
+# Run Revenue Analysis
 
 Upload the retail CSV to HDFS:
 
@@ -1889,7 +1889,7 @@ hdfs dfs -cat /user/$USER/revenue_output/part-00000
 
 ---
 
-# 61. Exercise — Top Products
+# Exercise — Top Products
 
 Modify the mapper and reducer to calculate revenue by product.
 
@@ -1919,7 +1919,7 @@ This demonstrates an important idea:
 
 ---
 
-# 62. Measuring Execution Time
+# Measuring Execution Time
 
 For each experiment, record:
 
@@ -1943,7 +1943,7 @@ Do not assume Hadoop will be faster for small datasets.
 
 ---
 
-# 63. An Important Observation
+# An Important Observation
 
 Hadoop itself introduces overhead.
 
@@ -1986,7 +1986,7 @@ Its major advantage is the ability to process very large datasets across multipl
 
 ---
 
-# 64. Experiment — Python Versus Hadoop
+# Experiment — Python Versus Hadoop
 
 For the same dataset, measure:
 
@@ -2018,7 +2018,7 @@ Create a table:
 
 ---
 
-# 65. Why Hadoop May Become More Useful as Data Grows
+# Why Hadoop May Become More Useful as Data Grows
 
 Consider:
 
@@ -2048,7 +2048,7 @@ The important concept is:
 
 ---
 
-# 66. Troubleshooting
+# Troubleshooting
 
 ## Problem: `hadoop: command not found`
 
@@ -2148,7 +2148,7 @@ chmod 600 ~/.ssh/authorized_keys
 
 ---
 
-# 67. Final Practical Exercise
+# Final Practical Exercise
 
 You will now design your own Hadoop MapReduce application.
 
@@ -2192,11 +2192,11 @@ Choose a real CSV dataset and design your own MapReduce task.
 
 ---
 
-# 68. Required Components of the Final Exercise
+# Required Components of the Final Exercise
 
 Your solution must contain:
 
-### 1. Input Dataset
+### Input Dataset
 
 Document:
 
@@ -2207,7 +2207,7 @@ Number of records:
 Approximate size:
 ```
 
-### 2. Mapper
+### Mapper
 
 Your mapper must generate:
 
@@ -2215,29 +2215,29 @@ Your mapper must generate:
 key    value
 ```
 
-### 3. Reducer
+### Reducer
 
 Your reducer must aggregate values by key.
 
-### 4. HDFS
+### HDFS
 
 Upload the dataset into HDFS.
 
-### 5. Hadoop Job
+### Hadoop Job
 
 Execute the mapper and reducer using Hadoop Streaming.
 
-### 6. Output
+### Output
 
 Store the result in HDFS.
 
-### 7. Validation
+### Validation
 
 Compare the result with an equivalent Python/Pandas implementation where possible.
 
 ---
 
-# 69. Final Checklist
+# Final Checklist
 
 Before completing Part 2, make sure you can answer:
 
@@ -2264,7 +2264,7 @@ Before completing Part 2, make sure you can answer:
 
 ---
 
-# 70. Part 2 Summary
+# Part 2 Summary
 
 We started with a simple Python MapReduce program and moved to Hadoop.
 

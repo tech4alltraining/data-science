@@ -33,9 +33,9 @@ By the end of this practical, you will be able to:
 
 ---
 
-# 1. Environment Setup
+# Environment Setup
 
-## 1.1 Activate the Conda Environment
+## Activate the Conda Environment
 
 Before starting this practical, activate the `demo` Conda environment.
 
@@ -54,7 +54,7 @@ conda activate demo
 
 ---
 
-## 1.2 Install Required Python Packages
+## Install Required Python Packages
 
 Run the following command in your terminal:
 
@@ -77,7 +77,7 @@ The first demonstration uses only Python's standard library.
 
 ---
 
-## 1.3 Verify the Environment
+## Verify the Environment
 
 Run the following Python cell.
 
@@ -99,7 +99,7 @@ print("\nEnvironment is ready!")
 
 ---
 
-# 2. Understanding the MapReduce Model
+# Understanding the MapReduce Model
 
 Before writing the first program, understand the basic MapReduce workflow.
 
@@ -175,7 +175,7 @@ In this practical, you will implement the Shuffle phase yourself so that you can
 
 ---
 
-# 3. Demo 1 — Word Count
+# Demo 1 — Word Count
 
 ## Objective
 
@@ -197,7 +197,7 @@ Reducer
 
 ---
 
-## 3.1 Create a Small Dataset
+## Create a Small Dataset
 
 Run the following cell.
 
@@ -215,7 +215,7 @@ print(text)
 
 ---
 
-## 3.2 Save the Dataset
+## Save the Dataset
 
 Run:
 
@@ -228,7 +228,7 @@ print("Dataset saved as word_count_input.txt")
 
 ---
 
-## 3.3 Read the Dataset
+## Read the Dataset
 
 Run:
 
@@ -244,7 +244,7 @@ for line in lines:
 
 ---
 
-# 4. Implement the Mapper
+# Implement the Mapper
 
 The Mapper should convert every word into:
 
@@ -284,7 +284,7 @@ def word_count_mapper(lines):
 
 ---
 
-## 4.1 Run the Mapper
+## Run the Mapper
 
 ```{python}
 mapped_data = word_count_mapper(lines)
@@ -315,7 +315,7 @@ It only produces key-value pairs.
 
 ---
 
-# 5. Implement the Shuffle
+# Implement the Shuffle
 
 The Shuffle phase groups values having the same key.
 
@@ -350,7 +350,7 @@ def shuffle(mapped_data):
 
 ---
 
-## 5.1 Run the Shuffle
+## Run the Shuffle
 
 ```{python}
 grouped_data = shuffle(mapped_data)
@@ -363,7 +363,7 @@ for key, values in grouped_data.items():
 
 ---
 
-# 6. Implement the Reducer
+# Implement the Reducer
 
 The Reducer receives:
 
@@ -401,7 +401,7 @@ def word_count_reducer(grouped_data):
 
 ---
 
-## 6.1 Run the Reducer
+## Run the Reducer
 
 ```{python}
 word_count_result = word_count_reducer(grouped_data)
@@ -414,7 +414,7 @@ for key, value in word_count_result.items():
 
 ---
 
-# 7. Sort the Results
+# Sort the Results
 
 Run:
 
@@ -431,7 +431,7 @@ for word, count in sorted_word_count:
 
 ---
 
-# 8. Build a Complete MapReduce Function
+# Build a Complete MapReduce Function
 
 You have implemented Mapper, Shuffle, and Reducer separately.
 
@@ -458,7 +458,7 @@ def map_reduce(
 
 ---
 
-## 8.1 Execute the Complete Pipeline
+## Execute the Complete Pipeline
 
 ```{python}
 result = map_reduce(
@@ -477,7 +477,7 @@ for key, value in sorted(
 
 ---
 
-# 9. Visualize the Word Count
+# Visualize the Word Count
 
 Run:
 
@@ -503,7 +503,7 @@ plt.show()
 
 ---
 
-# 10. Check Your Understanding
+# Check Your Understanding
 
 Answer these questions before continuing.
 
@@ -539,7 +539,7 @@ python -> 1
 
 ---
 
-# 11. Demo 2 — Real CSV Dataset
+# Demo 2 — Real CSV Dataset
 
 ## Objective
 
@@ -551,7 +551,7 @@ The dataset contains online shopping sessions and includes information such as v
 
 ---
 
-## 11.1 Download the Dataset
+## Download the Dataset
 
 Run:
 
@@ -583,7 +583,7 @@ else:
 
 ---
 
-## 11.2 Load the Dataset
+## Load the Dataset
 
 ```{python}
 import pandas as pd
@@ -597,7 +597,7 @@ df.head()
 
 ---
 
-## 11.3 Inspect the Dataset
+## Inspect the Dataset
 
 ```{python}
 print("Number of rows:", len(df))
@@ -618,7 +618,7 @@ df.info()
 
 ---
 
-# 12. Demo 2 — Counting by Visitor Type
+# Demo 2 — Counting by Visitor Type
 
 ## Problem
 
@@ -630,7 +630,7 @@ First solve the problem using Pandas.
 
 ---
 
-## 12.1 Pandas Solution
+## Pandas Solution
 
 ```{python}
 pandas_counts = df["VisitorType"].value_counts()
@@ -642,7 +642,7 @@ This is our reference solution.
 
 ---
 
-# 13. Implement the Mapper
+# Implement the Mapper
 
 The Mapper should produce:
 
@@ -668,7 +668,7 @@ def visitor_type_mapper(df):
 
 ---
 
-## 13.1 Execute the Mapper
+## Execute the Mapper
 
 ```{python}
 visitor_mapped = visitor_type_mapper(df)
@@ -681,7 +681,7 @@ for item in visitor_mapped[:20]:
 
 ---
 
-# 14. Shuffle the Data
+# Shuffle the Data
 
 Use the Shuffle function created earlier.
 
@@ -702,7 +702,7 @@ for key, values in visitor_grouped.items():
 
 ---
 
-# 15. Reduce the Data
+# Reduce the Data
 
 Use the existing Word Count reducer.
 
@@ -716,7 +716,7 @@ visitor_counts
 
 ---
 
-# 16. Compare MapReduce With Pandas
+# Compare MapReduce With Pandas
 
 ```{python}
 print("Pandas result:")
@@ -740,7 +740,7 @@ True
 
 ---
 
-# 17. Demo 3 — Average Using MapReduce
+# Demo 3 — Average Using MapReduce
 
 ## Objective
 
@@ -772,7 +772,7 @@ VisitorType -> Average(PageValues)
 
 ---
 
-# 18. Implement the Mapper
+# Implement the Mapper
 
 ```{python}
 def page_value_mapper(df):
@@ -793,7 +793,7 @@ def page_value_mapper(df):
 
 ---
 
-# 19. Implement the Average Reducer
+# Implement the Average Reducer
 
 ```{python}
 def average_reducer(grouped_data):
@@ -813,7 +813,7 @@ def average_reducer(grouped_data):
 
 ---
 
-# 20. Execute MapReduce
+# Execute MapReduce
 
 ```{python}
 average_result = map_reduce(
@@ -827,7 +827,7 @@ average_result
 
 ---
 
-# 21. Verify Using Pandas
+# Verify Using Pandas
 
 ```{python}
 pandas_average = (
@@ -850,7 +850,7 @@ print(pandas_average.to_dict())
 
 ---
 
-# 22. Demo 4 — Multiple Aggregations
+# Demo 4 — Multiple Aggregations
 
 You will now use the same dataset to perform several MapReduce operations.
 
@@ -922,7 +922,7 @@ Implement the Mapper and Reducer yourself.
 
 ---
 
-# 23. Demo 5 — Medium Dataset
+# Demo 5 — Medium Dataset
 
 ## Clickstream Data
 
@@ -936,7 +936,7 @@ Download the dataset from the UCI repository and save it locally.
 
 ---
 
-## 23.1 Load the Dataset
+## Load the Dataset
 
 Modify the filename below if necessary.
 
@@ -950,7 +950,7 @@ clickstream.head()
 
 ---
 
-## 23.2 Inspect the Dataset
+## Inspect the Dataset
 
 ```{python}
 print(
@@ -974,7 +974,7 @@ clickstream.info()
 
 ---
 
-# 24. Medium Dataset — Task 1
+# Medium Dataset — Task 1
 
 ## Count by Category
 
@@ -1008,7 +1008,7 @@ Compare the two results.
 
 ---
 
-# 25. Medium Dataset — Task 2
+# Medium Dataset — Task 2
 
 ## Average Numeric Value by Category
 
@@ -1036,7 +1036,7 @@ Then verify your result using Pandas.
 
 ---
 
-# 26. Medium Dataset — Task 3
+# Medium Dataset — Task 3
 
 ## Top 10 Categories
 
@@ -1056,7 +1056,7 @@ top10
 
 ---
 
-# 27. Measure Execution Time
+# Measure Execution Time
 
 Import the timing module:
 
@@ -1084,7 +1084,7 @@ Record the execution time.
 
 ---
 
-# 28. Demo 6 — Large Dataset
+# Demo 6 — Large Dataset
 
 # Online Retail
 
@@ -1098,7 +1098,7 @@ Save the downloaded Excel file in the same directory as this notebook.
 
 ---
 
-# 29. Load Online Retail
+# Load Online Retail
 
 ```{python}
 retail = pd.read_excel(
@@ -1110,7 +1110,7 @@ retail.head()
 
 ---
 
-# 30. Inspect the Dataset
+# Inspect the Dataset
 
 ```{python}
 print("Rows:", len(retail))
@@ -1127,7 +1127,7 @@ retail.info()
 
 ---
 
-# 31. Check Missing Values
+# Check Missing Values
 
 ```{python}
 retail.isnull().sum()
@@ -1135,7 +1135,7 @@ retail.isnull().sum()
 
 ---
 
-# 32. Calculate Revenue
+# Calculate Revenue
 
 Revenue is defined as:
 
@@ -1162,7 +1162,7 @@ retail[
 
 ---
 
-# 33. Large Dataset — Task 1
+# Large Dataset — Task 1
 
 ## Total Revenue by Country
 
@@ -1194,7 +1194,7 @@ Country -> Total Revenue
 
 ---
 
-# 34. Implement the Mapper
+# Implement the Mapper
 
 ```{python}
 def country_revenue_mapper(df):
@@ -1215,7 +1215,7 @@ def country_revenue_mapper(df):
 
 ---
 
-# 35. Implement the Reducer
+# Implement the Reducer
 
 ```{python}
 def sum_reducer(grouped_data):
@@ -1231,7 +1231,7 @@ def sum_reducer(grouped_data):
 
 ---
 
-# 36. Execute the MapReduce Job
+# Execute the MapReduce Job
 
 ```{python}
 start = time.perf_counter()
@@ -1255,7 +1255,7 @@ print(
 
 ---
 
-# 37. Display Top 10 Countries
+# Display Top 10 Countries
 
 ```{python}
 top_countries = sorted(
@@ -1274,7 +1274,7 @@ for country, revenue in top_countries[:10]:
 
 ---
 
-# 38. Verify With Pandas
+# Verify With Pandas
 
 ```{python}
 start = time.perf_counter()
@@ -1297,7 +1297,7 @@ pandas_country_revenue.head(10)
 
 ---
 
-# 39. Compare Execution Time
+# Compare Execution Time
 
 ```{python}
 print(
@@ -1315,7 +1315,7 @@ print(
 
 ---
 
-# 40. Create a Performance Comparison
+# Create a Performance Comparison
 
 ```{python}
 performance = pd.DataFrame({
@@ -1334,7 +1334,7 @@ performance
 
 ---
 
-# 41. Large Dataset — Task 2
+# Large Dataset — Task 2
 
 ## Top 10 Products by Revenue
 
@@ -1367,7 +1367,7 @@ Then identify the top 10 products.
 
 ---
 
-# 42. Large Dataset — Task 3
+# Large Dataset — Task 3
 
 ## Revenue by Customer
 
@@ -1398,7 +1398,7 @@ Identify the top 10 customers.
 
 ---
 
-# 43. Large Dataset — Task 4
+# Large Dataset — Task 4
 
 ## Daily Revenue
 
@@ -1434,7 +1434,7 @@ and use the existing sum reducer.
 
 ---
 
-# 44. Plot Daily Revenue
+# Plot Daily Revenue
 
 After obtaining your MapReduce result, convert it into a Pandas Series.
 
@@ -1469,7 +1469,7 @@ plt.show()
 
 ---
 
-# 45. Advanced Concept — Composite Keys
+# Advanced Concept — Composite Keys
 
 MapReduce does not require the key to be a single value.
 
@@ -1510,7 +1510,7 @@ and use the existing Shuffle and Reducer functions.
 
 ---
 
-# 46. Advanced Concept — Combiner
+# Advanced Concept — Combiner
 
 In a distributed MapReduce system, sending every Mapper output through the network can be expensive.
 
@@ -1566,7 +1566,7 @@ Think about the following question:
 
 ---
 
-# 47. Final Large Dataset Challenge
+# Final Large Dataset Challenge
 
 You will now use the **Online Retail II** dataset.
 
@@ -1590,7 +1590,7 @@ For each analysis:
 
 ---
 
-# 48. Final Performance Experiment
+# Final Performance Experiment
 
 Create a table containing your actual measurements.
 
@@ -1629,7 +1629,7 @@ Replace the `None` values with your measured results.
 
 ---
 
-# 49. Important Observation
+# Important Observation
 
 Do **not** assume that Python MapReduce will always be faster than Pandas.
 
@@ -1645,7 +1645,7 @@ The objective is not to demonstrate that manually implemented Python MapReduce i
 
 ---
 
-# 50. Reflection
+# Reflection
 
 Before moving to Part 2, answer the following questions.
 
@@ -1703,7 +1703,7 @@ What role could Hadoop play in this situation?
 
 ---
 
-# 51. Part 1 Completion Checklist
+# Part 1 Completion Checklist
 
 Before proceeding to Part 2, make sure you have completed the following:
 
@@ -1731,7 +1731,7 @@ Before proceeding to Part 2, make sure you have completed the following:
 
 ---
 
-# 52. Transition to Part 2
+# Transition to Part 2
 
 You have now implemented MapReduce entirely using Python.
 

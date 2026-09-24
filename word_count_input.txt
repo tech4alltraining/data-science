@@ -1,0 +1,6 @@
+
+Python is simple
+Python is powerful
+Hadoop processes big data
+Python processes data
+Hadoop and Python work together
