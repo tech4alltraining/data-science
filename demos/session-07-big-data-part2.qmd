@@ -1,20 +1,17 @@
-Absolutely. Part 2 should now take students from **Python MapReduce → Hadoop MapReduce**, with setup instructions for **Ubuntu, Windows, and macOS**, followed by real Hadoop execution on progressively larger datasets.
-
 ---
-
 title: "Part 2 — Hadoop MapReduce"
 subtitle: "Hadoop Setup and Real-Time MapReduce Execution"
 format:
-html:
-toc: true
-toc-depth: 3
-code-fold: false
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: false
 jupyter: python3
 execute:
-echo: true
-warning: false
-error: true
------------
+  echo: true
+  warning: false
+  error: true
+---
 
 # Part 2 — Hadoop MapReduce
 

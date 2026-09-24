@@ -721,7 +721,7 @@ st.caption(f"Model test accuracy: {bundle['accuracy']:.1%}. "
 
 > **A real lending decision.** **The model was trained on historic approvals, so it has learned whatever bias was in those approvals** — and it takes `person_gender` as an input.
 >
-> **In most jurisdictions an automated credit decision on that basis is illegal**, and a "borderline → human reviewer" rule is the *minimum* safeguard, not a solution. **[Session 12](session-12-opensource-ethics.md) covers this properly.**
+> **In most jurisdictions an automated credit decision on that basis is illegal**, and a "borderline → human reviewer" rule is the *minimum* safeguard, not a solution.
 
 ---
 
@@ -1108,7 +1108,7 @@ joblib
 | **`n_estimators=100, max_depth=12`** | **0.8865** | **5.24 MB** |
 | `n_estimators=60, max_depth=10` | 0.8810 | **1.82 MB** |
 
-> **The smaller model is also the more accurate one** — the depth limit is [Session 8](session-08-evaluation-tuning.md#6-fixing-each-problem)'s regularisation, doing its job.
+> **The smaller model is also the more accurate one** — the depth limit is regularisation, doing its job.
 >
 > **Git is unhappy above about 50 MB and refuses above 100 MB.** **If your saved model is enormous, that is usually a signal to constrain the model, not to reach for Git LFS.**
 
@@ -1117,7 +1117,7 @@ joblib
 | Where | Good for |
 |---|---|
 | **Streamlit Community Cloud** | **Demos and coursework. Free** |
-| **Hugging Face Spaces** | Free, and the natural home for ML demos — **[Session 12](session-12-opensource-ethics.md)** |
+| **Hugging Face Spaces** | Free, and the natural home for ML demos |
 | Render, Railway | Small production apps |
 | Docker + a cloud VM | Full control, real production |
 
