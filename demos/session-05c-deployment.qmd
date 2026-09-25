@@ -71,10 +71,10 @@ By the end of this session you can:
 
 # Environment setup
 
-**Everything here runs in the course's `genai` environment.**
+**Everything here runs in the course's `demo` environment.**
 
 ```bash
-conda activate genai
+conda activate demo
 ```
 
 **Check that the four things you need are present:**
@@ -1262,7 +1262,7 @@ joblib
 
 ## Setup and the pattern
 
-**Task 1 — Verify your environment.** Activate `genai`, print the versions of scikit-learn, streamlit, pandas and joblib, and run `streamlit hello`. **Report what you saw.**
+**Task 1 — Verify your environment.** Activate `demo`, print the versions of scikit-learn, streamlit, pandas and joblib, and run `streamlit hello`. **Report what you saw.**
 
 **Task 2 — Build App 1 end to end.** Create the folder, write `train.py` and `app.py`, run both. **Take a screenshot of the working app.**
 

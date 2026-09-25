@@ -1,18 +1,3 @@
----
-title: "Part 2 — Hadoop MapReduce"
-subtitle: "Hadoop Setup and Real-Time MapReduce Execution"
-format:
-  html:
-    toc: true
-    toc-depth: 3
-    code-fold: false
-jupyter: python3
-execute:
-  echo: true
-  warning: false
-  error: true
----
-
 # Part 2 — Hadoop MapReduce
 
 ## Learning Objectives
@@ -1298,13 +1283,13 @@ Download the CSV file.
 For example:
 
 ```bash
-wget https://archive.ics.uci.edu/ml/machine-learning-databases/00468/online_shoppers_intention.csv
+wget -P ../datasets/ https://archive.ics.uci.edu/ml/machine-learning-databases/00468/online_shoppers_intention.csv
 ```
 
 Check:
 
 ```bash
-ls -lh online_shoppers_intention.csv
+ls -lh ../datasets/online_shoppers_intention.csv
 ```
 
 ---
@@ -1320,7 +1305,7 @@ hdfs dfs -mkdir -p /user/$USER/shopper_input
 Upload:
 
 ```bash
-hdfs dfs -put online_shoppers_intention.csv /user/$USER/shopper_input/
+hdfs dfs -put ../datasets/online_shoppers_intention.csv /user/$USER/shopper_input/
 ```
 
 Check:
@@ -1414,7 +1399,7 @@ key    value
 Run the mapper locally:
 
 ```bash
-cat online_shoppers_intention.csv | ./visitor_mapper.py | head
+cat ../datasets/online_shoppers_intention.csv | ./visitor_mapper.py | head
 ```
 
 ---
@@ -1862,7 +1847,7 @@ hdfs dfs -mkdir -p /user/$USER/retail_input
 Then:
 
 ```bash
-hdfs dfs -put OnlineRetail.csv /user/$USER/retail_input/
+hdfs dfs -put ../datasets/OnlineRetail.csv /user/$USER/retail_input/
 ```
 
 Run:

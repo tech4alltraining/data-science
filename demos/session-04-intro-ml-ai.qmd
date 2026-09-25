@@ -3363,7 +3363,7 @@ takes an afternoon to diagnose.
   conda create -n projectB python=3.12
 
 Two separate environments, no conflict. It is why this course insists
-your prompt shows (genai) before you install anything.
+your prompt shows (demo) before you install anything.
 ```
 
 **Scenario 3 — the language question, answered honestly**

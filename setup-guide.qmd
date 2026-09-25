@@ -8,8 +8,6 @@ Complete installation instructions for **Windows, Ubuntu/Linux and macOS**, usin
 
 | Related | For |
 |---|---|
-| [Troubleshooting Guide](troubleshooting.md) | When something goes wrong |
-| [Student Handbook](student-handbook.md) | The course itself |
 | [Notebooks](notebooks) | Ready-to-run Colab/Jupyter notebooks |
 | [requirements.txt](requirements.txt) | The package list |
 
@@ -338,7 +336,7 @@ Download the installer from [docs.conda.io/projects/miniconda](https://docs.cond
 
 ### Mac users on Apple Silicon: check this before you go further
 
-> ⚠️ **Choose the right build.** On an M1/M2/M3/M4 Mac take the **Apple Silicon (arm64)** installer, not the Intel one. Check your hardware with `uname -m` — `arm64` means Apple Silicon. A Rosetta (x86_64) conda installs fine and runs almost everything, but caps PyTorch at 2.2.2, which breaks the Module 5 Hugging Face examples. Details in the [Troubleshooting Guide](troubleshooting.md#environment-problems).
+> ⚠️ **Choose the right build.** On an M1/M2/M3/M4 Mac take the **Apple Silicon (arm64)** installer, not the Intel one. Check your hardware with `uname -m` — `arm64` means Apple Silicon. A Rosetta (x86_64) conda installs fine and runs almost everything, but caps PyTorch at 2.2.2, which breaks the Module 5 Hugging Face examples.
 
 Or via Homebrew:
 
