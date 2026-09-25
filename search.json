@@ -104,7 +104,7 @@
     "href": "setup-guide.html",
     "title": "2  Environment Setup Guide",
     "section": "",
-    "text": "2.1 Contents\nML/AI & GenAI Internship Program\nComplete installation instructions for Windows, Ubuntu/Linux and macOS, using either venv or conda.",
+    "text": "2.1 Contents\nML/AI & demo Internship Program\nComplete installation instructions for Windows, Ubuntu/Linux and macOS, using either venv or conda.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Environment Setup Guide</span>"
     ]
@@ -124,7 +124,7 @@
     "href": "setup-guide.html#which-route-should-you-take",
     "title": "2  Environment Setup Guide",
     "section": "3.1 Which route should you take?",
-    "text": "3.1 Which route should you take?\nThere are two standard ways to make an environment. Both work for the entire course. Pick one and stay on it.\n\n\n\n\n\n\n\n\n\nRoute A — venv\nRoute B — conda\n\n\n\n\nComes with\nPython itself — nothing extra to install\nMiniconda (a ~90 MB download)\n\n\nDownload size\nSmall\nLarger\n\n\nBest if\nYou already have Python 3.10+ installed\nYou are on Windows, or want a data-science setup that “just works”\n\n\nManages\nPython packages only\nPython packages and the Python version itself\n\n\nCommand style\npython -m venv genai\nconda create -n genai\n\n\nUsed by\nMost Python developers\nMost data scientists\n\n\n\nNot sure? Use Route B (conda). It handles the numerical libraries more reliably, especially on Windows.\nWhichever route you choose, jump to your operating system below, then continue to Step 3 — that step onwards is identical for everybody.",
+    "text": "3.1 Which route should you take?\nThere are two standard ways to make an environment. Both work for the entire course. Pick one and stay on it.\n\n\n\n\n\n\n\n\n\nRoute A — venv\nRoute B — conda\n\n\n\n\nComes with\nPython itself — nothing extra to install\nMiniconda (a ~90 MB download)\n\n\nDownload size\nSmall\nLarger\n\n\nBest if\nYou already have Python 3.10+ installed\nYou are on Windows, or want a data-science setup that “just works”\n\n\nManages\nPython packages only\nPython packages and the Python version itself\n\n\nCommand style\npython -m venv demo\nconda create -n demo\n\n\nUsed by\nMost Python developers\nMost data scientists\n\n\n\nNot sure? Use Route B (conda). It handles the numerical libraries more reliably, especially on Windows.\nWhichever route you choose, jump to your operating system below, then continue to Step 3 — that step onwards is identical for everybody.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Environment Setup Guide</span>"
     ]
@@ -144,7 +144,7 @@
     "href": "setup-guide.html#windows",
     "title": "2  Environment Setup Guide",
     "section": "4.1 Windows",
-    "text": "4.1 Windows\n\n4.1.1 A1. Install Python\n\nGo to python.org/downloads and download Python 3.12.\nRun the installer.\nOn the first screen, tick “Add python.exe to PATH”. This is the single most important click. If you miss it, every command below will fail with 'python' is not recognized.\nClick Install Now.\nClose PowerShell and open a new one — PATH changes only apply to new terminals.\n\nVerify:\npython --version\n\n\n4.1.2 A2. Create a project folder and the environment\nmkdir C:\\Users\\%USERNAME%\\mlai-genai\ncd C:\\Users\\%USERNAME%\\mlai-genai\npython -m venv genai\nThis creates a genai folder containing your private Python.\n\n\n4.1.3 A3. Activate it\nIn PowerShell:\n.\\genai\\Scripts\\Activate.ps1\nIn Command Prompt (cmd.exe):\ngenai\\Scripts\\activate.bat\nYour prompt should now start with (genai).\n\n⚠️ PowerShell error: “running scripts is disabled on this system”? Windows blocks scripts by default. Run this once, answer Y, then activate again:\nSet-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser\nThis only affects your own user account and is the standard fix.\n\nNow go to Step 3.",
+    "text": "4.1 Windows\n\n4.1.1 A1. Install Python\n\nGo to python.org/downloads and download Python 3.12.\nRun the installer.\nOn the first screen, tick “Add python.exe to PATH”. This is the single most important click. If you miss it, every command below will fail with 'python' is not recognized.\nClick Install Now.\nClose PowerShell and open a new one — PATH changes only apply to new terminals.\n\nVerify:\npython --version\n\n\n4.1.2 A2. Create a project folder and the environment\nmkdir C:\\Users\\%USERNAME%\\mlai-demo\ncd C:\\Users\\%USERNAME%\\mlai-demo\npython -m venv demo\nThis creates a demo folder containing your private Python.\n\n\n4.1.3 A3. Activate it\nIn PowerShell:\n.\\demo\\Scripts\\Activate.ps1\nIn Command Prompt (cmd.exe):\ndemo\\Scripts\\activate.bat\nYour prompt should now start with (demo).\n\n⚠️ PowerShell error: “running scripts is disabled on this system”? Windows blocks scripts by default. Run this once, answer Y, then activate again:\nSet-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser\nThis only affects your own user account and is the standard fix.\n\nNow go to Step 3.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Environment Setup Guide</span>"
     ]
@@ -154,7 +154,7 @@
     "href": "setup-guide.html#ubuntu-linux",
     "title": "2  Environment Setup Guide",
     "section": "4.2 Ubuntu / Linux",
-    "text": "4.2 Ubuntu / Linux\n\n4.2.1 A1. Install Python and the venv module\nUbuntu ships Python but not the venv module — you must install it separately, which catches almost everyone out.\nsudo apt update\nsudo apt install -y python3 python3-pip python3-venv build-essential\nVerify:\npython3 --version\n\n\n4.2.2 A2. Create a project folder and the environment\nmkdir -p ~/mlai-genai && cd ~/mlai-genai\npython3 -m venv genai\n\n\n4.2.3 A3. Activate it\nsource genai/bin/activate\nYour prompt should now start with (genai).\n\n⚠️ Error: Command '...' returned non-zero exit status 1 when creating the venv usually means python3-venv is missing. Run the apt install line above.\n\n\n⚠️ error: externally-managed-environment when you pip install means you are outside the environment and pip is protecting your system Python. Run source genai/bin/activate first. Never use --break-system-packages to get around this.\n\nNow go to Step 3.",
+    "text": "4.2 Ubuntu / Linux\n\n4.2.1 A1. Install Python and the venv module\nUbuntu ships Python but not the venv module — you must install it separately, which catches almost everyone out.\nsudo apt update\nsudo apt install -y python3 python3-pip python3-venv build-essential\nVerify:\npython3 --version\n\n\n4.2.2 A2. Create a project folder and the environment\nmkdir -p ~/mlai-demo && cd ~/mlai-demo\npython3 -m venv demo\n\n\n4.2.3 A3. Activate it\nsource demo/bin/activate\nYour prompt should now start with (demo).\n\n⚠️ Error: Command '...' returned non-zero exit status 1 when creating the venv usually means python3-venv is missing. Run the apt install line above.\n\n\n⚠️ error: externally-managed-environment when you pip install means you are outside the environment and pip is protecting your system Python. Run source demo/bin/activate first. Never use --break-system-packages to get around this.\n\nNow go to Step 3.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Environment Setup Guide</span>"
     ]
@@ -164,7 +164,7 @@
     "href": "setup-guide.html#macos",
     "title": "2  Environment Setup Guide",
     "section": "4.3 macOS",
-    "text": "4.3 macOS\n\n4.3.1 A1. Install Python\nmacOS includes an old Python. Install a current one:\nbrew install python@3.12\nNo Homebrew? Install it first:\n/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"\nOr download the installer from python.org/downloads.\n\n\n4.3.2 A2. Create a project folder and the environment\nmkdir -p ~/mlai-genai && cd ~/mlai-genai\npython3 -m venv genai\n\n\n4.3.3 A3. Activate it\nsource genai/bin/activate\nNow go to Step 3.",
+    "text": "4.3 macOS\n\n4.3.1 A1. Install Python\nmacOS includes an old Python. Install a current one:\nbrew install python@3.12\nNo Homebrew? Install it first:\n/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"\nOr download the installer from python.org/downloads.\n\n\n4.3.2 A2. Create a project folder and the environment\nmkdir -p ~/mlai-demo && cd ~/mlai-demo\npython3 -m venv demo\n\n\n4.3.3 A3. Activate it\nsource demo/bin/activate\nNow go to Step 3.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Environment Setup Guide</span>"
     ]
@@ -174,7 +174,7 @@
     "href": "setup-guide.html#windows-1",
     "title": "2  Environment Setup Guide",
     "section": "5.1 Windows",
-    "text": "5.1 Windows\n\n5.1.1 B1. Install Miniconda\n\nDownload the Windows 64-bit installer from docs.conda.io/projects/miniconda.\nRun it and accept the defaults.\nWhen finished, open Anaconda Prompt from the Start menu — not PowerShell.\n\n\nUse Anaconda Prompt for everything on Windows. conda is not on PowerShell’s PATH by default, and the number one Windows problem in this course is students typing conda commands into the wrong terminal.\n\nVerify:\nconda --version\n\n\n5.1.2 B2. Create the environment\nconda create -n genai python=3.12 -y\n\n\n5.1.3 B3. Activate it\nconda activate genai\nYour prompt should now start with (genai).\nNow go to Step 3.",
+    "text": "5.1 Windows\n\n5.1.1 B1. Install Miniconda\n\nDownload the Windows 64-bit installer from docs.conda.io/projects/miniconda.\nRun it and accept the defaults.\nWhen finished, open Anaconda Prompt from the Start menu — not PowerShell.\n\n\nUse Anaconda Prompt for everything on Windows. conda is not on PowerShell’s PATH by default, and the number one Windows problem in this course is students typing conda commands into the wrong terminal.\n\nVerify:\nconda --version\n\n\n5.1.2 B2. Create the environment\nconda create -n demo python=3.12 -y\n\n\n5.1.3 B3. Activate it\nconda activate demo\nYour prompt should now start with (demo).\nNow go to Step 3.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Environment Setup Guide</span>"
     ]
@@ -184,7 +184,7 @@
     "href": "setup-guide.html#ubuntu-linux-1",
     "title": "2  Environment Setup Guide",
     "section": "5.2 Ubuntu / Linux",
-    "text": "5.2 Ubuntu / Linux\n\n5.2.1 B1. Install Miniconda\nwget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh\nbash ~/miniconda.sh -b -p $HOME/miniconda3\n$HOME/miniconda3/bin/conda init bash\nClose the terminal and open a new one, then verify:\nconda --version\n\nUsing zsh instead of bash? Run $HOME/miniconda3/bin/conda init zsh.\n\n\n\n5.2.2 B2. Create the environment\nconda create -n genai python=3.12 -y\n\n\n5.2.3 B3. Activate it\nconda activate genai\nNow go to Step 3.",
+    "text": "5.2 Ubuntu / Linux\n\n5.2.1 B1. Install Miniconda\nwget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh\nbash ~/miniconda.sh -b -p $HOME/miniconda3\n$HOME/miniconda3/bin/conda init bash\nClose the terminal and open a new one, then verify:\nconda --version\n\nUsing zsh instead of bash? Run $HOME/miniconda3/bin/conda init zsh.\n\n\n\n5.2.2 B2. Create the environment\nconda create -n demo python=3.12 -y\n\n\n5.2.3 B3. Activate it\nconda activate demo\nNow go to Step 3.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Environment Setup Guide</span>"
     ]
@@ -194,7 +194,7 @@
     "href": "setup-guide.html#macos-1",
     "title": "2  Environment Setup Guide",
     "section": "5.3 macOS",
-    "text": "5.3 macOS\n\n5.3.1 B1. Install Miniconda\nDownload the installer from docs.conda.io/projects/miniconda.\n\n\n5.3.2 Mac users on Apple Silicon: check this before you go further\n\n⚠️ Choose the right build. On an M1/M2/M3/M4 Mac take the Apple Silicon (arm64) installer, not the Intel one. Check your hardware with uname -m — arm64 means Apple Silicon. A Rosetta (x86_64) conda installs fine and runs almost everything, but caps PyTorch at 2.2.2, which breaks the Module 5 Hugging Face examples.\n\nOr via Homebrew:\nbrew install --cask miniconda\nconda init zsh\nClose the terminal and open a new one.\n\n\n5.3.3 B2. Create the environment\nconda create -n genai python=3.12 -y\n\n\n5.3.4 B3. Activate it\nconda activate genai",
+    "text": "5.3 macOS\n\n5.3.1 B1. Install Miniconda\nDownload the installer from docs.conda.io/projects/miniconda.\n\n\n5.3.2 Mac users on Apple Silicon: check this before you go further\n\n⚠️ Choose the right build. On an M1/M2/M3/M4 Mac take the Apple Silicon (arm64) installer, not the Intel one. Check your hardware with uname -m — arm64 means Apple Silicon. A Rosetta (x86_64) conda installs fine and runs almost everything, but caps PyTorch at 2.2.2, which breaks the Module 5 Hugging Face examples.\n\nOr via Homebrew:\nbrew install --cask miniconda\nconda init zsh\nClose the terminal and open a new one.\n\n\n5.3.3 B2. Create the environment\nconda create -n demo python=3.12 -y\n\n\n5.3.4 B3. Activate it\nconda activate demo",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Environment Setup Guide</span>"
     ]
@@ -230,11 +230,11 @@
     ]
   },
   {
-    "objectID": "setup-guide.html#install-the-module-45-packages-genai-and-web-apps",
-    "href": "setup-guide.html#install-the-module-45-packages-genai-and-web-apps",
+    "objectID": "setup-guide.html#install-the-module-45-packages-demo-and-web-apps",
+    "href": "setup-guide.html#install-the-module-45-packages-demo-and-web-apps",
     "title": "2  Environment Setup Guide",
-    "section": "6.4 3.4 Install the Module 4–5 packages (GenAI and web apps)",
-    "text": "6.4 3.4 Install the Module 4–5 packages (GenAI and web apps)\npip install google-genai streamlit pillow python-dotenv\n\n\n\nPackage\nWhat it does\nFirst used\n\n\n\n\ngoogle-genai\nCalls the Gemini API\nModule 4\n\n\nstreamlit\nTurns a Python script into a web app\nModule 4\n\n\npillow\nImage handling, for image-input apps\nModule 4\n\n\npython-dotenv\nReads your API key from a .env file\nModule 4",
+    "section": "6.4 3.4 Install the Module 4–5 packages (demo and web apps)",
+    "text": "6.4 3.4 Install the Module 4–5 packages (demo and web apps)\npip install google-demo streamlit pillow python-dotenv\n\n\n\nPackage\nWhat it does\nFirst used\n\n\n\n\ngoogle-demo\nCalls the Gemini API\nModule 4\n\n\nstreamlit\nTurns a Python script into a web app\nModule 4\n\n\npillow\nImage handling, for image-input apps\nModule 4\n\n\npython-dotenv\nReads your API key from a .env file\nModule 4",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Environment Setup Guide</span>"
     ]
@@ -254,7 +254,7 @@
     "href": "setup-guide.html#or-install-everything-at-once",
     "title": "2  Environment Setup Guide",
     "section": "6.6 3.6 Or install everything at once",
-    "text": "6.6 3.6 Or install everything at once\nCreate a file named requirements.txt in your project folder:\nnumpy\npandas\nmatplotlib\nseaborn\nscikit-learn\njoblib\njupyter\nipykernel\nnotebook\ngoogle-genai\nstreamlit\npillow\npython-dotenv\nThen:\npip install -r requirements.txt\nA ready-made copy is in this repository: requirements.txt.",
+    "text": "6.6 3.6 Or install everything at once\nCreate a file named requirements.txt in your project folder:\nnumpy\npandas\nmatplotlib\nseaborn\nscikit-learn\njoblib\njupyter\nipykernel\nnotebook\ngoogle-demo\nstreamlit\npillow\npython-dotenv\nThen:\npip install -r requirements.txt\nA ready-made copy is in this repository: requirements.txt.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Environment Setup Guide</span>"
     ]
@@ -284,7 +284,7 @@
     "href": "setup-guide.html#installing-packages-in-colab",
     "title": "2  Environment Setup Guide",
     "section": "10.2 Installing packages in Colab",
-    "text": "10.2 Installing packages in Colab\n# The ! runs a shell command from inside a notebook cell.\n# -q keeps the output quiet.\n!pip install -q -U google-genai\nColab already includes: numpy, pandas, matplotlib, seaborn, scikit-learn, joblib. You must install: google-genai, and streamlit if you want to inspect app code.\n\n⚠️ Installs do not persist. When the runtime disconnects, Colab resets. Put every !pip install in the first cell so re-running is one click.",
+    "text": "10.2 Installing packages in Colab\n# The ! runs a shell command from inside a notebook cell.\n# -q keeps the output quiet.\n!pip install -q -U google-demo\nColab already includes: numpy, pandas, matplotlib, seaborn, scikit-learn, joblib. You must install: google-demo, and streamlit if you want to inspect app code.\n\n⚠️ Installs do not persist. When the runtime disconnects, Colab resets. Put every !pip install in the first cell so re-running is one click.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Environment Setup Guide</span>"
     ]
@@ -364,7 +364,7 @@
     "href": "setup-guide.html#always-create-a-.gitignore-before-your-first-commit",
     "title": "2  Environment Setup Guide",
     "section": "12.4 Always create a .gitignore — before your first commit",
-    "text": "12.4 Always create a .gitignore — before your first commit\nCreate a file named .gitignore containing:\n# Secrets - never commit these\n.env\n.streamlit/secrets.toml\n\n# Environments\ngenai/\nvenv/\n.venv/\n\n# Python\n__pycache__/\n*.pyc\n\n# Trained models (often too large for Git)\n*.joblib\n*.pkl\n\n# Notebooks\n.ipynb_checkpoints/\n\n# OS\n.DS_Store\nThumbs.db\nCheck it is working:\ngit status\n.env must not appear in the list. If it does, .gitignore is in the wrong folder or misspelled.\n\nIf you ever push a key by accident, revoke it immediately at aistudio.google.com/apikey and create a new one. Deleting the commit is not enough — the key is already in the Git history and in anyone’s clone.",
+    "text": "12.4 Always create a .gitignore — before your first commit\nCreate a file named .gitignore containing:\n# Secrets - never commit these\n.env\n.streamlit/secrets.toml\n\n# Environments\ndemo/\nvenv/\n.venv/\n\n# Python\n__pycache__/\n*.pyc\n\n# Trained models (often too large for Git)\n*.joblib\n*.pkl\n\n# Notebooks\n.ipynb_checkpoints/\n\n# OS\n.DS_Store\nThumbs.db\nCheck it is working:\ngit status\n.env must not appear in the list. If it does, .gitignore is in the wrong folder or misspelled.\n\nIf you ever push a key by accident, revoke it immediately at aistudio.google.com/apikey and create a new one. Deleting the commit is not enough — the key is already in the Git history and in anyone’s clone.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Environment Setup Guide</span>"
     ]
