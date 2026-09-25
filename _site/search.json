@@ -194,7 +194,7 @@
     "href": "setup-guide.html#macos-1",
     "title": "2  Environment Setup Guide",
     "section": "5.3 macOS",
-    "text": "5.3 macOS\n\n5.3.1 B1. Install Miniconda\nDownload the installer from docs.conda.io/projects/miniconda.\n\n\n5.3.2 Mac users on Apple Silicon: check this before you go further\n\n⚠️ Choose the right build. On an M1/M2/M3/M4 Mac take the Apple Silicon (arm64) installer, not the Intel one. Check your hardware with uname -m — arm64 means Apple Silicon. A Rosetta (x86_64) conda installs fine and runs almost everything, but caps PyTorch at 2.2.2, which breaks the Module 5 Hugging Face examples. Details in the Troubleshooting Guide.\n\nOr via Homebrew:\nbrew install --cask miniconda\nconda init zsh\nClose the terminal and open a new one.\n\n\n5.3.3 B2. Create the environment\nconda create -n genai python=3.12 -y\n\n\n5.3.4 B3. Activate it\nconda activate genai",
+    "text": "5.3 macOS\n\n5.3.1 B1. Install Miniconda\nDownload the installer from docs.conda.io/projects/miniconda.\n\n\n5.3.2 Mac users on Apple Silicon: check this before you go further\n\n⚠️ Choose the right build. On an M1/M2/M3/M4 Mac take the Apple Silicon (arm64) installer, not the Intel one. Check your hardware with uname -m — arm64 means Apple Silicon. A Rosetta (x86_64) conda installs fine and runs almost everything, but caps PyTorch at 2.2.2, which breaks the Module 5 Hugging Face examples.\n\nOr via Homebrew:\nbrew install --cask miniconda\nconda init zsh\nClose the terminal and open a new one.\n\n\n5.3.3 B2. Create the environment\nconda create -n genai python=3.12 -y\n\n\n5.3.4 B3. Activate it\nconda activate genai",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Environment Setup Guide</span>"
     ]

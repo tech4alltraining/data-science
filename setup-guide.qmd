@@ -1,6 +1,6 @@
 # Environment Setup Guide
 
-**ML/AI & GenAI Internship Program**
+**ML/AI & demo Internship Program**
 
 Complete installation instructions for **Windows, Ubuntu/Linux and macOS**, using either **`venv`** or **`conda`**.
 
@@ -32,12 +32,12 @@ Complete installation instructions for **Windows, Ubuntu/Linux and macOS**, usin
 
 # What an environment is, and why you need one
 
-**Every command in this course runs inside a Python environment named `genai`.** An environment is a private, isolated copy of Python and its packages, kept in its own folder.
+**Every command in this course runs inside a Python environment named `demo`.** An environment is a private, isolated copy of Python and its packages, kept in its own folder.
 
 > 🧠 **Analogy: separate toolboxes.** Imagine one shared toolbox for every job in the workshop. Someone swaps the 10mm spanner for a slightly different one, and now three other people's jobs break. A Python environment is your own toolbox for this course. Install what you like in it; nothing you do can break the system Python your operating system depends on, and nothing anyone else does can break yours.
 
 
-**Every command in this handbook runs inside a Python environment named `genai`.** An environment is a private, isolated copy of Python and its packages, kept in its own folder.
+**Every command in this handbook runs inside a Python environment named `demo`.** An environment is a private, isolated copy of Python and its packages, kept in its own folder.
 
 > 🧠 **Analogy: separate toolboxes.** Imagine one shared toolbox for every job in the workshop. Someone swaps the 10mm spanner for a slightly different one, and now three other people's jobs break. A Python environment is your own toolbox for this course. Install what you like in it; nothing you do can break the system Python your operating system depends on, and nothing anyone else does can break yours.
 
@@ -51,7 +51,7 @@ There are two standard ways to make an environment. **Both work for the entire c
 | Download size | Small | Larger |
 | Best if | You already have Python 3.10+ installed | You are on Windows, or want a data-science setup that "just works" |
 | Manages | Python packages only | Python packages **and** the Python version itself |
-| Command style | `python -m venv genai` | `conda create -n genai` |
+| Command style | `python -m venv demo` | `conda create -n demo` |
 | Used by | Most Python developers | Most data scientists |
 
 **Not sure? Use Route B (conda).** It handles the numerical libraries more reliably, especially on Windows.
@@ -126,34 +126,34 @@ python --version
 ### A2. Create a project folder and the environment
 
 ```powershell
-mkdir C:\Users\%USERNAME%\mlai-genai
+mkdir C:\Users\%USERNAME%\mlai-demo
 ```
 
 ```powershell
-cd C:\Users\%USERNAME%\mlai-genai
+cd C:\Users\%USERNAME%\mlai-demo
 ```
 
 ```powershell
-python -m venv genai
+python -m venv demo
 ```
 
-This creates a `genai` folder containing your private Python.
+This creates a `demo` folder containing your private Python.
 
 ### A3. Activate it
 
 In **PowerShell**:
 
 ```powershell
-.\genai\Scripts\Activate.ps1
+.\demo\Scripts\Activate.ps1
 ```
 
 In **Command Prompt (cmd.exe)**:
 
 ```bat
-genai\Scripts\activate.bat
+demo\Scripts\activate.bat
 ```
 
-Your prompt should now start with `(genai)`.
+Your prompt should now start with `(demo)`.
 
 > ⚠️ **PowerShell error: "running scripts is disabled on this system"?**
 > Windows blocks scripts by default. Run this once, answer `Y`, then activate again:
@@ -191,24 +191,24 @@ python3 --version
 ### A2. Create a project folder and the environment
 
 ```bash
-mkdir -p ~/mlai-genai && cd ~/mlai-genai
+mkdir -p ~/mlai-demo && cd ~/mlai-demo
 ```
 
 ```bash
-python3 -m venv genai
+python3 -m venv demo
 ```
 
 ### A3. Activate it
 
 ```bash
-source genai/bin/activate
+source demo/bin/activate
 ```
 
-Your prompt should now start with `(genai)`.
+Your prompt should now start with `(demo)`.
 
 > ⚠️ **`Error: Command '...' returned non-zero exit status 1`** when creating the venv usually means `python3-venv` is missing. Run the `apt install` line above.
 
-> ⚠️ **`error: externally-managed-environment`** when you `pip install` means you are **outside** the environment and pip is protecting your system Python. Run `source genai/bin/activate` first. Never use `--break-system-packages` to get around this.
+> ⚠️ **`error: externally-managed-environment`** when you `pip install` means you are **outside** the environment and pip is protecting your system Python. Run `source demo/bin/activate` first. Never use `--break-system-packages` to get around this.
 
 Now go to [Step 3](#step-3-install-the-packages).
 
@@ -235,17 +235,17 @@ Or download the installer from [python.org/downloads](https://www.python.org/dow
 ### A2. Create a project folder and the environment
 
 ```bash
-mkdir -p ~/mlai-genai && cd ~/mlai-genai
+mkdir -p ~/mlai-demo && cd ~/mlai-demo
 ```
 
 ```bash
-python3 -m venv genai
+python3 -m venv demo
 ```
 
 ### A3. Activate it
 
 ```bash
-source genai/bin/activate
+source demo/bin/activate
 ```
 
 Now go to [Step 3](#step-3-install-the-packages).
@@ -273,16 +273,16 @@ conda --version
 ### B2. Create the environment
 
 ```bat
-conda create -n genai python=3.12 -y
+conda create -n demo python=3.12 -y
 ```
 
 ### B3. Activate it
 
 ```bat
-conda activate genai
+conda activate demo
 ```
 
-Your prompt should now start with `(genai)`.
+Your prompt should now start with `(demo)`.
 
 Now go to [Step 3](#step-3-install-the-packages).
 
@@ -315,13 +315,13 @@ conda --version
 ### B2. Create the environment
 
 ```bash
-conda create -n genai python=3.12 -y
+conda create -n demo python=3.12 -y
 ```
 
 ### B3. Activate it
 
 ```bash
-conda activate genai
+conda activate demo
 ```
 
 Now go to [Step 3](#step-3-install-the-packages).
@@ -353,13 +353,13 @@ Close the terminal and open a new one.
 ### B2. Create the environment
 
 ```bash
-conda create -n genai python=3.12 -y
+conda create -n demo python=3.12 -y
 ```
 
 ### B3. Activate it
 
 ```bash
-conda activate genai
+conda activate demo
 ```
 
 ---
@@ -368,15 +368,15 @@ conda activate genai
 
 **From here on, every instruction is identical on Windows, Ubuntu and macOS, and identical for venv and conda.**
 
-> ⚠️ **Before you type anything: does your prompt show `(genai)`?**
+> ⚠️ **Before you type anything: does your prompt show `(demo)`?**
 >
 > ```text
-> (genai) C:\Users\you\mlai-genai>     ← Windows, correct
-> (genai) you@ubuntu:~/mlai-genai$     ← Ubuntu, correct
-> you@ubuntu:~/mlai-genai$             ← WRONG - activate first
+> (demo) C:\Users\you\mlai-demo>     ← Windows, correct
+> (demo) you@ubuntu:~/mlai-demo$     ← Ubuntu, correct
+> you@ubuntu:~/mlai-demo$             ← WRONG - activate first
 > ```
 >
-> If `(genai)` is missing, the packages install somewhere else and nothing will work. This is the most common problem in the whole course.
+> If `(demo)` is missing, the packages install somewhere else and nothing will work. This is the most common problem in the whole course.
 
 ## 3.1 Upgrade pip
 
@@ -405,15 +405,15 @@ pip install numpy pandas matplotlib seaborn scikit-learn joblib
 pip install jupyter ipykernel notebook
 ```
 
-## 3.4 Install the Module 4–5 packages (GenAI and web apps)
+## 3.4 Install the Module 4–5 packages (demo and web apps)
 
 ```bash
-pip install google-genai streamlit pillow python-dotenv
+pip install google-demo streamlit pillow python-dotenv
 ```
 
 | Package | What it does | First used |
 |---|---|---|
-| `google-genai` | Calls the Gemini API | Module 4 |
+| `google-demo` | Calls the Gemini API | Module 4 |
 | `streamlit` | Turns a Python script into a web app | Module 4 |
 | `pillow` | Image handling, for image-input apps | Module 4 |
 | `python-dotenv` | Reads your API key from a `.env` file | Module 4 |
@@ -450,7 +450,7 @@ joblib
 jupyter
 ipykernel
 notebook
-google-genai
+google-demo
 streamlit
 pillow
 python-dotenv
@@ -518,11 +518,11 @@ for name, purpose in packages:
         missing.append(name)
 
 try:
-    from google import genai
-    print(f"OK    {'google-genai':<12} {'installed':<10} Module 4 - Gemini API")
+    from google import demo
+    print(f"OK    {'google-demo':<12} {'installed':<10} Module 4 - Gemini API")
 except ImportError:
-    print(f"FAIL  {'google-genai':<12} {'-':<10} Module 4 - Gemini API")
-    missing.append("google-genai")
+    print(f"FAIL  {'google-demo':<12} {'-':<10} Module 4 - Gemini API")
+    missing.append("google-demo")
 
 print("-" * 55)
 if missing:
@@ -543,7 +543,7 @@ Expected output (version numbers will differ):
 ```text
 Python  : 3.12.11
 Platform: Linux x86_64
-Running : /home/you/mlai-genai/genai/bin/python
+Running : /home/you/mlai-demo/demo/bin/python
 -------------------------------------------------------
 OK    numpy        2.4.0      Module 1 - arrays
 OK    pandas       2.3.3      Module 1 - dataframes
@@ -554,21 +554,21 @@ OK    joblib       1.5.3      Module 5 - saving models
 OK    streamlit    1.59.2     Module 4 - web apps
 OK    PIL          12.0.0     Module 4 - images
 OK    dotenv       installed  Module 4 - API keys
-OK    google-genai installed  Module 4 - Gemini API
+OK    google-demo installed  Module 4 - Gemini API
 -------------------------------------------------------
 All set. You are ready for Module 1.
 ```
 
-**Look at the `Running :` line.** The path must contain `genai`. If it does not, you are running the wrong Python — your environment is not active.
+**Look at the `Running :` line.** The path must contain `demo`. If it does not, you are running the wrong Python — your environment is not active.
 
 ---
 
 # Step 5: Register the environment with Jupyter
 
-So `genai` appears as a kernel in Jupyter and in VS Code notebooks:
+So `demo` appears as a kernel in Jupyter and in VS Code notebooks:
 
 ```bash
-python -m ipykernel install --user --name genai --display-name "Python (genai)"
+python -m ipykernel install --user --name demo --display-name "Python (demo)"
 ```
 
 Start Jupyter:
@@ -577,7 +577,7 @@ Start Jupyter:
 jupyter notebook
 ```
 
-Inside a notebook choose **Kernel → Change kernel → Python (genai)**.
+Inside a notebook choose **Kernel → Change kernel → Python (demo)**.
 
 > **A notebook that cannot find pandas** is nearly always a notebook running on the wrong kernel. Check the kernel name in the top-right corner before you debug anything else.
 
@@ -613,7 +613,7 @@ If `code` is not recognised, open VS Code manually and use **File → Open Folde
 
 1. Press `Ctrl+Shift+P` (`Cmd+Shift+P` on macOS).
 2. Type **Python: Select Interpreter**.
-3. Choose the one whose path contains **`genai`**.
+3. Choose the one whose path contains **`demo`**.
 
 The bottom-right of the VS Code window should now show your environment name. Every terminal you open inside VS Code will activate it automatically.
 
@@ -637,11 +637,11 @@ Every demo in this course is a ready-to-run notebook in [`notebooks/`](notebooks
 ```python
 # The ! runs a shell command from inside a notebook cell.
 # -q keeps the output quiet.
-!pip install -q -U google-genai
+!pip install -q -U google-demo
 ```
 
 Colab already includes: `numpy`, `pandas`, `matplotlib`, `seaborn`, `scikit-learn`, `joblib`.
-You must install: `google-genai`, and `streamlit` if you want to inspect app code.
+You must install: `google-demo`, and `streamlit` if you want to inspect app code.
 
 > ⚠️ **Installs do not persist.** When the runtime disconnects, Colab resets. Put every `!pip install` in the **first cell** so re-running is one click.
 
@@ -724,14 +724,14 @@ You will type these many times. Learn them now.
 
 | Task | venv | conda |
 |---|---|---|
-| **Activate** (Windows) | `.\genai\Scripts\Activate.ps1` | `conda activate genai` |
-| **Activate** (Ubuntu/macOS) | `source genai/bin/activate` | `conda activate genai` |
+| **Activate** (Windows) | `.\demo\Scripts\Activate.ps1` | `conda activate demo` |
+| **Activate** (Ubuntu/macOS) | `source demo/bin/activate` | `conda activate demo` |
 | **Deactivate** | `deactivate` | `conda deactivate` |
 | **List environments** | *(look for the folders)* | `conda env list` |
 | **What is installed** | `pip list` | `pip list` |
 | **Add a package** | `pip install <name>` | `pip install <name>` |
 | **Remove a package** | `pip uninstall <name>` | `pip uninstall <name>` |
-| **Delete and start over** | delete the `genai` folder | `conda env remove -n genai` |
+| **Delete and start over** | delete the `demo` folder | `conda env remove -n demo` |
 
 And these, regardless of route:
 
@@ -819,7 +819,7 @@ Create a file named **`.gitignore`** containing:
 .streamlit/secrets.toml
 
 # Environments
-genai/
+demo/
 venv/
 .venv/
 
@@ -857,15 +857,15 @@ Tick every box before Module 1:
 
 - Python 3.10+ or Miniconda installed
 - Project folder created
-- `genai` environment created
-- Environment activates, and the prompt shows `(genai)`
+- `demo` environment created
+- Environment activates, and the prompt shows `(demo)`
 - Module 1–3 packages installed
 - Notebook tools installed
 - Module 4–5 packages installed
 - `python check_setup.py` prints **All set**
 - Jupyter kernel registered
 - VS Code installed with the Python extension
-- VS Code interpreter set to `genai`
+- VS Code interpreter set to `demo`
 - Gemini API key created
 - `.env` file created with the key
 - `.gitignore` created, and `git status` does not show `.env`
