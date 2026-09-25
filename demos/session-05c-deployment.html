@@ -676,8 +676,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="environment-setup" class="level1" data-number="12">
 <h1 data-number="12"><span class="header-section-number">12</span> Environment setup</h1>
-<p><strong>Everything here runs in the course’s <code>genai</code> environment.</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate genai</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Everything here runs in the course’s <code>demo</code> environment.</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate demo</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Check that the four things you need are present:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-c</span> <span class="st">"import sklearn, joblib, streamlit, pandas; print('sklearn', sklearn.__version__); print('streamlit', streamlit.__version__)"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Expected output (versions may differ slightly):</strong></p>
@@ -2173,7 +2173,7 @@ Answers
 <h1 data-number="32"><span class="header-section-number">32</span> 🎯 Session 5C — Tasks</h1>
 <section id="setup-and-the-pattern" class="level2" data-number="32.1">
 <h2 data-number="32.1" class="anchored" data-anchor-id="setup-and-the-pattern"><span class="header-section-number">32.1</span> Setup and the pattern</h2>
-<p><strong>Task 1 — Verify your environment.</strong> Activate <code>genai</code>, print the versions of scikit-learn, streamlit, pandas and joblib, and run <code>streamlit hello</code>. <strong>Report what you saw.</strong></p>
+<p><strong>Task 1 — Verify your environment.</strong> Activate <code>demo</code>, print the versions of scikit-learn, streamlit, pandas and joblib, and run <code>streamlit hello</code>. <strong>Report what you saw.</strong></p>
 <p><strong>Task 2 — Build App 1 end to end.</strong> Create the folder, write <code>train.py</code> and <code>app.py</code>, run both. <strong>Take a screenshot of the working app.</strong></p>
 <p><strong>Task 3 — Break it deliberately.</strong> Save <em>only</em> the <code>RandomForestClassifier</code> instead of the pipeline, and load that in the app. <strong>Report what happens to the predictions</strong>, and explain why nothing errored.</p>
 <p><strong>Task 4 — Prove the cache matters.</strong> Remove <code>@st.cache_resource</code>, add a <code>print()</code> inside <code>load_model()</code>, and move a slider ten times. <strong>Count the printed lines.</strong> Put the decorator back and repeat.</p>

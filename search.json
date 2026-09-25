@@ -5115,7 +5115,7 @@
     "href": "demos/session-04-intro-ml-ai.html#scenarios-14",
     "title": "6  Session 4 — Introduction to Artificial Intelligence & Machine Learning",
     "section": "27.4 🌍 Scenarios",
-    "text": "27.4 🌍 Scenarios\nScenario 1 — a realistic project’s tool list\nSQL          pull last year's orders from the warehouse\nPandas       clean and join\nSeaborn      explore and plot\nscikit-learn train and evaluate\njoblib       save the model\nStreamlit    a page the sales team can actually use\nGit          version it all, and show it to an employer\nScenario 2 — why environments matter\nProject A needs scikit-learn 1.0. Project B needs 1.9.\n\nInstall both globally and one of them breaks, silently, in a way that\ntakes an afternoon to diagnose.\n\n  conda create -n projectA python=3.12\n  conda create -n projectB python=3.12\n\nTwo separate environments, no conflict. It is why this course insists\nyour prompt shows (genai) before you install anything.\nScenario 3 — the language question, answered honestly\n\"Should I learn R as well?\"\n\nIf you are doing academic statistics, R is excellent and you will meet\nit. For everything else - industry ML, deep learning, deployment,\nGenAI - Python is where the ecosystem is.\n\nLEARN PYTHON PROPERLY FIRST. Add SQL second, because that is where\nyour data actually lives. Everything else is optional.",
+    "text": "27.4 🌍 Scenarios\nScenario 1 — a realistic project’s tool list\nSQL          pull last year's orders from the warehouse\nPandas       clean and join\nSeaborn      explore and plot\nscikit-learn train and evaluate\njoblib       save the model\nStreamlit    a page the sales team can actually use\nGit          version it all, and show it to an employer\nScenario 2 — why environments matter\nProject A needs scikit-learn 1.0. Project B needs 1.9.\n\nInstall both globally and one of them breaks, silently, in a way that\ntakes an afternoon to diagnose.\n\n  conda create -n projectA python=3.12\n  conda create -n projectB python=3.12\n\nTwo separate environments, no conflict. It is why this course insists\nyour prompt shows (demo) before you install anything.\nScenario 3 — the language question, answered honestly\n\"Should I learn R as well?\"\n\nIf you are doing academic statistics, R is excellent and you will meet\nit. For everything else - industry ML, deep learning, deployment,\nGenAI - Python is where the ecosystem is.\n\nLEARN PYTHON PROPERLY FIRST. Add SQL second, because that is where\nyour data actually lives. Everything else is optional.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Session 4 — Introduction to Artificial Intelligence & Machine Learning</span>"
@@ -6831,7 +6831,7 @@
     "href": "demos/session-05c-deployment.html#setup-and-the-pattern",
     "title": "9  Session 5C — Model Deployment & Streamlit",
     "section": "32.1 Setup and the pattern",
-    "text": "32.1 Setup and the pattern\nTask 1 — Verify your environment. Activate genai, print the versions of scikit-learn, streamlit, pandas and joblib, and run streamlit hello. Report what you saw.\nTask 2 — Build App 1 end to end. Create the folder, write train.py and app.py, run both. Take a screenshot of the working app.\nTask 3 — Break it deliberately. Save only the RandomForestClassifier instead of the pipeline, and load that in the app. Report what happens to the predictions, and explain why nothing errored.\nTask 4 — Prove the cache matters. Remove @st.cache_resource, add a print() inside load_model(), and move a slider ten times. Count the printed lines. Put the decorator back and repeat.\nTask 5 — Share it. Start the app and open the Network URL on your phone. Report whether it worked and what you had to do.",
+    "text": "32.1 Setup and the pattern\nTask 1 — Verify your environment. Activate demo, print the versions of scikit-learn, streamlit, pandas and joblib, and run streamlit hello. Report what you saw.\nTask 2 — Build App 1 end to end. Create the folder, write train.py and app.py, run both. Take a screenshot of the working app.\nTask 3 — Break it deliberately. Save only the RandomForestClassifier instead of the pipeline, and load that in the app. Report what happens to the predictions, and explain why nothing errored.\nTask 4 — Prove the cache matters. Remove @st.cache_resource, add a print() inside load_model(), and move a slider ten times. Count the printed lines. Put the decorator back and repeat.\nTask 5 — Share it. Start the app and open the Network URL on your phone. Report whether it worked and what you had to do.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Session 5C — Model Deployment & Streamlit</span>"
@@ -6886,7 +6886,7 @@
     "href": "demos/session-06-big-data-part1.html",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
     "section": "",
-    "text": "11 Part 1 — Python MapReduce Without Hadoop",
+    "text": "10.1 Learning Objectives\nIn this practical, you will learn the MapReduce programming model by implementing it entirely in Python.\nBy the end of this practical, you will be able to:",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -6896,8 +6896,8 @@
     "objectID": "demos/session-06-big-data-part1.html#learning-objectives",
     "href": "demos/session-06-big-data-part1.html#learning-objectives",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "11.1 Learning Objectives",
-    "text": "11.1 Learning Objectives\nIn this practical, you will learn the MapReduce programming model by implementing it entirely in Python.\nBy the end of this practical, you will be able to:\n\nunderstand the MapReduce programming model;\nimplement a Mapper;\nimplement a Shuffle operation;\nimplement a Reducer;\nprocess text data using MapReduce;\nprocess CSV data using MapReduce;\nperform counting, summation, averaging, and ranking;\ncompare MapReduce with Pandas;\nprocess progressively larger datasets;\nunderstand why distributed frameworks such as Hadoop are useful.\n\n\nImportant: Hadoop is not used in Part 1. You will first understand the MapReduce programming model using Python alone.",
+    "section": "",
+    "text": "understand the MapReduce programming model;\nimplement a Mapper;\nimplement a Shuffle operation;\nimplement a Reducer;\nprocess text data using MapReduce;\nprocess CSV data using MapReduce;\nperform counting, summation, averaging, and ranking;\ncompare MapReduce with Pandas;\nprocess progressively larger datasets;\nunderstand why distributed frameworks such as Hadoop are useful.\n\n\nImportant: Hadoop is not used in Part 1. You will first understand the MapReduce programming model using Python alone.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -6907,8 +6907,8 @@
     "objectID": "demos/session-06-big-data-part1.html#activate-the-conda-environment",
     "href": "demos/session-06-big-data-part1.html#activate-the-conda-environment",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "12.1 1.1 Activate the Conda Environment",
-    "text": "12.1 1.1 Activate the Conda Environment\nBefore starting this practical, activate the demo Conda environment.\nRun the following command in your terminal:\nconda activate demo\nIf the environment does not exist yet, create it using:\nconda create -n demo python=3.11 -y\nconda activate demo",
+    "section": "11.1 Activate the Conda Environment",
+    "text": "11.1 Activate the Conda Environment\nBefore starting this practical, activate the demo Conda environment.\nRun the following command in your terminal:\nconda activate demo\nIf the environment does not exist yet, create it using:\nconda create -n demo python=3.11 -y\nconda activate demo",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -6918,8 +6918,8 @@
     "objectID": "demos/session-06-big-data-part1.html#install-required-python-packages",
     "href": "demos/session-06-big-data-part1.html#install-required-python-packages",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "12.2 1.2 Install Required Python Packages",
-    "text": "12.2 1.2 Install Required Python Packages\nRun the following command in your terminal:\npip install pandas numpy matplotlib seaborn requests openpyxl\nThe main packages used in this practical are:\n\n\n\nPackage\nPurpose\n\n\n\n\npandas\nDataset loading and comparison\n\n\nnumpy\nNumerical operations\n\n\nmatplotlib\nVisualization\n\n\nseaborn\nVisualization\n\n\nrequests\nDownloading datasets\n\n\nopenpyxl\nReading Excel datasets\n\n\n\nThe first demonstration uses only Python’s standard library.",
+    "section": "11.2 Install Required Python Packages",
+    "text": "11.2 Install Required Python Packages\nRun the following command in your terminal:\npip install pandas numpy matplotlib seaborn requests openpyxl\nThe main packages used in this practical are:\n\n\n\nPackage\nPurpose\n\n\n\n\npandas\nDataset loading and comparison\n\n\nnumpy\nNumerical operations\n\n\nmatplotlib\nVisualization\n\n\nseaborn\nVisualization\n\n\nrequests\nDownloading datasets\n\n\nopenpyxl\nReading Excel datasets\n\n\n\nThe first demonstration uses only Python’s standard library.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -6929,8 +6929,8 @@
     "objectID": "demos/session-06-big-data-part1.html#verify-the-environment",
     "href": "demos/session-06-big-data-part1.html#verify-the-environment",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "12.3 1.3 Verify the Environment",
-    "text": "12.3 1.3 Verify the Environment\nRun the following Python cell.\n\nimport sys\nimport pandas as pd\nimport numpy as np\nimport matplotlib\nimport seaborn as sns\n\nprint(\"Python version:\", sys.version)\nprint(\"Pandas version:\", pd.__version__)\nprint(\"NumPy version:\", np.__version__)\nprint(\"Matplotlib version:\", matplotlib.__version__)\nprint(\"Seaborn version:\", sns.__version__)\n\nprint(\"\\nEnvironment is ready!\")\n\nPython version: 3.11.13 (main, Jun  5 2025, 08:14:07) [Clang 14.0.6 ]\nPandas version: 3.0.5\nNumPy version: 2.4.6\nMatplotlib version: 3.11.1\nSeaborn version: 0.13.2\n\nEnvironment is ready!",
+    "section": "11.3 Verify the Environment",
+    "text": "11.3 Verify the Environment\nRun the following Python cell.\n\nimport sys\nimport pandas as pd\nimport numpy as np\nimport matplotlib\nimport seaborn as sns\n\nprint(\"Python version:\", sys.version)\nprint(\"Pandas version:\", pd.__version__)\nprint(\"NumPy version:\", np.__version__)\nprint(\"Matplotlib version:\", matplotlib.__version__)\nprint(\"Seaborn version:\", sns.__version__)\n\nprint(\"\\nEnvironment is ready!\")\n\nPython version: 3.11.13 (main, Jun  5 2025, 08:14:07) [Clang 14.0.6 ]\nPandas version: 3.0.5\nNumPy version: 2.4.6\nMatplotlib version: 3.11.1\nSeaborn version: 0.13.2\n\nEnvironment is ready!",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -6940,8 +6940,8 @@
     "objectID": "demos/session-06-big-data-part1.html#objective",
     "href": "demos/session-06-big-data-part1.html#objective",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "14.1 Objective",
-    "text": "14.1 Objective\nYou will implement your first complete MapReduce program.\nThe problem is:\n\nCount how many times each word occurs in a text dataset.\n\nYou will implement:\nMapper\n   ↓\nShuffle\n   ↓\nReducer",
+    "section": "13.1 Objective",
+    "text": "13.1 Objective\nYou will implement your first complete MapReduce program.\nThe problem is:\n\nCount how many times each word occurs in a text dataset.\n\nYou will implement:\nMapper\n   ↓\nShuffle\n   ↓\nReducer",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -6951,8 +6951,8 @@
     "objectID": "demos/session-06-big-data-part1.html#create-a-small-dataset",
     "href": "demos/session-06-big-data-part1.html#create-a-small-dataset",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "14.2 3.1 Create a Small Dataset",
-    "text": "14.2 3.1 Create a Small Dataset\nRun the following cell.\n\ntext = \"\"\"\nPython is simple\nPython is powerful\nHadoop processes big data\nPython processes data\nHadoop and Python work together\n\"\"\"\n\nprint(text)\n\n\nPython is simple\nPython is powerful\nHadoop processes big data\nPython processes data\nHadoop and Python work together",
+    "section": "13.2 Create a Small Dataset",
+    "text": "13.2 Create a Small Dataset\nRun the following cell.\n\ntext = \"\"\"\nPython is simple\nPython is powerful\nHadoop processes big data\nPython processes data\nHadoop and Python work together\n\"\"\"\n\nprint(text)\n\n\nPython is simple\nPython is powerful\nHadoop processes big data\nPython processes data\nHadoop and Python work together",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -6962,8 +6962,8 @@
     "objectID": "demos/session-06-big-data-part1.html#save-the-dataset",
     "href": "demos/session-06-big-data-part1.html#save-the-dataset",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "14.3 3.2 Save the Dataset",
-    "text": "14.3 3.2 Save the Dataset\nRun:\n\nwith open(\"word_count_input.txt\", \"w\") as file:\n    file.write(text)\n\nprint(\"Dataset saved as word_count_input.txt\")\n\nDataset saved as word_count_input.txt",
+    "section": "13.3 Save the Dataset",
+    "text": "13.3 Save the Dataset\nRun:\n\nwith open(\"word_count_input.txt\", \"w\") as file:\n    file.write(text)\n\nprint(\"Dataset saved as word_count_input.txt\")\n\nDataset saved as word_count_input.txt",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -6973,8 +6973,8 @@
     "objectID": "demos/session-06-big-data-part1.html#read-the-dataset",
     "href": "demos/session-06-big-data-part1.html#read-the-dataset",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "14.4 3.3 Read the Dataset",
-    "text": "14.4 3.3 Read the Dataset\nRun:\n\nwith open(\"word_count_input.txt\", \"r\") as file:\n    lines = file.readlines()\n\nprint(\"Number of lines:\", len(lines))\n\nfor line in lines:\n    print(repr(line))\n\nNumber of lines: 6\n'\\n'\n'Python is simple\\n'\n'Python is powerful\\n'\n'Hadoop processes big data\\n'\n'Python processes data\\n'\n'Hadoop and Python work together\\n'",
+    "section": "13.4 Read the Dataset",
+    "text": "13.4 Read the Dataset\nRun:\n\nwith open(\"word_count_input.txt\", \"r\") as file:\n    lines = file.readlines()\n\nprint(\"Number of lines:\", len(lines))\n\nfor line in lines:\n    print(repr(line))\n\nNumber of lines: 6\n'\\n'\n'Python is simple\\n'\n'Python is powerful\\n'\n'Hadoop processes big data\\n'\n'Python processes data\\n'\n'Hadoop and Python work together\\n'",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -6984,8 +6984,8 @@
     "objectID": "demos/session-06-big-data-part1.html#run-the-mapper",
     "href": "demos/session-06-big-data-part1.html#run-the-mapper",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "15.1 4.1 Run the Mapper",
-    "text": "15.1 4.1 Run the Mapper\n\nmapped_data = word_count_mapper(lines)\n\nprint(\"Mapper output:\\n\")\n\nfor key, value in mapped_data:\n    print(key, \"-&gt;\", value)\n\nMapper output:\n\npython -&gt; 1\nis -&gt; 1\nsimple -&gt; 1\npython -&gt; 1\nis -&gt; 1\npowerful -&gt; 1\nhadoop -&gt; 1\nprocesses -&gt; 1\nbig -&gt; 1\ndata -&gt; 1\npython -&gt; 1\nprocesses -&gt; 1\ndata -&gt; 1\nhadoop -&gt; 1\nand -&gt; 1\npython -&gt; 1\nwork -&gt; 1\ntogether -&gt; 1\n\n\n\n15.1.1 Observe\nYou should see output similar to:\npython -&gt; 1\nis -&gt; 1\nsimple -&gt; 1\npython -&gt; 1\nis -&gt; 1\npowerful -&gt; 1\n...\nThe Mapper does not calculate the final count.\nIt only produces key-value pairs.",
+    "section": "14.1 Run the Mapper",
+    "text": "14.1 Run the Mapper\n\nmapped_data = word_count_mapper(lines)\n\nprint(\"Mapper output:\\n\")\n\nfor key, value in mapped_data:\n    print(key, \"-&gt;\", value)\n\nMapper output:\n\npython -&gt; 1\nis -&gt; 1\nsimple -&gt; 1\npython -&gt; 1\nis -&gt; 1\npowerful -&gt; 1\nhadoop -&gt; 1\nprocesses -&gt; 1\nbig -&gt; 1\ndata -&gt; 1\npython -&gt; 1\nprocesses -&gt; 1\ndata -&gt; 1\nhadoop -&gt; 1\nand -&gt; 1\npython -&gt; 1\nwork -&gt; 1\ntogether -&gt; 1\n\n\n\n14.1.1 Observe\nYou should see output similar to:\npython -&gt; 1\nis -&gt; 1\nsimple -&gt; 1\npython -&gt; 1\nis -&gt; 1\npowerful -&gt; 1\n...\nThe Mapper does not calculate the final count.\nIt only produces key-value pairs.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -6995,8 +6995,8 @@
     "objectID": "demos/session-06-big-data-part1.html#run-the-shuffle",
     "href": "demos/session-06-big-data-part1.html#run-the-shuffle",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "16.1 5.1 Run the Shuffle",
-    "text": "16.1 5.1 Run the Shuffle\n\ngrouped_data = shuffle(mapped_data)\n\nprint(\"Shuffle output:\\n\")\n\nfor key, values in grouped_data.items():\n    print(key, \"-&gt;\", values)\n\nShuffle output:\n\npython -&gt; [1, 1, 1, 1]\nis -&gt; [1, 1]\nsimple -&gt; [1]\npowerful -&gt; [1]\nhadoop -&gt; [1, 1]\nprocesses -&gt; [1, 1]\nbig -&gt; [1]\ndata -&gt; [1, 1]\nand -&gt; [1]\nwork -&gt; [1]\ntogether -&gt; [1]",
+    "section": "15.1 Run the Shuffle",
+    "text": "15.1 Run the Shuffle\n\ngrouped_data = shuffle(mapped_data)\n\nprint(\"Shuffle output:\\n\")\n\nfor key, values in grouped_data.items():\n    print(key, \"-&gt;\", values)\n\nShuffle output:\n\npython -&gt; [1, 1, 1, 1]\nis -&gt; [1, 1]\nsimple -&gt; [1]\npowerful -&gt; [1]\nhadoop -&gt; [1, 1]\nprocesses -&gt; [1, 1]\nbig -&gt; [1]\ndata -&gt; [1, 1]\nand -&gt; [1]\nwork -&gt; [1]\ntogether -&gt; [1]",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7006,8 +7006,8 @@
     "objectID": "demos/session-06-big-data-part1.html#run-the-reducer",
     "href": "demos/session-06-big-data-part1.html#run-the-reducer",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "17.1 6.1 Run the Reducer",
-    "text": "17.1 6.1 Run the Reducer\n\nword_count_result = word_count_reducer(grouped_data)\n\nprint(\"Reducer output:\\n\")\n\nfor key, value in word_count_result.items():\n    print(key, \"-&gt;\", value)\n\nReducer output:\n\npython -&gt; 4\nis -&gt; 2\nsimple -&gt; 1\npowerful -&gt; 1\nhadoop -&gt; 2\nprocesses -&gt; 2\nbig -&gt; 1\ndata -&gt; 2\nand -&gt; 1\nwork -&gt; 1\ntogether -&gt; 1",
+    "section": "16.1 Run the Reducer",
+    "text": "16.1 Run the Reducer\n\nword_count_result = word_count_reducer(grouped_data)\n\nprint(\"Reducer output:\\n\")\n\nfor key, value in word_count_result.items():\n    print(key, \"-&gt;\", value)\n\nReducer output:\n\npython -&gt; 4\nis -&gt; 2\nsimple -&gt; 1\npowerful -&gt; 1\nhadoop -&gt; 2\nprocesses -&gt; 2\nbig -&gt; 1\ndata -&gt; 2\nand -&gt; 1\nwork -&gt; 1\ntogether -&gt; 1",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7017,8 +7017,8 @@
     "objectID": "demos/session-06-big-data-part1.html#execute-the-complete-pipeline",
     "href": "demos/session-06-big-data-part1.html#execute-the-complete-pipeline",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "19.1 8.1 Execute the Complete Pipeline",
-    "text": "19.1 8.1 Execute the Complete Pipeline\n\nresult = map_reduce(\n    lines,\n    word_count_mapper,\n    word_count_reducer\n)\n\nfor key, value in sorted(\n    result.items(),\n    key=lambda item: item[1],\n    reverse=True\n):\n    print(f\"{key:15} {value}\")\n\npython          4\nis              2\nhadoop          2\nprocesses       2\ndata            2\nsimple          1\npowerful        1\nbig             1\nand             1\nwork            1\ntogether        1",
+    "section": "18.1 Execute the Complete Pipeline",
+    "text": "18.1 Execute the Complete Pipeline\n\nresult = map_reduce(\n    lines,\n    word_count_mapper,\n    word_count_reducer\n)\n\nfor key, value in sorted(\n    result.items(),\n    key=lambda item: item[1],\n    reverse=True\n):\n    print(f\"{key:15} {value}\")\n\npython          4\nis              2\nhadoop          2\nprocesses       2\ndata            2\nsimple          1\npowerful        1\nbig             1\nand             1\nwork            1\ntogether        1",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7028,8 +7028,8 @@
     "objectID": "demos/session-06-big-data-part1.html#objective-1",
     "href": "demos/session-06-big-data-part1.html#objective-1",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "22.1 Objective",
-    "text": "22.1 Objective\nYou will now move from a manually created text dataset to a real dataset downloaded from the Internet.\nWe will use the Online Shoppers Purchasing Intention dataset from the UCI Machine Learning Repository.\nThe dataset contains online shopping sessions and includes information such as visitor type, browsing activity, and whether a purchase was made.",
+    "section": "21.1 Objective",
+    "text": "21.1 Objective\nYou will now move from a manually created text dataset to a real dataset downloaded from the Internet.\nWe will use the Online Shoppers Purchasing Intention dataset from the UCI Machine Learning Repository.\nThe dataset contains online shopping sessions and includes information such as visitor type, browsing activity, and whether a purchase was made.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7039,8 +7039,8 @@
     "objectID": "demos/session-06-big-data-part1.html#download-the-dataset",
     "href": "demos/session-06-big-data-part1.html#download-the-dataset",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "22.2 11.1 Download the Dataset",
-    "text": "22.2 11.1 Download the Dataset\nRun:\n\nimport requests\nfrom pathlib import Path\n\nurl = (\n    \"https://archive.ics.uci.edu/\"\n    \"ml/machine-learning-databases/\"\n    \"00468/online_shoppers_intention.csv\"\n)\n\nfilename = Path(\"online_shoppers_intention.csv\")\n\nif not filename.exists():\n\n    response = requests.get(url)\n    response.raise_for_status()\n\n    filename.write_bytes(response.content)\n\n    print(\"Dataset downloaded successfully.\")\n\nelse:\n\n    print(\"Dataset already exists.\")\n\nDataset already exists.",
+    "section": "21.2 Download the Dataset",
+    "text": "21.2 Download the Dataset\nRun:\n\nimport requests\nfrom pathlib import Path\nimport os\n\nurl = (\n    \"https://archive.ics.uci.edu/\"\n    \"ml/machine-learning-databases/\"\n    \"00468/online_shoppers_intention.csv\"\n)\n\nos.makedirs(\"../datasets\", exist_ok=True)\nfilename = Path(\"../datasets/online_shoppers_intention.csv\")\n\nif not filename.exists():\n\n    response = requests.get(url)\n    response.raise_for_status()\n\n    filename.write_bytes(response.content)\n\n    print(\"Dataset downloaded successfully.\")\n\nelse:\n\n    print(\"Dataset already exists.\")\n\nDataset already exists.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7050,8 +7050,8 @@
     "objectID": "demos/session-06-big-data-part1.html#load-the-dataset",
     "href": "demos/session-06-big-data-part1.html#load-the-dataset",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "22.3 11.2 Load the Dataset",
-    "text": "22.3 11.2 Load the Dataset\n\nimport pandas as pd\n\ndf = pd.read_csv(\n    \"online_shoppers_intention.csv\"\n)\n\ndf.head()\n\n\n\n\n\n\n\n\nAdministrative\nAdministrative_Duration\nInformational\nInformational_Duration\nProductRelated\nProductRelated_Duration\nBounceRates\nExitRates\nPageValues\nSpecialDay\nMonth\nOperatingSystems\nBrowser\nRegion\nTrafficType\nVisitorType\nWeekend\nRevenue\n\n\n\n\n0\n0\n0.0\n0\n0.0\n1\n0.000000\n0.20\n0.20\n0.0\n0.0\nFeb\n1\n1\n1\n1\nReturning_Visitor\nFalse\nFalse\n\n\n1\n0\n0.0\n0\n0.0\n2\n64.000000\n0.00\n0.10\n0.0\n0.0\nFeb\n2\n2\n1\n2\nReturning_Visitor\nFalse\nFalse\n\n\n2\n0\n0.0\n0\n0.0\n1\n0.000000\n0.20\n0.20\n0.0\n0.0\nFeb\n4\n1\n9\n3\nReturning_Visitor\nFalse\nFalse\n\n\n3\n0\n0.0\n0\n0.0\n2\n2.666667\n0.05\n0.14\n0.0\n0.0\nFeb\n3\n2\n2\n4\nReturning_Visitor\nFalse\nFalse\n\n\n4\n0\n0.0\n0\n0.0\n10\n627.500000\n0.02\n0.05\n0.0\n0.0\nFeb\n3\n3\n1\n4\nReturning_Visitor\nTrue\nFalse",
+    "section": "21.3 Load the Dataset",
+    "text": "21.3 Load the Dataset\n\nimport pandas as pd\n\ndf = pd.read_csv(\n    \"../datasets/online_shoppers_intention.csv\"\n)\n\ndf.head()\n\n\n\n\n\n\n\n\nAdministrative\nAdministrative_Duration\nInformational\nInformational_Duration\nProductRelated\nProductRelated_Duration\nBounceRates\nExitRates\nPageValues\nSpecialDay\nMonth\nOperatingSystems\nBrowser\nRegion\nTrafficType\nVisitorType\nWeekend\nRevenue\n\n\n\n\n0\n0\n0.0\n0\n0.0\n1\n0.000000\n0.20\n0.20\n0.0\n0.0\nFeb\n1\n1\n1\n1\nReturning_Visitor\nFalse\nFalse\n\n\n1\n0\n0.0\n0\n0.0\n2\n64.000000\n0.00\n0.10\n0.0\n0.0\nFeb\n2\n2\n1\n2\nReturning_Visitor\nFalse\nFalse\n\n\n2\n0\n0.0\n0\n0.0\n1\n0.000000\n0.20\n0.20\n0.0\n0.0\nFeb\n4\n1\n9\n3\nReturning_Visitor\nFalse\nFalse\n\n\n3\n0\n0.0\n0\n0.0\n2\n2.666667\n0.05\n0.14\n0.0\n0.0\nFeb\n3\n2\n2\n4\nReturning_Visitor\nFalse\nFalse\n\n\n4\n0\n0.0\n0\n0.0\n10\n627.500000\n0.02\n0.05\n0.0\n0.0\nFeb\n3\n3\n1\n4\nReturning_Visitor\nTrue\nFalse",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7061,8 +7061,8 @@
     "objectID": "demos/session-06-big-data-part1.html#inspect-the-dataset",
     "href": "demos/session-06-big-data-part1.html#inspect-the-dataset",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "22.4 11.3 Inspect the Dataset",
-    "text": "22.4 11.3 Inspect the Dataset\n\nprint(\"Number of rows:\", len(df))\nprint(\"Number of columns:\", len(df.columns))\n\nNumber of rows: 12330\nNumber of columns: 18\n\n\nDisplay the columns:\n\ndf.columns.tolist()\n\n['Administrative',\n 'Administrative_Duration',\n 'Informational',\n 'Informational_Duration',\n 'ProductRelated',\n 'ProductRelated_Duration',\n 'BounceRates',\n 'ExitRates',\n 'PageValues',\n 'SpecialDay',\n 'Month',\n 'OperatingSystems',\n 'Browser',\n 'Region',\n 'TrafficType',\n 'VisitorType',\n 'Weekend',\n 'Revenue']\n\n\nDisplay the data types:\n\ndf.info()\n\n&lt;class 'pandas.DataFrame'&gt;\nRangeIndex: 12330 entries, 0 to 12329\nData columns (total 18 columns):\n #   Column                   Non-Null Count  Dtype  \n---  ------                   --------------  -----  \n 0   Administrative           12330 non-null  int64  \n 1   Administrative_Duration  12330 non-null  float64\n 2   Informational            12330 non-null  int64  \n 3   Informational_Duration   12330 non-null  float64\n 4   ProductRelated           12330 non-null  int64  \n 5   ProductRelated_Duration  12330 non-null  float64\n 6   BounceRates              12330 non-null  float64\n 7   ExitRates                12330 non-null  float64\n 8   PageValues               12330 non-null  float64\n 9   SpecialDay               12330 non-null  float64\n 10  Month                    12330 non-null  str    \n 11  OperatingSystems         12330 non-null  int64  \n 12  Browser                  12330 non-null  int64  \n 13  Region                   12330 non-null  int64  \n 14  TrafficType              12330 non-null  int64  \n 15  VisitorType              12330 non-null  str    \n 16  Weekend                  12330 non-null  bool   \n 17  Revenue                  12330 non-null  bool   \ndtypes: bool(2), float64(7), int64(7), str(2)\nmemory usage: 1.8 MB",
+    "section": "21.4 Inspect the Dataset",
+    "text": "21.4 Inspect the Dataset\n\nprint(\"Number of rows:\", len(df))\nprint(\"Number of columns:\", len(df.columns))\n\nNumber of rows: 12330\nNumber of columns: 18\n\n\nDisplay the columns:\n\ndf.columns.tolist()\n\n['Administrative',\n 'Administrative_Duration',\n 'Informational',\n 'Informational_Duration',\n 'ProductRelated',\n 'ProductRelated_Duration',\n 'BounceRates',\n 'ExitRates',\n 'PageValues',\n 'SpecialDay',\n 'Month',\n 'OperatingSystems',\n 'Browser',\n 'Region',\n 'TrafficType',\n 'VisitorType',\n 'Weekend',\n 'Revenue']\n\n\nDisplay the data types:\n\ndf.info()\n\n&lt;class 'pandas.DataFrame'&gt;\nRangeIndex: 12330 entries, 0 to 12329\nData columns (total 18 columns):\n #   Column                   Non-Null Count  Dtype  \n---  ------                   --------------  -----  \n 0   Administrative           12330 non-null  int64  \n 1   Administrative_Duration  12330 non-null  float64\n 2   Informational            12330 non-null  int64  \n 3   Informational_Duration   12330 non-null  float64\n 4   ProductRelated           12330 non-null  int64  \n 5   ProductRelated_Duration  12330 non-null  float64\n 6   BounceRates              12330 non-null  float64\n 7   ExitRates                12330 non-null  float64\n 8   PageValues               12330 non-null  float64\n 9   SpecialDay               12330 non-null  float64\n 10  Month                    12330 non-null  str    \n 11  OperatingSystems         12330 non-null  int64  \n 12  Browser                  12330 non-null  int64  \n 13  Region                   12330 non-null  int64  \n 14  TrafficType              12330 non-null  int64  \n 15  VisitorType              12330 non-null  str    \n 16  Weekend                  12330 non-null  bool   \n 17  Revenue                  12330 non-null  bool   \ndtypes: bool(2), float64(7), int64(7), str(2)\nmemory usage: 1.8 MB",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7072,8 +7072,8 @@
     "objectID": "demos/session-06-big-data-part1.html#problem",
     "href": "demos/session-06-big-data-part1.html#problem",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "23.1 Problem",
-    "text": "23.1 Problem\nAnswer the following question:\n\nHow many sessions belong to each VisitorType?\n\nFirst solve the problem using Pandas.",
+    "section": "22.1 Problem",
+    "text": "22.1 Problem\nAnswer the following question:\n\nHow many sessions belong to each VisitorType?\n\nFirst solve the problem using Pandas.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7083,8 +7083,8 @@
     "objectID": "demos/session-06-big-data-part1.html#pandas-solution",
     "href": "demos/session-06-big-data-part1.html#pandas-solution",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "23.2 12.1 Pandas Solution",
-    "text": "23.2 12.1 Pandas Solution\n\npandas_counts = df[\"VisitorType\"].value_counts()\n\npandas_counts\n\nVisitorType\nReturning_Visitor    10551\nNew_Visitor           1694\nOther                   85\nName: count, dtype: int64\n\n\nThis is our reference solution.",
+    "section": "22.2 Pandas Solution",
+    "text": "22.2 Pandas Solution\n\npandas_counts = df[\"VisitorType\"].value_counts()\n\npandas_counts\n\nVisitorType\nReturning_Visitor    10551\nNew_Visitor           1694\nOther                   85\nName: count, dtype: int64\n\n\nThis is our reference solution.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7094,8 +7094,8 @@
     "objectID": "demos/session-06-big-data-part1.html#execute-the-mapper",
     "href": "demos/session-06-big-data-part1.html#execute-the-mapper",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "24.1 13.1 Execute the Mapper",
-    "text": "24.1 13.1 Execute the Mapper\n\nvisitor_mapped = visitor_type_mapper(df)\n\nprint(\"First 20 Mapper records:\\n\")\n\nfor item in visitor_mapped[:20]:\n    print(item)\n\nFirst 20 Mapper records:\n\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)",
+    "section": "23.1 Execute the Mapper",
+    "text": "23.1 Execute the Mapper\n\nvisitor_mapped = visitor_type_mapper(df)\n\nprint(\"First 20 Mapper records:\\n\")\n\nfor item in visitor_mapped[:20]:\n    print(item)\n\nFirst 20 Mapper records:\n\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)\n('Returning_Visitor', 1)",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7105,8 +7105,8 @@
     "objectID": "demos/session-06-big-data-part1.html#objective-2",
     "href": "demos/session-06-big-data-part1.html#objective-2",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "28.1 Objective",
-    "text": "28.1 Objective\nYou will now perform numerical aggregation.\nAnswer:\n\nWhat is the average PageValues for each VisitorType?\n\nThe MapReduce operation is:\nMapper:\n\nVisitorType -&gt; PageValues\n\n        ↓\n\nShuffle:\n\nVisitorType -&gt; [PageValue1, PageValue2, ...]\n\n        ↓\n\nReducer:\n\nVisitorType -&gt; Average(PageValues)",
+    "section": "27.1 Objective",
+    "text": "27.1 Objective\nYou will now perform numerical aggregation.\nAnswer:\n\nWhat is the average PageValues for each VisitorType?\n\nThe MapReduce operation is:\nMapper:\n\nVisitorType -&gt; PageValues\n\n        ↓\n\nShuffle:\n\nVisitorType -&gt; [PageValue1, PageValue2, ...]\n\n        ↓\n\nReducer:\n\nVisitorType -&gt; Average(PageValues)",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7116,8 +7116,8 @@
     "objectID": "demos/session-06-big-data-part1.html#task-1-count-revenue-sessions",
     "href": "demos/session-06-big-data-part1.html#task-1-count-revenue-sessions",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "33.1 Task 1 — Count Revenue Sessions",
-    "text": "33.1 Task 1 — Count Revenue Sessions\nDetermine how many sessions resulted in a purchase.\nThe dataset contains the Revenue column.\nUse:\n\ndf[\"Revenue\"].value_counts()\n\nRevenue\nFalse    10422\nTrue      1908\nName: count, dtype: int64\n\n\nNow implement the same operation using MapReduce.",
+    "section": "32.1 Task 1 — Count Revenue Sessions",
+    "text": "32.1 Task 1 — Count Revenue Sessions\nDetermine how many sessions resulted in a purchase.\nThe dataset contains the Revenue column.\nUse:\n\ndf[\"Revenue\"].value_counts()\n\nRevenue\nFalse    10422\nTrue      1908\nName: count, dtype: int64\n\n\nNow implement the same operation using MapReduce.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7127,8 +7127,8 @@
     "objectID": "demos/session-06-big-data-part1.html#task-2-count-sessions-by-month",
     "href": "demos/session-06-big-data-part1.html#task-2-count-sessions-by-month",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "33.2 Task 2 — Count Sessions by Month",
-    "text": "33.2 Task 2 — Count Sessions by Month\nUse the Month column.\nCalculate:\nMonth -&gt; Number of Sessions",
+    "section": "32.2 Task 2 — Count Sessions by Month",
+    "text": "32.2 Task 2 — Count Sessions by Month\nUse the Month column.\nCalculate:\nMonth -&gt; Number of Sessions",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7138,8 +7138,8 @@
     "objectID": "demos/session-06-big-data-part1.html#task-3-average-page-value-by-month",
     "href": "demos/session-06-big-data-part1.html#task-3-average-page-value-by-month",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "33.3 Task 3 — Average Page Value by Month",
-    "text": "33.3 Task 3 — Average Page Value by Month\nCalculate:\nMonth -&gt; Average PageValues",
+    "section": "32.3 Task 3 — Average Page Value by Month",
+    "text": "32.3 Task 3 — Average Page Value by Month\nCalculate:\nMonth -&gt; Average PageValues",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7149,8 +7149,8 @@
     "objectID": "demos/session-06-big-data-part1.html#task-4-count-sessions-by-visitor-type-and-month",
     "href": "demos/session-06-big-data-part1.html#task-4-count-sessions-by-visitor-type-and-month",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "33.4 Task 4 — Count Sessions by Visitor Type and Month",
-    "text": "33.4 Task 4 — Count Sessions by Visitor Type and Month\nThis introduces a composite key.\nInstead of:\nVisitorType -&gt; Value\nuse:\n(VisitorType, Month) -&gt; Value\nFor example:\n(\"Returning_Visitor\", \"May\") -&gt; 1\nImplement the Mapper and Reducer yourself.",
+    "section": "32.4 Task 4 — Count Sessions by Visitor Type and Month",
+    "text": "32.4 Task 4 — Count Sessions by Visitor Type and Month\nThis introduces a composite key.\nInstead of:\nVisitorType -&gt; Value\nuse:\n(VisitorType, Month) -&gt; Value\nFor example:\n(\"Returning_Visitor\", \"May\") -&gt; 1\nImplement the Mapper and Reducer yourself.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7160,8 +7160,8 @@
     "objectID": "demos/session-06-big-data-part1.html#clickstream-data",
     "href": "demos/session-06-big-data-part1.html#clickstream-data",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "34.1 Clickstream Data",
-    "text": "34.1 Clickstream Data\nYou will now move to a larger dataset.\nUse the Clickstream Data for Online Shopping dataset from the UCI Machine Learning Repository.\nDownload the dataset from the UCI repository and save it locally.\n\nYour task: Identify the downloaded file name and load it into Pandas.",
+    "section": "33.1 Clickstream Data",
+    "text": "33.1 Clickstream Data\nYou will now move to a larger dataset.\nUse the Clickstream Data for Online Shopping dataset from the UCI Machine Learning Repository.\nWe can download and extract it automatically:\n\nimport urllib.request\nimport zipfile\nimport os\n\nurl = \"https://archive.ics.uci.edu/static/public/553/clickstream+data+for+online+shopping.zip\"\nzip_path = \"../datasets/clickstream.zip\"\nfile_path = \"../datasets/clickstream.csv\"\n\nos.makedirs(\"../datasets\", exist_ok=True)\n\nif not os.path.exists(file_path):\n    print(\"Downloading dataset...\")\n    urllib.request.urlretrieve(url, zip_path)\n    with zipfile.ZipFile(zip_path, 'r') as zip_ref:\n        zip_ref.extractall(\"../datasets/\")\n    os.rename(\"../datasets/e-shop clothing 2008.csv\", file_path)\n    os.remove(zip_path)\n    print(\"Download and extraction complete!\")\nelse:\n    print(\"Dataset already exists.\")\n\nDataset already exists.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7171,8 +7171,8 @@
     "objectID": "demos/session-06-big-data-part1.html#load-the-dataset-1",
     "href": "demos/session-06-big-data-part1.html#load-the-dataset-1",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "34.2 23.1 Load the Dataset",
-    "text": "34.2 23.1 Load the Dataset\nModify the filename below if necessary.\n\nclickstream = pd.read_csv(\n    \"clickstream.csv\"\n)\n\nclickstream.head()\n\n\n---------------------------------------------------------------------------\nFileNotFoundError                         Traceback (most recent call last)\nCell In[33], line 1\n----&gt; 1 clickstream = pd.read_csv(\n      2     \"clickstream.csv\"\n      3 )\n      4 \n\nFile ~/miniconda/envs/demo/lib/python3.11/site-packages/pandas/io/parsers/readers.py:873, in read_csv(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, skip_blank_lines, parse_dates, date_format, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, on_bad_lines, low_memory, memory_map, float_precision, storage_options, dtype_backend)\n    861 kwds_defaults = _refine_defaults_read(\n    862     dialect,\n    863     delimiter,\n   (...)    869     dtype_backend=dtype_backend,\n    870 )\n    871 kwds.update(kwds_defaults)\n--&gt; 873 return _read(filepath_or_buffer, kwds)\n\nFile ~/miniconda/envs/demo/lib/python3.11/site-packages/pandas/io/parsers/readers.py:300, in _read(filepath_or_buffer, kwds)\n    297 _validate_names(kwds.get(\"names\", None))\n    299 # Create the parser.\n--&gt; 300 parser = TextFileReader(filepath_or_buffer, **kwds)\n    302 if chunksize or iterator:\n    303     return parser\n\nFile ~/miniconda/envs/demo/lib/python3.11/site-packages/pandas/io/parsers/readers.py:1645, in TextFileReader.__init__(self, f, engine, **kwds)\n   1642     self.options[\"has_index_names\"] = kwds[\"has_index_names\"]\n   1644 self.handles: IOHandles | None = None\n-&gt; 1645 self._engine = self._make_engine(f, self.engine)\n\nFile ~/miniconda/envs/demo/lib/python3.11/site-packages/pandas/io/parsers/readers.py:1904, in TextFileReader._make_engine(self, f, engine)\n   1902     if \"b\" not in mode:\n   1903         mode += \"b\"\n-&gt; 1904 self.handles = get_handle(\n   1905     f,\n   1906     mode,\n   1907     encoding=self.options.get(\"encoding\", None),\n   1908     compression=self.options.get(\"compression\", None),\n   1909     memory_map=self.options.get(\"memory_map\", False),\n   1910     is_text=is_text,\n   1911     errors=self.options.get(\"encoding_errors\", \"strict\"),\n   1912     storage_options=self.options.get(\"storage_options\", None),\n   1913 )\n   1914 assert self.handles is not None\n   1915 f = self.handles.handle\n\nFile ~/miniconda/envs/demo/lib/python3.11/site-packages/pandas/io/common.py:930, in get_handle(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)\n    925 elif isinstance(handle, str):\n    926     # Check whether the filename is to be opened in binary mode.\n    927     # Binary mode does not support 'encoding' and 'newline'.\n    928     if ioargs.encoding and \"b\" not in ioargs.mode:\n    929         # Encoding\n--&gt; 930         handle = open(\n    931             handle,\n    932             ioargs.mode,\n    933             encoding=ioargs.encoding,\n    934             errors=errors,\n    935             newline=\"\",\n    936         )\n    937     else:\n    938         # Binary mode\n    939         handle = open(handle, ioargs.mode)\n\nFileNotFoundError: [Errno 2] No such file or directory: 'clickstream.csv'",
+    "section": "33.2 Load the Dataset",
+    "text": "33.2 Load the Dataset\nModify the filename below if necessary.\n\nclickstream = pd.read_csv(\n    \"../datasets/clickstream.csv\"\n)\n\nclickstream.head()\n\n\n\n\n\n\n\n\nyear;month;day;order;country;session ID;page 1 (main category);page 2 (clothing model);colour;location;model photography;price;price 2;page\n\n\n\n\n0\n2008;4;1;1;29;1;1;A13;1;5;1;28;2;1\n\n\n1\n2008;4;1;2;29;1;1;A16;1;6;1;33;2;1\n\n\n2\n2008;4;1;3;29;1;2;B4;10;2;1;52;1;1\n\n\n3\n2008;4;1;4;29;1;2;B17;6;6;2;38;2;1\n\n\n4\n2008;4;1;5;29;1;2;B8;4;3;2;52;1;1",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7182,8 +7182,8 @@
     "objectID": "demos/session-06-big-data-part1.html#inspect-the-dataset-1",
     "href": "demos/session-06-big-data-part1.html#inspect-the-dataset-1",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "34.3 23.2 Inspect the Dataset",
-    "text": "34.3 23.2 Inspect the Dataset\n\nprint(\n    \"Rows:\",\n    len(clickstream)\n)\n\nprint(\n    \"Columns:\",\n    len(clickstream.columns)\n)\n\n\n---------------------------------------------------------------------------\nNameError                                 Traceback (most recent call last)\nCell In[34], line 3\n      1 print(\n      2     \"Rows:\",\n----&gt; 3     len(clickstream)\n      4 )\n      5 \n      6 print(\n\nNameError: name 'clickstream' is not defined\n\n\n\n\nclickstream.columns.tolist()\n\n\n---------------------------------------------------------------------------\nNameError                                 Traceback (most recent call last)\nCell In[35], line 1\n----&gt; 1 clickstream.columns.tolist()\n\nNameError: name 'clickstream' is not defined\n\n\n\n\nclickstream.info()\n\n\n---------------------------------------------------------------------------\nNameError                                 Traceback (most recent call last)\nCell In[36], line 1\n----&gt; 1 clickstream.info()\n\nNameError: name 'clickstream' is not defined",
+    "section": "33.3 Inspect the Dataset",
+    "text": "33.3 Inspect the Dataset\n\nprint(\n    \"Rows:\",\n    len(clickstream)\n)\n\nprint(\n    \"Columns:\",\n    len(clickstream.columns)\n)\n\nRows: 165474\nColumns: 1\n\n\n\nclickstream.columns.tolist()\n\n['year;month;day;order;country;session ID;page 1 (main category);page 2 (clothing model);colour;location;model photography;price;price 2;page']\n\n\n\nclickstream.info()\n\n&lt;class 'pandas.DataFrame'&gt;\nRangeIndex: 165474 entries, 0 to 165473\nData columns (total 1 columns):\n #   Column                                                                                                                                       Non-Null Count   Dtype\n---  ------                                                                                                                                       --------------   -----\n 0   year;month;day;order;country;session ID;page 1 (main category);page 2 (clothing model);colour;location;model photography;price;price 2;page  165474 non-null  str  \ndtypes: str(1)\nmemory usage: 7.3 MB",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7193,8 +7193,8 @@
     "objectID": "demos/session-06-big-data-part1.html#count-by-category",
     "href": "demos/session-06-big-data-part1.html#count-by-category",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "35.1 Count by Category",
-    "text": "35.1 Count by Category\nChoose an appropriate categorical column.\nCalculate:\nCategory -&gt; Number of Records\n\n35.1.1 First\nSolve it using Pandas.\n\n\n35.1.2 Then\nImplement:\nMapper\n   ↓\nShuffle\n   ↓\nReducer\n\n\n35.1.3 Finally\nCompare the two results.",
+    "section": "34.1 Count by Category",
+    "text": "34.1 Count by Category\nChoose an appropriate categorical column.\nCalculate:\nCategory -&gt; Number of Records\n\n34.1.1 First\nSolve it using Pandas.\n\n\n34.1.2 Then\nImplement:\nMapper\n   ↓\nShuffle\n   ↓\nReducer\n\n\n34.1.3 Finally\nCompare the two results.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7204,8 +7204,8 @@
     "objectID": "demos/session-06-big-data-part1.html#average-numeric-value-by-category",
     "href": "demos/session-06-big-data-part1.html#average-numeric-value-by-category",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "36.1 Average Numeric Value by Category",
-    "text": "36.1 Average Numeric Value by Category\nChoose a meaningful numeric column.\nCalculate:\nCategory -&gt; Average(Value)\nImplement your own:\nmapper_average(...)\nand:\nreducer_average(...)\nThen verify your result using Pandas.",
+    "section": "35.1 Average Numeric Value by Category",
+    "text": "35.1 Average Numeric Value by Category\nChoose a meaningful numeric column.\nCalculate:\nCategory -&gt; Average(Value)\nImplement your own:\nmapper_average(...)\nand:\nreducer_average(...)\nThen verify your result using Pandas.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7215,8 +7215,8 @@
     "objectID": "demos/session-06-big-data-part1.html#top-10-categories",
     "href": "demos/session-06-big-data-part1.html#top-10-categories",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "37.1 Top 10 Categories",
-    "text": "37.1 Top 10 Categories\nAfter obtaining your aggregated result, identify the top 10 categories.\nUse:\n\ntop10 = sorted(\n    result.items(),\n    key=lambda item: item[1],\n    reverse=True\n)[:10]\n\ntop10\n\n[('python', 4),\n ('is', 2),\n ('hadoop', 2),\n ('processes', 2),\n ('data', 2),\n ('simple', 1),\n ('powerful', 1),\n ('big', 1),\n ('and', 1),\n ('work', 1)]",
+    "section": "36.1 Top 10 Categories",
+    "text": "36.1 Top 10 Categories\nAfter obtaining your aggregated result, identify the top 10 categories.\nUse:\n\ntop10 = sorted(\n    result.items(),\n    key=lambda item: item[1],\n    reverse=True\n)[:10]\n\ntop10\n\n[('python', 4),\n ('is', 2),\n ('hadoop', 2),\n ('processes', 2),\n ('data', 2),\n ('simple', 1),\n ('powerful', 1),\n ('big', 1),\n ('and', 1),\n ('work', 1)]",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7226,8 +7226,8 @@
     "objectID": "demos/session-06-big-data-part1.html#total-revenue-by-country",
     "href": "demos/session-06-big-data-part1.html#total-revenue-by-country",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "45.1 Total Revenue by Country",
-    "text": "45.1 Total Revenue by Country\nYour objective is:\nCountry -&gt; Total Revenue\nThe MapReduce design is:\nMapper:\n\nCountry -&gt; Revenue\n\n        ↓\n\nShuffle:\n\nCountry -&gt; [Revenue1, Revenue2, ...]\n\n        ↓\n\nReducer:\n\nCountry -&gt; Total Revenue",
+    "section": "44.1 Total Revenue by Country",
+    "text": "44.1 Total Revenue by Country\nYour objective is:\nCountry -&gt; Total Revenue\nThe MapReduce design is:\nMapper:\n\nCountry -&gt; Revenue\n\n        ↓\n\nShuffle:\n\nCountry -&gt; [Revenue1, Revenue2, ...]\n\n        ↓\n\nReducer:\n\nCountry -&gt; Total Revenue",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7237,8 +7237,8 @@
     "objectID": "demos/session-06-big-data-part1.html#top-10-products-by-revenue",
     "href": "demos/session-06-big-data-part1.html#top-10-products-by-revenue",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "53.1 Top 10 Products by Revenue",
-    "text": "53.1 Top 10 Products by Revenue\nAnswer:\n\nWhich products generated the highest revenue?\n\nUse the Description column as the product identifier.\nThe required MapReduce operation is:\nProduct -&gt; Revenue\nImplement a new Mapper:\ndef product_revenue_mapper(df):\n    ...\nUse the existing:\nsum_reducer(...)\nThen identify the top 10 products.",
+    "section": "52.1 Top 10 Products by Revenue",
+    "text": "52.1 Top 10 Products by Revenue\nAnswer:\n\nWhich products generated the highest revenue?\n\nUse the Description column as the product identifier.\nThe required MapReduce operation is:\nProduct -&gt; Revenue\nImplement a new Mapper:\ndef product_revenue_mapper(df):\n    ...\nUse the existing:\nsum_reducer(...)\nThen identify the top 10 products.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7248,8 +7248,8 @@
     "objectID": "demos/session-06-big-data-part1.html#revenue-by-customer",
     "href": "demos/session-06-big-data-part1.html#revenue-by-customer",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "54.1 Revenue by Customer",
-    "text": "54.1 Revenue by Customer\nAnswer:\n\nWhich customers generated the highest revenue?\n\nThe required operation is:\nCustomerID -&gt; Total Revenue\nImplement:\ndef customer_revenue_mapper(df):\n    ...\nThen reuse:\nsum_reducer(...)\nIdentify the top 10 customers.",
+    "section": "53.1 Revenue by Customer",
+    "text": "53.1 Revenue by Customer\nAnswer:\n\nWhich customers generated the highest revenue?\n\nThe required operation is:\nCustomerID -&gt; Total Revenue\nImplement:\ndef customer_revenue_mapper(df):\n    ...\nThen reuse:\nsum_reducer(...)\nIdentify the top 10 customers.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7259,8 +7259,8 @@
     "objectID": "demos/session-06-big-data-part1.html#daily-revenue",
     "href": "demos/session-06-big-data-part1.html#daily-revenue",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "55.1 Daily Revenue",
-    "text": "55.1 Daily Revenue\nFirst extract the transaction date.\n\nretail[\"Date\"] = (\n    retail[\"InvoiceDate\"]\n    .dt.date\n)\n\nretail[\n    [\n        \"InvoiceDate\",\n        \"Date\"\n    ]\n].head()\n\n\n---------------------------------------------------------------------------\nNameError                                 Traceback (most recent call last)\nCell In[53], line 2\n      1 retail[\"Date\"] = (\n----&gt; 2     retail[\"InvoiceDate\"]\n      3     .dt.date\n      4 )\n      5 \n\nNameError: name 'retail' is not defined\n\n\n\nNow calculate:\nDate -&gt; Total Revenue\nImplement a Mapper that produces:\nDate -&gt; Revenue\nand use the existing sum reducer.",
+    "section": "54.1 Daily Revenue",
+    "text": "54.1 Daily Revenue\nFirst extract the transaction date.\n\nretail[\"Date\"] = (\n    retail[\"InvoiceDate\"]\n    .dt.date\n)\n\nretail[\n    [\n        \"InvoiceDate\",\n        \"Date\"\n    ]\n].head()\n\n\n\n\n\n\n\n\nInvoiceDate\nDate\n\n\n\n\n0\n2010-12-01 08:26:00\n2010-12-01\n\n\n1\n2010-12-01 08:26:00\n2010-12-01\n\n\n2\n2010-12-01 08:26:00\n2010-12-01\n\n\n3\n2010-12-01 08:26:00\n2010-12-01\n\n\n4\n2010-12-01 08:26:00\n2010-12-01\n\n\n\n\n\n\n\nNow calculate:\nDate -&gt; Total Revenue\nImplement a Mapper that produces:\nDate -&gt; Revenue\nand use the existing sum reducer.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7270,8 +7270,8 @@
     "objectID": "demos/session-06-big-data-part1.html#exercise",
     "href": "demos/session-06-big-data-part1.html#exercise",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "57.1 Exercise",
-    "text": "57.1 Exercise\nUsing the Online Shoppers dataset, calculate:\n(VisitorType, Month) -&gt; Number of Sessions\nImplement:\ndef composite_key_mapper(df):\n    ...\nand use the existing Shuffle and Reducer functions.",
+    "section": "56.1 Exercise",
+    "text": "56.1 Exercise\nUsing the Online Shoppers dataset, calculate:\n(VisitorType, Month) -&gt; Number of Sessions\nImplement:\ndef composite_key_mapper(df):\n    ...\nand use the existing Shuffle and Reducer functions.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7281,8 +7281,8 @@
     "objectID": "demos/session-06-big-data-part1.html#question-1-1",
     "href": "demos/session-06-big-data-part1.html#question-1-1",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "62.1 Question 1",
-    "text": "62.1 Question 1\nWhat is the purpose of the Mapper?",
+    "section": "61.1 Question 1",
+    "text": "61.1 Question 1\nWhat is the purpose of the Mapper?",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7292,8 +7292,8 @@
     "objectID": "demos/session-06-big-data-part1.html#question-2-1",
     "href": "demos/session-06-big-data-part1.html#question-2-1",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "62.2 Question 2",
-    "text": "62.2 Question 2\nWhat is a key-value pair?",
+    "section": "61.2 Question 2",
+    "text": "61.2 Question 2\nWhat is a key-value pair?",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7303,8 +7303,8 @@
     "objectID": "demos/session-06-big-data-part1.html#question-3-1",
     "href": "demos/session-06-big-data-part1.html#question-3-1",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "62.3 Question 3",
-    "text": "62.3 Question 3\nWhy is the Shuffle phase necessary?",
+    "section": "61.3 Question 3",
+    "text": "61.3 Question 3\nWhy is the Shuffle phase necessary?",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7314,8 +7314,8 @@
     "objectID": "demos/session-06-big-data-part1.html#question-4-1",
     "href": "demos/session-06-big-data-part1.html#question-4-1",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "62.4 Question 4",
-    "text": "62.4 Question 4\nWhat does the Reducer do?",
+    "section": "61.4 Question 4",
+    "text": "61.4 Question 4\nWhat does the Reducer do?",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7325,8 +7325,8 @@
     "objectID": "demos/session-06-big-data-part1.html#question-5-1",
     "href": "demos/session-06-big-data-part1.html#question-5-1",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "62.5 Question 5",
-    "text": "62.5 Question 5\nCan one input record generate multiple key-value pairs?\nExplain with an example.",
+    "section": "61.5 Question 5",
+    "text": "61.5 Question 5\nCan one input record generate multiple key-value pairs?\nExplain with an example.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7336,8 +7336,8 @@
     "objectID": "demos/session-06-big-data-part1.html#question-6",
     "href": "demos/session-06-big-data-part1.html#question-6",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "62.6 Question 6",
-    "text": "62.6 Question 6\nCan multiple input records generate the same key?\nExplain with an example.",
+    "section": "61.6 Question 6",
+    "text": "61.6 Question 6\nCan multiple input records generate the same key?\nExplain with an example.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7347,8 +7347,8 @@
     "objectID": "demos/session-06-big-data-part1.html#question-7",
     "href": "demos/session-06-big-data-part1.html#question-7",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "62.7 Question 7",
-    "text": "62.7 Question 7\nWhy can a tuple be used as a MapReduce key?",
+    "section": "61.7 Question 7",
+    "text": "61.7 Question 7\nWhy can a tuple be used as a MapReduce key?",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7358,8 +7358,8 @@
     "objectID": "demos/session-06-big-data-part1.html#question-8",
     "href": "demos/session-06-big-data-part1.html#question-8",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "62.8 Question 8",
-    "text": "62.8 Question 8\nWhat is the purpose of a Combiner?",
+    "section": "61.8 Question 8",
+    "text": "61.8 Question 8\nWhat is the purpose of a Combiner?",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7369,8 +7369,8 @@
     "objectID": "demos/session-06-big-data-part1.html#question-9",
     "href": "demos/session-06-big-data-part1.html#question-9",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "62.9 Question 9",
-    "text": "62.9 Question 9\nWhy might Pandas be faster than our Python MapReduce implementation?",
+    "section": "61.9 Question 9",
+    "text": "61.9 Question 9\nWhy might Pandas be faster than our Python MapReduce implementation?",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7380,8 +7380,8 @@
     "objectID": "demos/session-06-big-data-part1.html#question-10",
     "href": "demos/session-06-big-data-part1.html#question-10",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "62.10 Question 10",
-    "text": "62.10 Question 10\nWhat happens when a dataset becomes too large to process efficiently on one machine?",
+    "section": "61.10 Question 10",
+    "text": "61.10 Question 10\nWhat happens when a dataset becomes too large to process efficiently on one machine?",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7391,8 +7391,8 @@
     "objectID": "demos/session-06-big-data-part1.html#question-11",
     "href": "demos/session-06-big-data-part1.html#question-11",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "62.11 Question 11",
-    "text": "62.11 Question 11\nWhat would be required to process the data across multiple machines?",
+    "section": "61.11 Question 11",
+    "text": "61.11 Question 11\nWhat would be required to process the data across multiple machines?",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7402,8 +7402,8 @@
     "objectID": "demos/session-06-big-data-part1.html#question-12",
     "href": "demos/session-06-big-data-part1.html#question-12",
     "title": "10  Part 1 — Python MapReduce Without Hadoop",
-    "section": "62.12 Question 12",
-    "text": "62.12 Question 12\nWhat role could Hadoop play in this situation?",
+    "section": "61.12 Question 12",
+    "text": "61.12 Question 12\nWhat role could Hadoop play in this situation?",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Part 1 — Python MapReduce Without Hadoop</span>"
@@ -7414,7 +7414,7 @@
     "href": "demos/session-07-big-data-part2.html",
     "title": "11  Part 2 — Hadoop MapReduce",
     "section": "",
-    "text": "12 Part 2 — Hadoop MapReduce",
+    "text": "11.1 Learning Objectives\nBy the end of this part, you will be able to:",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Part 2 — Hadoop MapReduce</span>"
@@ -7424,8 +7424,8 @@
     "objectID": "demos/session-07-big-data-part2.html#learning-objectives",
     "href": "demos/session-07-big-data-part2.html#learning-objectives",
     "title": "11  Part 2 — Hadoop MapReduce",
-    "section": "12.1 Learning Objectives",
-    "text": "12.1 Learning Objectives\nBy the end of this part, you will be able to:\n\nExplain how Hadoop MapReduce differs from Python MapReduce.\nUnderstand the Hadoop Distributed File System (HDFS).\nInstall and configure Hadoop in pseudo-distributed mode.\nStart and stop Hadoop services.\nUpload files to HDFS.\nRun a real Hadoop MapReduce program.\nExecute MapReduce jobs on datasets of increasing size.\nInspect mapper, reducer, and job-level results.\nCompare local Python execution with Hadoop execution.\nUnderstand why Hadoop becomes useful when datasets are too large for a single machine.",
+    "section": "",
+    "text": "Explain how Hadoop MapReduce differs from Python MapReduce.\nUnderstand the Hadoop Distributed File System (HDFS).\nInstall and configure Hadoop in pseudo-distributed mode.\nStart and stop Hadoop services.\nUpload files to HDFS.\nRun a real Hadoop MapReduce program.\nExecute MapReduce jobs on datasets of increasing size.\nInspect mapper, reducer, and job-level results.\nCompare local Python execution with Hadoop execution.\nUnderstand why Hadoop becomes useful when datasets are too large for a single machine.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Part 2 — Hadoop MapReduce</span>"
@@ -7435,8 +7435,8 @@
     "objectID": "demos/session-07-big-data-part2.html#update-the-system",
     "href": "demos/session-07-big-data-part2.html#update-the-system",
     "title": "11  Part 2 — Hadoop MapReduce",
-    "section": "18.1 6.1 Update the System",
-    "text": "18.1 6.1 Update the System\nOpen Terminal and run:\nsudo apt update\nThen:\nsudo apt upgrade -y",
+    "section": "17.1 Update the System",
+    "text": "17.1 Update the System\nOpen Terminal and run:\nsudo apt update\nThen:\nsudo apt upgrade -y",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Part 2 — Hadoop MapReduce</span>"
@@ -7446,8 +7446,8 @@
     "objectID": "demos/session-07-big-data-part2.html#install-java",
     "href": "demos/session-07-big-data-part2.html#install-java",
     "title": "11  Part 2 — Hadoop MapReduce",
-    "section": "18.2 6.2 Install Java",
-    "text": "18.2 6.2 Install Java\nRun:\nsudo apt install openjdk-11-jdk -y\nCheck:\njava -version\nThen:\njavac -version",
+    "section": "17.2 Install Java",
+    "text": "17.2 Install Java\nRun:\nsudo apt install openjdk-11-jdk -y\nCheck:\njava -version\nThen:\njavac -version",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Part 2 — Hadoop MapReduce</span>"
@@ -7457,8 +7457,8 @@
     "objectID": "demos/session-07-big-data-part2.html#create-a-hadoop-user",
     "href": "demos/session-07-big-data-part2.html#create-a-hadoop-user",
     "title": "11  Part 2 — Hadoop MapReduce",
-    "section": "18.3 6.3 Create a Hadoop User",
-    "text": "18.3 6.3 Create a Hadoop User\nFor a classroom installation, a separate Hadoop user can make the configuration cleaner.\nRun:\nsudo adduser hadoop\nAdd the user to the sudo group:\nsudo usermod -aG sudo hadoop\nSwitch to the Hadoop user:\nsu - hadoop",
+    "section": "17.3 Create a Hadoop User",
+    "text": "17.3 Create a Hadoop User\nFor a classroom installation, a separate Hadoop user can make the configuration cleaner.\nRun:\nsudo adduser hadoop\nAdd the user to the sudo group:\nsudo usermod -aG sudo hadoop\nSwitch to the Hadoop user:\nsu - hadoop",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Part 2 — Hadoop MapReduce</span>"
@@ -7468,8 +7468,8 @@
     "objectID": "demos/session-07-big-data-part2.html#recommended-classroom-approach",
     "href": "demos/session-07-big-data-part2.html#recommended-classroom-approach",
     "title": "11  Part 2 — Hadoop MapReduce",
-    "section": "31.1 Recommended Classroom Approach",
-    "text": "31.1 Recommended Classroom Approach\nUse:\n\nWindows → WSL2 → Ubuntu → Hadoop\n\nThis gives students an environment similar to the Ubuntu instructions above.",
+    "section": "30.1 Recommended Classroom Approach",
+    "text": "30.1 Recommended Classroom Approach\nUse:\n\nWindows → WSL2 → Ubuntu → Hadoop\n\nThis gives students an environment similar to the Ubuntu instructions above.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Part 2 — Hadoop MapReduce</span>"
@@ -7479,8 +7479,8 @@
     "objectID": "demos/session-07-big-data-part2.html#problem-hadoop-command-not-found",
     "href": "demos/session-07-big-data-part2.html#problem-hadoop-command-not-found",
     "title": "11  Part 2 — Hadoop MapReduce",
-    "section": "78.1 Problem: hadoop: command not found",
-    "text": "78.1 Problem: hadoop: command not found\nCheck:\necho $HADOOP_HOME\nThen:\necho $PATH\nMake sure Hadoop’s bin and sbin directories are in PATH.",
+    "section": "77.1 Problem: hadoop: command not found",
+    "text": "77.1 Problem: hadoop: command not found\nCheck:\necho $HADOOP_HOME\nThen:\necho $PATH\nMake sure Hadoop’s bin and sbin directories are in PATH.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Part 2 — Hadoop MapReduce</span>"
@@ -7490,8 +7490,8 @@
     "objectID": "demos/session-07-big-data-part2.html#problem-java-not-found",
     "href": "demos/session-07-big-data-part2.html#problem-java-not-found",
     "title": "11  Part 2 — Hadoop MapReduce",
-    "section": "78.2 Problem: Java not found",
-    "text": "78.2 Problem: Java not found\nRun:\njava -version\nThen:\necho $JAVA_HOME\nMake sure JAVA_HOME points to the Java installation.",
+    "section": "77.2 Problem: Java not found",
+    "text": "77.2 Problem: Java not found\nRun:\njava -version\nThen:\necho $JAVA_HOME\nMake sure JAVA_HOME points to the Java installation.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Part 2 — Hadoop MapReduce</span>"
@@ -7501,8 +7501,8 @@
     "objectID": "demos/session-07-big-data-part2.html#problem-namenode-is-not-running",
     "href": "demos/session-07-big-data-part2.html#problem-namenode-is-not-running",
     "title": "11  Part 2 — Hadoop MapReduce",
-    "section": "78.3 Problem: NameNode is not running",
-    "text": "78.3 Problem: NameNode is not running\nRun:\njps\nIf NameNode is missing, check the Hadoop logs.\nAlso check:\nhdfs dfsadmin -report",
+    "section": "77.3 Problem: NameNode is not running",
+    "text": "77.3 Problem: NameNode is not running\nRun:\njps\nIf NameNode is missing, check the Hadoop logs.\nAlso check:\nhdfs dfsadmin -report",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Part 2 — Hadoop MapReduce</span>"
@@ -7512,8 +7512,8 @@
     "objectID": "demos/session-07-big-data-part2.html#problem-datanode-is-not-running",
     "href": "demos/session-07-big-data-part2.html#problem-datanode-is-not-running",
     "title": "11  Part 2 — Hadoop MapReduce",
-    "section": "78.4 Problem: DataNode is not running",
-    "text": "78.4 Problem: DataNode is not running\nRun:\njps\nCheck the DataNode logs under the Hadoop log directory.",
+    "section": "77.4 Problem: DataNode is not running",
+    "text": "77.4 Problem: DataNode is not running\nRun:\njps\nCheck the DataNode logs under the Hadoop log directory.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Part 2 — Hadoop MapReduce</span>"
@@ -7523,8 +7523,8 @@
     "objectID": "demos/session-07-big-data-part2.html#problem-output-directory-already-exists",
     "href": "demos/session-07-big-data-part2.html#problem-output-directory-already-exists",
     "title": "11  Part 2 — Hadoop MapReduce",
-    "section": "78.5 Problem: Output directory already exists",
-    "text": "78.5 Problem: Output directory already exists\nHadoop normally refuses to write to an existing output directory.\nRemove it:\nhdfs dfs -rm -r /user/$USER/output\nThen run the job again.",
+    "section": "77.5 Problem: Output directory already exists",
+    "text": "77.5 Problem: Output directory already exists\nHadoop normally refuses to write to an existing output directory.\nRemove it:\nhdfs dfs -rm -r /user/$USER/output\nThen run the job again.",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Part 2 — Hadoop MapReduce</span>"
@@ -7534,8 +7534,8 @@
     "objectID": "demos/session-07-big-data-part2.html#problem-permission-denied",
     "href": "demos/session-07-big-data-part2.html#problem-permission-denied",
     "title": "11  Part 2 — Hadoop MapReduce",
-    "section": "78.6 Problem: Permission denied",
-    "text": "78.6 Problem: Permission denied\nCheck the permissions of:\n~/.ssh\n~/.ssh/authorized_keys\nUse:\nchmod 700 ~/.ssh\nchmod 600 ~/.ssh/authorized_keys",
+    "section": "77.6 Problem: Permission denied",
+    "text": "77.6 Problem: Permission denied\nCheck the permissions of:\n~/.ssh\n~/.ssh/authorized_keys\nUse:\nchmod 700 ~/.ssh\nchmod 600 ~/.ssh/authorized_keys",
     "crumbs": [
       "Workshop",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Part 2 — Hadoop MapReduce</span>"

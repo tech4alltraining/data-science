@@ -382,124 +382,121 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#part-2-hadoop-mapreduce" id="toc-part-2-hadoop-mapreduce" class="nav-link active" data-scroll-target="#part-2-hadoop-mapreduce"><span class="header-section-number">12</span> Part 2 — Hadoop MapReduce</a>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">11.1</span> Learning Objectives</a></li>
+  <li><a href="#from-python-mapreduce-to-hadoop" id="toc-from-python-mapreduce-to-hadoop" class="nav-link" data-scroll-target="#from-python-mapreduce-to-hadoop"><span class="header-section-number">12</span> From Python MapReduce to Hadoop</a></li>
+  <li><a href="#hadoop-components" id="toc-hadoop-components" class="nav-link" data-scroll-target="#hadoop-components"><span class="header-section-number">13</span> Hadoop Components</a>
   <ul class="collapse">
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">12.1</span> Learning Objectives</a></li>
+  <li><a href="#hadoop-distributed-file-system-hdfs" id="toc-hadoop-distributed-file-system-hdfs" class="nav-link" data-scroll-target="#hadoop-distributed-file-system-hdfs"><span class="header-section-number">13.0.1</span> Hadoop Distributed File System — HDFS</a></li>
+  <li><a href="#hadoop-mapreduce" id="toc-hadoop-mapreduce" class="nav-link" data-scroll-target="#hadoop-mapreduce"><span class="header-section-number">13.0.2</span> Hadoop MapReduce</a></li>
+  <li><a href="#yarn" id="toc-yarn" class="nav-link" data-scroll-target="#yarn"><span class="header-section-number">13.0.3</span> YARN</a></li>
   </ul></li>
-  <li><a href="#from-python-mapreduce-to-hadoop" id="toc-from-python-mapreduce-to-hadoop" class="nav-link" data-scroll-target="#from-python-mapreduce-to-hadoop"><span class="header-section-number">13</span> 1. From Python MapReduce to Hadoop</a></li>
-  <li><a href="#hadoop-components" id="toc-hadoop-components" class="nav-link" data-scroll-target="#hadoop-components"><span class="header-section-number">14</span> 2. Hadoop Components</a>
+  <li><a href="#important-hadoop-services" id="toc-important-hadoop-services" class="nav-link" data-scroll-target="#important-hadoop-services"><span class="header-section-number">14</span> Important Hadoop Services</a></li>
+  <li><a href="#hardware-assumption" id="toc-hardware-assumption" class="nav-link" data-scroll-target="#hardware-assumption"><span class="header-section-number">15</span> Hardware Assumption</a></li>
+  <li><a href="#before-installing-hadoop" id="toc-before-installing-hadoop" class="nav-link" data-scroll-target="#before-installing-hadoop"><span class="header-section-number">16</span> Before Installing Hadoop</a></li>
+  <li><a href="#ubuntu-setup" id="toc-ubuntu-setup" class="nav-link" data-scroll-target="#ubuntu-setup"><span class="header-section-number">17</span> Ubuntu Setup</a>
   <ul class="collapse">
-  <li><a href="#hadoop-distributed-file-system-hdfs" id="toc-hadoop-distributed-file-system-hdfs" class="nav-link" data-scroll-target="#hadoop-distributed-file-system-hdfs"><span class="header-section-number">14.0.1</span> Hadoop Distributed File System — HDFS</a></li>
-  <li><a href="#hadoop-mapreduce" id="toc-hadoop-mapreduce" class="nav-link" data-scroll-target="#hadoop-mapreduce"><span class="header-section-number">14.0.2</span> Hadoop MapReduce</a></li>
-  <li><a href="#yarn" id="toc-yarn" class="nav-link" data-scroll-target="#yarn"><span class="header-section-number">14.0.3</span> YARN</a></li>
+  <li><a href="#update-the-system" id="toc-update-the-system" class="nav-link" data-scroll-target="#update-the-system"><span class="header-section-number">17.1</span> Update the System</a></li>
+  <li><a href="#install-java" id="toc-install-java" class="nav-link" data-scroll-target="#install-java"><span class="header-section-number">17.2</span> Install Java</a></li>
+  <li><a href="#create-a-hadoop-user" id="toc-create-a-hadoop-user" class="nav-link" data-scroll-target="#create-a-hadoop-user"><span class="header-section-number">17.3</span> Create a Hadoop User</a></li>
   </ul></li>
-  <li><a href="#important-hadoop-services" id="toc-important-hadoop-services" class="nav-link" data-scroll-target="#important-hadoop-services"><span class="header-section-number">15</span> 3. Important Hadoop Services</a></li>
-  <li><a href="#hardware-assumption" id="toc-hardware-assumption" class="nav-link" data-scroll-target="#hardware-assumption"><span class="header-section-number">16</span> 4. Hardware Assumption</a></li>
-  <li><a href="#before-installing-hadoop" id="toc-before-installing-hadoop" class="nav-link" data-scroll-target="#before-installing-hadoop"><span class="header-section-number">17</span> 5. Before Installing Hadoop</a></li>
-  <li><a href="#ubuntu-setup" id="toc-ubuntu-setup" class="nav-link" data-scroll-target="#ubuntu-setup"><span class="header-section-number">18</span> 6. Ubuntu Setup</a>
+  <li><a href="#configure-ssh-on-ubuntu" id="toc-configure-ssh-on-ubuntu" class="nav-link" data-scroll-target="#configure-ssh-on-ubuntu"><span class="header-section-number">18</span> Configure SSH on Ubuntu</a></li>
+  <li><a href="#configure-passwordless-ssh" id="toc-configure-passwordless-ssh" class="nav-link" data-scroll-target="#configure-passwordless-ssh"><span class="header-section-number">19</span> Configure Passwordless SSH</a></li>
+  <li><a href="#download-hadoop" id="toc-download-hadoop" class="nav-link" data-scroll-target="#download-hadoop"><span class="header-section-number">20</span> Download Hadoop</a></li>
+  <li><a href="#configure-hadoop-environment-variables" id="toc-configure-hadoop-environment-variables" class="nav-link" data-scroll-target="#configure-hadoop-environment-variables"><span class="header-section-number">21</span> Configure Hadoop Environment Variables</a></li>
+  <li><a href="#configure-java_home-for-hadoop" id="toc-configure-java_home-for-hadoop" class="nav-link" data-scroll-target="#configure-java_home-for-hadoop"><span class="header-section-number">22</span> Configure JAVA_HOME for Hadoop</a></li>
+  <li><a href="#configure-core-site.xml" id="toc-configure-core-site.xml" class="nav-link" data-scroll-target="#configure-core-site.xml"><span class="header-section-number">23</span> Configure core-site.xml</a></li>
+  <li><a href="#configure-hdfs-site.xml" id="toc-configure-hdfs-site.xml" class="nav-link" data-scroll-target="#configure-hdfs-site.xml"><span class="header-section-number">24</span> Configure hdfs-site.xml</a></li>
+  <li><a href="#configure-mapreduce" id="toc-configure-mapreduce" class="nav-link" data-scroll-target="#configure-mapreduce"><span class="header-section-number">25</span> Configure MapReduce</a></li>
+  <li><a href="#configure-yarn" id="toc-configure-yarn" class="nav-link" data-scroll-target="#configure-yarn"><span class="header-section-number">26</span> Configure YARN</a></li>
+  <li><a href="#format-the-namenode" id="toc-format-the-namenode" class="nav-link" data-scroll-target="#format-the-namenode"><span class="header-section-number">27</span> Format the NameNode</a></li>
+  <li><a href="#start-hadoop" id="toc-start-hadoop" class="nav-link" data-scroll-target="#start-hadoop"><span class="header-section-number">28</span> Start Hadoop</a></li>
+  <li><a href="#stop-hadoop" id="toc-stop-hadoop" class="nav-link" data-scroll-target="#stop-hadoop"><span class="header-section-number">29</span> Stop Hadoop</a></li>
+  <li><a href="#windows-setup" id="toc-windows-setup" class="nav-link" data-scroll-target="#windows-setup"><span class="header-section-number">30</span> Windows Setup</a>
   <ul class="collapse">
-  <li><a href="#update-the-system" id="toc-update-the-system" class="nav-link" data-scroll-target="#update-the-system"><span class="header-section-number">18.1</span> 6.1 Update the System</a></li>
-  <li><a href="#install-java" id="toc-install-java" class="nav-link" data-scroll-target="#install-java"><span class="header-section-number">18.2</span> 6.2 Install Java</a></li>
-  <li><a href="#create-a-hadoop-user" id="toc-create-a-hadoop-user" class="nav-link" data-scroll-target="#create-a-hadoop-user"><span class="header-section-number">18.3</span> 6.3 Create a Hadoop User</a></li>
+  <li><a href="#recommended-classroom-approach" id="toc-recommended-classroom-approach" class="nav-link" data-scroll-target="#recommended-classroom-approach"><span class="header-section-number">30.1</span> Recommended Classroom Approach</a></li>
   </ul></li>
-  <li><a href="#configure-ssh-on-ubuntu" id="toc-configure-ssh-on-ubuntu" class="nav-link" data-scroll-target="#configure-ssh-on-ubuntu"><span class="header-section-number">19</span> 7. Configure SSH on Ubuntu</a></li>
-  <li><a href="#configure-passwordless-ssh" id="toc-configure-passwordless-ssh" class="nav-link" data-scroll-target="#configure-passwordless-ssh"><span class="header-section-number">20</span> 8. Configure Passwordless SSH</a></li>
-  <li><a href="#download-hadoop" id="toc-download-hadoop" class="nav-link" data-scroll-target="#download-hadoop"><span class="header-section-number">21</span> 9. Download Hadoop</a></li>
-  <li><a href="#configure-hadoop-environment-variables" id="toc-configure-hadoop-environment-variables" class="nav-link" data-scroll-target="#configure-hadoop-environment-variables"><span class="header-section-number">22</span> 10. Configure Hadoop Environment Variables</a></li>
-  <li><a href="#configure-java_home-for-hadoop" id="toc-configure-java_home-for-hadoop" class="nav-link" data-scroll-target="#configure-java_home-for-hadoop"><span class="header-section-number">23</span> 11. Configure JAVA_HOME for Hadoop</a></li>
-  <li><a href="#configure-core-site.xml" id="toc-configure-core-site.xml" class="nav-link" data-scroll-target="#configure-core-site.xml"><span class="header-section-number">24</span> 12. Configure core-site.xml</a></li>
-  <li><a href="#configure-hdfs-site.xml" id="toc-configure-hdfs-site.xml" class="nav-link" data-scroll-target="#configure-hdfs-site.xml"><span class="header-section-number">25</span> 13. Configure hdfs-site.xml</a></li>
-  <li><a href="#configure-mapreduce" id="toc-configure-mapreduce" class="nav-link" data-scroll-target="#configure-mapreduce"><span class="header-section-number">26</span> 14. Configure MapReduce</a></li>
-  <li><a href="#configure-yarn" id="toc-configure-yarn" class="nav-link" data-scroll-target="#configure-yarn"><span class="header-section-number">27</span> 15. Configure YARN</a></li>
-  <li><a href="#format-the-namenode" id="toc-format-the-namenode" class="nav-link" data-scroll-target="#format-the-namenode"><span class="header-section-number">28</span> 16. Format the NameNode</a></li>
-  <li><a href="#start-hadoop" id="toc-start-hadoop" class="nav-link" data-scroll-target="#start-hadoop"><span class="header-section-number">29</span> 17. Start Hadoop</a></li>
-  <li><a href="#stop-hadoop" id="toc-stop-hadoop" class="nav-link" data-scroll-target="#stop-hadoop"><span class="header-section-number">30</span> 18. Stop Hadoop</a></li>
-  <li><a href="#windows-setup" id="toc-windows-setup" class="nav-link" data-scroll-target="#windows-setup"><span class="header-section-number">31</span> 19. Windows Setup</a>
+  <li><a href="#enable-wsl2" id="toc-enable-wsl2" class="nav-link" data-scroll-target="#enable-wsl2"><span class="header-section-number">31</span> Enable WSL2</a></li>
+  <li><a href="#macos-setup" id="toc-macos-setup" class="nav-link" data-scroll-target="#macos-setup"><span class="header-section-number">32</span> macOS Setup</a></li>
+  <li><a href="#first-hdfs-experiment" id="toc-first-hdfs-experiment" class="nav-link" data-scroll-target="#first-hdfs-experiment"><span class="header-section-number">33</span> First HDFS Experiment</a></li>
+  <li><a href="#create-a-local-dataset" id="toc-create-a-local-dataset" class="nav-link" data-scroll-target="#create-a-local-dataset"><span class="header-section-number">34</span> Create a Local Dataset</a></li>
+  <li><a href="#upload-the-dataset-to-hdfs" id="toc-upload-the-dataset-to-hdfs" class="nav-link" data-scroll-target="#upload-the-dataset-to-hdfs"><span class="header-section-number">35</span> Upload the Dataset to HDFS</a></li>
+  <li><a href="#view-a-file-stored-in-hdfs" id="toc-view-a-file-stored-in-hdfs" class="nav-link" data-scroll-target="#view-a-file-stored-in-hdfs"><span class="header-section-number">36</span> View a File Stored in HDFS</a></li>
+  <li><a href="#hdfs-commands-you-should-know" id="toc-hdfs-commands-you-should-know" class="nav-link" data-scroll-target="#hdfs-commands-you-should-know"><span class="header-section-number">37</span> HDFS Commands You Should Know</a></li>
+  <li><a href="#understanding-the-hadoop-word-count-program" id="toc-understanding-the-hadoop-word-count-program" class="nav-link" data-scroll-target="#understanding-the-hadoop-word-count-program"><span class="header-section-number">38</span> Understanding the Hadoop Word Count Program</a></li>
+  <li><a href="#create-the-hadoop-streaming-mapper" id="toc-create-the-hadoop-streaming-mapper" class="nav-link" data-scroll-target="#create-the-hadoop-streaming-mapper"><span class="header-section-number">39</span> Create the Hadoop Streaming Mapper</a></li>
+  <li><a href="#create-the-hadoop-streaming-reducer" id="toc-create-the-hadoop-streaming-reducer" class="nav-link" data-scroll-target="#create-the-hadoop-streaming-reducer"><span class="header-section-number">40</span> Create the Hadoop Streaming Reducer</a></li>
+  <li><a href="#make-the-programs-executable" id="toc-make-the-programs-executable" class="nav-link" data-scroll-target="#make-the-programs-executable"><span class="header-section-number">41</span> Make the Programs Executable</a></li>
+  <li><a href="#test-the-mapper-locally" id="toc-test-the-mapper-locally" class="nav-link" data-scroll-target="#test-the-mapper-locally"><span class="header-section-number">42</span> Test the Mapper Locally</a></li>
+  <li><a href="#test-the-complete-pipeline-locally" id="toc-test-the-complete-pipeline-locally" class="nav-link" data-scroll-target="#test-the-complete-pipeline-locally"><span class="header-section-number">43</span> Test the Complete Pipeline Locally</a></li>
+  <li><a href="#run-mapreduce-using-hadoop" id="toc-run-mapreduce-using-hadoop" class="nav-link" data-scroll-target="#run-mapreduce-using-hadoop"><span class="header-section-number">44</span> Run MapReduce Using Hadoop</a></li>
+  <li><a href="#understand-the-job-output" id="toc-understand-the-job-output" class="nav-link" data-scroll-target="#understand-the-job-output"><span class="header-section-number">45</span> Understand the Job Output</a></li>
+  <li><a href="#important-observation" id="toc-important-observation" class="nav-link" data-scroll-target="#important-observation"><span class="header-section-number">46</span> Important Observation</a></li>
+  <li><a href="#inspect-the-hadoop-job" id="toc-inspect-the-hadoop-job" class="nav-link" data-scroll-target="#inspect-the-hadoop-job"><span class="header-section-number">47</span> Inspect the Hadoop Job</a></li>
+  <li><a href="#inspect-hdfs" id="toc-inspect-hdfs" class="nav-link" data-scroll-target="#inspect-hdfs"><span class="header-section-number">48</span> Inspect HDFS</a></li>
+  <li><a href="#exercise-1-change-the-word-count-program" id="toc-exercise-1-change-the-word-count-program" class="nav-link" data-scroll-target="#exercise-1-change-the-word-count-program"><span class="header-section-number">49</span> Exercise 1 — Change the Word Count Program</a>
   <ul class="collapse">
-  <li><a href="#recommended-classroom-approach" id="toc-recommended-classroom-approach" class="nav-link" data-scroll-target="#recommended-classroom-approach"><span class="header-section-number">31.1</span> Recommended Classroom Approach</a></li>
+  <li><a href="#try-it" id="toc-try-it" class="nav-link" data-scroll-target="#try-it"><span class="header-section-number">49.0.1</span> Try It</a></li>
   </ul></li>
-  <li><a href="#enable-wsl2" id="toc-enable-wsl2" class="nav-link" data-scroll-target="#enable-wsl2"><span class="header-section-number">32</span> 20. Enable WSL2</a></li>
-  <li><a href="#macos-setup" id="toc-macos-setup" class="nav-link" data-scroll-target="#macos-setup"><span class="header-section-number">33</span> 21. macOS Setup</a></li>
-  <li><a href="#first-hdfs-experiment" id="toc-first-hdfs-experiment" class="nav-link" data-scroll-target="#first-hdfs-experiment"><span class="header-section-number">34</span> 22. First HDFS Experiment</a></li>
-  <li><a href="#create-a-local-dataset" id="toc-create-a-local-dataset" class="nav-link" data-scroll-target="#create-a-local-dataset"><span class="header-section-number">35</span> 23. Create a Local Dataset</a></li>
-  <li><a href="#upload-the-dataset-to-hdfs" id="toc-upload-the-dataset-to-hdfs" class="nav-link" data-scroll-target="#upload-the-dataset-to-hdfs"><span class="header-section-number">36</span> 24. Upload the Dataset to HDFS</a></li>
-  <li><a href="#view-a-file-stored-in-hdfs" id="toc-view-a-file-stored-in-hdfs" class="nav-link" data-scroll-target="#view-a-file-stored-in-hdfs"><span class="header-section-number">37</span> 25. View a File Stored in HDFS</a></li>
-  <li><a href="#hdfs-commands-you-should-know" id="toc-hdfs-commands-you-should-know" class="nav-link" data-scroll-target="#hdfs-commands-you-should-know"><span class="header-section-number">38</span> 26. HDFS Commands You Should Know</a></li>
-  <li><a href="#understanding-the-hadoop-word-count-program" id="toc-understanding-the-hadoop-word-count-program" class="nav-link" data-scroll-target="#understanding-the-hadoop-word-count-program"><span class="header-section-number">39</span> 27. Understanding the Hadoop Word Count Program</a></li>
-  <li><a href="#create-the-hadoop-streaming-mapper" id="toc-create-the-hadoop-streaming-mapper" class="nav-link" data-scroll-target="#create-the-hadoop-streaming-mapper"><span class="header-section-number">40</span> 28. Create the Hadoop Streaming Mapper</a></li>
-  <li><a href="#create-the-hadoop-streaming-reducer" id="toc-create-the-hadoop-streaming-reducer" class="nav-link" data-scroll-target="#create-the-hadoop-streaming-reducer"><span class="header-section-number">41</span> 29. Create the Hadoop Streaming Reducer</a></li>
-  <li><a href="#make-the-programs-executable" id="toc-make-the-programs-executable" class="nav-link" data-scroll-target="#make-the-programs-executable"><span class="header-section-number">42</span> 30. Make the Programs Executable</a></li>
-  <li><a href="#test-the-mapper-locally" id="toc-test-the-mapper-locally" class="nav-link" data-scroll-target="#test-the-mapper-locally"><span class="header-section-number">43</span> 31. Test the Mapper Locally</a></li>
-  <li><a href="#test-the-complete-pipeline-locally" id="toc-test-the-complete-pipeline-locally" class="nav-link" data-scroll-target="#test-the-complete-pipeline-locally"><span class="header-section-number">44</span> 32. Test the Complete Pipeline Locally</a></li>
-  <li><a href="#run-mapreduce-using-hadoop" id="toc-run-mapreduce-using-hadoop" class="nav-link" data-scroll-target="#run-mapreduce-using-hadoop"><span class="header-section-number">45</span> 33. Run MapReduce Using Hadoop</a></li>
-  <li><a href="#understand-the-job-output" id="toc-understand-the-job-output" class="nav-link" data-scroll-target="#understand-the-job-output"><span class="header-section-number">46</span> 34. Understand the Job Output</a></li>
-  <li><a href="#important-observation" id="toc-important-observation" class="nav-link" data-scroll-target="#important-observation"><span class="header-section-number">47</span> 35. Important Observation</a></li>
-  <li><a href="#inspect-the-hadoop-job" id="toc-inspect-the-hadoop-job" class="nav-link" data-scroll-target="#inspect-the-hadoop-job"><span class="header-section-number">48</span> 36. Inspect the Hadoop Job</a></li>
-  <li><a href="#inspect-hdfs" id="toc-inspect-hdfs" class="nav-link" data-scroll-target="#inspect-hdfs"><span class="header-section-number">49</span> 37. Inspect HDFS</a></li>
-  <li><a href="#exercise-1-change-the-word-count-program" id="toc-exercise-1-change-the-word-count-program" class="nav-link" data-scroll-target="#exercise-1-change-the-word-count-program"><span class="header-section-number">50</span> 38. Exercise 1 — Change the Word Count Program</a>
+  <li><a href="#exercise-2-count-lines" id="toc-exercise-2-count-lines" class="nav-link" data-scroll-target="#exercise-2-count-lines"><span class="header-section-number">50</span> Exercise 2 — Count Lines</a></li>
+  <li><a href="#exercise-3-count-words-by-first-letter" id="toc-exercise-3-count-words-by-first-letter" class="nav-link" data-scroll-target="#exercise-3-count-words-by-first-letter"><span class="header-section-number">51</span> Exercise 3 — Count Words by First Letter</a></li>
+  <li><a href="#real-dataset-experiment" id="toc-real-dataset-experiment" class="nav-link" data-scroll-target="#real-dataset-experiment"><span class="header-section-number">52</span> Real Dataset Experiment</a></li>
+  <li><a href="#upload-the-real-dataset-to-hdfs" id="toc-upload-the-real-dataset-to-hdfs" class="nav-link" data-scroll-target="#upload-the-real-dataset-to-hdfs"><span class="header-section-number">53</span> Upload the Real Dataset to HDFS</a></li>
+  <li><a href="#hadoop-mapreduce-problem" id="toc-hadoop-mapreduce-problem" class="nav-link" data-scroll-target="#hadoop-mapreduce-problem"><span class="header-section-number">54</span> Hadoop MapReduce Problem</a></li>
+  <li><a href="#csv-mapper" id="toc-csv-mapper" class="nav-link" data-scroll-target="#csv-mapper"><span class="header-section-number">55</span> CSV Mapper</a></li>
+  <li><a href="#reuse-the-reducer" id="toc-reuse-the-reducer" class="nav-link" data-scroll-target="#reuse-the-reducer"><span class="header-section-number">56</span> Reuse the Reducer</a></li>
+  <li><a href="#run-the-hadoop-job" id="toc-run-the-hadoop-job" class="nav-link" data-scroll-target="#run-the-hadoop-job"><span class="header-section-number">57</span> Run the Hadoop Job</a></li>
+  <li><a href="#download-hadoop-output-to-your-computer" id="toc-download-hadoop-output-to-your-computer" class="nav-link" data-scroll-target="#download-hadoop-output-to-your-computer"><span class="header-section-number">58</span> Download Hadoop Output to Your Computer</a></li>
+  <li><a href="#compare-hadoop-with-pandas" id="toc-compare-hadoop-with-pandas" class="nav-link" data-scroll-target="#compare-hadoop-with-pandas"><span class="header-section-number">59</span> Compare Hadoop with Pandas</a></li>
+  <li><a href="#processing-a-larger-dataset" id="toc-processing-a-larger-dataset" class="nav-link" data-scroll-target="#processing-a-larger-dataset"><span class="header-section-number">60</span> Processing a Larger Dataset</a></li>
+  <li><a href="#upload-the-larger-dataset" id="toc-upload-the-larger-dataset" class="nav-link" data-scroll-target="#upload-the-larger-dataset"><span class="header-section-number">61</span> Upload the Larger Dataset</a></li>
+  <li><a href="#run-mapreduce-on-the-larger-dataset" id="toc-run-mapreduce-on-the-larger-dataset" class="nav-link" data-scroll-target="#run-mapreduce-on-the-larger-dataset"><span class="header-section-number">62</span> Run MapReduce on the Larger Dataset</a></li>
+  <li><a href="#understand-the-hadoop-execution-flow" id="toc-understand-the-hadoop-execution-flow" class="nav-link" data-scroll-target="#understand-the-hadoop-execution-flow"><span class="header-section-number">63</span> Understand the Hadoop Execution Flow</a></li>
+  <li><a href="#why-use-hadoop" id="toc-why-use-hadoop" class="nav-link" data-scroll-target="#why-use-hadoop"><span class="header-section-number">64</span> Why Use Hadoop?</a></li>
+  <li><a href="#data-locality" id="toc-data-locality" class="nav-link" data-scroll-target="#data-locality"><span class="header-section-number">65</span> Data Locality</a></li>
+  <li><a href="#hdfs-blocks" id="toc-hdfs-blocks" class="nav-link" data-scroll-target="#hdfs-blocks"><span class="header-section-number">66</span> HDFS Blocks</a></li>
+  <li><a href="#replication" id="toc-replication" class="nav-link" data-scroll-target="#replication"><span class="header-section-number">67</span> Replication</a></li>
+  <li><a href="#mapreduce-versus-python-mapreduce" id="toc-mapreduce-versus-python-mapreduce" class="nav-link" data-scroll-target="#mapreduce-versus-python-mapreduce"><span class="header-section-number">68</span> MapReduce Versus Python MapReduce</a></li>
+  <li><a href="#exercise-revenue-analysis" id="toc-exercise-revenue-analysis" class="nav-link" data-scroll-target="#exercise-revenue-analysis"><span class="header-section-number">69</span> Exercise — Revenue Analysis</a></li>
+  <li><a href="#revenue-mapper" id="toc-revenue-mapper" class="nav-link" data-scroll-target="#revenue-mapper"><span class="header-section-number">70</span> Revenue Mapper</a></li>
+  <li><a href="#run-revenue-analysis" id="toc-run-revenue-analysis" class="nav-link" data-scroll-target="#run-revenue-analysis"><span class="header-section-number">71</span> Run Revenue Analysis</a></li>
+  <li><a href="#exercise-top-products" id="toc-exercise-top-products" class="nav-link" data-scroll-target="#exercise-top-products"><span class="header-section-number">72</span> Exercise — Top Products</a></li>
+  <li><a href="#measuring-execution-time" id="toc-measuring-execution-time" class="nav-link" data-scroll-target="#measuring-execution-time"><span class="header-section-number">73</span> Measuring Execution Time</a></li>
+  <li><a href="#an-important-observation" id="toc-an-important-observation" class="nav-link" data-scroll-target="#an-important-observation"><span class="header-section-number">74</span> An Important Observation</a></li>
+  <li><a href="#experiment-python-versus-hadoop" id="toc-experiment-python-versus-hadoop" class="nav-link" data-scroll-target="#experiment-python-versus-hadoop"><span class="header-section-number">75</span> Experiment — Python Versus Hadoop</a>
   <ul class="collapse">
-  <li><a href="#try-it" id="toc-try-it" class="nav-link" data-scroll-target="#try-it"><span class="header-section-number">50.0.1</span> Try It</a></li>
+  <li><a href="#python" id="toc-python" class="nav-link" data-scroll-target="#python"><span class="header-section-number">75.0.1</span> Python</a></li>
+  <li><a href="#hadoop" id="toc-hadoop" class="nav-link" data-scroll-target="#hadoop"><span class="header-section-number">75.0.2</span> Hadoop</a></li>
   </ul></li>
-  <li><a href="#exercise-2-count-lines" id="toc-exercise-2-count-lines" class="nav-link" data-scroll-target="#exercise-2-count-lines"><span class="header-section-number">51</span> 39. Exercise 2 — Count Lines</a></li>
-  <li><a href="#exercise-3-count-words-by-first-letter" id="toc-exercise-3-count-words-by-first-letter" class="nav-link" data-scroll-target="#exercise-3-count-words-by-first-letter"><span class="header-section-number">52</span> 40. Exercise 3 — Count Words by First Letter</a></li>
-  <li><a href="#real-dataset-experiment" id="toc-real-dataset-experiment" class="nav-link" data-scroll-target="#real-dataset-experiment"><span class="header-section-number">53</span> 41. Real Dataset Experiment</a></li>
-  <li><a href="#upload-the-real-dataset-to-hdfs" id="toc-upload-the-real-dataset-to-hdfs" class="nav-link" data-scroll-target="#upload-the-real-dataset-to-hdfs"><span class="header-section-number">54</span> 42. Upload the Real Dataset to HDFS</a></li>
-  <li><a href="#hadoop-mapreduce-problem" id="toc-hadoop-mapreduce-problem" class="nav-link" data-scroll-target="#hadoop-mapreduce-problem"><span class="header-section-number">55</span> 43. Hadoop MapReduce Problem</a></li>
-  <li><a href="#csv-mapper" id="toc-csv-mapper" class="nav-link" data-scroll-target="#csv-mapper"><span class="header-section-number">56</span> 44. CSV Mapper</a></li>
-  <li><a href="#reuse-the-reducer" id="toc-reuse-the-reducer" class="nav-link" data-scroll-target="#reuse-the-reducer"><span class="header-section-number">57</span> 45. Reuse the Reducer</a></li>
-  <li><a href="#run-the-hadoop-job" id="toc-run-the-hadoop-job" class="nav-link" data-scroll-target="#run-the-hadoop-job"><span class="header-section-number">58</span> 46. Run the Hadoop Job</a></li>
-  <li><a href="#download-hadoop-output-to-your-computer" id="toc-download-hadoop-output-to-your-computer" class="nav-link" data-scroll-target="#download-hadoop-output-to-your-computer"><span class="header-section-number">59</span> 47. Download Hadoop Output to Your Computer</a></li>
-  <li><a href="#compare-hadoop-with-pandas" id="toc-compare-hadoop-with-pandas" class="nav-link" data-scroll-target="#compare-hadoop-with-pandas"><span class="header-section-number">60</span> 48. Compare Hadoop with Pandas</a></li>
-  <li><a href="#processing-a-larger-dataset" id="toc-processing-a-larger-dataset" class="nav-link" data-scroll-target="#processing-a-larger-dataset"><span class="header-section-number">61</span> 49. Processing a Larger Dataset</a></li>
-  <li><a href="#upload-the-larger-dataset" id="toc-upload-the-larger-dataset" class="nav-link" data-scroll-target="#upload-the-larger-dataset"><span class="header-section-number">62</span> 50. Upload the Larger Dataset</a></li>
-  <li><a href="#run-mapreduce-on-the-larger-dataset" id="toc-run-mapreduce-on-the-larger-dataset" class="nav-link" data-scroll-target="#run-mapreduce-on-the-larger-dataset"><span class="header-section-number">63</span> 51. Run MapReduce on the Larger Dataset</a></li>
-  <li><a href="#understand-the-hadoop-execution-flow" id="toc-understand-the-hadoop-execution-flow" class="nav-link" data-scroll-target="#understand-the-hadoop-execution-flow"><span class="header-section-number">64</span> 52. Understand the Hadoop Execution Flow</a></li>
-  <li><a href="#why-use-hadoop" id="toc-why-use-hadoop" class="nav-link" data-scroll-target="#why-use-hadoop"><span class="header-section-number">65</span> 53. Why Use Hadoop?</a></li>
-  <li><a href="#data-locality" id="toc-data-locality" class="nav-link" data-scroll-target="#data-locality"><span class="header-section-number">66</span> 54. Data Locality</a></li>
-  <li><a href="#hdfs-blocks" id="toc-hdfs-blocks" class="nav-link" data-scroll-target="#hdfs-blocks"><span class="header-section-number">67</span> 55. HDFS Blocks</a></li>
-  <li><a href="#replication" id="toc-replication" class="nav-link" data-scroll-target="#replication"><span class="header-section-number">68</span> 56. Replication</a></li>
-  <li><a href="#mapreduce-versus-python-mapreduce" id="toc-mapreduce-versus-python-mapreduce" class="nav-link" data-scroll-target="#mapreduce-versus-python-mapreduce"><span class="header-section-number">69</span> 57. MapReduce Versus Python MapReduce</a></li>
-  <li><a href="#exercise-revenue-analysis" id="toc-exercise-revenue-analysis" class="nav-link" data-scroll-target="#exercise-revenue-analysis"><span class="header-section-number">70</span> 58. Exercise — Revenue Analysis</a></li>
-  <li><a href="#revenue-mapper" id="toc-revenue-mapper" class="nav-link" data-scroll-target="#revenue-mapper"><span class="header-section-number">71</span> 59. Revenue Mapper</a></li>
-  <li><a href="#run-revenue-analysis" id="toc-run-revenue-analysis" class="nav-link" data-scroll-target="#run-revenue-analysis"><span class="header-section-number">72</span> 60. Run Revenue Analysis</a></li>
-  <li><a href="#exercise-top-products" id="toc-exercise-top-products" class="nav-link" data-scroll-target="#exercise-top-products"><span class="header-section-number">73</span> 61. Exercise — Top Products</a></li>
-  <li><a href="#measuring-execution-time" id="toc-measuring-execution-time" class="nav-link" data-scroll-target="#measuring-execution-time"><span class="header-section-number">74</span> 62. Measuring Execution Time</a></li>
-  <li><a href="#an-important-observation" id="toc-an-important-observation" class="nav-link" data-scroll-target="#an-important-observation"><span class="header-section-number">75</span> 63. An Important Observation</a></li>
-  <li><a href="#experiment-python-versus-hadoop" id="toc-experiment-python-versus-hadoop" class="nav-link" data-scroll-target="#experiment-python-versus-hadoop"><span class="header-section-number">76</span> 64. Experiment — Python Versus Hadoop</a>
+  <li><a href="#why-hadoop-may-become-more-useful-as-data-grows" id="toc-why-hadoop-may-become-more-useful-as-data-grows" class="nav-link" data-scroll-target="#why-hadoop-may-become-more-useful-as-data-grows"><span class="header-section-number">76</span> Why Hadoop May Become More Useful as Data Grows</a></li>
+  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting"><span class="header-section-number">77</span> Troubleshooting</a>
   <ul class="collapse">
-  <li><a href="#python" id="toc-python" class="nav-link" data-scroll-target="#python"><span class="header-section-number">76.0.1</span> Python</a></li>
-  <li><a href="#hadoop" id="toc-hadoop" class="nav-link" data-scroll-target="#hadoop"><span class="header-section-number">76.0.2</span> Hadoop</a></li>
+  <li><a href="#problem-hadoop-command-not-found" id="toc-problem-hadoop-command-not-found" class="nav-link" data-scroll-target="#problem-hadoop-command-not-found"><span class="header-section-number">77.1</span> Problem: <code>hadoop: command not found</code></a></li>
+  <li><a href="#problem-java-not-found" id="toc-problem-java-not-found" class="nav-link" data-scroll-target="#problem-java-not-found"><span class="header-section-number">77.2</span> Problem: Java not found</a></li>
+  <li><a href="#problem-namenode-is-not-running" id="toc-problem-namenode-is-not-running" class="nav-link" data-scroll-target="#problem-namenode-is-not-running"><span class="header-section-number">77.3</span> Problem: NameNode is not running</a></li>
+  <li><a href="#problem-datanode-is-not-running" id="toc-problem-datanode-is-not-running" class="nav-link" data-scroll-target="#problem-datanode-is-not-running"><span class="header-section-number">77.4</span> Problem: DataNode is not running</a></li>
+  <li><a href="#problem-output-directory-already-exists" id="toc-problem-output-directory-already-exists" class="nav-link" data-scroll-target="#problem-output-directory-already-exists"><span class="header-section-number">77.5</span> Problem: Output directory already exists</a></li>
+  <li><a href="#problem-permission-denied" id="toc-problem-permission-denied" class="nav-link" data-scroll-target="#problem-permission-denied"><span class="header-section-number">77.6</span> Problem: Permission denied</a></li>
   </ul></li>
-  <li><a href="#why-hadoop-may-become-more-useful-as-data-grows" id="toc-why-hadoop-may-become-more-useful-as-data-grows" class="nav-link" data-scroll-target="#why-hadoop-may-become-more-useful-as-data-grows"><span class="header-section-number">77</span> 65. Why Hadoop May Become More Useful as Data Grows</a></li>
-  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting"><span class="header-section-number">78</span> 66. Troubleshooting</a>
+  <li><a href="#final-practical-exercise" id="toc-final-practical-exercise" class="nav-link" data-scroll-target="#final-practical-exercise"><span class="header-section-number">78</span> Final Practical Exercise</a>
   <ul class="collapse">
-  <li><a href="#problem-hadoop-command-not-found" id="toc-problem-hadoop-command-not-found" class="nav-link" data-scroll-target="#problem-hadoop-command-not-found"><span class="header-section-number">78.1</span> Problem: <code>hadoop: command not found</code></a></li>
-  <li><a href="#problem-java-not-found" id="toc-problem-java-not-found" class="nav-link" data-scroll-target="#problem-java-not-found"><span class="header-section-number">78.2</span> Problem: Java not found</a></li>
-  <li><a href="#problem-namenode-is-not-running" id="toc-problem-namenode-is-not-running" class="nav-link" data-scroll-target="#problem-namenode-is-not-running"><span class="header-section-number">78.3</span> Problem: NameNode is not running</a></li>
-  <li><a href="#problem-datanode-is-not-running" id="toc-problem-datanode-is-not-running" class="nav-link" data-scroll-target="#problem-datanode-is-not-running"><span class="header-section-number">78.4</span> Problem: DataNode is not running</a></li>
-  <li><a href="#problem-output-directory-already-exists" id="toc-problem-output-directory-already-exists" class="nav-link" data-scroll-target="#problem-output-directory-already-exists"><span class="header-section-number">78.5</span> Problem: Output directory already exists</a></li>
-  <li><a href="#problem-permission-denied" id="toc-problem-permission-denied" class="nav-link" data-scroll-target="#problem-permission-denied"><span class="header-section-number">78.6</span> Problem: Permission denied</a></li>
+  <li><a href="#option-1-visitor-analysis" id="toc-option-1-visitor-analysis" class="nav-link" data-scroll-target="#option-1-visitor-analysis"><span class="header-section-number">78.0.1</span> Option 1 — Visitor Analysis</a></li>
+  <li><a href="#option-2-revenue-analysis" id="toc-option-2-revenue-analysis" class="nav-link" data-scroll-target="#option-2-revenue-analysis"><span class="header-section-number">78.0.2</span> Option 2 — Revenue Analysis</a></li>
+  <li><a href="#option-3-product-analysis" id="toc-option-3-product-analysis" class="nav-link" data-scroll-target="#option-3-product-analysis"><span class="header-section-number">78.0.3</span> Option 3 — Product Analysis</a></li>
+  <li><a href="#option-4-time-analysis" id="toc-option-4-time-analysis" class="nav-link" data-scroll-target="#option-4-time-analysis"><span class="header-section-number">78.0.4</span> Option 4 — Time Analysis</a></li>
+  <li><a href="#option-5-custom-problem" id="toc-option-5-custom-problem" class="nav-link" data-scroll-target="#option-5-custom-problem"><span class="header-section-number">78.0.5</span> Option 5 — Custom Problem</a></li>
   </ul></li>
-  <li><a href="#final-practical-exercise" id="toc-final-practical-exercise" class="nav-link" data-scroll-target="#final-practical-exercise"><span class="header-section-number">79</span> 67. Final Practical Exercise</a>
+  <li><a href="#required-components-of-the-final-exercise" id="toc-required-components-of-the-final-exercise" class="nav-link" data-scroll-target="#required-components-of-the-final-exercise"><span class="header-section-number">79</span> Required Components of the Final Exercise</a>
   <ul class="collapse">
-  <li><a href="#option-1-visitor-analysis" id="toc-option-1-visitor-analysis" class="nav-link" data-scroll-target="#option-1-visitor-analysis"><span class="header-section-number">79.0.1</span> Option 1 — Visitor Analysis</a></li>
-  <li><a href="#option-2-revenue-analysis" id="toc-option-2-revenue-analysis" class="nav-link" data-scroll-target="#option-2-revenue-analysis"><span class="header-section-number">79.0.2</span> Option 2 — Revenue Analysis</a></li>
-  <li><a href="#option-3-product-analysis" id="toc-option-3-product-analysis" class="nav-link" data-scroll-target="#option-3-product-analysis"><span class="header-section-number">79.0.3</span> Option 3 — Product Analysis</a></li>
-  <li><a href="#option-4-time-analysis" id="toc-option-4-time-analysis" class="nav-link" data-scroll-target="#option-4-time-analysis"><span class="header-section-number">79.0.4</span> Option 4 — Time Analysis</a></li>
-  <li><a href="#option-5-custom-problem" id="toc-option-5-custom-problem" class="nav-link" data-scroll-target="#option-5-custom-problem"><span class="header-section-number">79.0.5</span> Option 5 — Custom Problem</a></li>
+  <li><a href="#input-dataset" id="toc-input-dataset" class="nav-link" data-scroll-target="#input-dataset"><span class="header-section-number">79.0.1</span> Input Dataset</a></li>
+  <li><a href="#mapper" id="toc-mapper" class="nav-link" data-scroll-target="#mapper"><span class="header-section-number">79.0.2</span> Mapper</a></li>
+  <li><a href="#reducer" id="toc-reducer" class="nav-link" data-scroll-target="#reducer"><span class="header-section-number">79.0.3</span> Reducer</a></li>
+  <li><a href="#hdfs" id="toc-hdfs" class="nav-link" data-scroll-target="#hdfs"><span class="header-section-number">79.0.4</span> HDFS</a></li>
+  <li><a href="#hadoop-job" id="toc-hadoop-job" class="nav-link" data-scroll-target="#hadoop-job"><span class="header-section-number">79.0.5</span> Hadoop Job</a></li>
+  <li><a href="#output" id="toc-output" class="nav-link" data-scroll-target="#output"><span class="header-section-number">79.0.6</span> Output</a></li>
+  <li><a href="#validation" id="toc-validation" class="nav-link" data-scroll-target="#validation"><span class="header-section-number">79.0.7</span> Validation</a></li>
   </ul></li>
-  <li><a href="#required-components-of-the-final-exercise" id="toc-required-components-of-the-final-exercise" class="nav-link" data-scroll-target="#required-components-of-the-final-exercise"><span class="header-section-number">80</span> 68. Required Components of the Final Exercise</a>
-  <ul class="collapse">
-  <li><a href="#input-dataset" id="toc-input-dataset" class="nav-link" data-scroll-target="#input-dataset"><span class="header-section-number">80.0.1</span> 1. Input Dataset</a></li>
-  <li><a href="#mapper" id="toc-mapper" class="nav-link" data-scroll-target="#mapper"><span class="header-section-number">80.0.2</span> 2. Mapper</a></li>
-  <li><a href="#reducer" id="toc-reducer" class="nav-link" data-scroll-target="#reducer"><span class="header-section-number">80.0.3</span> 3. Reducer</a></li>
-  <li><a href="#hdfs" id="toc-hdfs" class="nav-link" data-scroll-target="#hdfs"><span class="header-section-number">80.0.4</span> 4. HDFS</a></li>
-  <li><a href="#hadoop-job" id="toc-hadoop-job" class="nav-link" data-scroll-target="#hadoop-job"><span class="header-section-number">80.0.5</span> 5. Hadoop Job</a></li>
-  <li><a href="#output" id="toc-output" class="nav-link" data-scroll-target="#output"><span class="header-section-number">80.0.6</span> 6. Output</a></li>
-  <li><a href="#validation" id="toc-validation" class="nav-link" data-scroll-target="#validation"><span class="header-section-number">80.0.7</span> 7. Validation</a></li>
-  </ul></li>
-  <li><a href="#final-checklist" id="toc-final-checklist" class="nav-link" data-scroll-target="#final-checklist"><span class="header-section-number">81</span> 69. Final Checklist</a></li>
-  <li><a href="#part-2-summary" id="toc-part-2-summary" class="nav-link" data-scroll-target="#part-2-summary"><span class="header-section-number">82</span> 70. Part 2 Summary</a></li>
+  <li><a href="#final-checklist" id="toc-final-checklist" class="nav-link" data-scroll-target="#final-checklist"><span class="header-section-number">80</span> Final Checklist</a></li>
+  <li><a href="#part-2-summary" id="toc-part-2-summary" class="nav-link" data-scroll-target="#part-2-summary"><span class="header-section-number">81</span> Part 2 Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -509,7 +506,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../demos/session-01-python-refresher.html">Workshop</a></li><li class="breadcrumb-item"><a href="../demos/session-07-big-data-part2.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Part 2 — Hadoop MapReduce</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Part 2 — Hadoop MapReduce</span></h1>
-<p class="subtitle lead">Hadoop Setup and Real-Time MapReduce Execution</p>
 </div>
 
 
@@ -526,10 +522,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="part-2-hadoop-mapreduce" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> Part 2 — Hadoop MapReduce</h1>
-<section id="learning-objectives" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">12.1</span> Learning Objectives</h2>
+<section id="learning-objectives" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">11.1</span> Learning Objectives</h2>
 <p>By the end of this part, you will be able to:</p>
 <ol type="1">
 <li>Explain how Hadoop MapReduce differs from Python MapReduce.</li>
@@ -545,9 +539,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <hr>
 </section>
-</section>
-<section id="from-python-mapreduce-to-hadoop" class="level1" data-number="13">
-<h1 data-number="13"><span class="header-section-number">13</span> 1. From Python MapReduce to Hadoop</h1>
+<section id="from-python-mapreduce-to-hadoop" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> From Python MapReduce to Hadoop</h1>
 <p>In Part 1, we implemented the MapReduce idea ourselves using Python.</p>
 <p>The basic workflow was:</p>
 <pre class="text"><code>Input Dataset
@@ -604,11 +597,11 @@ Grouped Key-Value Pairs
 </ul>
 <hr>
 </section>
-<section id="hadoop-components" class="level1" data-number="14">
-<h1 data-number="14"><span class="header-section-number">14</span> 2. Hadoop Components</h1>
+<section id="hadoop-components" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> Hadoop Components</h1>
 <p>For this practical, we will mainly work with:</p>
-<section id="hadoop-distributed-file-system-hdfs" class="level3" data-number="14.0.1">
-<h3 data-number="14.0.1" class="anchored" data-anchor-id="hadoop-distributed-file-system-hdfs"><span class="header-section-number">14.0.1</span> Hadoop Distributed File System — HDFS</h3>
+<section id="hadoop-distributed-file-system-hdfs" class="level3" data-number="13.0.1">
+<h3 data-number="13.0.1" class="anchored" data-anchor-id="hadoop-distributed-file-system-hdfs"><span class="header-section-number">13.0.1</span> Hadoop Distributed File System — HDFS</h3>
 <p>HDFS is the storage layer.</p>
 <pre class="text"><code>Local Computer
      |
@@ -620,8 +613,8 @@ Grouped Key-Value Pairs
      +---- file 2
      +---- file 3</code></pre>
 </section>
-<section id="hadoop-mapreduce" class="level3" data-number="14.0.2">
-<h3 data-number="14.0.2" class="anchored" data-anchor-id="hadoop-mapreduce"><span class="header-section-number">14.0.2</span> Hadoop MapReduce</h3>
+<section id="hadoop-mapreduce" class="level3" data-number="13.0.2">
+<h3 data-number="13.0.2" class="anchored" data-anchor-id="hadoop-mapreduce"><span class="header-section-number">13.0.2</span> Hadoop MapReduce</h3>
 <p>MapReduce is the processing layer.</p>
 <pre class="text"><code>HDFS Input
     |
@@ -637,16 +630,16 @@ Reducer
     v
 HDFS Output</code></pre>
 </section>
-<section id="yarn" class="level3" data-number="14.0.3">
-<h3 data-number="14.0.3" class="anchored" data-anchor-id="yarn"><span class="header-section-number">14.0.3</span> YARN</h3>
+<section id="yarn" class="level3" data-number="13.0.3">
+<h3 data-number="13.0.3" class="anchored" data-anchor-id="yarn"><span class="header-section-number">13.0.3</span> YARN</h3>
 <p>YARN manages computing resources and schedules applications in a Hadoop cluster.</p>
 <p>For this practical, we will use Hadoop in <strong>pseudo-distributed mode</strong>.</p>
 <p>This means Hadoop runs on a single computer, but Hadoop components behave approximately as they would in a distributed environment.</p>
 <hr>
 </section>
 </section>
-<section id="important-hadoop-services" class="level1" data-number="15">
-<h1 data-number="15"><span class="header-section-number">15</span> 3. Important Hadoop Services</h1>
+<section id="important-hadoop-services" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> Important Hadoop Services</h1>
 <p>A simplified Hadoop installation contains several important services.</p>
 <table class="caption-top table">
 <thead>
@@ -696,8 +689,8 @@ NodeManager
     +---- Executes tasks</code></pre>
 <hr>
 </section>
-<section id="hardware-assumption" class="level1" data-number="16">
-<h1 data-number="16"><span class="header-section-number">16</span> 4. Hardware Assumption</h1>
+<section id="hardware-assumption" class="level1" data-number="15">
+<h1 data-number="15"><span class="header-section-number">15</span> Hardware Assumption</h1>
 <p>This practical is designed to work on a modest computer.</p>
 <p>A machine such as:</p>
 <pre class="text"><code>CPU       : Intel Core i5
@@ -712,8 +705,8 @@ OS        : Ubuntu / Windows / macOS</code></pre>
 </blockquote>
 <hr>
 </section>
-<section id="before-installing-hadoop" class="level1" data-number="17">
-<h1 data-number="17"><span class="header-section-number">17</span> 5. Before Installing Hadoop</h1>
+<section id="before-installing-hadoop" class="level1" data-number="16">
+<h1 data-number="16"><span class="header-section-number">16</span> Before Installing Hadoop</h1>
 <p>Make sure Java is installed.</p>
 <p>Hadoop requires Java.</p>
 <p>We will first check whether Java is available.</p>
@@ -726,18 +719,18 @@ OS        : Ubuntu / Windows / macOS</code></pre>
 <p>If both commands work, Java is available.</p>
 <hr>
 </section>
-<section id="ubuntu-setup" class="level1" data-number="18">
-<h1 data-number="18"><span class="header-section-number">18</span> 6. Ubuntu Setup</h1>
-<section id="update-the-system" class="level2" data-number="18.1">
-<h2 data-number="18.1" class="anchored" data-anchor-id="update-the-system"><span class="header-section-number">18.1</span> 6.1 Update the System</h2>
+<section id="ubuntu-setup" class="level1" data-number="17">
+<h1 data-number="17"><span class="header-section-number">17</span> Ubuntu Setup</h1>
+<section id="update-the-system" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="update-the-system"><span class="header-section-number">17.1</span> Update the System</h2>
 <p>Open Terminal and run:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt upgrade <span class="at">-y</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="install-java" class="level2" data-number="18.2">
-<h2 data-number="18.2" class="anchored" data-anchor-id="install-java"><span class="header-section-number">18.2</span> 6.2 Install Java</h2>
+<section id="install-java" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="install-java"><span class="header-section-number">17.2</span> Install Java</h2>
 <p>Run:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install openjdk-11-jdk <span class="at">-y</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Check:</p>
@@ -746,8 +739,8 @@ OS        : Ubuntu / Windows / macOS</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">javac</span> <span class="at">-version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="create-a-hadoop-user" class="level2" data-number="18.3">
-<h2 data-number="18.3" class="anchored" data-anchor-id="create-a-hadoop-user"><span class="header-section-number">18.3</span> 6.3 Create a Hadoop User</h2>
+<section id="create-a-hadoop-user" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="create-a-hadoop-user"><span class="header-section-number">17.3</span> Create a Hadoop User</h2>
 <p>For a classroom installation, a separate Hadoop user can make the configuration cleaner.</p>
 <p>Run:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> adduser hadoop</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -758,8 +751,8 @@ OS        : Ubuntu / Windows / macOS</code></pre>
 <hr>
 </section>
 </section>
-<section id="configure-ssh-on-ubuntu" class="level1" data-number="19">
-<h1 data-number="19"><span class="header-section-number">19</span> 7. Configure SSH on Ubuntu</h1>
+<section id="configure-ssh-on-ubuntu" class="level1" data-number="18">
+<h1 data-number="18"><span class="header-section-number">18</span> Configure SSH on Ubuntu</h1>
 <p>Hadoop uses SSH for communication between Hadoop services.</p>
 <p>Install OpenSSH:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install openssh-server openssh-client <span class="at">-y</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -770,8 +763,8 @@ OS        : Ubuntu / Windows / macOS</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl status ssh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="configure-passwordless-ssh" class="level1" data-number="20">
-<h1 data-number="20"><span class="header-section-number">20</span> 8. Configure Passwordless SSH</h1>
+<section id="configure-passwordless-ssh" class="level1" data-number="19">
+<h1 data-number="19"><span class="header-section-number">19</span> Configure Passwordless SSH</h1>
 <p>Generate an SSH key:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-keygen</span> <span class="at">-t</span> rsa <span class="at">-P</span> <span class="st">""</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>When asked for the file location, press Enter.</p>
@@ -788,8 +781,8 @@ OS        : Ubuntu / Windows / macOS</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="download-hadoop" class="level1" data-number="21">
-<h1 data-number="21"><span class="header-section-number">21</span> 9. Download Hadoop</h1>
+<section id="download-hadoop" class="level1" data-number="20">
+<h1 data-number="20"><span class="header-section-number">20</span> Download Hadoop</h1>
 <p>Download a stable Hadoop release from the official Apache Hadoop website.</p>
 <p>The Apache Hadoop project provides binary distributions that can be downloaded from its release mirrors.</p>
 <p>After downloading the Hadoop <code>.tar.gz</code> archive, move it to your home directory.</p>
@@ -803,8 +796,8 @@ OS        : Ubuntu / Windows / macOS</code></pre>
 <pre class="text"><code>~/hadoop</code></pre>
 <hr>
 </section>
-<section id="configure-hadoop-environment-variables" class="level1" data-number="22">
-<h1 data-number="22"><span class="header-section-number">22</span> 10. Configure Hadoop Environment Variables</h1>
+<section id="configure-hadoop-environment-variables" class="level1" data-number="21">
+<h1 data-number="21"><span class="header-section-number">21</span> Configure Hadoop Environment Variables</h1>
 <p>Open:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> ~/.bashrc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Add:</p>
@@ -824,8 +817,8 @@ OS        : Ubuntu / Windows / macOS</code></pre>
 <p>You should see the Hadoop version.</p>
 <hr>
 </section>
-<section id="configure-java_home-for-hadoop" class="level1" data-number="23">
-<h1 data-number="23"><span class="header-section-number">23</span> 11. Configure JAVA_HOME for Hadoop</h1>
+<section id="configure-java_home-for-hadoop" class="level1" data-number="22">
+<h1 data-number="22"><span class="header-section-number">22</span> Configure JAVA_HOME for Hadoop</h1>
 <p>Open:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> <span class="va">$HADOOP_HOME</span>/etc/hadoop/hadoop-env.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Find the Java configuration and set:</p>
@@ -833,8 +826,8 @@ OS        : Ubuntu / Windows / macOS</code></pre>
 <p>Save the file.</p>
 <hr>
 </section>
-<section id="configure-core-site.xml" class="level1" data-number="24">
-<h1 data-number="24"><span class="header-section-number">24</span> 12. Configure core-site.xml</h1>
+<section id="configure-core-site.xml" class="level1" data-number="23">
+<h1 data-number="23"><span class="header-section-number">23</span> Configure core-site.xml</h1>
 <p>Open:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> <span class="va">$HADOOP_HOME</span>/etc/hadoop/core-site.xml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Replace the contents with:</p>
@@ -848,8 +841,8 @@ OS        : Ubuntu / Windows / macOS</code></pre>
 <span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">configuration</span>&gt;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="configure-hdfs-site.xml" class="level1" data-number="25">
-<h1 data-number="25"><span class="header-section-number">25</span> 13. Configure hdfs-site.xml</h1>
+<section id="configure-hdfs-site.xml" class="level1" data-number="24">
+<h1 data-number="24"><span class="header-section-number">24</span> Configure hdfs-site.xml</h1>
 <p>Create directories:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/hadoop_data/hdfs/namenode</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/hadoop_data/hdfs/datanode</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -879,8 +872,8 @@ OS        : Ubuntu / Windows / macOS</code></pre>
 </blockquote>
 <hr>
 </section>
-<section id="configure-mapreduce" class="level1" data-number="26">
-<h1 data-number="26"><span class="header-section-number">26</span> 14. Configure MapReduce</h1>
+<section id="configure-mapreduce" class="level1" data-number="25">
+<h1 data-number="25"><span class="header-section-number">25</span> Configure MapReduce</h1>
 <p>Open:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> <span class="va">$HADOOP_HOME</span>/etc/hadoop/mapred-site.xml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Use:</p>
@@ -894,8 +887,8 @@ OS        : Ubuntu / Windows / macOS</code></pre>
 <span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">configuration</span>&gt;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="configure-yarn" class="level1" data-number="27">
-<h1 data-number="27"><span class="header-section-number">27</span> 15. Configure YARN</h1>
+<section id="configure-yarn" class="level1" data-number="26">
+<h1 data-number="26"><span class="header-section-number">26</span> Configure YARN</h1>
 <p>Open:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> <span class="va">$HADOOP_HOME</span>/etc/hadoop/yarn-site.xml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Use:</p>
@@ -909,8 +902,8 @@ OS        : Ubuntu / Windows / macOS</code></pre>
 <span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">configuration</span>&gt;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="format-the-namenode" class="level1" data-number="28">
-<h1 data-number="28"><span class="header-section-number">28</span> 16. Format the NameNode</h1>
+<section id="format-the-namenode" class="level1" data-number="27">
+<h1 data-number="27"><span class="header-section-number">27</span> Format the NameNode</h1>
 <p>This is an important step.</p>
 <p>Run:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> namenode <span class="at">-format</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -920,8 +913,8 @@ OS        : Ubuntu / Windows / macOS</code></pre>
 </blockquote>
 <hr>
 </section>
-<section id="start-hadoop" class="level1" data-number="29">
-<h1 data-number="29"><span class="header-section-number">29</span> 17. Start Hadoop</h1>
+<section id="start-hadoop" class="level1" data-number="28">
+<h1 data-number="28"><span class="header-section-number">28</span> Start Hadoop</h1>
 <p>Start HDFS:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="ex">start-dfs.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Start YARN:</p>
@@ -936,24 +929,24 @@ NodeManager
 SecondaryNameNode</code></pre>
 <hr>
 </section>
-<section id="stop-hadoop" class="level1" data-number="30">
-<h1 data-number="30"><span class="header-section-number">30</span> 18. Stop Hadoop</h1>
+<section id="stop-hadoop" class="level1" data-number="29">
+<h1 data-number="29"><span class="header-section-number">29</span> Stop Hadoop</h1>
 <p>When you finish working, Hadoop can be stopped using:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="ex">stop-yarn.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>and:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="ex">stop-dfs.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="windows-setup" class="level1" data-number="31">
-<h1 data-number="31"><span class="header-section-number">31</span> 19. Windows Setup</h1>
+<section id="windows-setup" class="level1" data-number="30">
+<h1 data-number="30"><span class="header-section-number">30</span> Windows Setup</h1>
 <p>Hadoop on Windows requires additional configuration compared with Linux.</p>
 <p>For this practical, Windows users should use either:</p>
 <ol type="1">
 <li>WSL2 with Ubuntu, or</li>
 <li>a native Hadoop installation with the required Windows support binaries.</li>
 </ol>
-<section id="recommended-classroom-approach" class="level2" data-number="31.1">
-<h2 data-number="31.1" class="anchored" data-anchor-id="recommended-classroom-approach"><span class="header-section-number">31.1</span> Recommended Classroom Approach</h2>
+<section id="recommended-classroom-approach" class="level2" data-number="30.1">
+<h2 data-number="30.1" class="anchored" data-anchor-id="recommended-classroom-approach"><span class="header-section-number">30.1</span> Recommended Classroom Approach</h2>
 <p>Use:</p>
 <blockquote class="blockquote">
 <p>Windows → WSL2 → Ubuntu → Hadoop</p>
@@ -962,8 +955,8 @@ SecondaryNameNode</code></pre>
 <hr>
 </section>
 </section>
-<section id="enable-wsl2" class="level1" data-number="32">
-<h1 data-number="32"><span class="header-section-number">32</span> 20. Enable WSL2</h1>
+<section id="enable-wsl2" class="level1" data-number="31">
+<h1 data-number="31"><span class="header-section-number">31</span> Enable WSL2</h1>
 <p>Open PowerShell as Administrator.</p>
 <p>Run:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>wsl <span class="op">--</span>install</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -978,8 +971,8 @@ SecondaryNameNode</code></pre>
 <p><strong>Section 6 — Ubuntu Setup</strong></p>
 <hr>
 </section>
-<section id="macos-setup" class="level1" data-number="33">
-<h1 data-number="33"><span class="header-section-number">33</span> 21. macOS Setup</h1>
+<section id="macos-setup" class="level1" data-number="32">
+<h1 data-number="32"><span class="header-section-number">32</span> macOS Setup</h1>
 <p>macOS users can install Java using Homebrew.</p>
 <p>If Homebrew is not installed, install it from the official Homebrew documentation.</p>
 <p>Then:</p>
@@ -997,8 +990,8 @@ SecondaryNameNode</code></pre>
 <p>The remaining Hadoop configuration is conceptually the same as the Ubuntu configuration.</p>
 <hr>
 </section>
-<section id="first-hdfs-experiment" class="level1" data-number="34">
-<h1 data-number="34"><span class="header-section-number">34</span> 22. First HDFS Experiment</h1>
+<section id="first-hdfs-experiment" class="level1" data-number="33">
+<h1 data-number="33"><span class="header-section-number">33</span> First HDFS Experiment</h1>
 <p>We will now interact with HDFS.</p>
 <p>Check the root directory:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb60"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-ls</span> /</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1011,8 +1004,8 @@ SecondaryNameNode</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb63"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-ls</span> /user</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="create-a-local-dataset" class="level1" data-number="35">
-<h1 data-number="35"><span class="header-section-number">35</span> 23. Create a Local Dataset</h1>
+<section id="create-a-local-dataset" class="level1" data-number="34">
+<h1 data-number="34"><span class="header-section-number">34</span> Create a Local Dataset</h1>
 <p>We will start with a very small dataset.</p>
 <p>Create:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb64"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> wordcount.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1027,8 +1020,8 @@ Hadoop uses MapReduce</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb66"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> wordcount.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="upload-the-dataset-to-hdfs" class="level1" data-number="36">
-<h1 data-number="36"><span class="header-section-number">36</span> 24. Upload the Dataset to HDFS</h1>
+<section id="upload-the-dataset-to-hdfs" class="level1" data-number="35">
+<h1 data-number="35"><span class="header-section-number">35</span> Upload the Dataset to HDFS</h1>
 <p>Create an HDFS directory:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb67"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-mkdir</span> <span class="at">-p</span> /user/<span class="va">$USER</span>/input</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Upload the file:</p>
@@ -1039,16 +1032,16 @@ Hadoop uses MapReduce</code></pre>
 <pre class="text"><code>wordcount.txt</code></pre>
 <hr>
 </section>
-<section id="view-a-file-stored-in-hdfs" class="level1" data-number="37">
-<h1 data-number="37"><span class="header-section-number">37</span> 25. View a File Stored in HDFS</h1>
+<section id="view-a-file-stored-in-hdfs" class="level1" data-number="36">
+<h1 data-number="36"><span class="header-section-number">36</span> View a File Stored in HDFS</h1>
 <p>Run:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb71"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-cat</span> /user/<span class="va">$USER</span>/input/wordcount.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Notice that we are no longer reading the local file.</p>
 <p>The file is now stored in HDFS.</p>
 <hr>
 </section>
-<section id="hdfs-commands-you-should-know" class="level1" data-number="38">
-<h1 data-number="38"><span class="header-section-number">38</span> 26. HDFS Commands You Should Know</h1>
+<section id="hdfs-commands-you-should-know" class="level1" data-number="37">
+<h1 data-number="37"><span class="header-section-number">37</span> HDFS Commands You Should Know</h1>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1099,8 +1092,8 @@ Hadoop uses MapReduce</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb72"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-du</span> <span class="at">-h</span> /user/<span class="va">$USER</span>/input</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="understanding-the-hadoop-word-count-program" class="level1" data-number="39">
-<h1 data-number="39"><span class="header-section-number">39</span> 27. Understanding the Hadoop Word Count Program</h1>
+<section id="understanding-the-hadoop-word-count-program" class="level1" data-number="38">
+<h1 data-number="38"><span class="header-section-number">38</span> Understanding the Hadoop Word Count Program</h1>
 <p>In Part 1 we manually implemented:</p>
 <pre class="text"><code>Mapper
    ↓
@@ -1128,8 +1121,8 @@ MapReduce    2
 ...</code></pre>
 <hr>
 </section>
-<section id="create-the-hadoop-streaming-mapper" class="level1" data-number="40">
-<h1 data-number="40"><span class="header-section-number">40</span> 28. Create the Hadoop Streaming Mapper</h1>
+<section id="create-the-hadoop-streaming-mapper" class="level1" data-number="39">
+<h1 data-number="39"><span class="header-section-number">39</span> Create the Hadoop Streaming Mapper</h1>
 <p>We will use Hadoop Streaming because it allows us to write mapper and reducer programs in Python.</p>
 <p>Create:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb77"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> mapper.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1146,8 +1139,8 @@ MapReduce    2
 <span id="cb78-10"><a href="#cb78-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>word<span class="sc">}</span><span class="ch">\t</span><span class="ss">1"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="create-the-hadoop-streaming-reducer" class="level1" data-number="41">
-<h1 data-number="41"><span class="header-section-number">41</span> 29. Create the Hadoop Streaming Reducer</h1>
+<section id="create-the-hadoop-streaming-reducer" class="level1" data-number="40">
+<h1 data-number="40"><span class="header-section-number">40</span> Create the Hadoop Streaming Reducer</h1>
 <p>Create:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb79"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> reducer.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Use:</p>
@@ -1181,8 +1174,8 @@ MapReduce    2
 <span id="cb80-28"><a href="#cb80-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>current_word<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>current_count<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="make-the-programs-executable" class="level1" data-number="42">
-<h1 data-number="42"><span class="header-section-number">42</span> 30. Make the Programs Executable</h1>
+<section id="make-the-programs-executable" class="level1" data-number="41">
+<h1 data-number="41"><span class="header-section-number">41</span> Make the Programs Executable</h1>
 <p>Run:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb81"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x mapper.py</span>
 <span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x reducer.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1190,8 +1183,8 @@ MapReduce    2
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb82"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> mapper.py reducer.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="test-the-mapper-locally" class="level1" data-number="43">
-<h1 data-number="43"><span class="header-section-number">43</span> 31. Test the Mapper Locally</h1>
+<section id="test-the-mapper-locally" class="level1" data-number="42">
+<h1 data-number="42"><span class="header-section-number">42</span> Test the Mapper Locally</h1>
 <p>Before using Hadoop, test the mapper.</p>
 <p>Run:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb83"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> wordcount.txt <span class="kw">|</span> <span class="ex">./mapper.py</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1204,8 +1197,8 @@ distributed 1
 <p>This is useful because it allows us to debug the mapper before involving Hadoop.</p>
 <hr>
 </section>
-<section id="test-the-complete-pipeline-locally" class="level1" data-number="44">
-<h1 data-number="44"><span class="header-section-number">44</span> 32. Test the Complete Pipeline Locally</h1>
+<section id="test-the-complete-pipeline-locally" class="level1" data-number="43">
+<h1 data-number="43"><span class="header-section-number">43</span> Test the Complete Pipeline Locally</h1>
 <p>Run:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb85"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> wordcount.txt <span class="kw">|</span> <span class="ex">./mapper.py</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="ex">./reducer.py</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The <code>sort</code> command represents the conceptual shuffle and sort phase.</p>
@@ -1223,8 +1216,8 @@ Reducer</code></pre>
 <p>This is very similar to the Python MapReduce implementation from Part 1.</p>
 <hr>
 </section>
-<section id="run-mapreduce-using-hadoop" class="level1" data-number="45">
-<h1 data-number="45"><span class="header-section-number">45</span> 33. Run MapReduce Using Hadoop</h1>
+<section id="run-mapreduce-using-hadoop" class="level1" data-number="44">
+<h1 data-number="44"><span class="header-section-number">44</span> Run MapReduce Using Hadoop</h1>
 <p>First remove any previous output directory:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb87"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-rm</span> <span class="at">-r</span> /user/<span class="va">$USER</span>/output</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>If it does not exist, that is fine.</p>
@@ -1237,8 +1230,8 @@ Reducer</code></pre>
 <p>Hadoop will now execute the MapReduce job.</p>
 <hr>
 </section>
-<section id="understand-the-job-output" class="level1" data-number="46">
-<h1 data-number="46"><span class="header-section-number">46</span> 34. Understand the Job Output</h1>
+<section id="understand-the-job-output" class="level1" data-number="45">
+<h1 data-number="45"><span class="header-section-number">45</span> Understand the Job Output</h1>
 <p>After the job finishes:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb89"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-ls</span> /user/<span class="va">$USER</span>/output</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You should see files similar to:</p>
@@ -1250,8 +1243,8 @@ part-00000</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb91"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-cat</span> /user/<span class="va">$USER</span>/output/part-00000</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="important-observation" class="level1" data-number="47">
-<h1 data-number="47"><span class="header-section-number">47</span> 35. Important Observation</h1>
+<section id="important-observation" class="level1" data-number="46">
+<h1 data-number="46"><span class="header-section-number">46</span> Important Observation</h1>
 <p>Notice the difference.</p>
 <p>In Part 1:</p>
 <pre class="text"><code>Python program
@@ -1281,8 +1274,8 @@ HDFS Output</code></pre>
 <p>Hadoop provides the distributed execution framework.</p>
 <hr>
 </section>
-<section id="inspect-the-hadoop-job" class="level1" data-number="48">
-<h1 data-number="48"><span class="header-section-number">48</span> 36. Inspect the Hadoop Job</h1>
+<section id="inspect-the-hadoop-job" class="level1" data-number="47">
+<h1 data-number="47"><span class="header-section-number">47</span> Inspect the Hadoop Job</h1>
 <p>Run:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb94"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="ex">yarn</span> application <span class="at">-list</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You can also inspect Hadoop logs through the ResourceManager interface.</p>
@@ -1292,8 +1285,8 @@ HDFS Output</code></pre>
 <p>You should be able to inspect information about applications and jobs.</p>
 <hr>
 </section>
-<section id="inspect-hdfs" class="level1" data-number="49">
-<h1 data-number="49"><span class="header-section-number">49</span> 37. Inspect HDFS</h1>
+<section id="inspect-hdfs" class="level1" data-number="48">
+<h1 data-number="48"><span class="header-section-number">48</span> Inspect HDFS</h1>
 <p>The NameNode web interface is commonly available at:</p>
 <pre class="text"><code>http://localhost:9870</code></pre>
 <p>Open it in a browser.</p>
@@ -1308,8 +1301,8 @@ HDFS Output</code></pre>
 <p>This is your first graphical view of the Hadoop system.</p>
 <hr>
 </section>
-<section id="exercise-1-change-the-word-count-program" class="level1" data-number="50">
-<h1 data-number="50"><span class="header-section-number">50</span> 38. Exercise 1 — Change the Word Count Program</h1>
+<section id="exercise-1-change-the-word-count-program" class="level1" data-number="49">
+<h1 data-number="49"><span class="header-section-number">49</span> Exercise 1 — Change the Word Count Program</h1>
 <p>Modify the mapper so that punctuation is removed.</p>
 <p>For example:</p>
 <pre class="text"><code>Hadoop,
@@ -1317,8 +1310,8 @@ Hadoop.
 "Hadoop"</code></pre>
 <p>should all become:</p>
 <pre class="text"><code>hadoop</code></pre>
-<section id="try-it" class="level3" data-number="50.0.1">
-<h3 data-number="50.0.1" class="anchored" data-anchor-id="try-it"><span class="header-section-number">50.0.1</span> Try It</h3>
+<section id="try-it" class="level3" data-number="49.0.1">
+<h3 data-number="49.0.1" class="anchored" data-anchor-id="try-it"><span class="header-section-number">49.0.1</span> Try It</h3>
 <p>Modify <code>mapper.py</code>.</p>
 <p>Test:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb99"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> wordcount.txt <span class="kw">|</span> <span class="ex">./mapper.py</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1328,8 +1321,8 @@ Hadoop.
 <hr>
 </section>
 </section>
-<section id="exercise-2-count-lines" class="level1" data-number="51">
-<h1 data-number="51"><span class="header-section-number">51</span> 39. Exercise 2 — Count Lines</h1>
+<section id="exercise-2-count-lines" class="level1" data-number="50">
+<h1 data-number="50"><span class="header-section-number">50</span> Exercise 2 — Count Lines</h1>
 <p>Create a new mapper:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb101"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env python3</span></span>
 <span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1343,8 +1336,8 @@ Hadoop.
 <p>This demonstrates that the key does not have to be a word.</p>
 <hr>
 </section>
-<section id="exercise-3-count-words-by-first-letter" class="level1" data-number="52">
-<h1 data-number="52"><span class="header-section-number">52</span> 40. Exercise 3 — Count Words by First Letter</h1>
+<section id="exercise-3-count-words-by-first-letter" class="level1" data-number="51">
+<h1 data-number="51"><span class="header-section-number">51</span> Exercise 3 — Count Words by First Letter</h1>
 <p>Modify the mapper so that:</p>
 <pre class="text"><code>hadoop</code></pre>
 <p>produces:</p>
@@ -1366,29 +1359,29 @@ s    ...
 u    ...</code></pre>
 <hr>
 </section>
-<section id="real-dataset-experiment" class="level1" data-number="53">
-<h1 data-number="53"><span class="header-section-number">53</span> 41. Real Dataset Experiment</h1>
+<section id="real-dataset-experiment" class="level1" data-number="52">
+<h1 data-number="52"><span class="header-section-number">52</span> Real Dataset Experiment</h1>
 <p>We will now move from a manually created text file to a real dataset.</p>
 <p>For this experiment we will use the <strong>Online Shoppers Purchasing Intention</strong> dataset introduced in Part 1.</p>
 <p>Download the CSV file.</p>
 <p>For example:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb108"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://archive.ics.uci.edu/ml/machine-learning-databases/00468/online_shoppers_intention.csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb108"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-P</span> ../datasets/ https://archive.ics.uci.edu/ml/machine-learning-databases/00468/online_shoppers_intention.csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Check:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb109"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> online_shoppers_intention.csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb109"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> ../datasets/online_shoppers_intention.csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="upload-the-real-dataset-to-hdfs" class="level1" data-number="54">
-<h1 data-number="54"><span class="header-section-number">54</span> 42. Upload the Real Dataset to HDFS</h1>
+<section id="upload-the-real-dataset-to-hdfs" class="level1" data-number="53">
+<h1 data-number="53"><span class="header-section-number">53</span> Upload the Real Dataset to HDFS</h1>
 <p>Create:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb110"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-mkdir</span> <span class="at">-p</span> /user/<span class="va">$USER</span>/shopper_input</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Upload:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb111"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-put</span> online_shoppers_intention.csv /user/<span class="va">$USER</span>/shopper_input/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb111"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-put</span> ../datasets/online_shoppers_intention.csv /user/<span class="va">$USER</span>/shopper_input/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Check:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb112"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-ls</span> <span class="at">-h</span> /user/<span class="va">$USER</span>/shopper_input</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="hadoop-mapreduce-problem" class="level1" data-number="55">
-<h1 data-number="55"><span class="header-section-number">55</span> 43. Hadoop MapReduce Problem</h1>
+<section id="hadoop-mapreduce-problem" class="level1" data-number="54">
+<h1 data-number="54"><span class="header-section-number">54</span> Hadoop MapReduce Problem</h1>
 <p>We want to answer:</p>
 <blockquote class="blockquote">
 <p>How many sessions belong to each VisitorType?</p>
@@ -1409,8 +1402,8 @@ Other                ...
 Returning_Visitor    ...</code></pre>
 <hr>
 </section>
-<section id="csv-mapper" class="level1" data-number="56">
-<h1 data-number="56"><span class="header-section-number">56</span> 44. CSV Mapper</h1>
+<section id="csv-mapper" class="level1" data-number="55">
+<h1 data-number="55"><span class="header-section-number">55</span> CSV Mapper</h1>
 <p>Create:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb116"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> visitor_mapper.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Use:</p>
@@ -1435,16 +1428,16 @@ Returning_Visitor    ...</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb118"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x visitor_mapper.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="reuse-the-reducer" class="level1" data-number="57">
-<h1 data-number="57"><span class="header-section-number">57</span> 45. Reuse the Reducer</h1>
+<section id="reuse-the-reducer" class="level1" data-number="56">
+<h1 data-number="56"><span class="header-section-number">56</span> Reuse the Reducer</h1>
 <p>We can use the same reducer because the mapper still produces:</p>
 <pre class="text"><code>key    value</code></pre>
 <p>Run the mapper locally:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb120"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> online_shoppers_intention.csv <span class="kw">|</span> <span class="ex">./visitor_mapper.py</span> <span class="kw">|</span> <span class="fu">head</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb120"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> ../datasets/online_shoppers_intention.csv <span class="kw">|</span> <span class="ex">./visitor_mapper.py</span> <span class="kw">|</span> <span class="fu">head</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="run-the-hadoop-job" class="level1" data-number="58">
-<h1 data-number="58"><span class="header-section-number">58</span> 46. Run the Hadoop Job</h1>
+<section id="run-the-hadoop-job" class="level1" data-number="57">
+<h1 data-number="57"><span class="header-section-number">57</span> Run the Hadoop Job</h1>
 <p>Remove previous output:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb121"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-rm</span> <span class="at">-r</span> /user/<span class="va">$USER</span>/visitor_output</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Run:</p>
@@ -1457,8 +1450,8 @@ Returning_Visitor    ...</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb123"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-cat</span> /user/<span class="va">$USER</span>/visitor_output/part-00000</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="download-hadoop-output-to-your-computer" class="level1" data-number="59">
-<h1 data-number="59"><span class="header-section-number">59</span> 47. Download Hadoop Output to Your Computer</h1>
+<section id="download-hadoop-output-to-your-computer" class="level1" data-number="58">
+<h1 data-number="58"><span class="header-section-number">58</span> Download Hadoop Output to Your Computer</h1>
 <p>Create a local output directory:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb124"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> results</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Download:</p>
@@ -1467,8 +1460,8 @@ Returning_Visitor    ...</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb126"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> results/part-00000</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="compare-hadoop-with-pandas" class="level1" data-number="60">
-<h1 data-number="60"><span class="header-section-number">60</span> 48. Compare Hadoop with Pandas</h1>
+<section id="compare-hadoop-with-pandas" class="level1" data-number="59">
+<h1 data-number="59"><span class="header-section-number">59</span> Compare Hadoop with Pandas</h1>
 <p>The Pandas solution from Part 1 was conceptually:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb127"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"VisitorType"</span>].value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The Hadoop solution is:</p>
@@ -1492,8 +1485,8 @@ HDFS</code></pre>
 <p>The important difference is <strong>where and how the computation takes place</strong>.</p>
 <hr>
 </section>
-<section id="processing-a-larger-dataset" class="level1" data-number="61">
-<h1 data-number="61"><span class="header-section-number">61</span> 49. Processing a Larger Dataset</h1>
+<section id="processing-a-larger-dataset" class="level1" data-number="60">
+<h1 data-number="60"><span class="header-section-number">60</span> Processing a Larger Dataset</h1>
 <p>We now increase the dataset size.</p>
 <p>A useful Hadoop experiment is to create a larger input file from the original dataset.</p>
 <p>For example:</p>
@@ -1509,8 +1502,8 @@ HDFS</code></pre>
 </blockquote>
 <hr>
 </section>
-<section id="upload-the-larger-dataset" class="level1" data-number="62">
-<h1 data-number="62"><span class="header-section-number">62</span> 50. Upload the Larger Dataset</h1>
+<section id="upload-the-larger-dataset" class="level1" data-number="61">
+<h1 data-number="61"><span class="header-section-number">61</span> Upload the Larger Dataset</h1>
 <p>Create:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb131"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-mkdir</span> <span class="at">-p</span> /user/<span class="va">$USER</span>/large_input</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Upload:</p>
@@ -1519,8 +1512,8 @@ HDFS</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb133"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-du</span> <span class="at">-h</span> /user/<span class="va">$USER</span>/large_input</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="run-mapreduce-on-the-larger-dataset" class="level1" data-number="63">
-<h1 data-number="63"><span class="header-section-number">63</span> 51. Run MapReduce on the Larger Dataset</h1>
+<section id="run-mapreduce-on-the-larger-dataset" class="level1" data-number="62">
+<h1 data-number="62"><span class="header-section-number">62</span> Run MapReduce on the Larger Dataset</h1>
 <p>Run:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb134"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-rm</span> <span class="at">-r</span> /user/<span class="va">$USER</span>/large_output</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then:</p>
@@ -1532,8 +1525,8 @@ HDFS</code></pre>
 <p>Observe the execution time.</p>
 <hr>
 </section>
-<section id="understand-the-hadoop-execution-flow" class="level1" data-number="64">
-<h1 data-number="64"><span class="header-section-number">64</span> 52. Understand the Hadoop Execution Flow</h1>
+<section id="understand-the-hadoop-execution-flow" class="level1" data-number="63">
+<h1 data-number="63"><span class="header-section-number">63</span> Understand the Hadoop Execution Flow</h1>
 <p>The complete process is approximately:</p>
 <pre class="text"><code>                 HDFS
                   |
@@ -1568,8 +1561,8 @@ HDFS</code></pre>
 <p>In our pseudo-distributed setup, they execute on the same computer.</p>
 <hr>
 </section>
-<section id="why-use-hadoop" class="level1" data-number="65">
-<h1 data-number="65"><span class="header-section-number">65</span> 53. Why Use Hadoop?</h1>
+<section id="why-use-hadoop" class="level1" data-number="64">
+<h1 data-number="64"><span class="header-section-number">64</span> Why Use Hadoop?</h1>
 <p>Suppose we have:</p>
 <pre class="text"><code>Dataset = 500 MB</code></pre>
 <p>A normal Python program may be perfectly adequate.</p>
@@ -1595,8 +1588,8 @@ HDFS</code></pre>
               MapReduce</code></pre>
 <hr>
 </section>
-<section id="data-locality" class="level1" data-number="66">
-<h1 data-number="66"><span class="header-section-number">66</span> 54. Data Locality</h1>
+<section id="data-locality" class="level1" data-number="65">
+<h1 data-number="65"><span class="header-section-number">65</span> Data Locality</h1>
 <p>One of Hadoop’s important ideas is <strong>data locality</strong>.</p>
 <p>Instead of always moving data to the computation:</p>
 <pre class="text"><code>Data
@@ -1615,8 +1608,8 @@ Computation</code></pre>
 <p>This reduces unnecessary network transfer in distributed environments.</p>
 <hr>
 </section>
-<section id="hdfs-blocks" class="level1" data-number="67">
-<h1 data-number="67"><span class="header-section-number">67</span> 55. HDFS Blocks</h1>
+<section id="hdfs-blocks" class="level1" data-number="66">
+<h1 data-number="66"><span class="header-section-number">66</span> HDFS Blocks</h1>
 <p>HDFS divides large files into blocks.</p>
 <p>For example, conceptually:</p>
 <pre class="text"><code>Large File
@@ -1634,8 +1627,8 @@ Computation</code></pre>
     +---- Block 3 -&gt; DataNode 3</code></pre>
 <hr>
 </section>
-<section id="replication" class="level1" data-number="68">
-<h1 data-number="68"><span class="header-section-number">68</span> 56. Replication</h1>
+<section id="replication" class="level1" data-number="67">
+<h1 data-number="67"><span class="header-section-number">67</span> Replication</h1>
 <p>HDFS normally maintains multiple copies of blocks.</p>
 <p>For example:</p>
 <pre class="text"><code>Block A
@@ -1652,8 +1645,8 @@ DataNode 3 ---- copy</code></pre>
 <p>because there is only one DataNode.</p>
 <hr>
 </section>
-<section id="mapreduce-versus-python-mapreduce" class="level1" data-number="69">
-<h1 data-number="69"><span class="header-section-number">69</span> 57. MapReduce Versus Python MapReduce</h1>
+<section id="mapreduce-versus-python-mapreduce" class="level1" data-number="68">
+<h1 data-number="68"><span class="header-section-number">68</span> MapReduce Versus Python MapReduce</h1>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1717,8 +1710,8 @@ DataNode 3 ---- copy</code></pre>
 </table>
 <hr>
 </section>
-<section id="exercise-revenue-analysis" class="level1" data-number="70">
-<h1 data-number="70"><span class="header-section-number">70</span> 58. Exercise — Revenue Analysis</h1>
+<section id="exercise-revenue-analysis" class="level1" data-number="69">
+<h1 data-number="69"><span class="header-section-number">69</span> Exercise — Revenue Analysis</h1>
 <p>Use the retail dataset from Part 1.</p>
 <p>The goal is:</p>
 <blockquote class="blockquote">
@@ -1738,8 +1731,8 @@ Germany           total
 ...</code></pre>
 <hr>
 </section>
-<section id="revenue-mapper" class="level1" data-number="71">
-<h1 data-number="71"><span class="header-section-number">71</span> 59. Revenue Mapper</h1>
+<section id="revenue-mapper" class="level1" data-number="70">
+<h1 data-number="70"><span class="header-section-number">70</span> Revenue Mapper</h1>
 <p>Create:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb150"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> revenue_mapper.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Use:</p>
@@ -1776,12 +1769,12 @@ Germany           total
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb152"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x revenue_mapper.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="run-revenue-analysis" class="level1" data-number="72">
-<h1 data-number="72"><span class="header-section-number">72</span> 60. Run Revenue Analysis</h1>
+<section id="run-revenue-analysis" class="level1" data-number="71">
+<h1 data-number="71"><span class="header-section-number">71</span> Run Revenue Analysis</h1>
 <p>Upload the retail CSV to HDFS:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb153"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-mkdir</span> <span class="at">-p</span> /user/<span class="va">$USER</span>/retail_input</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb154"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-put</span> OnlineRetail.csv /user/<span class="va">$USER</span>/retail_input/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb154"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-put</span> ../datasets/OnlineRetail.csv /user/<span class="va">$USER</span>/retail_input/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Run:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb155"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-rm</span> <span class="at">-r</span> /user/<span class="va">$USER</span>/revenue_output</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then:</p>
@@ -1794,8 +1787,8 @@ Germany           total
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb157"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-cat</span> /user/<span class="va">$USER</span>/revenue_output/part-00000</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="exercise-top-products" class="level1" data-number="73">
-<h1 data-number="73"><span class="header-section-number">73</span> 61. Exercise — Top Products</h1>
+<section id="exercise-top-products" class="level1" data-number="72">
+<h1 data-number="72"><span class="header-section-number">72</span> Exercise — Top Products</h1>
 <p>Modify the mapper and reducer to calculate revenue by product.</p>
 <p>The mapper should emit:</p>
 <pre class="text"><code>ProductName    Revenue</code></pre>
@@ -1810,8 +1803,8 @@ Germany           total
 </blockquote>
 <hr>
 </section>
-<section id="measuring-execution-time" class="level1" data-number="74">
-<h1 data-number="74"><span class="header-section-number">74</span> 62. Measuring Execution Time</h1>
+<section id="measuring-execution-time" class="level1" data-number="73">
+<h1 data-number="73"><span class="header-section-number">73</span> Measuring Execution Time</h1>
 <p>For each experiment, record:</p>
 <pre class="text"><code>Dataset Size
 Number of Records
@@ -1857,8 +1850,8 @@ Output Size</code></pre>
 <p>Do not assume Hadoop will be faster for small datasets.</p>
 <hr>
 </section>
-<section id="an-important-observation" class="level1" data-number="75">
-<h1 data-number="75"><span class="header-section-number">75</span> 63. An Important Observation</h1>
+<section id="an-important-observation" class="level1" data-number="74">
+<h1 data-number="74"><span class="header-section-number">74</span> An Important Observation</h1>
 <p>Hadoop itself introduces overhead.</p>
 <p>For a tiny dataset:</p>
 <pre class="text"><code>Python:
@@ -1889,15 +1882,15 @@ Output</code></pre>
 <p>Its major advantage is the ability to process very large datasets across multiple machines.</p>
 <hr>
 </section>
-<section id="experiment-python-versus-hadoop" class="level1" data-number="76">
-<h1 data-number="76"><span class="header-section-number">76</span> 64. Experiment — Python Versus Hadoop</h1>
+<section id="experiment-python-versus-hadoop" class="level1" data-number="75">
+<h1 data-number="75"><span class="header-section-number">75</span> Experiment — Python Versus Hadoop</h1>
 <p>For the same dataset, measure:</p>
-<section id="python" class="level3" data-number="76.0.1">
-<h3 data-number="76.0.1" class="anchored" data-anchor-id="python"><span class="header-section-number">76.0.1</span> Python</h3>
+<section id="python" class="level3" data-number="75.0.1">
+<h3 data-number="75.0.1" class="anchored" data-anchor-id="python"><span class="header-section-number">75.0.1</span> Python</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb164"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb164-1"><a href="#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="bu">time</span> python local_analysis.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="hadoop" class="level3" data-number="76.0.2">
-<h3 data-number="76.0.2" class="anchored" data-anchor-id="hadoop"><span class="header-section-number">76.0.2</span> Hadoop</h3>
+<section id="hadoop" class="level3" data-number="75.0.2">
+<h3 data-number="75.0.2" class="anchored" data-anchor-id="hadoop"><span class="header-section-number">75.0.2</span> Hadoop</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb165"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb165-1"><a href="#cb165-1" aria-hidden="true" tabindex="-1"></a><span class="bu">time</span> hadoop jar <span class="va">$HADOOP_HOME</span>/share/hadoop/tools/lib/hadoop-streaming-<span class="pp">*</span>.jar <span class="dt">\</span></span>
 <span id="cb165-2"><a href="#cb165-2" aria-hidden="true" tabindex="-1"></a>-input /user/<span class="va">$USER</span>/input <span class="dt">\</span></span>
 <span id="cb165-3"><a href="#cb165-3" aria-hidden="true" tabindex="-1"></a>-output /user/<span class="va">$USER</span>/output <span class="dt">\</span></span>
@@ -1934,8 +1927,8 @@ Output</code></pre>
 <hr>
 </section>
 </section>
-<section id="why-hadoop-may-become-more-useful-as-data-grows" class="level1" data-number="77">
-<h1 data-number="77"><span class="header-section-number">77</span> 65. Why Hadoop May Become More Useful as Data Grows</h1>
+<section id="why-hadoop-may-become-more-useful-as-data-grows" class="level1" data-number="76">
+<h1 data-number="76"><span class="header-section-number">76</span> Why Hadoop May Become More Useful as Data Grows</h1>
 <p>Consider:</p>
 <pre class="text"><code>Dataset size
       |
@@ -1958,10 +1951,10 @@ Output</code></pre>
 </blockquote>
 <hr>
 </section>
-<section id="troubleshooting" class="level1" data-number="78">
-<h1 data-number="78"><span class="header-section-number">78</span> 66. Troubleshooting</h1>
-<section id="problem-hadoop-command-not-found" class="level2" data-number="78.1">
-<h2 data-number="78.1" class="anchored" data-anchor-id="problem-hadoop-command-not-found"><span class="header-section-number">78.1</span> Problem: <code>hadoop: command not found</code></h2>
+<section id="troubleshooting" class="level1" data-number="77">
+<h1 data-number="77"><span class="header-section-number">77</span> Troubleshooting</h1>
+<section id="problem-hadoop-command-not-found" class="level2" data-number="77.1">
+<h2 data-number="77.1" class="anchored" data-anchor-id="problem-hadoop-command-not-found"><span class="header-section-number">77.1</span> Problem: <code>hadoop: command not found</code></h2>
 <p>Check:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb167"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb167-1"><a href="#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$HADOOP_HOME</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then:</p>
@@ -1969,8 +1962,8 @@ Output</code></pre>
 <p>Make sure Hadoop’s <code>bin</code> and <code>sbin</code> directories are in <code>PATH</code>.</p>
 <hr>
 </section>
-<section id="problem-java-not-found" class="level2" data-number="78.2">
-<h2 data-number="78.2" class="anchored" data-anchor-id="problem-java-not-found"><span class="header-section-number">78.2</span> Problem: Java not found</h2>
+<section id="problem-java-not-found" class="level2" data-number="77.2">
+<h2 data-number="77.2" class="anchored" data-anchor-id="problem-java-not-found"><span class="header-section-number">77.2</span> Problem: Java not found</h2>
 <p>Run:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb169"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb169-1"><a href="#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then:</p>
@@ -1978,8 +1971,8 @@ Output</code></pre>
 <p>Make sure <code>JAVA_HOME</code> points to the Java installation.</p>
 <hr>
 </section>
-<section id="problem-namenode-is-not-running" class="level2" data-number="78.3">
-<h2 data-number="78.3" class="anchored" data-anchor-id="problem-namenode-is-not-running"><span class="header-section-number">78.3</span> Problem: NameNode is not running</h2>
+<section id="problem-namenode-is-not-running" class="level2" data-number="77.3">
+<h2 data-number="77.3" class="anchored" data-anchor-id="problem-namenode-is-not-running"><span class="header-section-number">77.3</span> Problem: NameNode is not running</h2>
 <p>Run:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb171"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb171-1"><a href="#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="ex">jps</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>If <code>NameNode</code> is missing, check the Hadoop logs.</p>
@@ -1987,23 +1980,23 @@ Output</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb172"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb172-1"><a href="#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfsadmin <span class="at">-report</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="problem-datanode-is-not-running" class="level2" data-number="78.4">
-<h2 data-number="78.4" class="anchored" data-anchor-id="problem-datanode-is-not-running"><span class="header-section-number">78.4</span> Problem: DataNode is not running</h2>
+<section id="problem-datanode-is-not-running" class="level2" data-number="77.4">
+<h2 data-number="77.4" class="anchored" data-anchor-id="problem-datanode-is-not-running"><span class="header-section-number">77.4</span> Problem: DataNode is not running</h2>
 <p>Run:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb173"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb173-1"><a href="#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="ex">jps</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Check the DataNode logs under the Hadoop log directory.</p>
 <hr>
 </section>
-<section id="problem-output-directory-already-exists" class="level2" data-number="78.5">
-<h2 data-number="78.5" class="anchored" data-anchor-id="problem-output-directory-already-exists"><span class="header-section-number">78.5</span> Problem: Output directory already exists</h2>
+<section id="problem-output-directory-already-exists" class="level2" data-number="77.5">
+<h2 data-number="77.5" class="anchored" data-anchor-id="problem-output-directory-already-exists"><span class="header-section-number">77.5</span> Problem: Output directory already exists</h2>
 <p>Hadoop normally refuses to write to an existing output directory.</p>
 <p>Remove it:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb174"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb174-1"><a href="#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hdfs</span> dfs <span class="at">-rm</span> <span class="at">-r</span> /user/<span class="va">$USER</span>/output</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then run the job again.</p>
 <hr>
 </section>
-<section id="problem-permission-denied" class="level2" data-number="78.6">
-<h2 data-number="78.6" class="anchored" data-anchor-id="problem-permission-denied"><span class="header-section-number">78.6</span> Problem: Permission denied</h2>
+<section id="problem-permission-denied" class="level2" data-number="77.6">
+<h2 data-number="77.6" class="anchored" data-anchor-id="problem-permission-denied"><span class="header-section-number">77.6</span> Problem: Permission denied</h2>
 <p>Check the permissions of:</p>
 <pre class="text"><code>~/.ssh
 ~/.ssh/authorized_keys</code></pre>
@@ -2013,76 +2006,76 @@ Output</code></pre>
 <hr>
 </section>
 </section>
-<section id="final-practical-exercise" class="level1" data-number="79">
-<h1 data-number="79"><span class="header-section-number">79</span> 67. Final Practical Exercise</h1>
+<section id="final-practical-exercise" class="level1" data-number="78">
+<h1 data-number="78"><span class="header-section-number">78</span> Final Practical Exercise</h1>
 <p>You will now design your own Hadoop MapReduce application.</p>
 <p>Choose one of the following problems.</p>
-<section id="option-1-visitor-analysis" class="level3" data-number="79.0.1">
-<h3 data-number="79.0.1" class="anchored" data-anchor-id="option-1-visitor-analysis"><span class="header-section-number">79.0.1</span> Option 1 — Visitor Analysis</h3>
+<section id="option-1-visitor-analysis" class="level3" data-number="78.0.1">
+<h3 data-number="78.0.1" class="anchored" data-anchor-id="option-1-visitor-analysis"><span class="header-section-number">78.0.1</span> Option 1 — Visitor Analysis</h3>
 <p>Calculate:</p>
 <pre class="text"><code>VisitorType → Number of Sessions</code></pre>
 </section>
-<section id="option-2-revenue-analysis" class="level3" data-number="79.0.2">
-<h3 data-number="79.0.2" class="anchored" data-anchor-id="option-2-revenue-analysis"><span class="header-section-number">79.0.2</span> Option 2 — Revenue Analysis</h3>
+<section id="option-2-revenue-analysis" class="level3" data-number="78.0.2">
+<h3 data-number="78.0.2" class="anchored" data-anchor-id="option-2-revenue-analysis"><span class="header-section-number">78.0.2</span> Option 2 — Revenue Analysis</h3>
 <p>Calculate:</p>
 <pre class="text"><code>Country → Total Revenue</code></pre>
 </section>
-<section id="option-3-product-analysis" class="level3" data-number="79.0.3">
-<h3 data-number="79.0.3" class="anchored" data-anchor-id="option-3-product-analysis"><span class="header-section-number">79.0.3</span> Option 3 — Product Analysis</h3>
+<section id="option-3-product-analysis" class="level3" data-number="78.0.3">
+<h3 data-number="78.0.3" class="anchored" data-anchor-id="option-3-product-analysis"><span class="header-section-number">78.0.3</span> Option 3 — Product Analysis</h3>
 <p>Calculate:</p>
 <pre class="text"><code>Product → Total Revenue</code></pre>
 </section>
-<section id="option-4-time-analysis" class="level3" data-number="79.0.4">
-<h3 data-number="79.0.4" class="anchored" data-anchor-id="option-4-time-analysis"><span class="header-section-number">79.0.4</span> Option 4 — Time Analysis</h3>
+<section id="option-4-time-analysis" class="level3" data-number="78.0.4">
+<h3 data-number="78.0.4" class="anchored" data-anchor-id="option-4-time-analysis"><span class="header-section-number">78.0.4</span> Option 4 — Time Analysis</h3>
 <p>Calculate:</p>
 <pre class="text"><code>Date → Total Revenue</code></pre>
 </section>
-<section id="option-5-custom-problem" class="level3" data-number="79.0.5">
-<h3 data-number="79.0.5" class="anchored" data-anchor-id="option-5-custom-problem"><span class="header-section-number">79.0.5</span> Option 5 — Custom Problem</h3>
+<section id="option-5-custom-problem" class="level3" data-number="78.0.5">
+<h3 data-number="78.0.5" class="anchored" data-anchor-id="option-5-custom-problem"><span class="header-section-number">78.0.5</span> Option 5 — Custom Problem</h3>
 <p>Choose a real CSV dataset and design your own MapReduce task.</p>
 <hr>
 </section>
 </section>
-<section id="required-components-of-the-final-exercise" class="level1" data-number="80">
-<h1 data-number="80"><span class="header-section-number">80</span> 68. Required Components of the Final Exercise</h1>
+<section id="required-components-of-the-final-exercise" class="level1" data-number="79">
+<h1 data-number="79"><span class="header-section-number">79</span> Required Components of the Final Exercise</h1>
 <p>Your solution must contain:</p>
-<section id="input-dataset" class="level3" data-number="80.0.1">
-<h3 data-number="80.0.1" class="anchored" data-anchor-id="input-dataset"><span class="header-section-number">80.0.1</span> 1. Input Dataset</h3>
+<section id="input-dataset" class="level3" data-number="79.0.1">
+<h3 data-number="79.0.1" class="anchored" data-anchor-id="input-dataset"><span class="header-section-number">79.0.1</span> Input Dataset</h3>
 <p>Document:</p>
 <pre class="text"><code>Dataset name:
 Dataset source:
 Number of records:
 Approximate size:</code></pre>
 </section>
-<section id="mapper" class="level3" data-number="80.0.2">
-<h3 data-number="80.0.2" class="anchored" data-anchor-id="mapper"><span class="header-section-number">80.0.2</span> 2. Mapper</h3>
+<section id="mapper" class="level3" data-number="79.0.2">
+<h3 data-number="79.0.2" class="anchored" data-anchor-id="mapper"><span class="header-section-number">79.0.2</span> Mapper</h3>
 <p>Your mapper must generate:</p>
 <pre class="text"><code>key    value</code></pre>
 </section>
-<section id="reducer" class="level3" data-number="80.0.3">
-<h3 data-number="80.0.3" class="anchored" data-anchor-id="reducer"><span class="header-section-number">80.0.3</span> 3. Reducer</h3>
+<section id="reducer" class="level3" data-number="79.0.3">
+<h3 data-number="79.0.3" class="anchored" data-anchor-id="reducer"><span class="header-section-number">79.0.3</span> Reducer</h3>
 <p>Your reducer must aggregate values by key.</p>
 </section>
-<section id="hdfs" class="level3" data-number="80.0.4">
-<h3 data-number="80.0.4" class="anchored" data-anchor-id="hdfs"><span class="header-section-number">80.0.4</span> 4. HDFS</h3>
+<section id="hdfs" class="level3" data-number="79.0.4">
+<h3 data-number="79.0.4" class="anchored" data-anchor-id="hdfs"><span class="header-section-number">79.0.4</span> HDFS</h3>
 <p>Upload the dataset into HDFS.</p>
 </section>
-<section id="hadoop-job" class="level3" data-number="80.0.5">
-<h3 data-number="80.0.5" class="anchored" data-anchor-id="hadoop-job"><span class="header-section-number">80.0.5</span> 5. Hadoop Job</h3>
+<section id="hadoop-job" class="level3" data-number="79.0.5">
+<h3 data-number="79.0.5" class="anchored" data-anchor-id="hadoop-job"><span class="header-section-number">79.0.5</span> Hadoop Job</h3>
 <p>Execute the mapper and reducer using Hadoop Streaming.</p>
 </section>
-<section id="output" class="level3" data-number="80.0.6">
-<h3 data-number="80.0.6" class="anchored" data-anchor-id="output"><span class="header-section-number">80.0.6</span> 6. Output</h3>
+<section id="output" class="level3" data-number="79.0.6">
+<h3 data-number="79.0.6" class="anchored" data-anchor-id="output"><span class="header-section-number">79.0.6</span> Output</h3>
 <p>Store the result in HDFS.</p>
 </section>
-<section id="validation" class="level3" data-number="80.0.7">
-<h3 data-number="80.0.7" class="anchored" data-anchor-id="validation"><span class="header-section-number">80.0.7</span> 7. Validation</h3>
+<section id="validation" class="level3" data-number="79.0.7">
+<h3 data-number="79.0.7" class="anchored" data-anchor-id="validation"><span class="header-section-number">79.0.7</span> Validation</h3>
 <p>Compare the result with an equivalent Python/Pandas implementation where possible.</p>
 <hr>
 </section>
 </section>
-<section id="final-checklist" class="level1" data-number="81">
-<h1 data-number="81"><span class="header-section-number">81</span> 69. Final Checklist</h1>
+<section id="final-checklist" class="level1" data-number="80">
+<h1 data-number="80"><span class="header-section-number">80</span> Final Checklist</h1>
 <p>Before completing Part 2, make sure you can answer:</p>
 <ul>
 <li>What is HDFS?</li>
@@ -2108,8 +2101,8 @@ Approximate size:</code></pre>
 </ul>
 <hr>
 </section>
-<section id="part-2-summary" class="level1" data-number="82">
-<h1 data-number="82"><span class="header-section-number">82</span> 70. Part 2 Summary</h1>
+<section id="part-2-summary" class="level1" data-number="81">
+<h1 data-number="81"><span class="header-section-number">81</span> Part 2 Summary</h1>
 <p>We started with a simple Python MapReduce program and moved to Hadoop.</p>
 <p>The progression was:</p>
 <pre class="text"><code>Part 1
