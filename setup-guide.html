@@ -507,14 +507,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="troubleshooting.md">Troubleshooting Guide</a></td>
-<td>When something goes wrong</td>
-</tr>
-<tr class="even">
-<td><a href="student-handbook.md">Student Handbook</a></td>
-<td>The course itself</td>
-</tr>
-<tr class="odd">
 <td><a href="notebooks">Notebooks</a></td>
 <td>Ready-to-run Colab/Jupyter notebooks</td>
 </tr>
@@ -807,7 +799,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="mac-users-on-apple-silicon-check-this-before-you-go-further" class="level3" data-number="5.3.2">
 <h3 data-number="5.3.2" class="anchored" data-anchor-id="mac-users-on-apple-silicon-check-this-before-you-go-further"><span class="header-section-number">5.3.2</span> Mac users on Apple Silicon: check this before you go further</h3>
 <blockquote class="blockquote">
-<p>⚠️ <strong>Choose the right build.</strong> On an M1/M2/M3/M4 Mac take the <strong>Apple Silicon (arm64)</strong> installer, not the Intel one. Check your hardware with <code>uname -m</code> — <code>arm64</code> means Apple Silicon. A Rosetta (x86_64) conda installs fine and runs almost everything, but caps PyTorch at 2.2.2, which breaks the Module 5 Hugging Face examples. Details in the <a href="troubleshooting.md#environment-problems">Troubleshooting Guide</a>.</p>
+<p>⚠️ <strong>Choose the right build.</strong> On an M1/M2/M3/M4 Mac take the <strong>Apple Silicon (arm64)</strong> installer, not the Intel one. Check your hardware with <code>uname -m</code> — <code>arm64</code> means Apple Silicon. A Rosetta (x86_64) conda installs fine and runs almost everything, but caps PyTorch at 2.2.2, which breaks the Module 5 Hugging Face examples.</p>
 </blockquote>
 <p>Or via Homebrew:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install <span class="at">--cask</span> miniconda</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
